@@ -1,0 +1,7 @@
+.background-home-div {
+  background-image: url("../../../public/images/home/home-background.png");
+  background-size: cover;
+  background-position: center;
+  height: 113.5%;
+  background-color: brown;
+}
