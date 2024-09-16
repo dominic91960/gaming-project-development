@@ -18,16 +18,20 @@ export default function Home() {
             WUKONG
           </p>
           <div className="h-1 w-[1000px] bg-white mt-8"></div>
-          <p className="text-white font-semibold text-[17px] w-[600px] leading-tight mt-6 mb-8">
+          <p className="text-white font-primaryFont font-semibold text-[16px] w-[600px] leading-tight mt-6 mb-8">
             Black Myth: Wukong is an action RPG rooted in Chinese mythology. You
             shall set out as the Destined One to venture into the challenges and
             marvels ahead, to uncover the obscured truth beneath the veil of a
             glorious legend from the past.
           </p>
 
-          <Button className="bg-[#FB5A00] px-10">Buy Now</Button>
+          <Button className="bg-[#FB5A00] px-12 text-[30px] font-primaryFont font-medium py-8">
+            Buy Now
+          </Button>
         </div>
       </div>
+
+      <div className="reduce-background-brightness"></div>
     </div>
   );
 }
