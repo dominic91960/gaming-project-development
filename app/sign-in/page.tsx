@@ -5,6 +5,7 @@ import AppleIcon from "../../public/images/sign-in/apple.png";
 import Logo from "../../public/images/sign-in/logo.png";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const SignIn = () => {
   return (
@@ -61,16 +62,20 @@ const SignIn = () => {
         </div>
 
         <div className="flex items-center justify-between mb-4">
-          <p className="text-white font-primaryFont font-medium text-[12px]">
-            Remember me
-          </p>
+          <div className="flex items-center justify-center gap-2">
+            <Checkbox className="bg-[#45F882] rounded-none w-[13px] h-[13px]" />
+            <p className="text-white font-primaryFont font-medium text-[12px]">
+              Remember me
+            </p>
+          </div>
+
           <p className="text-[#45F882] font-primaryFont font-normal text-[13px]">
             Forgot your password ?
           </p>
         </div>
 
         <Button className="w-full mb-6 bg-[#45F882] font-primaryFont text-[17px] text-black font-bold">
-          <p className="font-primaryFont text-[17px] text-white font-bold">
+          <p className="font-primaryFont text-[17px]  font-bold text-black">
             SIGN IN
           </p>
         </Button>
