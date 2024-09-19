@@ -5,6 +5,7 @@ import mainCharacterImage from "../../../public/images/home/home-page-main-chara
 import "../_components/home.css";
 import SwiperCarousel from "@/components/swiper-carousel";
 import Catalog from "../_components/catalog";
+import VerticalCarousel from "../_components/verticle-carousel";
 
 export default function Home() {
   return (
@@ -45,6 +46,8 @@ export default function Home() {
       <SwiperCarousel />
 
       <Catalog />
+
+      <VerticalCarousel />
     </>
   );
 }
