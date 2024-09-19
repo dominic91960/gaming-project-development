@@ -12,7 +12,7 @@ export default function Home() {
 
         <div className="pt-[125px] pl-[65px]">
           <p className="font-primaryFont text-[130px] font-medium text-white leading-none">
-            GBLACK MYTH
+            BLACK MYTH
           </p>
           <p className="font-primaryFont  text-[149px] font-bold text-white leading-none">
             WUKONG
