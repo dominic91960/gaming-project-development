@@ -1,9 +1,11 @@
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
+import SwiperCarousel from "../_components/swiper-carousel";
+import Footer from "@/components/footer/footer";
+
 import mainCharacterImage from "../../../public/images/home/home-page-main-character.png";
 import "../_components/home.css";
-import SwiperCarousel from "../_components/swiper-carousel";
 
 export default function Home() {
   return (
@@ -34,7 +36,7 @@ export default function Home() {
             </p>
 
             <Button className="bg-[#FB5A00] px-12 text-[30px] font-primaryFont font-medium py-8">
-              Buy Noww
+              Buy Now
             </Button>
           </div>
         </div>
@@ -42,6 +44,7 @@ export default function Home() {
         <div className="reduce-background-brightness"></div>
       </div>
       <SwiperCarousel />
+      <Footer />
     </>
   );
 }
