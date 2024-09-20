@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import mainCharacterImage from "../../../public/images/home/home-page-main-character.png";
 import "../_components/home.css";
-import SwiperCarousel from "@/components/swiper-carousel";
+import SwiperCarousel from "../_components/swiper-carousel";
 
 export default function Home() {
   return (
