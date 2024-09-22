@@ -9,10 +9,12 @@ import "../_components/home.css";
 import Catalog from "../_components/catalog";
 import VerticalCarousel from "../_components/verticle-carousel";
 import IconBar from "../_components/icon-bar";
+import ContactBar from "@/app/contact-bar/contact-bar";
 
 export default function Home() {
   return (
     <>
+      <ContactBar />
       <div className="background-home-div relative bg-black h-max">
         <div className="mx-auto container">
           <div className="absolute ">
