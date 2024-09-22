@@ -7,6 +7,7 @@ import Footer from "@/components/footer/footer";
 import mainCharacterImage from "../../../public/images/home/home-page-main-character.png";
 import "../_components/home.css";
 import Catalog from "../_components/catalog";
+import VerticalCarousel from "../_components/verticle-carousel";
 
 export default function Home() {
   return (
