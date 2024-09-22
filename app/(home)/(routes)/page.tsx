@@ -46,8 +46,6 @@ export default function Home() {
       <SwiperCarousel />
 
       <Catalog />
-
-      <VerticalCarousel />
     </>
   );
 }
