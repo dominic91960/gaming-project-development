@@ -1,6 +1,4 @@
-// components/Sidebar.tsx
 "use client";
-// components/Sidebar.tsx
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
@@ -13,7 +11,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
   const [isProductOpen, setProductOpen] = useState(false);
   const [isUsersOpen, setUsersOpen] = useState(false);
 
-  // Track the selected item across all categories
   const [selectedItem, setSelectedItem] = useState<string>("");
 
   const handleItemClick = (item: string) => {
@@ -38,11 +35,11 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
             <ul className="ml-4">
               <li
                 className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "attendance-board" ? "text-[#0BDB45]" : ""
+                  selectedItem === "dashboard-item1" ? "text-[#0BDB45]" : ""
                 }`}
-                onClick={() => handleItemClick("attendance-board")}
+                onClick={() => handleItemClick("dashboard-item1")}
               >
-                Attendance Board
+                Dashboard Item
               </li>
               <li
                 className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
