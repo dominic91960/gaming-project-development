@@ -13,7 +13,6 @@ import GoogleIcon from "../../public/images/sign-in/google.png";
 import FacebookIcon from "../../public/images/sign-in/facebook.png";
 import AppleIcon from "../../public/images/sign-in/apple.png";
 
-// Validation schema with Yup
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
     .required("First name is required")
@@ -33,7 +32,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUp = () => {
-  // Initialize useForm with React Hook Form and Yup validation
   const {
     register,
     handleSubmit,
@@ -42,7 +40,6 @@ const SignUp = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  // Handle form submission
   const onSubmit = (data: any) => {
     console.log("Form Data:", data);
   };
