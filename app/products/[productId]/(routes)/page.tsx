@@ -3,6 +3,12 @@ import Image from "next/image";
 import { PiWarningCircleLight } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
 import StarRating from "@/app/(home)/_components/star-rating";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 import bg from "@/public/images/product/bg.png";
 import paypal from "@/public/images/product/paypal-logo.png";
@@ -12,6 +18,7 @@ import video from "@/public/images/product/video.png";
 import imgOne from "@/public/images/product/image-one.png";
 import imgTwo from "@/public/images/product/image-two.png";
 import imgThree from "@/public/images/product/image-three.png";
+import ImageCarousel from "../_components/image-carousel";
 
 const gameData = {
   title: "Star wars: outlaws",
@@ -24,7 +31,7 @@ const gameData = {
   os: "windows",
   platform: "ubisoft",
   video: video,
-  images: [imgOne, imgTwo, imgThree],
+  images: [imgOne, imgTwo, imgThree, imgOne, imgTwo, imgThree],
   requirements: {
     minimum: {
       os: "WINDOWS 10 / 11 WITH DIRECTX 12",
@@ -67,10 +74,10 @@ export default function page() {
       <div className="relative">
         <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent"></div>
         <Image src={bg} alt="Image background" />
-        <div className="absolute -bottom-[25%] left-0 right-0 container mx-auto flex justify-end">
+        <div className="absolute bottom-0 left-0 right-0 container mx-auto flex justify-end">
           {/* Price card */}
           <div
-            className="bg-black/50 px-[2.7%] py-[4.2%] backdrop-blur-md"
+            className="bg-black/50 px-[2.7%] py-[4.2%] backdrop-blur-md translate-y-[25%]"
             style={{
               borderImage: "linear-gradient(to bottom, transparent, #999999) 1",
               borderWidth: "1px",
@@ -139,12 +146,36 @@ export default function page() {
             <div className="w-[1px] self-stretch bg-white"></div>
             {/* Languages */}
             <div className="flex">
-              <p>
-                {gameData.languages[0]}
-                {gameData.languages.length > 1 && (
-                  <span> & {gameData.languages.length - 1} more</span>
-                )}
-              </p>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <p className="cursor-pointer">
+                      {gameData.languages[0]}
+                      {gameData.languages.length > 1 && (
+                        <span> & {gameData.languages.length - 1} more</span>
+                      )}
+                    </p>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    className="rounded-none bg-black/50 text-white backdrop-blur-md"
+                    style={{
+                      borderImage:
+                        "linear-gradient(to bottom, transparent, #999999) 1",
+                      borderWidth: "1px",
+                      borderStyle: "solid",
+                    }}
+                  >
+                    <p className="text-[13px] py-[0.4em] font-bold border-b">
+                      Available Languages
+                    </p>
+                    {gameData.languages.map((language) => (
+                      <p key={language} className="text-[13px] py-[0.4em]">
+                        {language}
+                      </p>
+                    ))}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
             <div className="w-[1px] self-stretch bg-white"></div>
             {/* OS */}
@@ -168,6 +199,8 @@ export default function page() {
             </div>
             <div className="w-[1px] self-stretch bg-white"></div>
           </div>
+
+          <ImageCarousel video={gameData.video} images={gameData.images} />
         </div>
       </div>
     </section>
