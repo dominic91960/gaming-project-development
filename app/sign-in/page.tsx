@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import GoogleIcon from "../../public/images/sign-in/google.png";
 import FacebookIcon from "../../public/images/sign-in/facebook.png";
@@ -6,8 +7,59 @@ import Logo from "../../public/images/sign-in/logo.png";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const SignIn = () => {
+  const router = useRouter();
+  const handleGoogleLogin = () => {
+    const width = 500;
+    const height = 600;
+    const left = window.screen.width / 2 - width / 2;
+    const top = window.screen.height / 2 - height / 2;
+
+    const popup = window.open(
+      "http://localhost:3000/auth/google",
+      "GoogleAuth",
+      `width=${width},height=${height},top=${top},left=${left}`
+    );
+
+    const popupCheckInterval = setInterval(() => {
+      if (!popup || popup.closed || popup.closed === undefined) {
+        clearInterval(popupCheckInterval);
+        console.log("Popup closed");
+      }
+    }, 1000);
+  };
+
+  useEffect(() => {
+    const handleAuthMessage = (event: {
+      origin: string;
+      data: { user: any; accessToken: any; refreshToken: any };
+    }) => {
+      if (event.origin !== "http://localhost:3000") return;
+
+      const { user, accessToken, refreshToken } = event.data;
+
+      console.log("User:", user);
+
+      if (accessToken && refreshToken && user) {
+        localStorage.setItem("auth_token", accessToken);
+        localStorage.setItem("refresh_token", refreshToken);
+
+        localStorage.setItem("user", JSON.stringify(user));
+
+        router.push("/");
+      }
+    };
+
+    window.addEventListener("message", handleAuthMessage);
+
+    return () => {
+      window.removeEventListener("message", handleAuthMessage);
+    };
+  }, [router]);
+
   return (
     <div className="bg-[#0B0E13] h-full flex items-center justify-center">
       <div className="border-[1px] border-white w-[682px] h-[757px] px-[120px] py-[50px]">
@@ -18,7 +70,10 @@ const SignIn = () => {
           Sign In To Your Account
         </p>
         <div className="flex items-center justify-center gap-6 mb-[25px]">
-          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center">
+          <div
+            onClick={handleGoogleLogin}
+            className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center"
+          >
             <Image src={GoogleIcon} alt="google icon" />
           </div>
 
