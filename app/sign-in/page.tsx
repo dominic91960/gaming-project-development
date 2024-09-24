@@ -1,14 +1,18 @@
 "use client";
 
 import Image from "next/image";
-
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 import Logo from "../../public/images/sign-in/logo.png";
 import GoogleIcon from "../../public/images/sign-in/google.png";
 import FacebookIcon from "../../public/images/sign-in/facebook.png";
 import AppleIcon from "../../public/images/sign-in/apple.png";
+
+// Your component logic here...
 
 const SignIn = () => {
   return (
