@@ -1,3 +1,16 @@
+"use client";
+
+import Image from "next/image";
+import GoogleIcon from "../../public/images/sign-in/google.png";
+import FacebookIcon from "../../public/images/sign-in/facebook.png";
+import AppleIcon from "../../public/images/sign-in/apple.png";
+import Logo from "../../public/images/sign-in/logo.png";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 const SignIn = () => {
   return (
     <div className="bg-[#0B0E13] h-full flex items-center justify-center">
