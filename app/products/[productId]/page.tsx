@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { PiWarningCircleLight } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
+import StarRating from "@/app/(home)/_components/star-rating";
 
 import bg from "@/public/images/product/bg.png";
 import paypal from "@/public/images/product/paypal-logo.png";
@@ -14,11 +15,12 @@ import imgThree from "@/public/images/product/image-three.png";
 
 const gameData = {
   title: "Star wars: outlaws",
-  fullTitle: "STAR WArs: outlaws (PC) Steam key Global",
+  fullTitle: "STAR WARS: OUTLAWS (PC) Steam Key Global",
   originalPrice: 39.99,
   discountPrice: 20.99,
   //   discountPrice: null,
   rating: 4,
+  languages: ["English", "Japanese", "Russian", "French", "Chinese"],
   os: "windows",
   platform: "ubisoft",
   video: video,
@@ -65,7 +67,7 @@ export default function page() {
       <div className="relative">
         <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent"></div>
         <Image src={bg} alt="Image background" />
-        <div className="absolute -bottom-1/3 left-0 right-0 container mx-auto flex justify-end">
+        <div className="absolute -bottom-[25%] left-0 right-0 container mx-auto flex justify-end">
           {/* Price card */}
           <div
             className="bg-black/50 px-[2.7%] py-[4.2%] backdrop-blur-md"
@@ -75,9 +77,9 @@ export default function page() {
               borderStyle: "solid",
             }}
           >
-            <h2 className="uppercase font-bold text-[32px] border-b">
+            <h3 className="uppercase font-bold text-[32px] border-b">
               {gameData.title}
-            </h2>
+            </h3>
             <div className="flex text-[48px] font-bold mt-[0.3em]">
               <p className="">
                 $ {gameData.discountPrice || gameData.originalPrice}
@@ -125,7 +127,48 @@ export default function page() {
             "linear-gradient(to bottom, black, transparent, transparent, black)",
         }}
       >
-        Product
+        <div className=" container mx-auto text-[20px]">
+          <h2 className="font-bold text-[32px]">{gameData.fullTitle}</h2>
+
+          <div className="flex items-center gap-x-[16px] leading-none mt-[0.2em]">
+            {/* Rating */}
+            <div className="text-[#f29d38] -translate-y-[10%]">
+              <StarRating rating={gameData.rating} />
+            </div>
+            <p>{gameData.rating}/5</p>
+            <div className="w-[1px] self-stretch bg-white"></div>
+            {/* Languages */}
+            <div className="flex">
+              <p>
+                {gameData.languages[0]}
+                {gameData.languages.length > 1 && (
+                  <span> & {gameData.languages.length - 1} more</span>
+                )}
+              </p>
+            </div>
+            <div className="w-[1px] self-stretch bg-white"></div>
+            {/* OS */}
+            <div>
+              <Image
+                src={`/images/product/${gameData.os}.png`}
+                alt={gameData.os}
+                width={23}
+                height={23}
+              />
+            </div>
+            <div className="w-[1px] self-stretch bg-white"></div>
+            {/* Platform */}
+            <div>
+              <Image
+                src={`/images/product/${gameData.platform}.png`}
+                alt={gameData.platform}
+                width={23}
+                height={23}
+              />
+            </div>
+            <div className="w-[1px] self-stretch bg-white"></div>
+          </div>
+        </div>
       </div>
     </section>
   );
