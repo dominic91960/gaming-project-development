@@ -1,7 +1,21 @@
+.background-home-container {
+  position: relative;
+  height: 113.5%;
+}
+
 .background-home-div {
-  background-image: url("../../../public/images/home/home-background.png");
+  background-image: url("/images/home/home-background.png");
   background-size: cover;
   background-position: center;
   height: 113.5%;
-  background-color: brown;
 }
+
+/* .reduce-background-brightness {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+} */

@@ -1,0 +1,74 @@
+.vertical-carousel-container {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  height: 800px;
+  /* height: 100%; */
+  gap: 0px;
+}
+.vertical-carousel-container > div {
+  flex: 0 0 380px;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+  box-shadow: 1px 5px 15px #1e0e3e;
+  position: relative;
+  overflow: hidden;
+}
+.vertical-carousel-container > div:nth-of-type(1) {
+  background: url("../../../public/images/home/vertical-carousel/1.png")
+    no-repeat 50% / cover;
+}
+.vertical-carousel-container > div:nth-of-type(2) {
+  background: url("../../../public/images/home/vertical-carousel/2.png")
+    no-repeat 50% / cover;
+}
+.vertical-carousel-container > div:nth-of-type(3) {
+  background: url("../../../public/images/home/vertical-carousel/3.png")
+    no-repeat 50% / cover;
+}
+.vertical-carousel-container > div:nth-of-type(4) {
+  background: url("../../../public/images/home/vertical-carousel/4.png")
+    no-repeat 50% / cover;
+}
+.vertical-carousel-container > div:nth-of-type(5) {
+  background: url("../../../public/images/home/vertical-carousel/5.png")
+    no-repeat 50% / cover;
+}
+.vertical-carousel-container > div .vertical-carousel-content {
+  font-size: 1.5rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  opacity: 0;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-end;
+  background: rgb(2, 2, 46);
+  background: linear-gradient(
+    0deg,
+    rgba(2, 2, 46, 0.6755077031) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translatey(100%);
+  transition: opacity 0.5s ease-in-out, transform 0.5s 0.2s;
+  visibility: hidden;
+}
+.vertical-carousel-container > div .vertical-carousel-content span {
+  display: block;
+  margin-top: 5px;
+  font-size: 1.2rem;
+}
+.vertical-carousel-container > div:hover {
+  flex: 0 10px 450px;
+
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+
+  transform: translatey(-15px);
+  scale: 103%;
+}
+.vertical-carousel-container > div:hover .vertical-carousel-content {
+  opacity: 1;
+  transform: translatey(0%);
+  visibility: visible;
+} /*# sourceMappingURL=verticle-carousel.css.map */

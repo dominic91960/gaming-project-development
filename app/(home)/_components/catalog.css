@@ -1,0 +1,8 @@
+.catalog-section-background {
+  background-image: url("../../../public/images/home/catalog/background.jpg");
+  background-size: cover; /* Ensures the image covers the entire div */
+  background-position: center; /* Centers the image in the div */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  width: 100%; /* Set width of the div */
+  height: 1460px;
+}
