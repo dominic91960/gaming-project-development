@@ -1,5 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 import Image from "next/image";
 import GoogleIcon from "../../public/images/sign-in/google.png";
 import FacebookIcon from "../../public/images/sign-in/facebook.png";
@@ -11,6 +13,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+// Define validation schema using Yup
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+});
+
 interface SignInFormInputs {
   email: string;
   password: string;
@@ -21,7 +33,9 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInFormInputs>();
+  } = useForm<SignInFormInputs>({
+    resolver: yupResolver(validationSchema),
+  });
 
   const onSubmit = (data: SignInFormInputs) => {
     console.log("Form Data: ", data);
@@ -117,13 +131,7 @@ const SignIn = () => {
               type="email"
               placeholder="Enter your email"
               className="text-white"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                  message: "Invalid email address",
-                },
-              })}
+              {...register("email")}
             />
 
             {errors.email && (
@@ -139,13 +147,7 @@ const SignIn = () => {
               type="password"
               placeholder="Enter your password"
               className="text-white"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
+              {...register("password")}
             />
 
             {errors.password && (
