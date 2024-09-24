@@ -1,4 +1,5 @@
 "use client";
+import { useForm } from "react-hook-form";
 import Image from "next/image";
 import GoogleIcon from "../../public/images/sign-in/google.png";
 import FacebookIcon from "../../public/images/sign-in/facebook.png";
@@ -10,7 +11,22 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+interface SignInFormInputs {
+  email: string;
+  password: string;
+}
+
 const SignIn = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInFormInputs>();
+
+  const onSubmit = (data: SignInFormInputs) => {
+    console.log("Form Data: ", data);
+  };
+
   const router = useRouter();
   const handleGoogleLogin = () => {
     const width = 500;
@@ -92,7 +108,7 @@ const SignIn = () => {
           <div className="w-full h-[1px] bg-white"></div>
         </div>
 
-        <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-8">
             <p className="text-white font-primaryFont font-medium text-[15px] mb-1">
               EMAIL
@@ -101,7 +117,18 @@ const SignIn = () => {
               type="email"
               placeholder="Enter your email"
               className="text-white"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                  message: "Invalid email address",
+                },
+              })}
             />
+
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -112,28 +139,42 @@ const SignIn = () => {
               type="password"
               placeholder="Enter your password"
               className="text-white"
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              })}
             />
-          </div>
-        </div>
 
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center justify-center gap-2">
-            <Checkbox className="bg-[#45F882] rounded-none w-[13px] h-[13px]" />
-            <p className="text-white font-primaryFont font-medium text-[12px]">
-              Remember me
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
+          </div>
+
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-center gap-2">
+              <Checkbox className="bg-[#45F882] rounded-none w-[13px] h-[13px]" />
+              <p className="text-white font-primaryFont font-medium text-[12px]">
+                Remember me
+              </p>
+            </div>
+
+            <p className="text-[#45F882] font-primaryFont font-normal text-[13px]">
+              Forgot your password ?
             </p>
           </div>
 
-          <p className="text-[#45F882] font-primaryFont font-normal text-[13px]">
-            Forgot your password ?
-          </p>
-        </div>
-
-        <Button className="w-full mb-6 bg-[#45F882] font-primaryFont text-[17px] text-black font-bold">
-          <p className="font-primaryFont text-[17px]  font-bold text-black">
-            SIGN IN
-          </p>
-        </Button>
+          <Button
+            type="submit"
+            className="w-full mb-6 bg-[#45F882] font-primaryFont text-[17px] text-black font-bold"
+          >
+            <p className="font-primaryFont text-[17px]  font-bold text-black">
+              SIGN IN
+            </p>
+          </Button>
+        </form>
 
         <p className="text-white font-primaryFont font-normal text-[13px] mb-2">
           Do not have an account? 
