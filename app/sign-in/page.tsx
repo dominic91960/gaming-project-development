@@ -13,7 +13,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-// Define validation schema using Yup
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email format")
