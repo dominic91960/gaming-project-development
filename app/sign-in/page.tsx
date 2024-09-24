@@ -1,11 +1,13 @@
+import Link from "next/link";
 import Image from "next/image";
-import GoogleIcon from "../../public/images/sign-in/google.png";
-import FacebookIcon from "../../public/images/sign-in/facebook.png";
-import AppleIcon from "../../public/images/sign-in/apple.png";
-import Logo from "../../public/images/sign-in/logo.png";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import Logo from "../../public/images/sign-in/logo.png";
+import GoogleIcon from "../../public/images/sign-in/google.png";
+import FacebookIcon from "../../public/images/sign-in/facebook.png";
+import AppleIcon from "../../public/images/sign-in/apple.png";
 
 const SignIn = () => {
   return (
@@ -18,15 +20,15 @@ const SignIn = () => {
           Sign In To Your Account
         </p>
         <div className="flex items-center justify-center gap-6 mb-[25px]">
-          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center">
+          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center hover:-translate-y-[1px] transition-transform duration-150 cursor-pointer">
             <Image src={GoogleIcon} alt="google icon" />
           </div>
 
-          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center">
+          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center hover:-translate-y-[1px] transition-transform duration-150 cursor-pointer">
             <Image src={FacebookIcon} alt="facebook icon" />
           </div>
 
-          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center">
+          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center hover:-translate-y-[1px] transition-transform duration-150 cursor-pointer">
             <Image src={AppleIcon} alt="apple icon" />
           </div>
         </div>
@@ -45,7 +47,7 @@ const SignIn = () => {
             <Input
               type="email"
               placeholder="Enter your email"
-              className="text-white"
+              className="text-white rounded-none"
             />
           </div>
 
@@ -56,7 +58,7 @@ const SignIn = () => {
             <Input
               type="password"
               placeholder="Enter your password"
-              className="text-white"
+              className="text-white rounded-none"
             />
           </div>
         </div>
@@ -69,13 +71,16 @@ const SignIn = () => {
             </p>
           </div>
 
-          <p className="text-[#45F882] font-primaryFont font-normal text-[13px]">
+          <Link
+            href="/"
+            className="text-[#45F882] font-primaryFont font-normal text-[13px]"
+          >
             Forgot your password ?
-          </p>
+          </Link>
         </div>
 
-        <Button className="w-full mb-6 bg-[#45F882] font-primaryFont text-[17px] text-black font-bold">
-          <p className="font-primaryFont text-[17px]  font-bold text-black">
+        <Button className="w-full mb-6 bg-[#0BDB45] font-primaryFont text-[17px] text-black font-bold rounded-none group">
+          <p className="font-primaryFont text-[17px] font-bold text-black hover:text-white group-hover:text-white">
             SIGN IN
           </p>
         </Button>
@@ -83,11 +88,13 @@ const SignIn = () => {
         <p className="text-white font-primaryFont font-normal text-[13px] mb-2">
           Do not have an account? 
         </p>
-        <Button variant="outline" className="w-full mb-6">
-          <p className="font-primaryFont text-[17px] text-white font-bold">
-            CREATE ACCOUNT
-          </p>
-        </Button>
+        <Link href="/sign-up">
+          <Button variant="outline" className="w-full mb-6 rounded-none group">
+            <p className="font-primaryFont text-[17px] text-white font-bold group-hover:text-black">
+              CREATE ACCOUNT
+            </p>
+          </Button>
+        </Link>
       </div>
     </div>
   );
