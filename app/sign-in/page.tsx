@@ -1,5 +1,3 @@
-// Your component logic here...
-
 const SignIn = () => {
   return (
     <div className="bg-[#0B0E13] h-full flex items-center justify-center">
