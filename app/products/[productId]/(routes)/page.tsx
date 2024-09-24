@@ -12,7 +12,7 @@ import {
 
 import ImageCarousel from "../_components/image-carousel";
 import bg from "@/public/images/product/bg.png";
-import paypal from "@/public/images/product/paypal-logo.png";
+import paypalLogo from "@/public/images/product/paypal-logo.png";
 import wishlist from "@/public/images/product/wishlist.png";
 import cart from "@/public/images/product/cart.png";
 import video from "@/public/images/product/video.png";
@@ -21,6 +21,11 @@ import imgTwo from "@/public/images/product/image-two.png";
 import imgThree from "@/public/images/product/image-three.png";
 import availability from "@/public/images/product/worldwide.png";
 import digitalKey from "@/public/images/product/digital-key.png";
+import lock from "@/public/images/product/lock.png";
+import paypal from "@/public/images/product/paypal.png";
+import visa from "@/public/images/product/visa.png";
+import mastercard from "@/public/images/product/mastercard.png";
+import skrill from "@/public/images/product/skrill.png";
 
 const gameData = {
   title: "Star wars: outlaws",
@@ -115,7 +120,7 @@ export default function page() {
               variant="secondary"
               className="rounded-none w-full mt-[3%] mb-[6%]"
             >
-              <Image src={paypal} alt="Paypal logo" />
+              <Image src={paypalLogo} alt="Paypal logo" />
             </Button>
             <div className="flex gap-x-[3%]">
               <Button className="rounded-none bg-[#0BDB45] text-[25px] font-semibold text-black hover:text-white flex-grow">
@@ -132,17 +137,18 @@ export default function page() {
         </div>
       </div>
       <div
-        className="h-[1000px]"
         style={{
           background:
             "linear-gradient(to bottom, black, transparent, transparent, black)",
         }}
       >
         <div className=" container mx-auto text-[20px]">
+          {/* Title */}
           <h2 className="font-bold text-[32px] max-w-[45ch]">
             {gameData.fullTitle}
           </h2>
 
+          {/* Info */}
           <div className="flex items-center gap-x-[16px] leading-none mt-[0.2em] mb-[0.6em]">
             {/* Rating */}
             <div className="text-[#f29d38] -translate-y-[10%]">
@@ -218,9 +224,11 @@ export default function page() {
             ))}
           </div>
 
+          {/* Carousel */}
           <ImageCarousel video={gameData.video} images={gameData.images} />
 
-          <div className="border-t flex justify-around uppercase font-bold text-[28px] pt-[2.5em] mt-[2.5em]">
+          {/* Card Area */}
+          <div className="border-t flex justify-around uppercase font-bold text-[28px] py-[2.5em] mt-[2.5em]">
             <div className="flex gap-4 items-center">
               <Image
                 src={availability}
@@ -259,6 +267,33 @@ export default function page() {
               </div>
             </div>
           </div>
+
+          {/* Checkout Area */}
+          <div>
+            <h3 className="font-semibold text-[28px] capitalize">
+              Checkout guaranteed
+            </h3>
+            <div className="bg-white/5 p-[2em] my-[2em] text-[20px] ">
+              <div className="flex justify-between items-center text-[24px] font-medium">
+                <p>Payment method</p>
+                <Image src={lock} alt="Payment secured" />
+              </div>
+              <div className="flex gap-x-[1%] my-[2em]">
+                <Image src={paypal} alt="Paypal" />
+                <Image src={visa} alt="Visa" />
+                <Image src={mastercard} alt="Mastercard" />
+                <Image src={skrill} alt="Skrill" />
+              </div>
+              <p>
+                Your payment information is processed securely. We do not store
+                credit card details nor have access to your credit card
+                information.
+              </p>
+            </div>
+          </div>
+
+          {/* Recommended */}
+          <div className="h-[500px]"></div>
         </div>
       </div>
     </section>
