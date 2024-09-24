@@ -25,7 +25,10 @@ const SignIn = () => {
           Sign In To Your Account
         </p>
         <div className="flex items-center justify-center gap-6 mb-[25px]">
-          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center hover:-translate-y-[1px] transition-transform duration-150 cursor-pointer">
+          <div
+            onClick={handleGoogleLogin}
+            className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center"
+          >
             <Image src={GoogleIcon} alt="google icon" />
           </div>
 
