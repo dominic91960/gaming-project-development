@@ -10,6 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+import ImageCarousel from "../_components/image-carousel";
 import bg from "@/public/images/product/bg.png";
 import paypal from "@/public/images/product/paypal-logo.png";
 import wishlist from "@/public/images/product/wishlist.png";
@@ -18,7 +19,8 @@ import video from "@/public/images/product/video.png";
 import imgOne from "@/public/images/product/image-one.png";
 import imgTwo from "@/public/images/product/image-two.png";
 import imgThree from "@/public/images/product/image-three.png";
-import ImageCarousel from "../_components/image-carousel";
+import availability from "@/public/images/product/worldwide.png";
+import digitalKey from "@/public/images/product/digital-key.png";
 
 const gameData = {
   title: "Star wars: outlaws",
@@ -29,7 +31,9 @@ const gameData = {
   rating: 4,
   languages: ["English", "Japanese", "Russian", "French", "Chinese"],
   os: "windows",
-  platform: "ubisoft",
+  brand: "ubisoft",
+  platform: "steam",
+  tags: ["Difficult", "RPG", "Dark Fantasy", "Souls-like"],
   video: video,
   images: [imgOne, imgTwo, imgThree, imgOne, imgTwo, imgThree],
   requirements: {
@@ -135,9 +139,11 @@ export default function page() {
         }}
       >
         <div className=" container mx-auto text-[20px]">
-          <h2 className="font-bold text-[32px]">{gameData.fullTitle}</h2>
+          <h2 className="font-bold text-[32px] max-w-[45ch]">
+            {gameData.fullTitle}
+          </h2>
 
-          <div className="flex items-center gap-x-[16px] leading-none mt-[0.2em]">
+          <div className="flex items-center gap-x-[16px] leading-none mt-[0.2em] mb-[0.6em]">
             {/* Rating */}
             <div className="text-[#f29d38] -translate-y-[10%]">
               <StarRating rating={gameData.rating} />
@@ -181,18 +187,18 @@ export default function page() {
             {/* OS */}
             <div>
               <Image
-                src={`/images/product/${gameData.os}.png`}
+                src={`/images/product/os/${gameData.os}.png`}
                 alt={gameData.os}
                 width={23}
                 height={23}
               />
             </div>
             <div className="w-[1px] self-stretch bg-white"></div>
-            {/* Platform */}
+            {/* Brand */}
             <div>
               <Image
-                src={`/images/product/${gameData.platform}.png`}
-                alt={gameData.platform}
+                src={`/images/product/brand/${gameData.brand}.png`}
+                alt={gameData.brand}
                 width={23}
                 height={23}
               />
@@ -200,7 +206,59 @@ export default function page() {
             <div className="w-[1px] self-stretch bg-white"></div>
           </div>
 
+          {/* Tags */}
+          <div className="flex gap-x-3 text-[14px] font-semibold text-center text-white">
+            {gameData.tags.map((tag) => (
+              <div
+                key={tag}
+                className="bg-[#3B3B3B] min-w-[10ch] px-[1em] py-[0.3em]"
+              >
+                {tag}
+              </div>
+            ))}
+          </div>
+
           <ImageCarousel video={gameData.video} images={gameData.images} />
+
+          <div className="border-t flex justify-around uppercase font-bold text-[28px] pt-[2.5em] mt-[2.5em]">
+            <div className="flex gap-4 items-center">
+              <Image
+                src={availability}
+                alt="Availability"
+                width={68}
+                height={68}
+              />
+              <div>
+                <p>Global</p>
+                <p className="capitalize font-medium text-[20px]">
+                  All country
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-3 items-center">
+              <Image
+                src={`/images/product/platform/${gameData.platform}.png`}
+                alt="Platform"
+                width={68}
+                height={68}
+              />
+              <div>
+                <p>{gameData.platform}</p>
+                <p className="capitalize font-medium text-[20px]">
+                  Activate/redeem on Steam
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-4 items-center">
+              <Image src={digitalKey} alt="Digital" width={68} height={68} />
+              <div>
+                <p>Digital keys</p>
+                <p className="capitalize font-medium text-[20px]">
+                  Instant delivery
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
