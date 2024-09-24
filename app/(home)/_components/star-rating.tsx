@@ -11,7 +11,7 @@ const StarRating: React.FC<StarRatingProps> = ({ rating = 5 }) => {
       {Array(rating)
         .fill(null)
         .map((_, index) => (
-          <IoStar key={index} />
+          <IoStar key={index} className="mx-[2px]" />
         ))}
     </div>
   );
