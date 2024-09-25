@@ -26,8 +26,10 @@ import paypal from "@/public/images/product/paypal.png";
 import visa from "@/public/images/product/visa.png";
 import mastercard from "@/public/images/product/mastercard.png";
 import skrill from "@/public/images/product/skrill.png";
+import RequirementsCard from "../_components/requirements-card";
 
 const gameData = {
+  image: bg,
   title: "Star wars: outlaws",
   fullTitle: "STAR WARS: OUTLAWS (PC) Steam Key Global",
   originalPrice: 39.99,
@@ -36,23 +38,25 @@ const gameData = {
   rating: 4,
   languages: ["English", "Japanese", "Russian", "French", "Chinese"],
   os: "windows",
-  brand: "ubisoft",
+  developedBy: "ubisoft",
   platform: "steam",
   tags: ["Difficult", "RPG", "Dark Fantasy", "Souls-like"],
   video: video,
   images: [imgOne, imgTwo, imgThree, imgOne, imgTwo, imgThree],
+  about:
+    "Experience the first-ever open world Star Wars™ game and explore distinct locations across the galaxy, both iconic and new. Risk it all as scoundrel Kay Vess, seeking freedom and the means to start a new life. Fight, steal, and outwit your way through the galaxy’s crime syndicates as you join the galaxy’s most wanted. If you’re willing to take the risk, the galaxy is full of opportunity.",
   requirements: {
     minimum: {
       os: "WINDOWS 10 / 11 WITH DIRECTX 12",
       cpu: "INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600",
       graphics:
         "GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)",
-      ram: "16 GB (dual-channel mode)",
+      ram: "8 GB (dual-channel mode)",
       storage: "65 GB SSD",
       resolution: "1080p / 30 Fps / Low Preset with Upscaler Set to Quality",
     },
     recommended: {
-      os: "WINDOWS 10 / 11 WITH DIRECTX 12",
+      os: "WINDOWS 10 / 11 WITH DIRECTX 12 RECO",
       cpu: "INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600",
       graphics:
         "GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)",
@@ -61,11 +65,11 @@ const gameData = {
       resolution: "1080p / 30 Fps / Low Preset with Upscaler Set to Quality",
     },
     high: {
-      os: "WINDOWS 10 / 11 WITH DIRECTX 12",
+      os: "WINDOWS 10 / 11 WITH DIRECTX 12 HIGH",
       cpu: "INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600",
       graphics:
         "GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)",
-      ram: "16 GB (dual-channel mode)",
+      ram: "32 GB (dual-channel mode)",
       storage: "65 GB SSD",
       resolution: "1080p / 30 Fps / Low Preset with Upscaler Set to Quality",
     },
@@ -82,7 +86,7 @@ export default function page() {
     <section className="bg-[#051301] font-primaryFont">
       <div className="relative">
         <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent"></div>
-        <Image src={bg} alt="Image background" />
+        <Image src={gameData.image} alt="Image background" />
         <div className="absolute bottom-0 left-0 right-0 container mx-auto flex justify-end">
           {/* Price card */}
           <div
@@ -200,11 +204,11 @@ export default function page() {
               />
             </div>
             <div className="w-[1px] self-stretch bg-white"></div>
-            {/* Brand */}
+            {/* developedBy */}
             <div>
               <Image
-                src={`/images/product/brand/${gameData.brand}.png`}
-                alt={gameData.brand}
+                src={`/images/product/developed-by/${gameData.developedBy}.png`}
+                alt={gameData.developedBy}
                 width={23}
                 height={23}
               />
@@ -270,7 +274,7 @@ export default function page() {
 
           {/* Checkout Area */}
           <div>
-            <h3 className="font-semibold text-[28px] capitalize">
+            <h3 className="font-semibold text-[28px] capitalize pt-[3em]">
               Checkout guaranteed
             </h3>
             <div className="bg-white/5 p-[2em] my-[2em] text-[20px] ">
@@ -293,7 +297,38 @@ export default function page() {
           </div>
 
           {/* Recommended */}
-          <div className="h-[500px]"></div>
+          {/* <div className="h-[150px]">Recommended Section</div> */}
+
+          {/* About */}
+          <div>
+            <h3 className="font-semibold text-[28px] capitalize pt-[3em]">
+              About this game
+            </h3>
+            <div className="bg-white/5 p-[2em] my-[2em] text-[20px] ">
+              <p className="pb-[2em]">
+                Experience the first-ever open world Star Wars™ game and explore
+                distinct locations across the galaxy, both iconic and new. Risk
+                it all as scoundrel Kay Vess, seeking freedom and the means to
+                start a new life. Fight, steal, and outwit your way through the
+                galaxy&apos;s crime syndicates as you join the galaxy&apos;s
+                most wanted. If you&apos;re willing to take the risk, the galaxy
+                is full of opportunity.
+              </p>
+              <p className="flex justify-between items-center text-[24px] font-medium ">
+                Release Date: 30/08/2024
+              </p>
+            </div>
+          </div>
+
+          {/* System requirements */}
+          <div>
+            <h3 className="font-semibold text-[28px] capitalize mb-[1.4em] pt-[3em]">
+              System Requirements for {gameData.title}
+            </h3>
+            <RequirementsCard requirements={gameData.requirements} />
+          </div>
+          {/* Recommended */}
+          <div className="h-[250px]"></div>
         </div>
       </div>
     </section>

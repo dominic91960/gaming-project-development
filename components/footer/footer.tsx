@@ -16,7 +16,7 @@ import skrill from "@/public/images/footer/skrill.png";
 
 export default function Footer() {
   return (
-    <section className="bg-[#0B0E13]">
+    <section className="bg-[#0B0E13] text-white">
       <div className="container mx-auto font-primaryFont pt-[3.3%]">
         <div
           className="bg-[#2D2E37] px-[7%] py-[2%] flex items-center justify-between"
