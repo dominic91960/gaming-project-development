@@ -1,17 +1,16 @@
-// components/StarRating.tsx
 import { IoStar } from "react-icons/io5";
 
 interface StarRatingProps {
-  rating?: number; // Optional prop with default value of 5
+  rating?: number;
 }
 
 const StarRating: React.FC<StarRatingProps> = ({ rating = 5 }) => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-x-[0.2em]">
       {Array(rating)
         .fill(null)
         .map((_, index) => (
-          <IoStar key={index} className="mx-[2px]" />
+          <IoStar key={index} />
         ))}
     </div>
   );
