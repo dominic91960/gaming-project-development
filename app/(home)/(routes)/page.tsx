@@ -16,10 +16,9 @@ import Navbar from "@/components/navbar/navbar";
 export default function Home() {
   return (
     <>
-      {/* <ContactBar />
-      <ProductSearchBar /> */}
+      <ContactBar />
+      <ProductSearchBar />
       <Navbar />
-      {/* 
       <div className="background-home-div relative bg-black h-max">
         <div className="mx-auto container">
           <div className="absolute ">
@@ -57,7 +56,7 @@ export default function Home() {
       <SwiperCarousel />
       <Catalog />
       <VerticalCarousel />
-      <Footer /> */}
+      <Footer />
     </>
   );
 }

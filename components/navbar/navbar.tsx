@@ -4,15 +4,101 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import favorite from "@/public/images/navbar/favorite.png";
 import cart from "@/public/images/navbar/cart.png";
 import profile from "@/public/images/navbar/profile.png";
 import "./navbar.css";
 
+const categories = [
+  {
+    categoryName: "PC Games",
+    platforms: ["Steam", "Ubisoft", "Origin", "Epic", "GOG"],
+    genres: [
+      "Action",
+      "Adventure",
+      "Role-playing",
+      "Singleplayer",
+      "Strategy",
+      "Sports",
+      "Multiplayer",
+      "Fighting",
+      "Racing",
+      "Shooter",
+    ],
+  },
+  {
+    categoryName: "Xbox",
+    platforms: [
+      "Steam Xbox",
+      "Ubisoft Xbox",
+      "Origin Xbox",
+      "Epic Xbox",
+      "GOG Xbox",
+    ],
+    genres: [
+      "Action Xbox",
+      "Adventure Xbox",
+      "Role-playing Xbox",
+      "Singleplayer Xbox",
+      "Strategy Xbox",
+      "Sports Xbox",
+      "Multiplayer Xbox",
+      "Fighting Xbox",
+      "Racing Xbox",
+      "Shooter Xbox",
+    ],
+  },
+  {
+    categoryName: "PSN",
+    platforms: [
+      "Steam Xbox",
+      "Ubisoft Xbox",
+      "Origin Xbox",
+      "Epic Xbox",
+      "GOG Xbox",
+    ],
+    genres: [
+      "Action Xbox",
+      "Adventure Xbox",
+      "Role-playing Xbox",
+      "Singleplayer Xbox",
+      "Strategy Xbox",
+      "Sports Xbox",
+      "Multiplayer Xbox",
+      "Fighting Xbox",
+      "Racing Xbox",
+      "Shooter Xbox",
+    ],
+  },
+];
+
 export default function Navbar() {
   const path = usePathname();
   const [isCategoryMenuToggled, setIsCategoryMenuToggled] = useState(false);
   const [isMobileNavToggled, setIsMobileNavToggled] = useState(false);
+
+  const [isMenuOneVisible, setIsMenuOneVisible] = useState(true);
+  const [isMenuTwoVisible, setIsMenuTwoVisible] = useState(false);
+  const [isMenuThreeVisible, setIsMenuThreeVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubMenu, setSelectedSubMenu] = useState("");
+  const [subMenuData, setSubMenuData] = useState([]);
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setIsMenuOneVisible(false);
+    setIsMenuTwoVisible(true);
+  };
+  const handleCategorySubMenuSelect = (category: string, subMenu: string) => {
+    setSelectedSubMenu(subMenu);
+    setIsMenuTwoVisible(false);
+    setIsMenuThreeVisible(true);
+    setSubMenuData(
+      categories.find((c) => c.categoryName === category)?.[subMenu]
+    );
+  };
+
   return (
     <section className="bg-[#0D0F10] font-primaryFont text-white sm:border-b-[#8C8C8C] sm:border-b relative">
       <div className="container mx-auto flex border-b-[#8C8C8C] border-b justify-between sm:border-none sm:pe-[4%]">
@@ -104,16 +190,143 @@ export default function Navbar() {
           isCategoryMenuToggled
             ? "animate-category-menu"
             : "reverse-animate-category-menu"
-        } origin-left absolute z-10 w-full sm:w-[400px] bg-[#0D0F10] border border-[#75F94C] font-semibold text-[18px] p-[2em]`}
+        } origin-left absolute z-10 w-full sm:w-[400px] min-h-[80vh] bg-[#0D0F10] border border-[#75F94C] font-semibold text-[18px] p-[2em]`}
       >
-        <div className="flex justify-between items-center text-[22px]">
-          <h3 className="font-medium">Gamespire</h3>
-          <button
-            className="text-[#0BDB45] hover:scale-105"
-            onClick={() => setIsCategoryMenuToggled((prev) => !prev)}
-          >
-            &#10006;
-          </button>
+        {/* Main category menu */}
+        <div className={isMenuOneVisible ? "block" : "hidden"}>
+          <div className="flex justify-between items-center text-[22px] mb-[2em]">
+            <h3 className="font-medium">Gamespire</h3>
+            <button
+              className="text-[#0BDB45] hover:scale-105"
+              onClick={() => setIsCategoryMenuToggled((prev) => !prev)}
+            >
+              &#10006;
+            </button>
+          </div>
+          <div className="flex flex-col gap-y-[1em]">
+            <Link
+              href="/products"
+              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+            >
+              All offers
+            </Link>
+            <Link
+              href="/about"
+              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+            >
+              Popular games
+            </Link>
+            <Link
+              href="/contact"
+              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+            >
+              Latest games
+            </Link>
+            {categories.map(({ categoryName }) => (
+              <button
+                key={categoryName}
+                className="flex items-center justify-between"
+                onClick={() => handleCategorySelect(categoryName)}
+              >
+                <p>{categoryName}</p>
+                <IoIosArrowForward className="text-[22px]" />
+              </button>
+            ))}
+          </div>
+        </div>
+        {/* Sub category menu */}
+        <div className={isMenuTwoVisible ? "block" : "hidden"}>
+          <div className="flex justify-between items-center text-[22px] mb-[2em]">
+            <button
+              className="flex items-center -translate-x-2"
+              onClick={() => {
+                setIsMenuOneVisible(true);
+                setIsMenuTwoVisible(false);
+              }}
+            >
+              <IoIosArrowBack className="text-[24px]" />
+              <h3 className="font-medium">{selectedCategory}</h3>
+            </button>
+            <button
+              className="text-[#0BDB45] hover:scale-105"
+              onClick={() => setIsCategoryMenuToggled((prev) => !prev)}
+            >
+              &#10006;
+            </button>
+          </div>
+          <div className="flex flex-col gap-y-[1em]">
+            <Link
+              href="/products"
+              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+            >
+              All offers
+            </Link>
+            <Link
+              href="/about"
+              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+            >
+              Popular games
+            </Link>
+            <Link
+              href="/contact"
+              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+            >
+              Latest games
+            </Link>
+            <button
+              className="flex items-center justify-between"
+              onClick={() =>
+                handleCategorySubMenuSelect(selectedCategory, "platforms")
+              }
+            >
+              <p>Platforms</p>
+              <IoIosArrowForward className="text-[22px]" />
+            </button>
+            <button
+              className="flex items-center justify-between"
+              onClick={() =>
+                handleCategorySubMenuSelect(selectedCategory, "genres")
+              }
+            >
+              <p>Genres</p>
+              <IoIosArrowForward className="text-[22px]" />
+            </button>
+          </div>
+        </div>
+        {/* Platform/Genre Menu */}
+        <div className={isMenuThreeVisible ? "block" : "hidden"}>
+          <div className="flex justify-between items-center text-[22px] mb-[2em]">
+            <button
+              className="flex items-center -translate-x-2"
+              onClick={() => {
+                setIsMenuTwoVisible(true);
+                setIsMenuThreeVisible(false);
+              }}
+            >
+              <IoIosArrowBack className="text-[24px]" />
+              <h3 className="font-medium capitalize">{selectedSubMenu}</h3>
+            </button>
+            <button
+              className="text-[#0BDB45] hover:scale-105"
+              onClick={() => setIsCategoryMenuToggled((prev) => !prev)}
+            >
+              &#10006;
+            </button>
+          </div>
+          <div className="flex flex-col gap-y-[1em]">
+            {subMenuData &&
+              subMenuData.map((item) => (
+                <Link
+                  key={item}
+                  href="/products"
+                  className={
+                    path.startsWith("/products") ? "text-[#0BDB45]" : ""
+                  }
+                >
+                  {item}
+                </Link>
+              ))}
+          </div>
         </div>
       </nav>
     </section>
