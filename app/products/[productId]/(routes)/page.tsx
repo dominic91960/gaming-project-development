@@ -41,6 +41,8 @@ const gameData = {
   tags: ["Difficult", "RPG", "Dark Fantasy", "Souls-like"],
   video: video,
   images: [imgOne, imgTwo, imgThree, imgOne, imgTwo, imgThree],
+  about:
+    "Experience the first-ever open world Star Wars™ game and explore distinct locations across the galaxy, both iconic and new. Risk it all as scoundrel Kay Vess, seeking freedom and the means to start a new life. Fight, steal, and outwit your way through the galaxy’s crime syndicates as you join the galaxy’s most wanted. If you’re willing to take the risk, the galaxy is full of opportunity.",
   requirements: {
     minimum: {
       os: "WINDOWS 10 / 11 WITH DIRECTX 12",
@@ -293,7 +295,28 @@ export default function page() {
           </div>
 
           {/* Recommended */}
-          <div className="h-[500px]"></div>
+          <div className="h-[150px]">Recommended Section</div>
+
+          {/* About */}
+          <div>
+            <h3 className="font-semibold text-[28px] capitalize">
+              About this game
+            </h3>
+            <div className="bg-white/5 p-[2em] my-[2em] text-[20px] ">
+              <p className="pb-[2em]">
+                Experience the first-ever open world Star Wars™ game and explore
+                distinct locations across the galaxy, both iconic and new. Risk
+                it all as scoundrel Kay Vess, seeking freedom and the means to
+                start a new life. Fight, steal, and outwit your way through the
+                galaxy&apos;s crime syndicates as you join the galaxy&apos;s
+                most wanted. If you&apos;re willing to take the risk, the galaxy
+                is full of opportunity.
+              </p>
+              <p className="flex justify-between items-center text-[24px] font-medium ">
+                Release Date: 30/08/2024
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
