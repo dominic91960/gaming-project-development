@@ -10,7 +10,6 @@
 
 import React, { useState } from "react";
 import AddUserModal from "./components/AddUserModal";
-import UserTable from "./components/UserTable";
 
 const UsersPage = () => {
   const [users, setUsers] = useState([
