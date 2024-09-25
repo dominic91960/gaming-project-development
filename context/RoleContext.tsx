@@ -3,7 +3,7 @@ import React, { createContext, useState, ReactNode, useContext } from "react";
 interface RoleContextProps {
   roles: string[];
   addRole: (role: string) => void;
-  deleteRole: (role: string) => void; // Add this line
+  deleteRole: (role: string) => void;
 }
 
 const RoleContext = createContext<RoleContextProps | undefined>(undefined);
@@ -29,13 +29,11 @@ export const RoleProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const deleteRole = (role: string) => {
-    setRoles((prevRoles) => prevRoles.filter((r) => r !== role)); // Add this line
+    setRoles((prevRoles) => prevRoles.filter((r) => r !== role));
   };
 
   return (
     <RoleContext.Provider value={{ roles, addRole, deleteRole }}>
-      {" "}
-      {/* Update this line */}
       {children}
     </RoleContext.Provider>
   );

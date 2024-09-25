@@ -11,7 +11,6 @@ import AllProducts from "./components/pages/products/AllProducts";
 import Brands from "./components/pages/products/Brands";
 import Categories from "./components/pages/products/Categories";
 import Tags from "./components/pages/products/Tags";
-import Profile from "./components/pages/Users/Profile";
 import Role from "./components/pages/Users/Role";
 import Sidebar from "./components/Sidebar";
 import { useState } from "react";
@@ -48,8 +47,7 @@ const AdminPanel: React.FC = () => {
         return <AllUsers />;
       case "role":
         return <Role />;
-      case "profile":
-        return <Profile />;
+
       default:
         return (
           <h1 className="text-2xl font-bold">Welcome to the Admin Panel</h1>

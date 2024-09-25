@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddRoleModal from "./components/AddRoleModal";
-import EditRoleModal from "./components/EditRoleModal"; // Import the EditRoleModal
+import EditRoleModal from "./components/EditRoleModal";
 import { useRoleContext } from "../../../../../context/RoleContext";
 
 const RolesPage = () => {
@@ -15,8 +15,8 @@ const RolesPage = () => {
   };
 
   const updateRole = (newRole: string) => {
-    deleteRole(currentRole); // Remove the current role
-    addRole(newRole); // Add the updated role
+    deleteRole(currentRole);
+    addRole(newRole);
   };
 
   return (
@@ -35,7 +35,7 @@ const RolesPage = () => {
             <div>
               <button
                 className="text-blue-500 mr-2"
-                onClick={() => handleEditClick(role)} // Call the edit function
+                onClick={() => handleEditClick(role)}
               >
                 Edit
               </button>
@@ -52,7 +52,7 @@ const RolesPage = () => {
         <EditRoleModal
           currentRole={currentRole}
           setShowModal={setShowEditModal}
-          updateRole={updateRole} // Pass the updateRole function
+          updateRole={updateRole}
         />
       )}
     </div>

@@ -147,14 +147,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
               >
                 Role
               </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "profile" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("profile")}
-              >
-                Profile
-              </li>
             </ul>
           )}
         </li>

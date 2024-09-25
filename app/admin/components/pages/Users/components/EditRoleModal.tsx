@@ -1,5 +1,3 @@
-// components/EditRoleModal.tsx
-
 import React, { useState } from "react";
 
 interface EditRoleModalProps {

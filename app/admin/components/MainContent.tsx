@@ -2,7 +2,6 @@
 import React from "react";
 import AllUsers from "./pages/Users/AllUsers";
 import Role from "./pages/Users/Role";
-import Profile from "./pages/Users/Profile";
 
 interface MainContentProps {
   content: string;

@@ -7,7 +7,7 @@ interface AddRoleModalProps {
 
 const AddRoleModal: React.FC<AddRoleModalProps> = ({ setShowModal }) => {
   const [role, setRole] = useState("");
-  const { addRole } = useRoleContext(); // Use the global addRole function
+  const { addRole } = useRoleContext();
 
   const handleSubmit = () => {
     addRole(role);
