@@ -1,5 +1,8 @@
 "use client";
-import AllUsers from "./components/pages/AllUsers";
+import { RoleProvider } from "../../context/RoleContext"; // Import RoleProvider
+import type { AppProps } from "next/app";
+
+import AllUsers from "./components/pages/Users/AllUsers";
 import Customers from "./components/pages/Customers/Customers";
 import DashboardItem1 from "./components/pages/dashboard/DashboardItem1";
 import UserDetails from "./components/pages/dashboard/UserDetails";
@@ -8,8 +11,8 @@ import AllProducts from "./components/pages/products/AllProducts";
 import Brands from "./components/pages/products/Brands";
 import Categories from "./components/pages/products/Categories";
 import Tags from "./components/pages/products/Tags";
-import Profile from "./components/pages/Profile";
-import Role from "./components/pages/Role";
+import Profile from "./components/pages/Users/Profile";
+import Role from "./components/pages/Users/Role";
 import Sidebar from "./components/Sidebar";
 import { useState } from "react";
 
@@ -55,12 +58,14 @@ const AdminPanel: React.FC = () => {
   };
 
   return (
-    <div className="flex">
-      <Sidebar onSelect={handleSelect} />
-      <div className="flex-1 p-10 bg-gray-100 h-screen overflow-y-auto">
-        {renderContent()}
+    <RoleProvider>
+      <div className="flex">
+        <Sidebar onSelect={handleSelect} />
+        <div className="flex-1 p-10 bg-gray-100 h-screen overflow-y-auto">
+          {renderContent()}
+        </div>
       </div>
-    </div>
+    </RoleProvider>
   );
 };
 
