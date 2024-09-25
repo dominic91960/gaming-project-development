@@ -1,16 +1,54 @@
+.animate-category-menu {
+  animation-name: animate-category-menu;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.reverse-animate-category-menu {
+  animation-name: reverse-animate-category-menu;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
 .animate-toggle-button > div {
   transform: rotate(180deg);
   background-color: transparent;
 }
+
 .animate-toggle-button > div::before {
   transform: translateY(0) rotate(45deg);
 }
+
 .animate-toggle-button > div::after {
   transform: translateY(0) rotate(-45deg);
 }
+
 .animate-open-menu {
   animation: open-menu 1s;
 }
+
+@keyframes animate-category-menu {
+  from {
+    transform: translateX(-100%);
+    display: none;
+  }
+  to {
+    transform: translateX(0);
+    display: block;
+  }
+}
+
+@keyframes reverse-animate-category-menu {
+  from {
+    transform: translateX(0);
+    display: block;
+  }
+  to {
+    transform: translateX(-100%);
+    display: none;
+  }
+}
+
 @keyframes open-menu {
   from {
     transform: scaleY(0);

@@ -11,7 +11,7 @@ import "./navbar.css";
 
 export default function Navbar() {
   const path = usePathname();
-  const [isDropdownToggled, setIsDropdowToggled] = useState(false);
+  const [isCategoryMenuToggled, setIsCategoryMenuToggled] = useState(false);
   const [isMobileNavToggled, setIsMobileNavToggled] = useState(false);
   return (
     <section className="bg-[#0D0F10] font-primaryFont text-white sm:border-b-[#8C8C8C] sm:border-b relative">
@@ -19,7 +19,7 @@ export default function Navbar() {
         {/* Categories button */}
         <button
           className="font-semibold text-[15px] capitalize bg-[#23262B] flex items-center gap-[0.4em] px-[0.8em] py-[0.4em] my-[0.5em]"
-          onClick={() => setIsDropdowToggled((prev) => !prev)}
+          onClick={() => setIsCategoryMenuToggled((prev) => !prev)}
         >
           <div className="space-y-[0.2em] pe-[0.1em]">
             <div className="w-[1.2em] h-0.5 bg-white"></div>
@@ -97,6 +97,24 @@ export default function Navbar() {
         >
           Contact
         </Link>
+      </nav>
+      {/* Categories Menu */}
+      <nav
+        className={`${
+          isCategoryMenuToggled
+            ? "animate-category-menu"
+            : "reverse-animate-category-menu"
+        } origin-left absolute z-10 w-full sm:w-[400px] bg-[#0D0F10] border border-[#75F94C] font-semibold text-[18px] p-[2em]`}
+      >
+        <div className="flex justify-between items-center text-[22px]">
+          <h3 className="font-medium">Gamespire</h3>
+          <button
+            className="text-[#0BDB45] hover:scale-105"
+            onClick={() => setIsCategoryMenuToggled((prev) => !prev)}
+          >
+            &#10006;
+          </button>
+        </div>
       </nav>
     </section>
   );
