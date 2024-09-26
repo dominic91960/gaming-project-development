@@ -24,7 +24,7 @@ const RolesPage = () => {
   };
 
   return (
-    <div className="min-h-full font-primaryFont text-[24px] p-[2em] flex flex-col backdrop-blur-md">
+    <div className="min-h-full font-primaryFont text-[24px] p-[3.5em] flex flex-col backdrop-blur-md">
       <div className="pb-[2em]">
         <h1 className="font-bold text-[36px] leading-none">
           Roles & Permissions
