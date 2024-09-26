@@ -43,7 +43,8 @@ const SignUp = () => {
 
   const onSubmit = async (data: any) => {
     try {
-      const response = await axios.post("http://localhost:3000/auth/register", {
+      const url = process.env.NEXT_PUBLIC_BASE_URL + "/auth/register";
+      const response = await axios.post(url, {
         username: data.email,
         firstName: data.firstName,
         lastName: data.lastName,

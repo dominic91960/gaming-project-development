@@ -39,12 +39,13 @@ const SignIn = () => {
 
   const onSubmit = async (data: SignInFormInputs) => {
     try {
+      const url = process.env.NEXT_PUBLIC_BASE_URL+"/auth/login";
       const response = await axios.post(
-        "http://localhost:3000/auth/login",
+        url,
         data
       );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         const { accessToken, refreshToken, user } = response.data;
 
         // Store tokens and user data in localStorage
@@ -70,7 +71,7 @@ const SignIn = () => {
     const top = window.screen.height / 2 - height / 2;
 
     const popup = window.open(
-      "http://localhost:3000/auth/google",
+      process.env.NEXT_PUBLIC_BASE_URL+"/auth/google",
       "GoogleAuth",
       `width=${width},height=${height},top=${top},left=${left}`
     );
@@ -88,7 +89,8 @@ const SignIn = () => {
       origin: string;
       data: { user: any; accessToken: any; refreshToken: any };
     }) => {
-      if (event.origin !== "http://localhost:3000") return;
+      const url = process.env.NEXT_PUBLIC_BASE_URL;
+      if (event.origin !== url ) return;
 
       const { user, accessToken, refreshToken } = event.data;
 
