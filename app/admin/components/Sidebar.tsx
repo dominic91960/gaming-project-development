@@ -1,13 +1,28 @@
 "use client";
 import { useState } from "react";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+
+import { BsFillGrid1X2Fill } from "react-icons/bs";
+import {
+  FaBoxArchive,
+  FaBoxesPacking,
+  FaSquarePlus,
+  FaUser,
+  FaUsers,
+} from "react-icons/fa6";
+import { BiSolidCategoryAlt } from "react-icons/bi";
+import { IoPricetagsSharp, IoPricetagSharp } from "react-icons/io5";
+import { FaLaptop, FaShoppingBag } from "react-icons/fa";
+import { TiSpanner } from "react-icons/ti";
+import { RiShieldStarFill } from "react-icons/ri";
+
+import SidebarLink from "./SidebarLink";
+import SidebarButton from "./SidebarButton";
 
 interface SidebarProps {
   onSelect: (content: string) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
-  const [isDashboardOpen, setDashboardOpen] = useState(false);
   const [isProductOpen, setProductOpen] = useState(false);
   const [isUsersOpen, setUsersOpen] = useState(false);
 
@@ -19,137 +34,166 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
   };
 
   return (
-    <div className="w-64 bg-gray-800 text-white h-screen p-5">
-      <h2 className="text-xl font-bold mb-4">Admin Panel</h2>
+    <div className="w-64 bg-black/60 font-secondaryFont text-white h-screen pt-[2.5em] border-t border-e border-[#0D6D49]">
       <ul>
         {/* Dashboard Section */}
-        <li className="mb-2">
-          <button
-            className="flex justify-between w-full py-2 px-4 hover:bg-gray-700"
-            onClick={() => setDashboardOpen(!isDashboardOpen)}
-          >
+        <button
+          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:opacity-80 ${
+            selectedItem === "dashboard"
+              ? "bg-gradient-to-r from-black to-[#0D6D49]"
+              : ""
+          }`}
+          onClick={() => handleItemClick("dashboard")}
+        >
+          <div className="flex items-center gap-x-[0.7em]">
+            <BsFillGrid1X2Fill />
             <span>Dashboard</span>
-            {isDashboardOpen ? <FaChevronUp /> : <FaChevronDown />}
-          </button>
-          {isDashboardOpen && (
-            <ul className="ml-4">
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "dashboard-item1" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("dashboard-item1")}
-              >
-                Dashboard Item
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "user-details" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("user-details")}
-              >
-                User Details
-              </li>
-            </ul>
-          )}
-        </li>
+          </div>
+        </button>
 
         {/* Product Section */}
-        <li className="mb-2">
-          <button
-            className="flex justify-between w-full py-2 px-4 hover:bg-gray-700"
-            onClick={() => setProductOpen(!isProductOpen)}
+        <li className="mb-[1em]">
+          <SidebarButton
+            itemArray={[
+              "all-products",
+              "add-new",
+              "categories",
+              "tags",
+              "brands",
+              "platforms",
+            ]}
+            selectedItem={selectedItem}
+            isMenuOpen={isProductOpen}
+            setMenuOpen={setProductOpen}
+            buttonText="Products"
           >
-            <span>Product</span>
-            {isProductOpen ? <FaChevronUp /> : <FaChevronDown />}
-          </button>
+            <FaBoxArchive />
+          </SidebarButton>
           {isProductOpen && (
-            <ul className="ml-4">
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "all-products" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("all-products")}
+            <ul>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="all-products"
+                handleItemClick={handleItemClick}
               >
-                All Products
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "add-new" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("add-new")}
+                <FaBoxesPacking />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="add-new"
+                handleItemClick={handleItemClick}
               >
-                Add New
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "categories" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("categories")}
+                <FaSquarePlus />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="categories"
+                handleItemClick={handleItemClick}
               >
-                Categories
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "tags" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("tags")}
+                <BiSolidCategoryAlt />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="tags"
+                handleItemClick={handleItemClick}
               >
-                Tags
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "brands" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("brands")}
+                <IoPricetagsSharp />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="brands"
+                handleItemClick={handleItemClick}
               >
-                Brands
-              </li>
+                <IoPricetagSharp />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="platforms"
+                handleItemClick={handleItemClick}
+              >
+                <FaLaptop />
+              </SidebarLink>
             </ul>
           )}
         </li>
 
         {/* Customers Section */}
-        <li className="mb-2">
+        <li className="mb-[1em]">
           <button
-            className={`w-full py-2 px-4 hover:bg-gray-700 ${
-              selectedItem === "customers" ? "text-[#0BDB45]" : ""
+            className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:opacity-80 ${
+              selectedItem === "customers"
+                ? "bg-gradient-to-r from-black to-[#0D6D49]"
+                : ""
             }`}
             onClick={() => handleItemClick("customers")}
           >
-            Customers
+            <div className="flex items-center gap-x-[0.7em]">
+              <FaUser />
+              <span>Customers</span>
+            </div>
           </button>
         </li>
 
         {/* Users Section */}
-        <li className="mb-2">
-          <button
-            className="flex justify-between w-full py-2 px-4 hover:bg-gray-700"
-            onClick={() => setUsersOpen(!isUsersOpen)}
+        <li className="mb-[1em]">
+          <SidebarButton
+            itemArray={["all-users", "roles"]}
+            selectedItem={selectedItem}
+            isMenuOpen={isUsersOpen}
+            setMenuOpen={setUsersOpen}
+            buttonText="Users"
           >
-            <span>Users</span>
-            {isUsersOpen ? <FaChevronUp /> : <FaChevronDown />}
-          </button>
+            <FaUsers />
+          </SidebarButton>
           {isUsersOpen && (
-            <ul className="ml-4">
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "all-users" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("all-users")}
+            <ul>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="all-users"
+                handleItemClick={handleItemClick}
               >
-                All Users
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "role" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("role")}
+                <FaUsers />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="roles"
+                handleItemClick={handleItemClick}
               >
-                Role
-              </li>
+                <TiSpanner />
+              </SidebarLink>
             </ul>
           )}
         </li>
+
+        {/* Orders Section */}
+        <button
+          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:opacity-80 ${
+            selectedItem === "orders"
+              ? "bg-gradient-to-r from-black to-[#0D6D49]"
+              : ""
+          }`}
+          onClick={() => handleItemClick("orders")}
+        >
+          <div className="flex items-center gap-x-[0.7em]">
+            <FaShoppingBag />
+            <span>Orders</span>
+          </div>
+        </button>
+
+        {/* Reviews Section */}
+        <button
+          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:opacity-80 ${
+            selectedItem === "reviews"
+              ? "bg-gradient-to-r from-black to-[#0D6D49]"
+              : ""
+          }`}
+          onClick={() => handleItemClick("reviews")}
+        >
+          <div className="flex items-center gap-x-[0.7em]">
+            <RiShieldStarFill />
+            <span>Reviews</span>
+          </div>
+        </button>
       </ul>
     </div>
   );

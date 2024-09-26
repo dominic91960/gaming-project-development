@@ -1,7 +1,7 @@
 // components/MainContent.tsx
 import React from "react";
 import AllUsers from "./pages/Users/AllUsers";
-import Role from "./pages/Users/Role";
+import Role from "./pages/Users/Roles";
 
 interface MainContentProps {
   content: string;
