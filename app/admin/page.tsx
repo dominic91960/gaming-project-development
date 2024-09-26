@@ -59,7 +59,7 @@ const AdminPanel: React.FC = () => {
     <RoleProvider>
       <div className="flex">
         <Sidebar onSelect={handleSelect} />
-        <div className="flex-1 p-10 bg-gray-100 h-screen overflow-y-auto">
+        <div className="flex-1 p-10 bg-gray-900 h-screen overflow-y-auto">
           {renderContent()}
         </div>
       </div>

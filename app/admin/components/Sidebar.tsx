@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { BsFillGrid1X2Fill } from "react-icons/bs";
+import SidebarLink from "./SidebarLink";
+import SidebarButton from "./SidebarButton";
 
 interface SidebarProps {
   onSelect: (content: string) => void;
@@ -17,136 +19,158 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
     setSelectedItem(item);
     onSelect(item);
   };
+  const openDashboard = () => {
+    setDashboardOpen((prev) => !prev);
+    setProductOpen(false);
+    setUsersOpen(false);
+  };
+  const openProduct = () => {
+    setDashboardOpen(false);
+    setProductOpen((prev) => !prev);
+    setUsersOpen(false);
+  };
+  const openUsers = () => {
+    setDashboardOpen(false);
+    setProductOpen(false);
+    setUsersOpen((prev) => !prev);
+  };
 
   return (
-    <div className="w-64 bg-gray-800 text-white h-screen p-5">
-      <h2 className="text-xl font-bold mb-4">Admin Panel</h2>
+    <div className="w-64 bg-black/60 font-secondaryFont text-white h-screen pt-[2.5em] border border-[#0D6D49]">
       <ul>
         {/* Dashboard Section */}
-        <li className="mb-2">
-          <button
-            className="flex justify-between w-full py-2 px-4 hover:bg-gray-700"
-            onClick={() => setDashboardOpen(!isDashboardOpen)}
+        <li className="mb-[1em]">
+          <SidebarButton
+            itemArray={["dashboard-item1", "user-details"]}
+            selectedItem={selectedItem}
+            isMenuOpen={isDashboardOpen}
+            setMenuOpen={openDashboard}
+            buttonText="Dashboard"
           >
-            <span>Dashboard</span>
-            {isDashboardOpen ? <FaChevronUp /> : <FaChevronDown />}
-          </button>
+            <BsFillGrid1X2Fill />
+          </SidebarButton>
           {isDashboardOpen && (
-            <ul className="ml-4">
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "dashboard-item1" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("dashboard-item1")}
+            <ul>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="dashboard-item1"
+                handleItemClick={handleItemClick}
               >
-                Dashboard Item
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "user-details" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("user-details")}
+                <BsFillGrid1X2Fill />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="user-details"
+                handleItemClick={handleItemClick}
               >
-                User Details
-              </li>
+                <BsFillGrid1X2Fill />
+              </SidebarLink>
             </ul>
           )}
         </li>
 
         {/* Product Section */}
-        <li className="mb-2">
-          <button
-            className="flex justify-between w-full py-2 px-4 hover:bg-gray-700"
-            onClick={() => setProductOpen(!isProductOpen)}
+        <li className="mb-[1em]">
+          <SidebarButton
+            itemArray={[
+              "all-products",
+              "add-new",
+              "categories",
+              "tags",
+              "brands",
+            ]}
+            selectedItem={selectedItem}
+            isMenuOpen={isProductOpen}
+            setMenuOpen={openProduct}
+            buttonText="Products"
           >
-            <span>Product</span>
-            {isProductOpen ? <FaChevronUp /> : <FaChevronDown />}
-          </button>
+            <BsFillGrid1X2Fill />
+          </SidebarButton>
           {isProductOpen && (
-            <ul className="ml-4">
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "all-products" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("all-products")}
+            <ul>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="all-products"
+                handleItemClick={handleItemClick}
               >
-                All Products
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "add-new" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("add-new")}
+                <BsFillGrid1X2Fill />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="add-new"
+                handleItemClick={handleItemClick}
               >
-                Add New
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "categories" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("categories")}
+                <BsFillGrid1X2Fill />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="categories"
+                handleItemClick={handleItemClick}
               >
-                Categories
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "tags" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("tags")}
+                <BsFillGrid1X2Fill />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="tags"
+                handleItemClick={handleItemClick}
               >
-                Tags
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "brands" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("brands")}
+                <BsFillGrid1X2Fill />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="brands"
+                handleItemClick={handleItemClick}
               >
-                Brands
-              </li>
+                <BsFillGrid1X2Fill />
+              </SidebarLink>
             </ul>
           )}
         </li>
 
         {/* Customers Section */}
-        <li className="mb-2">
+        <li className="mb-[1em]">
           <button
-            className={`w-full py-2 px-4 hover:bg-gray-700 ${
-              selectedItem === "customers" ? "text-[#0BDB45]" : ""
+            className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:bg-gradient-to-r from-black to-[#0D6D49] ${
+              selectedItem === "customers"
+                ? "bg-gradient-to-r from-black to-[#0D6D49]"
+                : ""
             }`}
             onClick={() => handleItemClick("customers")}
           >
-            Customers
+            <div className="flex items-center gap-x-[0.7em]">
+              <BsFillGrid1X2Fill />
+              <span>Customers</span>
+            </div>
           </button>
         </li>
 
         {/* Users Section */}
-        <li className="mb-2">
-          <button
-            className="flex justify-between w-full py-2 px-4 hover:bg-gray-700"
-            onClick={() => setUsersOpen(!isUsersOpen)}
+        <li className="mb-[1em]">
+          <SidebarButton
+            itemArray={["all-users", "role"]}
+            selectedItem={selectedItem}
+            isMenuOpen={isUsersOpen}
+            setMenuOpen={openUsers}
+            buttonText="Users"
           >
-            <span>Users</span>
-            {isUsersOpen ? <FaChevronUp /> : <FaChevronDown />}
-          </button>
+            <BsFillGrid1X2Fill />
+          </SidebarButton>
           {isUsersOpen && (
-            <ul className="ml-4">
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "all-users" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("all-users")}
+            <ul>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="all-users"
+                handleItemClick={handleItemClick}
               >
-                All Users
-              </li>
-              <li
-                className={`py-1 px-4 hover:bg-gray-700 cursor-pointer ${
-                  selectedItem === "role" ? "text-[#0BDB45]" : ""
-                }`}
-                onClick={() => handleItemClick("role")}
+                <BsFillGrid1X2Fill />
+              </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="role"
+                handleItemClick={handleItemClick}
               >
-                Role
-              </li>
+                <BsFillGrid1X2Fill />
+              </SidebarLink>
             </ul>
           )}
         </li>
