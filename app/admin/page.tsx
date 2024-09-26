@@ -1,19 +1,21 @@
 "use client";
-import { RoleProvider } from "../../context/RoleContext"; // Import RoleProvider
-import type { AppProps } from "next/app";
+import { useState } from "react";
+// import type { AppProps } from "next/app";
 
-import AllUsers from "./components/pages/Users/AllUsers";
-import Customers from "./components/pages/Customers/Customers";
-import DashboardItem1 from "./components/pages/dashboard/DashboardItem1";
-import UserDetails from "./components/pages/dashboard/UserDetails";
-import AddNew from "./components/pages/products/AddNew";
+import { RoleProvider } from "../../context/RoleContext"; // Import RoleProvider
+import Sidebar from "./components/Sidebar";
+import Dashboard from "./components/pages/dashboard/Dashboard";
 import AllProducts from "./components/pages/products/AllProducts";
-import Brands from "./components/pages/products/Brands";
+import AddNew from "./components/pages/products/AddNew";
 import Categories from "./components/pages/products/Categories";
 import Tags from "./components/pages/products/Tags";
-import Role from "./components/pages/Users/Role";
-import Sidebar from "./components/Sidebar";
-import { useState } from "react";
+import Brands from "./components/pages/products/Brands";
+import Platforms from "./components/pages/products/Platforms";
+import Customers from "./components/pages/customers/Customers";
+import AllUsers from "./components/pages/users/AllUsers";
+import RolesPage from "./components/pages/users/Roles";
+import Orders from "./components/pages/orders/Orders";
+import Reviews from "./components/pages/reviews/Reviews";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
@@ -24,10 +26,8 @@ const AdminPanel: React.FC = () => {
 
   const renderContent = () => {
     switch (selectedContent) {
-      case "dashboard-item1":
-        return <DashboardItem1 />;
-      case "user-details":
-        return <UserDetails />;
+      case "dashboard":
+        return <Dashboard />;
 
       case "all-products":
         return <AllProducts />;
@@ -39,19 +39,25 @@ const AdminPanel: React.FC = () => {
         return <Tags />;
       case "brands":
         return <Brands />;
+      case "platforms":
+        return <Platforms />;
 
       case "customers":
         return <Customers />;
 
       case "all-users":
         return <AllUsers />;
-      case "role":
-        return <Role />;
+      case "roles":
+        return <RolesPage />;
+
+      case "orders":
+        return <Orders />;
+
+      case "reviews":
+        return <Reviews />;
 
       default:
-        return (
-          <h1 className="text-2xl font-bold">Welcome to the Admin Panel</h1>
-        );
+        return <Dashboard />;
     }
   };
 

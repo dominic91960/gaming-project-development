@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { Dispatch, ReactNode, SetStateAction } from "react";
 
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 
@@ -6,7 +6,7 @@ interface SidebarButtonProps {
   itemArray: string[];
   selectedItem: string;
   isMenuOpen: boolean;
-  setMenuOpen: () => void;
+  setMenuOpen: Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
   buttonText: string;
 }
@@ -26,7 +26,7 @@ const SidebarButton: React.FC<SidebarButtonProps> = ({
           ? "before:content-[''] before:absolute before:left-[0.8em] before:w-2 before:h-[calc(2.4em+1rem)] before:bg-[#00FFA1] before:rounded-sm"
           : ""
       }`}
-      onClick={() => setMenuOpen()}
+      onClick={() => setMenuOpen((prev) => !prev)}
     >
       <div className="flex items-center gap-x-[0.7em]">
         {children}

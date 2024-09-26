@@ -9,7 +9,6 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
-  const [isDashboardOpen, setDashboardOpen] = useState(false);
   const [isProductOpen, setProductOpen] = useState(false);
   const [isUsersOpen, setUsersOpen] = useState(false);
 
@@ -19,55 +18,24 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
     setSelectedItem(item);
     onSelect(item);
   };
-  const openDashboard = () => {
-    setDashboardOpen((prev) => !prev);
-    setProductOpen(false);
-    setUsersOpen(false);
-  };
-  const openProduct = () => {
-    setDashboardOpen(false);
-    setProductOpen((prev) => !prev);
-    setUsersOpen(false);
-  };
-  const openUsers = () => {
-    setDashboardOpen(false);
-    setProductOpen(false);
-    setUsersOpen((prev) => !prev);
-  };
 
   return (
-    <div className="w-64 bg-black/60 font-secondaryFont text-white h-screen pt-[2.5em] border border-[#0D6D49]">
+    <div className="w-64 bg-black/60 font-secondaryFont text-white h-screen pt-[2.5em] border-t border-e border-[#0D6D49]">
       <ul>
         {/* Dashboard Section */}
-        <li className="mb-[1em]">
-          <SidebarButton
-            itemArray={["dashboard-item1", "user-details"]}
-            selectedItem={selectedItem}
-            isMenuOpen={isDashboardOpen}
-            setMenuOpen={openDashboard}
-            buttonText="Dashboard"
-          >
+        <button
+          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:bg-gradient-to-r from-black to-[#0D6D49] ${
+            selectedItem === "dashboard"
+              ? "bg-gradient-to-r from-black to-[#0D6D49]"
+              : ""
+          }`}
+          onClick={() => handleItemClick("dashboard")}
+        >
+          <div className="flex items-center gap-x-[0.7em]">
             <BsFillGrid1X2Fill />
-          </SidebarButton>
-          {isDashboardOpen && (
-            <ul>
-              <SidebarLink
-                selectedItem={selectedItem}
-                itemName="dashboard-item1"
-                handleItemClick={handleItemClick}
-              >
-                <BsFillGrid1X2Fill />
-              </SidebarLink>
-              <SidebarLink
-                selectedItem={selectedItem}
-                itemName="user-details"
-                handleItemClick={handleItemClick}
-              >
-                <BsFillGrid1X2Fill />
-              </SidebarLink>
-            </ul>
-          )}
-        </li>
+            <span>Dashboard</span>
+          </div>
+        </button>
 
         {/* Product Section */}
         <li className="mb-[1em]">
@@ -81,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
             ]}
             selectedItem={selectedItem}
             isMenuOpen={isProductOpen}
-            setMenuOpen={openProduct}
+            setMenuOpen={setProductOpen}
             buttonText="Products"
           >
             <BsFillGrid1X2Fill />
@@ -123,6 +91,13 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
               >
                 <BsFillGrid1X2Fill />
               </SidebarLink>
+              <SidebarLink
+                selectedItem={selectedItem}
+                itemName="platforms"
+                handleItemClick={handleItemClick}
+              >
+                <BsFillGrid1X2Fill />
+              </SidebarLink>
             </ul>
           )}
         </li>
@@ -150,7 +125,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
             itemArray={["all-users", "role"]}
             selectedItem={selectedItem}
             isMenuOpen={isUsersOpen}
-            setMenuOpen={openUsers}
+            setMenuOpen={setUsersOpen}
             buttonText="Users"
           >
             <BsFillGrid1X2Fill />
@@ -166,7 +141,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
               </SidebarLink>
               <SidebarLink
                 selectedItem={selectedItem}
-                itemName="role"
+                itemName="roles"
                 handleItemClick={handleItemClick}
               >
                 <BsFillGrid1X2Fill />
@@ -174,6 +149,36 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
             </ul>
           )}
         </li>
+
+        {/* Orders Section */}
+        <button
+          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:bg-gradient-to-r from-black to-[#0D6D49] ${
+            selectedItem === "orders"
+              ? "bg-gradient-to-r from-black to-[#0D6D49]"
+              : ""
+          }`}
+          onClick={() => handleItemClick("orders")}
+        >
+          <div className="flex items-center gap-x-[0.7em]">
+            <BsFillGrid1X2Fill />
+            <span>Orders</span>
+          </div>
+        </button>
+
+        {/* Reviews Section */}
+        <button
+          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:bg-gradient-to-r from-black to-[#0D6D49] ${
+            selectedItem === "reviews"
+              ? "bg-gradient-to-r from-black to-[#0D6D49]"
+              : ""
+          }`}
+          onClick={() => handleItemClick("reviews")}
+        >
+          <div className="flex items-center gap-x-[0.7em]">
+            <BsFillGrid1X2Fill />
+            <span>Reviews</span>
+          </div>
+        </button>
       </ul>
     </div>
   );
