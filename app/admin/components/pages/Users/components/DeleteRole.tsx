@@ -27,7 +27,7 @@ const DeleteRole: React.FC<DeleteRoleProps> = ({
         <div className="flex gap-x-[3em] justify-center font-bold">
           <button
             onClick={() => handleCancel(false)}
-            className="py-[1em] px-[1em] border border-[#00FFA1] rounded-sm flex-grow w-full"
+            className="py-[1em] px-[1em] border border-[#00FFA1] rounded-sm flex-grow w-full hover:opacity-90 transition-opacity duration-100"
           >
             Cancel
           </button>
@@ -36,7 +36,7 @@ const DeleteRole: React.FC<DeleteRoleProps> = ({
               handleConfirm(currentRole);
               handleCancel(false);
             }}
-            className="py-[1em] px-[1em] bg-[#AF1515] rounded-sm flex-grow w-full"
+            className="py-[1em] px-[1em] bg-[#AF1515] rounded-sm flex-grow w-full hover:opacity-90 transition-opacity duration-100"
           >
             Delete Account
           </button>

@@ -27,7 +27,7 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({
     <div className="fixed inset-0 bg-black/80 flex justify-center items-center font-medium text-[13px]">
       <div className="relative bg-gradient-to-tr from-black from-15% to-[#0D6D49] p-[3em] rounded-md border border-[#19D38E]">
         <button
-          className="absolute top-[1em] right-[1em] text-[#00FFA1] text-[18px]"
+          className="absolute top-[1em] right-[1em] text-[#00FFA1] text-[18px] hover:opacity-80 transition-opacity duration-100"
           onClick={() => setShowModal(false)}
         >
           <IoClose />
@@ -51,7 +51,7 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({
               Please review and ensure that all the details you have entered are
               correct before submitting.
             </p>
-            <button className="text-black font-semibold text-[14px] px-[1.5em] py-[0.5em] bg-[#0BDB45] rounded">
+            <button className="text-black font-semibold text-[14px] px-[1.5em] py-[0.5em] bg-[#0BDB45] rounded hover:opacity-90 transition-opacity duration-100">
               Save
             </button>
           </div>

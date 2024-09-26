@@ -26,7 +26,7 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ setShowModal }) => {
         // }}
       >
         <button
-          className="absolute top-[1em] right-[1em] text-[#00FFA1] text-[18px]"
+          className="absolute top-[1em] right-[1em] text-[#00FFA1] text-[18px] hover:opacity-80 transition-opacity duration-100"
           onClick={() => setShowModal(false)}
         >
           <IoClose />
@@ -49,7 +49,7 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ setShowModal }) => {
             correct before submitting.
           </p>
           <button
-            className="text-black font-semibold text-[14px] px-[1.5em] py-[0.5em] bg-[#0BDB45] rounded"
+            className="text-black font-semibold text-[14px] px-[1.5em] py-[0.5em] bg-[#0BDB45] rounded hover:opacity-90 transition-opacity duration-100"
             onClick={handleSubmit}
           >
             Save

@@ -42,7 +42,7 @@ const RolesPage = () => {
         <div className="flex justify-between items-center pb-[1.2em] border-b border-b-[#0D6D49]">
           <h2 className="font-semibold">Role & Permissions</h2>
           <button
-            className="bg-[#00FFA1] font-bold text-black text-[11px] px-[2em] py-[1em] rounded"
+            className="bg-[#00FFA1] font-bold text-black text-[11px] px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
             onClick={() => setShowAddModal(true)}
           >
             Add Role
@@ -56,11 +56,17 @@ const RolesPage = () => {
             >
               <span>{role}</span>
               <div className="flex items-center gap-x-[1em]">
-                <button onClick={() => handleEditClick(role)}>
+                <button
+                  onClick={() => handleEditClick(role)}
+                  className="hover:opacity-80 transition-opacity duration-100"
+                >
                   <LuPencilLine />
                 </button>
                 {/* <button onClick={() => deleteRole(role)}> */}
-                <button onClick={() => handleDeleteClick(role)}>
+                <button
+                  onClick={() => handleDeleteClick(role)}
+                  className="hover:opacity-80 transition-opacity duration-100"
+                >
                   <IoTrash />
                 </button>
               </div>
