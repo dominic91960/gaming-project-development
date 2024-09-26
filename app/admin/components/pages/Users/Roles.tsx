@@ -6,16 +6,23 @@ import { IoTrash } from "react-icons/io5";
 import AddRoleModal from "./components/AddRoleModal";
 import EditRoleModal from "./components/EditRoleModal";
 import { useRoleContext } from "../../../../../context/RoleContext";
+import DeleteRole from "./components/DeleteRole";
 
 const RolesPage = () => {
   const { roles, addRole, deleteRole } = useRoleContext();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [currentRole, setCurrentRole] = useState<string>("");
 
   const handleEditClick = (role: string) => {
     setCurrentRole(role);
     setShowEditModal(true);
+  };
+
+  const handleDeleteClick = (role: string) => {
+    setCurrentRole(role);
+    setShowDelete(true);
   };
 
   const updateRole = (newRole: string) => {
@@ -52,7 +59,8 @@ const RolesPage = () => {
                 <button onClick={() => handleEditClick(role)}>
                   <LuPencilLine />
                 </button>
-                <button onClick={() => deleteRole(role)}>
+                {/* <button onClick={() => deleteRole(role)}> */}
+                <button onClick={() => handleDeleteClick(role)}>
                   <IoTrash />
                 </button>
               </div>
@@ -67,6 +75,13 @@ const RolesPage = () => {
           currentRole={currentRole}
           setShowModal={setShowEditModal}
           updateRole={updateRole}
+        />
+      )}
+      {showDelete && (
+        <DeleteRole
+          currentRole={currentRole}
+          handleCancel={setShowDelete}
+          handleConfirm={deleteRole}
         />
       )}
     </div>
