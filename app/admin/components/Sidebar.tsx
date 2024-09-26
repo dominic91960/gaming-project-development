@@ -129,7 +129,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
           >
             <div className="flex items-center gap-x-[0.7em]">
               <FaUser />
-              <span>Customers</span>
+              <span>Customer</span>
             </div>
           </button>
         </li>
