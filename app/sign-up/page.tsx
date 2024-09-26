@@ -12,6 +12,7 @@ import Logo from "../../public/images/sign-in/logo.png";
 import GoogleIcon from "../../public/images/sign-in/google.png";
 import FacebookIcon from "../../public/images/sign-in/facebook.png";
 import AppleIcon from "../../public/images/sign-in/apple.png";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -40,8 +41,25 @@ const SignUp = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data: any) => {
-    console.log("Form Data:", data);
+  const onSubmit = async (data: any) => {
+    try {
+      const response = await axios.post("http://localhost:3000/auth/register", {
+        username: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        password: data.password,
+        role: "USER",
+      });
+
+      console.log("Registration successful", response.data);
+    } catch (error: any) {
+      if (error.response) {
+        console.error("Registration failed", error.response.data.message);
+      } else {
+        console.error("Error:", error.message);
+      }
+    }
   };
 
   return (
