@@ -15,7 +15,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({
 }) => {
   return (
     <li
-      className={`flex justify-between items-center py-[1em] ps-[3.4em] mb-[1em] hover:bg-gradient-to-r from-black to-[#0D6D49] cursor-pointer ${
+      className={`flex justify-between items-center py-[1em] ps-[3.4em] mb-[1em] hover:opacity-80 cursor-pointer ${
         selectedItem === itemName
           ? "bg-gradient-to-r from-black to-[#0D6D49]"
           : ""

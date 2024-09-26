@@ -21,7 +21,7 @@ const SidebarButton: React.FC<SidebarButtonProps> = ({
 }) => {
   return (
     <button
-      className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:bg-gradient-to-r from-black to-[#0D6D49] ${
+      className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:opacity-80 ${
         itemArray.find((i) => i === selectedItem) !== undefined
           ? "before:content-[''] before:absolute before:left-[0.8em] before:w-2 before:h-[calc(2.4em+1rem)] before:bg-[#00FFA1] before:rounded-sm"
           : ""

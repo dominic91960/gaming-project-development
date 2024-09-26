@@ -1,6 +1,20 @@
 "use client";
 import { useState } from "react";
+
 import { BsFillGrid1X2Fill } from "react-icons/bs";
+import {
+  FaBoxArchive,
+  FaBoxesPacking,
+  FaSquarePlus,
+  FaUser,
+  FaUsers,
+} from "react-icons/fa6";
+import { BiSolidCategoryAlt } from "react-icons/bi";
+import { IoPricetagsSharp, IoPricetagSharp } from "react-icons/io5";
+import { FaLaptop, FaShoppingBag } from "react-icons/fa";
+import { TiSpanner } from "react-icons/ti";
+import { RiShieldStarFill } from "react-icons/ri";
+
 import SidebarLink from "./SidebarLink";
 import SidebarButton from "./SidebarButton";
 
@@ -24,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
       <ul>
         {/* Dashboard Section */}
         <button
-          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:bg-gradient-to-r from-black to-[#0D6D49] ${
+          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:opacity-80 ${
             selectedItem === "dashboard"
               ? "bg-gradient-to-r from-black to-[#0D6D49]"
               : ""
@@ -46,13 +60,14 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
               "categories",
               "tags",
               "brands",
+              "platforms",
             ]}
             selectedItem={selectedItem}
             isMenuOpen={isProductOpen}
             setMenuOpen={setProductOpen}
             buttonText="Products"
           >
-            <BsFillGrid1X2Fill />
+            <FaBoxArchive />
           </SidebarButton>
           {isProductOpen && (
             <ul>
@@ -61,42 +76,42 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
                 itemName="all-products"
                 handleItemClick={handleItemClick}
               >
-                <BsFillGrid1X2Fill />
+                <FaBoxesPacking />
               </SidebarLink>
               <SidebarLink
                 selectedItem={selectedItem}
                 itemName="add-new"
                 handleItemClick={handleItemClick}
               >
-                <BsFillGrid1X2Fill />
+                <FaSquarePlus />
               </SidebarLink>
               <SidebarLink
                 selectedItem={selectedItem}
                 itemName="categories"
                 handleItemClick={handleItemClick}
               >
-                <BsFillGrid1X2Fill />
+                <BiSolidCategoryAlt />
               </SidebarLink>
               <SidebarLink
                 selectedItem={selectedItem}
                 itemName="tags"
                 handleItemClick={handleItemClick}
               >
-                <BsFillGrid1X2Fill />
+                <IoPricetagsSharp />
               </SidebarLink>
               <SidebarLink
                 selectedItem={selectedItem}
                 itemName="brands"
                 handleItemClick={handleItemClick}
               >
-                <BsFillGrid1X2Fill />
+                <IoPricetagSharp />
               </SidebarLink>
               <SidebarLink
                 selectedItem={selectedItem}
                 itemName="platforms"
                 handleItemClick={handleItemClick}
               >
-                <BsFillGrid1X2Fill />
+                <FaLaptop />
               </SidebarLink>
             </ul>
           )}
@@ -105,7 +120,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
         {/* Customers Section */}
         <li className="mb-[1em]">
           <button
-            className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:bg-gradient-to-r from-black to-[#0D6D49] ${
+            className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:opacity-80 ${
               selectedItem === "customers"
                 ? "bg-gradient-to-r from-black to-[#0D6D49]"
                 : ""
@@ -113,7 +128,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
             onClick={() => handleItemClick("customers")}
           >
             <div className="flex items-center gap-x-[0.7em]">
-              <BsFillGrid1X2Fill />
+              <FaUser />
               <span>Customers</span>
             </div>
           </button>
@@ -122,13 +137,13 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
         {/* Users Section */}
         <li className="mb-[1em]">
           <SidebarButton
-            itemArray={["all-users", "role"]}
+            itemArray={["all-users", "roles"]}
             selectedItem={selectedItem}
             isMenuOpen={isUsersOpen}
             setMenuOpen={setUsersOpen}
             buttonText="Users"
           >
-            <BsFillGrid1X2Fill />
+            <FaUsers />
           </SidebarButton>
           {isUsersOpen && (
             <ul>
@@ -137,14 +152,14 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
                 itemName="all-users"
                 handleItemClick={handleItemClick}
               >
-                <BsFillGrid1X2Fill />
+                <FaUsers />
               </SidebarLink>
               <SidebarLink
                 selectedItem={selectedItem}
                 itemName="roles"
                 handleItemClick={handleItemClick}
               >
-                <BsFillGrid1X2Fill />
+                <TiSpanner />
               </SidebarLink>
             </ul>
           )}
@@ -152,7 +167,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
 
         {/* Orders Section */}
         <button
-          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:bg-gradient-to-r from-black to-[#0D6D49] ${
+          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:opacity-80 ${
             selectedItem === "orders"
               ? "bg-gradient-to-r from-black to-[#0D6D49]"
               : ""
@@ -160,14 +175,14 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
           onClick={() => handleItemClick("orders")}
         >
           <div className="flex items-center gap-x-[0.7em]">
-            <BsFillGrid1X2Fill />
+            <FaShoppingBag />
             <span>Orders</span>
           </div>
         </button>
 
         {/* Reviews Section */}
         <button
-          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:bg-gradient-to-r from-black to-[#0D6D49] ${
+          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:opacity-80 ${
             selectedItem === "reviews"
               ? "bg-gradient-to-r from-black to-[#0D6D49]"
               : ""
@@ -175,7 +190,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
           onClick={() => handleItemClick("reviews")}
         >
           <div className="flex items-center gap-x-[0.7em]">
-            <BsFillGrid1X2Fill />
+            <RiShieldStarFill />
             <span>Reviews</span>
           </div>
         </button>
