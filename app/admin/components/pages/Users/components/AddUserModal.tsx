@@ -9,9 +9,16 @@ interface AddUserModalProps {
     email: string;
     role: string;
     image: string;
-  }) => void;
+  }) => Promise<void>; // Change to Promise<void> for async operation
   setShowModal: (show: boolean) => void;
-  editingUser: any;
+  editingUser: {
+    username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    role: string;
+    image: string;
+  } | null; // Specify editingUser type
 }
 
 const AddUserModal: React.FC<AddUserModalProps> = ({
@@ -41,7 +48,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
     }
   }, [editingUser]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newUser = {
       username,
       firstName,
@@ -50,8 +57,26 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
       role,
       image,
     };
-    addUser(newUser);
-    setShowModal(false);
+
+    try {
+      const url = process.env.NEXT_PUBLIC_BASE_URL + "/auth/register"; // Define your API endpoint
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser), // Send the new user data
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`); // Handle non-200 responses
+      }
+
+      await addUser(newUser); // Call addUser function after successful registration
+      setShowModal(false); // Close the modal after successful addition
+    } catch (error) {
+      console.error("User save failed:", error);
+    }
   };
 
   const clearFields = () => {
@@ -75,6 +100,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
           onChange={(e) => setUsername(e.target.value)}
           className="border p-2 mb-4 w-full"
           placeholder="Enter username"
+          required
         />
         <input
           type="text"
@@ -82,6 +108,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
           onChange={(e) => setFirstName(e.target.value)}
           className="border p-2 mb-4 w-full"
           placeholder="Enter first name"
+          required
         />
         <input
           type="text"
@@ -89,6 +116,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
           onChange={(e) => setLastName(e.target.value)}
           className="border p-2 mb-4 w-full"
           placeholder="Enter last name"
+          required
         />
         <input
           type="email"
@@ -96,23 +124,30 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
           onChange={(e) => setEmail(e.target.value)}
           className="border p-2 mb-4 w-full"
           placeholder="Enter email"
+          required
         />
         <select
           value={role}
           onChange={(e) => setRole(e.target.value)}
           className="border p-2 mb-4 w-full"
+          required
         >
           <option value="">Select Role</option>
-          {roles.map((role, index) => (
-            <option key={index} value={role}>
-              {role}
+          {roles.map((role) => (
+            <option key={role.id} value={role.id}> {/* Assuming roles have an id property */}
+              {role.name} {/* Assuming roles have a name property */}
             </option>
           ))}
         </select>
         <input
           type="file"
-          onChange={(e) => setImage(URL.createObjectURL(e.target.files![0]))} // Handle image upload
+          onChange={(e) => {
+            if (e.target.files && e.target.files.length > 0) {
+              setImage(URL.createObjectURL(e.target.files[0])); // Handle image upload
+            }
+          }}
           className="border p-2 mb-4 w-full"
+          accept="image/*" // Limit file selection to images
         />
         <div className="flex justify-end">
           <button

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { LuPencilLine } from "react-icons/lu";
 import { IoTrash } from "react-icons/io5";
@@ -14,27 +14,34 @@ import AddRoleModal from "./components/AddRoleModal";
 import EditRoleModal from "./components/EditRoleModal";
 import { useRoleContext } from "../../../../../context/RoleContext";
 import DeleteRole from "./components/DeleteRole";
+import axios from "axios";
+
+interface Role {
+  id: string;
+  name: string;
+}
 
 const RolesPage = () => {
   const { roles, addRole, deleteRole } = useRoleContext();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
-  const [currentRole, setCurrentRole] = useState<string>("");
+  const [currentRole, setCurrentRole] = useState<Role>();
 
-  const handleEditClick = (role: string) => {
+  const handleEditClick = (role: Role) => {
+    console.log(role, "role");
     setCurrentRole(role);
     setShowEditModal(true);
   };
 
-  const handleDeleteClick = (role: string) => {
+  const handleDeleteClick = (role: Role) => {
     setCurrentRole(role);
     setShowDelete(true);
   };
 
   const updateRole = (newRole: string) => {
-    deleteRole(currentRole);
-    addRole(newRole);
+    // deleteRole(currentRole);
+    // addRole(newRole);
   };
 
   return (
@@ -71,7 +78,7 @@ const RolesPage = () => {
               key={index}
               className="flex justify-between border-b border-b-[#606060] pb-[0.2em] pt-[1em]"
             >
-              <span>{role}</span>
+              <span>{role.name}</span>
               <div className="flex items-center gap-x-[1em]">
                 <button
                   onClick={() => handleEditClick(role)}
@@ -108,14 +115,12 @@ const RolesPage = () => {
         <EditRoleModal
           currentRole={currentRole}
           setShowModal={setShowEditModal}
-          updateRole={updateRole}
         />
       )}
       {showDelete && (
         <DeleteRole
           currentRole={currentRole}
           handleCancel={setShowDelete}
-          handleConfirm={deleteRole}
         />
       )}
     </div>
