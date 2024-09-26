@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -36,8 +37,29 @@ const SignIn = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data: SignInFormInputs) => {
-    console.log("Form Data: ", data);
+  const onSubmit = async (data: SignInFormInputs) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/auth/login",
+        data
+      );
+
+      if (response.status === 200) {
+        const { accessToken, refreshToken, user } = response.data;
+
+        // Store tokens and user data in localStorage
+        localStorage.setItem("auth_token", accessToken);
+        localStorage.setItem("refresh_token", refreshToken);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        // Redirect to home page
+        router.push("/");
+      } else {
+        console.error("Login failed");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
   };
 
   const router = useRouter();
