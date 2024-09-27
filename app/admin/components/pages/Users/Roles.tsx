@@ -84,6 +84,7 @@ const RolesPage = () => {
       <PaginationTab
         showDeleteButtonGroup={false}
         showStatusButtonGroup={false}
+        totalSelections={0}
       />
 
       {showAddModal && <AddRoleModal setShowModal={setShowAddModal} />}

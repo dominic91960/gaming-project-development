@@ -32,9 +32,11 @@ const PaginationTab: React.FC<PaginationTabProps> = ({
       </PaginationContent>
       {showDeleteButtonGroup && (
         <div className="flex gap-x-[1em]">
-          <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-md min-w-[12ch] text-center">
-            Selected: {totalSelections}
-          </p>
+          {totalSelections > 0 && (
+            <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-md min-w-[12ch] text-center">
+              Selected: {totalSelections}
+            </p>
+          )}
           <Button variant="secondary" className="font-medium w-[12ch]">
             Cancel
           </Button>
@@ -45,13 +47,18 @@ const PaginationTab: React.FC<PaginationTabProps> = ({
       )}
       {showStatusButtonGroup && (
         <div className="flex gap-x-[1em]">
-          <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-md min-w-[12ch] text-center">
-            Selected: 3
-          </p>
+          {totalSelections > 0 && (
+            <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-md min-w-[12ch] text-center">
+              Selected: 3
+            </p>
+          )}
           <Button variant="secondary" className="font-medium w-[12ch]">
             Cancel
           </Button>
-          <Button variant="destructive" className="font-medium w-[12ch]">
+          <Button
+            variant="ghost"
+            className="font-medium w-[12ch] bg-[#00FFA1] text-black"
+          >
             Status
           </Button>
         </div>

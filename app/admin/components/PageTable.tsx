@@ -10,7 +10,7 @@ interface PageTableProps {
 
 const PageTable: React.FC<PageTableProps> = ({
   title,
-  buttonText,
+  buttonText = "",
   buttonFunction,
   children,
 }) => {
@@ -29,12 +29,14 @@ const PageTable: React.FC<PageTableProps> = ({
               className="bg-transparent outline-none border-s px-[1em] w-[38ch]"
             />
           </div>
-          <button
-            className="bg-[#00FFA1] font-bold text-black text-[11px] capitalize px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
-            onClick={buttonFunction}
-          >
-            {buttonText}
-          </button>
+          {buttonText !== "" && (
+            <button
+              className="bg-[#00FFA1] font-bold text-black text-[11px] capitalize px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
+              onClick={buttonFunction}
+            >
+              {buttonText}
+            </button>
+          )}
         </div>
       </div>
       {children}
