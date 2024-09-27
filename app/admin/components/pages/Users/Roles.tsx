@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { LuPencilLine } from "react-icons/lu";
 import { IoTrash } from "react-icons/io5";
-import axios from "axios";
+// import axios from "axios";
 
 import { useRoleContext } from "../../../../../context/RoleContext";
 import AddRoleModal from "./components/AddRoleModal";
 import EditRoleModal from "./components/EditRoleModal";
-import DeleteRole from "./components/DeleteRole";
+// import DeleteRole from "./components/DeleteRole";
+import DeleteModal from "./components/DeleteModal";
 import PageTitle from "../../PageTitle";
 import PageTable from "../../PageTable";
 import PaginationTab from "../../PaginationTab";
@@ -18,7 +20,8 @@ interface Role {
 }
 
 const RolesPage = () => {
-  const { roles, addRole, deleteRole } = useRoleContext();
+  // const { roles, addRole, deleteRole } = useRoleContext();
+  const { roles, deleteRole } = useRoleContext();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -35,9 +38,14 @@ const RolesPage = () => {
     setShowDelete(true);
   };
 
-  const updateRole = (newRole: string) => {
-    // deleteRole(currentRole);
-    // addRole(newRole);
+  // const updateRole = (newRole: string) => {
+  //   deleteRole(currentRole);
+  //   addRole(newRole);
+  // };
+
+  const deleteRoleById = async () => {
+    deleteRole(currentRole!.id);
+    setShowDelete(false);
   };
 
   return (
@@ -85,8 +93,15 @@ const RolesPage = () => {
           setShowModal={setShowEditModal}
         />
       )}
-      {showDelete && (
+      {/* {showDelete && (
         <DeleteRole currentRole={currentRole} handleCancel={setShowDelete} />
+      )} */}
+      {showDelete && (
+        <DeleteModal
+          title="role"
+          handleCancel={() => setShowDelete(false)}
+          handleConfirm={() => deleteRoleById()}
+        />
       )}
     </div>
   );

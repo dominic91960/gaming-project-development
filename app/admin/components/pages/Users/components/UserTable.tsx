@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { IoEyeOutline } from "react-icons/io5";
 import { LuPencilLine } from "react-icons/lu";
 import { IoTrash } from "react-icons/io5";
+import DeleteModal from "./DeleteModal";
 
 interface User {
   username: string;
@@ -24,6 +25,9 @@ const UserTable: React.FC<UserTableProps> = ({
   deleteUser,
   openEditModal,
 }) => {
+  const [username, setUsername] = useState("");
+  const [showDelete, setShowDelete] = useState(false);
+
   return (
     <table className="min-w-full table-auto text-[18px] border-separate border-spacing-y-[0.8em]">
       <thead>
@@ -66,7 +70,11 @@ const UserTable: React.FC<UserTableProps> = ({
               </button>
               <button
                 className="hover:opacity-80 transition-opacity duration-100"
-                onClick={() => deleteUser(user.username)}
+                // onClick={() => deleteUser(user.username)}
+                onClick={() => {
+                  setUsername(user.username);
+                  setShowDelete(true);
+                }}
               >
                 <IoTrash />
               </button>
@@ -74,6 +82,16 @@ const UserTable: React.FC<UserTableProps> = ({
           </tr>
         ))}
       </tbody>
+      {showDelete && (
+        <DeleteModal
+          title="user"
+          handleCancel={() => setShowDelete(false)}
+          handleConfirm={() => {
+            deleteUser(username);
+            setShowDelete(false);
+          }}
+        />
+      )}
     </table>
   );
 };
