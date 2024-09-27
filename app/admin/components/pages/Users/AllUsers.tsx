@@ -1,9 +1,28 @@
 import React, { useState } from "react";
 import AddUserModal from "./components/AddUserModal";
 import UserTable from "./components/UserTable";
+import PageTitle from "../../PageTitle";
+import PageTable from "../../PageTable";
+import PaginationTab from "../../PaginationTab";
 
 const UsersPage = () => {
   const [users, setUsers] = useState([
+    {
+      username: "john_doe",
+      firstName: "John",
+      lastName: "Doe",
+      email: "john.doe@example.com",
+      role: "Admin",
+      image: "/path-to-image",
+    },
+    {
+      username: "john_doe",
+      firstName: "John",
+      lastName: "Doe",
+      email: "john.doe@example.com",
+      role: "Admin",
+      image: "/path-to-image",
+    },
     {
       username: "john_doe",
       firstName: "John",
@@ -40,9 +59,31 @@ const UsersPage = () => {
   };
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">All Users</h1>
-      <button
+    <div className="min-h-full font-primaryFont text-[24px] p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md">
+      <PageTitle title="All users" subtitle="Users/all users" />
+      <PageTable
+        title="All users"
+        buttonText="Add user"
+        buttonFunction={() => {
+          setEditingUser(null);
+          setShowModal(true);
+        }}
+      >
+        <UserTable
+          users={users}
+          deleteUser={deleteUser}
+          openEditModal={openEditModal}
+        />
+      </PageTable>
+      <PaginationTab showDeleteButtonGroup showStatusButtonGroup={false} />
+      {showModal && (
+        <AddUserModal
+          addUser={addUser}
+          setShowModal={setShowModal}
+          editingUser={editingUser}
+        />
+      )}
+      {/* <button
         className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
         onClick={() => {
           setEditingUser(null);
@@ -62,7 +103,7 @@ const UsersPage = () => {
           setShowModal={setShowModal}
           editingUser={editingUser}
         />
-      )}
+      )} */}
     </div>
   );
 };
