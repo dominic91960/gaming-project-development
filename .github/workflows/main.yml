@@ -39,7 +39,7 @@ jobs:
       # Step 4: Decode .env base64 string and restore it
       - name: Decode .env file
         run: |
-          echo "${{ secrets.ENV_BASE64 }}" | base64 --decode > .env
+          echo "${{ secrets.ENV_BASE64 }}" | base64 --decode > .env.local
 
       # Step 5: Build and tag Docker image
       - name: Build Docker image
