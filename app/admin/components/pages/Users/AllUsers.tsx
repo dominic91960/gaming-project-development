@@ -16,24 +16,25 @@ const UsersPage = () => {
       image: "/path-to-image",
     },
     {
-      username: "john_doe",
-      firstName: "John",
-      lastName: "Doe",
-      email: "john.doe@example.com",
+      username: "test_user",
+      firstName: "Test",
+      lastName: "User",
+      email: "test.user@example.com",
       role: "Admin",
       image: "/path-to-image",
     },
     {
-      username: "john_doe",
-      firstName: "John",
-      lastName: "Doe",
-      email: "john.doe@example.com",
+      username: "test_two",
+      firstName: "Test",
+      lastName: "Two",
+      email: "test.two@example.com",
       role: "Admin",
       image: "/path-to-image",
     },
   ]);
   const [showModal, setShowModal] = useState(false);
   const [editingUser, setEditingUser] = useState<any>(null);
+  const [totalSelections, setTotalSelections] = useState(0);
 
   const addUser = (newUser: any) => {
     if (editingUser) {
@@ -71,11 +72,16 @@ const UsersPage = () => {
       >
         <UserTable
           users={users}
-          deleteUser={deleteUser}
           openEditModal={openEditModal}
+          deleteUser={deleteUser}
+          setTotalSelections={setTotalSelections}
         />
       </PageTable>
-      <PaginationTab showDeleteButtonGroup showStatusButtonGroup={false} />
+      <PaginationTab
+        showDeleteButtonGroup
+        showStatusButtonGroup={false}
+        totalSelections={totalSelections}
+      />
       {showModal && (
         <AddUserModal
           addUser={addUser}

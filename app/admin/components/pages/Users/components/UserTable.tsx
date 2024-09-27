@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import { IoEyeOutline } from "react-icons/io5";
 import { LuPencilLine } from "react-icons/lu";
 import { IoTrash } from "react-icons/io5";
+
 import DeleteModal from "./DeleteModal";
+import samplePic from "@/public/images/sample-pic.png";
+import Image from "next/image";
 
 interface User {
   username: string;
@@ -16,17 +19,33 @@ interface User {
 
 interface UserTableProps {
   users: User[];
-  deleteUser: (username: string) => void;
   openEditModal: (user: User) => void;
+  deleteUser: (username: string) => void;
+  setTotalSelections: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const UserTable: React.FC<UserTableProps> = ({
   users,
   deleteUser,
   openEditModal,
+  setTotalSelections,
 }) => {
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [username, setUsername] = useState("");
   const [showDelete, setShowDelete] = useState(false);
+
+  const isUserSelected = (username: string) => {
+    const data = selectedUsers.find(
+      (savedUsername) => savedUsername === username
+    );
+    return data ? true : false;
+  };
+
+  const handleRowClick = (username: string) => {
+    if (isUserSelected(username)) return;
+    setSelectedUsers((prev) => [...prev, username]);
+    setTotalSelections(selectedUsers.length + 1);
+  };
 
   return (
     <table className="min-w-full table-auto text-[18px] border-separate border-spacing-y-[0.8em]">
@@ -45,10 +64,18 @@ const UserTable: React.FC<UserTableProps> = ({
         {users.map((user) => (
           <tr
             key={user.username}
-            className="text-base text-center *:py-[1.5em] *:px-[1ch] *:bg-white/5 mt-4"
+            className="text-base text-center *:py-[1.5em] *:px-[1ch] *:bg-white/5 mt-4 cursor-pointer hover:scale-[101%]"
+            onClick={() => handleRowClick(user.username)}
           >
-            <td>
-              <div className="size-[2em] bg-slate-50 rounded-full mx-auto"></div>
+            <td className="relative">
+              {isUserSelected(user.username) && (
+                <div className="w-2 h-[5em] bg-[#00FFA1] absolute top-0 left-0 rounded-sm"></div>
+              )}
+              <Image
+                src={samplePic}
+                alt="Sample"
+                className="size-[2em] rounded-full mx-auto"
+              />
             </td>
             <td className="rounded-tl-sm rounded-bl-sm">{user.username}</td>
             <td>{user.firstName}</td>

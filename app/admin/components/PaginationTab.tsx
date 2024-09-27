@@ -11,11 +11,13 @@ import { Button } from "@/components/ui/button";
 interface PaginationTabProps {
   showDeleteButtonGroup: boolean;
   showStatusButtonGroup: boolean;
+  totalSelections: number;
 }
 
 const PaginationTab: React.FC<PaginationTabProps> = ({
   showDeleteButtonGroup = false,
   showStatusButtonGroup = false,
+  totalSelections = 0,
 }) => {
   return (
     <Pagination className="flex justify-between text-[15px] px-[4em] mt-[2em]">
@@ -31,7 +33,7 @@ const PaginationTab: React.FC<PaginationTabProps> = ({
       {showDeleteButtonGroup && (
         <div className="flex gap-x-[1em]">
           <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-md min-w-[12ch] text-center">
-            Selected: 3
+            Selected: {totalSelections}
           </p>
           <Button variant="secondary" className="font-medium w-[12ch]">
             Cancel
