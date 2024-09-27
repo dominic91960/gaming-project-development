@@ -45,7 +45,7 @@ export default function Home() {
             </p>
 
             <Button className="bg-[#FB5A00] px-12 text-[30px] font-primaryFont font-medium py-8">
-              Buy Now
+              Buy Now121212
             </Button>
           </div>
         </div>
