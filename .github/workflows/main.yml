@@ -63,6 +63,15 @@ jobs:
           IMAGE_DIGEST=$(aws ecr describe-images --repository-name $REPOSITORY_NAME --image-ids imageTag=$IMAGE_TAG --query 'imageDetails[0].imageDigest' --output text --region ${{ secrets.AWS_REGION }})
           aws ecr list-images --repository-name $REPOSITORY_NAME --region ${{ secrets.AWS_REGION }} --query 'imageIds[?imageDigest!=`'$IMAGE_DIGEST'`]' --output json | jq -r '.[].imageDigest' | xargs -I {} aws ecr batch-delete-image --repository-name $REPOSITORY_NAME --image-ids imageDigest={}
 
+      - name: Update EC2 instance via SSM
+        run: |
+          aws ssm send-command \
+          --instance-ids ${{ secrets.EC2_INSTANCE_ID }} \
+          --document-name "AWS-RunShellScript" \
+          --comment "Updating Docker container with the latest image" \
+          --parameters 'commands=["aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com", "docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/gaming-app-fe:latest", "docker stop gaming-app-fe || true", "docker rm gaming-app-fe || true", "docker run -d -p 80:3000 --name gaming-app-fe ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/gaming-app-fe:latest"]' \
+          --region ${{ secrets.AWS_REGION }}
+      
       # Step 9: Terminate instances in ASG to trigger redeployment
       # - name: Terminate EC2 instances in ASG
       #   run: |
