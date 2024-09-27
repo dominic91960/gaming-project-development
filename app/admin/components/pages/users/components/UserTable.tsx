@@ -21,26 +21,32 @@ const UserTable: React.FC<UserTableProps> = ({
   openEditModal,
 }) => {
   return (
-    <table className="min-w-full">
-      <thead className="">
-        <tr className="text-white">
-          <th className="px-4 py-2">Username</th>
-          <th className="px-4 py-2">First Name</th>
-          <th className="px-4 py-2">Last Name</th>
-          <th className="px-4 py-2">Email</th>
-          <th className="px-4 py-2">Role</th>
-          <th className="px-4 py-2">Actions</th>
+    <table className="min-w-full border-collapse border border-gray-200">
+      <thead>
+        <tr>
+          <th className="border border-gray-200 px-4 py-2">Username</th>
+          <th className="border border-gray-200 px-4 py-2">First Name</th>
+          <th className="border border-gray-200 px-4 py-2">Last Name</th>
+          <th className="border border-gray-200 px-4 py-2">Email</th>
+          <th className="border border-gray-200 px-4 py-2">Role</th>
+          <th className="border border-gray-200 px-4 py-2">Actions</th>
         </tr>
       </thead>
-      <tbody className="text-white">
+      <tbody>
         {users.map((user) => (
           <tr key={user.username} className="text-center bg-[#181819]">
-            <td className="px-4 py-2">{user.username}</td>
-            <td className="px-4 py-2">{user.firstName}</td>
-            <td className="px-4 py-2">{user.lastName}</td>
-            <td className="px-4 py-2">{user.email}</td>
-            <td className="px-4 py-2">{user.role}</td>
-            <td className="px-4 py-2">
+            <td className="border border-gray-200 px-4 py-2">
+              {user.username}
+            </td>
+            <td className="border border-gray-200 px-4 py-2">
+              {user.firstName}
+            </td>
+            <td className="border border-gray-200 px-4 py-2">
+              {user.lastName}
+            </td>
+            <td className="border border-gray-200 px-4 py-2">{user.email}</td>
+            <td className="border border-gray-200 px-4 py-2">{user.role}</td>
+            <td className="border border-gray-200 px-4 py-2">
               <button
                 className="bg-yellow-500 text-white px-2 py-1 rounded mr-2"
                 onClick={() => openEditModal(user)}
