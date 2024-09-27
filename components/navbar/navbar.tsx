@@ -145,7 +145,7 @@ export default function Navbar() {
             <Link href="/">
               <Image src={cart} alt="Cart" />
             </Link>
-            <Link href="/">
+            <Link href="/sign-in">
               <Image src={profile} alt="Profile" />
             </Link>
           </div>
