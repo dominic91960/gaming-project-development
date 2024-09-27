@@ -10,10 +10,13 @@ import {
   PaginationLink,
 } from "@/components/ui/pagination";
 
-import AddRoleModal from "./components/AddRoleModal";
-import EditRoleModal from "./components/EditRoleModal";
+// import AddRoleModal from "./components/AddRoleModal";
+import AddRoleModal from "../users/components/AddRoleModal";
+// import EditRoleModal from "./components/EditRoleModal";
+import EditRoleModal from "../users/components/EditRoleModal";
 import { useRoleContext } from "../../../../../context/RoleContext";
-import DeleteRole from "./components/DeleteRole";
+// import DeleteRole from "./components/DeleteRole";
+import DeleteRole from "../users/components/DeleteRole";
 import axios from "axios";
 
 interface Role {

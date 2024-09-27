@@ -11,9 +11,11 @@ import Categories from "./components/pages/products/Categories";
 import Tags from "./components/pages/products/Tags";
 import Brands from "./components/pages/products/Brands";
 import Platforms from "./components/pages/products/Platforms";
-import Customers from "./components/pages/Customers/Customers";
-import AllUsers from "./components/pages/Users/AllUsers";
-import RolesPage from "./components/pages/Users/Roles";
+
+import Customers from "../admin/components/pages/customers/Customers";
+import AllUsers from "../admin/components/pages/users/AllUsers";
+import RolesPage from "../admin/components/pages/users/Roles";
+
 import Orders from "./components/pages/orders/Orders";
 import Reviews from "./components/pages/reviews/Reviews";
 

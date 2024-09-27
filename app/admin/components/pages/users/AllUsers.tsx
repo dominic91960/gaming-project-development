@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import AddUserModal from "./components/AddUserModal";
-import UserTable from "./components/UserTable";
+// import AddUserModal from "./components/AddUserModal";
+// import UserTable from "./components/UserTable";
+
+import AddUserModal from "../users/components/AddUserModal";
+import UserTable from "../users/components/UserTable";
 
 const UsersPage = () => {
   const [users, setUsers] = useState([
@@ -16,7 +19,14 @@ const UsersPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [editingUser, setEditingUser] = useState<any>(null);
 
-  const addUser = async (newUser: { username: string; firstName: string; lastName: string; email: string; role: string; image: string; }): Promise<void> => {
+  const addUser = async (newUser: {
+    username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    role: string;
+    image: string;
+  }): Promise<void> => {
     if (editingUser) {
       setUsers(
         users.map((user) =>
