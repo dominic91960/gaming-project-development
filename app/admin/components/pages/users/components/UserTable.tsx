@@ -34,7 +34,7 @@ const UserTable: React.FC<UserTableProps> = ({
       </thead>
       <tbody>
         {users.map((user) => (
-          <tr key={user.username} className="text-center bg-[#181819]">
+          <tr key={user.username}>
             <td className="border border-gray-200 px-4 py-2">
               {user.username}
             </td>
