@@ -54,7 +54,7 @@ const UsersPage = () => {
       <h1 className="text-[36px] font-bold mb-1 text-white leading-none">
         All Users
       </h1>
-      <p className="text-[12px] mb-4 text-white">Users / All users</p>
+      <p className="text-[12px] mb-4 text-white">Users/All users</p>
 
       <div></div>
 
