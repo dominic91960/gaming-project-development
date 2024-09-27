@@ -50,18 +50,20 @@ const RolesPage = () => {
         <h1 className="font-bold text-[36px] leading-none text-white">
           Roles & Permissions
         </h1>
-        <p className="text-[12px]">Users / Role</p>
+        <p className="text-[12px] text-white">Users / Role</p>
       </div>
       <div className="flex-grow bg-black/40 border border-[#0D6D49] px-[2em] py-[1.2em] rounded-md">
         <div className="flex justify-between items-center pb-[1.2em] border-b border-b-[#0D6D49]">
-          <h2 className="font-semibold">Role & Permissions</h2>
+          <h2 className="font-semibold text-[24px] text-white">
+            Role & Permissions
+          </h2>
           <div className="flex items-center text-[12px] gap-x-[1em]">
             <div className="border p-[0.75em] rounded-sm flex items-center gap-x-[0.75em]">
-              <CiSearch className="text-[1.6em]" />
+              <CiSearch className="text-[1.6em] text-white" />
               <input
                 type="search"
                 placeholder="Search"
-                className="bg-transparent outline-none border-s px-[1em] w-[38ch]"
+                className="bg-transparent outline-none border-s px-[1em] w-[38ch] text-white"
               />
             </div>
             <button
@@ -78,20 +80,22 @@ const RolesPage = () => {
               key={index}
               className="flex justify-between border-b border-b-[#606060] pb-[0.2em] pt-[1em]"
             >
-              <span>{role.name}</span>
+              <span className="font-medium text-white text-[24px]">
+                {role.name}
+              </span>
               <div className="flex items-center gap-x-[1em]">
                 <button
                   onClick={() => handleEditClick(role)}
                   className="hover:opacity-80 transition-opacity duration-100"
                 >
-                  <LuPencilLine />
+                  <LuPencilLine className="text-[#96969f]" />
                 </button>
                 {/* <button onClick={() => deleteRole(role)}> */}
                 <button
                   onClick={() => handleDeleteClick(role)}
                   className="hover:opacity-80 transition-opacity duration-100"
                 >
-                  <IoTrash />
+                  <IoTrash className="text-[#96969f]" />
                 </button>
               </div>
             </li>
