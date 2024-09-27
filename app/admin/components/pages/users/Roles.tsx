@@ -47,7 +47,7 @@ const RolesPage = () => {
   return (
     <div className="min-h-full font-primaryFont text-[24px] p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md">
       <div className="pb-[2em]">
-        <h1 className="font-bold text-[36px] leading-none">
+        <h1 className="font-bold text-[36px] leading-none text-white">
           Roles & Permissions
         </h1>
         <p className="text-[12px]">Users / Role</p>
@@ -118,10 +118,7 @@ const RolesPage = () => {
         />
       )}
       {showDelete && (
-        <DeleteRole
-          currentRole={currentRole}
-          handleCancel={setShowDelete}
-        />
+        <DeleteRole currentRole={currentRole} handleCancel={setShowDelete} />
       )}
     </div>
   );
