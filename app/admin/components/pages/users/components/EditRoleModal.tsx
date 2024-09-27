@@ -1,25 +1,40 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
+import { useRoleContext } from "@/context/RoleContext"; // Import the context
+
+interface Role {
+  id: string;
+  name: string;
+}
 
 interface EditRoleModalProps {
-  currentRole: string;
+  currentRole: Role | any;
   setShowModal: (show: boolean) => void;
-  updateRole: (newRole: string) => void;
 }
 
 const EditRoleModal: React.FC<EditRoleModalProps> = ({
   currentRole,
   setShowModal,
-  updateRole,
 }) => {
-  const [newRole, setNewRole] = useState(currentRole);
+  const { editRole } = useRoleContext(); // Destructure editRole from context
+  const [newRole, setNewRole] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Set initial value of newRole when currentRole changes
+  useEffect(() => {
+    if (currentRole) {
+      setNewRole(currentRole.name);
+    }
+  }, [currentRole]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newRole.trim() !== "") {
-      updateRole(newRole);
-      setShowModal(false);
+      try {
+        await editRole(currentRole!.id, newRole.trim()); // Call editRole with ID and new name
+        setShowModal(false); // Close the modal after successful edit
+      } catch (error) {
+        console.error("Failed to edit role:", error);
+      }
     }
   };
 
@@ -51,7 +66,10 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({
               Please review and ensure that all the details you have entered are
               correct before submitting.
             </p>
-            <button className="text-black font-semibold text-[14px] px-[1.5em] py-[0.5em] bg-[#0BDB45] rounded hover:opacity-90 transition-opacity duration-100">
+            <button
+              type="submit" // Ensure button submits the form
+              className="text-black font-semibold text-[14px] px-[1.5em] py-[0.5em] bg-[#0BDB45] rounded hover:opacity-90 transition-opacity duration-100"
+            >
               Save
             </button>
           </div>

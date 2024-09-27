@@ -204,7 +204,9 @@ const SignIn = () => {
         <p className="text-white font-primaryFont font-normal text-[13px] mb-2">
           Do not have an account? 
         </p>
-        <Button variant="outline" className="w-full mb-6">
+        <Button 
+        onClick={() => router.push("/sign-up")}
+        variant="outline" className="w-full mb-6">
           <p className="font-primaryFont text-[17px] text-white font-bold">
             CREATE ACCOUNT
           </p>
