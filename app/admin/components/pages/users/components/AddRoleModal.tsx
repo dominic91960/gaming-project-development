@@ -31,20 +31,20 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ setShowModal }) => {
         >
           <IoClose />
         </button>
-        <h2 className="font-bold text-[20px] pb-[0.6em] border-b border-b-[#0D6D49]">
+        <h2 className="font-bold text-[20px] pb-[0.6em] border-b border-b-[#0D6D49] text-white">
           Add Role
         </h2>
         <div className="my-[2.5em]">
-          <p className="mb-[0.5em]">Name</p>
+          <p className="mb-[0.5em] text-[12px] font-medium text-white ">Name</p>
           <input
             type="text"
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            className="border border-[#D9D9D9] rounded w-full bg-transparent px-[1em] py-[0.5em] outline-none"
+            className="border border-[#D9D9D9] rounded w-full bg-transparent px-[1em] py-[0.5em] outline-none text-white"
           />
         </div>
         <div className="flex gap-x-[15%] justify-between">
-          <p className="text-[10px]">
+          <p className="text-[10px] font-medium text-white">
             Please review and ensure that all the details you have entered are
             correct before submitting.
           </p>
