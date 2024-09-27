@@ -16,7 +16,7 @@ const UsersPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [editingUser, setEditingUser] = useState<any>(null);
 
-  const addUser = (newUser: any) => {
+  const addUser = async (newUser: { username: string; firstName: string; lastName: string; email: string; role: string; image: string; }): Promise<void> => {
     if (editingUser) {
       setUsers(
         users.map((user) =>

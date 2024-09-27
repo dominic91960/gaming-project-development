@@ -83,7 +83,7 @@ export default function Navbar() {
   const [isMenuThreeVisible, setIsMenuThreeVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubMenu, setSelectedSubMenu] = useState("");
-  const [subMenuData, setSubMenuData] = useState([]);
+  const [subMenuData, setSubMenuData] = useState<string[]>([]);
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
@@ -94,9 +94,10 @@ export default function Navbar() {
     setSelectedSubMenu(subMenu);
     setIsMenuTwoVisible(false);
     setIsMenuThreeVisible(true);
-    setSubMenuData(
-      categories.find((c) => c.categoryName === category)?.[subMenu]
-    );
+    const categoryData = categories.find((c) => c.categoryName === category);
+    if (categoryData && subMenu in categoryData) {
+      setSubMenuData(categoryData[subMenu as keyof typeof categoryData] as string[]);
+    }
   };
 
   return (
