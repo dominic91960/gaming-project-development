@@ -51,9 +51,15 @@ const UsersPage = () => {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">All Users</h1>
+      <h1 className="text-[36px] font-bold mb-1 text-white leading-none">
+        All Users
+      </h1>
+      <p className="text-[12px] mb-4 text-white">Users / All users</p>
+
+      <div></div>
+
       <button
-        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+        className="bg-[#00FFA1] font-bold text-black text-[11px] px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
         onClick={() => {
           setEditingUser(null);
           setShowModal(true);
@@ -61,6 +67,7 @@ const UsersPage = () => {
       >
         Add User
       </button>
+
       <UserTable
         users={users}
         deleteUser={deleteUser}
