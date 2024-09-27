@@ -6,7 +6,7 @@ import { RoleProvider } from "../../context/RoleContext"; // Import RoleProvider
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/pages/dashboard/Dashboard";
 import AllProducts from "./components/pages/products/AllProducts";
-import AddNew from "./components/pages/products/AddNew";
+import AddProduct from "./components/pages/products/AddProduct";
 import Categories from "./components/pages/products/Categories";
 import Tags from "./components/pages/products/Tags";
 import Brands from "./components/pages/products/Brands";
@@ -31,8 +31,8 @@ const AdminPanel: React.FC = () => {
 
       case "all-products":
         return <AllProducts />;
-      case "add-new":
-        return <AddNew />;
+      case "add-product":
+        return <AddProduct />;
       case "categories":
         return <Categories />;
       case "tags":

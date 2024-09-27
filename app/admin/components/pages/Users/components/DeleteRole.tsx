@@ -20,13 +20,13 @@ const DeleteRole: React.FC<DeleteRoleProps> = ({
   const { deleteRole } = useRoleContext();
 
   const deleteRoleById = async () => {
-      deleteRole(currentRole.id);      
-      handleCancel(false);
+    deleteRole(currentRole.id);
+    handleCancel(false);
   };
 
   return (
     <div className="fixed inset-0 bg-black/80 flex justify-center items-center text-[11px] text-center">
-      <div className="relative bg-gradient-to-br from-black from-15% to-[#0d6d4a65] p-[4em] rounded-md border border-t-[1em] border-[#0D6D49]">
+      <div className="relative bg-gradient-to-br from-black/40 from-50% to-[#00a76966] backdrop-blur-sm p-[4em] rounded-md border border-t-[1em] border-[#0D6D49]">
         <div className="size-[6.5em] absolute top-0 left-0 right-0 mx-auto -translate-y-[60%] bg-[#0D6D49] flex items-center justify-center rounded-full">
           <MdDeleteForever className="text-[5em]" />
         </div>
@@ -34,7 +34,8 @@ const DeleteRole: React.FC<DeleteRoleProps> = ({
           Delete {currentRole?.name} role
         </h2>
         <p className="text-[11px] mt-[2em] mb-[2.5em] w-[40ch]">
-          Deleting this role will remove it from the system permanently. This cannot be undone.
+          Deleting this role will remove it from the system permanently. This
+          cannot be undone.
         </p>
         <div className="flex gap-x-[3em] justify-center font-bold">
           <button

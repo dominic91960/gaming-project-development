@@ -52,7 +52,10 @@ const UserTable: React.FC<UserTableProps> = ({
             <td>{user.email}</td>
             <td>{user.role}</td>
             <td className="rounded-tr-sm rounded-br-sm text-[#A1A1AA] space-x-[0.5em]">
-              <button>
+              <button
+                className="hover:opacity-80 transition-opacity duration-100"
+                onClick={() => openEditModal(user)}
+              >
                 <IoEyeOutline className="hover:opacity-80 transition-opacity duration-100" />
               </button>
               <button

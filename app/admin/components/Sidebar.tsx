@@ -56,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
           <SidebarButton
             itemArray={[
               "all-products",
-              "add-new",
+              "add-product",
               "categories",
               "tags",
               "brands",
@@ -80,7 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
               </SidebarLink>
               <SidebarLink
                 selectedItem={selectedItem}
-                itemName="add-new"
+                itemName="add-product"
                 handleItemClick={handleItemClick}
               >
                 <FaSquarePlus />
