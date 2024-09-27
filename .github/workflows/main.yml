@@ -1,0 +1,76 @@
+name: Deploy Backend to ASG
+
+on:
+  push:
+    branches:
+      - master
+      - dep/deployment
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check AWS CLI version
+        run: aws --version
+
+      # Step 1: Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Configure AWS credentials using access key and secret
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # Step 2: Set up Docker and Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Step 4: Log in to Amazon ECR
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        run: |
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+
+      # Step 4: Decode .env base64 string and restore it
+      - name: Decode .env file
+        run: |
+          echo "${{ secrets.ENV_BASE64 }}" | base64 --decode > .env
+
+      # Step 5: Build and tag Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t gaming-app:latest -f Dockerfile .
+
+      - name: Tag Docker image
+        run: |
+          docker tag gaming-app:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/gaming-app-fe:latest
+
+      # Step 7: Push Docker image to Amazon ECR
+      - name: Push to Amazon ECR
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/gaming-app-fe:latest
+
+      # Step 8: Remove old images from ECR, keeping only the latest one
+      - name: Remove old ECR images
+        run: |
+          REPOSITORY_NAME="gaming-app-fe"
+          IMAGE_TAG="latest"
+          IMAGE_DIGEST=$(aws ecr describe-images --repository-name $REPOSITORY_NAME --image-ids imageTag=$IMAGE_TAG --query 'imageDetails[0].imageDigest' --output text --region ${{ secrets.AWS_REGION }})
+          aws ecr list-images --repository-name $REPOSITORY_NAME --region ${{ secrets.AWS_REGION }} --query 'imageIds[?imageDigest!=`'$IMAGE_DIGEST'`]' --output json | jq -r '.[].imageDigest' | xargs -I {} aws ecr batch-delete-image --repository-name $REPOSITORY_NAME --image-ids imageDigest={}
+
+      # Step 9: Terminate instances in ASG to trigger redeployment
+      # - name: Terminate EC2 instances in ASG
+      #   run: |
+      #     INSTANCE_IDS=$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name gaming-app-asg-dev --query "AutoScalingGroups[0].Instances[*].InstanceId" --output text)
+      #     for instance_id in $INSTANCE_IDS; do
+      #       echo "Terminating instance $instance_id"
+      #       aws autoscaling terminate-instance-in-auto-scaling-group --instance-id $instance_id --no-should-decrement-desired-capacity
+      #     done
+
+    #       service: my-backend-service
+    #       force-new-deployment: true
