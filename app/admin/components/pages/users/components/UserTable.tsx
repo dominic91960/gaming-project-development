@@ -1,6 +1,7 @@
 import React from "react";
 
 interface User {
+  id: string;
   username: string;
   firstName: string;
   lastName: string;
@@ -55,7 +56,7 @@ const UserTable: React.FC<UserTableProps> = ({
               </button>
               <button
                 className="bg-red-500 text-white px-2 py-1 rounded"
-                onClick={() => deleteUser(user.username)}
+                onClick={() => deleteUser(user.id)}
               >
                 Delete
               </button>

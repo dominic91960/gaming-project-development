@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import AddUserModal from "../users/components/AddUserModal";
 import UserTable from "../users/components/UserTable";
 import axiosInstance from "@/axios/axiosInstance";
+import toast from "react-hot-toast";
 
 const UsersPage = () => {
   const [users, setUsers] = useState([
@@ -29,8 +30,8 @@ const UsersPage = () => {
     try {
       const response = await axiosInstance.get("/user?roleName=ADMIN");
       setAllAdmins(response.data.data);
-    } catch (error) {
-      console.log("Admins fetch failed", error);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
   };
 
@@ -55,8 +56,14 @@ const UsersPage = () => {
     setShowModal(false);
   };
 
-  const deleteUser = (username: string) => {
-    setUsers(users.filter((u) => u.username !== username));
+  const deleteUser = async (id: string) => {
+    try {
+      let response = await axiosInstance.delete(`/auth/${id}`);
+      toast.success(response.data.message);
+      getAllAdmins();
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
   };
 
   const openEditModal = (user: any) => {
@@ -86,6 +93,7 @@ const UsersPage = () => {
           addUser={addUser}
           setShowModal={setShowModal}
           editingUser={editingUser}
+          getAllAdmins={getAllAdmins}
         />
       )}
     </div>
