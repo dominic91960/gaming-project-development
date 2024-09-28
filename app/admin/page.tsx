@@ -16,6 +16,7 @@ import AllUsers from "../admin/components/pages/users/AllUsers";
 import RolesPage from "../admin/components/pages/users/Roles";
 import Orders from "./components/pages/orders/Orders";
 import Reviews from "./components/pages/reviews/Reviews";
+import toast from "react-hot-toast";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
@@ -25,12 +26,14 @@ const AdminPanel: React.FC = () => {
     const user = localStorage.getItem("user");
     if (user) {
       const parsedUser = JSON.parse(user);
-      if (parsedUser.role === "ADMIN") {
+      if (parsedUser.role.name === "ADMIN") {
         setIsAuthorized(true);
       } else {
+        toast.error('You Are Not Admin')
         router.push("/"); // Redirect if not admin
       }
     } else {
+      toast.error('You Are Not Admin')
       router.push("/sign-in"); // Redirect if no user found
     }
   }, [router]);
