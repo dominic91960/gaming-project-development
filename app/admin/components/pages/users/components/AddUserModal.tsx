@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRoleContext } from "../../../../../../context/RoleContext";
+import axiosInstance from "@/axios/axiosInstance";
+import toast from "react-hot-toast";
 
 interface AddUserModalProps {
   addUser: (newUser: {
@@ -9,24 +11,27 @@ interface AddUserModalProps {
     email: string;
     role: string;
     image: string;
-    password: string; // Include password here
-  }) => Promise<void>; // Change to Promise<void> for async operation
+    password: string;
+  }) => Promise<void>;
   setShowModal: (show: boolean) => void;
   editingUser: {
+    id: string;
     username: string;
     firstName: string;
     lastName: string;
     email: string;
     role: string;
     image: string;
-    password?: string; // Optional password when editing
-  } | null; // Specify editingUser type
+    password?: string;
+  } | null;
+  getAllAdmins: () => void;
 }
 
 const AddUserModal: React.FC<AddUserModalProps> = ({
   addUser,
   setShowModal,
   editingUser,
+  getAllAdmins,
 }) => {
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -35,6 +40,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
   const [role, setRole] = useState("");
   const [image, setImage] = useState("");
   const [password, setPassword] = useState(""); // Add password state
+  const [imageFile, setImageFile] = useState<File | null>(null); // Store file data
 
   const { roles } = useRoleContext();
 
@@ -59,27 +65,40 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
       email,
       role,
       image,
-      password, // Include password in newUser object
+      password,
     };
 
     try {
-      const url = process.env.NEXT_PUBLIC_BASE_URL + "/auth/register"; // Define your API endpoint
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser), // Send the new user data including the password
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`); // Handle non-200 responses
+      let response;
+      if (editingUser) {
+        // Update user
+        response = await axiosInstance.patch(
+          `/auth/${editingUser.id}`,
+          newUser
+        );
+      } else {
+        // Create new user
+        response = await axiosInstance.post("/auth/register", newUser);
       }
+      toast.success(response.data.message);
 
-      await addUser(newUser); // Call addUser function after successful registration
-      setShowModal(false); // Close the modal after successful addition
-    } catch (error) {
-      console.error("User save failed:", error);
+      if (response.status >= 200 && response.status < 300) {
+        await addUser(newUser); // Add the new or updated user
+        setShowModal(false); // Close modal after success
+      } else {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+      getAllAdmins();
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setImage(URL.createObjectURL(file));
+      setImageFile(file); // Set the file to imageFile for potential future upload
     }
   };
 
@@ -90,7 +109,8 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
     setEmail("");
     setRole("");
     setImage("");
-    setPassword(""); // Clear password field
+    setPassword("");
+    setImageFile(null); // Clear file state
   };
 
   return (
@@ -99,14 +119,19 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
         <h2 className="text-xl mb-4">
           {editingUser ? "Edit User" : "Add User"}
         </h2>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="border p-2 mb-4 w-full"
-          placeholder="Enter username"
-          required
-        />
+        {editingUser ? (
+          <div className="border p-2 mb-4 w-full">{username}</div>
+        ) : (
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="border p-2 mb-4 w-full"
+            placeholder="Enter username"
+            required
+          />
+        )}
+
         <input
           type="text"
           value={firstName}
@@ -131,14 +156,16 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
           placeholder="Enter email"
           required
         />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)} // Update password state
-          className="border p-2 mb-4 w-full"
-          placeholder="Enter password"
-          required={!editingUser} // Make password required for new users, but not when editing
-        />
+        {!editingUser && (
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="border p-2 mb-4 w-full"
+            placeholder="Enter password"
+            required={!editingUser}
+          />
+        )}
         <select
           value={role}
           onChange={(e) => setRole(e.target.value)}
@@ -147,21 +174,18 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
         >
           <option value="">Select Role</option>
           {roles.map((role) => (
-            <option key={role.id} value={role.id}> {/* Assuming roles have an id property */}
-              {role.name} {/* Assuming roles have a name property */}
+            <option key={role.id} value={role.name}>
+              {role.name}
             </option>
           ))}
         </select>
         <input
           type="file"
-          onChange={(e) => {
-            if (e.target.files && e.target.files.length > 0) {
-              setImage(URL.createObjectURL(e.target.files[0])); // Handle image upload
-            }
-          }}
+          onChange={handleImageChange}
           className="border p-2 mb-4 w-full"
-          accept="image/*" // Limit file selection to images
+          accept="image/*"
         />
+        {image && <img src={image} alt="Preview" className="w-20 h-20 mb-4" />}
         <div className="flex justify-end">
           <button
             className="bg-red-500 text-white px-4 py-2 mr-2 rounded"
