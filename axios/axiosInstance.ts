@@ -1,6 +1,4 @@
 import axios from "axios";
-import Router from "next/router";
-import { redirect } from 'next/navigation'
 
 let isRefreshing = false;
 let failedQueue: any[] = [];
@@ -15,10 +13,8 @@ interface User {
   image: string;
 }
 
-
-
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 axiosInstance.interceptors.request.use(
@@ -63,18 +59,16 @@ axiosInstance.interceptors.response.use(
         : null;
       if (!refreshToken) {
         // Router.push("/sign-in");
-        window.location.href = '/sign-in';
+        window.location.href = "/sign-in";
         return Promise.reject(error);
       }
 
       try {
-        const response = await axios.post(
-          "http://localhost:3000/auth/refresh-token",
-          {
-            userId: user?.id,
-            refreshToken,
-          }
-        );
+        const url = process.env.NEXT_PUBLIC_BASE_URL + "/auth/refresh-token";
+        const response = await axios.post(url, {
+          userId: user?.id,
+          refreshToken,
+        });
 
         const { accessToken: newAccessToken } = response.data;
         localStorage.setItem("accessToken", newAccessToken);
@@ -82,7 +76,7 @@ axiosInstance.interceptors.response.use(
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
         return axiosInstance(originalRequest);
       } catch (err) {
-        console.log('noooo');
+        console.log("noooo");
         localStorage.clear();
         // Router.push("/sign-in");
         return Promise.reject(err);

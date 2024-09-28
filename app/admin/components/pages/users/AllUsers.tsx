@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 
 import AddUserModal from "../users/components/AddUserModal";
 import UserTable from "../users/components/UserTable";
-import axios from "axios";
 import axiosInstance from "@/axios/axiosInstance";
 
 const UsersPage = () => {
@@ -28,9 +27,7 @@ const UsersPage = () => {
 
   const getAllAdmins = async () => {
     try {
-      const response = await axiosInstance.get('/user?roleName=ADMIN')
-      // const url = "http://localhost:3000/user?roleName=ADMIN";
-      // const response = await axios.get(url);
+      const response = await axiosInstance.get("/user?roleName=ADMIN");
       setAllAdmins(response.data.data);
     } catch (error) {
       console.log("Admins fetch failed", error);

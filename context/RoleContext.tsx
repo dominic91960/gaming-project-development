@@ -1,5 +1,12 @@
-import React, { createContext, useState, ReactNode, useContext, useEffect } from "react";
+import React, {
+  createContext,
+  useState,
+  ReactNode,
+  useContext,
+  useEffect,
+} from "react";
 import axios from "axios";
+import axiosInstance from "@/axios/axiosInstance";
 
 interface Role {
   id: string;
@@ -33,8 +40,7 @@ export const RoleProvider = ({ children }: { children: ReactNode }) => {
 
   const getAllUserRoles = async () => {
     try {
-      const url = "http://localhost:3000/user-roles";
-      const response = await axios.get(url);
+      const response = await axiosInstance.get("/user-roles");
       setRoles(response.data); // Assuming the API returns the array of roles
     } catch (error) {
       console.log("Roles fetch failed", error);
