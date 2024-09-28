@@ -13,6 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -29,6 +30,8 @@ interface SignInFormInputs {
 }
 
 const SignIn = () => {
+  const router = useRouter();
+  
   const {
     register,
     handleSubmit,
@@ -46,24 +49,23 @@ const SignIn = () => {
       );
 
       if (response.status === 201) {
-        const { accessToken, refreshToken, user } = response.data;
+        const { accessToken, refreshToken, user, message } = response.data;
 
         // Store tokens and user data in localStorage
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("user", JSON.stringify(user));
+        toast.success(message); 
 
         // Redirect to home page
         router.push("/admin");
       } else {
         console.error("Login failed");
       }
-    } catch (error) {
-      console.error("Error during login:", error);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
   };
-
-  const router = useRouter();
   const handleGoogleLogin = () => {
     const width = 500;
     const height = 600;
