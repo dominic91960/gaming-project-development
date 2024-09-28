@@ -13,6 +13,8 @@ import GoogleIcon from "../../public/images/sign-in/google.png";
 import FacebookIcon from "../../public/images/sign-in/facebook.png";
 import AppleIcon from "../../public/images/sign-in/apple.png";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -33,6 +35,8 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUp = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -54,12 +58,10 @@ const SignUp = () => {
       });
 
       console.log("Registration successful", response.data);
+      toast.success(response.data.message);
+      router.push("/");
     } catch (error: any) {
-      if (error.response) {
-        console.error("Registration failed", error.response.data.message);
-      } else {
-        console.error("Error:", error.message);
-      }
+      toast.error(error.response.data.message);
     }
   };
 
