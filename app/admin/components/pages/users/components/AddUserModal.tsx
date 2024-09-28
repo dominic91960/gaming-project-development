@@ -9,6 +9,7 @@ interface AddUserModalProps {
     email: string;
     role: string;
     image: string;
+    password: string; // Include password here
   }) => Promise<void>; // Change to Promise<void> for async operation
   setShowModal: (show: boolean) => void;
   editingUser: {
@@ -18,6 +19,7 @@ interface AddUserModalProps {
     email: string;
     role: string;
     image: string;
+    password?: string; // Optional password when editing
   } | null; // Specify editingUser type
 }
 
@@ -32,6 +34,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [image, setImage] = useState("");
+  const [password, setPassword] = useState(""); // Add password state
 
   const { roles } = useRoleContext();
 
@@ -56,6 +59,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
       email,
       role,
       image,
+      password, // Include password in newUser object
     };
 
     try {
@@ -65,7 +69,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newUser), // Send the new user data
+        body: JSON.stringify(newUser), // Send the new user data including the password
       });
 
       if (!response.ok) {
@@ -86,6 +90,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
     setEmail("");
     setRole("");
     setImage("");
+    setPassword(""); // Clear password field
   };
 
   return (
@@ -125,6 +130,14 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
           className="border p-2 mb-4 w-full"
           placeholder="Enter email"
           required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)} // Update password state
+          className="border p-2 mb-4 w-full"
+          placeholder="Enter password"
+          required={!editingUser} // Make password required for new users, but not when editing
         />
         <select
           value={role}
