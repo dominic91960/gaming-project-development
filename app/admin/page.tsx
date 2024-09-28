@@ -1,8 +1,8 @@
 "use client";
-import { useState } from "react";
-// import type { AppProps } from "next/app";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-import { RoleProvider } from "../../context/RoleContext"; // Import RoleProvider
+import { RoleProvider } from "../../context/RoleContext";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/pages/dashboard/Dashboard";
 import AllProducts from "./components/pages/products/AllProducts";
@@ -11,16 +11,29 @@ import Categories from "./components/pages/products/Categories";
 import Tags from "./components/pages/products/Tags";
 import Brands from "./components/pages/products/Brands";
 import Platforms from "./components/pages/products/Platforms";
-
 import Customers from "../admin/components/pages/customers/Customers";
 import AllUsers from "../admin/components/pages/users/AllUsers";
 import RolesPage from "../admin/components/pages/users/Roles";
-
 import Orders from "./components/pages/orders/Orders";
 import Reviews from "./components/pages/reviews/Reviews";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+  const router = useRouter();
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      if (parsedUser.role === "ADMIN") {
+        setIsAuthorized(true);
+      } else {
+        router.push("/"); // Redirect if not admin
+      }
+    } else {
+      router.push("/sign-in"); // Redirect if no user found
+    }
+  }, [router]);
 
   const handleSelect = (content: string) => {
     setSelectedContent(content);
@@ -62,6 +75,11 @@ const AdminPanel: React.FC = () => {
         return <Dashboard />;
     }
   };
+
+  if (!isAuthorized) {
+    // Optionally, return a loading spinner while checking the role
+    return <div>Loading...</div>;
+  }
 
   return (
     <RoleProvider>
