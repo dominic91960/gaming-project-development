@@ -21,7 +21,7 @@ const UserTable: React.FC<UserTableProps> = ({
   openEditModal,
 }) => {
   return (
-    <table className="min-w-full border-collapse border border-gray-200">
+    <table className="min-w-full border-collapse border border-gray-200 text-white">
       <thead>
         <tr>
           <th className="border border-gray-200 px-4 py-2">Username</th>

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import AddUserModal from "./components/AddUserModal";
 // import UserTable from "./components/UserTable";
 
 import AddUserModal from "../users/components/AddUserModal";
 import UserTable from "../users/components/UserTable";
+import axios from "axios";
+import axiosInstance from "@/axios/axiosInstance";
 
 const UsersPage = () => {
   const [users, setUsers] = useState([
@@ -16,8 +18,24 @@ const UsersPage = () => {
       image: "/path-to-image",
     },
   ]);
+  const [allAdmins, setAllAdmins] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editingUser, setEditingUser] = useState<any>(null);
+
+  useEffect(() => {
+    getAllAdmins();
+  }, []);
+
+  const getAllAdmins = async () => {
+    try {
+      const response = await axiosInstance.get('/user?roleName=ADMIN')
+      // const url = "http://localhost:3000/user?roleName=ADMIN";
+      // const response = await axios.get(url);
+      setAllAdmins(response.data.data);
+    } catch (error) {
+      console.log("Admins fetch failed", error);
+    }
+  };
 
   const addUser = async (newUser: {
     username: string;
@@ -62,7 +80,7 @@ const UsersPage = () => {
         Add User
       </button>
       <UserTable
-        users={users}
+        users={allAdmins}
         deleteUser={deleteUser}
         openEditModal={openEditModal}
       />

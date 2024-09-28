@@ -49,12 +49,12 @@ const SignIn = () => {
         const { accessToken, refreshToken, user } = response.data;
 
         // Store tokens and user data in localStorage
-        localStorage.setItem("auth_token", accessToken);
-        localStorage.setItem("refresh_token", refreshToken);
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("user", JSON.stringify(user));
 
         // Redirect to home page
-        router.push("/");
+        router.push("/admin");
       } else {
         console.error("Login failed");
       }
@@ -97,12 +97,12 @@ const SignIn = () => {
       console.log("User:", user);
 
       if (accessToken && refreshToken && user) {
-        localStorage.setItem("auth_token", accessToken);
-        localStorage.setItem("refresh_token", refreshToken);
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
 
         localStorage.setItem("user", JSON.stringify(user));
 
-        router.push("/");
+        router.push("/admin");
       }
     };
 

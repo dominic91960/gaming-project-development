@@ -33,7 +33,7 @@ export const RoleProvider = ({ children }: { children: ReactNode }) => {
 
   const getAllUserRoles = async () => {
     try {
-      const url = process.env.NEXT_PUBLIC_BASE_URL + "/user-roles";
+      const url = "http://localhost:3000/user-roles";
       const response = await axios.get(url);
       setRoles(response.data); // Assuming the API returns the array of roles
     } catch (error) {
