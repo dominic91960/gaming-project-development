@@ -24,7 +24,7 @@ interface AddUserModalProps {
     image: string;
     password?: string;
   } | null;
-  getAllAdmins: () => void;
+  getAllAdmins: (page: number) => void;
 }
 
 const AddUserModal: React.FC<AddUserModalProps> = ({
@@ -88,7 +88,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
       } else {
         throw new Error(`Error: ${response.statusText}`);
       }
-      getAllAdmins();
+      getAllAdmins(1);
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
