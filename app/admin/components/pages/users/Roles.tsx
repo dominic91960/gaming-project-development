@@ -18,6 +18,7 @@ import { useRoleContext } from "../../../../../context/RoleContext";
 // import DeleteRole from "./components/DeleteRole";
 import DeleteRole from "../users/components/DeleteRole";
 import axios from "axios";
+import Spinner from "@/components/Spinner/Spinner";
 
 interface Role {
   id: string;
@@ -25,14 +26,13 @@ interface Role {
 }
 
 const RolesPage = () => {
-  const { roles, addRole, deleteRole } = useRoleContext();
+  const { roles, addRole, deleteRole, loading } = useRoleContext();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [currentRole, setCurrentRole] = useState<Role>();
 
   const handleEditClick = (role: Role) => {
-    console.log(role, "role");
     setCurrentRole(role);
     setShowEditModal(true);
   };
@@ -40,12 +40,11 @@ const RolesPage = () => {
   const handleDeleteClick = (role: Role) => {
     setCurrentRole(role);
     setShowDelete(true);
-  };
+  };  
 
-  const updateRole = (newRole: string) => {
-    // deleteRole(currentRole);
-    // addRole(newRole);
-  };
+  if (loading) {
+    return <Spinner loading={loading} />;
+  }
 
   return (
     <div className="min-h-full font-primaryFont text-[24px] p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md">

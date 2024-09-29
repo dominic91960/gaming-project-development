@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import axios from "axios";
 import axiosInstance from "@/axios/axiosInstance";
+import toast from "react-hot-toast";
 
 interface Role {
   id: string;
@@ -18,6 +19,7 @@ interface RoleContextProps {
   addRole: (roleName: string) => Promise<void>;
   deleteRole: (id: string) => Promise<void>;
   editRole: (id: string, roleName: string) => Promise<void>;
+  loading: boolean; // Expose loading state to manage spinner outside
 }
 
 const RoleContext = createContext<RoleContextProps | undefined>(undefined);
@@ -32,6 +34,12 @@ export const useRoleContext = () => {
 
 export const RoleProvider = ({ children }: { children: ReactNode }) => {
   const [roles, setRoles] = useState<Role[]>([]);
+  const [loading, setLoading] = useState<boolean>(false); // Track loading state
+
+  // show toast
+  const showToast = (value: boolean, message: string) => {
+    value ? toast.success(message) : toast.error(message);
+  };
 
   // Fetch roles from the backend on mount
   useEffect(() => {
@@ -39,53 +47,72 @@ export const RoleProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const getAllUserRoles = async () => {
+    setLoading(true); // Start spinner
     try {
       const response = await axiosInstance.get("/user-roles");
       setRoles(response.data); // Assuming the API returns the array of roles
-    } catch (error) {
-      console.log("Roles fetch failed", error);
+      // showToast(true, response.data.message);
+    } catch (error: any) {
+      showToast(false, error.response.data.message);
+    } finally {
+      setLoading(false); // Stop spinner
     }
   };
 
   // Add role via API
   const addRole = async (roleName: string) => {
+    setLoading(true); // Start spinner
     try {
-      const url = process.env.NEXT_PUBLIC_BASE_URL + "/user-roles";
-      const response = await axios.post(url, { name: roleName });
-      // Add the new role to the local state after successfully adding to the backend
-      setRoles((prevRoles) => [...prevRoles, response.data]);
-    } catch (error) {
-      console.log("Failed to add role", error);
+      const response = await axiosInstance.post("user-roles", {
+        name: roleName,
+      });
+      showToast(true, response.data.message);
+      getAllUserRoles();
+      setRoles((prevRoles) => [...prevRoles, response.data]); // Add new role to local state
+    } catch (error: any) {
+      showToast(false, error.response.data.message);
+    } finally {
+      setLoading(false); // Stop spinner
     }
   };
 
-  // Delete role
+  // Delete role via API
   const deleteRole = async (id: string) => {
+    setLoading(true); // Start spinner
     try {
-      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/user-roles/${id}`;
-      await axios.delete(url);
-      setRoles((prevRoles) => prevRoles.filter((role) => role.id !== id));
-    } catch (error) {
-      console.log("Failed to delete role", error);
+      const response = await axiosInstance.delete(`user-roles/${id}`);
+      getAllUserRoles();
+      showToast(true, response.data.message);
+      setRoles((prevRoles) => prevRoles.filter((role) => role.id !== id)); // Remove role from local state
+    } catch (error: any) {
+      showToast(false, error.response.data.message);
+    } finally {
+      setLoading(false); // Stop spinner
     }
   };
 
-  // Edit role
+  // Edit role via API
   const editRole = async (id: string, roleName: string) => {
+    setLoading(true); // Start spinner
     try {
-      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/user-roles/${id}`;
-      const response = await axios.patch(url, { name: roleName });
-      // Update the local state with the edited role after a successful backend update
+      const response = await axiosInstance.patch(`user-roles/${id}`, {
+        name: roleName,
+      });
+      showToast(true, response.data.message);
       setRoles((prevRoles) =>
         prevRoles.map((r) => (r.id === id ? { ...r, name: roleName } : r))
-      );
-    } catch (error) {
-      console.log("Failed to edit role", error);
+      ); // Update local state with the edited role
+    } catch (error: any) {
+      showToast(false, error.response.data.message);
+    } finally {
+      setLoading(false); // Stop spinner
     }
   };
 
   return (
-    <RoleContext.Provider value={{ roles, addRole, deleteRole, editRole }}>
+    <RoleContext.Provider
+      value={{ roles, addRole, deleteRole, editRole, loading }}
+    >
       {children}
     </RoleContext.Provider>
   );
