@@ -47,30 +47,28 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({
         >
           <IoClose />
         </button>
-        <h2 className="font-bold text-[20px] pb-[0.6em] border-b border-b-[#0D6D49] text-white">
+        <h2 className="font-bold text-[20px] pb-[0.6em] border-b border-b-[#0D6D49]">
           Edit Role
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="my-[2.5em]">
-            <p className="mb-[0.5em] text-[12px] font-medium text-white">
-              Name
-            </p>
+            <p className="mb-[0.5em]">Name</p>
             <input
               type="text"
               value={newRole}
               onChange={(e) => setNewRole(e.target.value)}
-              className="border border-[#D9D9D9] rounded w-full bg-transparent px-[1em] py-[0.5em] outline-none text-white"
+              className="border text-white border-[#D9D9D9] rounded w-full bg-transparent px-[1em] py-[0.5em] outline-none"
               required
             />
           </div>
-          <div className="flex gap-x-[15%] justify-between text-[#D9D9D9] font-medium">
+          <div className="flex gap-x-[15%] justify-between">
             <p className="text-[10px]">
               Please review and ensure that all the details you have entered are
               correct before submitting.
             </p>
             <button
               type="submit" // Ensure button submits the form
-              className="font-semibold text-[14px] px-[1.5em] py-[0.5em] bg-[#0BDB45] rounded hover:opacity-90 transition-opacity duration-100 text-black"
+              className="text-black font-semibold text-[14px] px-[1.5em] py-[0.5em] bg-[#0BDB45] rounded hover:opacity-90 transition-opacity duration-100"
             >
               Save
             </button>
