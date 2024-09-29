@@ -1,7 +1,6 @@
 import { useRoleContext } from "@/context/RoleContext";
 import React from "react";
 import { MdDeleteForever } from "react-icons/md";
-import axios from "axios";
 
 interface Role {
   id: string;

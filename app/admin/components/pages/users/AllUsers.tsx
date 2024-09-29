@@ -3,6 +3,7 @@ import AddUserModal from "../users/components/AddUserModal";
 import UserTable from "../users/components/UserTable";
 import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
+import Spinner from "@/components/Spinner/Spinner";
 
 const UsersPage = () => {
   const [users, setUsers] = useState([]); // Store all users
@@ -13,6 +14,7 @@ const UsersPage = () => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(""); // Debounced search term
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   // Debounce searchTerm
   useEffect(() => {
@@ -29,6 +31,7 @@ const UsersPage = () => {
 
   // Fetch all admins with pagination and optional search term
   const getAllAdmins = async (page: number, search: string = "") => {
+    setLoading(true);
     try {
       const response = await axiosInstance.get(
         `/user?page=${page}&search=${search}&roleName=ADMIN`
@@ -37,6 +40,8 @@ const UsersPage = () => {
       setTotalPages(response.data.totalPages); // Assuming the API returns total pages
     } catch (error: any) {
       toast.error(error.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -89,6 +94,10 @@ const UsersPage = () => {
     }
     return buttons;
   };
+
+  if (loading) {
+    return <Spinner loading={loading} />;
+  }
 
   return (
     <div className="p-8">
