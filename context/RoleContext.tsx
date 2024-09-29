@@ -5,7 +5,6 @@ import React, {
   useContext,
   useEffect,
 } from "react";
-import axios from "axios";
 import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 
@@ -61,14 +60,14 @@ export const RoleProvider = ({ children }: { children: ReactNode }) => {
 
   // Add role via API
   const addRole = async (roleName: string) => {
-    setLoading(true); // Start spinner
+    // setLoading(true); // Start spinner
     try {
       const response = await axiosInstance.post("user-roles", {
         name: roleName,
       });
       showToast(true, response.data.message);
-      getAllUserRoles();
-      setRoles((prevRoles) => [...prevRoles, response.data]); // Add new role to local state
+      // getAllUserRoles();
+      setRoles([...roles, response.data.newRole]); // Add new role to local state
     } catch (error: any) {
       showToast(false, error.response.data.message);
     } finally {
@@ -78,12 +77,12 @@ export const RoleProvider = ({ children }: { children: ReactNode }) => {
 
   // Delete role via API
   const deleteRole = async (id: string) => {
-    setLoading(true); // Start spinner
+    // setLoading(true); // Start spinner
     try {
       const response = await axiosInstance.delete(`user-roles/${id}`);
-      getAllUserRoles();
+      // getAllUserRoles();
+      setRoles(roles.filter((role) => role.id !== id));
       showToast(true, response.data.message);
-      setRoles((prevRoles) => prevRoles.filter((role) => role.id !== id)); // Remove role from local state
     } catch (error: any) {
       showToast(false, error.response.data.message);
     } finally {
@@ -93,15 +92,19 @@ export const RoleProvider = ({ children }: { children: ReactNode }) => {
 
   // Edit role via API
   const editRole = async (id: string, roleName: string) => {
-    setLoading(true); // Start spinner
+    // setLoading(true); // Start spinner
     try {
       const response = await axiosInstance.patch(`user-roles/${id}`, {
         name: roleName,
       });
+
+      // Update the state with the new role name
+      const index = roles.findIndex((role) => role.id === id);
+      if (index !== -1) {
+        roles[index].name = response.data.updateRole.name;
+      }
+
       showToast(true, response.data.message);
-      setRoles((prevRoles) =>
-        prevRoles.map((r) => (r.id === id ? { ...r, name: roleName } : r))
-      ); // Update local state with the edited role
     } catch (error: any) {
       showToast(false, error.response.data.message);
     } finally {

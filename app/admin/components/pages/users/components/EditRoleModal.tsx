@@ -57,7 +57,7 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({
               type="text"
               value={newRole}
               onChange={(e) => setNewRole(e.target.value)}
-              className="border border-[#D9D9D9] rounded w-full bg-transparent px-[1em] py-[0.5em] outline-none"
+              className="border text-white border-[#D9D9D9] rounded w-full bg-transparent px-[1em] py-[0.5em] outline-none"
               required
             />
           </div>

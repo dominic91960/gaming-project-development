@@ -40,7 +40,7 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ setShowModal }) => {
             type="text"
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            className="border border-[#D9D9D9] rounded w-full bg-transparent px-[1em] py-[0.5em] outline-none"
+            className="border text-white border-[#D9D9D9] rounded w-full bg-transparent px-[1em] py-[0.5em] outline-none"
           />
         </div>
         <div className="flex gap-x-[15%] justify-between">
