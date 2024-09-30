@@ -1,14 +1,17 @@
 "use client";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward, IoIosArrowBack, IoIosLogOut } from "react-icons/io";
 import favorite from "@/public/images/navbar/favorite.png";
 import cart from "@/public/images/navbar/cart.png";
 import profile from "@/public/images/navbar/profile.png";
+import ProfileDefault from "@/public/images/navbar/profile_default.jpg";
 import "./navbar.css";
+import { AuthContext } from "@/context/AuthContext";
+import axiosInstance from "@/axios/axiosInstance";
 
 const categories = [
   {
@@ -84,6 +87,7 @@ export default function Navbar() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubMenu, setSelectedSubMenu] = useState("");
   const [subMenuData, setSubMenuData] = useState<string[]>([]);
+  const { user } = useContext(AuthContext);
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
@@ -99,6 +103,14 @@ export default function Navbar() {
       setSubMenuData(categoryData[subMenu as keyof typeof categoryData] as string[]);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      // setIsMobileNavToggled(false);
+      console.log("User:", user);
+    }
+  }
+  , [user]);
 
   return (
     <section className="bg-[#0D0F10] font-primaryFont text-white sm:border-b-[#8C8C8C] sm:border-b relative">
@@ -146,8 +158,21 @@ export default function Navbar() {
               <Image src={cart} alt="Cart" />
             </Link>
             <Link href="/sign-in">
-              <Image src={profile} alt="Profile" />
+              {user?.profile_image? <img
+                src={user?.profile_image ? user?.profile_image : ProfileDefault}
+                alt="Profile"
+                className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
+                />: <Image src={profile} alt="Profile" />}
             </Link>
+            <div 
+            onClick={() => {
+              axiosInstance.patch("/auth/logout");
+              localStorage.clear();
+              window.location.href = "/sign-in";
+            }}
+            className=" cursor-pointer">
+              <IoIosLogOut className="text-[25px]" />
+            </div>
           </div>
           {/* Toggle button */}
           <button
