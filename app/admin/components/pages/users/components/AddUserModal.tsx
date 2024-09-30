@@ -10,7 +10,7 @@ interface AddUserModalProps {
     lastName: string;
     email: string;
     role: string;
-    image: string;
+    profile_image: string;
     password: string;
   }) => Promise<void>;
   setShowModal: (show: boolean) => void;
@@ -21,7 +21,7 @@ interface AddUserModalProps {
     lastName: string;
     email: string;
     role: string;
-    image: string;
+    profile_image: string;
     password?: string;
   } | null;
   getAllAdmins: (page: number) => void;
@@ -39,8 +39,8 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [image, setImage] = useState("");
-  const [password, setPassword] = useState(""); // Add password state
-  const [imageFile, setImageFile] = useState<File | null>(null); // Store file data
+  const [password, setPassword] = useState(""); 
+  const [newImageUrl, setNewImageUrl] = useState(""); 
 
   const { roles } = useRoleContext();
 
@@ -51,7 +51,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
       setLastName(editingUser.lastName);
       setEmail(editingUser.email);
       setRole(editingUser.role);
-      setImage(editingUser.image);
+      setImage(editingUser.profile_image);
     } else {
       clearFields();
     }
@@ -64,27 +64,27 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
       lastName,
       email,
       role,
-      image,
+      profile_image: newImageUrl || image,
       password,
     };
 
     try {
       let response;
       if (editingUser) {
-        // Update user
+
         response = await axiosInstance.patch(
           `/auth/${editingUser.id}`,
           newUser
         );
       } else {
-        // Create new user
+
         response = await axiosInstance.post("/auth/register", newUser);
       }
       toast.success(response.data.message);
 
       if (response.status >= 200 && response.status < 300) {
-        await addUser(newUser); // Add the new or updated user
-        setShowModal(false); // Close modal after success
+        await addUser(newUser);
+        setShowModal(false);
       } else {
         throw new Error(`Error: ${response.statusText}`);
       }
@@ -94,11 +94,37 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
     }
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      setImage(URL.createObjectURL(file));
-      setImageFile(file); // Set the file to imageFile for potential future upload
+      const fileType = file.type;
+      const data = {
+        fileType: fileType,
+      };
+    
+      const res = await axiosInstance.post(`presigned-url/generate`, data);
+      const uploadUrl = res.data.uploadUrl;
+      const downloadUrl = res.data.downloadUrl;
+  
+      try {
+        const response = await fetch(uploadUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": fileType,
+          },
+          body: file,
+        });
+  
+        if (response.ok) {
+          console.log("File uploaded successfully", downloadUrl);
+          setNewImageUrl(downloadUrl);
+          setImage(downloadUrl);
+        } else {
+          console.error("Failed to upload file", response);
+        }
+      } catch (error) {
+        console.error("Error during file upload", error);
+      }
     }
   };
 
@@ -110,12 +136,12 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
     setRole("");
     setImage("");
     setPassword("");
-    setImageFile(null); // Clear file state
+    setNewImageUrl("");
   };
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-8 rounded">
+      <div className="bg-white p-8 rounded text-black">
         <h2 className="text-xl mb-4">
           {editingUser ? "Edit User" : "Add User"}
         </h2>
@@ -179,13 +205,20 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
             </option>
           ))}
         </select>
+        
         <input
           type="file"
           onChange={handleImageChange}
           className="border p-2 mb-4 w-full"
           accept="image/*"
         />
-        {image && <img src={image} alt="Preview" className="w-20 h-20 mb-4" />}
+
+        {image && (
+          <div className="mb-4">
+            <img src={image} alt="Profile Preview" className="w-20 h-20 mb-2 rounded-full" />
+          </div>
+        )}
+
         <div className="flex justify-end">
           <button
             className="bg-red-500 text-white px-4 py-2 mr-2 rounded"
