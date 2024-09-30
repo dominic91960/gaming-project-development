@@ -1,3 +1,5 @@
+'use client';
+import { AuthProvider } from "@/context/AuthContext";
 import { Montserrat, Inter } from "@next/font/google";
 
 // Configure Montserrat with all required weights
@@ -17,7 +19,11 @@ const inter = Inter({
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AuthProvider>
+        {children}
+        </AuthProvider>
+        </body>
     </html>
   );
 };
