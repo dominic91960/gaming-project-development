@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import AddUserModal from "../users/components/AddUserModal";
-import UserTable from "../users/components/UserTable";
+
 import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 import Spinner from "@/components/Spinner/Spinner";
+import { Button } from "@/components/ui/button";
+import { CiSearch } from "react-icons/ci";
+
+import AddUserModal from "../users/components/AddUserModal";
+import UserTable from "../users/components/UserTable";
 
 const UsersPage = () => {
   const [users, setUsers] = useState([]); // Store all users
@@ -31,7 +35,11 @@ const UsersPage = () => {
   }, [currentPage, debouncedSearchTerm, selectedRole]);
 
   // Fetch all users with pagination and optional search term and role filter
-  const getUsers = async (page: number, search: string = "", role: string = "") => {
+  const getUsers = async (
+    page: number,
+    search: string = "",
+    role: string = ""
+  ) => {
     setLoading(true);
     try {
       const roleFilter = role ? `&roleName=${role}` : ""; // Add role filter if selected
@@ -90,8 +98,8 @@ const UsersPage = () => {
       buttons.push(
         <div
           key={i}
-          className={`cursor-pointer p-2 rounded-full ${
-            i === currentPage ? "bg-blue-700" : "bg-blue-500"
+          className={`cursor-pointer font-medium px-[1em] py-[0.5em] rounded-sm ${
+            i === currentPage ? "bg-[#00FFA1]" : "bg-white"
           }`}
           onClick={() => setCurrentPage(i)}
         >
@@ -107,45 +115,62 @@ const UsersPage = () => {
   }
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">All Users</h1>
-
-      <div className="flex justify-between">
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-          onClick={() => {
-            setEditingUser(null);
-            setShowModal(true);
-          }}
-        >
-          Add User
-        </button>
-        {/* Search Bar */}
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          placeholder="Search by username or email"
-          className="border p-2 mb-4 w-3/4"
-        />
-        {/* Role Selector */}
-        <select
-          value={selectedRole}
-          onChange={handleRoleChange}
-          className="border p-2 mb-4 text-black"
-        >
-          <option value="">All Roles</option>
-          <option value="ADMIN">Admin</option>
-          <option value="USER">User</option>
-          <option value="SUPER_ADMIN">Super Admin</option>
-        </select>
+    <div className="font-primaryFont text-[24px] p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md">
+      <div className="pb-[2em] capitalize">
+        <h1 className="font-bold text-[36px] leading-none">All users</h1>
+        <p className="text-[12px]">Users/ all users</p>
       </div>
 
-      <UserTable
-        users={allAdmins}
-        deleteUser={deleteUser}
-        openEditModal={openEditModal}
-      />
+      <div className="flex-grow bg-black/40 border border-[#0D6D49] px-[2em] py-[1.2em] rounded-md">
+        <div className="flex justify-between items-center pb-[1.2em] border-b border-b-[#0D6D49]">
+          <h2 className="font-semibold capitalize">Users</h2>
+          <div className="flex items-center text-[12px] gap-x-[1em]">
+            <div className="border p-[0.75em] rounded-sm flex items-center gap-x-[0.75em]">
+              <CiSearch className="text-[1.6em]" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                placeholder="Search by username or email"
+                className="bg-transparent outline-none border-s px-[1em] w-[38ch]"
+              />
+            </div>
+            <select
+              value={selectedRole}
+              onChange={handleRoleChange}
+              className="px-[1.6em] py-[0.8em] bg-transparent border rounded-sm"
+            >
+              <option value="" className="bg-white text-black">
+                All Roles
+              </option>
+              <option value="ADMIN" className="bg-white text-black">
+                Admin
+              </option>
+              <option value="USER" className="bg-white text-black">
+                User
+              </option>
+              <option value="SUPER_ADMIN" className="bg-white text-black">
+                Super Admin
+              </option>
+            </select>
+            <button
+              className="bg-[#00FFA1] font-bold text-black text-[11px] capitalize px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
+              onClick={() => {
+                setEditingUser(null);
+                setShowModal(true);
+              }}
+            >
+              Add user
+            </button>
+          </div>
+        </div>
+        <UserTable
+          users={allAdmins}
+          deleteUser={deleteUser}
+          openEditModal={openEditModal}
+        />
+      </div>
+
       {showModal && (
         <AddUserModal
           addUser={addUser}
@@ -156,9 +181,26 @@ const UsersPage = () => {
       )}
 
       {/* Pagination */}
-      <div className="flex w-full justify-center mt-4">
-        <div className="flex text-white text-center space-x-4">
+      <div className="flex items-center justify-between text-[15px] px-[4em] mt-[2em]">
+        <div className="flex text-black text-center gap-x-[1em]">
           {renderPagination()}
+        </div>
+        <div className="flex gap-x-[1em]">
+          <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-md min-w-[12ch] text-center">
+            Selected: 0
+          </p>
+          <Button
+            variant="secondary"
+            className="font-medium w-[12ch] text-[1em] h-fit"
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="destructive"
+            className="font-medium w-[12ch] text-[1em] h-fit"
+          >
+            Delete
+          </Button>
         </div>
       </div>
     </div>
@@ -166,4 +208,3 @@ const UsersPage = () => {
 };
 
 export default UsersPage;
-
