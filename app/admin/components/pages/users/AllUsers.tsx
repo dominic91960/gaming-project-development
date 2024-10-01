@@ -61,7 +61,7 @@ const UsersPage = () => {
     lastName: string;
     email: string;
     role: string;
-    image: string;
+    profile_image: string;
   }): Promise<void> => {
     setShowModal(false);
   };
@@ -176,7 +176,7 @@ const UsersPage = () => {
           addUser={addUser}
           setShowModal={setShowModal}
           editingUser={editingUser}
-          getUsers={getUsers}
+          getAllAdmins={getUsers}
         />
       )}
 
