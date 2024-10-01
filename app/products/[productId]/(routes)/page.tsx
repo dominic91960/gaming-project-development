@@ -469,7 +469,7 @@ export default function ProductPage() {
                     </Button>
                     <Button
                       variant="gaming"
-                      className="text-[1em] h-fit px-[1em] py-[0.5em]"
+                      className="text-[1em] h-fit px-[1em] py-[0.5em] hover:opacity-90"
                     >
                       Confirm
                     </Button>
@@ -504,7 +504,7 @@ export default function ProductPage() {
               <div className="flex justify-end">
                 <Button
                   variant="gaming"
-                  className="text-[0.6em] px-[1em] py-[0.5em] h-fit"
+                  className="text-[0.6em] px-[1em] py-[0.5em] h-fit hover:opacity-80"
                 >
                   See More <FaAngleRight />
                 </Button>

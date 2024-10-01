@@ -57,56 +57,56 @@ export default function Footer() {
           </div>
           <ul className="uppercase text-[18px] font-semibold flex-shrink-0">
             <h4 className="text-[25px]">Company</h4>
-            <li className="mt-[0.8em]">
+            <li className="mt-[0.8em] hover:opacity-80">
               <Link href="/">Products</Link>
             </li>
-            <li className="mt-[0.8em]">
+            <li className="mt-[0.8em] hover:opacity-80">
               <Link href="/">Blog</Link>
             </li>
-            <li className="mt-[0.8em]">
+            <li className="mt-[0.8em] hover:opacity-80">
               <Link href="/">About</Link>
             </li>
-            <li className="mt-[0.8em]">
+            <li className="mt-[0.8em] hover:opacity-80">
               <Link href="/">Contact</Link>
             </li>
           </ul>
           <ul className="uppercase text-[18px] font-semibold flex-shrink-0">
             <h4 className="text-[25px]">Categories</h4>
-            <li className="mt-[0.8em]">
+            <li className="mt-[0.8em] hover:opacity-80">
               <Link href="/">Games</Link>
             </li>
-            <li className="mt-[0.8em]">
+            <li className="mt-[0.8em] hover:opacity-80">
               <Link href="/">Gift cards</Link>
             </li>
-            <li className="mt-[0.8em]">
+            <li className="mt-[0.8em] hover:opacity-80">
               <Link href="/">E-money</Link>
             </li>
-            <li className="mt-[0.8em]">
+            <li className="mt-[0.8em] hover:opacity-80">
               <Link href="/">Pre orders</Link>
             </li>
-            <li className="mt-[0.8em]">
+            <li className="mt-[0.8em] hover:opacity-80">
               <Link href="/">Steam</Link>
             </li>
           </ul>
           <div className="uppercase text-[18px] font-semibold flex-shrink-0">
             <h4 className="text-[25px]">Follow us</h4>
             <ul className="flex mt-[0.8em] gap-[1.6em]">
-              <li>
+              <li className="hover:scale-110">
                 <Link href="/">
                   <Image src={fb} alt="Link to Facebook" />
                 </Link>
               </li>
-              <li>
+              <li className="hover:scale-110">
                 <Link href="/">
                   <Image src={x} alt="Link to X" />
                 </Link>
               </li>
-              <li>
+              <li className="hover:scale-110">
                 <Link href="/">
                   <Image src={ig} alt="Link to Instagram" />
                 </Link>
               </li>
-              <li>
+              <li className="hover:scale-110">
                 <Link href="/">
                   <Image src={tt} alt="Link to TikTok" />
                 </Link>
@@ -128,11 +128,15 @@ export default function Footer() {
             </div>
             <div className="flex gap-[1.7em]">
               <p>
-                <Link href="/">Privacy policy</Link>
+                <Link href="/" className="hover:opacity-80">
+                  Privacy policy
+                </Link>
               </p>
               <p>|</p>
               <p>
-                <Link href="/">Terms & conditions</Link>
+                <Link href="/" className="hover:opacity-80">
+                  Terms & conditions
+                </Link>
               </p>
             </div>
           </div>

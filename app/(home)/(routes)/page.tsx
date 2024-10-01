@@ -20,39 +20,40 @@ export default function Home() {
       <ProductSearchBar />
       <Navbar />
       <div className="background-home-div relative bg-black h-max">
-        <div className="mx-auto container">
-          <div className="absolute ">
-            <Image
-              src={mainCharacterImage}
-              alt="Main Character"
-              height={1070}
-            />
-          </div>
+        <div className="mx-auto container relative">
+          <Image
+            src={mainCharacterImage}
+            alt="Main Character"
+            height={1070}
+            className="relative z-10"
+          />
 
-          <div className="pt-[125px] pl-[65px]">
-            <p className="font-primaryFont text-[130px] font-medium text-white leading-none">
+          <div className="absolute top-0 left-0 text-[150px] leading-[0] mt-[0.8em]">
+            <p className="font-primaryFont font-medium text-[0.85em] text-white leading-none">
               BLACK MYTH
             </p>
-            <p className="font-primaryFont  text-[149px] font-bold text-white leading-none">
+            <p className="font-primaryFont font-bold text-white leading-none">
               WUKONG
             </p>
-            <div className="h-1 w-[1000px] bg-white mt-8"></div>
-            <p className="text-white font-primaryFont font-semibold text-[16px] w-[600px] leading-tight mt-6 mb-8">
+            <div className="h-1 w-[12ch] bg-white mt-[0.2em]"></div>
+            <p className="text-white font-primaryFont font-semibold text-[0.11em] w-[55ch] leading-tight mt-[1.5em]">
               Black Myth: Wukong is an action RPG rooted in Chinese mythology.
               You shall set out as the Destined One to venture into the
               challenges and marvels ahead, to uncover the obscured truth
               beneath the veil of a glorious legend from the past.
             </p>
-
-            <Button className="bg-[#FB5A00] px-12 text-[30px] font-primaryFont font-medium py-8">
+            <Button
+              variant="gaming"
+              className="relative text-[0.2em] mt-[1.5em] px-[1em] py-[1em] font-primaryFont font-semibold uppercase h-fit hover:bg-primary/90 hover:text-white z-10"
+            >
               Buy Now
             </Button>
           </div>
         </div>
-
         <div className="reduce-background-brightness"></div>
+        <div className="absolute bottom-0 w-full h-[400px] bg-gradient-to-t from-black via-black to-transparent"></div>
+        <IconBar />
       </div>
-      <IconBar />
       <SwiperCarousel />
       <Catalog />
       <VerticalCarousel />
