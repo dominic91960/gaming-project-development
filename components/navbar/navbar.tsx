@@ -1,17 +1,23 @@
 "use client";
+
 import { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-import { IoIosArrowForward, IoIosArrowBack, IoIosLogOut } from "react-icons/io";
-import favorite from "@/public/images/navbar/favorite.png";
-import cart from "@/public/images/navbar/cart.png";
-import profile from "@/public/images/navbar/profile.png";
-import ProfileDefault from "@/public/images/navbar/profile_default.jpg";
-import "./navbar.css";
+import {
+  IoIosArrowForward,
+  IoIosArrowBack,
+  IoIosLogOut,
+  IoMdHeartEmpty,
+  IoIosCart,
+  IoMdPerson,
+} from "react-icons/io";
+
 import { AuthContext } from "@/context/AuthContext";
 import axiosInstance from "@/axios/axiosInstance";
+import ProfileDefault from "@/public/images/navbar/profile_default.jpg";
+import "./navbar.css";
 
 const categories = [
   {
@@ -78,7 +84,9 @@ const categories = [
 
 export default function Navbar() {
   const path = usePathname();
-  const [isCategoryMenuToggled, setIsCategoryMenuToggled] = useState(false);
+  const [isCategoryMenuToggled, setIsCategoryMenuToggled] = useState<
+    boolean | undefined
+  >(undefined);
   const [isMobileNavToggled, setIsMobileNavToggled] = useState(false);
 
   const [isMenuOneVisible, setIsMenuOneVisible] = useState(true);
@@ -100,7 +108,9 @@ export default function Navbar() {
     setIsMenuThreeVisible(true);
     const categoryData = categories.find((c) => c.categoryName === category);
     if (categoryData && subMenu in categoryData) {
-      setSubMenuData(categoryData[subMenu as keyof typeof categoryData] as string[]);
+      setSubMenuData(
+        categoryData[subMenu as keyof typeof categoryData] as string[]
+      );
     }
   };
 
@@ -109,16 +119,20 @@ export default function Navbar() {
       // setIsMobileNavToggled(false);
       console.log("User:", user);
     }
-  }
-  , [user]);
+  }, [user]);
 
   return (
     <section className="bg-[#0D0F10] font-primaryFont text-white sm:border-b-[#8C8C8C] sm:border-b relative">
       <div className="container mx-auto flex border-b-[#8C8C8C] border-b justify-between sm:border-none sm:pe-[4%]">
         {/* Categories button */}
         <button
-          className="font-semibold text-[15px] capitalize bg-[#23262B] flex items-center gap-[0.4em] px-[0.8em] py-[0.4em] my-[0.5em]"
-          onClick={() => setIsCategoryMenuToggled((prev) => !prev)}
+          className="font-semibold text-[15px] capitalize bg-[#23262B] flex items-center gap-[0.4em] px-[0.8em] py-[0.4em] my-[0.5em] hover:scale-[102%]"
+          onClick={() => {
+            if (isCategoryMenuToggled === undefined) {
+              return setIsCategoryMenuToggled(true);
+            }
+            setIsCategoryMenuToggled((prev) => !prev);
+          }}
         >
           <div className="space-y-[0.2em] pe-[0.1em]">
             <div className="w-[1.2em] h-0.5 bg-white"></div>
@@ -132,46 +146,60 @@ export default function Navbar() {
           <nav className="hidden sm:flex uppercase gap-x-[20px] md:gap-x-[45px] lg:gap-x-[55px] xl:gap-x-[62px] 2xl:gap-x-[68px]">
             <Link
               href="/products"
-              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+              className={`hover:opacity-80 ${
+                path.startsWith("/products") ? "text-[#0BDB45]" : ""
+              }`}
             >
               Store
             </Link>
             <Link
               href="/about"
-              className={path.startsWith("/about") ? "text-[#0BDB45]" : ""}
+              className={`hover:opacity-80 ${
+                path.startsWith("/about") ? "text-[#0BDB45]" : ""
+              }`}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className={path.startsWith("/contact") ? "text-[#0BDB45]" : ""}
+              className={`hover:opacity-80 ${
+                path.startsWith("/contact") ? "text-[#0BDB45]" : ""
+              }`}
             >
               Contact
             </Link>
           </nav>
           {/* Icons */}
-          <div className="flex gap-x-[15px] md:gap-x-[27px]">
-            <Link href="/">
-              <Image src={favorite} alt="Favorites" />
+          <div className="flex text-[25px] gap-x-[15px] md:gap-x-[27px]">
+            <Link href="/" className="hover:scale-110">
+              <IoMdHeartEmpty />
             </Link>
-            <Link href="/">
-              <Image src={cart} alt="Cart" />
+            <Link href="/" className="hover:scale-110">
+              <IoIosCart />
             </Link>
-            <Link href="/sign-in">
-              {user?.profile_image? <img
-                src={user?.profile_image ? user?.profile_image : ProfileDefault}
-                alt="Profile"
-                className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
-                />: <Image src={profile} alt="Profile" />}
+            <Link href="/sign-in" className="hover:scale-110">
+              {user?.profile_image ? (
+                <Image
+                  src={
+                    user?.profile_image ? user?.profile_image : ProfileDefault
+                  }
+                  alt="Profile"
+                  className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
+                  fill
+                />
+              ) : (
+                <IoMdPerson />
+              )}
             </Link>
-            <div 
-            onClick={() => {
-              axiosInstance.patch("/auth/logout");
-              localStorage.clear();
-              window.location.href = "/sign-in";
-            }}
-            className=" cursor-pointer">
-              <IoIosLogOut className="text-[25px]" />
+            <div
+              onClick={() => {
+                axiosInstance.patch("/auth/logout");
+                localStorage.clear();
+                window.location.href = "/sign-in";
+              }}
+              className="cursor-pointer hover:scale-110"
+            >
+              <IoIosLogOut />
             </div>
           </div>
           {/* Toggle button */}
@@ -193,19 +221,25 @@ export default function Navbar() {
       >
         <Link
           href="/products"
-          className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+          className={`hover:opacity-80 ${
+            path.startsWith("/products") ? "text-[#0BDB45]" : ""
+          }`}
         >
           Store
         </Link>
         <Link
           href="/about"
-          className={path.startsWith("/about") ? "text-[#0BDB45]" : ""}
+          className={`hover:opacity-80 ${
+            path.startsWith("/about") ? "text-[#0BDB45]" : ""
+          }`}
         >
           About
         </Link>
         <Link
           href="/contact"
-          className={path.startsWith("/contact") ? "text-[#0BDB45]" : ""}
+          className={`hover:opacity-80 ${
+            path.startsWith("/contact") ? "text-[#0BDB45]" : ""
+          }`}
         >
           Contact
         </Link>
@@ -215,8 +249,10 @@ export default function Navbar() {
         className={`${
           isCategoryMenuToggled
             ? "animate-category-menu"
-            : "reverse-animate-category-menu"
-        } origin-left absolute z-10 w-full sm:w-[400px] min-h-[80vh] bg-[#0D0F10] border border-[#75F94C] font-semibold text-[18px] p-[2em]`}
+            : isCategoryMenuToggled === false
+            ? "reverse-animate-category-menu"
+            : "hidden"
+        } origin-left absolute w-full sm:w-[400px] min-h-[80vh] bg-[#0D0F10] border border-[#75F94C] font-semibold text-[18px] p-[2em] z-50`}
       >
         {/* Main category menu */}
         <div className={isMenuOneVisible ? "block" : "hidden"}>
@@ -232,26 +268,32 @@ export default function Navbar() {
           <div className="flex flex-col gap-y-[1em]">
             <Link
               href="/products"
-              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+              className={`hover:opacity-80 ${
+                path.startsWith("/products") ? "text-[#0BDB45]" : ""
+              }`}
             >
               All offers
             </Link>
             <Link
               href="/about"
-              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+              className={`hover:opacity-80 ${
+                path.startsWith("/products") ? "text-[#0BDB45]" : ""
+              }`}
             >
               Popular games
             </Link>
             <Link
               href="/contact"
-              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+              className={`hover:opacity-80 ${
+                path.startsWith("/products") ? "text-[#0BDB45]" : ""
+              }`}
             >
               Latest games
             </Link>
             {categories.map(({ categoryName }) => (
               <button
                 key={categoryName}
-                className="flex items-center justify-between"
+                className="flex items-center justify-between hover:opacity-80"
                 onClick={() => handleCategorySelect(categoryName)}
               >
                 <p>{categoryName}</p>
@@ -264,7 +306,7 @@ export default function Navbar() {
         <div className={isMenuTwoVisible ? "block" : "hidden"}>
           <div className="flex justify-between items-center text-[22px] mb-[2em]">
             <button
-              className="flex items-center -translate-x-2"
+              className="flex items-center -translate-x-2 hover:opacity-80"
               onClick={() => {
                 setIsMenuOneVisible(true);
                 setIsMenuTwoVisible(false);
@@ -283,24 +325,30 @@ export default function Navbar() {
           <div className="flex flex-col gap-y-[1em]">
             <Link
               href="/products"
-              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+              className={`hover:opacity-80 ${
+                path.startsWith("/products") ? "text-[#0BDB45]" : ""
+              }`}
             >
               All offers
             </Link>
             <Link
               href="/about"
-              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+              className={`hover:opacity-80 ${
+                path.startsWith("/products") ? "text-[#0BDB45]" : ""
+              }`}
             >
               Popular games
             </Link>
             <Link
               href="/contact"
-              className={path.startsWith("/products") ? "text-[#0BDB45]" : ""}
+              className={`hover:opacity-80 ${
+                path.startsWith("/products") ? "text-[#0BDB45]" : ""
+              }`}
             >
               Latest games
             </Link>
             <button
-              className="flex items-center justify-between"
+              className="flex items-center justify-between hover:opacity-80"
               onClick={() =>
                 handleCategorySubMenuSelect(selectedCategory, "platforms")
               }
@@ -309,7 +357,7 @@ export default function Navbar() {
               <IoIosArrowForward className="text-[22px]" />
             </button>
             <button
-              className="flex items-center justify-between"
+              className="flex items-center justify-between hover:opacity-80"
               onClick={() =>
                 handleCategorySubMenuSelect(selectedCategory, "genres")
               }
@@ -323,7 +371,7 @@ export default function Navbar() {
         <div className={isMenuThreeVisible ? "block" : "hidden"}>
           <div className="flex justify-between items-center text-[22px] mb-[2em]">
             <button
-              className="flex items-center -translate-x-2"
+              className="flex items-center -translate-x-2 hover:opacity-80"
               onClick={() => {
                 setIsMenuTwoVisible(true);
                 setIsMenuThreeVisible(false);
@@ -345,9 +393,9 @@ export default function Navbar() {
                 <Link
                   key={item}
                   href="/products"
-                  className={
+                  className={`hover:opacity-80 ${
                     path.startsWith("/products") ? "text-[#0BDB45]" : ""
-                  }
+                  }`}
                 >
                   {item}
                 </Link>

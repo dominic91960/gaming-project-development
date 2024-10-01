@@ -22,7 +22,7 @@ const ProductSearchBar = () => {
                 <div className="">
                   <Button
                     type="submit"
-                    className="bg-[#0BDB45] text-black rounded-none h-[25px] mr-[5px]"
+                    className="bg-[#0BDB45] text-black rounded-none h-[25px] mr-[5px] hover:text-white"
                   >
                     Search
                   </Button>

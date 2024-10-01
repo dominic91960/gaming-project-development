@@ -1,0 +1,15 @@
+.animate-slide-down {
+  animation-name: animate-slide-down;
+  animation-duration: 400ms;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes animate-slide-down {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}

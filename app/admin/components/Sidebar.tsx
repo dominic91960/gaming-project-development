@@ -34,7 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
   };
 
   return (
-    <div className="w-64 bg-black/60 font-secondaryFont text-white h-screen pt-[2.5em] border-t border-e border-[#0D6D49]">
+    <div className="w-64 bg-black/60 font-secondaryFont text-white min-h-screen pt-[2.5em] border-t border-e border-[#0D6D49]">
       <ul>
         {/* Dashboard Section */}
         <button

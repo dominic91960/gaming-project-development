@@ -187,12 +187,12 @@ const SwiperCarousel = () => {
                       </div>
                       {/* Actions */}
                       <div className="flex justify-between pt-[2em]">
-                        <Button className="bg-[#0BDB45] text-black text-base font-semibold hover:text-white capitalize px-[3em] py-[1.5em]">
+                        <Button className="bg-[#0BDB45] text-black text-base font-semibold hover:text-white capitalize px-[3em] py-[1.5em] rounded-none">
                           Buy now
                         </Button>
                         <Button
                           variant={"outline"}
-                          className="text-base font-semibold capitalize px-[3em] py-[1.5em]"
+                          className="text-base font-semibold capitalize px-[3em] py-[1.5em] rounded-none"
                         >
                           Add wishlist
                         </Button>

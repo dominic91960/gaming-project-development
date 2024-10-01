@@ -1,4 +1,9 @@
 import React from "react";
+import Image from "next/image";
+
+import samplePic from "@/public/images/sample-pic.png";
+import { LuPencilLine } from "react-icons/lu";
+import { IoTrash } from "react-icons/io5";
 
 interface User {
   id: string;
@@ -22,43 +27,48 @@ const UserTable: React.FC<UserTableProps> = ({
   openEditModal,
 }) => {
   return (
-    <table className="min-w-full border-collapse border border-gray-200 text-white">
+    <table className="min-w-full text-[18px] border-separate border-spacing-y-[0.8em]">
       <thead>
-        <tr>
-          <th className="border border-gray-200 px-4 py-2">Username</th>
-          <th className="border border-gray-200 px-4 py-2">First Name</th>
-          <th className="border border-gray-200 px-4 py-2">Last Name</th>
-          <th className="border border-gray-200 px-4 py-2">Email</th>
-          <th className="border border-gray-200 px-4 py-2">Role</th>
-          <th className="border border-gray-200 px-4 py-2">Actions</th>
+        <tr className="font-primaryFont *:font-medium *:pt-[2em] *:pb-[1.2em]">
+          <th>Username</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         {users.map((user) => (
-          <tr key={user.username}>
-            <td className="border border-gray-200 px-4 py-2">
-              {user.username}
+          <tr
+            key={user.username}
+            className="text-base text-center *:py-[1.5em] *:px-[1ch] *:bg-white/5 mt-4 cursor-pointer hover:scale-[101%]"
+          >
+            <td className="relative">
+              <div className="w-2 h-[5em] bg-[#00FFA1] absolute top-0 left-0 rounded-sm"></div>
+              <Image
+                src={samplePic}
+                alt="Sample"
+                className="size-[2em] rounded-full mx-auto"
+              />
             </td>
-            <td className="border border-gray-200 px-4 py-2">
-              {user.firstName}
-            </td>
-            <td className="border border-gray-200 px-4 py-2">
-              {user.lastName}
-            </td>
-            <td className="border border-gray-200 px-4 py-2">{user.email}</td>
-            <td className="border border-gray-200 px-4 py-2">{user.role}</td>
-            <td className="border border-gray-200 px-4 py-2">
+            <td className="rounded-tl-sm rounded-bl-sm">{user.username}</td>
+            <td>{user.firstName}</td>
+            <td>{user.lastName}</td>
+            <td>{user.email}</td>
+            <td>{user.role}</td>
+            <td className="rounded-tr-sm rounded-br-sm text-[#A1A1AA] space-x-[0.5em]">
               <button
-                className="bg-yellow-500 text-white px-2 py-1 rounded mr-2"
+                className="hover:opacity-80 transition-opacity duration-100 translate-y-[0.2em]"
                 onClick={() => openEditModal(user)}
               >
-                Edit
+                <LuPencilLine />
               </button>
               <button
-                className="bg-red-500 text-white px-2 py-1 rounded"
+                className="hover:opacity-80 transition-opacity duration-100 translate-y-[0.2em]"
                 onClick={() => deleteUser(user.id)}
               >
-                Delete
+                <IoTrash />
               </button>
             </td>
           </tr>
