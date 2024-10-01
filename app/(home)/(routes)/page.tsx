@@ -1,17 +1,19 @@
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
+
+import ContactBar from "@/app/contact-bar/contact-bar";
+import ProductSearchBar from "@/components/product-search/product-search";
+import Navbar from "@/components/navbar/navbar";
+import IconBar from "../_components/icon-bar";
 import SwiperCarousel from "../_components/swiper-carousel";
+import BestSelling from "../_components/best-selling";
+import Catalog from "../_components/catalog";
+import VerticalCarousel from "../_components/verticle-carousel";
 import Footer from "@/components/footer/footer";
 
 import mainCharacterImage from "../../../public/images/home/home-page-main-character.png";
 import "../_components/home.css";
-import Catalog from "../_components/catalog";
-import VerticalCarousel from "../_components/verticle-carousel";
-import IconBar from "../_components/icon-bar";
-import ContactBar from "@/app/contact-bar/contact-bar";
-import ProductSearchBar from "@/components/product-search/product-search";
-import Navbar from "@/components/navbar/navbar";
 
 export default function Home() {
   return (
@@ -55,6 +57,7 @@ export default function Home() {
         <IconBar />
       </div>
       <SwiperCarousel />
+      <BestSelling />
       <Catalog />
       <VerticalCarousel />
       <Footer />
