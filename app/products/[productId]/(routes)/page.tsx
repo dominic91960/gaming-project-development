@@ -12,7 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { FaAngleRight } from "react-icons/fa6";
+import { LiaAngleRightSolid } from "react-icons/lia";
 
 import ContactBar from "@/app/contact-bar/contact-bar";
 import ProductSearchBar from "@/components/product-search/product-search";
@@ -506,7 +506,7 @@ export default function ProductPage() {
                   variant="gaming"
                   className="text-[0.6em] px-[1em] py-[0.5em] h-fit hover:opacity-80"
                 >
-                  See More <FaAngleRight />
+                  See More <LiaAngleRightSolid />
                 </Button>
               </div>
             </div>
