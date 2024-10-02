@@ -1,20 +1,15 @@
-"use client";
-
 import * as React from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   ColumnDef,
-  ColumnFiltersState,
-  SortingState,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
   getPaginationRowModel,
-  getSortedRowModel,
   useReactTable,
+  SortingState,
+  ColumnFiltersState,
+  getFilteredRowModel,
+  getSortedRowModel,
 } from "@tanstack/react-table";
-
 import {
   Table,
   TableBody,
@@ -23,24 +18,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+  columns: (onDelete: (id: string) => void) => ColumnDef<TData, TValue>[]; // Updated to accept `onDelete`
   data: TData[];
+  onDelete: (id: string) => void; // Add onDelete prop
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  onDelete, // Accept the onDelete prop
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
 
+  // Modify the call to columns to include the onDelete function
   const table = useReactTable({
     data,
-    columns,
+    columns: columns(onDelete), // Pass the onDelete function to columns
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
