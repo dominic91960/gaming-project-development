@@ -1,9 +1,126 @@
-const Categories = () => {
+import { Payment, columns } from "./categories/columns";
+import { DataTable } from "./categories/data-table";
+
+function getData(): Payment[] {
+  // Fetch data synchronously or use a static array of data
+  return [
+    {
+      id: "728ed52f",
+      name: "Steve",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Jason",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Mark",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Smith",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Ricky",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Maz",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Mark",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Smith",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Ricky",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Maz",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Mark",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Smith",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Ricky",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Maz",
+      description: "description 1 here",
+    },
+    {
+      id: "728ed52f",
+      name: "Mark",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Smith",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Ricky",
+      description: "description 1 here",
+    },
+
+    {
+      id: "728ed52f",
+      name: "Maz",
+      description: "description 1 here",
+    },
+
+    // Add more static data if needed
+  ];
+}
+
+export default function DemoPage() {
+  const data = getData(); // No need for async/await here
+
   return (
-    <div>
-      <h1>Hello! This is Categories</h1>
+    <div className="container mx-auto py-10">
+      <DataTable columns={columns} data={data} />
     </div>
   );
-};
-
-export default Categories;
+}
