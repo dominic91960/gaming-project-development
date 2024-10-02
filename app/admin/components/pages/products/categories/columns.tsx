@@ -17,6 +17,7 @@ export type Payment = {
   id: string;
   name: string;
   description: string;
+  imageUrl: string; // New property for image URL
 };
 
 // Define columns and pass onDelete to handle the delete action
@@ -37,10 +38,29 @@ export const columns = (
       );
     },
   },
+
   {
     accessorKey: "description",
     header: "Description",
   },
+
+  {
+    accessorKey: "imageUrl", // New column for Image
+    header: "Image",
+    cell: ({ row }) => {
+      const payment = row.original; // Access the row data (Payment object)
+      return (
+        <div className="flex items-center">
+          <img
+            src={payment.imageUrl}
+            alt={payment.name}
+            className="h-10 w-10 rounded-full" // Adjust height/width based on your needs
+          />
+        </div>
+      );
+    },
+  },
+
   {
     id: "actions",
     cell: ({ row }) => {

@@ -5,9 +5,24 @@ import { DataTable } from "./categories/data-table";
 // Example data
 function getData(): Payment[] {
   return [
-    { id: "1", name: "Steve", description: "description 1 here" },
-    { id: "2", name: "Jason", description: "description 2 here" },
-    { id: "3", name: "Mark", description: "description 3 here" },
+    {
+      id: "728ed52f",
+      name: "Steve",
+      description: "description 1 here",
+      imageUrl: "/images/sample-pic.png",
+    },
+    {
+      id: "728ed52f",
+      name: "Jason",
+      description: "description 1 here",
+      imageUrl: "/images/sample-pic.png",
+    },
+    {
+      id: "728ed52f",
+      name: "Mark",
+      description: "description 1 here",
+      imageUrl: "/images/sample-pic.png",
+    },
   ];
 }
 
