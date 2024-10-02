@@ -80,7 +80,7 @@ const BestSelling = () => {
           Best selling games
         </p>
       </div>
-
+      <div className="scale-x-0 w-10 h-1 bg-[#0BDB45] mx-auto my-10 shadow-[0_0_15px_5px_#0BDB45]"></div>
       {/* Cards */}
       <div className="container mx-auto grid grid-cols-3 place-items-center">
         {bestSellingGames.map(
@@ -164,12 +164,22 @@ const BestSelling = () => {
         )}
 
         {/* See more */}
-        <Button
-          variant="gaming"
-          className="text-[24px] px-[0.8em] py-[0.4em] h-fit border-[0.1em] border-[#0BDB45] hover:text-[#0BDB45] hover:bg-transparent transition-all duration-300 col-start-3 place-self-end me-[9%] z-10"
-        >
-          See More <LiaAngleRightSolid />
-        </Button>
+        <div className="col-start-3 place-self-end me-[9%] z-10">
+          <Button
+            variant="gaming"
+            className="relative text-[24px] px-[0.8em] py-[0.4em] h-fit"
+          >
+            See More <LiaAngleRightSolid />
+          </Button>
+          {/* <Button
+            variant="gaming"
+            className="relative text-[24px] px-[0.8em] py-[0.4em] h-fit before:w-[1px] before:h-full before:bg-white before:scale-y-0 before:origin-bottom before:absolute before:bottom-0 before:left-0 before:shadow-[0_0_5px_#0BDB45] hover:before:scale-y-[98%] before:transition-transform before:duration-300 after:w-[1px] after:h-full after:bg-white after:scale-y-0 after:origin-top after:absolute after:top-0 after:right-0 after:shadow-[0_0_1px_#0BDB45] hover:after:scale-y-[98%] after:transition-transform after:duration-300 group"
+          >
+            <p className="flex items-center before:w-full before:h-[1px] before:bg-white before:scale-x-0 before:origin-left before:absolute before:top-0 before:left-0 before:shadow-[0_0_1px_#0BDB45] group-hover:before:scale-x-[98%] before:transition-transform before:duration-300 after:w-full after:h-[1px] after:bg-white after:scale-x-0 after:origin-right after:absolute after:bottom-0 after:right-0 after:shadow-[0_0_1px_#0BDB45] group-hover:after:scale-x-[98%] after:transition-transform after:duration-300">
+              See More <LiaAngleRightSolid />
+            </p>
+          </Button> */}
+        </div>
       </div>
 
       {/* Bottom gradient */}

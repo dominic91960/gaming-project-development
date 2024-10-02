@@ -40,10 +40,7 @@ const Catalog = () => {
               </p>
             </div>
 
-            <Button
-              variant="gaming"
-              className="text-[24px] py-7 px-10 hover:bg-primary/90 hover:text-white"
-            >
+            <Button variant="gaming" className="text-[24px] py-7 px-10">
               View All Games
             </Button>
           </div>

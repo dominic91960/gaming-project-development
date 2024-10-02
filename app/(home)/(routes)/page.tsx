@@ -46,9 +46,9 @@ export default function Home() {
             </p>
             <Button
               variant="gaming"
-              className="relative text-[0.2em] mt-[1.5em] px-[1em] py-[1em] font-primaryFont font-semibold uppercase h-fit hover:bg-primary/90 hover:text-white z-10"
+              className="relative text-[0.2em] mt-[1.5em] px-[1em] py-[1em] font-primaryFont font-semibold uppercase h-fit z-10"
             >
-              Buy Now
+              <p className="z-10">Buy Now</p>
             </Button>
           </div>
         </div>
