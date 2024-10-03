@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+import logo from "@/public/images/navbar/logo.png";
+
 import {
   IoIosArrowForward,
   IoIosArrowBack,
@@ -95,6 +97,7 @@ export default function Navbar() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubMenu, setSelectedSubMenu] = useState("");
   const [subMenuData, setSubMenuData] = useState<string[]>([]);
+  const [isContentChanged, setIsContentChanged] = useState(false);
   const { user } = useContext(AuthContext);
 
   const handleCategorySelect = (category: string) => {
@@ -121,115 +124,158 @@ export default function Navbar() {
     }
   }, [user]);
 
+  useEffect(() => {
+    setTimeout(() => setIsContentChanged(true), 3000);
+  }, [isContentChanged]);
+
   return (
-    <section className="bg-[#0D0F10] font-primaryFont text-white sm:border-b-[#8C8C8C] sm:border-b relative">
-      <div className="container mx-auto flex border-b-[#8C8C8C] border-b justify-between sm:border-none sm:pe-[4%]">
-        {/* Categories button */}
-        <button
-          className="font-semibold text-[15px] capitalize bg-[#23262B] flex items-center gap-[0.4em] px-[0.8em] py-[0.4em] my-[0.5em] hover:scale-[102%]"
-          onClick={() => {
-            if (isCategoryMenuToggled === undefined) {
-              return setIsCategoryMenuToggled(true);
-            }
-            setIsCategoryMenuToggled((prev) => !prev);
-          }}
-        >
-          <div className="space-y-[0.2em] pe-[0.1em]">
-            <div className="w-[1.2em] h-0.5 bg-white"></div>
-            <div className="w-[0.8em] h-0.5 bg-white"></div>
-            <div className="w-[1.2em] h-0.5 bg-white"></div>
-          </div>
-          <h4>All categories</h4>
-        </button>
-        <div className="flex items-center font-semibold text-[15px] gap-x-[50px] md:gap-x-[96px] lg:gap-x-[115px] xl:gap-x-[130px] 2xl:gap-x-[144px]">
-          {/* Desktop Navbar */}
-          <nav className="hidden sm:flex uppercase gap-x-[20px] md:gap-x-[45px] lg:gap-x-[55px] xl:gap-x-[62px] 2xl:gap-x-[68px]">
-            <Link
-              href="/products"
-              className={`hover:opacity-80 ${
-                path.startsWith("/products") ? "text-[#0BDB45]" : ""
-              }`}
-            >
-              Store
-            </Link>
-            <Link
-              href="/about"
-              className={`hover:opacity-80 ${
-                path.startsWith("/about") ? "text-[#0BDB45]" : ""
-              }`}
-            >
-              About
-            </Link>
-            <Link
-              href="/contact"
-              className={`hover:opacity-80 ${
-                path.startsWith("/contact") ? "text-[#0BDB45]" : ""
-              }`}
-            >
-              Contact
-            </Link>
-          </nav>
-          {/* Icons */}
-          <div className="flex text-[25px] gap-x-[15px] md:gap-x-[27px]">
-            <Link href="/" className="hover:scale-110">
-              <IoMdHeartEmpty />
-            </Link>
-            <Link href="/" className="hover:scale-110">
-              <IoIosCart />
-            </Link>
-            <Link href="/sign-in" className="hover:scale-110">
-              {user?.profile_image ? (
-                <Image
-                  src={
-                    user?.profile_image ? user?.profile_image : ProfileDefault
-                  }
-                  alt="Profile"
-                  className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
-                  fill
-                />
-              ) : (
-                <IoMdPerson />
-              )}
-            </Link>
-            <div
-              onClick={() => {
-                axiosInstance.patch("/auth/logout");
-                localStorage.clear();
-                window.location.href = "/sign-in";
-              }}
-              className="cursor-pointer hover:scale-110"
-            >
-              <IoIosLogOut />
+    <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white]">
+      <div className="border-b border-b-[#8C8C8C]">
+        <div className="container mx-auto flex justify-between items-center py-[0.7em] sm:py-[1.2em] px-[1.8em] md:py-[0.5em]">
+          {/* Desktop categories toggle*/}
+          <button
+            className="font-semibold capitalize bg-[#23262B] hidden flex-shrink-0 md:flex md:items-center md:gap-[0.4em] px-[0.8em] py-[0.4em] hover:scale-[102%]"
+            onClick={() => {
+              if (isCategoryMenuToggled === undefined) {
+                return setIsCategoryMenuToggled(true);
+              }
+              setIsCategoryMenuToggled((prev) => !prev);
+            }}
+          >
+            <div className="space-y-[0.2em] pe-[0.1em]">
+              <div className="w-[1.2em] h-0.5 bg-white"></div>
+              <div className="w-[0.8em] h-0.5 bg-white"></div>
+              <div className="w-[1.2em] h-0.5 bg-white"></div>
+            </div>
+            <h4>All categories</h4>
+          </button>
+
+          {/* Desktop navigation links & icons*/}
+          <div className="hidden sm:flex sm:justify-between sm:w-full md:justify-end md:gap-x-[11.5%]">
+            {/* Desktop navigation links */}
+            <nav className="hidden sm:flex sm:gap-x-[1.5em] font-semibold uppercase">
+              <Link
+                href="/"
+                className={`hover:opacity-80 ${
+                  path === "/" ? "text-[#0BDB45]" : ""
+                }`}
+              >
+                Home
+              </Link>
+              <Link
+                href="/products"
+                className={`hover:opacity-80 ${
+                  path.startsWith("/about") ? "text-[#0BDB45]" : ""
+                }`}
+              >
+                Store
+              </Link>
+              <Link
+                href="/about"
+                className={`hover:opacity-80 ${
+                  path.startsWith("/about") ? "text-[#0BDB45]" : ""
+                }`}
+              >
+                About
+              </Link>
+              <Link
+                href="/contact"
+                className={`hover:opacity-80 ${
+                  path.startsWith("/contact") ? "text-[#0BDB45]" : ""
+                }`}
+              >
+                Contact
+              </Link>
+            </nav>
+
+            {/* Desktop navigation icons */}
+            <div className="flex text-[1.5em] gap-x-[0.7em] justify-around">
+              <Link href="/" className="hover:scale-110">
+                <IoMdHeartEmpty />
+              </Link>
+
+              <Link href="/" className="hover:scale-110">
+                <IoIosCart />
+              </Link>
+
+              <Link href="/sign-in" className="hover:scale-110">
+                {user?.profile_image ? (
+                  <Image
+                    src={
+                      user?.profile_image ? user?.profile_image : ProfileDefault
+                    }
+                    alt="Profile"
+                    className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
+                    fill
+                  />
+                ) : (
+                  <IoMdPerson />
+                )}
+              </Link>
+
+              <div
+                onClick={() => {
+                  axiosInstance.patch("/auth/logout");
+                  localStorage.clear();
+                  window.location.href = "/sign-in";
+                }}
+                className="cursor-pointer hover:scale-110"
+              >
+                <IoIosLogOut />
+              </div>
             </div>
           </div>
-          {/* Toggle button */}
+
+          {/* Mobile logo  */}
+          <Link href="/" className="sm:hidden">
+            <Image src={logo} alt="Logo" className="size-[3em]" />
+          </Link>
+
+          {/* Mobile navbar toggle  */}
           <button
             className={`${
               isMobileNavToggled ? "animate-toggle-button" : ""
             } relative h-4 w-6 transition-opacity duration-300 sm:hidden`}
-            onClick={() => setIsMobileNavToggled((prev) => !prev)}
+            onClick={() => {
+              if (isCategoryMenuToggled) {
+                setIsCategoryMenuToggled(false);
+                setTimeout(() => setIsMobileNavToggled((prev) => !prev), 1100);
+                return;
+              }
+              setIsMobileNavToggled((prev) => !prev);
+            }}
           >
             <div className="absolute -mt-[0.5px] h-[1px] w-full rounded bg-white drop-shadow-[1px_1px_1px_rgba(0,0,0,0.5)] transition-all duration-700 ease-in-out before:absolute before:left-0 before:h-[1px] before:w-full before:-translate-y-[6px] before:rounded before:bg-white before:transition-transform before:duration-700 before:ease-in-out after:absolute after:left-0 after:h-[1px] after:w-full after:translate-y-[6px] after:rounded after:bg-white after:transition-transform after:duration-700 after:ease-in-out"></div>
           </button>
         </div>
       </div>
-      {/* Mobile Navbar */}
+
+      {/* Mobile navigation links & icons */}
       <nav
         className={`${
-          isMobileNavToggled ? "flex flex-col gap-y-[2em] sm:hidden" : "hidden"
-        } bg-[#0D0F10] origin-top animate-open-menu container mx-auto font-semibold text-[15px] uppercase py-[2em]`}
+          isMobileNavToggled ? "flex flex-col sm:hidden" : "hidden"
+        } container mx-auto bg-[#0D0F10] origin-top animate-open-menu px-[1.8em] font-semibold text-center uppercase pt-[1.5em] pb-[2.4em]`}
       >
+        {/* Mobile navigation links */}
+        <Link
+          href="/"
+          className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
+            path === "/" ? "text-[#0BDB45]" : ""
+          }`}
+        >
+          Home
+        </Link>
         <Link
           href="/products"
-          className={`hover:opacity-80 ${
-            path.startsWith("/products") ? "text-[#0BDB45]" : ""
+          className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
+            path.startsWith("/about") ? "text-[#0BDB45]" : ""
           }`}
         >
           Store
         </Link>
         <Link
           href="/about"
-          className={`hover:opacity-80 ${
+          className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
             path.startsWith("/about") ? "text-[#0BDB45]" : ""
           }`}
         >
@@ -237,14 +283,73 @@ export default function Navbar() {
         </Link>
         <Link
           href="/contact"
-          className={`hover:opacity-80 ${
+          className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
             path.startsWith("/contact") ? "text-[#0BDB45]" : ""
           }`}
         >
           Contact
         </Link>
+        {/* Mobile navigation icons */}
+        <div className="flex text-[1.5em] justify-around mt-[1.6em]">
+          <Link href="/" className="hover:scale-110">
+            <IoMdHeartEmpty />
+          </Link>
+
+          <Link href="/" className="hover:scale-110">
+            <IoIosCart />
+          </Link>
+
+          <Link href="/sign-in" className="hover:scale-110">
+            {user?.profile_image ? (
+              <Image
+                src={user?.profile_image ? user?.profile_image : ProfileDefault}
+                alt="Profile"
+                className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
+                fill
+              />
+            ) : (
+              <IoMdPerson />
+            )}
+          </Link>
+
+          <div
+            onClick={() => {
+              axiosInstance.patch("/auth/logout");
+              localStorage.clear();
+              window.location.href = "/sign-in";
+            }}
+            className="cursor-pointer hover:scale-110"
+          >
+            <IoIosLogOut />
+          </div>
+        </div>
       </nav>
-      {/* Categories Menu */}
+
+      {/* Mobile categories toggle */}
+      <button
+        className={`md:hidden absolute bottom-0 left-0 translate-y-[130%] bg-[#0BDB45] flex items-center justify-center transition-all duration-700 text-[0.8em] sm:text-[0.9em] ease-in-out capitalize px-[1em] py-[0.5em] z-40 ${
+          isContentChanged ? "w-[1ch]" : "w-[14ch]"
+        }`}
+        onClick={() => {
+          if (isMobileNavToggled) {
+            setIsMobileNavToggled(false);
+            setTimeout(() => {
+              isCategoryMenuToggled === undefined
+                ? setIsCategoryMenuToggled(true)
+                : setIsCategoryMenuToggled((prev) => !prev);
+            }, 500);
+            return;
+          }
+          isCategoryMenuToggled === undefined
+            ? setIsCategoryMenuToggled(true)
+            : setIsCategoryMenuToggled((prev) => !prev);
+        }}
+      >
+        <p className={isContentChanged ? "hidden" : "block"}>All categories</p>
+        <p className={!isContentChanged ? "hidden" : "block"}>&#8942;</p>
+      </button>
+
+      {/* Categories menu */}
       <nav
         className={`${
           isCategoryMenuToggled
@@ -252,11 +357,12 @@ export default function Navbar() {
             : isCategoryMenuToggled === false
             ? "reverse-animate-category-menu"
             : "hidden"
-        } origin-left absolute w-full sm:w-[400px] min-h-[80vh] bg-[#0D0F10] border border-[#75F94C] font-semibold text-[18px] p-[2em] z-50`}
+        } origin-left absolute top-[calc(100%-1px)] w-full sm:w-[400px] sm:min-h-[80vh] bg-[#0D0F10] border border-[#75F94C] p-[2em] z-50`}
       >
         {/* Main category menu */}
         <div className={isMenuOneVisible ? "block" : "hidden"}>
-          <div className="flex justify-between items-center text-[22px] mb-[2em]">
+          {/* Main category menu title */}
+          <div className="flex justify-between items-center mb-[2em]">
             <h3 className="font-medium">Gamespire</h3>
             <button
               className="text-[#0BDB45] hover:scale-105"
@@ -265,6 +371,8 @@ export default function Navbar() {
               &#10006;
             </button>
           </div>
+
+          {/* Main category menu links */}
           <div className="flex flex-col gap-y-[1em]">
             <Link
               href="/products"
@@ -302,9 +410,11 @@ export default function Navbar() {
             ))}
           </div>
         </div>
+
         {/* Sub category menu */}
         <div className={isMenuTwoVisible ? "block" : "hidden"}>
-          <div className="flex justify-between items-center text-[22px] mb-[2em]">
+          <div className="flex justify-between items-center mb-[2em]">
+            {/* Sub category menu title */}
             <button
               className="flex items-center -translate-x-2 hover:opacity-80"
               onClick={() => {
@@ -312,7 +422,7 @@ export default function Navbar() {
                 setIsMenuTwoVisible(false);
               }}
             >
-              <IoIosArrowBack className="text-[24px]" />
+              <IoIosArrowBack className="text-[1.1em]" />
               <h3 className="font-medium">{selectedCategory}</h3>
             </button>
             <button
@@ -322,6 +432,8 @@ export default function Navbar() {
               &#10006;
             </button>
           </div>
+
+          {/* Sub category menu links */}
           <div className="flex flex-col gap-y-[1em]">
             <Link
               href="/products"
@@ -367,9 +479,11 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+
         {/* Platform/Genre Menu */}
         <div className={isMenuThreeVisible ? "block" : "hidden"}>
-          <div className="flex justify-between items-center text-[22px] mb-[2em]">
+          <div className="flex justify-between items-center mb-[2em]">
+            {/* Platform/Genre menu title */}
             <button
               className="flex items-center -translate-x-2 hover:opacity-80"
               onClick={() => {
@@ -387,6 +501,8 @@ export default function Navbar() {
               &#10006;
             </button>
           </div>
+
+          {/* Platform/Genre menu links */}
           <div className="flex flex-col gap-y-[1em]">
             {subMenuData &&
               subMenuData.map((item) => (
