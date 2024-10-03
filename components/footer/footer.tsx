@@ -41,8 +41,8 @@ export default function Footer() {
             </Button>
           </form>
         </div>
-        <div className="mt-[4.3%] flex flex-col xl:flex-row gap-6 xl:gap-[144px] text-center  bg-green-500">
-          <div className="flex flex-col text-center lg:text-left lg:justify-start bg-red-600">
+        <div className="mt-[4.3%] flex flex-col xl:flex-row gap-6 xl:gap-[144px] text-center">
+          <div className="flex flex-col text-center lg:text-left lg:justify-start">
             <div className="flex items-center justify-center">
               <Image src={logo} alt="Logo" className="w-[31.05px] lg:w-[117px]" />
               <h3 className="uppercase font-semibold text-sm lg:text-[36px] ps-[0.5em]">
@@ -55,7 +55,7 @@ export default function Footer() {
               PC, consoles, and popular gaming platforms at unbeatable prices.
             </p>
           </div>
-          <div className="flex flex-row lg:flex-row space-x-10 justify-center bg-blue-700">
+          <div className="flex flex-row lg:flex-row space-x-10 justify-center">
             <ul className="uppercase text-[8px] lg:text-[18px] font-light lg:font-semibold flex-shrink-0">
               <h4 className="text-[11px] lg:text-[25px] font-semibold">Company</h4>
               <li className="mt-[0.8em]">
@@ -87,7 +87,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className="uppercase text-[7px] lg:text-[18px] font-semibold flex-shrink-0 bg-pink-600">
+          <div className="uppercase text-[7px] lg:text-[18px] font-semibold flex-shrink-0">
             <h4 className="text-[15px] lg:text-[25px]">Follow us</h4>
             <ul className="flex mt-[0.8em] gap-[1.6em] justify-center">
               <li>
@@ -113,12 +113,12 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-[2.7%] border-t-2 pt-[1.5%] pb-[2.5%] capitalize w-full flex flex-col lg:flex-row items-center lg:text-[15px] justify-between font-semibold text-[7px] bg-orange-600">
+        <div className="mt-[2.7%] border-t-2 pt-[1.5%] pb-[2.5%] capitalize w-full flex flex-col lg:flex-row items-center lg:text-[15px] justify-between font-semibold text-[7px]">
           <div className="flex items-center gap-[1.6em]">
             <Image src={copyright} alt="Copyright" className="w-4 lg:w-8" />
             <p>Copyright {new Date().getFullYear()}. All rights reserved</p>
           </div>
-          <div className="flex flex-row items-center gap-2 bg-red-800 ">
+          <div className="flex flex-row items-center gap-2 ">
             <div className="flex flex-row gap-2">
               <Image src={paypal} alt="PayPal" className="w-[10px] lg:w-6" />
               <Image src={visa} alt="Visa" className="w-[10px] lg:w-6"/>
