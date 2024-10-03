@@ -42,10 +42,10 @@ const UserTable: React.FC<UserTableProps> = ({
         {users.map((user) => (
           <tr
             key={user.username}
-            className="text-base text-center *:py-[1.5em] *:px-[1ch] *:bg-white/5 mt-4 cursor-pointer hover:scale-[101%]"
+            className="text-base text-center *:py-[1.5em] *:px-[1ch] *:bg-white/5 mt-4 cursor-pointer hover:shadow-[0px_0px_5px_#00FFA1] rounded-sm"
           >
             <td className="relative">
-              <div className="w-2 h-[5em] bg-[#00FFA1] absolute top-0 left-0 rounded-sm"></div>
+              <div className="w-[0.3em] h-full bg-[#00FFA1] absolute top-0 left-0 rounded-full"></div>
               <Image
                 src={samplePic}
                 alt="Sample"
