@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Payment, columns } from "./categories/columns";
 import { DataTable } from "./categories/data-table";
+import AddCategoryPop from "./categories/AddCategoryPop";
 
-// Example data
 function getData(): Payment[] {
   return [
     {
@@ -29,13 +29,25 @@ function getData(): Payment[] {
 export default function DemoPage() {
   const [data, setData] = useState<Payment[]>(getData());
 
-  // Function to handle deleting a row by its ID
+  const handleAddCategory = (newCategory: {
+    name: string;
+    description: string;
+    imageUrl: string;
+  }) => {
+    const newEntry: Payment = {
+      id: Math.random().toString(36).substring(2),
+      ...newCategory,
+    };
+    setData((prevData) => [...prevData, newEntry]);
+  };
+
   const handleDelete = (id: string) => {
     setData((prevData) => prevData.filter((item) => item.id !== id));
   };
 
   return (
     <div className="container mx-auto py-10">
+      <AddCategoryPop onAddCategory={handleAddCategory} />
       <DataTable columns={columns} data={data} onDelete={handleDelete} />
     </div>
   );

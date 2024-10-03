@@ -22,25 +22,24 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 interface DataTableProps<TData, TValue> {
-  columns: (onDelete: (id: string) => void) => ColumnDef<TData, TValue>[]; // Updated to accept `onDelete`
+  columns: (onDelete: (id: string) => void) => ColumnDef<TData, TValue>[];
   data: TData[];
-  onDelete: (id: string) => void; // Add onDelete prop
+  onDelete: (id: string) => void;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  onDelete, // Accept the onDelete prop
+  onDelete,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
 
-  // Modify the call to columns to include the onDelete function
   const table = useReactTable({
     data,
-    columns: columns(onDelete), // Pass the onDelete function to columns
+    columns: columns(onDelete),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,

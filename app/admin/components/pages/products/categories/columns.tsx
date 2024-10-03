@@ -12,15 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Define the Payment type
 export type Payment = {
   id: string;
   name: string;
   description: string;
-  imageUrl: string; // New property for image URL
+  imageUrl: string;
 };
 
-// Define columns and pass onDelete to handle the delete action
 export const columns = (
   onDelete: (id: string) => void
 ): ColumnDef<Payment>[] => [
@@ -45,16 +43,16 @@ export const columns = (
   },
 
   {
-    accessorKey: "imageUrl", // New column for Image
+    accessorKey: "imageUrl",
     header: "Image",
     cell: ({ row }) => {
-      const payment = row.original; // Access the row data (Payment object)
+      const payment = row.original;
       return (
         <div className="flex items-center">
           <img
             src={payment.imageUrl}
             alt={payment.name}
-            className="h-10 w-10 rounded-full" // Adjust height/width based on your needs
+            className="h-10 w-10 rounded-full"
           />
         </div>
       );
@@ -64,7 +62,7 @@ export const columns = (
   {
     id: "actions",
     cell: ({ row }) => {
-      const payment = row.original; // Access the row data (Payment object)
+      const payment = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
