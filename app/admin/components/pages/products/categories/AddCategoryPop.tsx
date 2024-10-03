@@ -46,7 +46,12 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Add Categories</Button>
+      <button
+        className="bg-[#00FFA1] font-bold text-black text-[11px] px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
+        onClick={() => setIsOpen(true)}
+      >
+        Add Categories
+      </button>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="bg-[#7eb9f3]">
           <DialogHeader>

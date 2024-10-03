@@ -46,9 +46,19 @@ export default function DemoPage() {
   };
 
   return (
-    <div className="container mx-auto py-10">
-      <AddCategoryPop onAddCategory={handleAddCategory} />
-      <DataTable columns={columns} data={data} onDelete={handleDelete} />
+    <div className="min-h-full font-primaryFont text-[24px] p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
+      <div className="pb-[2em]">
+        <h1 className="font-bold text-[36px] leading-none text-white">
+          All Categories
+        </h1>
+        <p className="text-[12px] text-white">Product / Categories</p>
+      </div>
+      <DataTable
+        columns={columns}
+        data={data}
+        onDelete={handleDelete}
+        onAddCategory={handleAddCategory}
+      />
     </div>
   );
 }

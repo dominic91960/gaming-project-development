@@ -71,13 +71,22 @@ export const columns = (
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent
+            align="end"
+            className="bg-black/20 backdrop-blur-sm rounded-sm text-white border border-white/10"
+          >
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => alert(`Editing ${payment.name}`)}>
+            <DropdownMenuSeparator className="w-[90%] mx-auto bg-white/10" />
+            <DropdownMenuItem
+              onClick={() => alert(`Editing ${payment.name}`)}
+              className="cursor-pointer"
+            >
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onDelete(payment.id)}>
+            <DropdownMenuItem
+              onClick={() => onDelete(payment.id)}
+              className="cursor-pointer"
+            >
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
