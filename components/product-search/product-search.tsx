@@ -1,36 +1,31 @@
+import Link from "next/link";
 import Image from "next/image";
-import logo from "../../public/images/home/logo.png";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import logo from "../../public/images/home/logo.png";
+
 const ProductSearchBar = () => {
   return (
-    <div className="bg-[#0d0f10] border-b border-[#8C8C8C] font-primaryFont">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-8">
-            <Image src={logo} alt="Main Character" height={68} width={68} />
-          </div>
+    <div className="bg-[#0B0E13] border-b border-[#8C8C8C] font-primaryFont text-[13px] xl:text-[14px] text-white">
+      <div className="container mx-auto px-[36px] py-[1em] flex items-center justify-between sm:py-[0.1em]">
+        <Link href="/" className="hidden sm:block sm:size-[5em]">
+          <Image src={logo} alt="Logo" />
+        </Link>
 
-          <div className="col-span-4 mr-[80px] my-auto">
-            <div className="flex items-center gap-[200px] ">
-              <div className="flex w-full  items-center space-x-2 bg-[#23262B] h-[35px]">
-                <Input
-                  placeholder="Search your products..."
-                  className="border-none text-white"
-                />
-                <div className="">
-                  <Button
-                    type="submit"
-                    variant="gaming"
-                    className="h-[25px] mr-[5px]"
-                  >
-                    Search
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="bg-[#23262B] flex items-center w-full sm:w-[50ch]">
+          <Input
+            placeholder="Search your products..."
+            className="text-[1em] rounded-none border-none px-[1em] py-[0.5em] h-fit"
+          />
+          <Button
+            type="submit"
+            variant="gaming"
+            className="text-[1em] mx-[0.3em] my-[0.4em] px-[1em] py-[0.2em] h-fit"
+          >
+            Search
+          </Button>
         </div>
       </div>
     </div>

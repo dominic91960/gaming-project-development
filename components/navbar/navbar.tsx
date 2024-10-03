@@ -131,7 +131,7 @@ export default function Navbar() {
   return (
     <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white]">
       <div className="border-b border-b-[#8C8C8C]">
-        <div className="container mx-auto flex justify-between items-center py-[0.7em] sm:py-[1.2em] px-[1.8em] md:py-[0.5em]">
+        <div className="container mx-auto flex justify-between items-center py-[0.7em] sm:py-[1.2em] px-[36px] md:py-[0.5em]">
           {/* Desktop categories toggle*/}
           <button
             className="font-semibold capitalize bg-[#23262B] hidden flex-shrink-0 md:flex md:items-center md:gap-[0.4em] px-[0.8em] py-[0.4em] hover:scale-[102%]"
@@ -153,7 +153,7 @@ export default function Navbar() {
           {/* Desktop navigation links & icons*/}
           <div className="hidden sm:flex sm:justify-between sm:w-full md:justify-end md:gap-x-[11.5%]">
             {/* Desktop navigation links */}
-            <nav className="hidden sm:flex sm:gap-x-[1.5em] font-semibold uppercase">
+            <nav className="hidden sm:flex sm:gap-x-[1.5em] lg:gap-x-[2.5em] xl:gap-x-[3.5em] font-semibold uppercase">
               <Link
                 href="/"
                 className={`hover:opacity-80 ${
@@ -189,7 +189,7 @@ export default function Navbar() {
             </nav>
 
             {/* Desktop navigation icons */}
-            <div className="flex text-[1.5em] gap-x-[0.7em] justify-around">
+            <div className="flex text-[1.5em] gap-x-[0.7em] lg:gap-x-[1em] justify-around">
               <Link href="/" className="hover:scale-110">
                 <IoMdHeartEmpty />
               </Link>
