@@ -19,12 +19,7 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ setShowModal }) => {
 
   return (
     <div className="fixed inset-0 bg-black/80 flex justify-center items-center font-medium text-[13px]">
-      <div
-        className="relative bg-gradient-to-tr from-black from-15% to-[#0D6D49] p-[3em] rounded-md border border-[#19D38E]"
-        // style={{
-        //   borderImage: `linear-gradient(to top right, #19D38E 0%, #0D6D49 100%) 1`,
-        // }}
-      >
+      <div className="relative bg-gradient-to-tr from-black from-15% to-[#0D6D49] p-[3em] rounded-md border border-[#19D38E]">
         <button
           className="absolute top-[1em] right-[1em] text-[#00FFA1] text-[18px] hover:opacity-80 transition-opacity duration-100"
           onClick={() => setShowModal(false)}

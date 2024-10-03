@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogClose,
 } from "@/components/ui/dialog";
 
 import {
@@ -16,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { IoClose } from "react-icons/io5";
 
 interface AddCategoryPopProps {
   onAddCategory: (newCategory: {
@@ -53,55 +55,85 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
         Add Categories
       </button>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="bg-[#7eb9f3]">
+        <DialogContent className="bg-gradient-to-tr from-black/40 from-15% to-[#00a76a66] border-[#0D6D49] backdrop-blur-sm font-primaryFont text-white text-[13px] p-[3em]">
           <DialogHeader>
-            <DialogTitle>Add New Category</DialogTitle>
+            <DialogTitle className="flex items-center justify-between border-b border-b-[#606060] pb-[1em] text-[1.5em]">
+              <h2>Add Category</h2>
+              <button
+                className="text-[#00FFA1] hover:opacity-80 transition-opacity duration-100"
+                onClick={() => setIsOpen(false)}
+              >
+                <IoClose />
+              </button>
+            </DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
-            <Input
-              placeholder="Category Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <Input
-              placeholder="Category Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
+          <div className="bg-black/50 border border-[#0D6D49] mt-[1em] px-[2em] py-[3em] rounded-sm">
+            <div className="grid grid-cols-2 gap-x-[4.8em] font-medium">
+              <div>
+                <p className="mb-[0.5em]">Name</p>
+                <Input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-[35ch] text-[1em] px-[1em] py-[0.6em] h-fit border-[#606060]"
+                />
+              </div>
+              <div>
+                <p className="mb-[0.5em]">Parent Category</p>
+                <Select>
+                  <SelectTrigger className="border-[#606060]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-sm *:p-[1em]">
+                    <SelectItem value="Parent 1">Parent 1</SelectItem>
+                    <SelectItem value="Sub Category 1.1">
+                      Sub Category 1.1
+                    </SelectItem>
+                    <SelectItem value="Sub Category 1.1.1">
+                      Sub Category 1.1.1
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="mt-[1.4em]">
+              <p className="mb-[0.5em]">Image</p>
+              <Input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () =>
+                      setImageUrl(reader.result as string);
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                className="text-[1em] p-0 border-[#606060] h-fit file:bg-[#313131] file:text-[#D9D9D9] file:px-[1em] file:py-[0.6em] file:me-[1em] file:cursor-pointer hover:file:text-white"
+              />
+            </div>
 
-            <Select>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Parent Cateogry" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Parent 1">Parent 1</SelectItem>
-                <SelectItem value="Sub Category 1.1">
-                  Sub Category 1.1
-                </SelectItem>
-                <SelectItem value="Sub Category 1.1.1">
-                  Sub Category 1.1.1
-                </SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Input
-              type="file"
-              accept="image/*"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) {
-                  const reader = new FileReader();
-                  reader.onloadend = () => setImageUrl(reader.result as string);
-                  reader.readAsDataURL(file);
-                }
-              }}
-            />
+            <div className="mt-[1.4em]">
+              <p className="mb-[0.5em]">Description</p>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="w-full bg-transparent border border-[#606060] rounded-sm text-[1em] px-[1em] py-[0.6em]"
+                rows={4}
+              />
+            </div>
           </div>
-          <div className="flex justify-end mt-4 space-x-2">
-            <Button variant="outline" onClick={() => setIsOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSubmit}>OK</Button>
+          <div className="flex justify-between items-center mt-[3.1em]">
+            <p className="text-[10px] max-w-[65ch]">
+              Please review and ensure that all the details you have entered are
+              correct before submitting.
+            </p>
+            <button
+              className="text-black font-semibold text-[14px] px-[1.5em] py-[0.5em] bg-[#00FFA1] rounded hover:opacity-90 transition-opacity duration-100"
+              onClick={handleSubmit}
+            >
+              Save
+            </button>
           </div>
         </DialogContent>
       </Dialog>
