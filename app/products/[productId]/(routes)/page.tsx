@@ -12,7 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { FaAngleRight } from "react-icons/fa6";
+import { LiaAngleRightSolid } from "react-icons/lia";
 
 import ContactBar from "@/app/contact-bar/contact-bar";
 import ProductSearchBar from "@/components/product-search/product-search";
@@ -180,7 +180,10 @@ export default function ProductPage() {
                 <Image src={paypalLogo} alt="Paypal logo" />
               </Button>
               <div className="flex gap-x-[3%]">
-                <Button className="rounded-none bg-[#0BDB45] text-[25px] font-semibold text-black hover:text-white flex-grow">
+                <Button
+                  variant="gaming"
+                  className="text-[25px] font-semibold flex-grow"
+                >
                   Buy now
                 </Button>
                 <button className="flex-shrink-0 hover:opacity-80">
@@ -504,9 +507,9 @@ export default function ProductPage() {
               <div className="flex justify-end">
                 <Button
                   variant="gaming"
-                  className="text-[0.6em] px-[1em] py-[0.5em] h-fit hover:opacity-80"
+                  className="text-[0.6em] px-[1em] py-[0.5em] h-fit"
                 >
-                  See More <FaAngleRight />
+                  See More <LiaAngleRightSolid />
                 </Button>
               </div>
             </div>

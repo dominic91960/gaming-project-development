@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 
 const ProductSearchBar = () => {
   return (
-    <div className="bg-[#0d0f10] border-b border-[#8C8C8C]">
+    <div className="bg-[#0d0f10] border-b border-[#8C8C8C] font-primaryFont">
       <div className="container mx-auto">
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-8">
@@ -22,7 +22,8 @@ const ProductSearchBar = () => {
                 <div className="">
                   <Button
                     type="submit"
-                    className="bg-[#0BDB45] text-black rounded-none h-[25px] mr-[5px] hover:text-white"
+                    variant="gaming"
+                    className="h-[25px] mr-[5px]"
                   >
                     Search
                   </Button>

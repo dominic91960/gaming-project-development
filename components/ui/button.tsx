@@ -3,6 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
+import "./button.css";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -19,7 +20,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         gaming:
-          "bg-[#0BDB45] font-primaryFont font-semibold rounded-none text-black",
+          "relative bg-[#0BDB45] font-primaryFont font-semibold rounded-none text-black z-10 hover:shadow-[0_0_20px_#75F94C] transition-shadow duration-300 before:w-full before:h-full before:absolute before:left-0 before:top-0 before:bg-[#75F94C] before:scale-x-[15%] before:scale-y-[40%] before:origin-bottom-right hover:before:scale-x-[140%] hover:before:scale-y-[350%] before:transition-transform before:duration-300 clipped overflow-hidden before:-z-10",
       },
       size: {
         gaming: "h-8 px-5 py-2",
