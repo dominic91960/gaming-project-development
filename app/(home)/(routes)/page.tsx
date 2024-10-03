@@ -18,7 +18,7 @@ import "../_components/home.css";
 export default function Home() {
   return (
     <>
-      <ContactBar />
+      {/* <ContactBar />
       <ProductSearchBar />
       <Navbar />
       <div className="background-home-div relative bg-black h-max">
@@ -59,7 +59,7 @@ export default function Home() {
       <SwiperCarousel />
       <BestSelling />
       <Catalog />
-      <VerticalCarousel />
+      <VerticalCarousel /> */}
       <Footer />
     </>
   );
