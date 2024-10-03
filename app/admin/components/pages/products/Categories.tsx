@@ -6,21 +6,21 @@ import { DataTable } from "./categories/data-table";
 function getData(): Payment[] {
   return [
     {
-      id: "728ed52f",
+      id: "728ed52f1",
       name: "Steve",
       description: "description 1 here",
       imageUrl: "/images/sample-pic.png",
     },
     {
-      id: "728ed52f",
+      id: "728ed52f2",
       name: "Jason",
-      description: "description 1 here",
+      description: "description 2 here",
       imageUrl: "/images/sample-pic.png",
     },
     {
-      id: "728ed52f",
+      id: "728ed52f3",
       name: "Mark",
-      description: "description 1 here",
+      description: "description 3 here",
       imageUrl: "/images/sample-pic.png",
     },
   ];
