@@ -9,6 +9,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 interface AddCategoryPopProps {
   onAddCategory: (newCategory: {
     name: string;
@@ -40,7 +48,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
     <>
       <Button onClick={() => setIsOpen(true)}>Add Categories</Button>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent>
+        <DialogContent className="bg-[#7eb9f3]">
           <DialogHeader>
             <DialogTitle>Add New Category</DialogTitle>
           </DialogHeader>
@@ -55,6 +63,22 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
+
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Parent Cateogry" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Parent 1">Parent 1</SelectItem>
+                <SelectItem value="Sub Category 1.1">
+                  Sub Category 1.1
+                </SelectItem>
+                <SelectItem value="Sub Category 1.1.1">
+                  Sub Category 1.1.1
+                </SelectItem>
+              </SelectContent>
+            </Select>
+
             <Input
               type="file"
               accept="image/*"

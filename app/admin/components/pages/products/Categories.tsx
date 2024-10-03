@@ -6,20 +6,20 @@ import AddCategoryPop from "./categories/AddCategoryPop";
 function getData(): Payment[] {
   return [
     {
-      id: "728ed52f1",
-      name: "Steve",
+      id: "1234",
+      name: "main category 1",
       description: "description 1 here",
       imageUrl: "/images/sample-pic.png",
     },
     {
-      id: "728ed52f2",
-      name: "Jason",
+      id: "1231",
+      name: "Sub category 1",
       description: "description 2 here",
       imageUrl: "/images/sample-pic.png",
     },
     {
-      id: "728ed52f3",
-      name: "Mark",
+      id: "1222",
+      name: "Super Sub category 2.1",
       description: "description 3 here",
       imageUrl: "/images/sample-pic.png",
     },

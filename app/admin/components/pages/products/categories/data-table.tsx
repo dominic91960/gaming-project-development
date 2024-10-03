@@ -61,7 +61,7 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm text-white"
         />
       </div>
       <div className="rounded-md border text-white">
