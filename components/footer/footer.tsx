@@ -17,126 +17,121 @@ import skrill from "@/public/images/footer/skrill.png";
 export default function Footer() {
   return (
     <section className="bg-[#0B0E13] text-white">
-      <div className="container mx-auto font-primaryFont pt-[3.3%]">
+      <div className="container mx-auto font-primaryFont pt-[3.3%] w-full px-8 justify-between">
         <div
-          className="bg-[#2D2E37] px-[7%] py-[2%] flex items-center justify-between"
+          className="bg-[#2D2E37] px-8 py-4 xl:px-16   flex items-center justify-between md:gap-20 mx-auto"
           style={{
             clipPath:
               "polygon(0% 0%, 98% 0%, 100% 20%, 100% 100%, 2% 100%, 0% 80%)",
           }}
         >
-          <h2 className="text-[36px] font-semibold uppercase">
-            Subscribe newsletter
+          <h2 className="text-[8px] md:text-md md:leading-10 lg:text-lg xl:text-2xl 2xl:text-3xl font-semibold uppercase">
+            Subscribe Newsletter
           </h2>
-          <form className="flex items-center gap-[2.5em] text-[14px]">
+          <form className="flex items-center gap-2 lg:gap-[2.5em] text-[7px] lg:text-[14px]">
             <Input
               type="email"
               placeholder="Email Address"
-              className="text-white bg-[#0B0E13] border-none rounded-none w-[37ch] placeholder:text-white py-[1.5em] ps-[1em]"
+              className="text-white bg-[#0B0E13] border-none rounded-none px-[4px] py-[3px] h-fit  lg:w-[37ch] placeholder:text-white lg:py-[1.5em] ps-[1em] text-[7px] lg:text-[14px]"
             />
-            <Button className=" px-[1.8em] py-[1.4em] text-black bg-[#0BDB45] leading-none rounded-none hover:text-white">
-              <p className="flex gap-[1em] font-bold items-center">
-                Subscribe <span className="text-[1.4em]">&#10230;</span>
+            <Button className="px-[4px] py-[3px] h-fit lg:px-[1.8em] lg:py-[1.4em] text-black bg-[#0BDB45] leading-none rounded-none hover:text-white hover:bg-[#108832] text-[7px] lg:text-[14px]">
+              <p className="flex gap-[0.5em] font-bold items-center ">
+                Subscribe <span className="text-xm lg:text-sm">&#10230;</span>
               </p>
             </Button>
           </form>
         </div>
-        <div className="mt-[4.3%] flex gap-[144px]">
-          <div>
-            <div className="flex items-center">
-              <Image src={logo} alt="Logo" />
-              <h3 className="uppercase font-semibold text-[36px] ps-[0.5em]">
+        <div className="mt-[4.3%] flex flex-col xl:flex-row gap-6 xl:gap-[144px] text-center">
+          <div className="flex flex-col text-center lg:text-left lg:justify-start">
+            <div className="flex items-center justify-center">
+              <Image src={logo} alt="Logo" className="w-[31.05px] lg:w-[117px]" />
+              <h3 className="uppercase font-semibold text-sm lg:text-[36px] ps-[0.5em]">
                 Logo
               </h3>
             </div>
-            <p>
+            <p className="text-[7px] lg:text-[16px] mb-8">
               Your one-stop destination for unlocking the ultimate gaming
               experience. Our online store offers a wide range of game keys for
               PC, consoles, and popular gaming platforms at unbeatable prices.
             </p>
           </div>
-          <ul className="uppercase text-[18px] font-semibold flex-shrink-0">
-            <h4 className="text-[25px]">Company</h4>
-            <li className="mt-[0.8em] hover:opacity-80">
-              <Link href="/">Products</Link>
-            </li>
-            <li className="mt-[0.8em] hover:opacity-80">
-              <Link href="/">Blog</Link>
-            </li>
-            <li className="mt-[0.8em] hover:opacity-80">
-              <Link href="/">About</Link>
-            </li>
-            <li className="mt-[0.8em] hover:opacity-80">
-              <Link href="/">Contact</Link>
-            </li>
-          </ul>
-          <ul className="uppercase text-[18px] font-semibold flex-shrink-0">
-            <h4 className="text-[25px]">Categories</h4>
-            <li className="mt-[0.8em] hover:opacity-80">
-              <Link href="/">Games</Link>
-            </li>
-            <li className="mt-[0.8em] hover:opacity-80">
-              <Link href="/">Gift cards</Link>
-            </li>
-            <li className="mt-[0.8em] hover:opacity-80">
-              <Link href="/">E-money</Link>
-            </li>
-            <li className="mt-[0.8em] hover:opacity-80">
-              <Link href="/">Pre orders</Link>
-            </li>
-            <li className="mt-[0.8em] hover:opacity-80">
-              <Link href="/">Steam</Link>
-            </li>
-          </ul>
-          <div className="uppercase text-[18px] font-semibold flex-shrink-0">
-            <h4 className="text-[25px]">Follow us</h4>
-            <ul className="flex mt-[0.8em] gap-[1.6em]">
-              <li className="hover:scale-110">
+          <div className="flex flex-row lg:flex-row space-x-10 justify-center">
+            <ul className="uppercase text-[8px] lg:text-[18px] font-light lg:font-semibold flex-shrink-0">
+              <h4 className="text-[11px] lg:text-[25px] font-semibold">Company</h4>
+              <li className="mt-[0.8em]">
+                <Link href="/">Products</Link>
+              </li>
+              <li className="mt-[0.8em]">
+                <Link href="/">Blog</Link>
+              </li>
+              <li className="mt-[0.8em]">
+                <Link href="/">About</Link>
+              </li>
+              <li className="mt-[0.8em]">
+                <Link href="/">Contact</Link>
+              </li>
+            </ul>
+            <ul className="uppercase text-[8px] lg:text-[18px] font-normal lg:font-semibold flex-shrink-0">
+              <h4 className="text-[11px] lg:text-[25px] font-semibold">Categories</h4>
+              <li className="mt-[0.8em]">
+                <Link href="/">Games</Link>
+              </li>
+              <li className="mt-[0.8em]">
+                <Link href="/">Gift cards</Link>
+              </li>
+              <li className="mt-[0.8em]">
+                <Link href="/">E-money</Link>
+              </li>
+              <li className="mt-[0.8em]">
+                <Link href="/">Pre orders</Link>
+              </li>
+            </ul>
+          </div>
+          <div className="uppercase text-[7px] lg:text-[18px] font-semibold flex-shrink-0">
+            <h4 className="text-[15px] lg:text-[25px]">Follow us</h4>
+            <ul className="flex mt-[0.8em] gap-[1.6em] justify-center">
+              <li>
                 <Link href="/">
-                  <Image src={fb} alt="Link to Facebook" />
+                  <Image src={fb} alt="Link to Facebook" className="w-4" />
                 </Link>
               </li>
-              <li className="hover:scale-110">
+              <li>
                 <Link href="/">
-                  <Image src={x} alt="Link to X" />
+                  <Image src={x} alt="Link to X"  className="w-4"/>
                 </Link>
               </li>
-              <li className="hover:scale-110">
+              <li>
                 <Link href="/">
-                  <Image src={ig} alt="Link to Instagram" />
+                  <Image src={ig} alt="Link to Instagram" className="w-4" />
                 </Link>
               </li>
-              <li className="hover:scale-110">
+              <li>
                 <Link href="/">
-                  <Image src={tt} alt="Link to TikTok" />
+                  <Image src={tt} alt="Link to TikTok" className="w-4" />
                 </Link>
               </li>
             </ul>
           </div>
         </div>
-        <div className="mt-[2.7%] border-t-2 pt-[1.5%] pb-[2.5%] capitalize flex items-center text-[15px] justify-between font-semibold">
+        <div className="mt-[2.7%] border-t-2 pt-[1.5%] pb-[2.5%] capitalize w-full flex flex-col lg:flex-row items-center lg:text-[15px] justify-between font-semibold text-[7px]">
           <div className="flex items-center gap-[1.6em]">
-            <Image src={copyright} alt="Copyright" />
+            <Image src={copyright} alt="Copyright" className="w-4 lg:w-8" />
             <p>Copyright {new Date().getFullYear()}. All rights reserved</p>
           </div>
-          <div className="flex items-center gap-[2.8em]">
-            <div className="flex gap-[1.8em]">
-              <Image src={paypal} alt="PayPal" />
-              <Image src={visa} alt="Visa" />
-              <Image src={mastercard} alt="Mastercard" />
-              <Image src={skrill} alt="Skrill" />
+          <div className="flex flex-row items-center gap-2 ">
+            <div className="flex flex-row gap-2">
+              <Image src={paypal} alt="PayPal" className="w-[10px] lg:w-6" />
+              <Image src={visa} alt="Visa" className="w-[10px] lg:w-6"/>
+              <Image src={mastercard} alt="Mastercard" className="w-[10px] lg:w-6"/>
+              <Image src={skrill} alt="Skrill" className="w-[10px] lg:w-6" />
             </div>
-            <div className="flex gap-[1.7em]">
+            <div className="flex gap-2">
               <p>
-                <Link href="/" className="hover:opacity-80">
-                  Privacy policy
-                </Link>
+                <Link href="/">Privacy policy</Link>
               </p>
               <p>|</p>
               <p>
-                <Link href="/" className="hover:opacity-80">
-                  Terms & conditions
-                </Link>
+                <Link href="/">Terms & conditions</Link>
               </p>
             </div>
           </div>
