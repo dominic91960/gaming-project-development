@@ -88,13 +88,13 @@ const SwiperCarousel = () => {
 
   return (
     <section
-      className={`transition-all duration-1000 ease-in-out`}
+      className={`transition-all duration-1000 ease-in-out font-primaryFont font-semibold text-[8px] lg:text-[9px] xl:text-[11px] 2xl:text-[13px] text-white`}
       style={{
         backgroundImage: `url('${bg}')`,
       }}
     >
       <div className="bg-gradient-to-b from-black via-transparent to-black">
-        <div className="container mx-auto">
+        <div className="container mx-auto pb-[2em]">
           <Swiper
             modules={[EffectCoverflow, Pagination, Autoplay]}
             speed={1500}
@@ -104,11 +104,11 @@ const SwiperCarousel = () => {
             centeredSlides={true}
             slidesPerView={"auto"}
             coverflowEffect={{
-              rotate: 70,
+              rotate: 55,
               stretch: 40,
               depth: 400,
               modifier: 1,
-              scale: 0.8,
+              scale: 0.6,
               slideShadows: false,
             }}
             pagination={{ clickable: true }}
@@ -129,7 +129,7 @@ const SwiperCarousel = () => {
               }) => (
                 <SwiperSlide key={title}>
                   <div
-                    className={`w-full h-fit p-[45px] pt-[25px] flex gap-x-[25px] font-primaryFont text-[13px] font-medium backdrop-blur-md mt-[6%] relative`}
+                    className="w-full h-fit backdrop-blur-md p-[5em] pt-0 mt-[8em] mb-[3em] md:p-[2em] md:mt-[4em] md:mb-[0.5em] md:grid md:grid-cols-2 md:place-items-end md:gap-x-[2em]"
                     style={{
                       backgroundImage: `linear-gradient(to top right, ${theme}80 0%, #FFFFFF14 25%, #FFFFFF14 75%, ${theme}80 100%)`,
                       borderImage: `linear-gradient(to bottom right, #9DA8A0 0%, ${theme} 100%) 1`,
@@ -138,64 +138,69 @@ const SwiperCarousel = () => {
                     }}
                   >
                     {/* Poster */}
-                    <div className="relative w-[51%]">
+                    <div className="relative w-[92%] h-[300px] mx-auto -translate-y-[7em] shadow-[0px_0px_9px_rgba(0,0,0,0.5)] md:w-full md:h-full md:-translate-y-0">
                       <Image
                         src={poster}
                         alt="Poster"
-                        className="absolute -bottom-[4%] w-full"
+                        className="absolute bottom-0"
                       />
                     </div>
-                    <div className="w-[49%]">
+
+                    <div className="-mt-[5em] md:-mt-0">
                       {/* Title */}
-                      <h3 className="font-bold text-[32px]">{title}</h3>
+                      <h3 className="font-bold text-[2em]">{title}</h3>
+
                       {/* Rating */}
-                      <div className="text-[#f29d38] text-[19px] pb-[0.7em]">
+                      <div className="text-[#f29d38] text-[1.25em] pb-[0.7em]">
                         <StarRating rating={rating} />
                       </div>
-                      <hr className="w-3/5" />
+                      <hr className="w-2/5" />
+
                       {/* Description */}
-                      <div className="pt-[2em]">
+                      <div className="pt-[2em] text-justify">
                         {description.map((paragraph, index) => (
                           <p key={index} className="pb-[1em]">
                             {paragraph}
                           </p>
                         ))}
                       </div>
+
                       {/* Price and release date */}
                       <div className="flex justify-between pt-[1.5em]">
-                        <h4 className="text-[32px]">
-                          $ {price.toFixed(2)}
-                          <span className="text-base"> USD</span>
+                        <h4>
+                          <span className="text-[2.25em]">
+                            $ {price.toFixed(2)}
+                          </span>
+                          <span className="text-[1.1em]"> USD</span>
                         </h4>
                         <div>
                           <p
-                            className="flex text-[15px] cursor-pointer hover:scale-105 transition-transform duration-150 w-fit"
+                            className="flex cursor-pointer hover:scale-105 transition-transform duration-150 w-fit"
                             onClick={() => setIsWishlisted((prev) => !prev)}
                           >
                             {!isWishlisted ? (
-                              <IoHeartOutline className="text-[20px] me-[0.2em]" />
+                              <IoHeartOutline className="text-[1.4em] me-[0.2em]" />
                             ) : (
-                              <IoHeartSharp className="text-[20px] me-[0.2em]" />
+                              <IoHeartSharp className="text-[1.4em] me-[0.2em]" />
                             )}
 
                             {wishlistedBy}
                           </p>
-                          <p className="text-[12px]">
-                            Release Date: {releaseDate}
-                          </p>
+                          <p>Release Date: {releaseDate}</p>
                         </div>
                       </div>
+
                       {/* Actions */}
                       <div className="flex justify-between pt-[2em]">
                         <Button
                           variant="gaming"
-                          className=" text-base font-semibold capitalize px-[3em] py-[1.5em]"
+                          className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] border border-[#0BDB45] h-fit"
                         >
                           Buy now
                         </Button>
                         <Button
                           variant={"outline"}
-                          className="text-base font-semibold capitalize px-[3em] py-[1.5em] rounded-none"
+                          className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] rounded-none h-fit"
                         >
                           Add wishlist
                         </Button>
@@ -214,7 +219,7 @@ const SwiperCarousel = () => {
             }
             
             .swiper-slide {
-              width: 60%;
+              width: 340px;
             }
               
             .swiper-slide-next {
@@ -226,10 +231,29 @@ const SwiperCarousel = () => {
               transition-property: all;
               transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
               transition-duration: 1s;
+              margin-bottom: 200px;
             }
   
             .swiper-pagination-bullet-active {
               scale: 1.8;
+            }
+
+            @media (min-width: 768px) {
+              .swiper-slide {
+                width: 70%;
+              }
+            }
+
+            @media (min-width: 1024px) {
+              .swiper-slide {
+                width: 60%;
+              }
+            }
+
+            @media (min-width: 1024px) {
+              .swiper-slide {
+                width: 55%;
+              }
             }
           `}</style>
         </div>
