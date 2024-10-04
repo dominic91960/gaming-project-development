@@ -18,7 +18,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
   setIsMobileNavToggled,
 }) => {
   return (
-    <section className="bg-black font-secondaryFont font-medium text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px]">
+    <section className="bg-black font-secondaryFont font-medium text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px] border-b border-b-[#0D6D49]">
       <div className="container mx-auto px-[36px] py-[1.2em] md:py-[0.4em] flex items-center justify-between">
         <div>
           {/* Logo */}
@@ -47,15 +47,20 @@ const StatusBar: React.FC<StatusBarProps> = ({
         {/* Status area */}
         <div className="flex items-center gap-x-[1em]">
           <div className="flex items-center gap-x-[0.4em]">
-            <CiSearch className="size-[1.5em]" />
-            <IoMdNotificationsOutline className="size-[1.5em]" />
+            <CiSearch className="size-[1.5em] md:size-[1.8em]" />
+            <IoMdNotificationsOutline className="size-[1.5em] md:size-[1.8em]" />
           </div>
           <div className="flex items-center gap-x-[0.8em]">
-            <p>Avishka Rathnayake</p>
+            <div>
+              <p>Avishka Rathnayake</p>
+              <p className="hidden md:block text-[0.8em] text-[#A1A1AA]">
+                Owner
+              </p>
+            </div>
             <Image
               src={samplePic}
               alt="Avatar"
-              className="size-[2em] rounded-full"
+              className="size-[2em] rounded-full md:size-[2.5em]"
             />
           </div>
         </div>
