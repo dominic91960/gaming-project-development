@@ -23,7 +23,7 @@ const SidebarButton: React.FC<SidebarButtonProps> = ({
     <button
       className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:opacity-80 ${
         itemArray.find((i) => i === selectedItem) !== undefined
-          ? "before:content-[''] before:absolute before:left-[0.8em] before:w-2 before:h-[calc(2.4em+1rem)] before:bg-[#00FFA1] before:rounded-sm"
+          ? "before:content-[''] before:absolute before:left-[0.8em] before:w-[0.5em] before:h-[calc(2.4em+1rem)] before:bg-[#00FFA1] before:rounded-sm"
           : ""
       }`}
       onClick={() => setMenuOpen((prev) => !prev)}

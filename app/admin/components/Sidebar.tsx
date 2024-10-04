@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import { BsFillGrid1X2Fill } from "react-icons/bs";
 import {
@@ -17,12 +17,19 @@ import { RiShieldStarFill } from "react-icons/ri";
 
 import SidebarLink from "./SidebarLink";
 import SidebarButton from "./SidebarButton";
+import "./admin.css";
 
 interface SidebarProps {
   onSelect: (content: string) => void;
+  isMobileNavToggled: boolean | undefined;
+  setIsMobileNavToggled: Dispatch<SetStateAction<boolean | undefined>>;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  onSelect,
+  isMobileNavToggled,
+  setIsMobileNavToggled,
+}) => {
   const [isProductOpen, setProductOpen] = useState(false);
   const [isUsersOpen, setUsersOpen] = useState(false);
 
@@ -31,10 +38,19 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
   const handleItemClick = (item: string) => {
     setSelectedItem(item);
     onSelect(item);
+    setIsMobileNavToggled(false);
   };
 
   return (
-    <div className="w-64 bg-black/60 font-secondaryFont text-white min-h-screen pt-[2.5em] border-t border-e border-[#0D6D49]">
+    <div
+      className={`${
+        isMobileNavToggled
+          ? "animate-admin-menu"
+          : isMobileNavToggled === false
+          ? "reverse-animate-admin-menu"
+          : "hidden md:block"
+      } absolute w-[16em] bg-black/60 font-secondaryFont text-[12px] text-white min-h-screen pt-[2.5em] border-e border-[#0D6D49] z-50 md:relative sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-base`}
+    >
       <ul>
         {/* Dashboard Section */}
         <button

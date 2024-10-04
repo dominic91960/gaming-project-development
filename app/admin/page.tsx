@@ -2,7 +2,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+import toast from "react-hot-toast";
+
 import { RoleProvider } from "../../context/RoleContext";
+import StatusBar from "./components/StatusBar";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/pages/dashboard/Dashboard";
 import AllProducts from "./components/pages/products/AllProducts";
@@ -16,12 +19,15 @@ import AllUsers from "../admin/components/pages/users/AllUsers";
 import RolesPage from "../admin/components/pages/users/Roles";
 import Orders from "./components/pages/orders/Orders";
 import Reviews from "./components/pages/reviews/Reviews";
-import toast from "react-hot-toast";
 import "./components/admin.css";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+  const [isMobileNavToggled, setIsMobileNavToggled] = useState<
+    boolean | undefined
+  >(undefined);
+
   const router = useRouter();
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -87,8 +93,17 @@ const AdminPanel: React.FC = () => {
 
   return (
     <RoleProvider>
-      <div className="relative flex bg-[#0A0A0B] overflow-hidden before:w-[500px] before:h-[500px] before:absolute before:left-[150px] before:-bottom-[150px] before:bg-[#00FFA1] before:opacity-20 before:rounded-full before:blur-[100px] after:w-[500px] after:h-[500px] after:absolute after:-right-[150px] after:-top-[150px] after:bg-[#00FFA1] after:opacity-20 after:rounded-full after:blur-[100px]">
-        <Sidebar onSelect={handleSelect} />
+      <StatusBar
+        isMobileNavToggled={isMobileNavToggled}
+        setIsMobileNavToggled={setIsMobileNavToggled}
+      />
+      {/* <div className="relative flex bg-[#0A0A0B] overflow-hidden before:size-[100px] before:absolute before:left-[30px] before:-bottom-[30px] before:bg-[#00FFA1] before:opacity-20 before:rounded-full before:blur-[100px] after:size-[100px] after:absolute after:-right-[30px] after:-top-[30px] after:bg-[#00FFA1] after:opacity-20 after:rounded-full after:blur-[100px]"> */}
+      <div className="leaklights">
+        <Sidebar
+          onSelect={handleSelect}
+          isMobileNavToggled={isMobileNavToggled}
+          setIsMobileNavToggled={setIsMobileNavToggled}
+        />
         <div className="hide-scrollbar flex-1 overflow-y-scroll z-10 min-h-screen">
           {renderContent()}
         </div>
