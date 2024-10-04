@@ -1,52 +1,55 @@
-import "../_components/catalog.css";
 import Image from "next/image";
-import mainCharacterImage from "../../../public/images/home/catalog/character.webp";
+
 import { Button } from "@/components/ui/button";
+import { LiaAngleRightSolid } from "react-icons/lia";
+
+import mainCharacterImage from "../../../public/images/home/catalog/character.webp";
+import "../_components/catalog.css";
+
 const Catalog = () => {
   return (
-    <div className="catalog-section-background relative">
-      <div className="absolute top-0 left-[-380px]">
-        <Image
-          src={mainCharacterImage}
-          alt="Main Character"
-          width={1724}
-          className=""
-        />
-      </div>
+    <section className="relative catalog-section-background font-primaryFont text-[9px] sm:text-[12px] md:text-[16px] lg:text-[20px] xl:text-[26px] 2xl:text-[32px]] text-white">
+      {/* Top gradient */}
+      <div className="absolute top-0 w-full h-2/5 bg-gradient-to-b from-black to-transparent"></div>
 
-      <div className="flex items-center justify-end absolute top-[300px] right-[200px]">
-        <div>
-          <p className="font-primaryFont text-[100px] font-extrabold italic text-white text-end leading-none mb-2">
-            EXPLORE OUR
+      <div className="container mx-auto px-[36px] text-right">
+        <div className="character-image-position h-full absolute bottom-0 left-0 flex items-end">
+          <Image
+            src={mainCharacterImage}
+            alt="Main Character"
+            className="h-full max-h-[1070px] w-fit origin-bottom-left"
+          />
+        </div>
+
+        <div className="relative z-10 h-full py-[3em]">
+          <p className="font-extrabold italic text-[3.3em] text-white leading-none my-[0.3em]">
+            EXPLORE OUR <br /> CATALOGUE
           </p>
-          <p className="font-primaryFont text-[100px] font-extrabold italic text-white text-end leading-none mb-[50px]">
-            CATALOGUE
+
+          <hr className="w-[22.5em] ms-auto mb-[2.5em]" />
+          <p className="font-light text-white w-[20ch] ms-auto mb-[2.5em]">
+            THERE ARE THOUSANDS OF GAMES WAITING FOR YOU TO EXPLORE. BROWSE BY
+            GENRE, FEATURES,PRICE, AND MORE TO FIND YOUR NEXT FAVORITE GAME.
           </p>
 
-          <div className="h-[3px] bg-white mb-[60px]"></div>
-          <div className="w-full flex items-center justify-end   mb-[60px]">
-            <p className="font-primaryFont text-[28px] font-light  text-white text-end w-[370px]">
-              THERE ARE THOUSANDS OF GAMES WAITING FOR YOU TO EXPLORE. BROWSE BY
-              GENRE, FEATURES,PRICE, AND MORE TO FIND YOUR NEXT FAVORITE GAME.
-            </p>
-          </div>
+          {/* <p className="font-light text-white w-[22ch] ms-auto mb-[2.5em]"> */}
+          <p className="font-light text-white w-[34ch] ms-auto mb-[2.5em]">
+            THERE ARE THOUSANDS OF GAMES WAITING FOR YOU TO EXPLORE. BROWSE BY
+            GENRE, FEATURES,PRICE, AND MORE TO FIND YOUR NEXT FAVORITE GAME.
+          </p>
 
-          <div className="flex flex-col items-end justify-end">
-            <div className="w-full flex items-center justify-end mb-8">
-              <p className="w-[600px] font-primaryFont text-[28px] font-light  text-white text-end">
-                THERE ARE THOUSANDS OF GAMES WAITING FOR YOU TO EXPLORE. BROWSE
-                BY GENRE, FEATURES,PRICE, AND MORE TO FIND YOUR NEXT FAVORITE
-                GAME.
-              </p>
-            </div>
-
-            <Button variant="gaming" className="text-[24px] py-7 px-10">
-              View All Games
-            </Button>
-          </div>
+          <Button
+            variant="gaming"
+            className="text-[1em] px-[1em] py-[0.5em] h-fit"
+          >
+            View All Games <LiaAngleRightSolid />
+          </Button>
         </div>
       </div>
-    </div>
+
+      {/* Bottom gradient */}
+      <div className="absolute bottom-0 w-full h-2/5 bg-gradient-to-t from-black to-transparent"></div>
+    </section>
   );
 };
 
