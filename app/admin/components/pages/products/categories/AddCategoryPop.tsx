@@ -49,13 +49,13 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
   return (
     <>
       <button
-        className="bg-[#00FFA1] font-bold text-black text-[11px] px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
+        className="bg-[#00FFA1] font-bold text-black text-[0.95em] px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100 flex-shrink-0"
         onClick={() => setIsOpen(true)}
       >
         Add Categories
       </button>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="bg-gradient-to-tr from-black/40 from-15% to-[#00a76a66] border-[#0D6D49] backdrop-blur-sm font-primaryFont text-white text-[13px] p-[3em]">
+        <DialogContent className="bg-gradient-to-tr from-black/40 from-15% to-[#00a76a66] border-[#0D6D49] backdrop-blur-[2px] font-primaryFont text-white text-[13px] p-[3em]">
           <DialogHeader>
             <DialogTitle className="flex items-center justify-between border-b border-b-[#606060] pb-[1em] text-[1.5em]">
               <h2>Add Category</h2>
@@ -83,7 +83,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
                   <SelectTrigger className="border-[#606060]">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-sm *:p-[1em]">
+                  <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px] *:p-[1em]">
                     <SelectItem value="Parent 1">Parent 1</SelectItem>
                     <SelectItem value="Sub Category 1.1">
                       Sub Category 1.1

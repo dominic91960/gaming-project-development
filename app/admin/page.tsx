@@ -97,7 +97,6 @@ const AdminPanel: React.FC = () => {
         isMobileNavToggled={isMobileNavToggled}
         setIsMobileNavToggled={setIsMobileNavToggled}
       />
-      {/* <div className="relative flex bg-[#0A0A0B] overflow-hidden before:size-[100px] before:absolute before:left-[30px] before:-bottom-[30px] before:bg-[#00FFA1] before:opacity-20 before:rounded-full before:blur-[100px] after:size-[100px] after:absolute after:-right-[30px] after:-top-[30px] after:bg-[#00FFA1] after:opacity-20 after:rounded-full after:blur-[100px]"> */}
       <div className="leaklights">
         <Sidebar
           onSelect={handleSelect}

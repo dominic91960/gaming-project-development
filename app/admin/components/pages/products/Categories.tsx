@@ -46,12 +46,14 @@ export default function DemoPage() {
   };
 
   return (
-    <div className="min-h-full font-primaryFont text-[24px] p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
-      <div className="pb-[2em]">
-        <h1 className="font-bold text-[36px] leading-none text-white">
+    <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
+      <div className="pb-[2em] px-[36px]">
+        <h1 className="font-bold text-[1.5em] leading-none text-white">
           All Categories
         </h1>
-        <p className="text-[12px] text-white">Product / Categories</p>
+        <p className="text-[0.9em] text-white md:text-[0.5em]">
+          Product / Categories
+        </p>
       </div>
       <DataTable
         columns={columns}
