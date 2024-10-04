@@ -33,6 +33,7 @@ import toast from "react-hot-toast";
 export default function DemoPage() {
   const [data, setData] = useState<Category[]>([]);
   const [reload, setReload] = useState(false);
+  const [isEitOpen, setIsEditOpen] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -97,7 +98,8 @@ export default function DemoPage() {
 
   const handleEdit = (id: string) => {
     console.log("Edit", id);
-    setReload(prev => !prev);
+    setIsEditOpen(true);
+    // setReload(prev => !prev);
   };
 
   return (
@@ -115,6 +117,8 @@ export default function DemoPage() {
         data={data}
         onDelete={handleDelete} 
         onEdit={handleEdit}
+        isEditOpen={isEitOpen}
+        setIsEditOpen={setIsEditOpen}
         onAddCategory={handleAddCategory}
       />
     </div>

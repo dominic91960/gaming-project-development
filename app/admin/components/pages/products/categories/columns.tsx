@@ -1,7 +1,8 @@
 "use client";
+"use stict";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, Edit, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,6 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import EditCategoryPop from "./EditCategoryPop";
+import { useState } from "react";
+import { set } from "react-hook-form";
 
 export type Category = {
   id: string;
@@ -23,7 +27,10 @@ export type Category = {
 export const columns = (
   onDelete: (id: string) => void,
   onEdit: (id: string) => void
-): ColumnDef<Category>[] => [
+): ColumnDef<Category>[] => {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return [
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -68,6 +75,7 @@ export const columns = (
       const payment = row.original;
       return (
         <DropdownMenu>
+          {/* <EditCategoryPop onAddCategory={()=>{}} isOpen={isOpen} setIsOpen={setIsOpen} /> */}
           <DropdownMenuTrigger asChild className="text-[1em]">
             <Button variant="ghost" className="size-[2em] p-0">
               <span className="sr-only">Open menu</span>
@@ -83,7 +91,9 @@ export const columns = (
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="w-[90%] mx-auto bg-white/10" />
             <DropdownMenuItem
-              onClick={() => onEdit(payment.id)}
+            onClick={() =>{ 
+              setIsOpen(true);
+              onEdit(payment.id)}}
               className="cursor-pointer text-[1em]"
             >
               Edit
@@ -95,8 +105,9 @@ export const columns = (
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
+          
         </DropdownMenu>
       );
     },
   },
-];
+];}
