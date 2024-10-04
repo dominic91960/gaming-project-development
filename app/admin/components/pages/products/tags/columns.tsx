@@ -19,7 +19,10 @@ export type Tags = {
   imageUrl: string;
 };
 
-export const columns = (onDelete: (id: string) => void): ColumnDef<Tags>[] => [
+export const columns = (
+  onEdit: (tag: Tags) => void,
+  onDelete: (id: string) => void
+): ColumnDef<Tags>[] => [
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -76,7 +79,7 @@ export const columns = (onDelete: (id: string) => void): ColumnDef<Tags>[] => [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator className="w-[90%] mx-auto bg-white/10" />
             <DropdownMenuItem
-              onClick={() => alert(`Editing ${Tags.name}`)}
+              onClick={() => onEdit(Tags)} // Use onEdit to open the edit popup
               className="cursor-pointer"
             >
               Edit

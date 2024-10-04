@@ -1,32 +1,31 @@
 import { useState } from "react";
 import { Tags, columns } from "./tags/columns";
 import { DataTable } from "./tags/data-table";
+import { EditTagPopup } from "./tags/EditTagPopup"; // Import the popup component
 
-function getData(): Tags[] {
+// Sample data generation function
+const getData = (): Tags[] => {
   return [
     {
-      id: "1234",
-      name: "main category 1",
-      description: "description 1 here",
-      imageUrl: "/images/sample-pic.png",
+      id: "1",
+      name: "Tag 1",
+      description: "Description for Tag 1",
+      imageUrl: "path/to/image1.jpg",
     },
     {
-      id: "1231",
-      name: "Sub category 1",
-      description: "description 2 here",
-      imageUrl: "/images/sample-pic.png",
+      id: "2",
+      name: "Tag 2",
+      description: "Description for Tag 2",
+      imageUrl: "path/to/image2.jpg",
     },
-    {
-      id: "1222",
-      name: "Super Sub category 2.1",
-      description: "description 3 here",
-      imageUrl: "/images/sample-pic.png",
-    },
+    // Add more initial tags as needed
   ];
-}
+};
 
 export default function TagsPage() {
   const [data, setData] = useState<Tags[]>(getData());
+  const [isEditPopupOpen, setEditPopupOpen] = useState(false);
+  const [editingTag, setEditingTag] = useState<Tags | null>(null);
 
   const handleAddTags = (newTags: {
     name: string;
@@ -44,6 +43,24 @@ export default function TagsPage() {
     setData((prevData) => prevData.filter((item) => item.id !== id));
   };
 
+  const handleEdit = (tag: Tags) => {
+    setEditingTag(tag);
+    setEditPopupOpen(true);
+  };
+
+  const handleSaveEdit = (tagData: {
+    id: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+  }) => {
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.id === tagData.id ? { ...item, ...tagData } : item
+      )
+    );
+  };
+
   return (
     <div className="min-h-full font-primaryFont text-[24px] p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
       <div className="pb-[2em]">
@@ -52,18 +69,20 @@ export default function TagsPage() {
         </h1>
         <p className="text-[12px] text-white">Products / Tags</p>
       </div>
-      {/* <DataTable
-        columns={columns}
-        data={data}
-        onDelete={handleDelete}
-        onAddCategory={handleAddTags}
-      /> */}
 
       <DataTable
-        columns={columns}
+        columns={(onDelete) => columns(handleEdit, onDelete)} // Pass the edit handler
         data={data}
         onDelete={handleDelete}
         onAddTags={handleAddTags}
+      />
+
+      {/* Edit Popup */}
+      <EditTagPopup
+        isOpen={isEditPopupOpen}
+        onClose={() => setEditPopupOpen(false)}
+        onSave={handleSaveEdit}
+        tag={editingTag}
       />
     </div>
   );
