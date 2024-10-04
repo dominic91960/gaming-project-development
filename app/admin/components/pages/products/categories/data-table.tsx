@@ -105,7 +105,7 @@ export function DataTable<TData, TValue>({
 
         {/* Table */}
         <div className="text-white md:mt-[1.5em]">
-          <Table className="border-separate border-spacing-y-[0.8em] px-[0.4em] text-[0.65em]">
+          <Table className="border-separate border-spacing-y-[2em] px-[0.4em] text-[0.65em] md:border-spacing-y-[1em]">
             <TableHeader className="text-[1.1em]">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow
@@ -136,7 +136,7 @@ export function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
-                    className="bg-white/5 hover:bg-white/5 cursor-pointer hover:shadow-[0px_0px_5px_#00FFA1] rounded-sm text-[2em] sm:text-[1.4em]"
+                    className="bg-white/5 hover:bg-white/5 cursor-pointer hover:shadow-[0px_0px_5px_#00FFA1] rounded-sm text-[2em] sm:text-[1.4em] md:text-[1em]"
                   >
                     {row.getVisibleCells().map((cell, index) => (
                       <TableCell
@@ -145,7 +145,7 @@ export function DataTable<TData, TValue>({
                           index === 0
                             ? "relative rounded-s-sm ps-[1.2em]"
                             : index === 1
-                            ? "max-w-[16ch] text-nowrap overflow-hidden text-ellipsis pe-[1em] sm:max-w-[40ch] sm:pe-[0.2em]"
+                            ? "max-w-[16ch] text-nowrap overflow-hidden text-ellipsis pe-[1em]"
                             : index === 3
                             ? "rounded-e-sm"
                             : ""
@@ -198,7 +198,7 @@ export function DataTable<TData, TValue>({
         </div>
 
         {/* Group select */}
-        <div className="flex gap-x-[1em]">
+        {/* <div className="flex gap-x-[1em]">
           <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-sm min-w-[12ch] flex items-center justify-center h-fit">
             Selected: 0
           </p>
@@ -214,7 +214,7 @@ export function DataTable<TData, TValue>({
           >
             Delete
           </Button>
-        </div>
+        </div> */}
       </div>
     </>
   );
