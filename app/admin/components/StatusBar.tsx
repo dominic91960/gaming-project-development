@@ -4,6 +4,7 @@ import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import { IoMdNotificationsOutline } from "react-icons/io";
 
+import logo from "@/public/images/home/logo.png";
 import samplePic from "@/public/images/sample-pic.png";
 import "./admin.css";
 
@@ -17,9 +18,17 @@ const StatusBar: React.FC<StatusBarProps> = ({
   setIsMobileNavToggled,
 }) => {
   return (
-    <section className="bg-black font-secondaryFont text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px]">
-      <div className="container mx-auto px-[36px] py-[1em] flex items-center justify-between">
+    <section className="bg-black font-secondaryFont font-medium text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px]">
+      <div className="container mx-auto px-[36px] py-[1.2em] md:py-[0.4em] flex items-center justify-between">
         <div>
+          {/* Logo */}
+          <div className="hidden md:flex md:items-center">
+            <Image src={logo} alt="Logo" className="size-[4.6em]" />
+            <h2 className="font-primaryFont font-semibold text-[1.6em] uppercase">
+              Logo
+            </h2>
+          </div>
+
           {/* Mobile navbar toggle  */}
           <button
             className={`${
