@@ -1,24 +1,22 @@
 import { useState } from "react";
 import { Tags, columns } from "./tags/columns";
 import { DataTable } from "./tags/data-table";
-import { EditTagPopup } from "./tags/EditTagPopup"; // Import the popup component
+import { EditTagPopup } from "./tags/EditTagPopup";
 
-// Sample data generation function
 const getData = (): Tags[] => {
   return [
     {
       id: "1",
       name: "Tag 1",
       description: "Description for Tag 1",
-      imageUrl: "path/to/image1.jpg",
+      imageUrl: "/images/sample-pic.png",
     },
     {
       id: "2",
       name: "Tag 2",
       description: "Description for Tag 2",
-      imageUrl: "path/to/image2.jpg",
+      imageUrl: "/images/sample-pic.png",
     },
-    // Add more initial tags as needed
   ];
 };
 
@@ -71,13 +69,12 @@ export default function TagsPage() {
       </div>
 
       <DataTable
-        columns={(onDelete) => columns(handleEdit, onDelete)} // Pass the edit handler
+        columns={(onDelete) => columns(handleEdit, onDelete)}
         data={data}
         onDelete={handleDelete}
         onAddTags={handleAddTags}
       />
 
-      {/* Edit Popup */}
       <EditTagPopup
         isOpen={isEditPopupOpen}
         onClose={() => setEditPopupOpen(false)}

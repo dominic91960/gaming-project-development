@@ -23,14 +23,13 @@ export const EditTagPopup = ({
   const [description, setDescription] = useState(tag?.description || "");
   const [imageUrl, setImageUrl] = useState(tag?.imageUrl || "");
 
-  // When the tag prop changes, update the state
   useEffect(() => {
     if (tag) {
       setName(tag.name);
       setDescription(tag.description);
       setImageUrl(tag.imageUrl);
     }
-  }, [tag]); // Run this effect when the tag changes
+  }, [tag]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

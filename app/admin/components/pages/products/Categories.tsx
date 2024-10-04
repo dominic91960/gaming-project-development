@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Payment, columns } from "./categories/columns";
 import { DataTable } from "./categories/data-table";
-import AddCategoryPop from "./categories/AddCategoryPop";
 
 function getData(): Payment[] {
   return [
