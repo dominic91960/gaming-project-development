@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 import { Input } from "@/components/ui/input";
+import axiosInstance from "@/axios/axiosInstance";
 import {
   Dialog,
   DialogContent,
@@ -17,12 +18,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { IoClose } from "react-icons/io5";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { set } from "react-hook-form";
 
 interface AddCategoryPopProps {
   onAddCategory: (newCategory: {
     name: string;
     description: string;
     imageUrl: string;
+    level: number;
+    parentCategoryId: number | null;
   }) => void;
 }
 
@@ -31,19 +37,76 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [parentCategoryId, setParentCategoryId] = useState<string | null>(null); // To store selected parent category
+  const [data, setData] = useState<any[]>([]);
 
-  const handleSubmit = () => {
-    if (name && description && imageUrl) {
-      onAddCategory({ name, description, imageUrl });
+  const handleSubmit = async () => {
+    console.log(name, description, imageUrl, parentCategoryId);
+    const level = data.find((item) => item.id == parentCategoryId)?.level + 1;
+    console.log(level); 
 
+    const dataToSend = {
+      "name": name,
+      "description": description,
+      "image": imageUrl,
+      "level": level || 1,
+      "parentId": parentCategoryId
+    };
+
+
+    try {
+      const res = await axiosInstance.post("/categories", dataToSend);
+      console.log(res.status);
+      if (res.status === 201) {
+      toast.success("Category added successfully");
+      onAddCategory({
+        name,
+        description,
+        imageUrl,
+        level,
+        parentCategoryId: parentCategoryId ? parseInt(parentCategoryId) : null,
+      });
       setIsOpen(false);
+      } else {
+      toast.error("Failed to add category");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to add category");
+    } finally {
       setName("");
       setDescription("");
       setImageUrl("");
-    } else {
-      alert("Please fill all fields");
+      setParentCategoryId(null);
+      setIsOpen(false);
     }
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await axiosInstance.get("/categories");
+      const processedData = response.data.map((item: any) => {
+        let name = item.name;
+        if (item.level == 1) {
+          name = "- " + name;
+        } else if (item.level == 2) {
+          name = "- - " + name;
+        } else if (item.level == 3) {
+          name = "- - - " + name;
+        }
+        return {
+          id: item.id,
+          name: name,
+          description: item.description,
+          imageUrl: item.image ? item.image.url : "/images/sample-pic.png",
+          level: item.level,
+        };
+      });
+      // console.log(processedData);
+      setData(processedData);
+    };
+    getData();
+  }, []);
 
   return (
     <>
@@ -79,23 +142,16 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
               </div>
               <div>
                 <p className="mb-[0.5em]">Parent Category</p>
-                <Select>
-                  <SelectTrigger className="border-[#606060] text-[1em] h-[2.9em] ">
-                    <SelectValue />
+                <Select onValueChange={(value) => setParentCategoryId(value)}>
+                  <SelectTrigger className="border-[#606060]">
+                    <SelectValue placeholder="Select Parent Category" />
                   </SelectTrigger>
-                  <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px] *:p-[1em] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] 2xl:text-[13px]">
-                    <SelectItem value="Parent 1" className="text-[1em]">
-                      Parent 1
-                    </SelectItem>
-                    <SelectItem value="Sub Category 1.1" className="text-[1em]">
-                      Sub Category 1.1
-                    </SelectItem>
-                    <SelectItem
-                      value="Sub Category 1.1.1"
-                      className="text-[1em]"
-                    >
-                      Sub Category 1.1.1
-                    </SelectItem>
+                  <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-sm *:p-[1em]">
+                    {data.map((category) => (
+                      <SelectItem key={category.id} value={category.id.toString()}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

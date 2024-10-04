@@ -23,32 +23,41 @@ import { Button } from "@/components/ui/button";
 import { CiSearch } from "react-icons/ci";
 
 import AddCategoryPop from "./AddCategoryPop";
+import EditCategoryPop from "./EditCategoryPop";
 
 interface DataTableProps<TData, TValue> {
-  columns: (onDelete: (id: string) => void) => ColumnDef<TData, TValue>[];
+  columns: (onDelete: (id: string) => void, onEdit: (id: string) => void) => ColumnDef<TData, TValue>[];
   data: TData[];
   onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
+  isEditOpen: boolean;
+  setIsEditOpen: (isOpen: boolean) => void;
   onAddCategory: (newCategory: {
     name: string;
     description: string;
     imageUrl: string;
+    level: number;
   }) => void;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  isEditOpen,
+  setIsEditOpen,
   onDelete,
+  onEdit,
   onAddCategory,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+  
 
   const table = useReactTable({
     data,
-    columns: columns(onDelete),
+    columns: columns(onDelete,onEdit),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
@@ -100,6 +109,7 @@ export function DataTable<TData, TValue>({
               />
             </div>
             <AddCategoryPop onAddCategory={onAddCategory} />
+            <EditCategoryPop onEditCategory={onEdit} isOpen={isEditOpen} setIsOpen={setIsEditOpen} />
           </div>
         </div>
 

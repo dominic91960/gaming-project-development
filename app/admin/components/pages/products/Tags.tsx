@@ -79,7 +79,7 @@ export default function TagsPage() {
         isOpen={isEditPopupOpen}
         onClose={() => setEditPopupOpen(false)}
         onSave={handleSaveEdit}
-        tag={editingTag}
+        tag={editingTag ?? undefined}
       />
     </div>
   );
