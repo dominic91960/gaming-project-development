@@ -69,11 +69,12 @@ export default function DemoPage() {
     imageUrl: string;
     level: number;
   }) => {
-    const newEntry: Category = {
-      id: Math.random().toString(36).substring(2),
-      ...newCategory,
-    };
-    setData((prevData) => [...prevData, newEntry]);
+    // const newEntry: Category = {
+    //   id: Math.random().toString(36).substring(2),
+    //   ...newCategory,
+    // };
+    // setData((prevData) => [...prevData, newEntry]);
+    setReload(prev => !prev);
   };
 
   const handleDelete = async (id: string) => {
