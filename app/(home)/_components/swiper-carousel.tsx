@@ -129,7 +129,7 @@ const SwiperCarousel = () => {
               }) => (
                 <SwiperSlide key={title}>
                   <div
-                    className="w-full h-fit backdrop-blur-md p-[5em] pt-0 mt-[8em] mb-[3em] md:p-[2em] md:mt-[4em] md:mb-[0.5em] md:grid md:grid-cols-2 md:place-items-end md:gap-x-[2em]"
+                    className="w-full h-fit backdrop-blur-[2px] p-[5em] pt-0 mt-[8em] mb-[3em] md:p-[2em] md:mt-[4em] md:mb-[0.5em] md:grid md:grid-cols-2 md:place-items-end md:gap-x-[2em]"
                     style={{
                       backgroundImage: `linear-gradient(to top right, ${theme}80 0%, #FFFFFF14 25%, #FFFFFF14 75%, ${theme}80 100%)`,
                       borderImage: `linear-gradient(to bottom right, #9DA8A0 0%, ${theme} 100%) 1`,

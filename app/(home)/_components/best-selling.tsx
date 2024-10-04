@@ -91,7 +91,7 @@ const BestSelling = () => {
             >
               {/* Text area */}
               <div
-                className="w-[420px] h-[150px] bg-white/20 text-[28px] px-[1em] flex flex-col justify-center backdrop-blur-sm"
+                className="w-[420px] h-[150px] bg-white/20 text-[28px] px-[1em] flex flex-col justify-center backdrop-blur-[2px]"
                 style={{
                   clipPath:
                     "polygon(5% 0%, 96% 0%, 100% 13%, 100% 100%, 82% 100%, 77% 86%, 46% 86%, 41% 100%, 0% 100%, 0% 13%)",
@@ -139,7 +139,7 @@ const BestSelling = () => {
 
               {/* Rating area */}
               <div
-                className="w-[130px] h-[54px] absolute left-0 bottom-[4.5%] text-[18px] ps-[2.5%] text-[#f29d38] bg-black/20 backdrop-blur-sm flex flex-col justify-center"
+                className="w-[130px] h-[54px] absolute left-0 bottom-[4.5%] text-[18px] ps-[2.5%] text-[#f29d38] bg-black/20 backdrop-blur-[2px] flex flex-col justify-center"
                 style={{
                   clipPath:
                     "polygon(0% 0%, 100% 0%, 100% 80%, 90% 100%, 0% 100%)",

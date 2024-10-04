@@ -115,7 +115,7 @@ const UsersPage = () => {
   }
 
   return (
-    <div className="font-primaryFont text-[24px] p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
+    <div className="font-primaryFont text-[24px] p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
       <div className="pb-[2em] capitalize">
         <h1 className="font-bold text-[36px] leading-none">All users</h1>
         <p className="text-[12px]">Users/ all users</p>
