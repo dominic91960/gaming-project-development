@@ -61,3 +61,11 @@
     transform: scaleY(1);
   }
 }
+
+@media (min-width: 768px) {
+  .reverse-animate-admin-menu {
+    animation-name: animate-admin-menu;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+}

@@ -24,7 +24,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
           <button
             className={`${
               isMobileNavToggled ? "animate-toggle-button" : ""
-            } relative h-4 w-6 transition-opacity duration-300 sm:hidden`}
+            } relative h-4 w-6 transition-opacity duration-300 md:hidden`}
             onClick={() =>
               isMobileNavToggled === undefined
                 ? setIsMobileNavToggled(true)
