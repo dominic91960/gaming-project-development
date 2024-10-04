@@ -1,5 +1,42 @@
+:root {
+  --admin-leaklight-size: 350px;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.leaklights {
+  position: relative;
+  display: flex;
+  background-color: #0a0a0b;
+  overflow: hidden;
+}
+
+.leaklights::before {
+  content: "";
+  width: var(--admin-leaklight-size);
+  height: var(--admin-leaklight-size);
+  position: absolute;
+  left: calc(var(--admin-leaklight-size) * -0.2);
+  bottom: calc(var(--admin-leaklight-size) * -0.2);
+  background: radial-gradient(circle, #00ffa1, #0a0a0b);
+  opacity: 0.2;
+  border-radius: 50%;
+  filter: blur(calc(var(--admin-leaklight-size) * 0.3));
+}
+
+.leaklights::after {
+  content: "";
+  width: var(--admin-leaklight-size);
+  height: var(--admin-leaklight-size);
+  position: absolute;
+  top: calc(var(--admin-leaklight-size) / -3);
+  right: calc(var(--admin-leaklight-size) / -3);
+  background: radial-gradient(circle, #00ffa1, #0a0a0b);
+  opacity: 0.2;
+  border-radius: 50%;
+  filter: blur(calc(var(--admin-leaklight-size) * 0.3));
 }
 
 .animate-admin-menu {
@@ -62,10 +99,48 @@
   }
 }
 
+@media (min-width: 640px) {
+  :root {
+    --admin-leaklight-size: 420px;
+  }
+}
+
 @media (min-width: 768px) {
   .reverse-animate-admin-menu {
     animation-name: animate-admin-menu;
     animation-duration: 1s;
     animation-fill-mode: forwards;
+  }
+
+  :root {
+    --admin-leaklight-size: 400px;
+  }
+
+  .leaklights::before {
+    left: calc(var(--admin-leaklight-size) * 0.2);
+    bottom: calc(var(--admin-leaklight-size) * -0.2);
+  }
+
+  .leaklights::before,
+  .leaklights::after {
+    filter: blur(calc(var(--admin-leaklight-size) * 0.2));
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --admin-leaklight-size: 450px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --admin-leaklight-size: 500px;
+  }
+}
+
+@media (min-width: 1536px) {
+  :root {
+    --admin-leaklight-size: 550px;
   }
 }
