@@ -25,13 +25,15 @@ import { CiSearch } from "react-icons/ci";
 import AddCategoryPop from "./AddCategoryPop";
 
 interface DataTableProps<TData, TValue> {
-  columns: (onDelete: (id: string) => void) => ColumnDef<TData, TValue>[];
+  columns: (onDelete: (id: string) => void, onEdit: (id: string) => void) => ColumnDef<TData, TValue>[];
   data: TData[];
   onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
   onAddCategory: (newCategory: {
     name: string;
     description: string;
     imageUrl: string;
+    level: number;
   }) => void;
 }
 
@@ -39,6 +41,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   onDelete,
+  onEdit,
   onAddCategory,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -48,7 +51,7 @@ export function DataTable<TData, TValue>({
 
   const table = useReactTable({
     data,
-    columns: columns(onDelete),
+    columns: columns(onDelete,onEdit),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,

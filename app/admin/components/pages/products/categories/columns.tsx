@@ -12,16 +12,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export type Payment = {
+export type Category = {
   id: string;
   name: string;
   description: string;
   imageUrl: string;
+  level: number;
 };
 
 export const columns = (
-  onDelete: (id: string) => void
-): ColumnDef<Payment>[] => [
+  onDelete: (id: string) => void,
+  onEdit: (id: string) => void
+): ColumnDef<Category>[] => [
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -81,7 +83,7 @@ export const columns = (
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="w-[90%] mx-auto bg-white/10" />
             <DropdownMenuItem
-              onClick={() => alert(`Editing ${payment.name}`)}
+              onClick={() => onEdit(payment.id)}
               className="cursor-pointer text-[1em]"
             >
               Edit

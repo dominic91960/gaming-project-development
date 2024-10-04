@@ -23,6 +23,7 @@ interface AddCategoryPopProps {
     name: string;
     description: string;
     imageUrl: string;
+    level: number;
   }) => void;
 }
 
@@ -34,7 +35,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
 
   const handleSubmit = () => {
     if (name && description && imageUrl) {
-      onAddCategory({ name, description, imageUrl });
+      onAddCategory({ name, description, imageUrl, level: 1 });
 
       setIsOpen(false);
       setName("");
