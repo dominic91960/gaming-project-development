@@ -17,7 +17,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
   setIsMobileNavToggled,
 }) => {
   return (
-    <section className="bg-black font-secondaryFont text-[10px]">
+    <section className="bg-black font-secondaryFont text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px]">
       <div className="container mx-auto px-[36px] py-[1em] flex items-center justify-between">
         <div>
           {/* Mobile navbar toggle  */}
