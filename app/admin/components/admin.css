@@ -2,14 +2,14 @@
   display: none;
 }
 
-.animate-category-menu {
-  animation-name: animate-category-menu;
+.animate-admin-menu {
+  animation-name: animate-admin-menu;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
 
-.reverse-animate-category-menu {
-  animation-name: reverse-animate-category-menu;
+.reverse-animate-admin-menu {
+  animation-name: reverse-animate-admin-menu;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
@@ -31,7 +31,7 @@
   animation: open-menu 1s;
 }
 
-@keyframes animate-category-menu {
+@keyframes animate-admin-menu {
   from {
     transform: translateX(-100%);
     display: none;
@@ -42,7 +42,7 @@
   }
 }
 
-@keyframes reverse-animate-category-menu {
+@keyframes reverse-animate-admin-menu {
   from {
     transform: translateX(0);
     display: block;

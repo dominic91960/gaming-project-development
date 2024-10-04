@@ -23,7 +23,9 @@ import StatusBar from "./components/StatusBar";
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
-  const [isMobileNavToggled, setIsMobileNavToggled] = useState(false);
+  const [isMobileNavToggled, setIsMobileNavToggled] = useState<
+    boolean | undefined
+  >(undefined);
 
   const router = useRouter();
   useEffect(() => {
