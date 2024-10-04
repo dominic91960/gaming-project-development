@@ -106,12 +106,6 @@
 }
 
 @media (min-width: 768px) {
-  .reverse-animate-admin-menu {
-    animation-name: animate-admin-menu;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-  }
-
   :root {
     --admin-leaklight-size: 400px;
   }
@@ -128,6 +122,12 @@
 }
 
 @media (min-width: 1024px) {
+  .reverse-animate-admin-menu {
+    animation-name: animate-admin-menu;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+
   :root {
     --admin-leaklight-size: 450px;
   }

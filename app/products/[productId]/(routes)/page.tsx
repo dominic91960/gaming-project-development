@@ -142,7 +142,7 @@ export default function ProductPage() {
           <div className="absolute bottom-0 left-0 right-0 container mx-auto flex justify-end">
             {/* Price card */}
             <div
-              className="bg-black/50 px-[2.7%] py-[4.2%] backdrop-blur-md translate-y-[25%]"
+              className="bg-black/50 px-[2.7%] py-[4.2%] backdrop-blur-[2px] translate-y-[25%]"
               style={{
                 borderImage:
                   "linear-gradient(to bottom, transparent, #999999) 1",
@@ -229,7 +229,7 @@ export default function ProductPage() {
                       </p>
                     </TooltipTrigger>
                     <TooltipContent
-                      className="rounded-none bg-black/50 text-white backdrop-blur-md"
+                      className="rounded-none bg-black/50 text-white backdrop-blur-[2px]"
                       style={{
                         borderImage:
                           "linear-gradient(to bottom, transparent, #999999) 1",
