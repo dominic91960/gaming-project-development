@@ -82,23 +82,23 @@ const BestSelling = () => {
       </div>
       <div className="scale-x-0 w-10 h-1 bg-[#0BDB45] mx-auto my-10 shadow-[0_0_15px_5px_#0BDB45]"></div>
       {/* Cards */}
-      <div className="container mx-auto grid grid-cols-3 place-items-center">
+      <div className="container mx-auto grid grid-cols-2 lg:grid-cols-3 place-items-center">
         {bestSellingGames.map(
           ({ title, desc, discountPrice, originalPrice, poster, rating }) => (
             <article
               key={title}
-              className="relative text-[28px] w-[420px] mb-[2em] hover:-translate-y-1 transition-transform duration-200"
+              className="relative text-xs lg:text-[28px] w-72 lg:w-[420px] mb-[2em] hover:-translate-y-1 transition-transform duration-200"
             >
               {/* Text area */}
               <div
-                className="w-[420px] h-[150px] bg-white/20 text-[28px] px-[1em] flex flex-col justify-center backdrop-blur-[2px]"
+                className="w-[152px] lg:w-[420px] h-[150px] bg-white/20 text-[28px] px-[1em] flex flex-col justify-center backdrop-blur-[2px]"
                 style={{
                   clipPath:
                     "polygon(5% 0%, 96% 0%, 100% 13%, 100% 100%, 82% 100%, 77% 86%, 46% 86%, 41% 100%, 0% 100%, 0% 13%)",
                 }}
               >
                 <h4 className="font-bold uppercase">{title}</h4>
-                <p className="text-[7px] font-semibold">{desc}</p>
+                <p className="text-[9px] xl:text-[7px] font-semibold">{desc}</p>
                 <hr className="mt-[0.3em] mb-[0.3em] w-1/2" />
                 <p className="text-[36px] font-semibold leading-none">
                   ${discountPrice || originalPrice}&nbsp;
@@ -111,7 +111,7 @@ const BestSelling = () => {
               </div>
               {/* Text area border */}
               <div
-                className="w-[420px] h-[150px] absolute top-0 left-0 bg-gradient-to-r from-white to-[#75F94C] z-10"
+                className="w-[152px] lg:w-[420px] h-[55.48px] xl:h-[150px] absolute top-0 left-0 bg-gradient-to-r from-white to-[#75F94C] z-10"
                 style={{
                   clipPath:
                     "polygon(5% 0%, 96% 0%, 100% 13%, 100% 100%, 82% 100%, 77% 86%, 46% 86%, 41% 100%, 0% 100%, 0% 99%, 40.5% 99%, 45.7% 84.5%, 77.5% 84.5%, 82.5% 99%, 99.5% 99%,99.5% 13%, 96% 1.5%, 5% 1.5%, 0.5% 13%, 0.5% 99%, 0% 99%, 0% 13%)",
@@ -163,8 +163,10 @@ const BestSelling = () => {
           )
         )}
 
-        {/* See more */}
-        <div className="col-start-3 place-self-end me-[9%] z-10">
+        
+      </div>
+{/* See more */}
+<div className="col-start-3 place-self-end me-[9%] z-10">
           <Button
             variant="gaming"
             className="relative text-[24px] px-[0.8em] py-[0.4em] h-fit"
@@ -180,8 +182,6 @@ const BestSelling = () => {
             </p>
           </Button> */}
         </div>
-      </div>
-
       {/* Bottom gradient */}
       <div className="absolute bottom-0 w-full h-1/5 bg-gradient-to-t from-black to-transparent"></div>
     </section>

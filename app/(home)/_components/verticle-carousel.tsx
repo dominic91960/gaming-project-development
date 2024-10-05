@@ -6,7 +6,7 @@ const VerticalCarousel = () => {
   return (
     <div className="bg-[#000000] pt-[100px]">
       <div className=" ">
-        <div className=" flex items-center justify-center relative">
+        <div className="flex items-center justify-center relative">
           <div className="border-[3px] border-[#0BDB45] w-max px-14 py-5">
             <p className="text-white font-primaryFont font-bold text-[50px] text-center">
               LATEST GAMES
