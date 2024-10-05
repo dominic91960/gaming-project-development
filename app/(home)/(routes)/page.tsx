@@ -30,7 +30,7 @@ export default function Home() {
             className="relative z-10 top-20 left-20 lg:z-40"
           />
 
-          <div className="absolute top-0 2xl:top-0 2xl:left-0 text-[150px]  leading-[0] mt-[0.8em] z-20 mx-8">
+          <div className="absolute 2xl:top-0 2xl:left-0 text-[150px]  leading-[0] mt-[0.8em] z-20 mx-8 -top-24 md:top-0">
             <p className="font-primaryFont font-medium text-[40px] md:text-6xl lg:text-7xl xl:text-[110px] 2xl:text-[0.85em] text-white leading-none">
               BLACK MYTH
             </p>

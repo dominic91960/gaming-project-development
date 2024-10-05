@@ -9,8 +9,8 @@ import Steam from "../../../public/images/home/icon-bar/Steam.png";
 
 const IconBar = () => {
   return (
-    <div className="relative flex items-center justify-center mt-[40px] z-40">
-      <Image src={IconBarBackground} alt="Main Character" className="px-8 h-[32px] md:h-20 lg:h-24 xl:h-28 2xl:h-[136px] w-full xl:max-w-full 2xl:max-w-[80%]" />
+    <div className="relative flex items-center justify-center mt-[40px] z-40 bottom-0">
+      <Image src={IconBarBackground} alt="Main Character" className="px-8 h-[34px] md:h-20 lg:h-24 xl:h-28 2xl:h-[136px] w-full xl:max-w-full 2xl:max-w-[80%]" />
 
       {/* Center the absolute div and justify-between for icons */}
       <div className="flex items-center justify-between absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[60%] text-[7px] md:text-xs lg:text-lg xl:text-xl">
