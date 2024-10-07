@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
 import { Category, columns } from "./categories/columns";
 import { DataTable } from "./categories/data-table";
@@ -41,25 +41,22 @@ export default function DemoPage() {
       console.log(response.data);
       const processedData = response.data.map((item: any) => {
         let name = item.name;
-        if(item.level == 1) {
+        if (item.level == 1) {
           name = "- " + name;
-      }else if(item.level == 2) {
-
-        name = "- - " + name;
-      }else if(item.level == 3) {
-        name = "- - - " + name;
-      }
+        } else if (item.level == 2) {
+          name = "- - " + name;
+        } else if (item.level == 3) {
+          name = "- - - " + name;
+        }
         return {
           id: item.id,
           name: name,
           description: item.description,
           imageUrl: item.image ? item.image.url : "/images/sample-pic.png",
         };
-      }
-
-    );
+      });
       setData(processedData);
-    }
+    };
     getData();
   }, [reload]);
 
@@ -74,26 +71,26 @@ export default function DemoPage() {
     //   ...newCategory,
     // };
     // setData((prevData) => [...prevData, newEntry]);
-    setReload(prev => !prev);
+    setReload((prev) => !prev);
   };
 
   const handleDelete = async (id: string) => {
     console.log("Delete", id);
-    try{
+    try {
       const res = await axiosInstance.delete(`/categories/${id}`);
-      console.log("res",res);
-      if(res.status === 200) {
+      console.log("res", res);
+      if (res.status === 200) {
         toast.success("Category deleted successfully");
-      }else if(res.status === 404) {
+      } else if (res.status === 404) {
         toast.error("Category not found");
-      }else {
+      } else {
         toast.error("Failed to delete category");
       }
     } catch (error) {
       toast.error("Failed to delete category1");
-      console.log("errrrr",error);
+      console.log("errrrr", error);
     }
-    setReload(prev => !prev);
+    setReload((prev) => !prev);
     // setData((prevData) => prevData.filter((item) => item.id !== id));
   };
 
@@ -110,13 +107,13 @@ export default function DemoPage() {
           All Categories
         </h1>
         <p className="text-[0.9em] text-white md:text-[0.5em]">
-          Product / Categories
+          Products / Categories
         </p>
       </div>
       <DataTable
         columns={columns}
         data={data}
-        onDelete={handleDelete} 
+        onDelete={handleDelete}
         onEdit={handleEdit}
         isEditOpen={isEitOpen}
         setIsEditOpen={setIsEditOpen}
