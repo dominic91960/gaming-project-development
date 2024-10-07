@@ -39,36 +39,38 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [parentCategoryId, setParentCategoryId] = useState<string | null>(null); // To store selected parent category
   const [data, setData] = useState<any[]>([]);
+  const [isImageInputDisabled, setIsImageInputDisabled] = useState(false);
 
   const handleSubmit = async () => {
     console.log(name, description, imageUrl, parentCategoryId);
     const level = data.find((item) => item.id == parentCategoryId)?.level + 1;
-    console.log(level); 
+    console.log(level);
 
     const dataToSend = {
-      "name": name,
-      "description": description,
-      "image": imageUrl,
-      "level": level || 1,
-      "parentId": parentCategoryId
+      name: name,
+      description: description,
+      image: imageUrl,
+      level: level || 1,
+      parentId: parentCategoryId,
     };
-
 
     try {
       const res = await axiosInstance.post("/categories", dataToSend);
       console.log(res.status);
       if (res.status === 201) {
-      toast.success("Category added successfully");
-      onAddCategory({
-        name,
-        description,
-        imageUrl,
-        level,
-        parentCategoryId: parentCategoryId ? parseInt(parentCategoryId) : null,
-      });
-      setIsOpen(false);
+        toast.success("Category added successfully");
+        onAddCategory({
+          name,
+          description,
+          imageUrl,
+          level,
+          parentCategoryId: parentCategoryId
+            ? parseInt(parentCategoryId)
+            : null,
+        });
+        setIsOpen(false);
       } else {
-      toast.error("Failed to add category");
+        toast.error("Failed to add category");
       }
     } catch (error) {
       console.error(error);
@@ -142,13 +144,24 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
               </div>
               <div>
                 <p className="mb-[0.5em]">Parent Category</p>
-                <Select onValueChange={(value) => setParentCategoryId(value)}>
-                  <SelectTrigger className="border-[#606060]">
+                <Select
+                  onValueChange={(value) => setParentCategoryId(value)}
+                  onOpenChange={(open: boolean) => {
+                    open
+                      ? setIsImageInputDisabled(true)
+                      : setTimeout(() => setIsImageInputDisabled(false), 100);
+                  }}
+                >
+                  <SelectTrigger className="h-fit px-[1em] py-[0.5em] border-[#606060] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] 2xl:text-[13px]">
                     <SelectValue placeholder="Select Parent Category" />
                   </SelectTrigger>
-                  <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-sm *:p-[1em]">
+                  <SelectContent className="h-[20em] overflow-y-scroll bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
                     {data.map((category) => (
-                      <SelectItem key={category.id} value={category.id.toString()}>
+                      <SelectItem
+                        key={category.id}
+                        value={category.id.toString()}
+                        className="h-fit ps-[5ch] pe-[1em] py-[0.5em] my-[1em] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] 2xl:text-[13px]"
+                      >
                         {category.name}
                       </SelectItem>
                     ))}
@@ -171,6 +184,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
                   }
                 }}
                 className="text-[1em] p-0 border-[#606060] h-fit file:bg-[#313131] file:text-[1em] file:text-[#D9D9D9] file:px-[1em] file:py-[0.6em] file:me-[1em] file:cursor-pointer hover:file:text-white"
+                disabled={isImageInputDisabled}
               />
             </div>
 
