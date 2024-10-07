@@ -65,9 +65,9 @@ const AddTagsPop: React.FC<AddTagsPopProps> = ({ onAddTags }) => {
               </button>
             </DialogTitle>
           </DialogHeader>
-          {/* <div className="bg-black/50 border border-[#0D6D49] mt-[1em] px-[2em] py-[3em] rounded-sm"> */}
-          <div>
-            <div className="grid grid-cols-2 gap-x-[0.8em] 2xl:gap-x-[4.8em] font-medium">
+
+          <div className="font-medium lg:bg-black/50 lg:border lg:border-[#0D6D49] lg:mt-[1em] lg:px-[2em] lg:py-[3em] lg:rounded-sm">
+            <div className="grid grid-cols-2 gap-x-[0.8em] 2xl:gap-x-[4.8em]">
               <div>
                 <p className="mb-[0.5em]">Name</p>
                 <Input
@@ -75,25 +75,6 @@ const AddTagsPop: React.FC<AddTagsPopProps> = ({ onAddTags }) => {
                   onChange={(e) => setName(e.target.value)}
                   className="w-full text-[1em] px-[1em] py-[0.6em] h-fit border-[#606060]"
                 />
-              </div>
-              <div>
-                <p className="mb-[0.5em]">Parent Category</p>
-                <Select>
-                  <SelectTrigger className="border-[#606060]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-sm *:p-[1em]">
-                    <SelectItem value="Parent 1" className="p-[1em]">
-                      Parent 1
-                    </SelectItem>
-                    <SelectItem value="Sub Category 1.1" className="p-[1em]">
-                      Sub Category 1.1
-                    </SelectItem>
-                    <SelectItem value="Sub Category 1.1.1" className="p-[1em]">
-                      Sub Category 1.1.1
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
             </div>
             <div className="mt-[1.4em]">

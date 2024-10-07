@@ -131,9 +131,9 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
               </button>
             </DialogTitle>
           </DialogHeader>
-          {/* <div className="bg-black/50 border border-[#0D6D49] mt-[1em] px-[2em] py-[3em] rounded-sm"> */}
-          <div>
-            <div className="grid grid-cols-2 gap-x-[0.8em] 2xl:gap-x-[4.8em] font-medium">
+
+          <div className="font-medium lg:bg-black/50 lg:border lg:border-[#0D6D49] lg:mt-[1em] lg:px-[2em] lg:py-[3em] lg:rounded-sm">
+            <div className="grid grid-cols-2 gap-x-[0.8em] 2xl:gap-x-[4.8em]">
               <div>
                 <p className="mb-[0.5em]">Name</p>
                 <Input
