@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tags, columns } from "./tags/columns";
 import { DataTable } from "./tags/data-table";
 import { EditTagPopup } from "./tags/EditTagPopup";
+import axiosInstance from "@/axios/axiosInstance";
+import { set } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const getData = (): Tags[] => {
   return [
@@ -24,6 +27,25 @@ export default function TagsPage() {
   const [data, setData] = useState<Tags[]>(getData());
   const [isEditPopupOpen, setEditPopupOpen] = useState(false);
   const [editingTag, setEditingTag] = useState<Tags | null>(null);
+  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    axiosInstance
+      .get("/tags")
+      .then((response) => {
+        setData(
+          response.data.map((tag: any) => ({
+            id: tag.id,
+            name: tag.name,
+            description: tag.description,
+            imageUrl: tag.image || "/images/sample-pic.png",
+          }))
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [reload]);
 
   const handleAddTags = (newTags: {
     name: string;
@@ -37,26 +59,51 @@ export default function TagsPage() {
     setData((prevData) => [...prevData, newEntry]);
   };
 
-  const handleDelete = (id: string) => {
-    setData((prevData) => prevData.filter((item) => item.id !== id));
+  const handleDelete = async(id: string) => {
+    // setData((prevData) => prevData.filter((item) => item.id !== id));
+    console.log("Delete tag with id: ", id);
+    try {
+      await axiosInstance.delete(`/tags/${id}`);
+      // setData((prevData) => prevData.filter((item) => item.id !== id));
+      toast.success("Tag deleted successfully");
+      setReload(prev => !prev);
+    } catch (error) {
+      toast.error("Error deleting tag");
+      console.error(error);
+    }
   };
 
   const handleEdit = (tag: Tags) => {
+    // setEditingTag(tag);
+    console.log("Edit tag with id: ", tag);
     setEditingTag(tag);
     setEditPopupOpen(true);
   };
 
-  const handleSaveEdit = (tagData: {
+  const handleSaveEdit = async(tagData: {
     id: string;
     name: string;
     description: string;
     imageUrl: string;
   }) => {
-    setData((prevData) =>
-      prevData.map((item) =>
-        item.id === tagData.id ? { ...item, ...tagData } : item
-      )
-    );
+    // 
+    console.log("Save tag with data: ", tagData);
+    try {
+      const data = {
+        name: tagData.name,
+        description: tagData.description,
+        image: tagData.imageUrl,
+      }
+      const res = await axiosInstance.patch(`/tags/${tagData.id}`, data);
+      if (res.status !== 200) {
+        throw new Error("Failed to update tag");
+      }
+      toast.success("Tag updated successfully");
+      setReload(prev => !prev);
+    } catch (error) {
+      console.error(error);
+      toast.error("Error updating tag");
+    }
   };
 
   return (
