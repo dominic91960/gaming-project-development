@@ -86,14 +86,14 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await axiosInstance.get("/categories");
+      const response = await axiosInstance.get("/categories/nested");
       const processedData = response.data.map((item: any) => {
         let name = item.name;
-        if (item.level == 1) {
+        if (item.level == 2) {
           name = "- " + name;
-        } else if (item.level == 2) {
-          name = "- - " + name;
         } else if (item.level == 3) {
+          name = "- - " + name;
+        } else if (item.level == 4) {
           name = "- - - " + name;
         }
         return {
