@@ -9,15 +9,15 @@ import {
 } from "@/components/ui/dialog";
 import { IoClose } from "react-icons/io5";
 
-interface AddTagsPopProps {
-  onAddTags: (newTags: {
+interface AddBrandsPopProps {
+  onAddBrands: (newBrands: {
     name: string;
     description: string;
     imageUrl: string;
   }) => void;
 }
 
-const AddTagsPop: React.FC<AddTagsPopProps> = ({ onAddTags }) => {
+const AddBrandsPop: React.FC<AddBrandsPopProps> = ({ onAddBrands }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -25,7 +25,7 @@ const AddTagsPop: React.FC<AddTagsPopProps> = ({ onAddTags }) => {
 
   const handleSubmit = () => {
     if (name && description && imageUrl) {
-      onAddTags({ name, description, imageUrl });
+      onAddBrands({ name, description, imageUrl });
 
       setIsOpen(false);
       setName("");
@@ -42,13 +42,13 @@ const AddTagsPop: React.FC<AddTagsPopProps> = ({ onAddTags }) => {
         className="bg-[#00FFA1] font-bold text-black text-[0.95em] px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100 flex-shrink-0"
         onClick={() => setIsOpen(true)}
       >
-        Add Tag
+        Add Brand
       </button>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="bg-gradient-to-tr from-black/40 from-15% to-[#00a76a66] border-[#0D6D49] backdrop-blur-[2px] rounded-sm font-primaryFont text-white text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] 2xl:text-[13px] p-[3em]">
           <DialogHeader>
             <DialogTitle className="flex items-center justify-between border-b border-b-[#606060] pb-[1em] text-[1.5em]">
-              <h2>Add Tag</h2>
+              <h2>Add Brand</h2>
               <button
                 className="text-[#00FFA1] hover:opacity-80 transition-opacity duration-100"
                 onClick={() => setIsOpen(false)}
@@ -117,4 +117,4 @@ const AddTagsPop: React.FC<AddTagsPopProps> = ({ onAddTags }) => {
   );
 };
 
-export default AddTagsPop;
+export default AddBrandsPop;

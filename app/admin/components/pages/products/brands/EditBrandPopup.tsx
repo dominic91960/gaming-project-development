@@ -3,40 +3,40 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { IoClose } from "react-icons/io5";
 
-interface EditTagPopupProps {
+interface EditBrandPopupProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (tagData: {
+  onSave: (brandData: {
     id: string;
     name: string;
     description: string;
     imageUrl: string;
   }) => void;
-  tag?: { id: string; name: string; description: string; imageUrl: string };
+  brand?: { id: string; name: string; description: string; imageUrl: string };
 }
 
-export const EditTagPopup = ({
+export const EditBrandPopup = ({
   isOpen,
   onClose,
   onSave,
-  tag,
-}: EditTagPopupProps) => {
-  const [name, setName] = useState(tag?.name || "");
-  const [description, setDescription] = useState(tag?.description || "");
-  const [imageUrl, setImageUrl] = useState(tag?.imageUrl || "");
+  brand,
+}: EditBrandPopupProps) => {
+  const [name, setName] = useState(brand?.name || "");
+  const [description, setDescription] = useState(brand?.description || "");
+  const [imageUrl, setImageUrl] = useState(brand?.imageUrl || "");
 
   useEffect(() => {
-    if (tag) {
-      setName(tag.name);
-      setDescription(tag.description);
-      setImageUrl(tag.imageUrl);
+    if (brand) {
+      setName(brand.name);
+      setDescription(brand.description);
+      setImageUrl(brand.imageUrl);
     }
-  }, [tag]);
+  }, [brand]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (tag) {
-      onSave({ id: tag.id, name, description, imageUrl });
+    if (brand) {
+      onSave({ id: brand.id, name, description, imageUrl });
     }
     onClose();
   };
@@ -47,7 +47,7 @@ export const EditTagPopup = ({
     <div className="fixed inset-0 bg-black/80 flex justify-center items-center font-medium text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] xl:text-[13px] z-50">
       <div className="w-fit bg-gradient-to-tr from-black/40 from-15% to-[#00a76a66] border-[#0D6D49] backdrop-blur-[2px] rounded-sm font-primaryFont text-white p-[3em]">
         <div className="flex items-center justify-between border-b border-b-[#606060] pb-[1em] text-[1.5em]">
-          <h2>Edit Tag</h2>
+          <h2>Edit Brand</h2>
           <button
             className="text-[#00FFA1] hover:opacity-80 transition-opacity duration-100"
             onClick={onClose}
