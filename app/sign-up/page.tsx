@@ -1,20 +1,23 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
+import axios from "axios";
+import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook, FaApple } from "react-icons/fa";
+
 import Logo from "../../public/images/sign-in/logo.png";
-import GoogleIcon from "../../public/images/sign-in/google.png";
-import FacebookIcon from "../../public/images/sign-in/facebook.png";
-import AppleIcon from "../../public/images/sign-in/apple.png";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import ProductSearchBar from "@/components/product-search/product-search";
+import Navbar from "@/components/navbar/navbar";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -66,156 +69,165 @@ const SignUp = () => {
   };
 
   return (
-    <div className="bg-[#0B0E13] h-full flex items-center justify-center">
-      <div className="border-[1px] border-white w-[682px] px-[120px] py-[50px]">
-        <div className="flex items-center justify-center">
-          <Image src={Logo} alt="logo" />
-        </div>
-        <p className="font-primaryFont text-[24px] font-medium text-white text-center">
-          Sign Up To Your Account
-        </p>
-        <p className="font-primaryFont text-[13px] font-medium text-white text-center mb-[60px]">
-          Start from the beginning.
-        </p>
-
-        {/* Social Sign-In Buttons */}
-        <div className="flex items-center justify-center gap-6 mb-[25px]">
-          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center hover:-translate-y-[1px] transition-transform duration-150 cursor-pointer">
-            <Image src={GoogleIcon} alt="google icon" />
+    <>
+      <ProductSearchBar />
+      {/* <Navbar /> */}
+      <div className="bg-[#0B0E13] h-full flex items-center justify-center font-primaryFont text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] text-white px-[36px]">
+        <div className="w-full border px-[2em] py-[1em] sm:px-[8em] sm:py-[3.3em] sm:w-fit">
+          <div className="flex items-center justify-center">
+            <Image src={Logo} alt="logo" />
           </div>
-          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center hover:-translate-y-[1px] transition-transform duration-150 cursor-pointer">
-            <Image src={FacebookIcon} alt="facebook icon" />
-          </div>
-          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center hover:-translate-y-[1px] transition-transform duration-150 cursor-pointer">
-            <Image src={AppleIcon} alt="apple icon" />
-          </div>
-        </div>
+          <p className="font-primaryFont text-[1.6em] font-medium text-white text-center">
+            Sign Up To Your Account
+          </p>
+          <p className="font-primaryFont text-[0.86em] font-medium text-white text-center mb-[4em]">
+            Start from the beginning.
+          </p>
 
-        <div className="flex items-center justify-center mb-[15px]">
-          <div className="w-full h-[1px] bg-white"></div>
-          <p className="text-white font-primaryFont font-medium px-2">or</p>
-          <div className="w-full h-[1px] bg-white"></div>
-        </div>
+          {/* Social Sign-In Buttons */}
+          <div className="flex items-center justify-center gap-6 mb-[1.6em]">
+            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] hover:-translate-y-[1px] cursor-pointer">
+              <FcGoogle />
+            </div>
+            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] text-[#1877F2] hover:-translate-y-[1px] cursor-pointer">
+              <FaFacebook />
+            </div>
+            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] text-black hover:-translate-y-[1px] cursor-pointer">
+              <FaApple />
+            </div>
+          </div>
 
-        {/* Sign-Up Form */}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-2 text-white font-primaryFont font-medium text-[15px] gap-x-[1em]">
-            {/* First Name */}
-            <div className="mb-8">
-              <p className="mb-1">FIRST NAME</p>
+          <div className="flex items-center justify-center mb-[1em]">
+            <div className="w-full h-[1px] bg-white"></div>
+            <p className="text-white font-primaryFont font-medium px-2">or</p>
+            <div className="w-full h-[1px] bg-white"></div>
+          </div>
+
+          {/* Sign-Up Form */}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* First/Last name grid */}
+            <div className="grid text-white font-primaryFont font-medium gap-x-[1em] sm:grid-cols-2">
+              {/* First Name */}
+              <div className="mb-[2.1em]">
+                <p className="mb-[0.2em]">FIRST NAME</p>
+                <Input
+                  type="text"
+                  className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
+                  placeholder="Enter first name"
+                  {...register("firstName")}
+                />
+                {errors.firstName && (
+                  <p className="text-red-500 text-sm">
+                    {errors.firstName.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Last Name */}
+              <div className="mb-[2.1em]">
+                <p className="mb-[0.2em]">LAST NAME</p>
+                <Input
+                  type="text"
+                  className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
+                  placeholder="Enter last name"
+                  {...register("lastName")}
+                />
+                {errors.lastName && (
+                  <p className="text-red-500 text-sm">
+                    {errors.lastName.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="mb-[2.1em] text-white font-primaryFont font-medium">
+              <p className="mb-[0.2em]">EMAIL</p>
               <Input
-                type="text"
-                className="text-white rounded-none"
-                placeholder="Enter first name"
-                {...register("firstName")}
+                type="email"
+                className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
+                placeholder="Enter email address"
+                {...register("email")}
               />
-              {errors.firstName && (
-                <p className="text-red-500 text-sm">
-                  {errors.firstName.message}
-                </p>
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
               )}
             </div>
 
-            {/* Last Name */}
-            <div className="mb-8">
-              <p className="mb-1">LAST NAME</p>
-              <Input
-                type="text"
-                className="text-white rounded-none"
-                placeholder="Enter last name"
-                {...register("lastName")}
-              />
-              {errors.lastName && (
-                <p className="text-red-500 text-sm">
-                  {errors.lastName.message}
+            {/* Password & confirm password grid */}
+            <div className="grid text-white font-primaryFont font-medium gap-x-[1em] sm:grid-cols-2">
+              {/* Password */}
+              <div className="mb-[2.1em]">
+                <p className="mb-[0.2em]">PASSWORD</p>
+                <Input
+                  type="password"
+                  className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
+                  placeholder="Enter password"
+                  {...register("password")}
+                />
+                {errors.password && (
+                  <p className="text-red-500 text-sm">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Confirm Password */}
+              <div className="mb-[2.1em]">
+                <p className="mb-[0.2em]">CONFIRM PASSWORD</p>
+                <Input
+                  type="password"
+                  className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
+                  placeholder="Confirm password"
+                  {...register("confirmPassword")}
+                />
+                {errors.confirmPassword && (
+                  <p className="text-red-500 text-sm">
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Terms and Conditions */}
+            <div className="mb-[calc(1em+1px)]">
+              <div className="flex items-center gap-[0.5em]">
+                <Checkbox className="bg-[#45F882] rounded-none size-[0.86em] flex items-center justify-center" />
+                <p className="text-white font-primaryFont font-medium text-[0.8em]">
+                  I agree to all
+                  <Link href="/" className="text-[#45F882] hover:opacity-80">
+                    &nbsp;terms and conditons
+                  </Link>
                 </p>
-              )}
-            </div>
-          </div>
-
-          {/* Email */}
-          <div className="mb-8 text-white font-primaryFont font-medium text-[15px]">
-            <p className="mb-1">EMAIL</p>
-            <Input
-              type="email"
-              className="text-white rounded-none"
-              placeholder="Enter email address"
-              {...register("email")}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
-            )}
-          </div>
-
-          {/* Password & Confirm Password */}
-          <div className="grid grid-cols-2 text-white font-primaryFont font-medium text-[15px] gap-x-[1em]">
-            {/* Password */}
-            <div className="mb-8">
-              <p className="mb-1">PASSWORD</p>
-              <Input
-                type="password"
-                className="text-white rounded-none"
-                placeholder="Enter password"
-                {...register("password")}
-              />
-              {errors.password && (
-                <p className="text-red-500 text-sm">
-                  {errors.password.message}
-                </p>
-              )}
+              </div>
             </div>
 
-            {/* Confirm Password */}
-            <div className="mb-8">
-              <p className="mb-1">CONFIRM PASSWORD</p>
-              <Input
-                type="password"
-                className="text-white rounded-none"
-                placeholder="Confirm password"
-                {...register("confirmPassword")}
-              />
-              {errors.confirmPassword && (
-                <p className="text-red-500 text-sm">
-                  {errors.confirmPassword.message}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* Terms and Conditions */}
-          <div className="mb-4">
-            <div className="flex items-center gap-2">
-              <Checkbox className="bg-[#45F882] rounded-none w-[13px] h-[13px] flex items-center justify-center" />
-              <p className="text-white font-primaryFont font-medium text-[12px]">
-                I agree to all
-                <Link href="/" className="text-[#45F882]">
-                  &nbsp;terms and conditons
-                </Link>
-              </p>
-            </div>
-          </div>
-
-          {/* Submit Button */}
-          <Button className="w-full mb-6 bg-[#0BDB45] font-primaryFont text-[17px] text-black font-bold rounded-none group">
-            <p className="font-primaryFont text-[17px] font-bold text-black hover:text-white group-hover:text-white">
+            {/* Submit Button */}
+            <Button
+              variant="gaming"
+              className="w-full h-fit mb-[1.3em] font-primaryFont text-[1.1em] px-[1em] py-[0.5em]"
+            >
               CREATE ACCOUNT
-            </p>
-          </Button>
-        </form>
+            </Button>
+          </form>
 
-        {/* Sign In Link */}
-        <p className="text-white font-primaryFont font-normal text-[13px] mb-2">
-          Already have an account? 
-        </p>
-        <Link href="/sign-in">
-          <Button variant="outline" className="w-full mb-6 rounded-none group">
-            <p className="font-primaryFont text-[17px] text-white font-bold group-hover:text-black">
-              SIGN IN
-            </p>
-          </Button>
-        </Link>
+          {/* Sign In Link */}
+          <p className="text-white font-primaryFont font-normal text-[0.86em] mb-2">
+            Already have an account? 
+          </p>
+          <Link href="/sign-in">
+            <Button
+              variant="outline"
+              className="w-full h-fit text-[1.1em] px-[1em] py-[0.5em] mb-[1.3em] rounded-none group"
+            >
+              <p className="font-primaryFont text-[1.1em] text-white font-bold group-hover:text-black">
+                SIGN IN
+              </p>
+            </Button>
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
