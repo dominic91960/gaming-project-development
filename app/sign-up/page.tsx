@@ -15,9 +15,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaApple } from "react-icons/fa";
 
-import Logo from "../../public/images/sign-in/logo.png";
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
+import Logo from "../../public/images/sign-in/logo.png";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
