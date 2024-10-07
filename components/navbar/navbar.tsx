@@ -129,9 +129,9 @@ export default function Navbar() {
   }, [isContentChanged]);
 
   return (
-    <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white]">
+    <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white] z-50">
       <div className="border-b border-b-[#8C8C8C]">
-        <div className="container mx-auto flex justify-between items-center py-[0.7em] sm:py-[1.2em] px-[36px] md:py-[0.5em]">
+        <div className="container mx-auto flex justify-between items-center py-[0.2em] sm:py-[1.2em] px-[36px] md:py-[0.5em]">
           {/* Desktop categories toggle*/}
           <button
             className="font-semibold capitalize bg-[#23262B] hidden flex-shrink-0 md:flex md:items-center md:gap-[0.4em] px-[0.8em] py-[0.4em] hover:scale-[102%]"
@@ -254,7 +254,7 @@ export default function Navbar() {
       <nav
         className={`${
           isMobileNavToggled ? "flex flex-col sm:hidden" : "hidden"
-        } container mx-auto bg-[#0D0F10] origin-top animate-open-menu px-[1.8em] font-semibold text-center uppercase pt-[1.5em] pb-[2.4em]`}
+        } container mx-auto bg-[#0D0F10] absolute origin-top animate-open-menu px-[1.8em] font-semibold text-center uppercase pt-[1.5em] pb-[2.4em]`}
       >
         {/* Mobile navigation links */}
         <Link
