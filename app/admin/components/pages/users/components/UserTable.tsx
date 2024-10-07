@@ -27,9 +27,10 @@ const UserTable: React.FC<UserTableProps> = ({
   openEditModal,
 }) => {
   return (
-    <table className="min-w-full text-[18px] border-separate border-spacing-y-[0.8em]">
+    <table className="min-w-full border-separate border-spacing-y-[0.8em] text-[1.2em] sm:text-[0.65em]">
       <thead>
         <tr className="font-primaryFont *:font-medium *:pt-[2em] *:pb-[1.2em]">
+          <th></th>
           <th>Username</th>
           <th>First Name</th>
           <th>Last Name</th>
@@ -42,34 +43,43 @@ const UserTable: React.FC<UserTableProps> = ({
         {users.map((user) => (
           <tr
             key={user.username}
-            className="text-base text-center *:py-[1.5em] *:px-[1ch] *:bg-white/5 mt-4 cursor-pointer hover:shadow-[0px_0px_5px_#00FFA1] rounded-sm"
+            className="text-center *:py-[1.5em] *:px-[1ch] *:bg-white/5 mt-4 cursor-pointer hover:shadow-[0px_0px_5px_#00FFA1] rounded-sm"
           >
             <td className="relative">
-              <div className="w-[0.3em] h-full bg-[#00FFA1] absolute top-0 left-0 rounded-full"></div>
-              <Image
-                src={samplePic}
-                alt="Sample"
-                className="size-[2em] rounded-full mx-auto"
-              />
+              <div className="w-[3em]">
+                <div className="w-[0.3em] h-full bg-[#00FFA1] absolute top-0 left-0 rounded-full"></div>
+                <Image
+                  src={samplePic}
+                  alt="Sample"
+                  className="size-[2em] rounded-full mx-auto"
+                />
+              </div>
             </td>
-            <td className="rounded-tl-sm rounded-bl-sm">{user.username}</td>
+            <td className="rounded-tl-sm rounded-bl-sm max-w-[15ch] overflow-hidden text-ellipsis">
+              {user.username}
+            </td>
             <td>{user.firstName}</td>
             <td>{user.lastName}</td>
-            <td>{user.email}</td>
+            <td className="max-w-[15ch] overflow-hidden text-ellipsis">
+              {user.email}
+            </td>
             <td>{user.role}</td>
-            <td className="rounded-tr-sm rounded-br-sm text-[#A1A1AA] space-x-[0.5em]">
-              <button
-                className="hover:opacity-80 transition-opacity duration-100 translate-y-[0.2em]"
-                onClick={() => openEditModal(user)}
-              >
-                <LuPencilLine />
-              </button>
-              <button
-                className="hover:opacity-80 transition-opacity duration-100 translate-y-[0.2em]"
-                onClick={() => deleteUser(user.id)}
-              >
-                <IoTrash />
-              </button>
+
+            <td className="rounded-tr-sm rounded-br-sm text-[#A1A1AA] text-[1.5em] lg:text-[1em]">
+              <div className="flex items-center justify-center gap-x-[1em] w-[6ch] lg:w-fit lg:gap-x-[0.5em]">
+                <button
+                  className="hover:opacity-80 transition-opacity duration-100"
+                  onClick={() => openEditModal(user)}
+                >
+                  <LuPencilLine />
+                </button>
+                <button
+                  className="hover:opacity-80 transition-opacity duration-100"
+                  onClick={() => deleteUser(user.id)}
+                >
+                  <IoTrash />
+                </button>
+              </div>
             </td>
           </tr>
         ))}

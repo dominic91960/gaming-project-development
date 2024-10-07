@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 import Spinner from "@/components/Spinner/Spinner";
-import { Button } from "@/components/ui/button";
 import { CiSearch } from "react-icons/ci";
 
 import AddUserModal from "../users/components/AddUserModal";
@@ -115,30 +114,88 @@ const UsersPage = () => {
   }
 
   return (
-    <div className="font-primaryFont text-[24px] p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
-      <div className="pb-[2em] capitalize">
-        <h1 className="font-bold text-[36px] leading-none">All users</h1>
-        <p className="text-[12px]">Users/ all users</p>
+    <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
+      {/* Title */}
+      <div className="pb-[2em] px-[36px]">
+        <h1 className="font-bold text-[1.5em] leading-none text-white">
+          All Users
+        </h1>
+        <p className="text-[0.9em] text-white md:text-[0.5em]">
+          Users / All Users
+        </p>
       </div>
 
-      <div className="flex-grow bg-black/40 border border-[#0D6D49] px-[2em] py-[1.2em] rounded-md">
-        <div className="flex justify-between items-center pb-[1.2em] border-b border-b-[#0D6D49]">
-          <h2 className="font-semibold capitalize">Users</h2>
-          <div className="flex items-center text-[12px] gap-x-[1em]">
-            <div className="border p-[0.75em] rounded-sm flex items-center gap-x-[0.75em]">
-              <CiSearch className="text-[1.6em]" />
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                placeholder="Search by username or email"
-                className="bg-transparent outline-none border-s px-[1em] w-[38ch]"
-              />
-            </div>
+      {/* Mobile search bar and add menu */}
+      <div className="px-[36px] mb-[2em] gap-x-[1em] md:hidden">
+        {/* Search bar */}
+        <div className="border p-[0.75em] rounded-sm flex items-center gap-x-[0.75em] mb-[1.2em]">
+          <CiSearch className="text-[1.6em] text-white" />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Search by username or email"
+            className="w-full bg-transparent outline-none border-s px-[1em] text-white"
+          />
+        </div>
+
+        {/* Select and add button */}
+        <div className="flex items-center gap-x-[0.75em]">
+          {/* Select */}
+          <select
+            value={selectedRole}
+            onChange={handleRoleChange}
+            className="w-full px-[1.6em] py-[0.8em] bg-transparent border rounded-sm"
+          >
+            <option value="" className="bg-white text-black">
+              All Roles
+            </option>
+            <option value="ADMIN" className="bg-white text-black">
+              Admin
+            </option>
+            <option value="USER" className="bg-white text-black">
+              User
+            </option>
+            <option value="SUPER_ADMIN" className="bg-white text-black">
+              Super Admin
+            </option>
+          </select>
+
+          {/* Add button */}
+          <button
+            className="bg-[#00FFA1] font-bold text-black text-[0.95em] px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100 flex-shrink-0"
+            onClick={() => {
+              setEditingUser(null);
+              setShowModal(true);
+            }}
+          >
+            Add User
+          </button>
+        </div>
+      </div>
+
+      <div className="flex-grow bg-black/40 border border-[#0D6D49] px-[2em] py-[1.2em] rounded-3xl md:rounded-md text-white">
+        {/* Desktop search bar and add menu */}
+        <div className="hidden pb-[1.2em] border-b border-b-[#0D6D49] text-[0.5em] md:flex md:justify-between md:items-center">
+          {/* Search bar */}
+          <div className="border p-[0.75em] rounded-sm flex items-center gap-x-[0.75em] mb-[1em]">
+            <CiSearch className="text-[1.6em] text-white" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              placeholder="Search by username or email"
+              className="bg-transparent outline-none border-s px-[1em] w-[50ch] text-white"
+            />
+          </div>
+
+          {/* Select and add button */}
+          <div className="flex items-center gap-x-[0.75em]">
+            {/* Select */}
             <select
               value={selectedRole}
               onChange={handleRoleChange}
-              className="px-[1.6em] py-[0.8em] bg-transparent border rounded-sm"
+              className="flex-grow px-[1.6em] py-[0.9em] bg-transparent border rounded-sm"
             >
               <option value="" className="bg-white text-black">
                 All Roles
@@ -153,8 +210,10 @@ const UsersPage = () => {
                 Super Admin
               </option>
             </select>
+
+            {/* Add button */}
             <button
-              className="bg-[#00FFA1] font-bold text-black text-[11px] capitalize px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
+              className="bg-[#00FFA1] font-bold text-black px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
               onClick={() => {
                 setEditingUser(null);
                 setShowModal(true);
@@ -164,11 +223,14 @@ const UsersPage = () => {
             </button>
           </div>
         </div>
-        <UserTable
-          users={allAdmins}
-          deleteUser={deleteUser}
-          openEditModal={openEditModal}
-        />
+
+        <div className="overflow-auto">
+          <UserTable
+            users={allAdmins}
+            deleteUser={deleteUser}
+            openEditModal={openEditModal}
+          />
+        </div>
       </div>
 
       {showModal && (
@@ -181,27 +243,27 @@ const UsersPage = () => {
       )}
 
       {/* Pagination */}
-      <div className="flex items-center justify-between text-[15px] px-[4em] mt-[2em]">
-        <div className="flex text-black text-center gap-x-[1em]">
-          {renderPagination()}
-        </div>
-        <div className="flex gap-x-[1em]">
-          <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-md min-w-[12ch] text-center">
+      <div className="px-[4em] mt-[2em] flex items-center justify-between md:text-[0.65em]">
+        <div className="flex text-black gap-x-[1em]">{renderPagination()}</div>
+
+        {/* Group select */}
+        {/* <div className="flex gap-x-[1em]">
+          <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-sm min-w-[12ch] flex items-center justify-center h-fit">
             Selected: 0
           </p>
           <Button
             variant="secondary"
-            className="font-medium w-[12ch] text-[1em] h-fit"
+            className="font-medium w-[12ch] text-[1em] px-[1em] py-[0.5em] h-fit rounded-sm"
           >
             Cancel
           </Button>
           <Button
             variant="destructive"
-            className="font-medium w-[12ch] text-[1em] h-fit"
+            className="font-medium w-[12ch] text-[1em] px-[1em] py-[0.5em] h-fit rounded-sm"
           >
             Delete
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

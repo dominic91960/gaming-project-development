@@ -145,20 +145,21 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
   };
 
   return (
-    <div className="fixed h-screen inset-0 bg-black/80 flex justify-center items-center font-medium text-[13px]">
+    <div className="fixed h-full inset-0 bg-black/80 flex justify-center items-center font-medium text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] xl:text-[13px]">
       <div className="relative bg-gradient-to-tr from-black/40 from-15% to-[#00a76966] backdrop-blur-[2px] p-[3em] rounded-md border border-[#19D38E]">
-        <div className="font-bold text-[20px] pb-[0.6em] border-b border-b-[#0D6D49] flex justify-between">
+        <div className="font-bold text-[1.5em] pb-[0.6em] border-b border-b-[#0D6D49] flex justify-between">
           <h2>{editingUser ? "Edit User" : "Add User"}</h2>
           <button
-            className="text-[#00FFA1] text-[18px] hover:opacity-80 transition-opacity duration-100"
+            className="text-[#00FFA1] text-[1.4em] hover:opacity-80 transition-opacity duration-100"
             onClick={() => setShowModal(false)}
           >
             <IoClose />
           </button>
         </div>
-        <div className="flex gap-x-[2em] my-[2em] *:bg-black/40 *:p-[2.8em] *:rounded-sm *:border *:border-[#0D6D49]">
+
+        <div className="flex flex-col gap-y-[2em] my-[2em] md:flex-row md:gap-y-0 md:gap-x-[2em] *:md:bg-black/40 *:md:p-[2.8em] *:md:rounded-sm *:md:border *:md:border-[#0D6D49]">
           {/* Image area */}
-          <div className="flex flex-col items-center text-center mb-[15%]">
+          <div className="flex items-center justify-center gap-x-[2em] md:flex-col md:justify-start md:text-center md:mb-[15%]">
             <div className="relative">
               <Image
                 src={image ? image : samplePic}
@@ -174,7 +175,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
                 <FaCirclePlus />
               </label>
             </div>
-            <div className="py-[1em] border-b border-[#0D6D49] font-secondaryFont text-[1.2em] font-bold">
+            <div className="py-[1em] border-b border-[#0D6D49] font-secondaryFont text-[1.5em] font-bold md:text-[1.2em]">
               <p>
                 {firstName !== "" || lastName !== ""
                   ? `${firstName} ${lastName}`
@@ -185,6 +186,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
               </p>
             </div>
           </div>
+
           {/* Form area */}
           <div>
             <h2 className="font-bold text-[1.4em] uppercase mb-[0.5em]">
@@ -192,14 +194,14 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
             </h2>
 
             {/* First name and last name */}
-            <div className="grid grid-cols-2 gap-x-[4.8em] mt-[1.4em] font-medium">
+            <div className="grid grid-cols-2 gap-x-[0.7em] mt-[1.4em] font-medium xl:gap-x-[2em] 2xl:gap-x-[4.8em]">
               <div>
                 <p className="capitalize">First Name</p>
                 <Input
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className="text-[1em] px-[1em] py-[0.6em] h-fit"
+                  className="text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
                   required
                 />
               </div>
@@ -209,21 +211,21 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className="text-[1em] px-[1em] py-[0.6em] h-fit"
+                  className="text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
                   required
                 />
               </div>
             </div>
 
             {/* Username and role */}
-            <div className="grid grid-cols-2 gap-x-[4.8em] mt-[1.4em] font-medium">
+            <div className="grid grid-cols-2 gap-x-[0.7em] mt-[1.4em] font-medium xl:gap-x-[2em] 2xl:gap-x-[4.8em]">
               <div>
                 <p className="capitalize">Username</p>
                 <Input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="text-[1em] px-[1em] py-[0.6em] h-fit"
+                  className="text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
                   readOnly={editingUser ? true : false}
                   required
                 />
@@ -259,7 +261,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-[72ch] text-[1em] px-[1em] py-[0.6em] h-fit"
+                className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
                 required
               />
             </div>
@@ -272,7 +274,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-[72ch] text-[1em] px-[1em] py-[0.6em] h-fit"
+                  className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm xl:w-[65ch] 2xl:w-[72ch]"
                   required={!editingUser}
                 />
               </div>
@@ -289,12 +291,12 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
 
             {/* Submit */}
             <div className="flex justify-between items-center mt-[18em]">
-              <p className="text-[10px] max-w-[65ch]">
+              <p className="text-[0.76em] max-w-[40ch] md:max-w-[44ch] xl:max-w-[50ch] 2xl:max-w-[65ch]">
                 Please review and ensure that all the details you have entered
                 are correct before submitting.
               </p>
               <button
-                className="text-black font-semibold text-[14px] px-[1.5em] py-[0.5em] bg-[#00FFA1] rounded hover:opacity-90 transition-opacity duration-100"
+                className="text-black font-semibold text-[1.1em] px-[1.5em] py-[0.5em] bg-[#00FFA1] rounded hover:opacity-90 transition-opacity duration-100"
                 onClick={handleSubmit}
               >
                 {editingUser ? "Update" : "Save"}
@@ -304,101 +306,6 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
         </div>
       </div>
     </div>
-    // <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-    //   <div className="bg-white p-8 rounded text-black">
-    //     <h2 className="text-xl mb-4">
-    //       {editingUser ? "Edit User" : "Add User"}
-    //     </h2>
-    //     {editingUser ? (
-    //       <div className="border p-2 mb-4 w-full">{username}</div>
-    //     ) : (
-    //       <input
-    //         type="text"
-    //         value={username}
-    //         onChange={(e) => setUsername(e.target.value)}
-    //         className="border p-2 mb-4 w-full"
-    //         placeholder="Enter username"
-    //         required
-    //       />
-    //     )}
-
-    //     <input
-    //       type="text"
-    //       value={firstName}
-    //       onChange={(e) => setFirstName(e.target.value)}
-    //       className="border p-2 mb-4 w-full"
-    //       placeholder="Enter first name"
-    //       required
-    //     />
-    //     <input
-    //       type="text"
-    //       value={lastName}
-    //       onChange={(e) => setLastName(e.target.value)}
-    //       className="border p-2 mb-4 w-full"
-    //       placeholder="Enter last name"
-    //       required
-    //     />
-    //     <input
-    //       type="email"
-    //       value={email}
-    //       onChange={(e) => setEmail(e.target.value)}
-    //       className="border p-2 mb-4 w-full"
-    //       placeholder="Enter email"
-    //       required
-    //     />
-    //     {!editingUser && (
-    //       <input
-    //         type="password"
-    //         value={password}
-    //         onChange={(e) => setPassword(e.target.value)}
-    //         className="border p-2 mb-4 w-full"
-    //         placeholder="Enter password"
-    //         required={!editingUser}
-    //       />
-    //     )}
-    //     <select
-    //       value={role}
-    //       onChange={(e) => setRole(e.target.value)}
-    //       className="border p-2 mb-4 w-full"
-    //       required
-    //     >
-    //       <option value="">Select Role</option>
-    //       {roles.map((role) => (
-    //         <option key={role.id} value={role.name}>
-    //           {role.name}
-    //         </option>
-    //       ))}
-    //     </select>
-
-    //     <input
-    //       type="file"
-    //       onChange={handleImageChange}
-    //       className="border p-2 mb-4 w-full"
-    //       accept="image/*"
-    //     />
-
-    //     {image && (
-    //       <div className="mb-4">
-    //         <img src={image} alt="Profile Preview" className="w-20 h-20 mb-2 rounded-full" />
-    //       </div>
-    //     )}
-
-    //     <div className="flex justify-end">
-    //       <button
-    //         className="bg-red-500 text-white px-4 py-2 mr-2 rounded"
-    //         onClick={() => setShowModal(false)}
-    //       >
-    //         Cancel
-    //       </button>
-    //       <button
-    //         className="bg-blue-500 text-white px-4 py-2 rounded"
-    //         onClick={handleSubmit}
-    //       >
-    //         {editingUser ? "Update" : "Save"}
-    //       </button>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

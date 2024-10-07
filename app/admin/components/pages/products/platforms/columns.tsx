@@ -29,10 +29,11 @@ export const columns = (
       return (
         <Button
           variant="ghost"
+          className="text-[1em] px-[1em] py-[0.5em] h-fit"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ml-[0.5em] size-[1em]" />
         </Button>
       );
     },
@@ -49,11 +50,11 @@ export const columns = (
     cell: ({ row }) => {
       const Platforms = row.original;
       return (
-        <div className="flex items-center">
+        <div className="flex items-center size-[2em]">
           <img
             src={Platforms.imageUrl}
             alt={Platforms.name}
-            className="h-10 w-10 rounded-full"
+            className="w-full h-full rounded-full"
           />
         </div>
       );
@@ -66,27 +67,29 @@ export const columns = (
       const Platforms = row.original;
       return (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+          <DropdownMenuTrigger asChild className="text-[1em]">
+            <Button variant="ghost" className="size-[2em] p-0">
               <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
+              <MoreHorizontal className="size-[1em]" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            className="bg-black/20 backdrop-blur-sm rounded-sm text-white border border-white/10"
+            className="bg-black/20 backdrop-blur-[2px] rounded-sm text-white border border-white/10 text-[14px]"
           >
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-[1em]">
+              Actions
+            </DropdownMenuLabel>
             <DropdownMenuSeparator className="w-[90%] mx-auto bg-white/10" />
             <DropdownMenuItem
               onClick={() => onEdit(Platforms)} // Use onEdit to open the edit popup
-              className="cursor-pointer"
+              className="cursor-pointer text-[1em]"
             >
               Edit
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => onDelete(Platforms.id)}
-              className="cursor-pointer"
+              className="cursor-pointer text-[1em]"
             >
               Delete
             </DropdownMenuItem>

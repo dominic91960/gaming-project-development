@@ -90,7 +90,7 @@ const RolesPage = () => {
               />
             </div>
             <button
-              className="bg-[#00FFA1] font-bold text-black text-[11px] px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
+              className="bg-[#00FFA1] font-bold text-black px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
               onClick={() => setShowAddModal(true)}
             >
               Add Role
