@@ -37,15 +37,15 @@ export default function DemoPage() {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await axiosInstance.get("/categories");
+      const response = await axiosInstance.get("/categories/nested");
       console.log(response.data);
       const processedData = response.data.map((item: any) => {
         let name = item.name;
-        if (item.level == 1) {
+        if (item.level == 2) {
           name = "- " + name;
-        } else if (item.level == 2) {
-          name = "- - " + name;
         } else if (item.level == 3) {
+          name = "- - " + name;
+        } else if (item.level == 4) {
           name = "- - - " + name;
         }
         return {
