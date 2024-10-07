@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 import Spinner from "@/components/Spinner/Spinner";
-import { Button } from "@/components/ui/button";
 import { CiSearch } from "react-icons/ci";
 
 import AddUserModal from "../users/components/AddUserModal";
@@ -244,28 +243,28 @@ const UsersPage = () => {
       )}
 
       {/* Pagination */}
-      {/* <div className="flex items-center justify-between text-[15px] px-[4em] mt-[2em]">
-        <div className="flex text-black text-center gap-x-[1em]">
-          {renderPagination()}
-        </div>
-        <div className="flex gap-x-[1em]">
-          <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-md min-w-[12ch] text-center">
+      <div className="px-[4em] mt-[2em] flex items-center justify-between md:text-[0.65em]">
+        <div className="flex text-black gap-x-[1em]">{renderPagination()}</div>
+
+        {/* Group select */}
+        {/* <div className="flex gap-x-[1em]">
+          <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-sm min-w-[12ch] flex items-center justify-center h-fit">
             Selected: 0
           </p>
           <Button
             variant="secondary"
-            className="font-medium w-[12ch] text-[1em] h-fit"
+            className="font-medium w-[12ch] text-[1em] px-[1em] py-[0.5em] h-fit rounded-sm"
           >
             Cancel
           </Button>
           <Button
             variant="destructive"
-            className="font-medium w-[12ch] text-[1em] h-fit"
+            className="font-medium w-[12ch] text-[1em] px-[1em] py-[0.5em] h-fit rounded-sm"
           >
             Delete
           </Button>
-        </div>
-      </div> */}
+        </div> */}
+      </div>
     </div>
   );
 };
