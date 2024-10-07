@@ -84,7 +84,7 @@ const AddBrandsPop: React.FC<AddBrandsPopProps> = ({ onAddBrands }) => {
                     reader.readAsDataURL(file);
                   }
                 }}
-                className="text-[1em] p-0 border-[#606060] h-fit file:bg-[#313131] file:text-[1em] file:text-[#D9D9D9] file:px-[1em] file:py-[0.6em] file:me-[1em] file:cursor-pointer hover:file:text-white"
+                className="text-[1em] p-0 border-[#606060] h-fit file:bg-[#313131] file:text-[1em] file:text-[#D9D9D9] file:px-[1em] file:py-[0.6em] file:me-[1em] file:cursor-pointer hover:file:text-white rounded-sm"
               />
             </div>
 
