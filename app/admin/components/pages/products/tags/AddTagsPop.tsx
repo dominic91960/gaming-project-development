@@ -77,6 +77,7 @@ const AddTagsPop: React.FC<AddTagsPopProps> = ({ onAddTags }) => {
                 />
               </div>
             </div>
+
             <div className="mt-[1.4em]">
               <p className="mb-[0.5em]">Image</p>
               <Input
