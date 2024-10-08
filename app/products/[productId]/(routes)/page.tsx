@@ -144,7 +144,7 @@ export default function ProductPage() {
       <ProductSearchBar />
       {/* <Navbar /> */}
       <section className="bg-[#051301] font-primaryFont">
-        {/* Image area with desktop price card */}
+        {/* Image area with gradient */}
         <div
           className="relative h-[160px] bg-[length:640px_360px] bg-fixed sm:h-[220px] sm:bg-contain md:h-[280px] lg:h-[340px] lg:bg-[0px_-115px] 2xl:h-[480px]"
           style={{
@@ -152,77 +152,6 @@ export default function ProductPage() {
             backgroundPositionX: "center",
           }}
         >
-          {/* Price card container*/}
-          <div className="relative container mx-auto hidden sm:block">
-            {/* Desktop price card */}
-            <div
-              className="absolute top-0 right-[36px] translate-y-1/2 bg-black/50 px-[1.6em] py-[2.7em] backdrop-blur-[2px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] z-10"
-              style={{
-                borderImage:
-                  "linear-gradient(to bottom, transparent, #999999) 1",
-                borderWidth: "1px",
-                borderStyle: "solid",
-              }}
-            >
-              {/* Game title */}
-              <h3 className="uppercase font-bold text-[1.3em] border-b">
-                {gameData.title}
-              </h3>
-
-              {/* Price */}
-              <div className="flex text-[2em] font-bold mt-[0.3em]">
-                <p className="">
-                  $ {gameData.discountPrice || gameData.originalPrice}
-                </p>
-                <div className="flex items-center text-[0.35em] font-medium ps-[0.7em] gap-x-[0.2em]">
-                  <PiWarningCircleLight className="size-[1.25em]" />
-                  <p className="opacity-70">Price is not final</p>
-                </div>
-              </div>
-
-              {/* Discount percentage (if any) */}
-              {gameData.discountPrice && (
-                <p className="font-semibold flex items-center">
-                  <span className="line-through opacity-70">
-                    $ {gameData.originalPrice}
-                  </span>
-                  <span className="font-medium text-[0.8em] text-[#0BDB45] ">
-                    &nbsp;Save&nbsp;
-                    {calDiscountPercentage()}%
-                  </span>
-                </p>
-              )}
-
-              {/* Paypal button */}
-              <Button
-                variant="secondary"
-                className="w-full h-[2em] rounded-none text-[1em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
-              >
-                <Image
-                  src={paypalLogo}
-                  alt="Paypal logo"
-                  className="w-auto h-[70%]"
-                />
-              </Button>
-
-              {/* Buy, wishlist and add to cart */}
-              <div className="flex gap-x-[3%]">
-                <Button
-                  variant="gaming"
-                  className="h-[2em] text-[1em] px-[1em] py-0 font-semibold flex-grow"
-                >
-                  Buy now
-                </Button>
-                <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
-                  <IoMdHeartEmpty className="text-[1em]" />
-                </button>
-                <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
-                  <IoIosCart className="text-[1em]" />
-                </button>
-              </div>
-            </div>
-          </div>
-
           {/* Bottom gradient */}
           <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent"></div>
         </div>
@@ -236,98 +165,181 @@ export default function ProductPage() {
         >
           {/* Container for the rest of the content */}
           <div className="container mx-auto px-[36px]">
-            {/* Full title */}
-            <h2 className="font-bold pt-[1em] sm:pt-[0.8em] text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] sm:max-w-[19ch] md:max-w-[21ch] lg:max-w-[29ch] xl:max-w-[38ch] 2xl:max-w-[46ch]">
-              {gameData.fullTitle}
-            </h2>
+            {/* Flex container for Product header area and desktop price card*/}
+            <div className="relative flex items-end pt-[1em] mb-[0.8em] sm:mb-[2em] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">
+              {/* Container for title, info and tags*/}
+              <div>
+                {/* Full title */}
+                <h2 className="font-bold pt-[1em] sm:pt-[0.8em] text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] sm:max-w-[19ch] md:max-w-[21ch] lg:max-w-[29ch] xl:max-w-[38ch] 2xl:max-w-[46ch]">
+                  {gameData.fullTitle}
+                </h2>
 
-            {/* Product info */}
-            <div className="flex items-center text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] gap-x-[0.8em] leading-normal mt-[0.2em] mb-[0.6em]">
-              {/* Rating */}
-              <div className="text-[#f29d38] -translate-y-[10%]">
-                <StarRating rating={gameData.rating} />
-              </div>
-              <p>{gameData.rating}/5</p>
-              <div className="w-[1px] self-stretch bg-white"></div>
+                {/* Product info */}
+                <div className="flex items-center text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] gap-x-[0.8em] leading-normal mt-[0.2em] mb-[0.6em]">
+                  {/* Rating */}
+                  <div className="text-[#f29d38] -translate-y-[10%]">
+                    <StarRating rating={gameData.rating} />
+                  </div>
+                  <p>{gameData.rating}/5</p>
+                  <div className="w-[1px] self-stretch bg-white"></div>
 
-              {/* Languages */}
-              <div className="flex">
-                <TooltipProvider delayDuration={0}>
-                  <Tooltip
-                    open={isLanguageTooltipOpen}
-                    onOpenChange={setIsLanguageTooltipOpen}
-                  >
-                    <TooltipTrigger
-                      className="text-[1em]"
-                      onTouchStart={() => setIsLanguageTooltipOpen(true)}
-                      onTouchEnd={() => setIsLanguageTooltipOpen(false)}
-                      asChild
-                    >
-                      <button className="select-none flex gap-x-[0.5ch]">
-                        <p className="max-w-[8ch] overflow-hidden text-ellipsis">
-                          {gameData.languages[0]}
-                        </p>
-                        {gameData.languages.length > 1 && (
-                          <p> & {gameData.languages.length - 1} more</p>
-                        )}
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent
-                      className="rounded-none bg-black/50 text-white backdrop-blur-[2px]"
-                      style={{
-                        borderImage:
-                          "linear-gradient(to bottom, transparent, #999999) 1",
-                        borderWidth: "1px",
-                        borderStyle: "solid",
-                      }}
-                    >
-                      <p className="text-[13px] py-[0.4em] font-bold border-b">
-                        Available Languages
-                      </p>
-                      {gameData.languages.map((language) => (
-                        <p key={language} className="text-[13px] py-[0.4em]">
-                          {language}
-                        </p>
-                      ))}
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-              <div className="w-[1px] self-stretch bg-white"></div>
+                  {/* Languages */}
+                  <div className="flex">
+                    <TooltipProvider delayDuration={0}>
+                      <Tooltip
+                        open={isLanguageTooltipOpen}
+                        onOpenChange={setIsLanguageTooltipOpen}
+                      >
+                        <TooltipTrigger
+                          className="text-[1em]"
+                          onTouchStart={() => setIsLanguageTooltipOpen(true)}
+                          onTouchEnd={() => setIsLanguageTooltipOpen(false)}
+                          asChild
+                        >
+                          <button className="select-none flex gap-x-[0.5ch]">
+                            <p className="max-w-[8ch] overflow-hidden text-ellipsis">
+                              {gameData.languages[0]}
+                            </p>
+                            {gameData.languages.length > 1 && (
+                              <p> & {gameData.languages.length - 1} more</p>
+                            )}
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent
+                          className="rounded-none bg-black/50 text-white backdrop-blur-[2px]"
+                          style={{
+                            borderImage:
+                              "linear-gradient(to bottom, transparent, #999999) 1",
+                            borderWidth: "1px",
+                            borderStyle: "solid",
+                          }}
+                        >
+                          <p className="text-[13px] py-[0.4em] font-bold border-b">
+                            Available Languages
+                          </p>
+                          {gameData.languages.map((language) => (
+                            <p
+                              key={language}
+                              className="text-[13px] py-[0.4em]"
+                            >
+                              {language}
+                            </p>
+                          ))}
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                  <div className="w-[1px] self-stretch bg-white"></div>
 
-              {/* OS */}
-              <div className="size-[1.15em] flex items-center justify-center">
-                <Image
-                  src={`/images/product/os/${gameData.os}.png`}
-                  alt={gameData.os}
-                  width={23}
-                  height={23}
-                />
-              </div>
-              <div className="w-[1px] self-stretch bg-white"></div>
+                  {/* OS */}
+                  <div className="size-[1.15em] flex items-center justify-center">
+                    <Image
+                      src={`/images/product/os/${gameData.os}.png`}
+                      alt={gameData.os}
+                      width={23}
+                      height={23}
+                    />
+                  </div>
+                  <div className="w-[1px] self-stretch bg-white"></div>
 
-              {/* developedBy */}
-              <div className="size-[1.15em] flex items-center justify-center">
-                <Image
-                  src={`/images/product/developed-by/${gameData.developedBy}.png`}
-                  alt={gameData.developedBy}
-                  width={23}
-                  height={23}
-                />
-              </div>
-            </div>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-[1em] my-[1em] text-[8px] sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-semibold text-center text-white sm:w-[40ch] md:w-[49ch] lg:w-[67ch] xl:w-[87ch] 2xl:w-[102ch]">
-              {gameData.tags.map((tag) => (
-                <div
-                  key={tag}
-                  className="bg-[#3B3B3B] flex items-center justify-center"
-                >
-                  <p className="px-[1em] py-[0.3em]">{tag}</p>
+                  {/* developedBy */}
+                  <div className="size-[1.15em] flex items-center justify-center">
+                    <Image
+                      src={`/images/product/developed-by/${gameData.developedBy}.png`}
+                      alt={gameData.developedBy}
+                      width={23}
+                      height={23}
+                    />
+                  </div>
                 </div>
-              ))}
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-[1em] mt-[1em] text-[8px] sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-semibold text-center text-white sm:w-[40ch] md:w-[49ch] lg:w-[67ch] xl:w-[87ch] 2xl:w-[102ch]">
+                  {gameData.tags.map((tag) => (
+                    <div
+                      key={tag}
+                      className="bg-[#3B3B3B] flex items-center justify-center"
+                    >
+                      <p className="px-[1em] py-[0.3em]">{tag}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Container for desktop price card */}
+              <div className="hidden sm:block">
+                {/* Desktop price card */}
+                <div
+                  className="absolute bottom-0 right-0 bg-black/50 px-[1.6em] py-[2.7em] backdrop-blur-[2px] z-10"
+                  style={{
+                    borderImage:
+                      "linear-gradient(to bottom, transparent, #999999) 1",
+                    borderWidth: "1px",
+                    borderStyle: "solid",
+                  }}
+                >
+                  {/* Game title */}
+                  <h3 className="uppercase font-bold text-[1.3em] border-b">
+                    {gameData.title}
+                  </h3>
+
+                  {/* Price */}
+                  <div className="flex text-[2em] font-bold mt-[0.3em]">
+                    <p className="">
+                      $ {gameData.discountPrice || gameData.originalPrice}
+                    </p>
+                    <div className="flex items-center text-[0.35em] font-medium ps-[0.7em] gap-x-[0.2em]">
+                      <PiWarningCircleLight className="size-[1.25em]" />
+                      <p className="opacity-70">Price is not final</p>
+                    </div>
+                  </div>
+
+                  {/* Discount percentage (if any) */}
+                  {gameData.discountPrice && (
+                    <p className="font-semibold flex items-center">
+                      <span className="line-through opacity-70">
+                        $ {gameData.originalPrice}
+                      </span>
+                      <span className="font-medium text-[0.8em] text-[#0BDB45] ">
+                        &nbsp;Save&nbsp;
+                        {calDiscountPercentage()}%
+                      </span>
+                    </p>
+                  )}
+
+                  {/* Paypal button */}
+                  <Button
+                    variant="secondary"
+                    className="w-full h-[2em] rounded-none text-[1em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
+                  >
+                    <Image
+                      src={paypalLogo}
+                      alt="Paypal logo"
+                      className="w-auto h-[70%]"
+                    />
+                  </Button>
+
+                  {/* Buy, wishlist and add to cart */}
+                  <div className="flex gap-x-[3%]">
+                    <Button
+                      variant="gaming"
+                      className="h-[2em] text-[1em] px-[1em] py-0 font-semibold flex-grow"
+                    >
+                      Buy now
+                    </Button>
+                    <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
+                      <IoMdHeartEmpty className="text-[1em]" />
+                    </button>
+                    <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
+                      <IoIosCart className="text-[1em]" />
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            {/* Carousel */}
+            <ImageCarousel video={gameData.video} images={gameData.images} />
 
             {/* Mobile price card */}
             <div

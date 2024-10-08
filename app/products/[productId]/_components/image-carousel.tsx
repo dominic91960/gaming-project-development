@@ -15,7 +15,16 @@ interface ImageCarouselProps {
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ video, images }) => {
   return (
     <Swiper
-      slidesPerView={"auto"}
+      slidesPerView={2}
+      centeredSlides={true}
+      breakpoints={{
+        768: {
+          slidesPerView: 3,
+        },
+        1280: {
+          slidesPerView: 4,
+        },
+      }}
       spaceBetween={30}
       loop
       pagination={{
@@ -26,17 +35,17 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ video, images }) => {
       className="mySwiper"
     >
       <SwiperSlide>
-        <Image src={video} alt="Thumbnail" />
+        <Image src={video} alt="Thumbnail" className="mx-auto" />
       </SwiperSlide>
       {images.map((image, index) => (
         <SwiperSlide key={index}>
-          <Image src={image} alt="Screenshots" />
+          <Image src={image} alt="Screenshots" className="mx-auto" />
         </SwiperSlide>
       ))}
       <style>{`
           .swiper {
             width: 100%;
-            padding-top: 80px;
+            padding-top: 5px;
             padding-bottom: 35px;
           }
           
