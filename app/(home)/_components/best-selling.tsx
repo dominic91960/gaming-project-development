@@ -82,36 +82,41 @@ const BestSelling = () => {
       </div>
       <div className="scale-x-0 w-10 h-1 bg-[#0BDB45] mx-auto my-10 shadow-[0_0_15px_5px_#0BDB45]"></div>
       {/* Cards */}
-      <div className="container mx-auto grid grid-cols-2 lg:grid-cols-3 place-items-center">
+      <div className="container mx-auto grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 place-items-center min-w-[170px] w-full md:w-full lg:w-full md:min-w-[300px] lg:min-w-[420px] xl:min-w-[350px] xl:w-full gap-4 px-4 md:px-8 lg:px-14 xl:px-8">
         {bestSellingGames.map(
           ({ title, desc, discountPrice, originalPrice, poster, rating }) => (
             <article
               key={title}
-              className="relative text-xs lg:text-[28px] w-72 lg:w-[420px] mb-[2em] hover:-translate-y-1 transition-transform duration-200"
+              className="relative text-xs lg:text-[28px] mb-[2em] hover:-translate-y-1 transition-transform duration-200 w-full"
             >
               {/* Text area */}
               <div
-                className="w-[152px] lg:w-[420px] h-[150px] bg-white/20 text-[28px] px-[1em] flex flex-col justify-center backdrop-blur-[2px]"
+                className="lg:w-full h-[100px] md:h-[120px] xl:h-[150px] pt-3 space-y-2 md:px-5 bg-white/20 text-[28px] px-3 lg:px-[1em] flex flex-col justify-center backdrop-blur-[2px]"
                 style={{
                   clipPath:
                     "polygon(5% 0%, 96% 0%, 100% 13%, 100% 100%, 82% 100%, 77% 86%, 46% 86%, 41% 100%, 0% 100%, 0% 13%)",
                 }}
               >
-                <h4 className="font-bold uppercase">{title}</h4>
-                <p className="text-[9px] xl:text-[7px] font-semibold">{desc}</p>
-                <hr className="mt-[0.3em] mb-[0.3em] w-1/2" />
-                <p className="text-[36px] font-semibold leading-none">
+                <h4 className="font-bold uppercase text-[14px] md:text-[20px] xl:text-[28px] leading-3 xl:leading-7">
+                  {title}
+                </h4>
+                <p className="text-[9px] xl:text-[10px] font-semibold truncate xl:line-clamp-2">
+                  {desc}
+                </p>
+                <hr className="my-[0.2em] xl:my-[0.3em] w-1/2" />
+                <p className="text-[12px] md:text-lg lg:text-xl xl:text-[36px] font-semibold leading-none">
                   ${discountPrice || originalPrice}&nbsp;
                   {discountPrice && (
-                    <span className="text-[13px] font-normal line-through">
+                    <span className="text-[8px] xl:text-[13px] font-normal line-through">
                       ${originalPrice}
                     </span>
                   )}
                 </p>
               </div>
+
               {/* Text area border */}
               <div
-                className="w-[152px] lg:w-[420px] h-[55.48px] xl:h-[150px] absolute top-0 left-0 bg-gradient-to-r from-white to-[#75F94C] z-10"
+                className="min-w-[170px] w-full xl:w-full h-[100px] md:h-[120px] xl:h-[150px] absolute top-0 left-0 bg-gradient-to-r from-white to-[#75F94C] z-10"
                 style={{
                   clipPath:
                     "polygon(5% 0%, 96% 0%, 100% 13%, 100% 100%, 82% 100%, 77% 86%, 46% 86%, 41% 100%, 0% 100%, 0% 99%, 40.5% 99%, 45.7% 84.5%, 77.5% 84.5%, 82.5% 99%, 99.5% 99%,99.5% 13%, 96% 1.5%, 5% 1.5%, 0.5% 13%, 0.5% 99%, 0% 99%, 0% 13%)",
@@ -120,14 +125,14 @@ const BestSelling = () => {
 
               {/* Image area */}
               <div
-                className="bg-white w-fit h-fit -translate-y-[calc(10.4%+1px)] flex items-start justify-center"
+                className="bg-white w-fit h-fit -translate-y-[calc(10.4%+1px)] md:-translate-y-[calc(10.4%+1px)] xl:-translate-y-[calc(10.4%+1px)] flex items-start justify-center"
                 style={{
                   clipPath:
                     "polygon(5% 10.5%, 41% 10.5%, 45.6% 0%, 77.5% 0%, 82% 10.5%, 98% 10.5%, 98% 73.5%, 89.8% 90%, 47.3% 90%, 42.3% 100%, 1% 100%, 1% 49%, 5% 41%)",
                 }}
               >
                 <div
-                  className="h-[200px] m-[2px] mt-0"
+                  className="min-h-[60px] md:max-h-[150px] xl:max-h-[250px] xl:h-[200px] m-[2px] mt-0"
                   style={{
                     clipPath:
                       "polygon(5% 10.5%, 41% 10.5%, 45.6% 0%, 77.5% 0%, 82% 10.5%, 98% 10.5%, 98% 74%, 90% 90%, 47% 90%, 42% 100%, 1% 100%, 1% 50%, 5% 42%)",
@@ -139,21 +144,24 @@ const BestSelling = () => {
 
               {/* Rating area */}
               <div
-                className="w-[130px] h-[54px] absolute left-0 bottom-[4.5%] text-[18px] ps-[2.5%] text-[#f29d38] bg-black/20 backdrop-blur-[2px] flex flex-col justify-center"
+                className="min-w-[80px] w-1/2 h-[54px] lg:h-1/4 xl:h-20 md:h-16 absolute left-0 bottom-[4.5%] text-[18px] ps-[2.5%] pt-3 lg:pt-1 text-[#f29d38] bg-black/50 backdrop-blur-[2px] flex flex-col justify-center"
                 style={{
                   clipPath:
                     "polygon(0% 0%, 100% 0%, 100% 80%, 90% 100%, 0% 100%)",
                 }}
               >
                 <StarRating rating={Math.round(rating)} />
-                <p className="text-[14px] font-semibold text-white mt-[0.2em]">
+                <p className="text-[10px] md:text-base font-semibold text-white mt-[0.2em]">
                   {rating}&nbsp;
-                  <span className="text-[10px] font-medium">Rating</span>
+                  <span className="text-[8px] md:text-[12px] font-medium">
+                    Rating
+                  </span>
                 </p>
               </div>
+
               {/* Rating area border */}
               <div
-                className="w-[130px] h-[54px] absolute left-0 bottom-[4.5%] bg-white z-10"
+                className="w-1/2 h-[54px] xl:h-20 md:h-16 lg:h-1/4 absolute left-0 bottom-2 xl:bottom-[4.5%] bg-white z-[15]"
                 style={{
                   clipPath:
                     "polygon(0% 0%, 100% 0%, 100% 81%, 91% 100%, 0% 100%, 0% 98%, 90% 98%, 98.9% 80%, 98.9% 2%, 1% 2%, 1% 98%, 0% 98%)",
@@ -162,18 +170,17 @@ const BestSelling = () => {
             </article>
           )
         )}
-
-        
       </div>
-{/* See more */}
-<div className="col-start-3 place-self-end me-[9%] z-10">
-          <Button
-            variant="gaming"
-            className="relative text-[24px] px-[0.8em] py-[0.4em] h-fit"
-          >
-            See More <LiaAngleRightSolid />
-          </Button>
-          {/* <Button
+
+      {/* See more */}
+      <div className="flex justify-end me-[5%] md:me-[15%] lg:me-[5%]  2xl:me-[10%] z-10">
+        <Button
+          variant="gaming"
+          className="relative text-[12px] px-4 py-2 md:text-[14px] md:px-4 md:py-3 lg:text-[16px] lg:px-8 lg:py-5 xl:text-[20px] xl:px-10 xl:py-5 h-fit"
+        >
+          See More <LiaAngleRightSolid />
+        </Button>
+        {/* <Button
             variant="gaming"
             className="relative text-[24px] px-[0.8em] py-[0.4em] h-fit before:w-[1px] before:h-full before:bg-white before:scale-y-0 before:origin-bottom before:absolute before:bottom-0 before:left-0 before:shadow-[0_0_5px_#0BDB45] hover:before:scale-y-[98%] before:transition-transform before:duration-300 after:w-[1px] after:h-full after:bg-white after:scale-y-0 after:origin-top after:absolute after:top-0 after:right-0 after:shadow-[0_0_1px_#0BDB45] hover:after:scale-y-[98%] after:transition-transform after:duration-300 group"
           >
@@ -181,7 +188,7 @@ const BestSelling = () => {
               See More <LiaAngleRightSolid />
             </p>
           </Button> */}
-        </div>
+      </div>
       {/* Bottom gradient */}
       <div className="absolute bottom-0 w-full h-1/5 bg-gradient-to-t from-black to-transparent"></div>
     </section>
