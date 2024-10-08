@@ -87,7 +87,7 @@ const RequirementsCard: React.FC<RequirementsCardProps> = ({
           High
         </button>
       </div>
-      <div className="py-[5em] px-[10%]">
+      <div className="pt-[5em] px-[10%]">
         <div className="grid grid-cols-2 pb-[3em]">
           <p className="font-bold">Operating System</p>
           <p className="font-medium">{activeSection.sectionData.os}</p>
@@ -108,7 +108,7 @@ const RequirementsCard: React.FC<RequirementsCardProps> = ({
           <p className="font-bold">Storage</p>
           <p className="font-medium">{activeSection.sectionData.storage}</p>
         </div>
-        <div className="grid grid-cols-2 pb-[3em]">
+        <div className="grid grid-cols-2">
           <p className="font-bold">Resolution</p>
           <p className="font-medium">{activeSection.sectionData.resolution}</p>
         </div>

@@ -513,6 +513,144 @@ export default function ProductPage() {
               </h3>
               <RequirementsCard requirements={gameData.requirements} />
             </div>
+
+            {/* Reviews */}
+            <div className=" text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em] pb-[4.5em]">
+              <h3 className="font-semibold capitalize text-[1.4em]">
+                User Reviews
+              </h3>
+              <hr className="my-[2em]" />
+
+              {/* Review button */}
+              <div className="flex items-center mb-[1.5em] text-[1.4em] sm:text-[1em] md:text-[0.8em] *:flex-grow">
+                <div>
+                  <StarRating rating={5} />
+                  <Button
+                    variant="outline"
+                    className="h-fit text-white text-[1em] py-[0.5em] px-[1em] mt-[0.8em] rounded-none"
+                    onClick={() => setIsReviewFormVisible(true)}
+                  >
+                    &#43; Add your review
+                  </Button>
+                </div>
+                <div>
+                  <p className="flex leading-tight">
+                    <span className="text-[#f29d38]">
+                      <StarRating rating={1} />
+                    </span>
+                    &nbsp;{gameData.rating}/5
+                  </p>
+                  <p>Overall Rating</p>
+                </div>
+              </div>
+
+              {/* Review form */}
+              <div
+                className={`md:w-fit bg-white/10 md:text-[0.8em] p-[4em] mt-[3em] mb-[3.5em] origin-top ${
+                  isReviewFormVisible
+                    ? "flex flex-col md:flex-row justify-around gap-x-[5em] animate-slide-down"
+                    : "hidden"
+                }`}
+              >
+                {/* User profile preview */}
+                <div>
+                  <div className="flex items-center gap-x-[1.5em]">
+                    <div>
+                      <Image
+                        src={samplePic}
+                        alt="username"
+                        className="size-[4.5em] rounded-full"
+                      />
+                    </div>
+                    <div>
+                      <h4 className="text-[1.25em] font-bold">The Gamer</h4>
+                      <p className="text-[0.9em]">By John Doe</p>
+                    </div>
+                  </div>
+                  <hr className="my-[1em]" />
+                  <p>Your review must contain at least 150 characters.</p>
+                </div>
+
+                {/* Review form*/}
+                <div>
+                  <h4 className="text-[1.5em] font-semibold mt-[2em] md:mt-0">
+                    Detailed Rating
+                  </h4>
+
+                  <p className="text-[1.4em] mt-[1em] mb-[0.3em]">Rating</p>
+                  <div className="text-[1.5em]">
+                    <StarRating rating={5} />
+                  </div>
+
+                  <p className="text-[1.4em] mt-[1em] mb-[0.3em]">
+                    Review Title
+                  </p>
+                  <input
+                    type="text"
+                    className="w-full md:w-[50ch] px-[1em] py-[0.5em] outline-none text-white bg-white/10 text-[1.3em] sm:text-[1em]"
+                  />
+
+                  <p className="text-[1.4em] mt-[1em] mb-[0.3em]">
+                    Review Text
+                  </p>
+                  <textarea
+                    className="w-full md:w-[50ch] px-[1em] py-[0.5em] outline-none text-white bg-white/10 text-[1.3em] sm:text-[1em]"
+                    rows={5}
+                  ></textarea>
+
+                  <div className="flex justify-end pt-[1.2em] gap-x-[1em] text-[1.2em] md:text-[1em]">
+                    <Button
+                      variant="destructive"
+                      className="text-[1em] h-fit px-[1em] py-[0.5em] rounded-none"
+                      onClick={() => setIsReviewFormVisible(false)}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant="gaming"
+                      className="text-[1em] h-fit px-[1em] py-[0.5em] hover:opacity-90"
+                    >
+                      Confirm
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Review card */}
+              {/* <div className="flex justify-between flex-wrap gap-y-[2em]">
+                {reviews.map(
+                  ({
+                    avatar,
+                    username,
+                    fullname,
+                    title,
+                    content,
+                    date,
+                    rating,
+                  }) => (
+                    <ReviewCard
+                      key={username}
+                      avatar={avatar}
+                      username={username}
+                      fullname={fullname}
+                      title={title}
+                      content={content}
+                      date={date}
+                      rating={rating}
+                    />
+                  )
+                )}
+              </div>
+              <div className="flex justify-end">
+                <Button
+                  variant="gaming"
+                  className="text-[0.6em] px-[1em] py-[0.5em] h-fit"
+                >
+                  See More <LiaAngleRightSolid />
+                </Button>
+              </div> */}
+            </div>
+
             <div className="h-[200px]"></div>
           </div>
         </div>
