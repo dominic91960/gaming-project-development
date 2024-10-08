@@ -1,56 +1,98 @@
-// const platforms = () => {
-//   return (
-//     <div>
-//       <h1>Hello! This is Platforms</h1>
-//     </div>
-//   );
-// };
-
-// export default platforms;
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Platforms, columns } from "./platforms/columns";
 import { DataTable } from "./platforms/data-table";
 import { EditPlatformPopup } from "./platforms/EditPlatformPopup";
+import axiosInstance from "@/axios/axiosInstance";
+import toast from "react-hot-toast";
 
-const getData = (): Platforms[] => {
-  return [
-    {
-      id: "1",
-      name: "platform 1",
-      description: "Description for platform 1",
-      imageUrl: "/images/sample-pic.png",
-    },
-    {
-      id: "2",
-      name: "platform 2",
-      description: "Description for platform 2",
-      imageUrl: "/images/sample-pic.png",
-    },
-  ];
-};
+// const getData = (): Platforms[] => {
+//   return [
+//     {
+//       id: "1",
+//       name: "platform 1",
+//       description: "Description for platform 1",
+//       imageUrl: "/images/sample-pic.png",
+//     },
+//     {
+//       id: "2",
+//       name: "platform 2",
+//       description: "Description for platform 2",
+//       imageUrl: "/images/sample-pic.png",
+//     },
+//   ];
+// };
 
 export default function PlatformsPage() {
-  const [data, setData] = useState<Platforms[]>(getData());
+  const [data, setData] = useState<Platforms[]>([]);
   const [isEditPopupOpen, setEditPopupOpen] = useState(false);
   const [editingPlatform, seteditingPlatform] = useState<Platforms | null>(
     null
   );
+  const [reload, setReload] = useState(false);
 
-  const handleAddPlatforms = (newPlatforms: {
+  useEffect(() => {
+    const getData = async () => {
+    axiosInstance
+      .get("/platforms")
+      .then((response) => {
+        setData(
+          response.data.map((brand: any) => ({
+            id: brand.id,
+            name: brand.name,
+            description: brand.description,
+            imageUrl: brand.image || "/images/sample-pic.png",
+          }))
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+    console.log("BrandsPage reloaded");
+    getData();
+  }, [reload]);
+
+  const handleAddPlatforms = async (newPlatforms: {
     name: string;
     description: string;
     imageUrl: string;
   }) => {
-    const newEntry: Platforms = {
-      id: Math.random().toString(36).substring(2),
-      ...newPlatforms,
-    };
-    setData((prevData) => [...prevData, newEntry]);
+    console.log(newPlatforms);
+    try {
+      const data = {
+      name: newPlatforms.name,
+      description: newPlatforms.description,
+      image: newPlatforms.imageUrl,
+      };
+      const response = await axiosInstance.post("/platforms", data);
+      if (response.status === 201) {
+      toast.success("Platform added successfully");
+      } else {
+      throw new Error("Failed to add platform");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to add platform");
+    } finally {
+      setReload((prev) => !prev);
+    }
   };
 
-  const handleDelete = (id: string) => {
-    setData((prevData) => prevData.filter((item) => item.id !== id));
+  const handleDelete = async (id: string) => {
+    console.log("Delete platform with id: ", id);
+    try {
+      const res = await axiosInstance.delete(`/platforms/${id}`);
+      if (res.status === 200) {
+        toast.success("Platform deleted successfully");
+      } else if (res.status === 404) {
+        throw new Error("Platform not found");
+      }
+    } catch (error) {
+      toast.error("Error deleting platform");
+      console.error(error);
+    } finally {
+      setReload((prev) => !prev);
+    }
   };
 
   const handleEdit = (platform: Platforms) => {
@@ -58,17 +100,34 @@ export default function PlatformsPage() {
     setEditPopupOpen(true);
   };
 
-  const handleSaveEdit = (platformData: {
+  const handleSaveEdit = async (platformData: {
     id: string;
     name: string;
     description: string;
     imageUrl: string;
   }) => {
-    setData((prevData) =>
-      prevData.map((item) =>
-        item.id === platformData.id ? { ...item, ...platformData } : item
-      )
-    );
+    const data = {
+      name: platformData.name,
+      description: platformData.description,
+      image: platformData.imageUrl,
+    };
+    axiosInstance
+      .patch(`/platforms/${platformData.id}`, data)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("Platform updated successfully");
+        } else {
+          throw new Error("Failed to update platform");
+        }
+      })
+      .catch((error) => {
+        toast.error("Failed to update platform");
+        console.error(error);
+      })
+      .finally(() => {
+        setReload((prev) => !prev);
+        setEditPopupOpen(false);
+      });
   };
 
   return (
