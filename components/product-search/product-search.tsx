@@ -9,7 +9,7 @@ import logo from "../../public/images/home/logo.png";
 const ProductSearchBar = () => {
   return (
     <div className="bg-[#0B0E13] border-b border-[#8C8C8C] font-primaryFont text-[13px] xl:text-[14px] text-white">
-      <div className="container mx-auto px-[36px] py-[1em] flex items-center justify-between sm:py-[0.1em]">
+      <div className="container h-[62px] mx-auto px-[36px] py-[1em] flex items-center justify-between sm:h-[68px] sm:py-[0.1em] xl:h-[73px]">
         <Link href="/" className="hidden sm:block sm:size-[5em]">
           <Image src={logo} alt="Logo" />
         </Link>
