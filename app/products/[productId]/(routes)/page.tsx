@@ -45,7 +45,7 @@ const gameData = {
   image: bg,
   title: "Star wars: outlaws",
   fullTitle: "STAR WARS: OUTLAWS (PC) Steam Key Global",
-  originalPrice: 39.99,
+  originalPrice: 329.99,
   discountPrice: 20.99,
   //   discountPrice: null,
   rating: 4,
@@ -53,7 +53,16 @@ const gameData = {
   os: "windows",
   developedBy: "ubisoft",
   platform: "steam",
-  tags: ["Difficult", "RPG", "Dark Fantasy", "Souls-like"],
+  tags: [
+    "Difficult",
+    "RPG",
+    "Dark Fantasy",
+    "Souls-like",
+    "Difficult",
+    "RPG",
+    "Dark Fantasy",
+    "Souls-like",
+  ],
   video: video,
   images: [imgOne, imgTwo, imgThree, imgOne, imgTwo, imgThree],
   about:
@@ -233,7 +242,7 @@ export default function ProductPage() {
             </h2>
 
             {/* Product info */}
-            <div className="flex items-center text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] gap-x-[0.8em] leading-normal mb-[0.6em]">
+            <div className="flex items-center text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] gap-x-[0.8em] leading-normal mt-[0.2em] mb-[0.6em]">
               {/* Rating */}
               <div className="text-[#f29d38] -translate-y-[10%]">
                 <StarRating rating={gameData.rating} />
@@ -308,9 +317,21 @@ export default function ProductPage() {
               </div>
             </div>
 
+            {/* Tags */}
+            <div className="flex flex-wrap gap-[1em] my-[1em] text-[8px] sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-semibold text-center text-white sm:w-[40ch] md:w-[49ch] lg:w-[67ch] xl:w-[87ch] 2xl:w-[102ch]">
+              {gameData.tags.map((tag) => (
+                <div
+                  key={tag}
+                  className="bg-[#3B3B3B] flex items-center justify-center"
+                >
+                  <p className="px-[1em] py-[0.3em]">{tag}</p>
+                </div>
+              ))}
+            </div>
+
             {/* Mobile price card */}
             <div
-              className="w-fit mx-auto bg-white/5 px-[1.6em] py-[2.7em] my-[0.6em] backdrop-blur-[2px] text-[15px] sm:hidden"
+              className=" bg-white/5 px-[1.6em] py-[2.7em] my-[0.6em] backdrop-blur-[2px] text-[15px] sm:hidden"
               style={{
                 borderImage:
                   "linear-gradient(to bottom, transparent, #999999) 1",
