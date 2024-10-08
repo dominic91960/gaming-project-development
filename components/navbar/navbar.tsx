@@ -98,8 +98,7 @@ export default function Navbar() {
   const [selectedSubMenu, setSelectedSubMenu] = useState("");
   const [subMenuData, setSubMenuData] = useState<string[]>([]);
   const [isContentChanged, setIsContentChanged] = useState(false);
-  // const { user } = useContext(AuthContext);
-  const user = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
