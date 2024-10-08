@@ -45,6 +45,8 @@ const gameData = {
   image: bg,
   title: "Star wars: outlaws",
   fullTitle: "STAR WARS: OUTLAWS (PC) Steam Key Global",
+  // fullTitle:
+  //   "A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A",
   originalPrice: 39.99,
   discountPrice: 20.99,
   //   discountPrice: null,
@@ -136,20 +138,17 @@ export default function ProductPage() {
       <section className="bg-[#051301] font-primaryFont">
         {/* Image area with desktop price card */}
         <div
-          className="h-[160px] bg-[length:640px_360px] bg-fixed sm:h-[220px] sm:bg-contain md:h-[280px] lg:h-[340px] lg:bg-[0px_-115px] 2xl:h-[480px]"
+          className="relative h-[160px] bg-[length:640px_360px] bg-fixed sm:h-[220px] sm:bg-contain md:h-[280px] lg:h-[340px] lg:bg-[0px_-115px] 2xl:h-[480px]"
           style={{
             backgroundImage: `url(${gameData.image.src})`,
             backgroundPositionX: "center",
           }}
         >
-          {/* Bottom gradient */}
-          <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent"></div>
-
           {/* Price card container*/}
           <div className="relative container mx-auto hidden sm:block">
             {/* Desktop price card */}
             <div
-              className="absolute top-0 right-[36px] translate-y-1/2 bg-black/50 px-[1.6em] py-[2.7em] backdrop-blur-[2px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]"
+              className="absolute top-0 right-[36px] translate-y-1/2 bg-black/50 px-[1.6em] py-[2.7em] backdrop-blur-[2px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] z-10"
               style={{
                 borderImage:
                   "linear-gradient(to bottom, transparent, #999999) 1",
@@ -215,79 +214,91 @@ export default function ProductPage() {
               </div>
             </div>
           </div>
+
+          {/* Bottom gradient */}
+          <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent"></div>
         </div>
 
-        {/* Wrapper for the rest of the content */}
+        {/* Gradient Wrapper for the rest of the content */}
         <div
-          className="container mx-auto px-[36px]"
           style={{
             background:
               "linear-gradient(to bottom, black, transparent, transparent, black)",
           }}
         >
-          <div
-            className="w-fit mx-auto bg-white/5 px-[1.6em] py-[2.7em] my-[1em] backdrop-blur-[2px] text-[15px] sm:hidden"
-            style={{
-              borderImage: "linear-gradient(to bottom, transparent, #999999) 1",
-              borderWidth: "1px",
-              borderStyle: "solid",
-            }}
-          >
-            {/* Game title */}
-            <h3 className="uppercase font-bold text-[1.3em] border-b">
-              {gameData.title}
-            </h3>
+          {/* Container for the rest of the content */}
+          <div className="container mx-auto px-[36px]">
+            {/* Full title */}
+            <h2 className="font-bold text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] sm:max-w-[19ch] md:max-w-[21ch] lg:max-w-[29ch] xl:max-w-[38ch] 2xl:max-w-[46ch]">
+              {gameData.fullTitle}
+            </h2>
 
-            {/* Price */}
-            <div className="flex text-[2em] font-bold mt-[0.3em]">
-              <p className="">
-                $ {gameData.discountPrice || gameData.originalPrice}
-              </p>
-              <div className="flex items-center text-[0.35em] font-medium ps-[0.7em] gap-x-[0.2em]">
-                <PiWarningCircleLight className="size-[1.25em]" />
-                <p className="opacity-70">Price is not final</p>
-              </div>
-            </div>
-
-            {/* Discount percentage (if any) */}
-            {gameData.discountPrice && (
-              <p className="font-semibold flex items-center">
-                <span className="line-through opacity-70">
-                  $ {gameData.originalPrice}
-                </span>
-                <span className="font-medium text-[0.8em] text-[#0BDB45] ">
-                  &nbsp;Save&nbsp;
-                  {calDiscountPercentage()}%
-                </span>
-              </p>
-            )}
-
-            {/* Paypal button */}
-            <Button
-              variant="secondary"
-              className="w-full h-[2em] rounded-none text-[1em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
+            {/* Mobile price card */}
+            <div
+              className="w-fit mx-auto bg-white/5 px-[1.6em] py-[2.7em] my-[1em] backdrop-blur-[2px] text-[15px] sm:hidden"
+              style={{
+                borderImage:
+                  "linear-gradient(to bottom, transparent, #999999) 1",
+                borderWidth: "1px",
+                borderStyle: "solid",
+              }}
             >
-              <Image
-                src={paypalLogo}
-                alt="Paypal logo"
-                className="w-auto h-[70%]"
-              />
-            </Button>
+              {/* Game title */}
+              <h3 className="uppercase font-bold text-[1.3em] border-b">
+                {gameData.title}
+              </h3>
 
-            {/* Buy, wishlist and add to cart */}
-            <div className="flex gap-x-[3%]">
+              {/* Price */}
+              <div className="flex text-[2em] font-bold mt-[0.3em]">
+                <p className="">
+                  $ {gameData.discountPrice || gameData.originalPrice}
+                </p>
+                <div className="flex items-center text-[0.35em] font-medium ps-[0.7em] gap-x-[0.2em]">
+                  <PiWarningCircleLight className="size-[1.25em]" />
+                  <p className="opacity-70">Price is not final</p>
+                </div>
+              </div>
+
+              {/* Discount percentage (if any) */}
+              {gameData.discountPrice && (
+                <p className="font-semibold flex items-center">
+                  <span className="line-through opacity-70">
+                    $ {gameData.originalPrice}
+                  </span>
+                  <span className="font-medium text-[0.8em] text-[#0BDB45] ">
+                    &nbsp;Save&nbsp;
+                    {calDiscountPercentage()}%
+                  </span>
+                </p>
+              )}
+
+              {/* Paypal button */}
               <Button
-                variant="gaming"
-                className="h-[2em] text-[1em] px-[1em] py-0 font-semibold flex-grow"
+                variant="secondary"
+                className="w-full h-[2em] rounded-none text-[1em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
               >
-                Buy now
+                <Image
+                  src={paypalLogo}
+                  alt="Paypal logo"
+                  className="w-auto h-[70%]"
+                />
               </Button>
-              <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
-                <IoMdHeartEmpty className="text-[1em]" />
-              </button>
-              <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
-                <IoIosCart className="text-[1em]" />
-              </button>
+
+              {/* Buy, wishlist and add to cart */}
+              <div className="flex gap-x-[3%]">
+                <Button
+                  variant="gaming"
+                  className="h-[2em] text-[1em] px-[1em] py-0 font-semibold flex-grow"
+                >
+                  Buy now
+                </Button>
+                <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
+                  <IoMdHeartEmpty className="text-[1em]" />
+                </button>
+                <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
+                  <IoIosCart className="text-[1em]" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
