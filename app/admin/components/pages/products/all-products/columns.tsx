@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export type AllProducts = {
+export type AllProductsNew = {
   imageUrl: string;
   id: string;
   name: string;
@@ -25,17 +25,17 @@ export type AllProducts = {
   date: string;
 };
 
-export const columns: ColumnDef<AllProducts>[] = [
+export const columns: ColumnDef<AllProductsNew>[] = [
   {
     accessorKey: "imageUrl",
     header: "Image",
     cell: ({ row }) => {
-      const AllProducts = row.original;
+      const AllProductsNew = row.original;
       return (
         <div className="flex items-center size-[2em]">
           <img
-            src={AllProducts.imageUrl}
-            alt={AllProducts.name}
+            src={AllProductsNew.imageUrl}
+            alt={AllProductsNew.name}
             className="w-full h-full rounded-full"
           />
         </div>
