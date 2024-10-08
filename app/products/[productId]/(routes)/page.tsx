@@ -45,8 +45,6 @@ const gameData = {
   image: bg,
   title: "Star wars: outlaws",
   fullTitle: "STAR WARS: OUTLAWS (PC) Steam Key Global",
-  // fullTitle:
-  //   "A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A",
   originalPrice: 39.99,
   discountPrice: 20.99,
   //   discountPrice: null,
@@ -126,6 +124,7 @@ const reviews = [
 
 export default function ProductPage() {
   const [isReviewFormVisible, setIsReviewFormVisible] = useState(false);
+  const [isLanguageTooltipOpen, setIsLanguageTooltipOpen] = useState(false);
   const calDiscountPercentage = () => {
     const discount = (gameData.discountPrice / gameData.originalPrice) * 100;
     return discount.toFixed(2);
@@ -229,13 +228,89 @@ export default function ProductPage() {
           {/* Container for the rest of the content */}
           <div className="container mx-auto px-[36px]">
             {/* Full title */}
-            <h2 className="font-bold text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] sm:max-w-[19ch] md:max-w-[21ch] lg:max-w-[29ch] xl:max-w-[38ch] 2xl:max-w-[46ch]">
+            <h2 className="font-bold pt-[1em] sm:pt-[0.8em] text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] sm:max-w-[19ch] md:max-w-[21ch] lg:max-w-[29ch] xl:max-w-[38ch] 2xl:max-w-[46ch]">
               {gameData.fullTitle}
             </h2>
 
+            {/* Product info */}
+            <div className="flex items-center text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] gap-x-[0.8em] leading-normal mb-[0.6em]">
+              {/* Rating */}
+              <div className="text-[#f29d38] -translate-y-[10%]">
+                <StarRating rating={gameData.rating} />
+              </div>
+              <p>{gameData.rating}/5</p>
+              <div className="w-[1px] self-stretch bg-white"></div>
+
+              {/* Languages */}
+              <div className="flex">
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip
+                    open={isLanguageTooltipOpen}
+                    onOpenChange={setIsLanguageTooltipOpen}
+                  >
+                    <TooltipTrigger
+                      className="text-[1em]"
+                      onTouchStart={() => setIsLanguageTooltipOpen(true)}
+                      onTouchEnd={() => setIsLanguageTooltipOpen(false)}
+                      asChild
+                    >
+                      <button className="select-none flex gap-x-[0.5ch]">
+                        <p className="max-w-[8ch] overflow-hidden text-ellipsis">
+                          {gameData.languages[0]}
+                        </p>
+                        {gameData.languages.length > 1 && (
+                          <p> & {gameData.languages.length - 1} more</p>
+                        )}
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      className="rounded-none bg-black/50 text-white backdrop-blur-[2px]"
+                      style={{
+                        borderImage:
+                          "linear-gradient(to bottom, transparent, #999999) 1",
+                        borderWidth: "1px",
+                        borderStyle: "solid",
+                      }}
+                    >
+                      <p className="text-[13px] py-[0.4em] font-bold border-b">
+                        Available Languages
+                      </p>
+                      {gameData.languages.map((language) => (
+                        <p key={language} className="text-[13px] py-[0.4em]">
+                          {language}
+                        </p>
+                      ))}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+              <div className="w-[1px] self-stretch bg-white"></div>
+
+              {/* OS */}
+              <div className="size-[1.15em] flex items-center justify-center">
+                <Image
+                  src={`/images/product/os/${gameData.os}.png`}
+                  alt={gameData.os}
+                  width={23}
+                  height={23}
+                />
+              </div>
+              <div className="w-[1px] self-stretch bg-white"></div>
+
+              {/* developedBy */}
+              <div className="size-[1.15em] flex items-center justify-center">
+                <Image
+                  src={`/images/product/developed-by/${gameData.developedBy}.png`}
+                  alt={gameData.developedBy}
+                  width={23}
+                  height={23}
+                />
+              </div>
+            </div>
+
             {/* Mobile price card */}
             <div
-              className="w-fit mx-auto bg-white/5 px-[1.6em] py-[2.7em] my-[1em] backdrop-blur-[2px] text-[15px] sm:hidden"
+              className="w-fit mx-auto bg-white/5 px-[1.6em] py-[2.7em] my-[0.6em] backdrop-blur-[2px] text-[15px] sm:hidden"
               style={{
                 borderImage:
                   "linear-gradient(to bottom, transparent, #999999) 1",
