@@ -42,9 +42,8 @@ const gameData = {
   image: bg,
   title: "Star wars: outlaws",
   fullTitle: "STAR WARS: OUTLAWS (PC) Steam Key Global",
-  originalPrice: 329.99,
-  discountPrice: 20.99,
-  //   discountPrice: null,
+  originalPrice: 89.99,
+  discountPrice: 38.99,
   rating: 4,
   languages: ["English", "Japanese", "Russian", "French", "Chinese"],
   os: "windows",
@@ -63,7 +62,7 @@ const gameData = {
   video: video,
   images: [imgOne, imgTwo, imgThree, imgOne, imgTwo, imgThree],
   about:
-    "Experience the first-ever open world Star Wars™ game and explore distinct locations across the galaxy, both iconic and new. Risk it all as scoundrel Kay Vess, seeking freedom and the means to start a new life. Fight, steal, and outwit your way through the galaxy’s crime syndicates as you join the galaxy’s most wanted. If you’re willing to take the risk, the galaxy is full of opportunity.",
+    "Experience the first-ever open world Star Wars™ game and explore distinct locations across the galaxy, both iconic and new. Risk it all as scoundrel Kay Vess, seeking freedom and the means to start a new life. Fight, steal, and outwit your way through the galaxy's crime syndicates as you join the galaxy's most wanted. If you're willing to take the risk, the galaxy is full of opportunity.",
   requirements: {
     minimum: {
       os: "WINDOWS 10 / 11 WITH DIRECTX 12",
@@ -132,7 +131,10 @@ export default function ProductPage() {
   const [isReviewFormVisible, setIsReviewFormVisible] = useState(false);
   const [isLanguageTooltipOpen, setIsLanguageTooltipOpen] = useState(false);
   const calDiscountPercentage = () => {
-    const discount = (gameData.discountPrice / gameData.originalPrice) * 100;
+    const discount =
+      ((gameData.originalPrice - gameData.discountPrice) /
+        gameData.originalPrice) *
+      100;
     return discount.toFixed(2);
   };
 

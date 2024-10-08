@@ -160,7 +160,9 @@ const SignIn = () => {
               />
 
               {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
+                <p className="text-red-500 mt-[0.2em]">
+                  {errors.email.message}
+                </p>
               )}
             </div>
 
@@ -174,7 +176,7 @@ const SignIn = () => {
               />
 
               {errors.password && (
-                <p className="text-red-500 text-sm">
+                <p className="text-red-500 mt-[0.2em]">
                   {errors.password.message}
                 </p>
               )}
@@ -213,7 +215,7 @@ const SignIn = () => {
           </form>
 
           <p className="text-white font-primaryFont font-normal text-[0.86em] mb-2">
-            Do not have an account? 
+            Do not have an account?
           </p>
           <Button
             onClick={() => router.push("/sign-up")}
