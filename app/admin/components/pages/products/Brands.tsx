@@ -1,44 +1,100 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Brands, columns } from "./brands/columns";
 import { DataTable } from "./brands/data-table";
 import { EditBrandPopup } from "./brands/EditBrandPopup";
+import axiosInstance from "@/axios/axiosInstance";
+import toast from "react-hot-toast";
+import { uploadImage } from "@/components/helper/uploadImage";
 
-const getData = (): Brands[] => {
-  return [
-    {
-      id: "1",
-      name: "Brand 1",
-      description: "Description for Brand 1",
-      imageUrl: "/images/sample-pic.png",
-    },
-    {
-      id: "2",
-      name: "Brand 2",
-      description: "Description for Brand 2",
-      imageUrl: "/images/sample-pic.png",
-    },
-  ];
-};
+// const getData = (): Brands[] => {
+//   return [
+//     {
+//       id: "1",
+//       name: "Brand 1",
+//       description: "Description for Brand 1",
+//       imageUrl: "/images/sample-pic.png",
+//     },
+//     {
+//       id: "2",
+//       name: "Brand 2",
+//       description: "Description for Brand 2",
+//       imageUrl: "/images/sample-pic.png",
+//     },
+//   ];
+// };
 
 export default function BrandsPage() {
-  const [data, setData] = useState<Brands[]>(getData());
+  const [data, setData] = useState<Brands[]>([]);
   const [isEditPopupOpen, setEditPopupOpen] = useState(false);
   const [editingBrand, setEditingBrand] = useState<Brands | null>(null);
+  const [reload, setReload] = useState(false);
 
-  const handleAddBrands = (newBrands: {
+  useEffect(() => {
+    const getData = async () => {
+    axiosInstance
+      .get("/brands")
+      .then((response) => {
+        setData(
+          response.data.map((brand: any) => ({
+            id: brand.id,
+            name: brand.name,
+            description: brand.description,
+            imageUrl: brand.image || "/images/sample-pic.png",
+          }))
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+    console.log("BrandsPage reloaded");
+    getData();
+  }, [reload]);
+
+  const handleAddBrands = async (newBrands: {
     name: string;
     description: string;
     imageUrl: string;
   }) => {
-    const newEntry: Brands = {
-      id: Math.random().toString(36).substring(2),
-      ...newBrands,
-    };
-    setData((prevData) => [...prevData, newEntry]);
+    console.log(newBrands);
+    try {
+      const data = {
+        name: newBrands.name,
+        description: newBrands.description,
+        image: newBrands.imageUrl,
+      }
+      const response = await axiosInstance.post("/brands", data);
+      if (response.status === 201){      
+        toast.success("Brand added successfully");
+        // setReload(prev => !prev);
+      }
+      else {
+        throw new Error("Failed to add brand");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to add brand");
+    } finally {
+      setReload(prev => !prev);
+    }
   };
 
-  const handleDelete = (id: string) => {
-    setData((prevData) => prevData.filter((item) => item.id !== id));
+  const handleDelete = async (id: string) => {
+    console.log("Delete brand with id: ", id);
+    try {
+      const res = await axiosInstance.delete(`/brands/${id}`);
+      if (res.status === 200) {
+        toast.success("Brand deleted successfully");
+      } else if (res.status === 404) {
+        throw new Error("Brand not found");
+      }
+      // toast.success("Brand deleted successfully");
+    } catch (error) {
+      toast.error("Error deleting brand");
+      console.error(error);
+    } finally {
+      setReload(prev => !prev);
+    }
   };
 
   const handleEdit = (brand: Brands) => {
@@ -52,11 +108,28 @@ export default function BrandsPage() {
     description: string;
     imageUrl: string;
   }) => {
-    setData((prevData) =>
-      prevData.map((item) =>
-        item.id === brandData.id ? { ...item, ...brandData } : item
-      )
-    );
+    const data = {
+      name: brandData.name,
+      description: brandData.description,
+      image: brandData.imageUrl,
+    }
+    axiosInstance
+      .patch(`/brands/${brandData.id}`, data)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("Brand updated successfully");
+        } else {
+          throw new Error("Failed to update brand");
+        }
+      })
+      .catch((error) => {
+        toast.error("Failed to update brand");
+        console.error(error);
+      })
+      .finally(() => {
+        setReload(prev => !prev);
+        setEditPopupOpen(false);
+      });
   };
 
   return (
