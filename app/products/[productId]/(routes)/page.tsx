@@ -15,7 +15,6 @@ import {
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { IoMdHeartEmpty, IoIosCart } from "react-icons/io";
 
-import ContactBar from "@/app/contact-bar/contact-bar";
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
 import ImageCarousel from "../_components/image-carousel";
@@ -25,8 +24,6 @@ import Footer from "@/components/footer/footer";
 
 import bg from "@/public/images/product/bg.png";
 import paypalLogo from "@/public/images/product/paypal-logo.png";
-import wishlist from "@/public/images/product/wishlist.png";
-import cart from "@/public/images/product/cart.png";
 import video from "@/public/images/product/video.png";
 import imgOne from "@/public/images/product/image-one.png";
 import imgTwo from "@/public/images/product/image-two.png";
@@ -617,7 +614,7 @@ export default function ProductPage() {
               </div>
 
               {/* Review card */}
-              {/* <div className="flex justify-between flex-wrap gap-y-[2em]">
+              <div className="flex justify-between flex-wrap">
                 {reviews.map(
                   ({
                     avatar,
@@ -644,17 +641,16 @@ export default function ProductPage() {
               <div className="flex justify-end">
                 <Button
                   variant="gaming"
-                  className="text-[0.6em] px-[1em] py-[0.5em] h-fit"
+                  className="text-[1em] px-[1em] py-[0.5em] h-fit"
                 >
                   See More <LiaAngleRightSolid />
                 </Button>
-              </div> */}
+              </div>
             </div>
-
-            <div className="h-[200px]"></div>
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }
