@@ -491,7 +491,7 @@ export default function ProductPage() {
                 About this game
               </h3>
               <div className="bg-white/5 p-[2em] mt-[2em]">
-                <p className="pb-[2em]">
+                <p className="pb-[2em] text-justify">
                   Experience the first-ever open world Star Wars™ game and
                   explore distinct locations across the galaxy, both iconic and
                   new. Risk it all as scoundrel Kay Vess, seeking freedom and
@@ -506,6 +506,13 @@ export default function ProductPage() {
               </div>
             </div>
 
+            {/* System requirements */}
+            <div className="text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em]">
+              <h3 className="font-semibold text-[1.4em] capitalize">
+                System Requirements for {gameData.title}
+              </h3>
+              <RequirementsCard requirements={gameData.requirements} />
+            </div>
             <div className="h-[200px]"></div>
           </div>
         </div>
