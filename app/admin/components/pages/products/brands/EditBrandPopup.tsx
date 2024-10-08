@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import { Input } from "@/components/ui/input";
 import { IoClose } from "react-icons/io5";
+import { uploadImage } from "@/components/helper/uploadImage";
 
 interface EditBrandPopupProps {
   isOpen: boolean;
@@ -77,12 +78,13 @@ export const EditBrandPopup = ({
             <Input
               type="file"
               accept="image/*"
-              onChange={(e) => {
+              onChange={async (e) => {
                 const file = e.target.files?.[0];
                 if (file) {
-                  const reader = new FileReader();
-                  reader.onloadend = () => setImageUrl(reader.result as string);
-                  reader.readAsDataURL(file);
+                  const fileType = file.type;
+                  const url = await uploadImage(file, fileType );
+                  setImageUrl(url);
+                
                 }
               }}
               className="w-full text-[1em] p-0 border-[#606060] h-fit file:bg-[#313131] file:text-[1em] file:text-[#D9D9D9] file:px-[1em] file:py-[0.6em] file:me-[1em] file:cursor-pointer hover:file:text-white rounded-sm"
