@@ -153,7 +153,7 @@ export default function ProductPage() {
           }}
         >
           {/* Bottom gradient */}
-          <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent"></div>
+          <div className="absolute bottom-0 w-full h-1/2 translate-y-px bg-gradient-to-t from-black to-transparent"></div>
         </div>
 
         {/* Gradient Wrapper for the rest of the content */}
@@ -343,7 +343,7 @@ export default function ProductPage() {
 
             {/* Mobile price card */}
             <div
-              className=" bg-white/5 px-[1.6em] py-[2.7em] my-[0.6em] backdrop-blur-[2px] text-[15px] sm:hidden"
+              className=" bg-white/5 px-[1.6em] py-[2.7em] mt-[0.6em] mb-[1.6em] backdrop-blur-[2px] text-[15px] sm:hidden"
               style={{
                 borderImage:
                   "linear-gradient(to bottom, transparent, #999999) 1",
@@ -406,6 +406,58 @@ export default function ProductPage() {
                 <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
                   <IoIosCart className="text-[1em]" />
                 </button>
+              </div>
+            </div>
+
+            {/* Card Area */}
+            <div className="flex flex-wrap justify-around gap-y-[2.4em] border-t capitalize font-medium text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-center py-[2.5em] mt-[2.5em] lg:text-left">
+              {/* Card one */}
+              <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
+                <Image
+                  src={availability}
+                  alt="Availability"
+                  width={68}
+                  height={68}
+                  className="size-[3.4em]"
+                />
+                <div>
+                  <p className="font-bold text-[1.4em] uppercase">Global</p>
+                  <p>All country</p>
+                </div>
+              </div>
+
+              {/* Card two */}
+              <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
+                <Image
+                  src={`/images/product/platform/${gameData.platform}.png`}
+                  alt="Platform"
+                  width={68}
+                  height={68}
+                  className="size-[3.4em]"
+                />
+                <div>
+                  <p className="font-bold text-[1.4em] uppercase">
+                    {gameData.platform}
+                  </p>
+                  <p>Activate/redeem on Steam</p>
+                </div>
+              </div>
+
+              {/* Card three */}
+              <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
+                <Image
+                  src={digitalKey}
+                  alt="Digital key"
+                  width={68}
+                  height={68}
+                  className="size-[3.4em]"
+                />
+                <div>
+                  <p className="font-bold text-[1.4em] uppercase">
+                    Digital keys
+                  </p>
+                  <p>Instant delivery</p>
+                </div>
               </div>
             </div>
           </div>
