@@ -13,10 +13,11 @@ import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook, FaApple } from "react-icons/fa";
 
-import GoogleIcon from "../../public/images/sign-in/google.png";
-import FacebookIcon from "../../public/images/sign-in/facebook.png";
-import AppleIcon from "../../public/images/sign-in/apple.png";
+import ProductSearchBar from "@/components/product-search/product-search";
+import Navbar from "@/components/navbar/navbar";
 import Logo from "../../public/images/sign-in/logo.png";
 
 const validationSchema = Yup.object().shape({
@@ -117,116 +118,115 @@ const SignIn = () => {
   }, [router]);
 
   return (
-    <div className="bg-[#0B0E13] h-full flex items-center justify-center">
-      <div className="border-[1px] border-white w-[682px] h-[757px] px-[120px] py-[50px]">
-        <div className="flex items-center justify-center">
-          <Image src={Logo} alt="logo" />
-        </div>
-        <p className="font-primaryFont text-[24px] font-medium text-white text-center mb-[60px]">
-          Sign In To Your Account
-        </p>
-        <div className="flex items-center justify-center gap-6 mb-[25px]">
-          <div
-            onClick={handleGoogleLogin}
-            className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center cursor-pointer hover:-translate-y-[1px]"
-          >
-            <Image src={GoogleIcon} alt="google icon" />
+    <>
+      <ProductSearchBar />
+      {/* <Navbar /> */}
+      <div className="bg-[#0B0E13] h-full flex items-center justify-center font-primaryFont text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] text-white px-[36px]">
+        <div className="w-full border px-[2em] py-[1em] sm:px-[8em] sm:py-[3.3em] sm:w-fit">
+          <div className="flex items-center justify-center">
+            <Image src={Logo} alt="logo" />
+          </div>
+          <p className="font-primaryFont text-[1.6em] font-medium text-white text-center mb-[4em]">
+            Sign In To Your Account
+          </p>
+
+          {/* Social sign-in buttons */}
+          <div className="flex items-center justify-center gap-6 mb-[1.6em]">
+            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] hover:-translate-y-[1px] cursor-pointer">
+              <FcGoogle />
+            </div>
+            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] text-[#1877F2] hover:-translate-y-[1px] cursor-pointer">
+              <FaFacebook />
+            </div>
+            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] text-black hover:-translate-y-[1px] cursor-pointer">
+              <FaApple />
+            </div>
           </div>
 
-          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center cursor-pointer hover:-translate-y-[1px]">
-            <Image src={FacebookIcon} alt="facebook icon" />
+          <div className="flex items-center justify-center mb-[1em]">
+            <div className="w-full h-[1px] bg-white"></div>
+            <p className="text-white font-primaryFont font-medium px-2">or</p>
+            <div className="w-full h-[1px] bg-white"></div>
           </div>
 
-          <div className="w-[40px] h-[40px] bg-white rounded-[4px] flex items-center justify-center cursor-pointer hover:-translate-y-[1px]">
-            <Image src={AppleIcon} alt="apple icon" />
-          </div>
-        </div>
-
-        <div className="flex items-center justify-center mb-[15px]">
-          <div className="w-full h-[1px] bg-white"></div>
-          <p className="text-white font-primaryFont font-medium px-2">or</p>
-          <div className="w-full h-[1px] bg-white"></div>
-        </div>
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-8">
-            <p className="text-white font-primaryFont font-medium text-[15px] mb-1">
-              EMAIL
-            </p>
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              className="text-white rounded-none"
-              {...register("email")}
-            />
-
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <p className="text-white font-primaryFont font-medium text-[15px] mb-1">
-              PASSWORD
-            </p>
-            <Input
-              type="password"
-              placeholder="Enter your password"
-              className="text-white rounded-none"
-              {...register("password")}
-            />
-
-            {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password.message}</p>
-            )}
-          </div>
-
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center justify-center gap-2">
-              <Checkbox
-                id="remember-me"
-                className="bg-[#45F882] rounded-none w-[13px] h-[13px]"
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-[2.1em] text-white font-primaryFont font-medium">
+              <p className="mb-[0.2em]">EMAIL</p>
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit sm:w-[44ch]"
+                {...register("email")}
               />
-              <label
-                htmlFor="remember-me"
-                className="text-white font-primaryFont font-medium text-[12px] cursor-pointer"
-              >
-                Remember me
-              </label>
+
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              )}
             </div>
 
-            <Link
-              href="/"
-              className="text-[#45F882] font-primaryFont font-normal text-[13px] hover:opacity-80"
-            >
-              Forgot your password ?
-            </Link>
-          </div>
+            <div className="mb-[calc(1em+1px)] text-white font-primaryFont font-medium">
+              <p className="mb-[0.2em]">PASSWORD</p>
+              <Input
+                type="password"
+                placeholder="Enter your password"
+                className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
+                {...register("password")}
+              />
 
-          <Button
-            type="submit"
-            className="w-full mb-6 bg-[#0BDB45] font-primaryFont text-[17px] text-black font-bold rounded-none group"
-          >
-            <p className="font-primaryFont text-[17px] font-bold text-black group-hover:text-white">
+              {errors.password && (
+                <p className="text-red-500 text-sm">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            {/* Remember me*/}
+            <div className="flex items-center justify-between mb-[calc(1em+1px)]">
+              <div className="flex items-center justify-center gap-[0.5em]">
+                <Checkbox
+                  id="remember-me"
+                  className="bg-[#45F882] rounded-none size-[0.86em] flex items-center justify-center"
+                />
+                <label
+                  htmlFor="remember-me"
+                  className="text-white font-primaryFont font-medium text-[0.8em] cursor-pointer"
+                >
+                  Remember me
+                </label>
+              </div>
+
+              <Link
+                href="/"
+                className="text-[#45F882] font-primaryFont font-normal text-[0.8em] hover:opacity-80"
+              >
+                Forgot your password ?
+              </Link>
+            </div>
+
+            <Button
+              type="submit"
+              variant="gaming"
+              className="w-full h-fit mb-[1.3em] font-primaryFont text-[1.1em] px-[1em] py-[0.5em]"
+            >
               SIGN IN
+            </Button>
+          </form>
+
+          <p className="text-white font-primaryFont font-normal text-[0.86em] mb-2">
+            Do not have an account? 
+          </p>
+          <Button
+            onClick={() => router.push("/sign-up")}
+            variant="outline"
+            className="w-full h-fit text-[1.1em] px-[1em] py-[0.5em] mb-[1.3em] rounded-none group"
+          >
+            <p className="font-primaryFont text-[1.1em] text-white font-bold group-hover:text-black">
+              CREATE ACCOUNT
             </p>
           </Button>
-        </form>
-
-        <p className="text-white font-primaryFont font-normal text-[13px] mb-2">
-          Do not have an account? 
-        </p>
-        <Button
-          onClick={() => router.push("/sign-up")}
-          variant="outline"
-          className="w-full mb-6 rounded-none group"
-        >
-          <p className="font-primaryFont text-[17px] text-white font-bold group-hover:text-black">
-            CREATE ACCOUNT
-          </p>
-        </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
