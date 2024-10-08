@@ -166,7 +166,7 @@ export default function ProductPage() {
           {/* Container for the rest of the content */}
           <div className="container mx-auto px-[36px]">
             {/* Flex container for Product header area and desktop price card*/}
-            <div className="relative flex items-end pt-[1em] mb-[0.8em] sm:mb-[2em] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">
+            <div className="relative flex items-end pt-[1em] mb-[0.8em] sm:mb-[3em] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">
               {/* Container for title, info and tags*/}
               <div>
                 {/* Full title */}
@@ -410,7 +410,7 @@ export default function ProductPage() {
             </div>
 
             {/* Card Area */}
-            <div className="flex flex-wrap justify-around gap-y-[2.4em] border-t capitalize font-medium text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-center py-[2.5em] mt-[2.5em] lg:text-left">
+            <div className="flex flex-wrap justify-around gap-y-[2.4em] border-t border-t-[#999999] capitalize font-medium text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-center pt-[4em] mt-[4em] lg:text-left">
               {/* Card one */}
               <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
                 <Image
@@ -458,6 +458,30 @@ export default function ProductPage() {
                   </p>
                   <p>Instant delivery</p>
                 </div>
+              </div>
+            </div>
+
+            {/* Checkout Area */}
+            <div className="text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em]">
+              <h3 className="font-semibold text-[1.4em] capitalize">
+                Checkout guaranteed
+              </h3>
+              <div className="bg-white/5 p-[2em] mt-[2em]">
+                <div className="flex justify-between items-center text-[1.2em] font-medium">
+                  <p>Payment method</p>
+                  <Image src={lock} alt="Payment secured" />
+                </div>
+                <div className="flex gap-x-[1em] my-[2em]">
+                  <Image src={paypal} alt="Paypal" />
+                  <Image src={visa} alt="Visa" />
+                  <Image src={mastercard} alt="Mastercard" />
+                  <Image src={skrill} alt="Skrill" />
+                </div>
+                <p>
+                  Your payment information is processed securely. We do not
+                  store credit card details nor have access to your credit card
+                  information.
+                </p>
               </div>
             </div>
           </div>
