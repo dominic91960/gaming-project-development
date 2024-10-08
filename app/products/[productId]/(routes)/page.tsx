@@ -484,6 +484,29 @@ export default function ProductPage() {
                 </p>
               </div>
             </div>
+
+            {/* About */}
+            <div className="text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em]">
+              <h3 className="font-semibold text-[1.4em] capitalize">
+                About this game
+              </h3>
+              <div className="bg-white/5 p-[2em] mt-[2em]">
+                <p className="pb-[2em]">
+                  Experience the first-ever open world Star Wars™ game and
+                  explore distinct locations across the galaxy, both iconic and
+                  new. Risk it all as scoundrel Kay Vess, seeking freedom and
+                  the means to start a new life. Fight, steal, and outwit your
+                  way through the galaxy&apos;s crime syndicates as you join the
+                  galaxy&apos;s most wanted. If you&apos;re willing to take the
+                  risk, the galaxy is full of opportunity.
+                </p>
+                <p className="flex justify-between items-center text-[1.2em] font-medium ">
+                  Release Date: 30/08/2024
+                </p>
+              </div>
+            </div>
+
+            <div className="h-[200px]"></div>
           </div>
         </div>
       </section>
