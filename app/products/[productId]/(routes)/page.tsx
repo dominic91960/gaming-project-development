@@ -15,7 +15,6 @@ import {
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { IoMdHeartEmpty, IoIosCart } from "react-icons/io";
 
-import ContactBar from "@/app/contact-bar/contact-bar";
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
 import ImageCarousel from "../_components/image-carousel";
@@ -25,8 +24,6 @@ import Footer from "@/components/footer/footer";
 
 import bg from "@/public/images/product/bg.png";
 import paypalLogo from "@/public/images/product/paypal-logo.png";
-import wishlist from "@/public/images/product/wishlist.png";
-import cart from "@/public/images/product/cart.png";
 import video from "@/public/images/product/video.png";
 import imgOne from "@/public/images/product/image-one.png";
 import imgTwo from "@/public/images/product/image-two.png";
@@ -45,19 +42,27 @@ const gameData = {
   image: bg,
   title: "Star wars: outlaws",
   fullTitle: "STAR WARS: OUTLAWS (PC) Steam Key Global",
-  originalPrice: 39.99,
-  discountPrice: 20.99,
-  //   discountPrice: null,
+  originalPrice: 89.99,
+  discountPrice: 38.99,
   rating: 4,
   languages: ["English", "Japanese", "Russian", "French", "Chinese"],
   os: "windows",
   developedBy: "ubisoft",
   platform: "steam",
-  tags: ["Difficult", "RPG", "Dark Fantasy", "Souls-like"],
+  tags: [
+    "Difficult",
+    "RPG",
+    "Dark Fantasy",
+    "Souls-like",
+    "Difficult",
+    "RPG",
+    "Dark Fantasy",
+    "Souls-like",
+  ],
   video: video,
   images: [imgOne, imgTwo, imgThree, imgOne, imgTwo, imgThree],
   about:
-    "Experience the first-ever open world Star Wars™ game and explore distinct locations across the galaxy, both iconic and new. Risk it all as scoundrel Kay Vess, seeking freedom and the means to start a new life. Fight, steal, and outwit your way through the galaxy’s crime syndicates as you join the galaxy’s most wanted. If you’re willing to take the risk, the galaxy is full of opportunity.",
+    "Experience the first-ever open world Star Wars™ game and explore distinct locations across the galaxy, both iconic and new. Risk it all as scoundrel Kay Vess, seeking freedom and the means to start a new life. Fight, steal, and outwit your way through the galaxy's crime syndicates as you join the galaxy's most wanted. If you're willing to take the risk, the galaxy is full of opportunity.",
   requirements: {
     minimum: {
       os: "WINDOWS 10 / 11 WITH DIRECTX 12",
@@ -124,8 +129,12 @@ const reviews = [
 
 export default function ProductPage() {
   const [isReviewFormVisible, setIsReviewFormVisible] = useState(false);
+  const [isLanguageTooltipOpen, setIsLanguageTooltipOpen] = useState(false);
   const calDiscountPercentage = () => {
-    const discount = (gameData.discountPrice / gameData.originalPrice) * 100;
+    const discount =
+      ((gameData.originalPrice - gameData.discountPrice) /
+        gameData.originalPrice) *
+      100;
     return discount.toFixed(2);
   };
 
@@ -134,16 +143,206 @@ export default function ProductPage() {
       <ProductSearchBar />
       {/* <Navbar /> */}
       <section className="bg-[#051301] font-primaryFont">
-        {/* Image area with price card */}
+        {/* Image area with gradient */}
         <div
-          className="relative h-[160px] bg-contain bg-no-repeat bg-fixed sm:h-[480px] sm:bg-[0px_-160px]"
-          style={{ backgroundImage: `url(${gameData.image.src})` }}
+          className="relative h-[160px] bg-[length:640px_360px] bg-fixed sm:h-[220px] sm:bg-contain md:h-[280px] lg:h-[340px] lg:bg-[0px_-115px] 2xl:h-[480px]"
+          style={{
+            backgroundImage: `url(${gameData.image.src})`,
+            backgroundPositionX: "center",
+          }}
         >
-          <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent"></div>
-          <div className="absolute bottom-0 left-0 right-0 container mx-auto flex justify-end">
-            {/* Price card */}
+          {/* Bottom gradient */}
+          <div className="absolute bottom-0 w-full h-1/2 translate-y-px bg-gradient-to-t from-black to-transparent"></div>
+        </div>
+
+        {/* Gradient Wrapper for the rest of the content */}
+        <div
+          style={{
+            background:
+              "linear-gradient(to bottom, black, transparent, transparent, black)",
+          }}
+        >
+          {/* Container for the rest of the content */}
+          <div className="container mx-auto px-[36px]">
+            {/* Flex container for Product header area and desktop price card*/}
+            <div className="relative flex items-end pt-[1em] mb-[0.8em] sm:mb-[3em] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">
+              {/* Container for title, info and tags*/}
+              <div>
+                {/* Full title */}
+                <h2 className="font-bold pt-[1em] sm:pt-[0.8em] text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] sm:max-w-[19ch] md:max-w-[21ch] lg:max-w-[29ch] xl:max-w-[38ch] 2xl:max-w-[46ch]">
+                  {gameData.fullTitle}
+                </h2>
+
+                {/* Product info */}
+                <div className="flex items-center text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] gap-x-[0.8em] leading-normal mt-[0.2em] mb-[0.6em]">
+                  {/* Rating */}
+                  <div className="text-[#f29d38] -translate-y-[10%]">
+                    <StarRating rating={gameData.rating} />
+                  </div>
+                  <p>{gameData.rating}/5</p>
+                  <div className="w-[1px] self-stretch bg-white"></div>
+
+                  {/* Languages */}
+                  <div className="flex">
+                    <TooltipProvider delayDuration={0}>
+                      <Tooltip
+                        open={isLanguageTooltipOpen}
+                        onOpenChange={setIsLanguageTooltipOpen}
+                      >
+                        <TooltipTrigger
+                          className="text-[1em]"
+                          onTouchStart={() => setIsLanguageTooltipOpen(true)}
+                          onTouchEnd={() => setIsLanguageTooltipOpen(false)}
+                          asChild
+                        >
+                          <button className="select-none flex gap-x-[0.5ch]">
+                            <p className="max-w-[8ch] overflow-hidden text-ellipsis">
+                              {gameData.languages[0]}
+                            </p>
+                            {gameData.languages.length > 1 && (
+                              <p> & {gameData.languages.length - 1} more</p>
+                            )}
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent
+                          className="rounded-none bg-black/50 text-white backdrop-blur-[2px]"
+                          style={{
+                            borderImage:
+                              "linear-gradient(to bottom, transparent, #999999) 1",
+                            borderWidth: "1px",
+                            borderStyle: "solid",
+                          }}
+                        >
+                          <p className="text-[13px] py-[0.4em] font-bold border-b">
+                            Available Languages
+                          </p>
+                          {gameData.languages.map((language) => (
+                            <p
+                              key={language}
+                              className="text-[13px] py-[0.4em]"
+                            >
+                              {language}
+                            </p>
+                          ))}
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                  <div className="w-[1px] self-stretch bg-white"></div>
+
+                  {/* OS */}
+                  <div className="size-[1.15em] flex items-center justify-center">
+                    <Image
+                      src={`/images/product/os/${gameData.os}.png`}
+                      alt={gameData.os}
+                      width={23}
+                      height={23}
+                    />
+                  </div>
+                  <div className="w-[1px] self-stretch bg-white"></div>
+
+                  {/* developedBy */}
+                  <div className="size-[1.15em] flex items-center justify-center">
+                    <Image
+                      src={`/images/product/developed-by/${gameData.developedBy}.png`}
+                      alt={gameData.developedBy}
+                      width={23}
+                      height={23}
+                    />
+                  </div>
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-[1em] mt-[1em] text-[8px] sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-semibold text-center text-white sm:w-[40ch] md:w-[49ch] lg:w-[67ch] xl:w-[87ch] 2xl:w-[102ch]">
+                  {gameData.tags.map((tag) => (
+                    <div
+                      key={tag}
+                      className="bg-[#3B3B3B] flex items-center justify-center"
+                    >
+                      <p className="px-[1em] py-[0.3em]">{tag}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Container for desktop price card */}
+              <div className="hidden sm:block">
+                {/* Desktop price card */}
+                <div
+                  className="absolute bottom-0 right-0 bg-black/50 px-[1.6em] py-[2.7em] backdrop-blur-[2px] z-10"
+                  style={{
+                    borderImage:
+                      "linear-gradient(to bottom, transparent, #999999) 1",
+                    borderWidth: "1px",
+                    borderStyle: "solid",
+                  }}
+                >
+                  {/* Game title */}
+                  <h3 className="uppercase font-bold text-[1.3em] border-b">
+                    {gameData.title}
+                  </h3>
+
+                  {/* Price */}
+                  <div className="flex text-[2em] font-bold mt-[0.3em]">
+                    <p className="">
+                      $ {gameData.discountPrice || gameData.originalPrice}
+                    </p>
+                    <div className="flex items-center text-[0.35em] font-medium ps-[0.7em] gap-x-[0.2em]">
+                      <PiWarningCircleLight className="size-[1.25em]" />
+                      <p className="opacity-70">Price is not final</p>
+                    </div>
+                  </div>
+
+                  {/* Discount percentage (if any) */}
+                  {gameData.discountPrice && (
+                    <p className="font-semibold flex items-center">
+                      <span className="line-through opacity-70">
+                        $ {gameData.originalPrice}
+                      </span>
+                      <span className="font-medium text-[0.8em] text-[#0BDB45] ">
+                        &nbsp;Save&nbsp;
+                        {calDiscountPercentage()}%
+                      </span>
+                    </p>
+                  )}
+
+                  {/* Paypal button */}
+                  <Button
+                    variant="secondary"
+                    className="w-full h-[2em] rounded-none text-[1em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
+                  >
+                    <Image
+                      src={paypalLogo}
+                      alt="Paypal logo"
+                      className="w-auto h-[70%]"
+                    />
+                  </Button>
+
+                  {/* Buy, wishlist and add to cart */}
+                  <div className="flex gap-x-[3%]">
+                    <Button
+                      variant="gaming"
+                      className="h-[2em] text-[1em] px-[1em] py-0 font-semibold flex-grow"
+                    >
+                      Buy now
+                    </Button>
+                    <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
+                      <IoMdHeartEmpty className="text-[1em]" />
+                    </button>
+                    <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
+                      <IoIosCart className="text-[1em]" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Carousel */}
+            <ImageCarousel video={gameData.video} images={gameData.images} />
+
+            {/* Mobile price card */}
             <div
-              className="hidden bg-black/50 px-[1.6em] py-[2.7em] backdrop-blur-[2px] translate-y-[25%] text-[24px] sm:block"
+              className=" bg-white/5 px-[1.6em] py-[2.7em] mt-[0.6em] mb-[1.6em] backdrop-blur-[2px] text-[15px] sm:hidden"
               style={{
                 borderImage:
                   "linear-gradient(to bottom, transparent, #999999) 1",
@@ -151,9 +350,12 @@ export default function ProductPage() {
                 borderStyle: "solid",
               }}
             >
+              {/* Game title */}
               <h3 className="uppercase font-bold text-[1.3em] border-b">
                 {gameData.title}
               </h3>
+
+              {/* Price */}
               <div className="flex text-[2em] font-bold mt-[0.3em]">
                 <p className="">
                   $ {gameData.discountPrice || gameData.originalPrice}
@@ -163,6 +365,8 @@ export default function ProductPage() {
                   <p className="opacity-70">Price is not final</p>
                 </div>
               </div>
+
+              {/* Discount percentage (if any) */}
               {gameData.discountPrice && (
                 <p className="font-semibold flex items-center">
                   <span className="line-through opacity-70">
@@ -175,6 +379,7 @@ export default function ProductPage() {
                 </p>
               )}
 
+              {/* Paypal button */}
               <Button
                 variant="secondary"
                 className="w-full h-[2em] rounded-none text-[1em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
@@ -186,6 +391,7 @@ export default function ProductPage() {
                 />
               </Button>
 
+              {/* Buy, wishlist and add to cart */}
               <div className="flex gap-x-[3%]">
                 <Button
                   variant="gaming"
@@ -201,215 +407,70 @@ export default function ProductPage() {
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          className="px-[36px]"
-          style={{
-            background:
-              "linear-gradient(to bottom, black, transparent, transparent, black)",
-          }}
-        >
-          {/* Mobile price card */}
-          <div
-            className="bg-black/50 px-[1.6em] py-[2.7em] backdrop-blur-[2px] translate-y-[25%] text-[14px]"
-            style={{
-              borderImage: "linear-gradient(to bottom, transparent, #999999) 1",
-              borderWidth: "1px",
-              borderStyle: "solid",
-            }}
-          >
-            <h3 className="uppercase font-bold text-[1.3em] border-b">
-              {gameData.title}
-            </h3>
-            <div className="flex text-[2em] font-bold mt-[0.3em]">
-              <p className="">
-                $ {gameData.discountPrice || gameData.originalPrice}
-              </p>
-              <div className="flex items-center text-[0.35em] font-medium ps-[0.7em] gap-x-[0.2em]">
-                <PiWarningCircleLight className="size-[1.25em]" />
-                <p className="opacity-70">Price is not final</p>
-              </div>
-            </div>
-            {gameData.discountPrice && (
-              <p className="font-semibold flex items-center">
-                <span className="line-through opacity-70">
-                  $ {gameData.originalPrice}
-                </span>
-                <span className="font-medium text-[0.8em] text-[#0BDB45] ">
-                  &nbsp;Save&nbsp;
-                  {calDiscountPercentage()}%
-                </span>
-              </p>
-            )}
-
-            <Button
-              variant="secondary"
-              className="w-full h-[2em] rounded-none text-[1em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
-            >
-              <Image
-                src={paypalLogo}
-                alt="Paypal logo"
-                className="w-auto h-[70%]"
-              />
-            </Button>
-
-            <div className="flex gap-x-[3%]">
-              <Button
-                variant="gaming"
-                className="h-[2em] text-[1em] px-[1em] py-0 font-semibold flex-grow"
-              >
-                Buy now
-              </Button>
-              <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
-                <IoMdHeartEmpty className="text-[1em]" />
-              </button>
-              <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
-                <IoIosCart className="text-[1em]" />
-              </button>
-            </div>
-          </div>
-
-          <div className=" container mx-auto text-[20px]">
-            {/* Title */}
-            {/* <h2 className="font-bold text-[32px] max-w-[45ch]">
-              {gameData.fullTitle}
-            </h2> */}
-
-            {/* Info */}
-            <div className="flex items-center gap-x-[16px] leading-none mt-[0.2em] mb-[0.6em]">
-              {/* Rating */}
-              {/* <div className="text-[#f29d38] -translate-y-[10%]">
-                <StarRating rating={gameData.rating} />
-              </div>
-              <p>{gameData.rating}/5</p>
-              <div className="w-[1px] self-stretch bg-white"></div> */}
-
-              {/* Languages */}
-              {/* <div className="flex">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <p className="cursor-pointer">
-                        {gameData.languages[0]}
-                        {gameData.languages.length > 1 && (
-                          <span> & {gameData.languages.length - 1} more</span>
-                        )}
-                      </p>
-                    </TooltipTrigger>
-                    <TooltipContent
-                      className="rounded-none bg-black/50 text-white backdrop-blur-[2px]"
-                      style={{
-                        borderImage:
-                          "linear-gradient(to bottom, transparent, #999999) 1",
-                        borderWidth: "1px",
-                        borderStyle: "solid",
-                      }}
-                    >
-                      <p className="text-[13px] py-[0.4em] font-bold border-b">
-                        Available Languages
-                      </p>
-                      {gameData.languages.map((language) => (
-                        <p key={language} className="text-[13px] py-[0.4em]">
-                          {language}
-                        </p>
-                      ))}
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-              <div className="w-[1px] self-stretch bg-white"></div> */}
-
-              {/* OS */}
-              {/* <div>
-                <Image
-                  src={`/images/product/os/${gameData.os}.png`}
-                  alt={gameData.os}
-                  width={23}
-                  height={23}
-                />
-              </div>
-              <div className="w-[1px] self-stretch bg-white"></div> */}
-
-              {/* developedBy */}
-              {/* <div>
-                <Image
-                  src={`/images/product/developed-by/${gameData.developedBy}.png`}
-                  alt={gameData.developedBy}
-                  width={23}
-                  height={23}
-                />
-              </div> */}
-              {/* <div className="w-[1px] self-stretch bg-white"></div> */}
-            </div>
-
-            {/* Tags */}
-            {/* <div className="flex gap-x-3 text-[14px] font-semibold text-center text-white">
-              {gameData.tags.map((tag) => (
-                <div
-                  key={tag}
-                  className="bg-[#3B3B3B] min-w-[10ch] px-[1em] py-[0.3em]"
-                >
-                  {tag}
-                </div>
-              ))}
-            </div> */}
-
-            {/* Carousel */}
-            {/* <ImageCarousel video={gameData.video} images={gameData.images} /> */}
 
             {/* Card Area */}
-            {/* <div className="border-t flex justify-around uppercase font-bold text-[28px] py-[2.5em] mt-[2.5em]">
-              <div className="flex gap-4 items-center">
+            <div className="flex flex-wrap justify-around gap-y-[2.4em] border-t border-t-[#999999] capitalize font-medium text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-center pt-[4em] mt-[4em] lg:text-left">
+              {/* Card one */}
+              <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
                 <Image
                   src={availability}
                   alt="Availability"
                   width={68}
                   height={68}
+                  className="size-[3.4em]"
                 />
                 <div>
-                  <p>Global</p>
-                  <p className="capitalize font-medium text-[20px]">
-                    All country
-                  </p>
+                  <p className="font-bold text-[1.4em] uppercase">Global</p>
+                  <p>All country</p>
                 </div>
               </div>
-              <div className="flex gap-3 items-center">
+
+              {/* Card two */}
+              <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
                 <Image
                   src={`/images/product/platform/${gameData.platform}.png`}
                   alt="Platform"
                   width={68}
                   height={68}
+                  className="size-[3.4em]"
                 />
                 <div>
-                  <p>{gameData.platform}</p>
-                  <p className="capitalize font-medium text-[20px]">
-                    Activate/redeem on Steam
+                  <p className="font-bold text-[1.4em] uppercase">
+                    {gameData.platform}
                   </p>
+                  <p>Activate/redeem on Steam</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-center">
-                <Image src={digitalKey} alt="Digital" width={68} height={68} />
+
+              {/* Card three */}
+              <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
+                <Image
+                  src={digitalKey}
+                  alt="Digital key"
+                  width={68}
+                  height={68}
+                  className="size-[3.4em]"
+                />
                 <div>
-                  <p>Digital keys</p>
-                  <p className="capitalize font-medium text-[20px]">
-                    Instant delivery
+                  <p className="font-bold text-[1.4em] uppercase">
+                    Digital keys
                   </p>
+                  <p>Instant delivery</p>
                 </div>
               </div>
-            </div> */}
+            </div>
 
             {/* Checkout Area */}
-            {/* <div>
-              <h3 className="font-semibold text-[28px] capitalize pt-[3em]">
+            <div className="text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em]">
+              <h3 className="font-semibold text-[1.4em] capitalize">
                 Checkout guaranteed
               </h3>
-              <div className="bg-white/5 p-[2em] my-[2em] text-[20px] ">
-                <div className="flex justify-between items-center text-[24px] font-medium">
+              <div className="bg-white/5 p-[2em] mt-[2em]">
+                <div className="flex justify-between items-center text-[1.2em] font-medium">
                   <p>Payment method</p>
                   <Image src={lock} alt="Payment secured" />
                 </div>
-                <div className="flex gap-x-[1%] my-[2em]">
+                <div className="flex gap-x-[1em] my-[2em]">
                   <Image src={paypal} alt="Paypal" />
                   <Image src={visa} alt="Visa" />
                   <Image src={mastercard} alt="Mastercard" />
@@ -421,18 +482,15 @@ export default function ProductPage() {
                   information.
                 </p>
               </div>
-            </div> */}
-
-            {/* Recommended */}
-            {/* <div className="h-[150px]">Recommended Section</div> */}
+            </div>
 
             {/* About */}
-            {/* <div>
-              <h3 className="font-semibold text-[28px] capitalize pt-[3em]">
+            <div className="text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em]">
+              <h3 className="font-semibold text-[1.4em] capitalize">
                 About this game
               </h3>
-              <div className="bg-white/5 p-[2em] my-[2em] text-[20px] ">
-                <p className="pb-[2em]">
+              <div className="bg-white/5 p-[2em] mt-[2em]">
+                <p className="pb-[2em] text-justify">
                   Experience the first-ever open world Star Wars™ game and
                   explore distinct locations across the galaxy, both iconic and
                   new. Risk it all as scoundrel Kay Vess, seeking freedom and
@@ -441,41 +499,41 @@ export default function ProductPage() {
                   galaxy&apos;s most wanted. If you&apos;re willing to take the
                   risk, the galaxy is full of opportunity.
                 </p>
-                <p className="flex justify-between items-center text-[24px] font-medium ">
+                <p className="flex justify-between items-center text-[1.2em] font-medium ">
                   Release Date: 30/08/2024
                 </p>
               </div>
-            </div> */}
+            </div>
 
             {/* System requirements */}
-            {/* <div>
-              <h3 className="font-semibold text-[28px] capitalize mb-[1.4em] pt-[3em]">
+            <div className="text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em]">
+              <h3 className="font-semibold text-[1.4em] capitalize">
                 System Requirements for {gameData.title}
               </h3>
               <RequirementsCard requirements={gameData.requirements} />
-            </div> */}
+            </div>
 
-            {/* User reviews */}
-            <div className=" text-[28px] pb-[4.5em]">
-              {/* <h3 className="font-semibold capitalize pt-[3em]">
+            {/* Reviews */}
+            <div className=" text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em] pb-[4.5em]">
+              <h3 className="font-semibold capitalize text-[1.4em]">
                 User Reviews
               </h3>
-              <hr className="my-[1em]" /> */}
+              <hr className="my-[2em]" />
 
-              {/* Review button area */}
-              {/* <div className="text-[0.6em] flex items-center gap-x-[10em] mb-[1.5em]">
+              {/* Review button */}
+              <div className="flex items-center mb-[1.5em] text-[1.4em] sm:text-[1em] md:text-[0.8em] *:flex-grow">
                 <div>
                   <StarRating rating={5} />
                   <Button
                     variant="outline"
-                    className="text-white text-[1em] py-[1.2em] px-[1em] mt-[0.5em] rounded-none"
+                    className="h-fit text-white text-[1em] py-[0.5em] px-[1em] mt-[0.8em] rounded-none"
                     onClick={() => setIsReviewFormVisible(true)}
                   >
                     &#43; Add your review
                   </Button>
                 </div>
                 <div>
-                  <p className="flex leading-tight my-[0.6em]">
+                  <p className="flex leading-tight">
                     <span className="text-[#f29d38]">
                       <StarRating rating={1} />
                     </span>
@@ -483,15 +541,17 @@ export default function ProductPage() {
                   </p>
                   <p>Overall Rating</p>
                 </div>
-              </div> */}
+              </div>
 
-              {/* <div
-                className={`bg-[#0B0E13] text-[16px] p-[4em] mt-[3em] mb-[3.5em] w-fit origin-top ${
+              {/* Review form */}
+              <div
+                className={`md:w-fit bg-white/10 md:text-[0.8em] p-[4em] mt-[3em] mb-[3.5em] origin-top ${
                   isReviewFormVisible
-                    ? "flex justify-around gap-x-[5em] animate-slide-down"
+                    ? "flex flex-col md:flex-row justify-around gap-x-[5em] animate-slide-down"
                     : "hidden"
                 }`}
               >
+                {/* User profile preview */}
                 <div>
                   <div className="flex items-center gap-x-[1.5em]">
                     <div>
@@ -509,8 +569,10 @@ export default function ProductPage() {
                   <hr className="my-[1em]" />
                   <p>Your review must contain at least 150 characters.</p>
                 </div>
+
+                {/* Review form*/}
                 <div>
-                  <h4 className="text-[1.5em] font-semibold">
+                  <h4 className="text-[1.5em] font-semibold mt-[2em] md:mt-0">
                     Detailed Rating
                   </h4>
 
@@ -524,18 +586,18 @@ export default function ProductPage() {
                   </p>
                   <input
                     type="text"
-                    className="w-[50ch] px-[1em] py-[0.5em] outline-none text-black"
+                    className="w-full md:w-[50ch] px-[1em] py-[0.5em] outline-none text-white bg-white/10 text-[1.3em] sm:text-[1em]"
                   />
 
                   <p className="text-[1.4em] mt-[1em] mb-[0.3em]">
                     Review Text
                   </p>
                   <textarea
-                    className="w-[50ch] px-[1em] py-[0.5em] outline-none text-black"
+                    className="w-full md:w-[50ch] px-[1em] py-[0.5em] outline-none text-white bg-white/10 text-[1.3em] sm:text-[1em]"
                     rows={5}
                   ></textarea>
 
-                  <div className="flex justify-end pt-[1.2em] gap-x-[0.5em]">
+                  <div className="flex justify-end pt-[1.2em] gap-x-[1em] text-[1.2em] md:text-[1em]">
                     <Button
                       variant="destructive"
                       className="text-[1em] h-fit px-[1em] py-[0.5em] rounded-none"
@@ -551,10 +613,10 @@ export default function ProductPage() {
                     </Button>
                   </div>
                 </div>
-              </div> */}
+              </div>
 
               {/* Review card */}
-              {/* <div className="flex justify-between flex-wrap gap-y-[2em]">
+              <div className="flex justify-between flex-wrap">
                 {reviews.map(
                   ({
                     avatar,
@@ -581,16 +643,16 @@ export default function ProductPage() {
               <div className="flex justify-end">
                 <Button
                   variant="gaming"
-                  className="text-[0.6em] px-[1em] py-[0.5em] h-fit"
+                  className="text-[1em] px-[1em] py-[0.5em] h-fit"
                 >
                   See More <LiaAngleRightSolid />
                 </Button>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
       </section>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

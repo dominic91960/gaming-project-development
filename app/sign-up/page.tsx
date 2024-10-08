@@ -117,7 +117,7 @@ const SignUp = () => {
                   {...register("firstName")}
                 />
                 {errors.firstName && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-red-500 mt-[0.2em]">
                     {errors.firstName.message}
                   </p>
                 )}
@@ -133,7 +133,7 @@ const SignUp = () => {
                   {...register("lastName")}
                 />
                 {errors.lastName && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-red-500 mt-[0.2em]">
                     {errors.lastName.message}
                   </p>
                 )}
@@ -150,7 +150,9 @@ const SignUp = () => {
                 {...register("email")}
               />
               {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
+                <p className="text-red-500 mt-[0.2em]">
+                  {errors.email.message}
+                </p>
               )}
             </div>
 
@@ -166,7 +168,7 @@ const SignUp = () => {
                   {...register("password")}
                 />
                 {errors.password && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-red-500 mt-[0.2em]">
                     {errors.password.message}
                   </p>
                 )}
@@ -182,7 +184,7 @@ const SignUp = () => {
                   {...register("confirmPassword")}
                 />
                 {errors.confirmPassword && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-red-500 mt-[0.2em]">
                     {errors.confirmPassword.message}
                   </p>
                 )}

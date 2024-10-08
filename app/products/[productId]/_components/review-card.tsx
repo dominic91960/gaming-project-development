@@ -23,7 +23,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   rating,
 }) => {
   return (
-    <article className="bg-black border w-[25em] p-[3em] text-base mb-[3.8em]">
+    <article className="w-full bg-black border lg:w-[25em] p-[3em] text-[1.2em] sm:text-[0.8em] lg:text-[0.7em] xl:text-[0.8em] mb-[2em]">
+      {/* Avatar, username and name */}
       <div className="flex items-center gap-x-[1.5em] pb-[1.25em] border-b">
         <div>
           <Image
@@ -37,26 +38,41 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
           <p className="text-[0.9em]">By {fullname}</p>
         </div>
       </div>
+
+      {/* Review title */}
       <h5 className="my-[1.25em] font-semibold capitalize">{title}</h5>
-      <p className="mb-[1.25em]">&#8220;{content}&#8221;</p>
-      <p className="mb-[1.25em]">{date}</p>
-      <p className="text-[#f29d38] mb-[1.25em]">
-        <StarRating rating={rating} />
-      </p>
-      <div className="flex items-center gap-x-[0.9em]">
+
+      {/* Review content */}
+      <p className="mb-[1.25em] text-justify">&#8220;{content}&#8221;</p>
+
+      {/* Review date and rating*/}
+      <div className="flex justify-between">
+        {/* Review date */}
+        <p className="mb-[1.25em]">{date}</p>
+
+        {/* Rating */}
+        <p className="text-[#f29d38] mb-[1.25em]">
+          <StarRating rating={rating} />
+        </p>
+      </div>
+
+      {/* Button group */}
+      <div className="flex items-center justify-between gap-x-[0.9em]">
         <p>Is this helpful to you &#63;</p>
-        <Button
-          variant="outline"
-          className="h-fit rounded-none text-[1em] px-[0.5em] py-[0.1em]"
-        >
-          Yes
-        </Button>
-        <Button
-          variant="outline"
-          className="h-fit rounded-none text-[1em] px-[0.5em] py-[0.1em]"
-        >
-          No
-        </Button>
+        <div className="flex gap-x-[1em]">
+          <Button
+            variant="outline"
+            className="h-fit rounded-none text-[1em] px-[0.5em] py-[0.1em]"
+          >
+            Yes
+          </Button>
+          <Button
+            variant="outline"
+            className="h-fit rounded-none text-[1em] px-[0.5em] py-[0.1em]"
+          >
+            No
+          </Button>
+        </div>
       </div>
     </article>
   );
