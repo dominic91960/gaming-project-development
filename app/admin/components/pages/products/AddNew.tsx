@@ -1,3 +1,5 @@
+import AddProducts from "./all-products/AddProducts";
+
 const AddNew = () => {
   return (
     <div>
