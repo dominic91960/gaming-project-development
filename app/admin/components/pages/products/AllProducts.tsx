@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AllProductsNew, columns } from "./all-products/columns";
 import { DataTable } from "./all-products/data-table";
 import AddProducts from "./all-products/AddProducts";
+import { ColumnDef } from "@tanstack/react-table";
 
 // Initial data function
 function getInitialData(): AllProductsNew[] {
@@ -39,6 +40,32 @@ export default function AllProducts() {
     setProducts((prevProducts) => [...prevProducts, newProduct]);
   };
 
+  // Function to delete a product by ID
+  const handleDeleteProduct = (id: string) => {
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product.id !== id)
+    );
+  };
+
+  // Add a delete column to the columns definition
+  const deleteColumn: ColumnDef<AllProductsNew> = {
+    header: "Actions",
+    id: "actions",
+    cell: ({ row }) => (
+      <button
+        className="bg-red-500 text-white px-2 py-1 rounded"
+        onClick={() => handleDeleteProduct(row.original.id)}
+      >
+        Delete
+      </button>
+    ),
+  };
+
+  const columnsWithDelete: ColumnDef<AllProductsNew>[] = [
+    ...columns,
+    deleteColumn,
+  ];
+
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-2xl font-bold mb-4">All Products</h1>
@@ -47,7 +74,7 @@ export default function AllProducts() {
       <AddProducts onAddProduct={handleAddProduct} />
 
       {/* Data Table */}
-      <DataTable columns={columns} data={products} />
+      <DataTable columns={columnsWithDelete} data={products} />
     </div>
   );
 }
