@@ -31,22 +31,22 @@ export default function BrandsPage() {
 
   useEffect(() => {
     const getData = async () => {
-    axiosInstance
-      .get("/brands")
-      .then((response) => {
-        setData(
-          response.data.map((brand: any) => ({
-            id: brand.id,
-            name: brand.name,
-            description: brand.description,
-            imageUrl: brand.image || "/images/sample-pic.png",
-          }))
-        );
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }
+      axiosInstance
+        .get("/brands")
+        .then((response) => {
+          setData(
+            response.data.map((brand: any) => ({
+              id: brand.id,
+              name: brand.name,
+              description: brand.description,
+              imageUrl: brand.image || "/images/sample-pic.png",
+            }))
+          );
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
     console.log("BrandsPage reloaded");
     getData();
   }, [reload]);
@@ -62,20 +62,19 @@ export default function BrandsPage() {
         name: newBrands.name,
         description: newBrands.description,
         image: newBrands.imageUrl,
-      }
+      };
       const response = await axiosInstance.post("/brands", data);
-      if (response.status === 201){      
+      if (response.status === 201) {
         toast.success("Brand added successfully");
         // setReload(prev => !prev);
-      }
-      else {
+      } else {
         throw new Error("Failed to add brand");
       }
     } catch (error) {
       console.error(error);
       toast.error("Failed to add brand");
     } finally {
-      setReload(prev => !prev);
+      setReload((prev) => !prev);
     }
   };
 
@@ -93,7 +92,7 @@ export default function BrandsPage() {
       toast.error("Error deleting brand");
       console.error(error);
     } finally {
-      setReload(prev => !prev);
+      setReload((prev) => !prev);
     }
   };
 
@@ -112,7 +111,7 @@ export default function BrandsPage() {
       name: brandData.name,
       description: brandData.description,
       image: brandData.imageUrl,
-    }
+    };
     axiosInstance
       .patch(`/brands/${brandData.id}`, data)
       .then((response) => {
@@ -127,7 +126,7 @@ export default function BrandsPage() {
         console.error(error);
       })
       .finally(() => {
-        setReload(prev => !prev);
+        setReload((prev) => !prev);
         setEditPopupOpen(false);
       });
   };
