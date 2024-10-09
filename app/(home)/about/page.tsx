@@ -155,127 +155,129 @@ function AboutPage() {
           <div className="w-full h-1/2 absolute bottom-0 bg-gradient-to-t from-black to-transparent"></div>
         </div>
 
-        {/* Container for the rest of the content */}
-        <div className="container mx-auto px-[36px]">
-          {/* Card trio */}
-          <div className="mt-[5.625em] flex flex-col items-center gap-[2em] font-semibold text-[12px] my-[2em] sm:flex-row sm:justify-around sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
-            {cardTrioData.map(({ icon, cardTitle, cardText }, i) => (
-              <article
-                key={cardTitle}
-                className={`flex ${
-                  i % 2 !== 0 ? "flex-row-reverse" : ""
-                } items-center gap-x-[0.7em] sm:max-w-[22ch] sm:flex-col sm:text-center`}
-              >
-                <div className="text-[3em] text-[#0BDB45]">{icon}</div>
-                <div>
-                  <h4 className="capitalize mb-[0.1em] sm:my-[1em]">
-                    {cardTitle}
-                  </h4>
-                  <p className="font-normal text-[0.7em]">{cardText}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          {/* Services */}
-          <div className="mt-[7.5em] grid gap-[2em] text-[10px] sm:grid-cols-2 sm:text-[12px] md:text-[16px] lg:text-[20px] xl:text-[22px] xl:gap-[5em] 2xl:text-[24px] 2xl:gap-[7.5em]">
-            {/* Text div */}
-            <div className="my-auto">
-              <h3 className="font-light ">Our services</h3>
-              <h2 className="w-[14ch] font-extrabold text-[2em] capitalize border-b border-b-[#057424] sm:w-full">
-                What we <span className="text-[#0BDB45]">do</span>.
-              </h2>
-              <p className="text-justify text-[0.7em] mt-[1.5em]">
-                It was popularised in the 1960s with the release of Letraset
-                sheets containing Lorem Ipsum passages, and more recently with
-                desktop publishing software like Aldus PageMaker including
-                versions of Lorem Ipsum.
-              </p>
-              <p className="text-justify text-[0.7em] mt-[1.5em]">
-                It was popularised in the 1960s with the release of Letraset
-                sheets containing Lorem Ipsum passages, and more recently with
-                desktop publishing software like Aldus PageMaker including
-                versions of Lorem Ipsum.desktop publishing software like Aldus
-                PageMaker including versions of Lorem Ipsum. with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.desktop publishing software like Aldus PageMaker
-                including versions of Lorem Ipsum.
-              </p>
-              <Button
-                variant="gaming"
-                className="text-[0.9em] px-[2em] py-[0.5em] h-fit mt-[1.5em] sm:text-[0.8em]"
-              >
-                See More <LiaAngleRightSolid />
-              </Button>
-            </div>
-
-            {/* Card div */}
-            <div className="grid grid-cols-2 grid-rows-2 gap-[1.8em]">
-              {whatWeDoData.map(({ icon, cardTitle, cardText }, i) => (
+        <div className="bg-gradient-to-b from-black from-0% via-transparent via-20% to-black to-80%">
+          {/* Container for the rest of the content */}
+          <div className="container mx-auto px-[36px]">
+            {/* Card trio */}
+            <div className="pt-[5.625em] flex flex-col items-center gap-[2em] font-semibold text-[12px] sm:flex-row sm:justify-around sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              {cardTrioData.map(({ icon, cardTitle, cardText }, i) => (
                 <article
-                  key={i}
-                  className={`${
-                    i % 2 === 0
-                      ? "bg-gradient-to-t from-white/20 to-transparent"
-                      : "bg-gradient-to-b from-white/20 to-transparent"
-                  } border flex flex-col items-center text-center px-[1.6em] py-[1.1em]`}
-                  style={{
-                    borderImage:
-                      i % 2 === 0
-                        ? "linear-gradient(to top, transparent, #75F94C) 1"
-                        : "linear-gradient(to bottom, transparent, #75F94C) 1",
-                  }}
+                  key={cardTitle}
+                  className={`flex ${
+                    i % 2 !== 0 ? "flex-row-reverse" : ""
+                  } items-center gap-x-[0.7em] sm:max-w-[22ch] sm:flex-col sm:text-center`}
                 >
-                  <div className="text-[3.4em] text-[#0BDB45]">{icon}</div>
-                  <h4 className="font-bold my-[0.5em]">
-                    {cardTitle[0]}{" "}
-                    <span className="text-[#0BDB45]">{cardTitle[1]}</span>
-                  </h4>
-                  <p className="text-[0.7em] sm:text-[0.5em]">{cardText}</p>
+                  <div className="text-[3em] text-[#0BDB45]">{icon}</div>
+                  <div>
+                    <h4 className="capitalize mb-[0.1em] sm:my-[1em]">
+                      {cardTitle}
+                    </h4>
+                    <p className="font-normal text-[0.7em]">{cardText}</p>
+                  </div>
                 </article>
               ))}
             </div>
-          </div>
 
-          {/* Client feedback */}
-          <div className="mt-[4.5em] mb-[3em] text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] xl:text-[36px] 2xl:text-[40px]">
-            <h2 className="capitalize font-bold mb-[1.5em]">
-              Our Client Feedback
-            </h2>
-            <Swiper
-              slidesPerView={1}
-              breakpoints={{
-                640: {
-                  slidesPerView: 2,
-                },
-                1280: {
-                  slidesPerView: 3,
-                },
-              }}
-              spaceBetween={30}
-              loop
-              pagination={{
-                clickable: true,
-                dynamicBullets: true,
-              }}
-              modules={[Pagination]}
-              className="mySwiper"
-            >
-              {reviews.map(
-                ({ avatar, username, fullname, content, date, rating }) => (
-                  <SwiperSlide key={username}>
-                    <FeedbackCard
-                      avatar={avatar}
-                      username={username}
-                      fullname={fullname}
-                      content={content}
-                      date={date}
-                      rating={rating}
-                    />
-                  </SwiperSlide>
-                )
-              )}
-            </Swiper>
+            {/* Services */}
+            <div className="mt-[7.5em] grid gap-[2em] text-[10px] sm:grid-cols-2 sm:text-[12px] md:text-[16px] lg:text-[20px] xl:text-[22px] xl:gap-[5em] 2xl:text-[24px] 2xl:gap-[7.5em]">
+              {/* Text div */}
+              <div className="my-auto">
+                <h3 className="font-light ">Our services</h3>
+                <h2 className="w-[14ch] font-extrabold text-[2em] capitalize border-b border-b-[#057424] sm:w-full">
+                  What we <span className="text-[#0BDB45]">do</span>.
+                </h2>
+                <p className="text-justify text-[0.7em] mt-[1.5em]">
+                  It was popularised in the 1960s with the release of Letraset
+                  sheets containing Lorem Ipsum passages, and more recently with
+                  desktop publishing software like Aldus PageMaker including
+                  versions of Lorem Ipsum.
+                </p>
+                <p className="text-justify text-[0.7em] mt-[1.5em]">
+                  It was popularised in the 1960s with the release of Letraset
+                  sheets containing Lorem Ipsum passages, and more recently with
+                  desktop publishing software like Aldus PageMaker including
+                  versions of Lorem Ipsum.desktop publishing software like Aldus
+                  PageMaker including versions of Lorem Ipsum. with desktop
+                  publishing software like Aldus PageMaker including versions of
+                  Lorem Ipsum.desktop publishing software like Aldus PageMaker
+                  including versions of Lorem Ipsum.
+                </p>
+                <Button
+                  variant="gaming"
+                  className="text-[0.9em] px-[2em] py-[0.5em] h-fit mt-[1.5em] sm:text-[0.8em]"
+                >
+                  See More <LiaAngleRightSolid />
+                </Button>
+              </div>
+
+              {/* Card div */}
+              <div className="grid grid-cols-2 grid-rows-2 gap-[1.8em]">
+                {whatWeDoData.map(({ icon, cardTitle, cardText }, i) => (
+                  <article
+                    key={i}
+                    className={`${
+                      i % 2 === 0
+                        ? "bg-gradient-to-t from-white/20 to-transparent"
+                        : "bg-gradient-to-b from-white/20 to-transparent"
+                    } border flex flex-col items-center text-center px-[1.6em] py-[1.1em]`}
+                    style={{
+                      borderImage:
+                        i % 2 === 0
+                          ? "linear-gradient(to top, transparent, #75F94C) 1"
+                          : "linear-gradient(to bottom, transparent, #75F94C) 1",
+                    }}
+                  >
+                    <div className="text-[3.4em] text-[#0BDB45]">{icon}</div>
+                    <h4 className="font-bold my-[0.5em]">
+                      {cardTitle[0]}{" "}
+                      <span className="text-[#0BDB45]">{cardTitle[1]}</span>
+                    </h4>
+                    <p className="text-[0.7em] sm:text-[0.5em]">{cardText}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            {/* Client feedback */}
+            <div className="mt-[4.5em] pb-[3em] text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] xl:text-[36px] 2xl:text-[40px]">
+              <h2 className="capitalize font-bold mb-[1.5em]">
+                Our Client Feedback
+              </h2>
+              <Swiper
+                slidesPerView={1}
+                breakpoints={{
+                  640: {
+                    slidesPerView: 2,
+                  },
+                  1280: {
+                    slidesPerView: 3,
+                  },
+                }}
+                spaceBetween={30}
+                loop
+                pagination={{
+                  clickable: true,
+                  dynamicBullets: true,
+                }}
+                modules={[Pagination]}
+                className="mySwiper"
+              >
+                {reviews.map(
+                  ({ avatar, username, fullname, content, date, rating }) => (
+                    <SwiperSlide key={username}>
+                      <FeedbackCard
+                        avatar={avatar}
+                        username={username}
+                        fullname={fullname}
+                        content={content}
+                        date={date}
+                        rating={rating}
+                      />
+                    </SwiperSlide>
+                  )
+                )}
+              </Swiper>
+            </div>
           </div>
         </div>
       </section>

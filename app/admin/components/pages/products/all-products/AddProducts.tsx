@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { AllProductsNew } from "../all-products/columns";
+import GeneralDataForm from "./GeneralDataForm";
+import PricingDataForm from "./PricingDataForm";
 
 interface AddProductsProps {
   onAddProduct: (newProduct: AllProductsNew) => void;
@@ -43,99 +45,52 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mb-6 p-4 border rounded-md text-white"
-    >
-      <h2 className="text-xl font-semibold mb-4">Add New Product</h2>
-      <div className="mb-4">
-        <label className="block mb-1">Product Name</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-          required
+    <form onSubmit={handleSubmit} className="text-[15px] text-white px-[36px]">
+      {/* General data form*/}
+      <h2 className="font-bold text-[1.3em] mb-[1.15em]">General Data</h2>
+      <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm">
+        <GeneralDataForm
+          name={name}
+          setName={setName}
+          date={date}
+          setDate={setDate}
         />
       </div>
-      <div className="mb-4">
-        <label className="block mb-1 text-white">SKU</label>
-        <input
-          type="text"
-          value={sku}
-          onChange={(e) => setSku(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-          required
+
+      {/* Pricing data form*/}
+      <h2 className="font-bold text-[1.3em] mb-[1.15em]">Pricing Data</h2>
+      <div className="bg-black/40 px-[2.2em] py-[3.3em] border border-[#0D6D49] rounded-sm">
+        <PricingDataForm
+          regularPrice={regularPrice}
+          setRegularPrice={setRegularPrice}
+          sellingPrice={sellingPrice}
+          setSellingPrice={setSellingPrice}
+          sku={sku}
+          setSku={setSku}
+          stock={stock}
+          setStock={setStock}
         />
       </div>
-      <div className="mb-4">
-        <label className="block mb-1">Stock</label>
-        <input
-          type="text"
-          value={stock}
-          onChange={(e) => setStock(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block mb-1">Selling Price</label>
-        <input
-          type="text"
-          value={sellingPrice}
-          onChange={(e) => setSellingPrice(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block mb-1">Regular Price</label>
-        <input
-          type="text"
-          value={regularPrice}
-          onChange={(e) => setRegularPrice(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block mb-1">Status</label>
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-        >
-          <option value="Public">Public</option>
-          <option value="Private">Private</option>
-          <option value="Archived">Archived</option>
-        </select>
-      </div>
-      <div className="mb-4">
-        <label className="block mb-1">Date</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block mb-1">Image URL</label>
+
+      <div className="mt-[2em] mb-[1.5em]">
+        <label className="block mb-[0.5em]">Image URL</label>
         <input
           type="text"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
           required
         />
       </div>
-      <button
-        type="submit"
-        className="px-4 py-2 bg-blue-500 text-white rounded"
-      >
-        Save Product
-      </button>
+
+      <div className="flex justify-end">
+        <button
+          type="submit"
+          className="bg-[#00FFA1] font-semibold text-black text-[calc(1em+1px)] uppercase px-[2.4em] py-[0.5em] rounded-sm hover:opacity-90 transition-opacity duration-100"
+        >
+          Add product
+        </button>
+      </div>
     </form>
   );
 }
