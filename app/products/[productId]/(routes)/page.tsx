@@ -142,7 +142,7 @@ export default function ProductPage() {
     <>
       <ProductSearchBar />
       {/* <Navbar /> */}
-      <section className="bg-[#051301] font-primaryFont">
+      <section className="bg-[#051301] font-primaryFont text-white">
         {/* Image area with gradient */}
         <div
           className="relative h-[160px] bg-[length:640px_360px] bg-fixed sm:h-[220px] sm:bg-contain md:h-[280px] lg:h-[340px] lg:bg-[0px_-115px] 2xl:h-[480px]"
@@ -253,7 +253,7 @@ export default function ProductPage() {
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-[1em] mt-[1em] text-[8px] sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-semibold text-center text-white sm:w-[40ch] md:w-[49ch] lg:w-[67ch] xl:w-[87ch] 2xl:w-[102ch]">
+                <div className="flex flex-wrap gap-[1em] mt-[1em] text-[8px] sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-semibold text-center sm:w-[40ch] md:w-[49ch] lg:w-[67ch] xl:w-[87ch] 2xl:w-[102ch]">
                   {gameData.tags.map((tag) => (
                     <div
                       key={tag}
@@ -421,7 +421,7 @@ export default function ProductPage() {
                 />
                 <div>
                   <p className="font-bold text-[1.4em] uppercase">Global</p>
-                  <p>All country</p>
+                  <p className="opacity-70">All country</p>
                 </div>
               </div>
 
@@ -438,7 +438,7 @@ export default function ProductPage() {
                   <p className="font-bold text-[1.4em] uppercase">
                     {gameData.platform}
                   </p>
-                  <p>Activate/redeem on Steam</p>
+                  <p className="opacity-70">Activate/redeem on Steam</p>
                 </div>
               </div>
 
@@ -455,7 +455,7 @@ export default function ProductPage() {
                   <p className="font-bold text-[1.4em] uppercase">
                     Digital keys
                   </p>
-                  <p>Instant delivery</p>
+                  <p className="opacity-70">Instant delivery</p>
                 </div>
               </div>
             </div>
@@ -476,7 +476,7 @@ export default function ProductPage() {
                   <Image src={mastercard} alt="Mastercard" />
                   <Image src={skrill} alt="Skrill" />
                 </div>
-                <p>
+                <p className="opacity-70">
                   Your payment information is processed securely. We do not
                   store credit card details nor have access to your credit card
                   information.
@@ -490,7 +490,7 @@ export default function ProductPage() {
                 About this game
               </h3>
               <div className="bg-white/5 p-[2em] mt-[2em]">
-                <p className="pb-[2em] text-justify">
+                <p className="pb-[2em] text-justify opacity-70">
                   Experience the first-ever open world Star Wars™ game and
                   explore distinct locations across the galaxy, both iconic and
                   new. Risk it all as scoundrel Kay Vess, seeking freedom and
