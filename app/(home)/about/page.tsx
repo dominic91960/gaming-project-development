@@ -4,12 +4,14 @@ import Image from "next/image";
 import { IoGameController } from "react-icons/io5";
 import { BsFillPostcardHeartFill } from "react-icons/bs";
 import { GiPayMoney } from "react-icons/gi";
+import { LiaAngleRightSolid } from "react-icons/lia";
+import { Button } from "@/components/ui/button";
 
 import ProductSearchBar from "@/components/product-search/product-search";
 import Footer from "@/components/footer/footer";
 import bg from "@/public/images/products/bg.png";
 
-const cardTrio = [
+const cardTrioData = [
   {
     icon: <IoGameController />,
     cardTitle: "Games",
@@ -27,6 +29,31 @@ const cardTrio = [
     cardTitle: "Top-Ups",
     cardText:
       "Let's discover the joy of gaming together! Whether on PC, consoles, we have your back",
+  },
+];
+
+const whatWeDoData = [
+  {
+    icon: <IoGameController />,
+    cardTitle: ["What we", "Do"],
+    cardText: "It was popularised in the 1960s with the",
+  },
+  {
+    icon: <IoGameController />,
+    cardTitle: ["What we", "Do"],
+    cardText:
+      "It was popularised in the 1960s with the It was popularised iIt was popularised in the 1960s with the",
+  },
+  {
+    icon: <IoGameController />,
+    cardTitle: ["What we", "Do"],
+    cardText:
+      "It was popularised in the 1960s with the It was popularised iIt was popularised in the 1960s with the",
+  },
+  {
+    icon: <IoGameController />,
+    cardTitle: ["What we", "Do"],
+    cardText: "It was popularised in the 1960s with the",
   },
 ];
 
@@ -66,8 +93,8 @@ function AboutPage() {
         {/* Container for the rest of the content */}
         <div className="container mx-auto px-[36px]">
           {/* Card trio */}
-          <div className="flex flex-col items-center gap-[2em] font-semibold text-[12px] my-[2em] sm:flex-row sm:justify-around sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[15.5px] 2xl:text-[16px]">
-            {cardTrio.map(({ icon, cardTitle, cardText }, i) => (
+          <div className="flex flex-col items-center gap-[2em] font-semibold text-[12px] my-[2em] sm:flex-row sm:justify-around sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+            {cardTrioData.map(({ icon, cardTitle, cardText }, i) => (
               <article
                 key={cardTitle}
                 className={`flex ${
@@ -83,6 +110,66 @@ function AboutPage() {
                 </div>
               </article>
             ))}
+          </div>
+
+          {/* Services */}
+          <div className="grid gap-[2em] text-[10px] sm:grid-cols-2 sm:text-[12px] md:text-[16px] lg:text-[20px] xl:text-[22px] xl:gap-[5em] 2xl:text-[24px] 2xl:gap-[7.5em]">
+            {/* Text div */}
+            <div className="my-auto">
+              <h3 className="font-light ">Our services</h3>
+              <h2 className="w-[14ch] font-extrabold text-[2em] capitalize border-b border-b-[#057424] sm:w-full">
+                What we <span className="text-[#0BDB45]">do</span>.
+              </h2>
+              <p className="text-justify text-[0.7em] mt-[1.5em]">
+                It was popularised in the 1960s with the release of Letraset
+                sheets containing Lorem Ipsum passages, and more recently with
+                desktop publishing software like Aldus PageMaker including
+                versions of Lorem Ipsum.
+              </p>
+              <p className="text-justify text-[0.7em] mt-[1.5em]">
+                It was popularised in the 1960s with the release of Letraset
+                sheets containing Lorem Ipsum passages, and more recently with
+                desktop publishing software like Aldus PageMaker including
+                versions of Lorem Ipsum.desktop publishing software like Aldus
+                PageMaker including versions of Lorem Ipsum. with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.desktop publishing software like Aldus PageMaker
+                including versions of Lorem Ipsum.
+              </p>
+              <Button
+                variant="gaming"
+                className="text-[0.9em] px-[2em] py-[0.5em] h-fit mt-[1.5em] sm:text-[0.8em]"
+              >
+                See More <LiaAngleRightSolid />
+              </Button>
+            </div>
+
+            {/* Card div */}
+            <div className="grid grid-cols-2 grid-rows-2 gap-[1.8em]">
+              {whatWeDoData.map(({ icon, cardTitle, cardText }, i) => (
+                <article
+                  key={i}
+                  className={`${
+                    i % 2 === 0
+                      ? "bg-gradient-to-t from-white/20 to-transparent"
+                      : "bg-gradient-to-b from-white/20 to-transparent"
+                  } border flex flex-col items-center text-center px-[1.6em] py-[1.1em]`}
+                  style={{
+                    borderImage:
+                      i % 2 === 0
+                        ? "linear-gradient(to top, transparent, #75F94C) 1"
+                        : "linear-gradient(to bottom, transparent, #75F94C) 1",
+                  }}
+                >
+                  <div className="text-[3.4em] text-[#0BDB45]">{icon}</div>
+                  <h4 className="font-bold my-[0.5em]">
+                    {cardTitle[0]}{" "}
+                    <span className="text-[#0BDB45]">{cardTitle[1]}</span>
+                  </h4>
+                  <p className="text-[0.7em] sm:text-[0.5em]">{cardText}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
