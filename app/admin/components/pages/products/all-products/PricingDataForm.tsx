@@ -1,5 +1,13 @@
 import React, { SetStateAction } from "react";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 interface PricingDataFormProps {
   regularPrice: string;
   setRegularPrice: (value: SetStateAction<string>) => void;
@@ -78,13 +86,26 @@ const PricingDataForm: React.FC<PricingDataFormProps> = ({
       {/* Stock status */}
       <div>
         <label className="block mb-[0.5em]">Stock status</label>
-        <input
-          type="text"
+        <Select
           value={stock}
-          onChange={(e) => setStock(e.target.value)}
-          className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
+          onValueChange={(value: string) => setStock(value)}
           required
-        />
+        >
+          <SelectTrigger className="text-[15px] border-[#606060]">
+            <SelectValue placeholder="Select status" />
+          </SelectTrigger>
+          <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+            {["In Stock", "Out Of Stock", "On Backorder"].map((option) => (
+              <SelectItem
+                key={option}
+                value={option}
+                className="h-fit ps-[3.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[15px]"
+              >
+                {option}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     </>
   );
