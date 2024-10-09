@@ -69,10 +69,10 @@ const SignUp = () => {
   };
 
   return (
-    <>
+    <section className="flex flex-col min-h-svh bg-[#0B0E13]">
       <ProductSearchBar />
       {/* <Navbar /> */}
-      <div className="bg-[#0B0E13] h-full flex items-center justify-center font-primaryFont text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] text-white px-[36px]">
+      <div className="bg-[#0B0E13] flex-grow flex items-center justify-center font-primaryFont text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] text-white px-[36px] p-[50px]">
         <div className="w-full border px-[2em] py-[1em] sm:px-[8em] sm:py-[3.3em] sm:w-fit">
           <div className="flex items-center justify-center">
             <Image src={Logo} alt="logo" />
@@ -229,7 +229,7 @@ const SignUp = () => {
           </Link>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 
