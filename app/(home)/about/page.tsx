@@ -1,15 +1,23 @@
+"use client";
+
 import React from "react";
-import Image from "next/image";
 
 import { IoGameController } from "react-icons/io5";
 import { BsFillPostcardHeartFill } from "react-icons/bs";
 import { GiPayMoney } from "react-icons/gi";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { Button } from "@/components/ui/button";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
 import ProductSearchBar from "@/components/product-search/product-search";
+import FeedbackCard from "./_components/feedback-card";
 import Footer from "@/components/footer/footer";
+
 import bg from "@/public/images/products/bg.png";
+import samplePic from "@/public/images/sample-pic.png";
 
 const cardTrioData = [
   {
@@ -57,6 +65,63 @@ const whatWeDoData = [
   },
 ];
 
+const reviews = [
+  {
+    avatar: samplePic,
+    username: "The Gamer",
+    fullname: "John Doe",
+    content:
+      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
+    date: "March 29, 2024",
+    rating: 5,
+  },
+  {
+    avatar: samplePic,
+    username: "The Gamer 2",
+    fullname: "John Doe",
+    content:
+      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
+    date: "March 29, 2024",
+    rating: 4,
+  },
+  {
+    avatar: samplePic,
+    username: "The Gamer 3",
+    fullname: "John Doe",
+    content:
+      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
+    date: "March 29, 2024",
+    rating: 5,
+  },
+  {
+    avatar: samplePic,
+    username: "The Gamer",
+    fullname: "John Doe",
+    content:
+      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
+    date: "March 29, 2024",
+    rating: 5,
+  },
+  {
+    avatar: samplePic,
+    username: "The Gamer 2",
+    fullname: "John Doe",
+    content:
+      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
+    date: "March 29, 2024",
+    rating: 4,
+  },
+  {
+    avatar: samplePic,
+    username: "The Gamer 3",
+    fullname: "John Doe",
+    content:
+      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
+    date: "March 29, 2024",
+    rating: 5,
+  },
+];
+
 function AboutPage() {
   return (
     <>
@@ -93,7 +158,7 @@ function AboutPage() {
         {/* Container for the rest of the content */}
         <div className="container mx-auto px-[36px]">
           {/* Card trio */}
-          <div className="flex flex-col items-center gap-[2em] font-semibold text-[12px] my-[2em] sm:flex-row sm:justify-around sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+          <div className="mt-[5.625em] flex flex-col items-center gap-[2em] font-semibold text-[12px] my-[2em] sm:flex-row sm:justify-around sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
             {cardTrioData.map(({ icon, cardTitle, cardText }, i) => (
               <article
                 key={cardTitle}
@@ -113,7 +178,7 @@ function AboutPage() {
           </div>
 
           {/* Services */}
-          <div className="grid gap-[2em] text-[10px] sm:grid-cols-2 sm:text-[12px] md:text-[16px] lg:text-[20px] xl:text-[22px] xl:gap-[5em] 2xl:text-[24px] 2xl:gap-[7.5em]">
+          <div className="mt-[7.5em] grid gap-[2em] text-[10px] sm:grid-cols-2 sm:text-[12px] md:text-[16px] lg:text-[20px] xl:text-[22px] xl:gap-[5em] 2xl:text-[24px] 2xl:gap-[7.5em]">
             {/* Text div */}
             <div className="my-auto">
               <h3 className="font-light ">Our services</h3>
@@ -171,9 +236,71 @@ function AboutPage() {
               ))}
             </div>
           </div>
+
+          {/* Client feedback */}
+          <div className="mt-[4.5em] mb-[3em] text-[16px] sm:text-[20px] md:text-[24px] lg:text-[30px] xl:text-[36px] 2xl:text-[40px]">
+            <h2 className="capitalize font-bold mb-[1.5em]">
+              Our Client Feedback
+            </h2>
+            <Swiper
+              slidesPerView={1}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                },
+                1280: {
+                  slidesPerView: 3,
+                },
+              }}
+              spaceBetween={30}
+              loop
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {reviews.map(
+                ({ avatar, username, fullname, content, date, rating }) => (
+                  <SwiperSlide key={username}>
+                    <FeedbackCard
+                      avatar={avatar}
+                      username={username}
+                      fullname={fullname}
+                      content={content}
+                      date={date}
+                      rating={rating}
+                    />
+                  </SwiperSlide>
+                )
+              )}
+            </Swiper>
+          </div>
         </div>
       </section>
-      {/* <Footer /> */}
+      <Footer />
+
+      <style>{`
+          .swiper {
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 35px;
+          }
+          
+          .swiper-slide {
+            width: fit-content;
+          }
+          
+          .swiper-pagination-bullet {
+            background-color: #0BDB45;
+          }
+
+          .swiper-pagination-bullet-active {
+            width: 10px;
+            height: 10px;
+          }
+        `}</style>
     </>
   );
 }
