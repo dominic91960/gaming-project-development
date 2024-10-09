@@ -1,4 +1,3 @@
-// add-products/AddProducts.tsx
 import { useState } from "react";
 import { AllProductsNew } from "../all-products/columns";
 
@@ -20,7 +19,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
     e.preventDefault();
 
     const newProduct: AllProductsNew = {
-      id: Math.random().toString(36).substr(2, 9), // Generate a unique ID
+      id: Math.random().toString(36).substr(2, 9),
       imageUrl,
       name,
       sku,
@@ -33,7 +32,6 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
 
     onAddProduct(newProduct);
 
-    // Clear the form fields after submission
     setName("");
     setSku("");
     setStock("");

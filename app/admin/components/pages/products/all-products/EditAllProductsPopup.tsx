@@ -1,4 +1,3 @@
-// EditAllProductsPopup.tsx
 import React, { ChangeEvent } from "react";
 import { AllProductsNew } from "./columns";
 
@@ -18,7 +17,6 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
   const [editedProduct, setEditedProduct] =
     React.useState<AllProductsNew | null>(product);
 
-  // Sync state when product changes
   React.useEffect(() => {
     setEditedProduct(product);
   }, [product]);
