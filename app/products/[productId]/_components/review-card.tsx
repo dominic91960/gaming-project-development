@@ -1,7 +1,9 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import StarRating from "@/app/(home)/_components/star-rating";
+
 import { Button } from "@/components/ui/button";
+
+import StarRating from "@/app/(home)/_components/star-rating";
 
 interface ReviewCardProps {
   avatar: StaticImageData;
