@@ -21,7 +21,7 @@ const FeedbackCard: React.FC<FeedbackCardProps> = ({
   rating,
 }) => {
   return (
-    <article className="w-full bg-black border mx-auto p-[3em] text-[8px] mb-[2em] sm:w-[25em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
+    <article className="w-full bg-black border mx-auto p-[3em] text-[8px] mb-[2em] sm:w-[25em] sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[13px]">
       {/* Avatar, username and name */}
       <div className="flex items-center gap-x-[1.5em] pb-[1.25em] border-b">
         <div>
@@ -33,12 +33,14 @@ const FeedbackCard: React.FC<FeedbackCardProps> = ({
         </div>
         <div>
           <h4 className="text-[1.25em] font-bold">{username}</h4>
-          <p className="text-[0.9em]">By {fullname}</p>
+          <p className="text-[0.9em] opacity-70">By {fullname}</p>
         </div>
       </div>
 
       {/* Review content */}
-      <p className="my-[1.25em] text-justify">&#8220;{content}&#8221;</p>
+      <p className="my-[1.25em] text-justify opacity-70">
+        &#8220;{content}&#8221;
+      </p>
 
       {/* Review date */}
       <p className="mb-[1.25em]">{date}</p>
