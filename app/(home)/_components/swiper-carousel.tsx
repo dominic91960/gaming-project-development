@@ -19,7 +19,6 @@ import gamePoster from "@/public/images/home/swiper-carousel/poster.png";
 const data = [
   {
     background: posterBg,
-    theme: "#33CCFF",
     poster: gamePoster,
     title: "Black Myth: Wukong",
     rating: 5,
@@ -33,7 +32,6 @@ const data = [
   },
   {
     background: posterBg2,
-    theme: "#FF8200",
     poster: gamePoster,
     title: "Black Myth: Wukong",
     rating: 5,
@@ -47,7 +45,6 @@ const data = [
   },
   {
     background: posterBg,
-    theme: "#FA00FF",
     poster: gamePoster,
     title: "Black Myth: Wukong",
     rating: 5,
@@ -61,7 +58,6 @@ const data = [
   },
   {
     background: posterBg2,
-    theme: "#00FF47",
     poster: gamePoster,
     title: "Black Myth: Wukong",
     rating: 5,
@@ -77,13 +73,11 @@ const data = [
 
 const SwiperCarousel = () => {
   const [bg, setBg] = useState("");
-  const [bullet, setBullet] = useState("");
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   const handleSlideChange = (swiper: { realIndex: number }) => {
     const realIndex = swiper.realIndex;
     setBg(data[realIndex].background.src);
-    setBullet(data[realIndex].theme);
   };
 
   return (
@@ -118,7 +112,6 @@ const SwiperCarousel = () => {
           >
             {data.map(
               ({
-                theme,
                 poster,
                 title,
                 rating,
@@ -129,10 +122,10 @@ const SwiperCarousel = () => {
               }) => (
                 <SwiperSlide key={title}>
                   <div
-                    className="w-full h-fit backdrop-blur-[2px] p-[5em] pt-0 mt-[8em] mb-[3em] md:p-[2em] md:mt-[4em] md:mb-[0.5em] md:grid md:grid-cols-2 md:place-items-end md:gap-x-[2em]"
+                    className="w-full h-fit backdrop-blur-[10px] p-[5em] pt-0 mt-[8em] mb-[3em] md:p-[2em] md:mt-[4em] md:mb-[0.5em] md:grid md:grid-cols-2 md:place-items-end md:gap-x-[2em]"
                     style={{
-                      backgroundImage: `linear-gradient(to top right, ${theme}80 0%, #FFFFFF14 25%, #FFFFFF14 75%, ${theme}80 100%)`,
-                      borderImage: `linear-gradient(to bottom right, #9DA8A0 0%, ${theme} 100%) 1`,
+                      backgroundImage: `linear-gradient(to top right, #002304 0%, #FFFFFF14 40%, #FFFFFF14 60%, #002304 100%)`,
+                      borderImage: `linear-gradient(to bottom, #9DA8A0 0%, #00FF47 100%) 1`,
                       borderWidth: "1px",
                       borderStyle: "solid",
                     }}
@@ -157,7 +150,7 @@ const SwiperCarousel = () => {
                       <hr className="w-2/5" />
 
                       {/* Description */}
-                      <div className="pt-[2em] text-justify">
+                      <div className="pt-[2em] text-justify font-normal">
                         {description.map((paragraph, index) => (
                           <p key={index} className="pb-[1em]">
                             {paragraph}
@@ -227,7 +220,7 @@ const SwiperCarousel = () => {
             }
 
             .swiper-pagination-bullet {
-              background-color: ${bullet};
+              background-color: #45F882;
               transition-property: all;
               transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
               transition-duration: 1s;
