@@ -57,8 +57,8 @@ export default function Home() {
         <IconBar />
       </div> */}
       <SwiperCarousel />
-      {/* <BestSelling />
-      <Catalog /> */}
+      <BestSelling />
+      {/* <Catalog /> */}
       {/* <VerticalCarousel /> */}
       <Footer />
     </>
