@@ -37,7 +37,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
         </div>
         <div>
           <h4 className="text-[1.25em] font-bold">{username}</h4>
-          <p className="text-[0.9em]">By {fullname}</p>
+          <p className="text-[0.9em] opacity-70">By {fullname}</p>
         </div>
       </div>
 
@@ -45,7 +45,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       <h5 className="my-[1.25em] font-semibold capitalize">{title}</h5>
 
       {/* Review content */}
-      <p className="mb-[1.25em] text-justify">&#8220;{content}&#8221;</p>
+      <p className="mb-[1.25em] text-justify opacity-70">
+        &#8220;{content}&#8221;
+      </p>
 
       {/* Review date and rating*/}
       <div className="flex justify-between">
@@ -64,13 +66,13 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
         <div className="flex gap-x-[1em]">
           <Button
             variant="outline"
-            className="h-fit rounded-none text-[1em] px-[0.5em] py-[0.1em]"
+            className="h-fit rounded-none text-[1em] text-white/70 px-[0.5em] py-[0.1em] border-white/70"
           >
             Yes
           </Button>
           <Button
             variant="outline"
-            className="h-fit rounded-none text-[1em] px-[0.5em] py-[0.1em]"
+            className="h-fit rounded-none text-[1em] text-white/70 px-[0.5em] py-[0.1em] border-white/70"
           >
             No
           </Button>

@@ -249,8 +249,11 @@ function AboutPage() {
                   640: {
                     slidesPerView: 2,
                   },
-                  1280: {
+                  1024: {
                     slidesPerView: 3,
+                  },
+                  1536: {
+                    slidesPerView: 4,
                   },
                 }}
                 spaceBetween={30}
