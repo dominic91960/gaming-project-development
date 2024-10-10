@@ -11,6 +11,7 @@ import {
 import { AllProductsNew } from "../all-products/columns";
 import GeneralDataForm from "./GeneralDataForm";
 import PricingDataForm from "./PricingDataForm";
+import SystemRequirements from "./System-Requirement";
 
 interface AddProductsProps {
   onAddProduct: (newProduct: AllProductsNew) => void;
@@ -52,6 +53,9 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
     setDate("");
     setImageUrl("");
   };
+
+  const [selectedTab, setSelectedTab] = useState("windows");
+  const [selectedIcon, setSelectedIcon] = useState("minimum");
 
   return (
     <form
