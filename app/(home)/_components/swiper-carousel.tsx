@@ -157,7 +157,7 @@ const SwiperCarousel = () => {
                       <hr className="w-2/5" />
 
                       {/* Description */}
-                      <div className="pt-[2em] text-justify">
+                      <div className="pt-[2em] text-justify font-normal">
                         {description.map((paragraph, index) => (
                           <p key={index} className="pb-[1em]">
                             {paragraph}
