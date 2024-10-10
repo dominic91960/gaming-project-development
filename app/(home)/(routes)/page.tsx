@@ -21,7 +21,7 @@ export default function Home() {
       {/* <ContactBar /> */}
       <ProductSearchBar />
       <Navbar />
-      {/* <div className="background-home-div relative bg-black h-max">
+      <div className="background-home-div relative bg-black h-max">
         <div className="mx-auto container relative">
           <Image
             src={mainCharacterImage}
@@ -55,11 +55,11 @@ export default function Home() {
         <div className="reduce-background-brightness"></div>
         <div className="absolute bottom-0 w-full h-[400px] bg-gradient-to-t from-black via-black to-transparent"></div>
         <IconBar />
-      </div> */}
+      </div>
       <SwiperCarousel />
       <BestSelling />
-      {/* <Catalog /> */}
-      {/* <VerticalCarousel /> */}
+      <Catalog />
+      <VerticalCarousel />
       <Footer />
     </>
   );
