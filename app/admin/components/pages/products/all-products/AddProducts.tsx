@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AllProductsNew } from "../all-products/columns";
 import GeneralDataForm from "./GeneralDataForm";
 import PricingDataForm from "./PricingDataForm";
+import SystemRequirements from "./System-Requirement";
 
 interface AddProductsProps {
   onAddProduct: (newProduct: AllProductsNew) => void;
@@ -44,6 +45,9 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
     setImageUrl("");
   };
 
+  const [selectedTab, setSelectedTab] = useState("windows");
+  const [selectedIcon, setSelectedIcon] = useState("minimum");
+
   return (
     <form onSubmit={handleSubmit} className="text-[15px] text-white px-[36px]">
       {/* General data form*/}
@@ -82,7 +86,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           required
         />
       </div>
-
+      <SystemRequirements />
       <div className="flex justify-end">
         <button
           type="submit"
