@@ -14,15 +14,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 const SystemRequirements = () => {
   const [selectedTab, setSelectedTab] = useState("windows");
   const [selectedIcon, setSelectedIcon] = useState("minimum");
@@ -41,7 +32,7 @@ const SystemRequirements = () => {
 
   return (
     <div>
-      <Tabs defaultValue="account" className="w-[1400px]">
+      <Tabs defaultValue="account" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="windows">Windows</TabsTrigger>
           <TabsTrigger value="xbox">Xbox</TabsTrigger>

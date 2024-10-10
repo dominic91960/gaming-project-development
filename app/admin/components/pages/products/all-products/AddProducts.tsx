@@ -100,6 +100,8 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
             required
           />
         </div>
+
+        <SystemRequirements />
       </div>
 
       {/* Dropdown area */}
