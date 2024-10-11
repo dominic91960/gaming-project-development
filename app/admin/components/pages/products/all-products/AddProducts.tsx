@@ -12,6 +12,11 @@ import { AllProductsNew } from "../all-products/columns";
 import GeneralDataForm from "./GeneralDataForm";
 import PricingDataForm from "./PricingDataForm";
 import SystemRequirements from "./System-Requirement";
+import BrandCategories from "../add-product/side-components/BrandCategories";
+import TagsCategories from "../add-product/side-components/TagsCategories";
+import PlatformCategories from "../add-product/side-components/PlatformCategories";
+import ProductCategories from "../add-product/side-components/ProductCategories";
+import ProductImages from "../add-product/side-components/ProductImages";
 
 interface AddProductsProps {
   onAddProduct: (newProduct: AllProductsNew) => void;
@@ -90,6 +95,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           />
         </div>
 
+        <div>
+          <ProductImages />
+        </div>
+
         <div className="mt-[2em] mb-[1.5em]">
           <label className="block mb-[0.5em]">Image URL</label>
           <input
@@ -106,6 +115,14 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
 
       {/* Dropdown area */}
       <div className="col-span-3 pt-[3.4em]">
+        {/* Submit button */}
+        <button
+          type="submit"
+          className="w-full bg-[#00FFA1] font-semibold text-black text-[calc(1em+1px)] uppercase px-[2.4em] py-[0.5em] rounded-sm hover:opacity-90 transition-opacity duration-100 mb-12"
+        >
+          Add product
+        </button>
+
         {/* Publish status */}
         <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <label className="block mb-1">Status</label>
@@ -132,13 +149,23 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           </Select>
         </div>
 
-        {/* Submit button */}
-        <button
-          type="submit"
-          className="w-full bg-[#00FFA1] font-semibold text-black text-[calc(1em+1px)] uppercase px-[2.4em] py-[0.5em] rounded-sm hover:opacity-90 transition-opacity duration-100"
-        >
-          Add product
-        </button>
+        <div>
+          <div className="mb-10">
+            <ProductCategories />
+          </div>
+
+          <div className="mb-10">
+            <BrandCategories />
+          </div>
+
+          <div className="mb-10">
+            <TagsCategories />
+          </div>
+
+          <div className="mb-10">
+            <PlatformCategories />
+          </div>
+        </div>
       </div>
     </form>
   );
