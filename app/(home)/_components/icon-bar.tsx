@@ -3,77 +3,47 @@ import IconBarBackground from "../../../public/images/home/icon-bar/icon-bar-bac
 
 import Games from "../../../public/images/home/icon-bar/PSController.png";
 import GiftCards from "../../../public/images/home/icon-bar/GiftCard.png";
-import EMoeny from "../../../public/images/home/icon-bar/E-commerce.png";
-import PreOders from "../../../public/images/home/icon-bar/OrderCompleted.png";
+import EMoney from "../../../public/images/home/icon-bar/E-commerce.png";
+import PreOrders from "../../../public/images/home/icon-bar/OrderCompleted.png";
 import Steam from "../../../public/images/home/icon-bar/Steam.png";
+
+const cards = [
+  { title: "Games", icon: Games },
+  { title: "Gift cards", icon: GiftCards },
+  { title: "E-money", icon: EMoney },
+  { title: "Pre-orders", icon: PreOrders },
+  { title: "Steam", icon: Steam },
+];
 
 const IconBar = () => {
   return (
-    <div className="relative flex items-center justify-center mt-[40px] z-40 bottom-0">
-      <Image src={IconBarBackground} alt="Main Character" className="px-8 h-[34px] md:h-20 lg:h-24 xl:h-28 2xl:h-[136px] w-full xl:max-w-full 2xl:max-w-[80%]" />
-
-      {/* Center the absolute div and justify-between for icons */}
-      <div className="flex items-center justify-between absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[60%] text-[7px] md:text-xs lg:text-lg xl:text-xl">
-        <div className="text-center flex flex-col justify-center items-center group">
-          <Image
-            src={Games}
-            alt="Games icon"
-            className="xl:xl:mb-1 group-hover:-translate-y-[5%] group-hover:transition-transform group-hover:duration-150 w-[14.21px] h-[14.21px] md:w-7 md:h-7 lg:w-10 lg:h-10 2xl:h-14 2xl:w-14"
-          />
-          <p className="text-white font-primaryFont font-semibold">
-            Games
-          </p>
-        </div>
-        <div className="h-[10.89px] md:h-6 xl:h-16 2xl:h-20 w-[1px] bg-white"></div>
-
-        <div className="text-center flex flex-col justify-center items-center group">
-          <Image
-            src={GiftCards}
-            alt="Gift cards icon"
-            className="xl:mb-1 group-hover:-translate-y-[5%] group-hover:transition-transform group-hover:duration-150 w-[14.21px] h-[14.21px] md:w-7 md:h-7 lg:w-10 lg:h-10 2xl:h-14 2xl:w-14"
-          />
-          <p className="text-white font-primaryFont font-semibold">
-            Gift Cards
-          </p>
-        </div>
-
-        <div className="h-[10.89px] md:h-6 xl:h-16 2xl:h-20 w-[1px] bg-white"></div>
-
-        <div className="text-center flex flex-col justify-center items-center group">
-          <Image
-            src={EMoeny}
-            alt="E-money icon"
-            className="xl:mb-1 group-hover:-translate-y-[5%] group-hover:transition-transform group-hover:duration-150 w-[14.21px] h-[14.21px] md:w-7 md:h-7 lg:w-10 lg:h-10 2xl:h-14 2xl:w-14"
-          />
-          <p className="text-white font-primaryFont font-semibold">
-            E-Money
-          </p>
-        </div>
-
-        <div className="h-[10.89px] md:h-6 xl:h-16 2xl:h-20 w-[1px] bg-white"></div>
-
-        <div className="text-center flex flex-col justify-center items-center group">
-          <Image
-            src={PreOders}
-            alt="Pre-orders icon"
-            className="xl:mb-1 group-hover:-translate-y-[5%] group-hover:transition-transform group-hover:duration-150 w-[14.21px] h-[14.21px] md:w-7 md:h-7 lg:w-10 lg:h-10 2xl:h-14 2xl:w-14"
-          />
-          <p className="text-white font-primaryFont font-semibold">
-            Pre-Orders
-          </p>
-        </div>
-
-        <div className="h-[10.89px] md:h-6 xl:h-16 2xl:h-20 w-[1px] bg-white"></div>
-
-        <div className="text-center flex flex-col justify-center items-center group">
-          <Image
-            src={Steam}
-            alt="Steam icon"
-            className="xl:mb-1 group-hover:-translate-y-[5%] group-hover:transition-transform group-hover:duration-150 w-[14.21px] h-[14.21px] md:w-7 md:h-7 lg:w-10 lg:h-10 2xl:h-14 2xl:w-14"
-          />
-          <p className="text-white font-primaryFont font-semibold">
-            Steam
-          </p>
+    <div className="relative container mx-auto px-[36px] z-10">
+      <div className="relative">
+        {/* Icon bar background */}
+        <Image
+          src={IconBarBackground}
+          alt="Icon bar background"
+          className="w-full"
+        />
+        <div className="absolute top-0 bottom-0 left-0 right-0 m-auto px-[12px] flex items-center justify-around min-[530px]:px-[24px] sm:px-[36px] md:px-[72px] lg:px-[120px] xl:px-[160px] 2xl:px-[200px]">
+          {/* Icon bar cards */}
+          {cards.map(({ title, icon }, i) => (
+            <>
+              <div key={title} className="flex flex-col items-center">
+                <Image
+                  src={icon}
+                  alt={title}
+                  className="size-[14px] min-[530px]:size-[19px] sm:size-[24px] md:size-[36px] lg:size-[48px] xl:size-[54px] 2xl:size-[60px]"
+                />
+                <p className="text-[7px] sm:font-medium min-[530px]:text-[8px] sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
+                  {title}
+                </p>
+              </div>
+              {i !== 4 && (
+                <div className="w-px h-[10px] bg-white opacity-50 -translate-y-[25%] min-[530px]:h-[13px] sm:h-[16px] md:h-[22px] lg:h-[30px] xl:h-[40px] 2xl:h-[46px]"></div>
+              )}
+            </>
+          ))}
         </div>
       </div>
     </div>
