@@ -12,13 +12,15 @@ import "swiper/css/pagination";
 
 import StarRating from "./star-rating";
 import { Button } from "@/components/ui/button";
-import posterBg from "@/public/images/home/swiper-carousel/card-bg.png";
-import posterBg2 from "@/public/images/home/home-background.png";
+import cardBgOne from "@/public/images/home/swiper-carousel/card-bg-one.png";
+import cardBgTwo from "@/public/images/home/swiper-carousel/card-bg-two.png";
+import cardBgThree from "@/public/images/home/swiper-carousel/card-bg-three.png";
+import cardBgFour from "@/public/images/home/swiper-carousel/card-bg-four.png";
 import gamePoster from "@/public/images/home/swiper-carousel/poster.png";
 
 const data = [
   {
-    background: posterBg,
+    background: cardBgOne,
     poster: gamePoster,
     title: "Black Myth: Wukong",
     rating: 5,
@@ -31,7 +33,7 @@ const data = [
     releaseDate: "20 Aug, 2024",
   },
   {
-    background: posterBg2,
+    background: cardBgTwo,
     poster: gamePoster,
     title: "Black Myth: Wukong",
     rating: 5,
@@ -44,7 +46,7 @@ const data = [
     releaseDate: "20 Aug, 2024",
   },
   {
-    background: posterBg,
+    background: cardBgThree,
     poster: gamePoster,
     title: "Black Myth: Wukong",
     rating: 5,
@@ -57,7 +59,7 @@ const data = [
     releaseDate: "20 Aug, 2024",
   },
   {
-    background: posterBg2,
+    background: cardBgFour,
     poster: gamePoster,
     title: "Black Myth: Wukong",
     rating: 5,
