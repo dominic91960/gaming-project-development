@@ -29,13 +29,13 @@ const IconBar = () => {
           {/* Icon bar cards */}
           {cards.map(({ title, icon }, i) => (
             <>
-              <div key={title} className="flex flex-col items-center">
+              <div key={title} className="flex flex-col items-center group">
                 <Image
                   src={icon}
                   alt={title}
-                  className="size-[14px] min-[530px]:size-[19px] sm:size-[24px] md:size-[36px] lg:size-[48px] xl:size-[54px] 2xl:size-[60px]"
+                  className="size-[14px] min-[530px]:size-[19px] sm:size-[24px] md:size-[36px] lg:size-[48px] xl:size-[54px] 2xl:size-[60px] group-hover:-translate-y-[2px] transition-transform duration-200"
                 />
-                <p className="text-[7px] sm:font-medium min-[530px]:text-[8px] sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
+                <p className="text-[7px] sm:font-medium min-[530px]:text-[8px] sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] group-hover:scale-110 transition-transform duration-200">
                   {title}
                 </p>
               </div>
