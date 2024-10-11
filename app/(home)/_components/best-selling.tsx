@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { LiaAngleRightSolid } from "react-icons/lia";
@@ -122,7 +121,7 @@ const BestSelling = () => {
                   </h4>
 
                   {/* desc */}
-                  <p className="text-[0.75em] font-medium uppercase text-nowrap overflow-hidden text-ellipsis">
+                  <p className="text-[9px] font-normal uppercase text-nowrap overflow-hidden text-ellipsis sm:text-[11px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
                     {desc}
                   </p>
 
@@ -184,7 +183,7 @@ const BestSelling = () => {
 
                 {/* Rating */}
                 <div
-                  className="absolute bottom-[5%] left-0 w-fit h-fit bg-black/20 text-[8px] backdrop-blur sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
+                  className="absolute bottom-[5%] left-0 w-fit h-fit bg-black/20 text-[8px] backdrop-blur-[3px] sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
                   style={{
                     clipPath:
                       "polygon(0% 0%, 100% 0%, 100% 80%, 90% 100%, 0% 100%)",
