@@ -12,6 +12,9 @@ import { AllProductsNew } from "../all-products/columns";
 import GeneralDataForm from "./GeneralDataForm";
 import PricingDataForm from "./PricingDataForm";
 import SystemRequirements from "./System-Requirement";
+import BrandCategories from "../add-product/side-components/BrandCategories";
+import TagsCategories from "../add-product/side-components/TagsCategories";
+import PlatformCategories from "../add-product/side-components/PlatformCategories";
 
 interface AddProductsProps {
   onAddProduct: (newProduct: AllProductsNew) => void;
@@ -130,6 +133,20 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
               ))}
             </SelectContent>
           </Select>
+        </div>
+
+        <div>
+          <div className="mb-10">
+            <BrandCategories />
+          </div>
+
+          <div className="mb-10">
+            <TagsCategories />
+          </div>
+
+          <div className="mb-10">
+            <PlatformCategories />
+          </div>
         </div>
 
         {/* Submit button */}
