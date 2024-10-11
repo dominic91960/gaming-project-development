@@ -1,23 +1,14 @@
-.catalog-section-background {
-  background-image: url("../../../public/images/home/catalog/background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 100%;
+.animate-underline {
+  background: linear-gradient(to right, white, white, #0bdb45, white, white);
+  background-size: 400% 100%;
+  animation: gradient 5s ease infinite reverse;
 }
 
-.character-image-position {
-  left: -120px;
-}
-
-@media (min-width: 430px) {
-  .character-image-position {
-    left: -60px;
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
   }
-}
-
-@media (min-width: 490px) {
-  .character-image-position {
-    left: 0px;
+  100% {
+    background-position: 100% 50%;
   }
 }
