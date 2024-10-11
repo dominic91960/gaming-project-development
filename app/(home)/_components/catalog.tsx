@@ -5,6 +5,7 @@ import { LiaAngleRightSolid } from "react-icons/lia";
 
 import bg from "@/public/images/home/catalog/background.jpg";
 import character from "@/public/images/home/catalog/character.webp";
+import "./catalog.css";
 
 const Catalog = () => {
   return (
@@ -39,7 +40,7 @@ const Catalog = () => {
           </h2>
 
           {/* Underline */}
-          <hr className="w-[10ch] mt-[0.2em] mb-[0.75em] text-[36px] sm:text-[48px] md:text-[60px] lg:text-[72px] xl:text-[84px] 2xl:text-[96px]" />
+          <div className="animate-underline w-[10ch] h-px bg-white mt-[0.2em] mb-[0.75em] text-[36px] sm:text-[48px] md:text-[60px] lg:text-[72px] xl:text-[84px] 2xl:text-[96px]"></div>
 
           {/* Paragraph one */}
           <p className="w-[25ch] font-light text-[9px] mb-[1.5em] sm:w-[19ch] sm:text-[14px] md:text-[18px] lg:text-[22px] xl:text-[25px] 2xl:text-[28px]">

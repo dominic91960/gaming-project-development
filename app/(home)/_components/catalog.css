@@ -1,0 +1,14 @@
+.animate-underline {
+  background: linear-gradient(to right, white, white, #0bdb45, white, white);
+  background-size: 400% 100%;
+  animation: gradient 5s ease infinite reverse;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
