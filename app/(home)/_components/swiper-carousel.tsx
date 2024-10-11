@@ -84,7 +84,7 @@ const SwiperCarousel = () => {
 
   return (
     <section
-      className={`transition-all duration-1000 ease-in-out font-primaryFont font-semibold text-[8px] lg:text-[9px] xl:text-[11px] 2xl:text-[13px] text-white`}
+      className={`bg-cover bg-center transition-all duration-1000 ease-in-out font-primaryFont font-semibold text-[8px] lg:text-[9px] xl:text-[11px] 2xl:text-[13px] text-white`}
       style={{
         backgroundImage: `url('${bg}')`,
       }}
