@@ -30,13 +30,13 @@ const PlatformCategories = () => {
         >
           <ul className="text-white text-sm space-y-2">
             {[
-              "Nintendo",
+              "Steam games",
               "Ubisoft",
-              "Electronic Arts",
-              "Microsoft",
-              "Sony",
-              "2K",
-              "Dragonkin Dynasty",
+              "Origins games",
+              "Epic games",
+              "Gog games",
+              "Xbox Live",
+              "Upcoming games",
             ].map((brand) => (
               <li key={brand} className="flex items-center">
                 <input type="checkbox" className="mr-2" />

@@ -30,13 +30,13 @@ const TagsCategories = () => {
         >
           <ul className="text-white text-sm space-y-2">
             {[
-              "Nintendo",
-              "Ubisoft",
-              "Electronic Arts",
-              "Microsoft",
-              "Sony",
-              "2K",
-              "Dragonkin Dynasty",
+              "Difficult ",
+              "RPG",
+              "Dark Fantasy",
+              "Souls-like",
+              "MMORPG",
+              "Sandbox",
+              "Survival",
             ].map((brand) => (
               <li key={brand} className="flex items-center">
                 <input type="checkbox" className="mr-2" />
