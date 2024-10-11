@@ -1,6 +1,3 @@
-import { useState } from "react";
-
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import {
@@ -10,26 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 const SystemRequirements = () => {
-  const [selectedTab, setSelectedTab] = useState("windows");
-  const [selectedIcon, setSelectedIcon] = useState("minimum");
-
-  // State for each dropdown selection
-  const [operatingSystem, setOperatingSystem] = useState(
-    "WINDOWS 10 / 11 WITH DIRECTX 12"
-  );
-  const [cpu, setCpu] = useState("INTEL® CORE™ I7-4770K, AMD RYZEN™ 5 3600");
-  const [graphics, setGraphics] = useState("GEFORCE GTX 1660 - 6GB");
-  const [ram, setRam] = useState("16 GB (Dual-Channel Mode)");
-  const [storage, setStorage] = useState("65 GB SSD");
-  const [resolution, setResolution] = useState(
-    "1080p / 30 Fps / Low Preset With Upscaler Set To Quality"
-  );
-
   return (
     <div>
       <Tabs defaultValue="account" className="w-full">
@@ -49,7 +28,7 @@ const SystemRequirements = () => {
             <div>
               <Select>
                 <SelectTrigger className="w-[300px]">
-                  <SelectValue placeholder="Select Operating System" />
+                  <SelectValue placeholder="Select Icon" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="light">Minimum</SelectItem>
