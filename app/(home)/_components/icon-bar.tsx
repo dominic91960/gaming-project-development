@@ -17,7 +17,7 @@ const cards = [
 
 const IconBar = () => {
   return (
-    <div className="container mx-auto px-[36px]">
+    <div className="relative container mx-auto px-[36px] z-10">
       <div className="relative">
         {/* Icon bar background */}
         <Image
