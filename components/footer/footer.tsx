@@ -14,41 +14,42 @@ import paypal from "@/public/images/footer/paypal.png";
 import visa from "@/public/images/footer/visa.png";
 import mastercard from "@/public/images/footer/mastercard.png";
 import skrill from "@/public/images/footer/skrill.png";
+import "./footer.css";
 
 export default function Footer() {
   return (
-    <section className="bg-[#0B0E13] font-primaryFont text-white text-[7px] py-[2em] sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
+    <section className="bg-[#0B0E13] font-primaryFont text-white text-[7px] pt-[3em] pb-[2em] sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
       {/* main container */}
       <div className="container mx-auto px-[36px]">
         {/* Newsletter div */}
-        {/* <div
-          className="bg-[#2D2E37] flex items-center justify-between px-[2em] py-[1em] mb-[2em]"
+        <div
+          className="newsletter-div bg-[#2D2E37] flex items-center justify-between px-[11px] py-[1em] mb-[3em] xl:mb-[4em]"
           style={{
             clipPath:
               "polygon(0% 0%, 98% 0%, 100% 20%, 100% 100%, 2% 100%, 0% 80%)",
           }}
         >
-          title
-          <h2 className="font-semibold text-[calc(1em+1px)] uppercase">
+          {/* title */}
+          <h2 className="newsletter-title font-semibold uppercase sm:text-[14px] md:text-[18px] lg:text-[24px] xl:text-[28px] 2xl:text-[30px]">
             Subscribe Newsletter
           </h2>
 
-          form
-          <form className="flex gap-x-[calc(1em-1px)]">
+          {/* form */}
+          <form className="flex gap-x-[1em]">
             <Input
               type="email"
               placeholder="Email Address"
-              className="w-[23ch] h-fit bg-[#0B0E13] text-[1em] px-[6px] py-[0.5em] border-none rounded-none"
+              className="newsletter-form-input w-[23ch] h-fit bg-[#0B0E13] text-[1em] px-[6px] py-[3px] border-none rounded-none"
             />
             <Button
               variant="gaming"
-              className="h-fit text-[1em] px-[1em] py-[0.5em]"
+              className="newsletter-form-button h-fit text-[1em] px-[4px] py-[3px]"
             >
               Subscribe
               <MdArrowRightAlt className="size-[1.1em]" />
             </Button>
           </form>
-        </div> */}
+        </div>
 
         {/* Container for logo and links */}
         <div className="flex flex-col xl:flex-row xl:justify-between xl:px-[2.75em] xl:mb-[2.73em]">
