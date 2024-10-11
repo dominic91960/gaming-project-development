@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const PlatformCategories = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
