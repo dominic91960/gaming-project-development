@@ -16,6 +16,7 @@ import BrandCategories from "../add-product/side-components/BrandCategories";
 import TagsCategories from "../add-product/side-components/TagsCategories";
 import PlatformCategories from "../add-product/side-components/PlatformCategories";
 import ProductCategories from "../add-product/side-components/ProductCategories";
+import ProductImages from "../add-product/side-components/ProductImages";
 
 interface AddProductsProps {
   onAddProduct: (newProduct: AllProductsNew) => void;
@@ -92,6 +93,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
             stock={stock}
             setStock={setStock}
           />
+        </div>
+
+        <div>
+          <ProductImages />
         </div>
 
         <div className="mt-[2em] mb-[1.5em]">
