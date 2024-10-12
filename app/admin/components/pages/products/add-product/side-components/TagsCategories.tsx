@@ -1,10 +1,46 @@
-import { useState } from "react";
+import axiosInstance from "@/axios/axiosInstance";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
+interface Tags {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
 
 const TagsCategories = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false); // Track loading state
+  const [tags, setTags] = useState<Tags[]>([]);
+
+  // show toast
+  const showToast = (value: boolean, message: string) => {
+    value ? toast.success(message) : toast.error(message);
+  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    getAllBrands();
+  }, []);
+
+  const getAllBrands = async () => {
+    setLoading(true); // Start spinner
+    try {
+      const response = await axiosInstance.get("/tags");
+      setTags(response.data);
+      // showToast(true, "Categories fetched successfully"); // You can enable this toast if needed
+    } catch (error: any) {
+      showToast(
+        false,
+        error.response?.data?.message || "Failed to fetch categories"
+      );
+    } finally {
+      setLoading(false); // Stop spinner
+    }
   };
 
   return (
@@ -29,18 +65,10 @@ const TagsCategories = () => {
           }`}
         >
           <ul className="text-white text-sm space-y-2">
-            {[
-              "Difficult ",
-              "RPG",
-              "Dark Fantasy",
-              "Souls-like",
-              "MMORPG",
-              "Sandbox",
-              "Survival",
-            ].map((brand) => (
-              <li key={brand} className="flex items-center">
+            {tags.map((tag) => (
+              <li key={tag.id} className="flex items-center">
                 <input type="checkbox" className="mr-2" />
-                {brand}
+                {tag.name}
               </li>
             ))}
           </ul>
