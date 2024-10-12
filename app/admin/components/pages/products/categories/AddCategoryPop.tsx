@@ -21,6 +21,7 @@ import { IoClose } from "react-icons/io5";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { set } from "react-hook-form";
+import { useCategoryContext } from "@/context/CategoryContext";
 
 interface AddCategoryPopProps {
   onAddCategory: (newCategory: {
@@ -40,6 +41,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
   const [parentCategoryId, setParentCategoryId] = useState<string | null>(null); // To store selected parent category
   const [data, setData] = useState<any[]>([]);
   const [isImageInputDisabled, setIsImageInputDisabled] = useState(false);
+  const { categories } = useCategoryContext();
 
   const handleSubmit = async () => {
     console.log(name, description, imageUrl, parentCategoryId);
@@ -85,29 +87,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
   };
 
   useEffect(() => {
-    const getData = async () => {
-      const response = await axiosInstance.get("/categories/nested");
-      const processedData = response.data.map((item: any) => {
-        let name = item.name;
-        if (item.level == 2) {
-          name = "- " + name;
-        } else if (item.level == 3) {
-          name = "- - " + name;
-        } else if (item.level == 4) {
-          name = "- - - " + name;
-        }
-        return {
-          id: item.id,
-          name: name,
-          description: item.description,
-          imageUrl: item.image ? item.image.url : "/images/sample-pic.png",
-          level: item.level,
-        };
-      });
-      // console.log(processedData);
-      setData(processedData);
-    };
-    getData();
+    setData(categories);
   }, []);
 
   return (
