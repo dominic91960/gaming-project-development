@@ -20,6 +20,7 @@ import RolesPage from "../admin/components/pages/users/Roles";
 import Orders from "./components/pages/orders/Orders";
 import Reviews from "./components/pages/reviews/Reviews";
 import "./components/admin.css";
+import { CategoryProvider } from "@/context/CategoryContext";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
@@ -92,22 +93,24 @@ const AdminPanel: React.FC = () => {
   }
 
   return (
-    <RoleProvider>
-      <StatusBar
-        isMobileNavToggled={isMobileNavToggled}
-        setIsMobileNavToggled={setIsMobileNavToggled}
-      />
-      <div className="leaklights">
-        <Sidebar
-          onSelect={handleSelect}
+    <CategoryProvider>
+      <RoleProvider>
+        <StatusBar
           isMobileNavToggled={isMobileNavToggled}
           setIsMobileNavToggled={setIsMobileNavToggled}
         />
-        <div className="hide-scrollbar flex-1 overflow-y-scroll z-10 min-h-screen">
-          {renderContent()}
+        <div className="leaklights">
+          <Sidebar
+            onSelect={handleSelect}
+            isMobileNavToggled={isMobileNavToggled}
+            setIsMobileNavToggled={setIsMobileNavToggled}
+          />
+          <div className="hide-scrollbar flex-1 overflow-y-scroll z-10 min-h-screen">
+            {renderContent()}
+          </div>
         </div>
-      </div>
-    </RoleProvider>
+      </RoleProvider>
+    </CategoryProvider>
   );
 };
 

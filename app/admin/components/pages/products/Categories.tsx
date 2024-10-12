@@ -6,58 +6,17 @@ import AddCategoryPop from "./categories/AddCategoryPop";
 import axiosInstance from "@/axios/axiosInstance";
 import { set } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useCategoryContext } from "../../../../../context/CategoryContext";
 
-// function getData(): Category[] {
-//   return [
-//     {
-//       id: "1234",
-//       name: "main category 1",
-//       description: "description 1 here",
-//       imageUrl: "/images/sample-pic.png",
-//     },
-//     {
-//       id: "1231",
-//       name: "Sub category 1",
-//       description: "description 2 here",
-//       imageUrl: "/images/sample-pic.png",
-//     },
-//     {
-//       id: "1222",
-//       name: "Super Sub category 2.1",
-//       description: "description 3 here",
-//       imageUrl: "/images/sample-pic.png",
-//     },
-//   ];
-// }
 
 export default function DemoPage() {
   const [data, setData] = useState<Category[]>([]);
   const [reload, setReload] = useState(false);
   const [isEitOpen, setIsEditOpen] = useState(false);
+  const {categories} = useCategoryContext();
 
   useEffect(() => {
-    const getData = async () => {
-      const response = await axiosInstance.get("/categories/nested");
-      console.log(response.data);
-      const processedData = response.data.map((item: any) => {
-        let name = item.name;
-        if (item.level == 2) {
-          name = "- " + name;
-        } else if (item.level == 3) {
-          name = "- - " + name;
-        } else if (item.level == 4) {
-          name = "- - - " + name;
-        }
-        return {
-          id: item.id,
-          name: name,
-          description: item.description,
-          imageUrl: item.image ? item.image.url : "/images/sample-pic.png",
-        };
-      });
-      setData(processedData);
-    };
-    getData();
+    setData(categories);
   }, [reload]);
 
   const handleAddCategory = (newCategory: {
