@@ -14,15 +14,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export type AllProductsNew = {
-  imageUrl: string;
   id: string;
   name: string;
+  displayName: string;
+  about: string;
+  cardDescription: string;
+  language: string;
+  date: string;
+  icon: string;
+  imageUrl: string;
   sku: string;
   stock: string;
   selling_price: string;
   regular_price: string;
   status: string;
-  date: string;
+  saleQuantity: number;
+  
 };
 
 export const columns: ColumnDef<AllProductsNew>[] = [

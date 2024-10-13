@@ -1,23 +1,41 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 
 interface GeneralDataFormProps {
   name: string;
-  setName: (value: SetStateAction<string>) => void;
+  setName: (value: string) => void;
+  displayName: string;
+  setDisplayName: (value: string) => void;
+  about: string;
+  setAbout: (value: string) => void;
+  cardDescription: string;
+  setCardDescription: (value: string) => void;
+  icon: string;
+  setIcon: (value: string) => void;
+  language: string;
+  setLanguage: (value: string) => void;
   date: string;
-  setDate: (value: SetStateAction<string>) => void;
+  setDate: (value: string) => void;
 }
 
 const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
   name,
   setName,
+  displayName,
+  setDisplayName,
+  about,
+  setAbout,
+  cardDescription,
+  setCardDescription,
+  icon,
+  setIcon,
+  language,
+  setLanguage,
   date,
   setDate,
 }) => {
   return (
     <>
-      {/* Product name and display name */}
       <div className="grid grid-cols-2 gap-x-[7.4em] mb-[1.5em]">
-        {/* Product name */}
         <div>
           <label className="block mb-[0.5em]">Product Name</label>
           <input
@@ -28,67 +46,70 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
             required
           />
         </div>
-        {/* Display name */}
         <div>
           <label className="block mb-[0.5em]">Display Name</label>
           <input
             type="text"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
             className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
             required
           />
         </div>
       </div>
 
-      {/* About this game */}
       <div className="mb-[1.5em]">
         <label className="block mb-[0.5em]">About This Game</label>
         <textarea
+          value={about}
+          onChange={(e) => setAbout(e.target.value)}
           className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
           rows={4}
           required
         />
       </div>
 
-      {/* Card description */}
       <div className="mb-[1.5em]">
         <label className="block mb-[0.5em]">Card Description</label>
         <input
           type="text"
+          value={cardDescription}
+          onChange={(e) => setCardDescription(e.target.value)}
           className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
           required
         />
       </div>
 
-      {/* Icon, language and release date */}
       <div className="grid grid-cols-3 gap-x-[7.4em]">
-        {/* Icon */}
         <div>
           <label className="block mb-[0.5em]">Select Icon</label>
           <input
             type="text"
+            value={icon}
+            onChange={(e) => setIcon(e.target.value)}
             className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
             required
           />
         </div>
 
-        {/* Language */}
         <div>
           <label className="block mb-[0.5em]">Select Language</label>
           <input
             type="text"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
             className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
             required
           />
         </div>
 
-        {/* Release date */}
         <div>
           <label className="block mb-[0.5em]">Release Date</label>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="relative w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm z-10 after:content-[''] after:w-[5ch] after:h-full after:bg-white after:absolute after:top-0 after:right-0 after:-z-10"
+            className="relative w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
             required
           />
         </div>

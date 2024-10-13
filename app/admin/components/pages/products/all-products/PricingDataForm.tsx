@@ -17,6 +17,8 @@ interface PricingDataFormProps {
   setSku: (value: SetStateAction<string>) => void;
   stock: string;
   setStock: (value: SetStateAction<string>) => void;
+  saleQuantity: number,
+  setSaleQuantity: (value: SetStateAction<number>) => void;
 }
 
 const PricingDataForm: React.FC<PricingDataFormProps> = ({
@@ -28,6 +30,8 @@ const PricingDataForm: React.FC<PricingDataFormProps> = ({
   setSku,
   stock,
   setStock,
+  saleQuantity,
+  setSaleQuantity,
 }) => {
   return (
     <>
@@ -64,7 +68,9 @@ const PricingDataForm: React.FC<PricingDataFormProps> = ({
         <div>
           <label className="block mb-[0.5em]">Sale Quantity</label>
           <input
-            type="text"
+            type="number"
+            value={saleQuantity}
+            onChange={(e) => setSaleQuantity(Number(e.target.value))}
             className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
             required
           />

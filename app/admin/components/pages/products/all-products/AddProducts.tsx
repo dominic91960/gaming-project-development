@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import {
   Select,
   SelectContent,
@@ -7,32 +6,42 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { AllProductsNew } from "../all-products/columns";
 import GeneralDataForm from "./GeneralDataForm";
 import PricingDataForm from "./PricingDataForm";
-import SystemRequirements from "./System-Requirement";
 import BrandCategories from "../add-product/side-components/BrandCategories";
 import TagsCategories from "../add-product/side-components/TagsCategories";
 import PlatformCategories from "../add-product/side-components/PlatformCategories";
 import ProductCategories from "../add-product/side-components/ProductCategories";
 import ProductImages from "../add-product/side-components/ProductImages";
+import SystemRequirements from "./System-Requirement";
 
 interface AddProductsProps {
   onAddProduct: (newProduct: AllProductsNew) => void;
 }
 
 export default function AddProducts({ onAddProduct }: AddProductsProps) {
+  // GeneralDataForm input states
   const [name, setName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [about, setAbout] = useState("");
+  const [cardDescription, setCardDescription] = useState("");
+  const [icon, setIcon] = useState("");
+  const [language, setLanguage] = useState("");
+  const [date, setDate] = useState("");
+
+  // PricingDataForm input states
+  const [regularPrice, setRegularPrice] = useState("");
+  const [sellingPrice, setSellingPrice] = useState("");
+  const [saleQuantity, setSaleQuantity] = useState(0);
   const [sku, setSku] = useState("");
   const [stock, setStock] = useState("");
-  const [sellingPrice, setSellingPrice] = useState("");
-  const [regularPrice, setRegularPrice] = useState("");
+
+  // Other states
   const [status, setStatus] = useState("Public");
-  const [date, setDate] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  /* const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const newProduct: AllProductsNew = {
@@ -47,20 +56,63 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       date,
     };
 
-    onAddProduct(newProduct);
+    // Logging all variables after submit
+    console.log({
+      name,
+      displayName,
+      about,
+      cardDescription,
+      icon,
+      language,
+      date,
+      regularPrice,
+      sellingPrice,
+      sku,
+      stock,
+      status,
+    });
 
-    setName("");
+    onAddProduct(newProduct);
+  }; */
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    const newProduct: AllProductsNew = {
+      id: Math.random().toString(36).substr(2, 9),
+      imageUrl,
+      name,
+      sku,
+      stock,
+      selling_price: sellingPrice,
+      regular_price: regularPrice,
+      status,
+      date,
+      displayName,
+      about,
+      cardDescription,
+      icon,
+      language,
+      saleQuantity,
+    };
+  
+    console.log(newProduct, 'newProduct');
+    onAddProduct(newProduct);
+  
+    // Clear form fields if needed
+    /* setName("");
+    setDisplayName("");
+    setAbout("");
+    setCardDescription("");
+    setIcon("");
+    setLanguage("");
     setSku("");
     setStock("");
     setSellingPrice("");
     setRegularPrice("");
     setStatus("Public");
     setDate("");
-    setImageUrl("");
+    setImageUrl(""); */
   };
-
-  const [selectedTab, setSelectedTab] = useState("windows");
-  const [selectedIcon, setSelectedIcon] = useState("minimum");
 
   return (
     <form
@@ -69,18 +121,28 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
     >
       {/* Main form area */}
       <div className="col-span-9">
-        {/* General data form*/}
+        {/* General data form */}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">General Data</h2>
         <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <GeneralDataForm
             name={name}
             setName={setName}
+            displayName={displayName}
+            setDisplayName={setDisplayName}
+            about={about}
+            setAbout={setAbout}
+            cardDescription={cardDescription}
+            setCardDescription={setCardDescription}
+            icon={icon}
+            setIcon={setIcon}
+            language={language}
+            setLanguage={setLanguage}
             date={date}
             setDate={setDate}
           />
         </div>
 
-        {/* Pricing data form*/}
+        {/* Pricing data form */}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">Pricing Data</h2>
         <div className="bg-black/40 px-[2.2em] py-[3.3em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <PricingDataForm
@@ -92,12 +154,14 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
             setSku={setSku}
             stock={stock}
             setStock={setStock}
+            saleQuantity={saleQuantity}
+            setSaleQuantity={setSaleQuantity}
           />
         </div>
 
-        <div>
+        {/* <div>
           <ProductImages />
-        </div>
+        </div> */}
 
         <div className="mt-[2em] mb-[1.5em]">
           <label className="block mb-[0.5em]">Image URL</label>
@@ -110,7 +174,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           />
         </div>
 
-        <SystemRequirements />
+        {/* <SystemRequirements /> */}
       </div>
 
       {/* Dropdown area */}
