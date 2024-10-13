@@ -1,10 +1,46 @@
-import { useState } from "react";
+import axiosInstance from "@/axios/axiosInstance";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
+interface Platforms {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
 
 const PlatformCategories = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false); // Track loading state
+  const [platforms, setPlatforms] = useState<Platforms[]>([]);
+
+  // show toast
+  const showToast = (value: boolean, message: string) => {
+    value ? toast.success(message) : toast.error(message);
+  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    getAllPlatforms();
+  }, []);
+
+  const getAllPlatforms = async () => {
+    setLoading(true); // Start spinner
+    try {
+      const response = await axiosInstance.get("/platforms");
+      setPlatforms(response.data);
+      // showToast(true, "Categories fetched successfully"); // You can enable this toast if needed
+    } catch (error: any) {
+      showToast(
+        false,
+        error.response?.data?.message || "Failed to fetch categories"
+      );
+    } finally {
+      setLoading(false); // Stop spinner
+    }
   };
 
   return (
@@ -29,18 +65,10 @@ const PlatformCategories = () => {
           }`}
         >
           <ul className="text-white text-sm space-y-2">
-            {[
-              "Steam games",
-              "Ubisoft",
-              "Origins games",
-              "Epic games",
-              "Gog games",
-              "Xbox Live",
-              "Upcoming games",
-            ].map((brand) => (
-              <li key={brand} className="flex items-center">
+            {platforms.map((platform) => (
+              <li key={platform.id} className="flex items-center">
                 <input type="checkbox" className="mr-2" />
-                {brand}
+                {platform.name}
               </li>
             ))}
           </ul>

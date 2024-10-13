@@ -1,7 +1,43 @@
-import { useState } from "react";
+import axiosInstance from "@/axios/axiosInstance";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
+interface Brands {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
 
 const BrandCategories = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false); // Track loading state
+  const [brands, setBrands] = useState<Brands[]>([]);
+
+  // show toast
+  const showToast = (value: boolean, message: string) => {
+    value ? toast.success(message) : toast.error(message);
+  };
+
+  useEffect(() => {
+    getAllBrands();
+  }, []);
+
+  const getAllBrands = async () => {
+    setLoading(true); // Start spinner
+    try {
+      const response = await axiosInstance.get("/brands");
+      setBrands(response.data);
+      // showToast(true, "Categories fetched successfully"); // You can enable this toast if needed
+    } catch (error: any) {
+      showToast(
+        false,
+        error.response?.data?.message || "Failed to fetch categories"
+      );
+    } finally {
+      setLoading(false); // Stop spinner
+    }
+  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -29,18 +65,10 @@ const BrandCategories = () => {
           }`}
         >
           <ul className="text-white text-sm space-y-2">
-            {[
-              "Nintendo",
-              "Ubisoft",
-              "Electronic Arts",
-              "Microsoft",
-              "Sony",
-              "2K",
-              "Dragonkin Dynasty",
-            ].map((brand) => (
-              <li key={brand} className="flex items-center">
+            {brands.map((brand) => (
+              <li key={brand.id} className="flex items-center">
                 <input type="checkbox" className="mr-2" />
-                {brand}
+                {brand.name}
               </li>
             ))}
           </ul>
