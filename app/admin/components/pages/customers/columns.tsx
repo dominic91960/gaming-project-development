@@ -4,16 +4,45 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-export type Customers = {
-  name: string;
+export type AllCustomersNew = {
+  imageUrl: string;
   id: string;
-  username: string;
-  country: string;
-  phone: number;
+  name: string;
+  sku: string;
+  stock: string;
+  selling_price: string;
+  regular_price: string;
+  status: string;
+  date: string;
 };
 
-export const columns: ColumnDef<Customers>[] = [
+export const columns: ColumnDef<AllCustomersNew>[] = [
+  {
+    accessorKey: "imageUrl",
+    header: "Image",
+    cell: ({ row }) => {
+      const AllCustomersNew = row.original;
+      return (
+        <div className="flex items-center size-[2em]">
+          <img
+            src={AllCustomersNew.imageUrl}
+            alt={AllCustomersNew.name}
+            className="w-full h-full rounded-full"
+          />
+        </div>
+      );
+    },
+  },
+
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -30,22 +59,57 @@ export const columns: ColumnDef<Customers>[] = [
   },
 
   {
-    accessorKey: "id",
-    header: "Id",
+    accessorKey: "sku",
+    header: "SKU",
   },
 
   {
-    accessorKey: "username",
-    header: "Username",
+    accessorKey: "stock",
+    header: "Stock",
   },
 
   {
-    accessorKey: "country",
-    header: "Country",
+    accessorKey: "selling_price",
+    header: "Selling_Price",
   },
 
   {
-    accessorKey: "phone",
-    header: "Phone",
+    accessorKey: "regular_price",
+    header: "Regular_Price",
+  },
+
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+
+  {
+    accessorKey: "date",
+    header: "Date",
+  },
+
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      const payment = row.original;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem>Delete</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   },
 ];
