@@ -156,7 +156,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
             <SelectValue placeholder="Select Icon" />
           </SelectTrigger>
           <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
-            {["Windows", "Playstation", "Xbox"].map((option) => (
+            {["WINDOWS", "PLAYSTATION", "XBOX"].map((option) => (
               <SelectItem
                 key={option}
                 value={option}

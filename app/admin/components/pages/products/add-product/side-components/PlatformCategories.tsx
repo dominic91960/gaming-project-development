@@ -9,7 +9,12 @@ interface Platforms {
   imageUrl: string;
 }
 
-const PlatformCategories = () => {
+interface PlatformCategoriesProps {
+  platform: string;
+  setPlatform: (value: string) => void;
+}
+
+const PlatformCategories = ({ platform, setPlatform }: PlatformCategoriesProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState<boolean>(false); // Track loading state
   const [platforms, setPlatforms] = useState<Platforms[]>([]);
@@ -65,10 +70,15 @@ const PlatformCategories = () => {
           }`}
         >
           <ul className="text-white text-sm space-y-2">
-            {platforms.map((platform) => (
-              <li key={platform.id} className="flex items-center">
-                <input type="checkbox" className="mr-2" />
-                {platform.name}
+            {platforms.map((platformItem) => (
+              <li key={platformItem.id} className="flex items-center">
+                <input
+                  type="radio"
+                  className="mr-2"
+                  checked={platform === platformItem.id}
+                  onChange={() => setPlatform(platformItem.id)}
+                />
+                {platformItem.name}
               </li>
             ))}
           </ul>
