@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - feat/addproduct
+      - fix/buildImageCachingError
 
 jobs:
   build-and-deploy:
@@ -18,6 +18,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Verify code version
+        run: git log -1
+      
       # Step 2: Configure AWS credentials using access key and secret
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -44,7 +47,7 @@ jobs:
       # Step 5: Build and tag Docker image
       - name: Build Docker image
         run: |
-          docker build -t gaming-app:latest -f Dockerfile .
+          docker build --no-cache -t gaming-app:latest -f Dockerfile .
 
       - name: Tag Docker image
         run: |
@@ -69,8 +72,16 @@ jobs:
           --instance-ids ${{ secrets.EC2_INSTANCE_ID }} \
           --document-name "AWS-RunShellScript" \
           --comment "Updating Docker container with the latest image" \
-          --parameters 'commands=["aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com", "docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/gaming-app-fe:latest", "docker stop gaming-app-fe || true", "docker rm gaming-app-fe || true", "docker run -d -p 80:3000 --name gaming-app-fe ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/gaming-app-fe:latest"]' \
+          --parameters 'commands=[
+            "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com", 
+            "docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/gaming-app-fe:latest", 
+            "IMAGE_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/gaming-app-fe:latest)", 
+            "echo 'Pulled Image Digest: $IMAGE_DIGEST'",
+            "docker stop gaming-app-fe || true", 
+            "docker rm gaming-app-fe || true", 
+            "docker run -d -p 80:3000 --name gaming-app-fe ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/gaming-app-fe:latest"]' \
           --region ${{ secrets.AWS_REGION }}
+        
       
       # Step 9: Terminate instances in ASG to trigger redeployment
       # - name: Terminate EC2 instances in ASG

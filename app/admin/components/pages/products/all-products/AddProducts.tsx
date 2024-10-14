@@ -38,6 +38,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   const [stock, setStock] = useState("");
 
   //image data inputs
+  const [imageUrl, setImageUrl] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
@@ -48,8 +49,9 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   const [displayLatestGame, setDisplayLatestGame] = useState(false);
 
   // Other states
-  const [status, setStatus] = useState("Public");
-  const [imageUrl, setImageUrl] = useState("");
+  const [status, setStatus] = useState("Public");// Initialize with a valid Platforms value if needed
+  const [platform, setPlatform] = useState("");
+  const [brand, setBrand] = useState("");
 
   /* const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,6 +113,8 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       addToLatestGame,
       carousel,
       displayLatestGame,
+      platform,
+      brand
     };
   
     console.log(newProduct, 'newProduct');
@@ -254,7 +258,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           </div>
 
           <div className="mb-10">
-            <BrandCategories />
+            <BrandCategories
+              brand={brand}
+              setBrand={setBrand}
+            />
           </div>
 
           <div className="mb-10">
@@ -262,7 +269,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           </div>
 
           <div className="mb-10">
-            <PlatformCategories />
+            <PlatformCategories 
+              platform={platform}
+              setPlatform={setPlatform}
+            />
           </div>
         </div>
       </div>

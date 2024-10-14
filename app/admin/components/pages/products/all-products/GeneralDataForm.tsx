@@ -24,6 +24,36 @@ interface GeneralDataFormProps {
   setDate: (value: string) => void;
 }
 
+const languageOptions = [
+  "English",
+  "Spanish (Spain)",
+  "Spanish (Latin America)",
+  "French",
+  "German",
+  "Italian",
+  "Portuguese (Portugal)",
+  "Portuguese (Brazilian)",
+  "Russian",
+  "Chinese (Simplified)",
+  "Chinese (Traditional)",
+  "Japanese",
+  "Korean",
+  "Dutch",
+  "Polish",
+  "Turkish",
+  "Arabic",
+  "Swedish",
+  "Danish",
+  "Finnish",
+  "Norwegian",
+  "Czech",
+  "Hungarian",
+  "Thai",
+  "Indonesian",
+  "Vietnamese",
+  "Greek",
+];
+
 const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
   name,
   setName,
@@ -126,7 +156,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
             <SelectValue placeholder="Select Icon" />
           </SelectTrigger>
           <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
-            {["Windows", "Playstation", "Xbox"].map((option) => (
+            {["WINDOWS", "PLAYSTATION", "XBOX"].map((option) => (
               <SelectItem
                 key={option}
                 value={option}
@@ -141,13 +171,26 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
 
         <div>
           <label className="block mb-[0.5em]">Select Language</label>
-          <input
-            type="text"
+          <Select
             value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
+            onValueChange={(value: string) => setLanguage(value)}
             required
-          />
+          >
+            <SelectTrigger className="text-[15px] border-[#606060]">
+              <SelectValue placeholder="Select Language" />
+            </SelectTrigger>
+            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+              {languageOptions.map((option) => (
+          <SelectItem
+            key={option}
+            value={option}
+            className="h-fit ps-[3.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[15px]"
+          >
+            {option}
+          </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
