@@ -31,7 +31,11 @@ const validationSchema = Yup.object().shape({
     .required("Email is required"),
   password: Yup.string()
     .required("Password is required")
-    .min(6, "Password must be at least 6 characters"),
+    .min(6, "Password must be at least 6 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+      `Password format incorrect`
+    ),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), undefined], "Passwords must match")
     .required("Please confirm your password"),
@@ -62,7 +66,7 @@ const SignUp = () => {
 
       console.log("Registration successful", response.data);
       toast.success(response.data.message);
-      router.push("/");
+      router.push("/emailVerify");
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
