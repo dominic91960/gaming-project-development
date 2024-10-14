@@ -6,11 +6,11 @@ interface AddCustomersProps {
 }
 
 export default function AddCustomers({ onAddCustomer }: AddCustomersProps) {
-  const [name, setName] = useState("");
-  const [sku, setSku] = useState("");
-  const [stock, setStock] = useState("");
-  const [sellingPrice, setSellingPrice] = useState("");
-  const [regularPrice, setRegularPrice] = useState("");
+  const [customer_name, setCustomer_name] = useState("");
+  const [customer_id, setCustomer_id] = useState("");
+  const [customer_username, setCustomer_username] = useState("");
+  const [customer_country, setCustomer_country] = useState("");
+  const [customer_phone, setCustomer_phone] = useState("");
   const [status, setStatus] = useState("Public");
   const [date, setDate] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -21,22 +21,22 @@ export default function AddCustomers({ onAddCustomer }: AddCustomersProps) {
     const newCustomer: AllCustomersNew = {
       id: Math.random().toString(36).substr(2, 9),
       imageUrl,
-      name,
-      sku,
-      stock,
-      selling_price: sellingPrice,
-      regular_price: regularPrice,
+      customer_name,
+      customer_id,
+      customer_username,
+      customer_country: customer_country,
+      customer_phone: customer_phone,
       status,
       date,
     };
 
     onAddCustomer(newCustomer);
 
-    setName("");
-    setSku("");
-    setStock("");
-    setSellingPrice("");
-    setRegularPrice("");
+    setCustomer_name("");
+    setCustomer_id("");
+    setCustomer_username("");
+    setCustomer_country("");
+    setCustomer_phone("");
     setStatus("Public");
     setDate("");
     setImageUrl("");
@@ -47,53 +47,53 @@ export default function AddCustomers({ onAddCustomer }: AddCustomersProps) {
       onSubmit={handleSubmit}
       className="mb-6 p-4 border rounded-md text-white"
     >
-      <h2 className="text-xl font-semibold mb-4">Add New Product</h2>
+      <h2 className="text-xl font-semibold mb-4">Add New Customer</h2>
       <div className="mb-4">
-        <label className="block mb-1">Product Name</label>
+        <label className="block mb-1">Customer Name</label>
         <input
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={customer_name}
+          onChange={(e) => setCustomer_name(e.target.value)}
           className="w-full p-2 border rounded text-black"
           required
         />
       </div>
       <div className="mb-4">
-        <label className="block mb-1 text-white">SKU</label>
+        <label className="block mb-1 text-white">Customer ID</label>
         <input
           type="text"
-          value={sku}
-          onChange={(e) => setSku(e.target.value)}
+          value={customer_id}
+          onChange={(e) => setCustomer_id(e.target.value)}
           className="w-full p-2 border rounded text-black"
           required
         />
       </div>
       <div className="mb-4">
-        <label className="block mb-1">Stock</label>
+        <label className="block mb-1">Customer Username</label>
         <input
           type="text"
-          value={stock}
-          onChange={(e) => setStock(e.target.value)}
+          value={customer_username}
+          onChange={(e) => setCustomer_username(e.target.value)}
           className="w-full p-2 border rounded text-black"
           required
         />
       </div>
       <div className="mb-4">
-        <label className="block mb-1">Selling Price</label>
+        <label className="block mb-1">Country</label>
         <input
           type="text"
-          value={sellingPrice}
-          onChange={(e) => setSellingPrice(e.target.value)}
+          value={customer_country}
+          onChange={(e) => setCustomer_country(e.target.value)}
           className="w-full p-2 border rounded text-black"
           required
         />
       </div>
       <div className="mb-4">
-        <label className="block mb-1">Regular Price</label>
+        <label className="block mb-1">Phone</label>
         <input
           type="text"
-          value={regularPrice}
-          onChange={(e) => setRegularPrice(e.target.value)}
+          value={customer_phone}
+          onChange={(e) => setCustomer_phone(e.target.value)}
           className="w-full p-2 border rounded text-black"
           required
         />

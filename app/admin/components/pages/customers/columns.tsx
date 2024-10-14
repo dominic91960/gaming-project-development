@@ -16,11 +16,11 @@ import {
 export type AllCustomersNew = {
   imageUrl: string;
   id: string;
-  name: string;
-  sku: string;
-  stock: string;
-  selling_price: string;
-  regular_price: string;
+  customer_name: string;
+  customer_id: string;
+  customer_username: string;
+  customer_country: string;
+  customer_phone: string;
   status: string;
   date: string;
 };
@@ -35,7 +35,7 @@ export const columns: ColumnDef<AllCustomersNew>[] = [
         <div className="flex items-center size-[2em]">
           <img
             src={AllCustomersNew.imageUrl}
-            alt={AllCustomersNew.name}
+            alt={AllCustomersNew.customer_name}
             className="w-full h-full rounded-full"
           />
         </div>
@@ -44,14 +44,14 @@ export const columns: ColumnDef<AllCustomersNew>[] = [
   },
 
   {
-    accessorKey: "name",
+    accessorKey: "customer_name",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Name
+          Customer Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -59,23 +59,23 @@ export const columns: ColumnDef<AllCustomersNew>[] = [
   },
 
   {
-    accessorKey: "sku",
-    header: "SKU",
+    accessorKey: "customer_id",
+    header: "Customer_id",
   },
 
   {
-    accessorKey: "stock",
-    header: "Stock",
+    accessorKey: "customer_username",
+    header: "Customer_username",
   },
 
   {
-    accessorKey: "selling_price",
-    header: "Selling_Price",
+    accessorKey: "customer_country",
+    header: "Customer_country",
   },
 
   {
-    accessorKey: "regular_price",
-    header: "Regular_Price",
+    accessorKey: "customer_phone",
+    header: "customer_phone",
   },
 
   {

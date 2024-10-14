@@ -61,42 +61,42 @@ const EditAllCustomersPopup: React.FC<EditAllCustomersPopupProps> = ({
         <form>
           <input
             type="text"
-            name="name"
-            value={editedcustomer.name}
+            name="customer_name"
+            value={editedcustomer.customer_name}
             onChange={handleInputChange}
             placeholder="customer Name"
             className="w-full mb-2 p-2 border rounded"
           />
           <input
             type="text"
-            name="sku"
-            value={editedcustomer.sku}
+            name="customer_id"
+            value={editedcustomer.customer_id}
             onChange={handleInputChange}
-            placeholder="SKU"
+            placeholder="customer_id"
             className="w-full mb-2 p-2 border rounded"
           />
           <input
             type="text"
-            name="stock"
-            value={editedcustomer.stock}
+            name="customer_username"
+            value={editedcustomer.customer_username}
             onChange={handleInputChange}
-            placeholder="Stock"
+            placeholder="Customer_username"
             className="w-full mb-2 p-2 border rounded"
           />
           <input
             type="text"
-            name="selling_price"
-            value={editedcustomer.selling_price}
+            name="customer_country"
+            value={editedcustomer.customer_country}
             onChange={handleInputChange}
-            placeholder="Selling Price"
+            placeholder="Customer Country"
             className="w-full mb-2 p-2 border rounded"
           />
           <input
             type="text"
-            name="regular_price"
-            value={editedcustomer.regular_price}
+            name="customer_phone"
+            value={editedcustomer.customer_phone}
             onChange={handleInputChange}
-            placeholder="Regular Price"
+            placeholder="Customer Phone"
             className="w-full mb-2 p-2 border rounded"
           />
           <select
