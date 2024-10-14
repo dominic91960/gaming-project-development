@@ -13,43 +13,27 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export type AllProductsNew = {
-  id: string;
-  name: string;
-  displayName: string;
-  about: string;
-  cardDescription: string;
-  language: string;
-  date: string;
-  icon: string;
+export type AllCustomersNew = {
   imageUrl: string;
-  sku: string;
-  stock: string;
-  selling_price: string;
-  regular_price: string;
-  status: string;
-  saleQuantity: number;
-  coverImage: string;
-  galleryImages: string[];
-  latestImage: string;
-  cardImage: string;
-  videoUrl: string;
-  addToLatestGame: boolean;
-  carousel: boolean;
-  displayLatestGame: boolean;
+  id: string;
+  customer_name: string;
+  customer_id: string;
+  customer_username: string;
+  customer_country: string;
+  customer_phone: string;
 };
 
-export const columns: ColumnDef<AllProductsNew>[] = [
+export const columns: ColumnDef<AllCustomersNew>[] = [
   {
     accessorKey: "imageUrl",
     header: "Image",
     cell: ({ row }) => {
-      const AllProductsNew = row.original;
+      const AllCustomersNew = row.original;
       return (
         <div className="flex items-center size-[2em]">
           <img
-            src={AllProductsNew.imageUrl}
-            alt={AllProductsNew.name}
+            src={AllCustomersNew.imageUrl}
+            alt={AllCustomersNew.customer_name}
             className="w-full h-full rounded-full"
           />
         </div>
@@ -58,14 +42,14 @@ export const columns: ColumnDef<AllProductsNew>[] = [
   },
 
   {
-    accessorKey: "name",
+    accessorKey: "customer_name",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Name
+          Customer Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -73,33 +57,23 @@ export const columns: ColumnDef<AllProductsNew>[] = [
   },
 
   {
-    accessorKey: "sku",
-    header: "SKU",
+    accessorKey: "customer_id",
+    header: "Customer_id",
   },
 
   {
-    accessorKey: "stock",
-    header: "Stock",
+    accessorKey: "customer_username",
+    header: "Customer_username",
   },
 
   {
-    accessorKey: "selling_price",
-    header: "Selling_Price",
+    accessorKey: "customer_country",
+    header: "Customer_country",
   },
 
   {
-    accessorKey: "regular_price",
-    header: "Regular_Price",
-  },
-
-  {
-    accessorKey: "status",
-    header: "Status",
-  },
-
-  {
-    accessorKey: "date",
-    header: "Date",
+    accessorKey: "customer_phone",
+    header: "customer_phone",
   },
 
   {
