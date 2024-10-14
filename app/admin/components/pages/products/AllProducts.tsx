@@ -17,6 +17,12 @@ function getInitialData(): AllProductsNew[] {
       regular_price: "$60",
       status: "Public",
       date: "23/05/2024",
+      displayName: "Wukong",
+      about: "",
+      cardDescription: "",
+      language: "",
+      icon: "",
+      saleQuantity: 0
     },
     {
       imageUrl: "/images/sample-pic.png",
@@ -28,6 +34,12 @@ function getInitialData(): AllProductsNew[] {
       regular_price: "$60",
       status: "Public",
       date: "23/05/2024",
+      displayName: "UFO 50",
+      about: "",
+      cardDescription: "",
+      language: "",
+      icon: "",
+      saleQuantity: 0
     },
   ];
 }
