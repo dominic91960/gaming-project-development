@@ -1,3 +1,10 @@
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import React from "react";
 
 interface GeneralDataFormProps {
@@ -81,16 +88,56 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
       </div>
 
       <div className="grid grid-cols-3 gap-x-[7.4em]">
-        <div>
+        {/* <div>
           <label className="block mb-[0.5em]">Select Icon</label>
-          <input
-            type="text"
+          <select
             value={icon}
             onChange={(e) => setIcon(e.target.value)}
             className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
             required
-          />
-        </div>
+          >
+            <option value="">Select an option</option>
+            <option value="Windows">Windows</option>
+            <option value="Playstation">Playstation</option>
+            <option value="Xbox">Xbox</option>
+          </select>
+        </div> */}
+
+        {/* <div>
+              <Select>
+                <SelectTrigger className="w-[300px]">
+                  <SelectValue placeholder="Select Icon" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="light">Windows</SelectItem>
+                  <SelectItem value="dark">Playstation</SelectItem>
+                </SelectContent>
+              </Select>
+            </div> */}
+
+        <div>
+        <label className="block mb-[0.5em]">Select Icon</label>
+        <Select
+          value={icon}
+          onValueChange={(value: string) => setIcon(value)}
+          required
+        >
+          <SelectTrigger className="text-[15px] border-[#606060]">
+            <SelectValue placeholder="Select Icon" />
+          </SelectTrigger>
+          <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+            {["Windows", "Playstation", "Xbox"].map((option) => (
+              <SelectItem
+                key={option}
+                value={option}
+                className="h-fit ps-[3.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[15px]"
+              >
+                {option}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
 
         <div>
           <label className="block mb-[0.5em]">Select Language</label>
