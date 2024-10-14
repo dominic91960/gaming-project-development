@@ -17,6 +17,20 @@ function getInitialData(): AllProductsNew[] {
       regular_price: "$60",
       status: "Public",
       date: "23/05/2024",
+      displayName: "Wukong",
+      about: "",
+      cardDescription: "",
+      language: "",
+      icon: "",
+      saleQuantity: 0,
+      coverImage: "",
+      galleryImages: [],
+      latestImage: "",
+      cardImage: "",
+      videoUrl: "",
+      addToLatestGame: false,
+      carousel: false,
+      displayLatestGame: false
     },
     {
       imageUrl: "/images/sample-pic.png",
@@ -28,6 +42,20 @@ function getInitialData(): AllProductsNew[] {
       regular_price: "$60",
       status: "Public",
       date: "23/05/2024",
+      displayName: "UFO 50",
+      about: "",
+      cardDescription: "",
+      language: "",
+      icon: "",
+      saleQuantity: 0,
+      coverImage: "",
+      galleryImages: [],
+      latestImage: "",
+      cardImage: "",
+      videoUrl: "",
+      addToLatestGame: false,
+      carousel: false,
+      displayLatestGame: false
     },
   ];
 }
@@ -40,6 +68,7 @@ export default function AllProducts() {
   );
 
   const handleAddProduct = (newProduct: AllProductsNew) => {
+    console.log("ffgfgf", newProduct);
     setProducts((prevProducts) => [...prevProducts, newProduct]);
   };
 

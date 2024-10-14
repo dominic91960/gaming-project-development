@@ -29,7 +29,14 @@ export type AllProductsNew = {
   regular_price: string;
   status: string;
   saleQuantity: number;
-  
+  coverImage: string;
+  galleryImages: string[];
+  latestImage: string;
+  cardImage: string;
+  videoUrl: string;
+  addToLatestGame: boolean;
+  carousel: boolean;
+  displayLatestGame: boolean;
 };
 
 export const columns: ColumnDef<AllProductsNew>[] = [
