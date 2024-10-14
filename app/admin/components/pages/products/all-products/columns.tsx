@@ -38,6 +38,7 @@ export type AllProductsNew = {
   carousel: boolean;
   displayLatestGame: boolean;
   platform: string;
+  brand: string;
 };
 
 export const columns: ColumnDef<AllProductsNew>[] = [

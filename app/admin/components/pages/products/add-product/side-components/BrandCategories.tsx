@@ -9,7 +9,12 @@ interface Brands {
   imageUrl: string;
 }
 
-const BrandCategories = () => {
+interface BrandCategoriesProps {
+  brand: string;
+  setBrand: (brand: string) => void;
+}
+
+const BrandCategories = ({ brand, setBrand }: BrandCategoriesProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState<boolean>(false); // Track loading state
   const [brands, setBrands] = useState<Brands[]>([]);
@@ -43,6 +48,10 @@ const BrandCategories = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleBrandSelect = (selectedBrand: string) => {
+    setBrand(selectedBrand);
+  };
+
   return (
     <div className="border border-green-700 p-4 rounded-md max-w-xs">
       <div
@@ -65,10 +74,16 @@ const BrandCategories = () => {
           }`}
         >
           <ul className="text-white text-sm space-y-2">
-            {brands.map((brand) => (
-              <li key={brand.id} className="flex items-center">
-                <input type="checkbox" className="mr-2" />
-                {brand.name}
+            {brands.map((brandItem) => (
+              <li key={brandItem.id} className="flex items-center">
+                <input
+                  type="radio"
+                  name="brand"
+                  className="mr-2"
+                  checked={brand === brandItem.name}
+                  onChange={() => handleBrandSelect(brandItem.id)}
+                />
+                {brandItem.name}
               </li>
             ))}
           </ul>

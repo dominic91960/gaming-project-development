@@ -32,7 +32,8 @@ function getInitialData(): AllProductsNew[] {
       addToLatestGame: false,
       carousel: false,
       displayLatestGame: false,
-      platform: ""
+      platform: "",
+      brand: ""
     },
     {
       imageUrl: "/images/sample-pic.png",
@@ -58,7 +59,8 @@ function getInitialData(): AllProductsNew[] {
       addToLatestGame: false,
       carousel: false,
       displayLatestGame: false,
-      platform: ""
+      platform: "",
+      brand: ""
     },
   ];
 }
@@ -107,7 +109,7 @@ export default function AllProducts() {
       published: newProduct.status === "Public",
       categoryIds: [],
       tagIds: [],
-      brandId: "qw",
+      brandId: newProduct.brand,
       platformId: newProduct.platform,
     };
 
