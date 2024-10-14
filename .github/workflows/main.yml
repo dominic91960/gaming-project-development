@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - feat/addproduct
+      - fix/buildImageCachingError
 
 jobs:
   build-and-deploy:
@@ -44,7 +44,7 @@ jobs:
       # Step 5: Build and tag Docker image
       - name: Build Docker image
         run: |
-          docker build -t gaming-app:latest -f Dockerfile .
+          docker build --no-cache -t gaming-app:latest -f Dockerfile .
 
       - name: Tag Docker image
         run: |
