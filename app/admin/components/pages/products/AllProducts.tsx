@@ -22,7 +22,15 @@ function getInitialData(): AllProductsNew[] {
       cardDescription: "",
       language: "",
       icon: "",
-      saleQuantity: 0
+      saleQuantity: 0,
+      coverImage: "",
+      galleryImages: [],
+      latestImage: "",
+      cardImage: "",
+      videoUrl: "",
+      addToLatestGame: false,
+      carousel: false,
+      displayLatestGame: false
     },
     {
       imageUrl: "/images/sample-pic.png",
@@ -39,7 +47,15 @@ function getInitialData(): AllProductsNew[] {
       cardDescription: "",
       language: "",
       icon: "",
-      saleQuantity: 0
+      saleQuantity: 0,
+      coverImage: "",
+      galleryImages: [],
+      latestImage: "",
+      cardImage: "",
+      videoUrl: "",
+      addToLatestGame: false,
+      carousel: false,
+      displayLatestGame: false
     },
   ];
 }
@@ -52,6 +68,7 @@ export default function AllProducts() {
   );
 
   const handleAddProduct = (newProduct: AllProductsNew) => {
+    console.log("ffgfgf", newProduct);
     setProducts((prevProducts) => [...prevProducts, newProduct]);
   };
 
