@@ -3,7 +3,7 @@ name: Build and Deploy React+Vite to S3
 on:
   push:
     branches:
-      - main
+      - master
       - fix/buildImageCachingError
   workflow_dispatch:
 
