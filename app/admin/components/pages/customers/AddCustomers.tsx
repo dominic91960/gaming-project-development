@@ -11,8 +11,7 @@ export default function AddCustomers({ onAddCustomer }: AddCustomersProps) {
   const [customer_username, setCustomer_username] = useState("");
   const [customer_country, setCustomer_country] = useState("");
   const [customer_phone, setCustomer_phone] = useState("");
-  const [status, setStatus] = useState("Public");
-  const [date, setDate] = useState("");
+
   const [imageUrl, setImageUrl] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -26,8 +25,6 @@ export default function AddCustomers({ onAddCustomer }: AddCustomersProps) {
       customer_username,
       customer_country: customer_country,
       customer_phone: customer_phone,
-      status,
-      date,
     };
 
     onAddCustomer(newCustomer);
@@ -37,8 +34,6 @@ export default function AddCustomers({ onAddCustomer }: AddCustomersProps) {
     setCustomer_username("");
     setCustomer_country("");
     setCustomer_phone("");
-    setStatus("Public");
-    setDate("");
     setImageUrl("");
   };
 
@@ -98,28 +93,7 @@ export default function AddCustomers({ onAddCustomer }: AddCustomersProps) {
           required
         />
       </div>
-      <div className="mb-4">
-        <label className="block mb-1">Status</label>
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-        >
-          <option value="Public">Public</option>
-          <option value="Private">Private</option>
-          <option value="Archived">Archived</option>
-        </select>
-      </div>
-      <div className="mb-4">
-        <label className="block mb-1">Date</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-          required
-        />
-      </div>
+
       <div className="mb-4">
         <label className="block mb-1">Image URL</label>
         <input

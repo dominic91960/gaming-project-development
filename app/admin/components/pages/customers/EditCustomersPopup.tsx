@@ -99,23 +99,7 @@ const EditAllCustomersPopup: React.FC<EditAllCustomersPopupProps> = ({
             placeholder="Customer Phone"
             className="w-full mb-2 p-2 border rounded"
           />
-          <select
-            name="status"
-            value={editedcustomer.status}
-            onChange={handleInputChange}
-            className="w-full mb-2 p-2 border rounded"
-          >
-            <option value="Public">Public</option>
-            <option value="Private">Private</option>
-            <option value="Archived">Archived</option>
-          </select>
-          <input
-            type="date"
-            name="date"
-            value={editedcustomer.date}
-            onChange={handleInputChange}
-            className="w-full mb-2 p-2 border rounded"
-          />
+
           <input
             type="file"
             accept="image/*"

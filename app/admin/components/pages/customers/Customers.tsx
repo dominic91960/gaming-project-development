@@ -15,19 +15,6 @@ function getInitialData(): AllCustomersNew[] {
       customer_username: "In Stock",
       customer_country: "$40",
       customer_phone: "$60",
-      status: "Public",
-      date: "23/05/2024",
-    },
-    {
-      imageUrl: "/images/sample-pic.png",
-      id: "728ed52g",
-      customer_name: "UFO 50",
-      customer_id: "#u0343",
-      customer_username: "In Stock",
-      customer_country: "$40",
-      customer_phone: "$60",
-      status: "Public",
-      date: "23/05/2024",
     },
   ];
 }
@@ -93,7 +80,7 @@ export default function Allcustomers() {
 
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-4">All customers</h1>
+      <h1 className="text-2xl font-bold mb-4 text-white">All customers</h1>
 
       {/* Add customers Component */}
 

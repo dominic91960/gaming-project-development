@@ -21,8 +21,6 @@ export type AllCustomersNew = {
   customer_username: string;
   customer_country: string;
   customer_phone: string;
-  status: string;
-  date: string;
 };
 
 export const columns: ColumnDef<AllCustomersNew>[] = [
@@ -76,16 +74,6 @@ export const columns: ColumnDef<AllCustomersNew>[] = [
   {
     accessorKey: "customer_phone",
     header: "customer_phone",
-  },
-
-  {
-    accessorKey: "status",
-    header: "Status",
-  },
-
-  {
-    accessorKey: "date",
-    header: "Date",
   },
 
   {
