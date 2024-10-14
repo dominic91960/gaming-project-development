@@ -16,7 +16,7 @@ const Hero = () => {
       {/* container */}
       <div className="container mx-auto px-[36px] leading-none">
         {/* Another container to center the content in mobile screens*/}
-        <div className="relative w-[375px] mx-auto pb-[91px] sm:w-full sm:pb-[140px] md:pb-[190px] lg:pb-[240px] xl:pb-[270px] 2xl:pb-[290px]">
+        <div className="relative w-[375px] mx-auto pb-[70px] sm:w-full sm:pb-[120px] md:pb-[170px] lg:pb-[220px] xl:pb-[245px] 2xl:pb-[269px]">
           {/* Title */}
           <h2 className="bg-gradient-to-b from-white to-[#999999] bg-clip-text font-bold text-[40px] text-transparent uppercase mt-[0.9em] sm:text-[55px] md:text-[70px] lg:text-[90px] xl:text-[110px] 2xl:text-[125px]">
             Black myth
@@ -29,7 +29,7 @@ const Hero = () => {
           <hr className="text-[48px] w-[8ch] mt-[0.15em] sm:text-[68px] md:text-[88px] lg:text-[108px] xl:text-[128px] 2xl:text-[142px]" />
 
           {/* Desc */}
-          <p className="w-[37ch] my-[1.5em] font-medium text-[8px] sm:w-[46ch] sm:text-[9px] md:text-[10px] lg:w-[55ch] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
+          <p className="w-[37ch] my-[1.5em] font-medium text-[8px] leading-snug sm:w-[46ch] sm:text-[9px] md:text-[10px] lg:w-[55ch] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
             Black Myth: Wukong is an action RPG rooted in Chinese mythology. You
             shall set out as the Destined One to venture into the challenges and
             marvels ahead, to uncover the obscured truth beneath the veil of a
@@ -39,7 +39,7 @@ const Hero = () => {
           {/* Call to action */}
           <Button
             variant="gaming"
-            className="h-fit text-[9px] text-black px-[1em] py-[0.5em] uppercase sm:text-[12px] md:text-[15px] lg:text-[20px] xl:text-[24px] 2xl:text-[27px]"
+            className="h-fit text-[9px] text-black px-[1em] py-[0.5em] uppercase sm:text-[12px] md:text-[15px] lg:text-[20px] xl:text-[24px] 2xl:text-[27px] z-20"
           >
             Buy now
           </Button>
