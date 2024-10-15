@@ -1,9 +1,19 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
 
 import { IoClose } from "react-icons/io5";
-import { Input } from "@/components/ui/input";
 import { FaCirclePlus } from "react-icons/fa6";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 import { AllCustomersNew } from "./columns";
 import samplePic from "@/public/images/sample-pic.png";
@@ -23,6 +33,7 @@ const EditAllCustomersPopup: React.FC<EditAllCustomersPopupProps> = ({
 }) => {
   const [editedcustomer, setEditedcustomer] =
     React.useState<AllCustomersNew | null>(customer);
+  const [date, setDate] = useState<Date>();
 
   React.useEffect(() => {
     setEditedcustomer(customer);
@@ -63,7 +74,7 @@ const EditAllCustomersPopup: React.FC<EditAllCustomersPopupProps> = ({
 
   return (
     <div className="fixed h-full inset-0 bg-black/80 flex justify-center items-center font-primaryFont font-medium text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] xl:text-[13px] z-10">
-      <div className="relative bg-gradient-to-tr from-black/40 from-15% to-[#00a76966] backdrop-blur-[2px] p-[3em] rounded-md border border-[#19D38E] mx-[2em] sm:mx-0">
+      <div className="relative bg-gradient-to-tr from-black/40 from-15% to-[#00a76966] backdrop-blur-[2px] p-[3em] rounded-md border border-[#19D38E] mx-[2em]">
         <div className="font-bold text-[1.5em] pb-[0.6em] border-b border-b-[#0D6D49] flex justify-between">
           <h2>Edit Customer</h2>
           <button
@@ -159,10 +170,28 @@ const EditAllCustomersPopup: React.FC<EditAllCustomersPopupProps> = ({
               </div>
               <div>
                 <label className="block capitalize">Date of birth</label>
-                <Input
-                  type="date"
-                  className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
-                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-full text-[1em] h-fit py-[0.6em] justify-start text-left font-normal rounded-sm",
+                        !date && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-[0.6em] size-[1.4em]" />
+                      {date ? format(date, "PPP") : <span>Pick a date</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={setDate}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
 
