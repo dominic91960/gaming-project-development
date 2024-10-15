@@ -76,8 +76,8 @@ export default function AddCustomers({
           <div className="flex items-center justify-center gap-x-[2em] md:flex-col md:justify-start md:text-center md:mb-[15%]">
             <div className="relative">
               <Image
-                // src={image ? image : samplePic}
-                src={samplePic}
+                src={imageUrl && imageUrl !== "" ? imageUrl : samplePic}
+                // src={samplePic}
                 alt="Sample pic"
                 className="size-[8em] rounded-full"
                 width={104}
@@ -92,13 +92,11 @@ export default function AddCustomers({
             </div>
             <div className="py-[1em] border-b border-[#0D6D49] font-secondaryFont text-[1.5em] font-bold md:text-[1.2em]">
               <p>
-                {/* {firstName !== "" || lastName !== ""
-                  ? `${firstName} ${lastName}`
-                  : "Your Name"} */}
-                Customer Name
+                {customer_name && customer_name !== ""
+                  ? customer_name
+                  : "Customer Name"}
               </p>
               <p className="font-light text-[0.6em]">
-                {/* {email ? email : "sample@sample-domain.com"} */}
                 sample@sample-domain.com
               </p>
             </div>
@@ -117,7 +115,7 @@ export default function AddCustomers({
                   type="text"
                   value={customer_name}
                   onChange={(e) => setCustomer_name(e.target.value)}
-                  className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                  className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm "
                   required
                 />
               </div>
@@ -232,84 +230,15 @@ export default function AddCustomers({
 
             {/* Image URL */}
             <div className="mt-[1.4em]">
-              <label className="block capitalize">Image URL</label>
-              {/* <Input
-                type="text"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
-                required
-              /> */}
               <Input
+                id="profile-image"
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
-                className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                className="hidden w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
                 required
               />
             </div>
-
-            {/* <div className="mb-4">
-              <label className="block mb-1 text-white">Customer ID</label>
-              <input
-                type="text"
-                value={customer_id}
-                onChange={(e) => setCustomer_id(e.target.value)}
-                className="w-full p-2 border rounded text-black"
-                required
-              />
-            </div> */}
-
-            {/* <div className="mb-4">
-              <label className="block mb-1">Customer Username</label>
-              <input
-                type="text"
-                value={customer_username}
-                onChange={(e) => setCustomer_username(e.target.value)}
-                className="w-full p-2 border rounded text-black"
-                required
-              />
-            </div> */}
-
-            {/* <div className="mb-4">
-              <label className="block mb-1">Country</label>
-              <input
-                type="text"
-                value={customer_country}
-                onChange={(e) => setCustomer_country(e.target.value)}
-                className="w-full p-2 border rounded text-black"
-                required
-              />
-            </div> */}
-
-            {/* <div className="mb-4">
-              <label className="block mb-1">Phone</label>
-              <input
-                type="text"
-                value={customer_phone}
-                onChange={(e) => setCustomer_phone(e.target.value)}
-                className="w-full p-2 border rounded text-black"
-                required
-              />
-            </div> */}
-
-            {/* <div className="mb-4">
-              <label className="block mb-1">Image URL</label>
-              <input
-                type="text"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                className="w-full p-2 border rounded"
-                required
-              />
-            </div> */}
-
-            {/* <button
-              type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded"
-            >
-              Save Product
-            </button> */}
 
             {/* Submit */}
             <div className="flex justify-between items-center mt-[2em]">
