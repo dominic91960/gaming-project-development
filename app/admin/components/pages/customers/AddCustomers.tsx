@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import Image from "next/image";
 
 import { IoClose } from "react-icons/io5";
@@ -24,6 +24,15 @@ export default function AddCustomers({
   const [customer_phone, setCustomer_phone] = useState("");
 
   const [imageUrl, setImageUrl] = useState("");
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => setImageUrl(reader.result as string);
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,10 +149,7 @@ export default function AddCustomers({
                 <label className="block capitalize">Date of birth</label>
                 <Input
                   type="date"
-                  // value={customer_id}
-                  // onChange={(e) => setCustomer_id(e.target.value)}
                   className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
-                  required
                 />
               </div>
             </div>
@@ -227,10 +233,17 @@ export default function AddCustomers({
             {/* Image URL */}
             <div className="mt-[1.4em]">
               <label className="block capitalize">Image URL</label>
-              <Input
+              {/* <Input
                 type="text"
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
+                className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                required
+              /> */}
+              <Input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
                 className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
                 required
               />
