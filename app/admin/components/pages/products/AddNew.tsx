@@ -42,7 +42,8 @@ const AddNew = () => {
         recommendedRAM: "",
         recommendedStorage: "",
         recommendedGPU: "",
-        categories: []
+        categories: [],
+        tags: []
       },
       {
         imageUrl: "/images/sample-pic.png",
@@ -80,7 +81,8 @@ const AddNew = () => {
         recommendedRAM: "",
         recommendedStorage: "",
         recommendedGPU: "",
-        categories: []
+        categories: [],
+        tags: []
       },
     ];
   }
@@ -123,7 +125,7 @@ const AddNew = () => {
       addToCarousel: newProduct.carousel,
       displayInLatesGames: newProduct.displayLatestGame,
       published: newProduct.status === "Public",
-      tagIds: [],
+      tagIds: newProduct.tags,
       brandId: newProduct.brand,
       platformId: newProduct.platform,
     };

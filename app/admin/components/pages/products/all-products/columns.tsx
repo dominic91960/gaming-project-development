@@ -40,6 +40,7 @@ export type AllProductsNew = {
   platform: string;
   brand: string;
   categories: string[];
+  tags: string[];
   minimumOS: string;
   minimumCPU: string;
   minimumRAM: string;

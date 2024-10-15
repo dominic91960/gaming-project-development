@@ -5,23 +5,6 @@ import { EditPlatformPopup } from "./platforms/EditPlatformPopup";
 import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 
-// const getData = (): Platforms[] => {
-//   return [
-//     {
-//       id: "1",
-//       name: "platform 1",
-//       description: "Description for platform 1",
-//       imageUrl: "/images/sample-pic.png",
-//     },
-//     {
-//       id: "2",
-//       name: "platform 2",
-//       description: "Description for platform 2",
-//       imageUrl: "/images/sample-pic.png",
-//     },
-//   ];
-// };
-
 export default function PlatformsPage() {
   const [data, setData] = useState<Platforms[]>([]);
   const [isEditPopupOpen, setEditPopupOpen] = useState(false);

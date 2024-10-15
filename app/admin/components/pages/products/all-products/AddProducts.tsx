@@ -65,6 +65,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   const [platform, setPlatform] = useState("");
   const [brand, setBrand] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,6 +97,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       platform,
       brand,
       categories,
+      tags,
       minimumOS,
       minimumCPU,
       minimumRAM,
@@ -280,7 +282,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           </div>
 
           <div className="mb-10">
-            <TagsCategories />
+            <TagsCategories 
+              tagIds={tags}
+              setTagIds={setTags}
+            />
           </div>
 
           <div className="mb-10">
