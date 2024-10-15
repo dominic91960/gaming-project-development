@@ -39,6 +39,16 @@ export type AllProductsNew = {
   displayLatestGame: boolean;
   platform: string;
   brand: string;
+  minimumOS: string;
+  minimumCPU: string;
+  minimumRAM: string;
+  minimumStorage: string;
+  minimumGPU: string;
+  recommendedOS: string;
+  recommendedCPU: string;
+  recommendedRAM: string;
+  recommendedStorage: string;
+  recommendedGPU: string;
 };
 
 export const columns: ColumnDef<AllProductsNew>[] = [
