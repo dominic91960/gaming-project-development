@@ -194,8 +194,8 @@ export default function AllProducts() {
         </p>
       </div>
 
-      {/* Add Products Component */}
-      <AddProducts onAddProduct={handleAddProduct} />
+      {/* Add Products Component
+      <AddProducts onAddProduct={handleAddProduct} /> */}
 
       {/* Data Table */}
       <DataTable columns={columnsWithActions} data={products} />
