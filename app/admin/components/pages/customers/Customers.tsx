@@ -4,6 +4,8 @@ import { DataTable } from "./data-table";
 import Addcustomers from "./AddCustomers";
 import EditAllcustomersPopup from "./EditCustomersPopup";
 import { ColumnDef } from "@tanstack/react-table";
+import { IoTrash } from "react-icons/io5";
+import { LuPencilLine } from "react-icons/lu";
 
 function getInitialData(): AllCustomersNew[] {
   return [
@@ -23,6 +25,7 @@ export default function Allcustomers() {
   const [customers, setcustomers] = useState<AllCustomersNew[]>(
     getInitialData()
   );
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingcustomer, setEditingcustomer] =
     useState<AllCustomersNew | null>(null);
@@ -56,18 +59,18 @@ export default function Allcustomers() {
     header: "Actions",
     id: "actions",
     cell: ({ row }) => (
-      <div className="flex space-x-2">
+      <div className="flex items-center justify-center gap-x-[1em] w-[6ch] lg:w-fit lg:gap-x-[0.5em]">
         <button
-          className="bg-red-500 text-white px-2 py-1 rounded"
-          onClick={() => handleDeletecustomer(row.original.id)}
-        >
-          Delete
-        </button>
-        <button
-          className="bg-blue-500 text-white px-2 py-1 rounded"
+          className="hover:opacity-80 transition-opacity duration-100"
           onClick={() => handleEditcustomer(row.original)}
         >
-          Edit
+          <LuPencilLine />
+        </button>
+        <button
+          className="hover:opacity-80 transition-opacity duration-100"
+          onClick={() => handleDeletecustomer(row.original.id)}
+        >
+          <IoTrash />
         </button>
       </div>
     ),
@@ -79,15 +82,28 @@ export default function Allcustomers() {
   ];
 
   return (
-    <div className="container mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-4 text-white">All customers</h1>
+    <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
+      <div className="pb-[2em] px-[36px]">
+        <h1 className="font-bold text-[1.5em] leading-none text-white">
+          All Customers
+        </h1>
+        <p className="text-[0.9em] text-white md:text-[0.5em]">Customer</p>
+      </div>
 
       {/* Add customers Component */}
-
-      <Addcustomers onAddCustomer={handleAddcustomer} />
+      {isAddModalOpen && (
+        <Addcustomers
+          onClose={() => setIsAddModalOpen(false)}
+          onAddCustomer={handleAddcustomer}
+        />
+      )}
 
       {/* Data Table */}
-      <DataTable columns={columnsWithActions} data={customers} />
+      <DataTable
+        handleClick={() => setIsAddModalOpen(true)}
+        columns={columnsWithActions}
+        data={customers}
+      />
 
       {/* Edit customer Modal */}
       <EditAllcustomersPopup

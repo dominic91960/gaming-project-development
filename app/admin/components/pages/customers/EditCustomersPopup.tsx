@@ -1,5 +1,22 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
+import Image from "next/image";
+
+import { IoClose } from "react-icons/io5";
+import { FaCirclePlus } from "react-icons/fa6";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 import { AllCustomersNew } from "./columns";
+import samplePic from "@/public/images/sample-pic.png";
 
 interface EditAllCustomersPopupProps {
   customer: AllCustomersNew | null;
@@ -16,6 +33,7 @@ const EditAllCustomersPopup: React.FC<EditAllCustomersPopupProps> = ({
 }) => {
   const [editedcustomer, setEditedcustomer] =
     React.useState<AllCustomersNew | null>(customer);
+  const [date, setDate] = useState<Date>();
 
   React.useEffect(() => {
     setEditedcustomer(customer);
@@ -55,74 +73,286 @@ const EditAllCustomersPopup: React.FC<EditAllCustomersPopupProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded shadow-md w-96">
-        <h2 className="text-xl font-bold mb-4">Edit customer</h2>
-        <form>
-          <input
-            type="text"
-            name="customer_name"
-            value={editedcustomer.customer_name}
-            onChange={handleInputChange}
-            placeholder="customer Name"
-            className="w-full mb-2 p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="customer_id"
-            value={editedcustomer.customer_id}
-            onChange={handleInputChange}
-            placeholder="customer_id"
-            className="w-full mb-2 p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="customer_username"
-            value={editedcustomer.customer_username}
-            onChange={handleInputChange}
-            placeholder="Customer_username"
-            className="w-full mb-2 p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="customer_country"
-            value={editedcustomer.customer_country}
-            onChange={handleInputChange}
-            placeholder="Customer Country"
-            className="w-full mb-2 p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="customer_phone"
-            value={editedcustomer.customer_phone}
-            onChange={handleInputChange}
-            placeholder="Customer Phone"
-            className="w-full mb-2 p-2 border rounded"
-          />
+    <div className="fixed h-full inset-0 bg-black/80 flex justify-center items-center font-primaryFont font-medium text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] xl:text-[13px] z-10">
+      <div className="relative bg-gradient-to-tr from-black/40 from-15% to-[#00a76966] backdrop-blur-[2px] p-[3em] rounded-md border border-[#19D38E] mx-[2em]">
+        <div className="font-bold text-[1.5em] pb-[0.6em] border-b border-b-[#0D6D49] flex justify-between">
+          <h2>Edit Customer</h2>
+          <button
+            className="text-[#00FFA1] text-[1.4em] hover:opacity-80 transition-opacity duration-100"
+            onClick={onClose}
+          >
+            <IoClose />
+          </button>
+        </div>
 
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="w-full mb-4 p-2"
-          />
-          <div className="flex justify-end space-x-2">
-            <button
-              type="button"
-              className="bg-gray-500 text-white px-4 py-2 rounded"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              className="bg-green-500 text-white px-4 py-2 rounded"
-              onClick={handleSave}
-            >
-              OK
-            </button>
+        <div className="flex flex-col gap-y-[2em] my-[2em] md:flex-row md:gap-y-0 md:gap-x-[2em] *:md:bg-black/40 *:md:p-[2.8em] *:md:rounded-sm *:md:border *:md:border-[#0D6D49]">
+          {/* Image area */}
+          <div className="flex items-center justify-center gap-x-[2em] md:flex-col md:justify-start md:text-center md:mb-[15%]">
+            <div className="relative">
+              <Image
+                src={
+                  editedcustomer.imageUrl && editedcustomer.imageUrl !== ""
+                    ? editedcustomer.imageUrl
+                    : samplePic
+                }
+                // src={samplePic}
+                alt="Sample pic"
+                className="size-[8em] rounded-full"
+                width={104}
+                height={104}
+              />
+              <label
+                htmlFor="profile-image"
+                className="text-[2em] text-[#0BDB45] absolute bottom-0 right-0 cursor-pointer"
+              >
+                <FaCirclePlus />
+              </label>
+            </div>
+            <div className="py-[1em] border-b border-[#0D6D49] font-secondaryFont text-[1.5em] font-bold md:text-[1.2em]">
+              <p>
+                {editedcustomer.customer_name &&
+                editedcustomer.customer_name !== ""
+                  ? editedcustomer.customer_name
+                  : "Customer Name"}
+              </p>
+              <p className="font-light text-[0.6em]">
+                sample@sample-domain.com
+              </p>
+            </div>
           </div>
-        </form>
+
+          <form>
+            <h2 className="font-bold text-[1.4em] uppercase mb-[0.5em]">
+              Personal details
+            </h2>
+
+            {/* Full name and ID */}
+            <div className="grid grid-cols-2 gap-x-[0.7em] mt-[1.4em] font-medium xl:gap-x-[2em] 2xl:gap-x-[4.8em]">
+              <div>
+                <label className="block capitalize">Full Name</label>
+                <Input
+                  type="text"
+                  name="customer_name"
+                  value={editedcustomer.customer_name}
+                  onChange={handleInputChange}
+                  placeholder="customer Name"
+                  className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm "
+                  required
+                />
+              </div>
+              <div>
+                <label className="block capitalize">Customer ID</label>
+                <Input
+                  type="text"
+                  name="customer_id"
+                  value={editedcustomer.customer_id}
+                  onChange={handleInputChange}
+                  placeholder="customer_id"
+                  className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Customer username and DOB */}
+            <div className="grid grid-cols-2 gap-x-[0.7em] mt-[1.4em] font-medium xl:gap-x-[2em] 2xl:gap-x-[4.8em]">
+              <div>
+                <label className="block capitalize">Username</label>
+                <Input
+                  type="text"
+                  name="customer_username"
+                  value={editedcustomer.customer_username}
+                  onChange={handleInputChange}
+                  placeholder="Customer_username"
+                  className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block capitalize">Date of birth</label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-full text-[1em] h-fit py-[0.6em] justify-start text-left font-normal rounded-sm",
+                        !date && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-[0.6em] size-[1.4em]" />
+                      {date ? format(date, "PPP") : <span>Pick a date</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={setDate}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
+
+            {/* Address */}
+            <div className="mt-[1.4em]">
+              <label className="block capitalize">Address</label>
+              <Input
+                type="text"
+                className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+              />
+            </div>
+
+            {/* State, city and zip code */}
+            <div className="grid grid-cols-3 gap-x-[0.7em] mt-[1.4em] font-medium xl:gap-x-[2em] 2xl:gap-x-[4.8em]">
+              <div>
+                <label className="block capitalize">State</label>
+                <Input
+                  type="text"
+                  className="text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                />
+              </div>
+              <div>
+                <label className="block capitalize">City</label>
+                <Input
+                  type="text"
+                  className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                />
+              </div>
+              <div>
+                <label className="block capitalize">ZIP Code</label>
+                <Input
+                  type="text"
+                  className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                />
+              </div>
+            </div>
+
+            {/* Country and phone */}
+            <div className="grid grid-cols-2 gap-x-[0.7em] mt-[1.4em] font-medium xl:gap-x-[2em] 2xl:gap-x-[4.8em]">
+              <div>
+                <label className="block capitalize">Country</label>
+                <Input
+                  type="text"
+                  name="customer_country"
+                  value={editedcustomer.customer_country}
+                  onChange={handleInputChange}
+                  placeholder="Customer Country"
+                  className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block capitalize">Phone</label>
+                <Input
+                  type="text"
+                  name="customer_phone"
+                  value={editedcustomer.customer_phone}
+                  onChange={handleInputChange}
+                  placeholder="Customer Phone"
+                  className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="mt-[1.4em]">
+              <label className="block capitalize">Email</label>
+              <Input
+                type="text"
+                className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+              />
+            </div>
+
+            {/* Password */}
+            <div className="mt-[1.4em]">
+              <button
+                type="button"
+                className="text-black font-semibold text-[1.1em] px-[1.5em] py-[0.5em] bg-[#00FFA1] rounded hover:opacity-90 transition-opacity duration-100 uppercase"
+              >
+                Change Password
+              </button>
+            </div>
+
+            {/* Image URL */}
+            <div className="mt-[1.4em]">
+              <Input
+                id="profile-image"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                required
+              />
+            </div>
+
+            <input
+              id="profile-image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+            />
+
+            {/* Submit */}
+            <div className="flex justify-between items-center mt-[2em]">
+              <p className="text-[0.76em] max-w-[40ch] md:max-w-[44ch] 2xl:max-w-[65ch]">
+                Please review and ensure that all the details you have entered
+                are correct before submitting.
+              </p>
+              <button
+                type="button"
+                className="text-black font-semibold text-[1.1em] px-[1.5em] py-[0.5em] bg-[#00FFA1] rounded hover:opacity-90 transition-opacity duration-100"
+                onClick={handleSave}
+              >
+                Save
+              </button>
+            </div>
+
+            {/* <input
+              type="text"
+              name="customer_name"
+              value={editedcustomer.customer_name}
+              onChange={handleInputChange}
+              placeholder="customer Name"
+              className="w-full mb-2 p-2 border rounded"
+            />
+            <input
+              type="text"
+              name="customer_id"
+              value={editedcustomer.customer_id}
+              onChange={handleInputChange}
+              placeholder="customer_id"
+              className="w-full mb-2 p-2 border rounded"
+            />
+            <input
+              type="text"
+              name="customer_username"
+              value={editedcustomer.customer_username}
+              onChange={handleInputChange}
+              placeholder="Customer_username"
+              className="w-full mb-2 p-2 border rounded"
+            />
+            <input
+              type="text"
+              name="customer_country"
+              value={editedcustomer.customer_country}
+              onChange={handleInputChange}
+              placeholder="Customer Country"
+              className="w-full mb-2 p-2 border rounded"
+            />
+            <input
+              type="text"
+              name="customer_phone"
+              value={editedcustomer.customer_phone}
+              onChange={handleInputChange}
+              placeholder="Customer Phone"
+              className="w-full mb-2 p-2 border rounded"
+            /> */}
+          </form>
+        </div>
       </div>
     </div>
   );
