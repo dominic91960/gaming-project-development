@@ -5,8 +5,11 @@ import AddProducts from "./all-products/AddProducts";
 import EditAllProductsPopup from "./all-products/EditAllProductsPopup";
 import { ColumnDef } from "@tanstack/react-table";
 import axiosInstance from "@/axios/axiosInstance";
+import { useSidebar } from "@/context/SidebarContext";
 
 function getInitialData(): AllProductsNew[] {
+
+  const {setSelectedItem} = useSidebar();
   return [
     {
       imageUrl: "/images/sample-pic.png",

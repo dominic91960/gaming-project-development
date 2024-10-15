@@ -3,8 +3,10 @@ import AddProducts from "./all-products/AddProducts";
 import { AllProductsNew } from "./all-products/columns";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useSidebar } from "@/context/SidebarContext";
 
 const AddNew = () => {
+  const {setSelectedItem} = useSidebar();
   function getInitialData(): AllProductsNew[] {
     return [
       {
@@ -136,6 +138,7 @@ const AddNew = () => {
       if(res.status === 201){
         console.log("Product added successfully");
         toast.success("Product added successfully");
+        setSelectedItem("all-products")
       }else{
         throw new Error("Failed to add product");
       }

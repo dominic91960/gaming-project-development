@@ -1,5 +1,5 @@
 "use client";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useContext, useEffect } from "react";
 
 import { BsFillGrid1X2Fill } from "react-icons/bs";
 import {
@@ -18,6 +18,7 @@ import { RiShieldStarFill } from "react-icons/ri";
 import SidebarLink from "./SidebarLink";
 import SidebarButton from "./SidebarButton";
 import "./admin.css";
+import { useSidebar } from "@/context/SidebarContext";
 
 interface SidebarProps {
   onSelect: (content: string) => void;
@@ -33,13 +34,20 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [isProductOpen, setProductOpen] = useState(false);
   const [isUsersOpen, setUsersOpen] = useState(false);
 
-  const [selectedItem, setSelectedItem] = useState<string>("");
+  const {selectedItem, setSelectedItem} = useSidebar();
 
   const handleItemClick = (item: string) => {
     setSelectedItem(item);
     onSelect(item);
     setIsMobileNavToggled(false);
   };
+
+  useEffect(() => {
+    if (selectedItem) {
+      handleItemClick(selectedItem);
+    }
+  }, [selectedItem]);
+
 
   return (
     <div
