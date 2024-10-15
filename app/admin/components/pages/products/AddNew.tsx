@@ -2,6 +2,7 @@ import axiosInstance from "@/axios/axiosInstance";
 import AddProducts from "./all-products/AddProducts";
 import { AllProductsNew } from "./all-products/columns";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const AddNew = () => {
   function getInitialData(): AllProductsNew[] {
@@ -130,7 +131,18 @@ const AddNew = () => {
       platformId: newProduct.platform,
     };
 
-    await axiosInstance.post("/games", data);
+    try{
+      const res = await axiosInstance.post("/games", data);
+      if(res.status === 201){
+        console.log("Product added successfully");
+        toast.success("Product added successfully");
+      }else{
+        throw new Error("Failed to add product");
+      }
+    }catch(error){
+      console.error(error);
+      toast.error("Failed to add product");
+    }
   };
   return (
     <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
