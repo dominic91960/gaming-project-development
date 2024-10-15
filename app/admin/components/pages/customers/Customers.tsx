@@ -4,6 +4,8 @@ import { DataTable } from "./data-table";
 import Addcustomers from "./AddCustomers";
 import EditAllcustomersPopup from "./EditCustomersPopup";
 import { ColumnDef } from "@tanstack/react-table";
+import { IoTrash } from "react-icons/io5";
+import { LuPencilLine } from "react-icons/lu";
 
 function getInitialData(): AllCustomersNew[] {
   return [
@@ -57,18 +59,18 @@ export default function Allcustomers() {
     header: "Actions",
     id: "actions",
     cell: ({ row }) => (
-      <div className="flex space-x-2">
+      <div className="flex items-center justify-center gap-x-[1em] w-[6ch] lg:w-fit lg:gap-x-[0.5em]">
         <button
-          className="bg-red-500 text-white px-2 py-1 rounded"
-          onClick={() => handleDeletecustomer(row.original.id)}
-        >
-          Delete
-        </button>
-        <button
-          className="bg-blue-500 text-white px-2 py-1 rounded"
+          className="hover:opacity-80 transition-opacity duration-100"
           onClick={() => handleEditcustomer(row.original)}
         >
-          Edit
+          <LuPencilLine />
+        </button>
+        <button
+          className="hover:opacity-80 transition-opacity duration-100"
+          onClick={() => handleDeletecustomer(row.original.id)}
+        >
+          <IoTrash />
         </button>
       </div>
     ),
