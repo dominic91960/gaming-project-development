@@ -13,7 +13,12 @@ export type Category = {
   children?: Category[];
 };
 
-const ProductCategories = () => {
+interface ProductCategoriesProps {
+  categories: string[];
+  setCategories: (categories: string[]) => void;
+}
+
+const ProductCategories = ({ categories, setCategories }: ProductCategoriesProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [data, setData] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -46,12 +51,25 @@ const ProductCategories = () => {
     }
   };
 
+  const handleCheckboxChange = (categoryId: string) => {
+    if (categories.includes(categoryId)) {
+      setCategories(categories.filter((id) => id !== categoryId));
+    } else {
+      setCategories([...categories, categoryId]);
+    }
+  };
+
   const renderCategories = (categoryList: Category[]) => {
     return (
       <ul className="ml-4">
         {categoryList.map((category) => (
           <li key={category.id} className="mb-2">
-            <input type="checkbox" className="mr-2" />
+            <input
+              type="checkbox"
+              className="mr-2"
+              checked={categories.includes(category.id)}
+              onChange={() => handleCheckboxChange(category.id)}
+            />
             {category.name}
             {category.children && category.children.length > 0 && renderCategories(category.children)}
           </li>

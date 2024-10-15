@@ -80,7 +80,7 @@ const BrandCategories = ({ brand, setBrand }: BrandCategoriesProps) => {
                   type="radio"
                   name="brand"
                   className="mr-2"
-                  checked={brand === brandItem.name}
+                  checked={brand === brandItem.id}
                   onChange={() => handleBrandSelect(brandItem.id)}
                 />
                 {brandItem.name}

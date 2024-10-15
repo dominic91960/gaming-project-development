@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AllProductsNew, columns } from "./all-products/columns";
 import { DataTable } from "./all-products/data-table";
 import AddProducts from "./all-products/AddProducts";
 import EditAllProductsPopup from "./all-products/EditAllProductsPopup";
 import { ColumnDef } from "@tanstack/react-table";
 import axiosInstance from "@/axios/axiosInstance";
+import { useSidebar } from "@/context/SidebarContext";
 
 function getInitialData(): AllProductsNew[] {
   return [
@@ -33,7 +34,19 @@ function getInitialData(): AllProductsNew[] {
       carousel: false,
       displayLatestGame: false,
       platform: "",
-      brand: ""
+      brand: "",
+      minimumOS: "",
+      minimumCPU: "",
+      minimumRAM: "",
+      minimumStorage: "",
+      minimumGPU: "",
+      recommendedOS: "",
+      recommendedCPU: "",
+      recommendedRAM: "",
+      recommendedStorage: "",
+      recommendedGPU: "",
+      categories: [],
+      tags: []
     },
     {
       imageUrl: "/images/sample-pic.png",
@@ -60,61 +73,83 @@ function getInitialData(): AllProductsNew[] {
       carousel: false,
       displayLatestGame: false,
       platform: "",
-      brand: ""
+      brand: "",
+      minimumOS: "",
+      minimumCPU: "",
+      minimumRAM: "",
+      minimumStorage: "",
+      minimumGPU: "",
+      recommendedOS: "",
+      recommendedCPU: "",
+      recommendedRAM: "",
+      recommendedStorage: "",
+      recommendedGPU: "",
+      categories: [],
+      tags: []
     },
   ];
 }
 
+
+
 export default function AllProducts() {
-  const [products, setProducts] = useState<AllProductsNew[]>(getInitialData());
+  const [products, setProducts] = useState<AllProductsNew[]>([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<AllProductsNew | null>(
     null
   );
+useEffect(()=>{
+  function mapGamesResponse(games: any[]): any[] {
+    return games.map(game => ({
+      id: game.id,
+      name: game.productName,
+      displayName: game.displayName,
+      about: game.aboutThisGame,
+      cardDescription: game.cardDescription,
+      language: game.languages?.[0] || '',  // Pick the first language, or empty string if not available
+      date: game.releaseDate ? new Date(game.releaseDate).toISOString().split('T')[0] : '',
+      icon: game.coverImage || '',  // Assuming icon is the cover image
+      imageUrl: game.cardImage || '',  // Assuming the cover image is the primary image URL
+      sku: game.SKU || '',
+      stock: game.stock?.toString() || '',  // Convert stock to string
+      selling_price: "$"+game.sellingPrice?.toString() || '',
+      regular_price: "$"+game.regularPrice?.toString() || '',
+      status: game.stockStatus || '',
+      saleQuantity: game.stock || 0,  // Assuming saleQuantity is equivalent to stock
+      coverImage: game.coverImage || '',
+      galleryImages: game.screenshots || [],  // Assuming screenshots are gallery images
+      latestImage: game.latestImage || '',
+      cardImage: game.cardImage || '',
+      videoUrl: game.video || '',
+      addToLatestGame: game.addToLatestGames || false,
+      carousel: game.addToCarousel || false,
+      displayLatestGame: game.displayInLatesGames || false,
+      platform: game.platformId || '',  // Assuming platform is represented by platformId
+      brand: game.brandId || '',  // Assuming brand is represented by brandId
+      categories: game.gameCategories?.map((cat: { category: { name: any; }; }) => cat.category.name) || [],  // Map category names
+      tags: game.tags?.map((tag: { tag: { name: any; }; }) => tag.tag.name) || [],  // Map tag names
+      minimumOS: game.minimumOS || '',
+      minimumCPU: game.minimumCPU || '',
+      minimumRAM: game.minimumRAM || '',
+      minimumStorage: game.minimumStorage || '',
+      minimumGPU: game.minimumGPU || '',
+      recommendedOS: game.recommendedOS || '',
+      recommendedCPU: game.recommendedCPU || '',
+      recommendedRAM: game.recommendedRAM || '',
+      recommendedStorage: game.recommendedStorage || '',
+      recommendedGPU: game.recommendedGPU || '',
+    }));
+  }
+  
+  const getGames = async()=>{
+      const res = await axiosInstance("/games")
+      console.log("res",res.data)
+      const processedData = mapGamesResponse(res.data);
+      setProducts(processedData)
+      }
 
-  const handleAddProduct = async (newProduct: AllProductsNew) => {
-    console.log("ffgfgf", newProduct);
-    setProducts((prevProducts) => [...prevProducts, newProduct]);
-    const data = {
-      productName: newProduct.name,
-      displayName: newProduct.displayName,
-      aboutThisGame: newProduct.about,
-      cardDescription: newProduct.cardDescription,
-      system: newProduct.icon,
-      languages: newProduct.language ? [newProduct.language] : [],
-      releaseDate: new Date(newProduct.date).toISOString(),
-      regularPrice: parseFloat(newProduct.regular_price.replace("$", "")),
-      sellingPrice: parseFloat(newProduct.selling_price.replace("$", "")),
-      stock: parseInt(newProduct.stock),
-      SKU: newProduct.sku,
-      stockStatus: newProduct.stock === "In Stock" ? "IN_STOCK" : "OUT_OF_STOCK",
-      minimumOS: "",
-      minimumCPU: "",
-      minimumRAM: "",
-      minimumGPU: "",
-      minimumStorage: "",
-      recommendedOS: "",
-      recommendedCPU: "",
-      recommendedRAM: "",
-      recommendedGPU: "",
-      recommendedStorage: "",
-      coverImage: newProduct.coverImage,
-      screenshots: newProduct.galleryImages,
-      video: newProduct.videoUrl,
-      cardImage: newProduct.cardImage,
-      labelImage: newProduct.icon,
-      addToLatestGames: newProduct.addToLatestGame,
-      addToCarousel: newProduct.carousel,
-      displayInLatesGames: newProduct.displayLatestGame,
-      published: newProduct.status === "Public",
-      categoryIds: [],
-      tagIds: [],
-      brandId: newProduct.brand,
-      platformId: newProduct.platform,
-    };
-
-    await axiosInstance.post("/games", data);
-  };
+    getGames()
+},[])
 
   const handleDeleteProduct = (id: string) => {
     setProducts((prevProducts) =>
@@ -173,9 +208,6 @@ export default function AllProducts() {
           Products / All Products
         </p>
       </div>
-
-      {/* Add Products Component */}
-      <AddProducts onAddProduct={handleAddProduct} />
 
       {/* Data Table */}
       <DataTable columns={columnsWithActions} data={products} />

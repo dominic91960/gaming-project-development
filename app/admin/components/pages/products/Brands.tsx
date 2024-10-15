@@ -6,23 +6,6 @@ import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 import { uploadImage } from "@/components/helper/uploadImage";
 
-// const getData = (): Brands[] => {
-//   return [
-//     {
-//       id: "1",
-//       name: "Brand 1",
-//       description: "Description for Brand 1",
-//       imageUrl: "/images/sample-pic.png",
-//     },
-//     {
-//       id: "2",
-//       name: "Brand 2",
-//       description: "Description for Brand 2",
-//       imageUrl: "/images/sample-pic.png",
-//     },
-//   ];
-// };
-
 export default function BrandsPage() {
   const [data, setData] = useState<Brands[]>([]);
   const [isEditPopupOpen, setEditPopupOpen] = useState(false);

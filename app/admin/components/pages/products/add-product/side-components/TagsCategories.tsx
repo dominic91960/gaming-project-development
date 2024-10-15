@@ -9,7 +9,12 @@ interface Tags {
   imageUrl: string;
 }
 
-const TagsCategories = () => {
+interface TagsCategoriesProps {
+  tagIds: string[];
+  setTagIds: (tags: string[]) => void;
+}
+
+const TagsCategories = ({ tagIds, setTagIds }: TagsCategoriesProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState<boolean>(false); // Track loading state
   const [tags, setTags] = useState<Tags[]>([]);
@@ -43,6 +48,14 @@ const TagsCategories = () => {
     }
   };
 
+  const handleCheckboxChange = (tagId: string) => {
+    if (tagIds.includes(tagId)) {
+      setTagIds(tagIds.filter(id => id !== tagId));
+    } else {
+      setTagIds([...tagIds, tagId]);
+    }
+  };
+
   return (
     <div className="border border-green-700 p-4 rounded-md max-w-xs">
       <div
@@ -67,7 +80,12 @@ const TagsCategories = () => {
           <ul className="text-white text-sm space-y-2">
             {tags.map((tag) => (
               <li key={tag.id} className="flex items-center">
-                <input type="checkbox" className="mr-2" />
+                <input
+                  type="checkbox"
+                  className="mr-2"
+                  checked={tagIds.includes(tag.id)}
+                  onChange={() => handleCheckboxChange(tag.id)}
+                />
                 {tag.name}
               </li>
             ))}

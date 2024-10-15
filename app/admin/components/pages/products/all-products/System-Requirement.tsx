@@ -8,7 +8,52 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const SystemRequirements = () => {
+interface SystemRequirementsProps {
+  minimumOS: string;
+  minimumCPU: string;
+  minimumRAM: string;
+  minimumStorage: string;
+  minimumGPU: string;
+  recommendedOS: string;
+  recommendedCPU: string;
+  recommendedRAM: string;
+  recommendedStorage: string;
+  recommendedGPU: string;
+}
+
+const SystemRequirements = ({
+  minimumOS,
+  minimumCPU,
+  minimumRAM,
+  minimumStorage,
+  minimumGPU,
+  recommendedOS,
+  recommendedCPU,
+  recommendedRAM,
+  recommendedStorage,
+  recommendedGPU,
+  setMinimumOS,
+  setMinimumCPU,
+  setMinimumRAM,
+  setMinimumStorage,
+  setMinimumGPU,
+  setRecommendedOS,
+  setRecommendedCPU,
+  setRecommendedRAM,
+  setRecommendedStorage,
+  setRecommendedGPU,
+}: SystemRequirementsProps & {
+  setMinimumOS: (value: string) => void;
+  setMinimumCPU: (value: string) => void;
+  setMinimumRAM: (value: string) => void;
+  setMinimumStorage: (value: string) => void;
+  setMinimumGPU: (value: string) => void;
+  setRecommendedOS: (value: string) => void;
+  setRecommendedCPU: (value: string) => void;
+  setRecommendedRAM: (value: string) => void;
+  setRecommendedStorage: (value: string) => void;
+  setRecommendedGPU: (value: string) => void;
+}) => {
   return (
     <div>
       <Tabs defaultValue="account" className="w-full">
@@ -31,15 +76,15 @@ const SystemRequirements = () => {
               </div>
 
               <div className="col-span-10">
-                <Select>
+                <Select onValueChange={setMinimumOS}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Operating System" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">
+                    <SelectItem value="WINDOWS 10 / 11 WITH DIRECTX 12">
                       WINDOWS 10 / 11 WITH DIRECTX 12
                     </SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -50,15 +95,15 @@ const SystemRequirements = () => {
               </div>
 
               <div className="col-span-10">
-                <Select>
+                <Select onValueChange={setMinimumCPU}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select CPU" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">
+                    <SelectItem value="INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600">
                       INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600
                     </SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -69,16 +114,15 @@ const SystemRequirements = () => {
               </div>
 
               <div className="col-span-10">
-                <Select>
+                <Select onValueChange={setMinimumGPU}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Graphics" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">
-                      GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC
-                      A750 · 8GB (REBAR ON)
+                    <SelectItem value="GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)">
+                      GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)
                     </SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -89,15 +133,15 @@ const SystemRequirements = () => {
               </div>
 
               <div className="col-span-10">
-                <Select>
+                <Select onValueChange={setMinimumRAM}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Memory" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">
+                    <SelectItem value="16 GB (dual-channel mode)">
                       16 GB (dual-channel mode)
                     </SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -108,13 +152,13 @@ const SystemRequirements = () => {
               </div>
 
               <div className="col-span-10">
-                <Select>
+                <Select onValueChange={setMinimumStorage}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Storage" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">65 GB SSD</SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="65 GB SSD">65 GB SSD</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -130,10 +174,10 @@ const SystemRequirements = () => {
                     <SelectValue placeholder="Select Resolution" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">
+                    <SelectItem value="1080p / 30 Fps / Low Preset with Upscaler Set to Quality">
                       1080p / 30 Fps / Low Preset with Upscaler Set to Quality
                     </SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -153,15 +197,15 @@ const SystemRequirements = () => {
               </div>
 
               <div className="col-span-10">
-                <Select>
+                <Select onValueChange={setRecommendedOS}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Operating System" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">
+                    <SelectItem value="WINDOWS 10 / 11 WITH DIRECTX 12">
                       WINDOWS 10 / 11 WITH DIRECTX 12
                     </SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -172,15 +216,15 @@ const SystemRequirements = () => {
               </div>
 
               <div className="col-span-10">
-                <Select>
+                <Select onValueChange={setRecommendedCPU}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select CPU" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">
+                    <SelectItem value="INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600">
                       INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600
                     </SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -191,16 +235,15 @@ const SystemRequirements = () => {
               </div>
 
               <div className="col-span-10">
-                <Select>
+                <Select onValueChange={setRecommendedGPU}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Graphics" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">
-                      GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC
-                      A750 · 8GB (REBAR ON)
+                    <SelectItem value="GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)">
+                      GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)
                     </SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -211,15 +254,15 @@ const SystemRequirements = () => {
               </div>
 
               <div className="col-span-10">
-                <Select>
+                <Select onValueChange={setRecommendedRAM}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Memory" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">
+                    <SelectItem value="16 GB (dual-channel mode)">
                       16 GB (dual-channel mode)
                     </SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -230,19 +273,19 @@ const SystemRequirements = () => {
               </div>
 
               <div className="col-span-10">
-                <Select>
+                <Select onValueChange={setRecommendedStorage}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Storage" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">65 GB SSD</SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="65 GB SSD">65 GB SSD</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
             <div className="grid grid-cols-12 mb-8">
-              <div className="col-span-2">
+              <div className="col-span-2"></div>
                 <p className="text-white font-medium text-[16px]">Resolution</p>
               </div>
 
@@ -252,15 +295,14 @@ const SystemRequirements = () => {
                     <SelectValue placeholder="Select Resolution" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">
+                    <SelectItem value="1080p / 30 Fps / Low Preset with Upscaler Set to Quality">
                       1080p / 30 Fps / Low Preset with Upscaler Set to Quality
                     </SelectItem>
-                    <SelectItem value="dark">More Options..</SelectItem>
+                    <SelectItem value="More Options..">More Options..</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
-          </div>
         </TabsContent>
         <TabsContent value="xbox"></TabsContent>
 

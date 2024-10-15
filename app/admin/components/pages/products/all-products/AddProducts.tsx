@@ -48,44 +48,25 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   const [carousel, setCarousel] = useState(false);
   const [displayLatestGame, setDisplayLatestGame] = useState(false);
 
+  // system requirements
+  const [minimumOS, setMinimumOS] = useState("");
+  const [minimumCPU, setMinimumCPU] = useState("");
+  const [minimumRAM, setMinimumRAM] = useState("");
+  const [minimumStorage, setMinimumStorage] = useState("");
+  const [minimumGPU, setMinimumGPU] = useState("");
+  const [recommendedOS, setRecommendedOS] = useState("");
+  const [recommendedCPU, setRecommendedCPU] = useState("");
+  const [recommendedRAM, setRecommendedRAM] = useState("");
+  const [recommendedStorage, setRecommendedStorage] = useState("");
+  const [recommendedGPU, setRecommendedGPU] = useState("");
+
   // Other states
   const [status, setStatus] = useState("Public");// Initialize with a valid Platforms value if needed
   const [platform, setPlatform] = useState("");
   const [brand, setBrand] = useState("");
+  const [categories, setCategories] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
 
-  /* const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const newProduct: AllProductsNew = {
-      id: Math.random().toString(36).substr(2, 9),
-      imageUrl,
-      name,
-      sku,
-      stock,
-      selling_price: sellingPrice,
-      regular_price: regularPrice,
-      status,
-      date,
-    };
-
-    // Logging all variables after submit
-    console.log({
-      name,
-      displayName,
-      about,
-      cardDescription,
-      icon,
-      language,
-      date,
-      regularPrice,
-      sellingPrice,
-      sku,
-      stock,
-      status,
-    });
-
-    onAddProduct(newProduct);
-  }; */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   
@@ -114,7 +95,19 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       carousel,
       displayLatestGame,
       platform,
-      brand
+      brand,
+      categories,
+      tags,
+      minimumOS,
+      minimumCPU,
+      minimumRAM,
+      minimumStorage,
+      minimumGPU,
+      recommendedOS,
+      recommendedCPU,
+      recommendedRAM,
+      recommendedStorage,
+      recommendedGPU,
     };
   
     console.log(newProduct, 'newProduct');
@@ -213,7 +206,28 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           />
         </div> */}
 
-        <SystemRequirements />
+        <SystemRequirements 
+          minimumOS={minimumOS}
+          setMinimumOS={setMinimumOS}
+          minimumCPU={minimumCPU}
+          setMinimumCPU={setMinimumCPU}
+          minimumRAM={minimumRAM}
+          setMinimumRAM={setMinimumRAM}
+          minimumStorage={minimumStorage}
+          setMinimumStorage={setMinimumStorage}
+          minimumGPU={minimumGPU}
+          setMinimumGPU={setMinimumGPU}
+          recommendedOS={recommendedOS}
+          setRecommendedOS={setRecommendedOS}
+          recommendedCPU={recommendedCPU}
+          setRecommendedCPU={setRecommendedCPU}
+          recommendedRAM={recommendedRAM}
+          setRecommendedRAM={setRecommendedRAM}
+          recommendedStorage={recommendedStorage}
+          setRecommendedStorage={setRecommendedStorage}
+          recommendedGPU={recommendedGPU}
+          setRecommendedGPU={setRecommendedGPU}
+        />
       </div>
 
       {/* Dropdown area */}
@@ -254,7 +268,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
 
         <div>
           <div className="mb-10">
-            <ProductCategories />
+            <ProductCategories 
+              categories={categories}
+              setCategories={setCategories}
+            />
           </div>
 
           <div className="mb-10">
@@ -265,7 +282,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           </div>
 
           <div className="mb-10">
-            <TagsCategories />
+            <TagsCategories 
+              tagIds={tags}
+              setTagIds={setTags}
+            />
           </div>
 
           <div className="mb-10">

@@ -21,6 +21,7 @@ import Orders from "./components/pages/orders/Orders";
 import Reviews from "./components/pages/reviews/Reviews";
 import "./components/admin.css";
 import { CategoryProvider } from "@/context/CategoryContext";
+import { SidebarProvider } from "@/context/SidebarContext";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
@@ -95,6 +96,7 @@ const AdminPanel: React.FC = () => {
   return (
     <CategoryProvider>
       <RoleProvider>
+        <SidebarProvider>
         <StatusBar
           isMobileNavToggled={isMobileNavToggled}
           setIsMobileNavToggled={setIsMobileNavToggled}
@@ -109,6 +111,7 @@ const AdminPanel: React.FC = () => {
             {renderContent()}
           </div>
         </div>
+        </SidebarProvider>
       </RoleProvider>
     </CategoryProvider>
   );
