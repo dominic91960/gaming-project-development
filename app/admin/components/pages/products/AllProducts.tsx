@@ -43,7 +43,8 @@ function getInitialData(): AllProductsNew[] {
       recommendedCPU: "",
       recommendedRAM: "",
       recommendedStorage: "",
-      recommendedGPU: ""
+      recommendedGPU: "",
+      categories: []
     },
     {
       imageUrl: "/images/sample-pic.png",
@@ -80,7 +81,8 @@ function getInitialData(): AllProductsNew[] {
       recommendedCPU: "",
       recommendedRAM: "",
       recommendedStorage: "",
-      recommendedGPU: ""
+      recommendedGPU: "",
+      categories: []
     },
   ];
 }

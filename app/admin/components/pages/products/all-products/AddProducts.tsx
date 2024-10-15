@@ -64,6 +64,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   const [status, setStatus] = useState("Public");// Initialize with a valid Platforms value if needed
   const [platform, setPlatform] = useState("");
   const [brand, setBrand] = useState("");
+  const [categories, setCategories] = useState<string[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,6 +95,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       displayLatestGame,
       platform,
       brand,
+      categories,
       minimumOS,
       minimumCPU,
       minimumRAM,
@@ -264,7 +266,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
 
         <div>
           <div className="mb-10">
-            <ProductCategories />
+            <ProductCategories 
+              categories={categories}
+              setCategories={setCategories}
+            />
           </div>
 
           <div className="mb-10">

@@ -39,6 +39,7 @@ export type AllProductsNew = {
   displayLatestGame: boolean;
   platform: string;
   brand: string;
+  categories: string[];
   minimumOS: string;
   minimumCPU: string;
   minimumRAM: string;

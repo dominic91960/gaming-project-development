@@ -41,7 +41,8 @@ const AddNew = () => {
         recommendedCPU: "",
         recommendedRAM: "",
         recommendedStorage: "",
-        recommendedGPU: ""
+        recommendedGPU: "",
+        categories: []
       },
       {
         imageUrl: "/images/sample-pic.png",
@@ -78,7 +79,8 @@ const AddNew = () => {
         recommendedCPU: "",
         recommendedRAM: "",
         recommendedStorage: "",
-        recommendedGPU: ""
+        recommendedGPU: "",
+        categories: []
       },
     ];
   }
@@ -100,6 +102,7 @@ const AddNew = () => {
       sellingPrice: parseFloat(newProduct.selling_price.replace("$", "")),
       stock: newProduct.saleQuantity,
       SKU: newProduct.sku,
+      categoryIds: newProduct.categories,
       stockStatus: newProduct.stock === "In Stock" ? "IN_STOCK" : "OUT_OF_STOCK",
       minimumOS: newProduct.icon === "WINDOWS" ? newProduct.minimumOS : "",
       minimumCPU: newProduct.icon === "WINDOWS" ? newProduct.minimumCPU : "",
@@ -120,7 +123,6 @@ const AddNew = () => {
       addToCarousel: newProduct.carousel,
       displayInLatesGames: newProduct.displayLatestGame,
       published: newProduct.status === "Public",
-      categoryIds: [],
       tagIds: [],
       brandId: newProduct.brand,
       platformId: newProduct.platform,
