@@ -8,8 +8,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 interface ImageCarouselProps {
-  video: StaticImageData;
-  images: StaticImageData[];
+  video: string;
+  images: string[];
 }
 
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ video, images }) => {
@@ -35,11 +35,11 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ video, images }) => {
       className="mySwiper"
     >
       <SwiperSlide>
-        <Image src={video} alt="Thumbnail" className="mx-auto" />
+        <Image src={video} alt="Thumbnail" className="mx-auto" width={500} height={300} />
       </SwiperSlide>
       {images.map((image, index) => (
         <SwiperSlide key={index}>
-          <Image src={image} alt="Screenshots" className="mx-auto" />
+          <Image src={image} alt="Screenshots" className="mx-auto" width={500} height={300} />
         </SwiperSlide>
       ))}
       <style>{`

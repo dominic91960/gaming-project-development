@@ -96,6 +96,7 @@ export default function AllProducts() {
   const [editingProduct, setEditingProduct] = useState<AllProductsNew | null>(
     null
   );
+
   useEffect(() => {
     function mapGamesResponse(games: any[]): any[] {
       return games.map((game) => ({
@@ -104,34 +105,34 @@ export default function AllProducts() {
         displayName: game.displayName,
         about: game.aboutThisGame,
         cardDescription: game.cardDescription,
-        language: game.languages?.[0] || "", // Pick the first language, or empty string if not available
+        language: game.languages?.[0] || "",
         date: game.releaseDate
           ? new Date(game.releaseDate).toISOString().split("T")[0]
           : "",
-        icon: game.coverImage || "", // Assuming icon is the cover image
-        imageUrl: game.cardImage || "", // Assuming the cover image is the primary image URL
+        icon: game.coverImage || "",
+        imageUrl: game.cardImage || "",
         sku: game.SKU || "",
-        stock: game.stock?.toString() || "", // Convert stock to string
+        stock: game.stock?.toString() || "",
         selling_price: "$" + game.sellingPrice?.toString() || "",
         regular_price: "$" + game.regularPrice?.toString() || "",
         status: game.stockStatus || "",
-        saleQuantity: game.stock || 0, // Assuming saleQuantity is equivalent to stock
+        saleQuantity: game.stock || 0,
         coverImage: game.coverImage || "",
-        galleryImages: game.screenshots || [], // Assuming screenshots are gallery images
+        galleryImages: game.screenshots || [],
         latestImage: game.latestImage || "",
         cardImage: game.cardImage || "",
         videoUrl: game.video || "",
         addToLatestGame: game.addToLatestGames || false,
         carousel: game.addToCarousel || false,
         displayLatestGame: game.displayInLatesGames || false,
-        platform: game.platformId || "", // Assuming platform is represented by platformId
-        brand: game.brandId || "", // Assuming brand is represented by brandId
+        platform: game.platformId || "",
+        brand: game.brandId || "",
         categories:
           game.gameCategories?.map(
             (cat: { category: { name: any } }) => cat.category.name
-          ) || [], // Map category names
+          ) || [],
         tags:
-          game.tags?.map((tag: { tag: { name: any } }) => tag.tag.name) || [], // Map tag names
+          game.tags?.map((tag: { tag: { name: any } }) => tag.tag.name) || [],
         minimumOS: game.minimumOS || "",
         minimumCPU: game.minimumCPU || "",
         minimumRAM: game.minimumRAM || "",
@@ -147,7 +148,6 @@ export default function AllProducts() {
 
     const getGames = async () => {
       const res = await axiosInstance("/games");
-      console.log("res", res.data);
       const processedData = mapGamesResponse(res.data);
       setProducts(processedData);
     };
@@ -213,12 +213,8 @@ export default function AllProducts() {
         </p>
       </div>
 
-      {/* Data Table */}
-      {!isEditModalOpen && (
-        <DataTable columns={columnsWithActions} data={products} />
-      )}
+      <DataTable columns={columnsWithActions} data={products} />
 
-      {/* Edit Product Modal */}
       <EditAllProductsPopup
         product={editingProduct}
         isOpen={isEditModalOpen}
