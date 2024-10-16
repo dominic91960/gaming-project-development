@@ -1,49 +1,3 @@
-// import { AllReviews, columns } from "./columns";
-// import { DataTable } from "./data-table";
-// import { IoTrash } from "react-icons/io5";
-// import { LuPencilLine } from "react-icons/lu";
-
-// function getData(): AllReviews[] {
-//   // Fetch data synchronously or use a static array of data
-//   return [
-//     {
-//       imageUrl: "/images/sample-pic.png",
-//       author: "Dominic Brian",
-//       id: "728ed52f",
-//       rating: "Wukong",
-//       review: "It was popularised in the 1960s with the...",
-//       product: "BL104",
-//       status: "active",
-//     },
-
-//     // Add more static data if needed
-//   ];
-// }
-
-// export default function ReviewsPage() {
-//   const data = getData(); // No need for async/await here
-//   const actionColumn: ColumnDef<AllReviews> = {
-//     header: "Actions",
-//     id: "actions",
-//     cell: ({ row }) => (
-//       <div className="flex items-center justify-center gap-x-[1em] w-[6ch] lg:w-fit lg:gap-x-[0.5em]">
-//         <button className="hover:opacity-80 transition-opacity duration-100">
-//           <LuPencilLine />
-//         </button>
-//         <button className="hover:opacity-80 transition-opacity duration-100">
-//           <IoTrash />
-//         </button>
-//       </div>
-//     ),
-//   };
-
-//   return (
-//     <div className="container mx-auto py-10">
-//       <DataTable columns={columns} data={data} />
-//     </div>
-//   );
-// }
-
 import { useState } from "react";
 import { AllReviews, columns } from "./columns";
 import { DataTable } from "./data-table";
@@ -57,10 +11,28 @@ function getInitialData(): AllReviews[] {
     {
       imageUrl: "/images/sample-pic.png",
       author: "Dominic Brian",
-      id: "728ed52f",
-      rating: "Wukong",
+      id: "728ed512",
+      rating: "4",
       review: "It was popularised in the 1960s with the...",
       product: "BL104",
+      status: "active",
+    },
+    {
+      imageUrl: "/images/sample-pic.png",
+      author: "Steve Smith",
+      id: "728ed534",
+      rating: "3",
+      review: "It was popularised in the 1960s with the...",
+      product: "BL105",
+      status: "active",
+    },
+    {
+      imageUrl: "/images/sample-pic.png",
+      author: "Ricky Ponting",
+      id: "728ed556",
+      rating: "5",
+      review: "It was popularised in the 1960s with the...",
+      product: "BL106",
       status: "active",
     },
   ];
