@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { PiWarningCircleLight } from "react-icons/pi";
@@ -16,18 +16,11 @@ import { LiaAngleRightSolid } from "react-icons/lia";
 import { IoMdHeartEmpty, IoIosCart } from "react-icons/io";
 
 import ProductSearchBar from "@/components/product-search/product-search";
-import Navbar from "@/components/navbar/navbar";
 import ImageCarousel from "../_components/image-carousel";
 import RequirementsCard from "../_components/requirements-card";
 import ReviewCard from "../_components/review-card";
 import Footer from "@/components/footer/footer";
-
-import bg from "@/public/images/product/bg.png";
 import paypalLogo from "@/public/images/product/paypal-logo.png";
-import video from "@/public/images/product/video.png";
-import imgOne from "@/public/images/product/image-one.png";
-import imgTwo from "@/public/images/product/image-two.png";
-import imgThree from "@/public/images/product/image-three.png";
 import availability from "@/public/images/product/worldwide.png";
 import digitalKey from "@/public/images/product/digital-key.png";
 import lock from "@/public/images/product/lock.png";
@@ -37,62 +30,8 @@ import mastercard from "@/public/images/product/mastercard.png";
 import skrill from "@/public/images/product/skrill.png";
 import samplePic from "@/public/images/sample-pic.png";
 import "../_components/product.css";
-
-const gameData = {
-  image: bg,
-  title: "Star wars: outlaws",
-  fullTitle: "STAR WARS: OUTLAWS (PC) Steam Key Global",
-  originalPrice: 89.99,
-  discountPrice: 38.99,
-  rating: 4,
-  languages: ["English", "Japanese", "Russian", "French", "Chinese"],
-  os: "windows",
-  developedBy: "ubisoft",
-  platform: "steam",
-  tags: [
-    "Difficult",
-    "RPG",
-    "Dark Fantasy",
-    "Souls-like",
-    "Difficult",
-    "RPG",
-    "Dark Fantasy",
-    "Souls-like",
-  ],
-  video: video,
-  images: [imgOne, imgTwo, imgThree, imgOne, imgTwo, imgThree],
-  about:
-    "Experience the first-ever open world Star Wars™ game and explore distinct locations across the galaxy, both iconic and new. Risk it all as scoundrel Kay Vess, seeking freedom and the means to start a new life. Fight, steal, and outwit your way through the galaxy's crime syndicates as you join the galaxy's most wanted. If you're willing to take the risk, the galaxy is full of opportunity.",
-  requirements: {
-    minimum: {
-      os: "WINDOWS 10 / 11 WITH DIRECTX 12",
-      cpu: "INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600",
-      graphics:
-        "GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)",
-      ram: "8 GB (dual-channel mode)",
-      storage: "65 GB SSD",
-      resolution: "1080p / 30 Fps / Low Preset with Upscaler Set to Quality",
-    },
-    recommended: {
-      os: "WINDOWS 10 / 11 WITH DIRECTX 12 RECO",
-      cpu: "INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600",
-      graphics:
-        "GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)",
-      ram: "16 GB (dual-channel mode)",
-      storage: "65 GB SSD",
-      resolution: "1080p / 30 Fps / Low Preset with Upscaler Set to Quality",
-    },
-    high: {
-      os: "WINDOWS 10 / 11 WITH DIRECTX 12 HIGH",
-      cpu: "INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600",
-      graphics:
-        "GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)",
-      ram: "32 GB (dual-channel mode)",
-      storage: "65 GB SSD",
-      resolution: "1080p / 30 Fps / Low Preset with Upscaler Set to Quality",
-    },
-  },
-};
+import { useSearchParams } from "next/navigation";
+import axiosInstance from "@/axios/axiosInstance";
 
 const reviews = [
   {
@@ -128,15 +67,120 @@ const reviews = [
 ];
 
 export default function ProductPage() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const [isReviewFormVisible, setIsReviewFormVisible] = useState(false);
   const [isLanguageTooltipOpen, setIsLanguageTooltipOpen] = useState(false);
+  interface GameData {
+    image: string;
+    title: string;
+    fullTitle: string;
+    originalPrice: number;
+    discountPrice: number;
+    releaseDate: string;
+    rating: number;
+    languages: string[];
+    os: string;
+    developedBy: string;
+    platform: {
+      name: string;
+      image: string;
+    };
+    tags: string[];
+    video: string;
+    images: string[];
+    about: string;
+    requirements: {
+      minimum: {
+        os: string;
+        cpu: string;
+        graphics: string;
+        ram: string;
+        storage: string;
+        resolution: string;
+      };
+      recommended: {
+        os: string;
+        cpu: string;
+        graphics: string;
+        ram: string;
+        storage: string;
+        resolution: string;
+      };
+    };
+  }
+
+  const [gameData, setGameData] = useState<GameData | null>(null);
+
+  useEffect(() => {
+    console.log("id",id);
+    const getData = async () => {
+      try {
+        const res = await axiosInstance.get(`/games/${id}`);
+        console.log(res.data);
+
+        const mappedGameData = {
+          image: res.data.coverImage,
+          title: res.data.displayName,
+          fullTitle: `${res.data.displayName} (PC) ${res.data.Platform.name} Key Global`,
+          originalPrice: res.data.regularPrice,
+          discountPrice: res.data.sellingPrice,
+          releaseDate: res.data.releaseDate.split("T")[0],
+          rating: 4,
+          languages: res.data.languages,
+          os: res.data.system.toLowerCase(),
+          developedBy: "ubisoft",
+          platform: {
+            name: res.data.Platform.name,
+            image: res.data.Platform.image
+          },
+          tags: res.data.tags.map((tag: { tag: { name: any; }; }) => tag.tag.name),
+          video: res.data.video,
+          images: res.data.screenshots,
+          about: res.data.aboutThisGame,
+          requirements: {
+            minimum: {
+              os: res.data.minimumOS,
+              cpu: res.data.minimumCPU,
+              graphics: res.data.minimumGPU,
+              ram: res.data.minimumRAM,
+              storage: res.data.minimumStorage,
+              resolution: "1080p / 30 Fps / Low Preset with Upscaler Set to Quality",
+            },
+            recommended: {
+              os: res.data.recommendedOS,
+              cpu: res.data.recommendedCPU,
+              graphics: res.data.recommendedGPU,
+              ram: res.data.recommendedRAM,
+              storage: res.data.recommendedStorage,
+              resolution: "1080p / 30 Fps / High Preset with Upscaler Set to Quality",
+            }
+          }
+        };
+
+        setGameData(mappedGameData);
+        
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+    getData();
+  }, []);
   const calDiscountPercentage = () => {
+    if (!gameData) {
+      return "0";
+    }
     const discount =
       ((gameData.originalPrice - gameData.discountPrice) /
         gameData.originalPrice) *
       100;
     return discount.toFixed(2);
   };
+
+  if (!gameData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -147,7 +191,7 @@ export default function ProductPage() {
         <div
           className="relative h-[160px] bg-[length:640px_360px] bg-fixed sm:h-[220px] sm:bg-contain md:h-[280px] lg:h-[340px] lg:bg-[0px_-115px] 2xl:h-[480px]"
           style={{
-            backgroundImage: `url(${gameData.image.src})`,
+            backgroundImage: `url(${gameData?.image})`,
             backgroundPositionX: "center",
           }}
         >
@@ -170,16 +214,16 @@ export default function ProductPage() {
               <div>
                 {/* Full title */}
                 <h2 className="font-bold pt-[1em] sm:pt-[0.8em] text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] sm:max-w-[19ch] md:max-w-[21ch] lg:max-w-[29ch] xl:max-w-[38ch] 2xl:max-w-[46ch]">
-                  {gameData.fullTitle}
+                  {gameData?.fullTitle}
                 </h2>
 
                 {/* Product info */}
                 <div className="flex items-center text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] gap-x-[0.8em] leading-normal mt-[0.2em] mb-[0.6em]">
                   {/* Rating */}
                   <div className="text-[#f29d38] -translate-y-[10%]">
-                    <StarRating rating={gameData.rating} />
+                    <StarRating rating={gameData?.rating} />
                   </div>
-                  <p>{gameData.rating}/5</p>
+                  <p>{gameData?.rating}/5</p>
                   <div className="w-[1px] self-stretch bg-white"></div>
 
                   {/* Languages */}
@@ -197,7 +241,7 @@ export default function ProductPage() {
                         >
                           <button className="select-none flex gap-x-[0.5ch]">
                             <p className="max-w-[8ch] overflow-hidden text-ellipsis">
-                              {gameData.languages[0]}
+                              {gameData?.languages[0]}
                             </p>
                             {gameData.languages.length > 1 && (
                               <p> & {gameData.languages.length - 1} more</p>
@@ -428,7 +472,7 @@ export default function ProductPage() {
               {/* Card two */}
               <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
                 <Image
-                  src={`/images/product/platform/${gameData.platform}.png`}
+                  src={`${gameData.platform.image}`}
                   alt="Platform"
                   width={68}
                   height={68}
@@ -436,7 +480,7 @@ export default function ProductPage() {
                 />
                 <div>
                   <p className="font-bold text-[1.4em] uppercase">
-                    {gameData.platform}
+                    {gameData.platform.name}
                   </p>
                   <p className="opacity-70">Activate/redeem on Steam</p>
                 </div>
@@ -491,16 +535,10 @@ export default function ProductPage() {
               </h3>
               <div className="bg-white/5 p-[2em] mt-[2em]">
                 <p className="pb-[2em] text-justify opacity-70">
-                  Experience the first-ever open world Star Wars™ game and
-                  explore distinct locations across the galaxy, both iconic and
-                  new. Risk it all as scoundrel Kay Vess, seeking freedom and
-                  the means to start a new life. Fight, steal, and outwit your
-                  way through the galaxy&apos;s crime syndicates as you join the
-                  galaxy&apos;s most wanted. If you&apos;re willing to take the
-                  risk, the galaxy is full of opportunity.
+                  {gameData.about}
                 </p>
                 <p className="flex justify-between items-center text-[1.2em] font-medium ">
-                  Release Date: 30/08/2024
+                  Release Date: {gameData.releaseDate}
                 </p>
               </div>
             </div>

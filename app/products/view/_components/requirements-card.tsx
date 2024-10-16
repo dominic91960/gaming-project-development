@@ -19,14 +19,6 @@ interface RequirementsCardProps {
       storage: string;
       resolution: string;
     };
-    high: {
-      os: string;
-      cpu: string;
-      graphics: string;
-      ram: string;
-      storage: string;
-      resolution: string;
-    };
   };
 }
 
@@ -71,7 +63,7 @@ const RequirementsCard: React.FC<RequirementsCardProps> = ({
         >
           Recommended
         </button>
-        <button
+        {/* <button
           className={` translate-y-[0.2em]  ${
             activeSection.sectionName === "high"
               ? "border-[#0BDB45] font-bold border-b-[0.4em]"
@@ -80,12 +72,12 @@ const RequirementsCard: React.FC<RequirementsCardProps> = ({
           onClick={() =>
             setActiveSection({
               sectionName: "high",
-              sectionData: requirements.high,
+              sectionData: requirements.recommended,
             })
           }
         >
           High
-        </button>
+        </button> */}
       </div>
       <div className="pt-[5em] px-[10%]">
         <div className="grid grid-cols-2 pb-[3em]">
