@@ -15,7 +15,7 @@ function getInitialData(): AllReviews[] {
       rating: "4",
       review: "It was popularised in the 1960s with the...",
       product: "BL104",
-      status: "active",
+      status: "Approved",
     },
     {
       imageUrl: "/images/sample-pic.png",
@@ -24,7 +24,7 @@ function getInitialData(): AllReviews[] {
       rating: "3",
       review: "It was popularised in the 1960s with the...",
       product: "BL105",
-      status: "active",
+      status: "Rejected",
     },
     {
       imageUrl: "/images/sample-pic.png",
@@ -33,7 +33,7 @@ function getInitialData(): AllReviews[] {
       rating: "5",
       review: "It was popularised in the 1960s with the...",
       product: "BL106",
-      status: "active",
+      status: "Approved",
     },
   ];
 }

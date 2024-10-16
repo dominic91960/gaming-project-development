@@ -1,9 +1,11 @@
 "use client";
+import { useState } from "react";
 import { Star } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import StatusPopup from "./StatusPopup";
 
 export type AllReviews = {
   imageUrl: string;
@@ -80,5 +82,36 @@ export const columns: ColumnDef<AllReviews>[] = [
   {
     accessorKey: "status",
     header: "Status",
+    cell: ({ row }) => {
+      const [showPopup, setShowPopup] = useState(false);
+      const [status, setStatus] = useState(row.original.status);
+
+      const handleStatusClick = () => {
+        setShowPopup(true);
+      };
+
+      const handleStatusChange = (newStatus: string) => {
+        setStatus(newStatus);
+        row.original.status = newStatus; // Update the row's status value
+      };
+
+      return (
+        <div className="relative">
+          <button
+            onClick={handleStatusClick}
+            className="text-blue-500 underline"
+          >
+            {status}
+          </button>
+          {showPopup && (
+            <StatusPopup
+              initialStatus={status}
+              onSave={handleStatusChange}
+              onClose={() => setShowPopup(false)}
+            />
+          )}
+        </div>
+      );
+    },
   },
 ];
