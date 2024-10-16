@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - fix/buildImageCachingError
+      - fix/buildError
   workflow_dispatch:
 
 jobs:
