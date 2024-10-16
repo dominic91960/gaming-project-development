@@ -93,9 +93,9 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
   };
 
   return (
-    <form className="text-[15px] text-white px-[36px] grid grid-cols-12 gap-[3em]">
+    <form className="text-[9px] text-white px-[36px] grid lg:grid-cols-12 lg:gap-[3em] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
       {/* Main form area */}
-      <div className="col-span-9">
+      <div className="lg:col-span-8">
         {/* General data form*/}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">General Data</h2>
         <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
@@ -298,7 +298,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
       </div>
 
       {/* Dropdown area */}
-      <div className="col-span-3 pt-[3.4em]">
+      <div className="lg:col-span-4 lg:pt-[3.4em]">
         {/* Publish status */}
         <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <label className="block mb-1">Status</label>

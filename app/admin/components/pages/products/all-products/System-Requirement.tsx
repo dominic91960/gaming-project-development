@@ -55,7 +55,7 @@ const SystemRequirements = ({
   setRecommendedGPU: (value: string) => void;
 }) => {
   return (
-    <Tabs defaultValue="account" className="w-full">
+    <Tabs defaultValue="windows" className="w-full">
       <TabsList className="h-fit bg-transparent flex justify-between p-0 *:h-fit *:text-[1em] *:text-white *:py-[0.5em] *:rounded-sm">
         <TabsTrigger value="windows">Windows</TabsTrigger>
         <TabsTrigger value="xbox">Xbox</TabsTrigger>
