@@ -1,5 +1,8 @@
-import { uploadImage } from "@/components/helper/uploadImage";
 import { useState } from "react";
+
+import { uploadImage } from "@/components/helper/uploadImage";
+import { Checkbox } from "@/components/ui/checkbox";
+import { CiImageOn } from "react-icons/ci";
 
 interface ImageUploadProps {
   label: string;
@@ -29,8 +32,8 @@ const ImageUpload = ({ label, aspectRatio, setImageUrl }: ImageUploadProps) => {
 
   return (
     <div className="flex flex-col items-center">
-      <label className="block mb-2 text-sm text-gray-500">{label}</label>
-      <div className="relative w-full border-2 border-dashed border-gray-500 rounded-md">
+      <label className="block my-[1em] text-[#D9D9D9]">{label}</label>
+      <div className="relative w-full border border-dashed border-[#D9D9D9] rounded-sm">
         <div
           className="w-full relative overflow-hidden rounded-md"
           style={{ paddingBottom }}
@@ -43,7 +46,7 @@ const ImageUpload = ({ label, aspectRatio, setImageUrl }: ImageUploadProps) => {
                 className="absolute top-0 left-0 object-cover w-full h-full"
               />
               <button
-                className="absolute top-2 right-2 bg-white text-gray-500 px-2 py-1 rounded text-xs"
+                className="absolute top-2 right-2 bg-black/40 text-white px-2 py-1 border rounded backdrop-blur-[2px] hover:opacity-85"
                 onClick={() => {
                   setImageUrl("");
                   setImageSrc(null);
@@ -53,14 +56,15 @@ const ImageUpload = ({ label, aspectRatio, setImageUrl }: ImageUploadProps) => {
               </button>
             </>
           ) : (
-            <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer">
+            <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer hover:animate-pulse">
               <input
                 type="file"
                 className="hidden"
                 accept="image/*"
                 onChange={handleImageUpload}
               />
-              <span className="text-sm text-gray-500">
+              <CiImageOn className="text-[3em] text-[#D9D9D9] py-[0.1em]" />
+              <span className="text-[#D9D9D9]">
                 {aspectRatio.replace(":", " × ")}
               </span>
             </label>
@@ -68,7 +72,7 @@ const ImageUpload = ({ label, aspectRatio, setImageUrl }: ImageUploadProps) => {
         </div>
       </div>
       {imageSrc && (
-        <label className="mt-2 text-xs text-blue-500 cursor-pointer">
+        <label className="mt-[0.5em] text-[#0BDB45] cursor-pointer hover:opacity-85">
           <input
             type="file"
             className="hidden"
@@ -124,13 +128,13 @@ const ProductImages = ({
   console.log("ImageData", ImageData);
   return (
     <div>
-      <div className="grid gap-4 mb-6">
+      <div className="grid mb-[1.5em]">
         <ImageUpload
           label="Add Product Image"
           aspectRatio="1920:300"
           setImageUrl={setCoverImage}
         />
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 gap-x-[1em] mt-[1em] sm:grid-cols-3">
           <ImageUpload
             label="Add video"
             aspectRatio="1920:1080"
@@ -151,47 +155,100 @@ const ProductImages = ({
             />
           ))}
         </div>
-        <div className="grid grid-cols-6 gap-4">
-          <ImageUpload
-            label="Add Card Image"
-            aspectRatio="800:1080"
-            setImageUrl={setCardImage}
-          />
-          <ImageUpload
-            label="Latest Image"
-            aspectRatio="1080:1920"
-            setImageUrl={setLatestImage}
-          />
+        <div className="grid grid-cols-2 gap-x-[1em] mt-[1.5em] sm:grid-cols-12">
+          <div className="sm:col-span-4">
+            <ImageUpload
+              label="Add Card Image"
+              aspectRatio="800:1080"
+              setImageUrl={setCardImage}
+            />
+          </div>
+          <div className="sm:col-span-4">
+            <ImageUpload
+              label="Latest Image"
+              aspectRatio="1080:1920"
+              setImageUrl={setLatestImage}
+            />
+          </div>
         </div>
       </div>
-      <div className="flex gap-4">
-        <label className="flex items-center">
+      <div className="grid gap-[1em]">
+        <div className="flex items-center gap-x-[0.5em]">
+          <Checkbox
+            id="add-to-latest"
+            className="bg-transparent border-[#606060] rounded-[2px] data-[state=checked]:bg-inherit data-[state=checked]:text-[#00FFA1]"
+            checked={addToLatestGame}
+            onCheckedChange={(checked: boolean) => setAddToLatestGame(checked)}
+          />
+          <label
+            htmlFor="add-to-latest"
+            className="cursor-pointer capitalize select-none"
+          >
+            Add to Latest game
+          </label>
+        </div>
+
+        <div className="flex items-center gap-x-[0.5em]">
+          <Checkbox
+            id="add-to-carousel"
+            className="bg-transparent border-[#606060] rounded-[2px] data-[state=checked]:bg-inherit data-[state=checked]:text-[#00FFA1]"
+            checked={carousel}
+            onCheckedChange={(checked: boolean) => setCarousel(checked)}
+          />
+          <label
+            htmlFor="add-to-carousel"
+            className="cursor-pointer capitalize select-none"
+          >
+            Add to Carousel
+          </label>
+        </div>
+
+        <div className="flex items-center gap-x-[0.5em]">
+          <Checkbox
+            id="display-latest-game"
+            className="bg-transparent border-[#606060] rounded-[2px] data-[state=checked]:bg-inherit data-[state=checked]:text-[#00FFA1]"
+            checked={displayLatestGame}
+            onCheckedChange={(checked: boolean) =>
+              setDisplayLatestGame(checked)
+            }
+          />
+          <label
+            htmlFor="display-latest-game"
+            className="cursor-pointer capitalize select-none"
+          >
+            Display Latest game
+          </label>
+        </div>
+
+        {/* <label className="flex items-center">
           <input
             type="checkbox"
             className="mr-2"
             checked={addToLatestGame}
             onChange={(e) => setAddToLatestGame(e.target.checked)}
-          />{" "}
+          />
           Add to Latest game
-        </label>
-        <label className="flex items-center">
+        </label> */}
+
+        {/* <label className="flex items-center">
           <input
             type="checkbox"
             className="mr-2"
             checked={carousel}
             onChange={(e) => setCarousel(e.target.checked)}
-          />{" "}
+          />
           Carousel
-        </label>
-        <label className="flex items-center">
+        </label> */}
+
+        {/* <label className="flex items-center">
           <input
             type="checkbox"
             className="mr-2"
             checked={displayLatestGame}
             onChange={(e) => setDisplayLatestGame(e.target.checked)}
-          />{" "}
+          />
           Display Latest game
-        </label>
+        </label> */}
       </div>
     </div>
   );

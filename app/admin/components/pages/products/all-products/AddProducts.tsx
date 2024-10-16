@@ -175,7 +175,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
         </div>
 
         {/* Product images form */}
-        {/* <h2 className="font-bold text-[1.3em] mb-[1.15em]">Product Images</h2>
+        <h2 className="font-bold text-[1.3em] mb-[1.15em]">Product Images</h2>
         <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <ProductImages
             coverImage={coverImage}
@@ -195,13 +195,13 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
             displayLatestGame={displayLatestGame}
             setDisplayLatestGame={setDisplayLatestGame}
           />
-        </div> */}
+        </div>
 
         {/* System requirements form */}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">
           System Requirements
         </h2>
-        <div className="bg-black/40 px-[2.2em] pt-[1.8em] pb-[1em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px] xl:mb-0">
+        <div className="bg-black/40 px-[2.2em] pt-[1.8em] pb-[1em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px] lg:pt-[1.5em] xl:mb-0">
           <SystemRequirements
             minimumOS={minimumOS}
             setMinimumOS={setMinimumOS}
