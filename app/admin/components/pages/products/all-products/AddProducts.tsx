@@ -132,10 +132,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="text-[15px] text-white px-[36px] grid grid-cols-12 gap-[3em]"
+      className="text-[9px] text-white px-[36px] grid 2xl:grid-cols-12 2xl:gap-[3em] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
     >
       {/* Main form area */}
-      <div className="col-span-9">
+      <div className="2xl:col-span-9">
         {/* General data form */}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">General Data</h2>
         <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
@@ -158,7 +158,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
         </div>
 
         {/* Pricing data form */}
-        <h2 className="font-bold text-[1.3em] mb-[1.15em]">Pricing Data</h2>
+        {/* <h2 className="font-bold text-[1.3em] mb-[1.15em]">Pricing Data</h2>
         <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <PricingDataForm
             regularPrice={regularPrice}
@@ -172,10 +172,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
             saleQuantity={saleQuantity}
             setSaleQuantity={setSaleQuantity}
           />
-        </div>
+        </div> */}
 
         {/* Product images form */}
-        <h2 className="font-bold text-[1.3em] mb-[1.15em]">Product Images</h2>
+        {/* <h2 className="font-bold text-[1.3em] mb-[1.15em]">Product Images</h2>
         <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <ProductImages
             coverImage={coverImage}
@@ -195,10 +195,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
             displayLatestGame={displayLatestGame}
             setDisplayLatestGame={setDisplayLatestGame}
           />
-        </div>
+        </div> */}
 
         {/* System requirements form */}
-        <h2 className="font-bold text-[1.3em] mb-[1.15em]">
+        {/* <h2 className="font-bold text-[1.3em] mb-[1.15em]">
           System Requirements
         </h2>
         <div className="bg-black/40 px-[2.2em] py-[3.3em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
@@ -224,21 +224,13 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
             recommendedGPU={recommendedGPU}
             setRecommendedGPU={setRecommendedGPU}
           />
-        </div>
+        </div> */}
       </div>
 
       {/* Dropdown area */}
-      <div className="col-span-3 pt-[3.4em]">
-        {/* Submit button */}
-        <button
-          type="submit"
-          className="w-full bg-[#00FFA1] font-semibold text-black text-[calc(1em+1px)] uppercase px-[2.4em] py-[0.5em] rounded-sm hover:opacity-90 transition-opacity duration-100 mb-12"
-        >
-          Add product
-        </button>
-
+      <div className="2xl:col-span-3 2xl:pt-[3.4em]">
         {/* Publish status */}
-        <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
+        {/* <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <label className="block mb-[0.1em] text-[1.2em]">Publish</label>
           <hr className="border-t-[#606060] mb-[0.6em]" />
           <Select
@@ -246,22 +238,22 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
             onValueChange={(value: string) => setStatus(value)}
             required
           >
-            <SelectTrigger className="text-[15px] border-[#606060]">
+            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[15px] border-[#606060] rounded-sm">
               <SelectValue placeholder="Select status" />
             </SelectTrigger>
-            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px] rounded-sm">
               {["Public", "Private", "Archived"].map((option) => (
                 <SelectItem
                   key={option}
                   value={option}
-                  className="h-fit ps-[3.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[15px]"
+                  className="h-fit ps-[3.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[15px] rounded-sm"
                 >
                   {option}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-        </div>
+        </div> */}
 
         {/* Categories */}
         <ProductCategories
@@ -277,6 +269,14 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
 
         {/* Platforms */}
         <PlatformCategories platform={platform} setPlatform={setPlatform} />
+
+        {/* Submit button */}
+        <button
+          type="submit"
+          className="w-full bg-[#00FFA1] font-semibold text-black text-[calc(1em+1px)] uppercase px-[2.4em] py-[0.5em] rounded-sm hover:opacity-90 transition-opacity duration-100 mb-12"
+        >
+          Add product
+        </button>
       </div>
     </form>
   );

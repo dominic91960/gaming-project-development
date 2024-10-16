@@ -169,7 +169,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 name="date"
                 value={editedProduct.date}
                 onChange={handleInputChange}
-                className="relative w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm z-10 after:content-[''] after:w-[5ch] after:h-full after:bg-white after:absolute after:top-0 after:right-0 after:-z-10"
+                className="relative w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm z-10 after:content-[''] after:w-[5ch] after:h-full after:bg-[#00FFA1]/20 after:absolute after:top-0 after:right-0 after:-z-10"
               />
             </div>
           </div>

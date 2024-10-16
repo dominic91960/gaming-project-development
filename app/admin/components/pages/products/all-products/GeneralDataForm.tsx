@@ -72,7 +72,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
 }) => {
   return (
     <>
-      <div className="grid grid-cols-2 gap-x-[7.4em] mb-[1.5em]">
+      <div className="grid grid-cols-2 gap-x-[2em] 2xl:gap-x-[7.4em] mb-[1.5em]">
         <div>
           <label className="block mb-[0.5em]">Product Name</label>
           <input
@@ -117,57 +117,30 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
         />
       </div>
 
-      <div className="grid grid-cols-3 gap-x-[7.4em]">
-        {/* <div>
+      <div className="grid 2xl:grid-cols-3 gap-[1.5em] 2xl:gap-x-[7.4em]">
+        <div>
           <label className="block mb-[0.5em]">Select Icon</label>
-          <select
+          <Select
             value={icon}
-            onChange={(e) => setIcon(e.target.value)}
-            className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
+            onValueChange={(value: string) => setIcon(value)}
             required
           >
-            <option value="">Select an option</option>
-            <option value="Windows">Windows</option>
-            <option value="Playstation">Playstation</option>
-            <option value="Xbox">Xbox</option>
-          </select>
-        </div> */}
-
-        {/* <div>
-              <Select>
-                <SelectTrigger className="w-[300px]">
-                  <SelectValue placeholder="Select Icon" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="light">Windows</SelectItem>
-                  <SelectItem value="dark">Playstation</SelectItem>
-                </SelectContent>
-              </Select>
-            </div> */}
-
-        <div>
-        <label className="block mb-[0.5em]">Select Icon</label>
-        <Select
-          value={icon}
-          onValueChange={(value: string) => setIcon(value)}
-          required
-        >
-          <SelectTrigger className="text-[15px] border-[#606060]">
-            <SelectValue placeholder="Select Icon" />
-          </SelectTrigger>
-          <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
-            {["WINDOWS", "PLAYSTATION", "XBOX"].map((option) => (
-              <SelectItem
-                key={option}
-                value={option}
-                className="h-fit ps-[3.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[15px]"
-              >
-                {option}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
+              <SelectValue placeholder="Select Icon" />
+            </SelectTrigger>
+            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+              {["WINDOWS", "PLAYSTATION", "XBOX"].map((option) => (
+                <SelectItem
+                  key={option}
+                  value={option}
+                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                >
+                  {option}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
         <div>
           <label className="block mb-[0.5em]">Select Language</label>
@@ -176,18 +149,18 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
             onValueChange={(value: string) => setLanguage(value)}
             required
           >
-            <SelectTrigger className="text-[15px] border-[#606060]">
+            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
               <SelectValue placeholder="Select Language" />
             </SelectTrigger>
             <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
               {languageOptions.map((option) => (
-          <SelectItem
-            key={option}
-            value={option}
-            className="h-fit ps-[3.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[15px]"
-          >
-            {option}
-          </SelectItem>
+                <SelectItem
+                  key={option}
+                  value={option}
+                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                >
+                  {option}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -199,7 +172,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="relative w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
+            className="relative w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm z-10 after:content-[''] after:w-[5ch] after:h-full after:bg-[#00FFA1]/20 after:absolute after:top-0 after:right-0 after:-z-10"
             required
           />
         </div>

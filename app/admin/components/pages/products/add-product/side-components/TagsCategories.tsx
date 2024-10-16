@@ -77,12 +77,12 @@ const TagsCategories = ({ tagIds, setTagIds }: TagsCategoriesProps) => {
       <div className={isOpen ? "block" : "hidden"}>
         <p className="text-[1.1em] mb-[0.5em]">All Tags</p>
 
-        <ScrollArea className="max-h-[10em] px-[0.4em] py-[0.2em] border border-[#606060] rounded-sm mb-[0.9em]">
+        <ScrollArea className="h-[20em] px-2 py-2 border border-[#606060] rounded-sm mb-[0.9em]">
           <ul>
             {tags.map((tag) => (
               <li
                 key={tag.id}
-                className="w-fit flex items-center gap-x-[0.3em] mb-[0.5em] hover:opacity-85"
+                className="w-fit flex items-center gap-x-[0.3em] mb-5 hover:opacity-85"
               >
                 <Checkbox
                   id={tag.id}
