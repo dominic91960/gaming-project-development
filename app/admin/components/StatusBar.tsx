@@ -19,10 +19,10 @@ const StatusBar: React.FC<StatusBarProps> = ({
 }) => {
   return (
     <section className="bg-black font-secondaryFont font-medium text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px] border-b border-b-[#0D6D49]">
-      <div className="container mx-auto px-[36px] py-[1.2em] lg:py-[0.4em] flex items-center justify-between">
+      <div className="container mx-auto px-[36px] py-[1.2em] xl:py-[0.4em] flex items-center justify-between">
         <div>
           {/* Logo */}
-          <div className="hidden lg:flex lg:items-center">
+          <div className="hidden xl:flex xl:items-center">
             <Image src={logo} alt="Logo" className="size-[4.6em]" />
             <h2 className="font-primaryFont font-semibold text-[1.6em] uppercase">
               Logo
@@ -33,7 +33,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
           <button
             className={`${
               isMobileNavToggled ? "animate-toggle-button" : ""
-            } relative h-4 w-6 transition-opacity duration-300 lg:hidden`}
+            } relative h-4 w-6 transition-opacity duration-300 xl:hidden`}
             onClick={() =>
               isMobileNavToggled === undefined
                 ? setIsMobileNavToggled(true)

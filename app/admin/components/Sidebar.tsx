@@ -1,5 +1,11 @@
 "use client";
-import { Dispatch, SetStateAction, useState, useContext, useEffect } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useState,
+  useContext,
+  useEffect,
+} from "react";
 
 import { BsFillGrid1X2Fill } from "react-icons/bs";
 import {
@@ -34,7 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [isProductOpen, setProductOpen] = useState(false);
   const [isUsersOpen, setUsersOpen] = useState(false);
 
-  const {selectedItem, setSelectedItem} = useSidebar();
+  const { selectedItem, setSelectedItem } = useSidebar();
 
   const handleItemClick = (item: string) => {
     setSelectedItem(item);
@@ -48,7 +54,6 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   }, [selectedItem]);
 
-
   return (
     <div
       className={`${
@@ -56,8 +61,8 @@ const Sidebar: React.FC<SidebarProps> = ({
           ? "animate-admin-menu"
           : isMobileNavToggled === false
           ? "reverse-animate-admin-menu"
-          : "hidden lg:block"
-      } absolute w-[16em] bg-black/60 font-secondaryFont text-[12px] text-white min-h-screen pt-[2.5em] border-e border-[#0D6D49] z-50 lg:relative sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-base backdrop-blur-[2px]`}
+          : "hidden xl:block"
+      } absolute w-[16em] min-h-full bg-black/60 font-secondaryFont text-[12px] text-white pt-[2.5em] border-e border-[#0D6D49] z-50 xl:relative sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-base backdrop-blur-[2px]`}
     >
       <ul>
         {/* Dashboard Section */}

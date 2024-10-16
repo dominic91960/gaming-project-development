@@ -72,7 +72,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
 }) => {
   return (
     <>
-      <div className="grid grid-cols-2 gap-x-[2em] 2xl:gap-x-[7.4em] mb-[1.5em]">
+      <div className="grid grid-cols-2 gap-x-[2em] mb-[1.5em]">
         <div>
           <label className="block mb-[0.5em]">Product Name</label>
           <input
@@ -117,7 +117,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
         />
       </div>
 
-      <div className="grid 2xl:grid-cols-3 gap-[1.5em] 2xl:gap-x-[7.4em]">
+      <div className="grid 2xl:grid-cols-3 gap-[1.5em]">
         <div>
           <label className="block mb-[0.5em]">Select Icon</label>
           <Select
@@ -133,7 +133,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
                 <SelectItem
                   key={option}
                   value={option}
-                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
                 >
                   {option}
                 </SelectItem>
@@ -157,7 +157,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
                 <SelectItem
                   key={option}
                   value={option}
-                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
                 >
                   {option}
                 </SelectItem>

@@ -132,10 +132,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="text-[9px] text-white px-[36px] grid 2xl:grid-cols-12 2xl:gap-[3em] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+      className="text-[9px] text-white px-[36px] grid lg:grid-cols-12 lg:gap-[3em] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
     >
       {/* Main form area */}
-      <div className="2xl:col-span-9">
+      <div className="lg:col-span-8">
         {/* General data form */}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">General Data</h2>
         <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
@@ -158,7 +158,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
         </div>
 
         {/* Pricing data form */}
-        {/* <h2 className="font-bold text-[1.3em] mb-[1.15em]">Pricing Data</h2>
+        <h2 className="font-bold text-[1.3em] mb-[1.15em]">Pricing Data</h2>
         <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <PricingDataForm
             regularPrice={regularPrice}
@@ -172,7 +172,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
             saleQuantity={saleQuantity}
             setSaleQuantity={setSaleQuantity}
           />
-        </div> */}
+        </div>
 
         {/* Product images form */}
         {/* <h2 className="font-bold text-[1.3em] mb-[1.15em]">Product Images</h2>
@@ -228,7 +228,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       </div>
 
       {/* Dropdown area */}
-      <div className="2xl:col-span-3 2xl:pt-[3.4em]">
+      <div className="lg:col-span-4 lg:pt-[3.4em]">
         {/* Publish status */}
         {/* <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <label className="block mb-[0.1em] text-[1.2em]">Publish</label>
