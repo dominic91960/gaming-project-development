@@ -213,7 +213,9 @@ export default function AllProducts() {
         </p>
       </div>
 
-      <DataTable columns={columnsWithActions} data={products} />
+      {!isEditModalOpen && (
+        <DataTable columns={columnsWithActions} data={products} />
+      )}
 
       <EditAllProductsPopup
         product={editingProduct}
