@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useSidebar } from "@/context/SidebarContext";
 
 const AddNew = () => {
-  const {setSelectedItem} = useSidebar();
+  const { setSelectedItem } = useSidebar();
   function getInitialData(): AllProductsNew[] {
     return [
       {
@@ -46,7 +46,7 @@ const AddNew = () => {
         recommendedStorage: "",
         recommendedGPU: "",
         categories: [],
-        tags: []
+        tags: [],
       },
       {
         imageUrl: "/images/sample-pic.png",
@@ -85,11 +85,11 @@ const AddNew = () => {
         recommendedStorage: "",
         recommendedGPU: "",
         categories: [],
-        tags: []
+        tags: [],
       },
     ];
   }
-  
+
   const [products, setProducts] = useState<AllProductsNew[]>(getInitialData());
 
   const handleAddProduct = async (newProduct: AllProductsNew) => {
@@ -108,17 +108,24 @@ const AddNew = () => {
       stock: newProduct.saleQuantity,
       SKU: newProduct.sku,
       categoryIds: newProduct.categories,
-      stockStatus: newProduct.stock === "In Stock" ? "IN_STOCK" : "OUT_OF_STOCK",
+      stockStatus:
+        newProduct.stock === "In Stock" ? "IN_STOCK" : "OUT_OF_STOCK",
       minimumOS: newProduct.icon === "WINDOWS" ? newProduct.minimumOS : "",
       minimumCPU: newProduct.icon === "WINDOWS" ? newProduct.minimumCPU : "",
       minimumRAM: newProduct.icon === "WINDOWS" ? newProduct.minimumRAM : "",
       minimumGPU: newProduct.icon === "WINDOWS" ? newProduct.minimumGPU : "",
-      minimumStorage: newProduct.icon === "WINDOWS" ? newProduct.minimumStorage : "",
-      recommendedOS: newProduct.icon === "WINDOWS" ? newProduct.recommendedOS : "",
-      recommendedCPU: newProduct.icon === "WINDOWS" ? newProduct.recommendedCPU : "",
-      recommendedRAM: newProduct.icon === "WINDOWS" ? newProduct.recommendedRAM : "",
-      recommendedGPU: newProduct.icon === "WINDOWS" ? newProduct.recommendedGPU : "",
-      recommendedStorage: newProduct.icon === "WINDOWS" ? newProduct.recommendedStorage : "",
+      minimumStorage:
+        newProduct.icon === "WINDOWS" ? newProduct.minimumStorage : "",
+      recommendedOS:
+        newProduct.icon === "WINDOWS" ? newProduct.recommendedOS : "",
+      recommendedCPU:
+        newProduct.icon === "WINDOWS" ? newProduct.recommendedCPU : "",
+      recommendedRAM:
+        newProduct.icon === "WINDOWS" ? newProduct.recommendedRAM : "",
+      recommendedGPU:
+        newProduct.icon === "WINDOWS" ? newProduct.recommendedGPU : "",
+      recommendedStorage:
+        newProduct.icon === "WINDOWS" ? newProduct.recommendedStorage : "",
       coverImage: newProduct.coverImage,
       screenshots: newProduct.galleryImages,
       video: newProduct.videoUrl,
@@ -133,16 +140,16 @@ const AddNew = () => {
       platformId: newProduct.platform,
     };
 
-    try{
+    try {
       const res = await axiosInstance.post("/games", data);
-      if(res.status === 201){
+      if (res.status === 201) {
         console.log("Product added successfully");
         toast.success("Product added successfully");
-        setSelectedItem("all-products")
-      }else{
+        setSelectedItem("all-products");
+      } else {
         throw new Error("Failed to add product");
       }
-    }catch(error){
+    } catch (error) {
       console.error(error);
       toast.error("Failed to add product");
     }
@@ -151,10 +158,10 @@ const AddNew = () => {
     <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
       <div className="pb-[2em] px-[36px]">
         <h1 className="font-bold text-[1.5em] leading-none text-white">
-          Add New Product
+          Add Product
         </h1>
         <p className="text-[0.9em] text-white md:text-[0.5em]">
-          Products / Add New Product
+          Products / Add Product
         </p>
       </div>
 

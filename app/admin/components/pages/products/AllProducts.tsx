@@ -46,7 +46,7 @@ function getInitialData(): AllProductsNew[] {
       recommendedStorage: "",
       recommendedGPU: "",
       categories: [],
-      tags: []
+      tags: [],
     },
     {
       imageUrl: "/images/sample-pic.png",
@@ -85,12 +85,10 @@ function getInitialData(): AllProductsNew[] {
       recommendedStorage: "",
       recommendedGPU: "",
       categories: [],
-      tags: []
+      tags: [],
     },
   ];
 }
-
-
 
 export default function AllProducts() {
   const [products, setProducts] = useState<AllProductsNew[]>([]);
@@ -98,58 +96,64 @@ export default function AllProducts() {
   const [editingProduct, setEditingProduct] = useState<AllProductsNew | null>(
     null
   );
-useEffect(()=>{
-  function mapGamesResponse(games: any[]): any[] {
-    return games.map(game => ({
-      id: game.id,
-      name: game.productName,
-      displayName: game.displayName,
-      about: game.aboutThisGame,
-      cardDescription: game.cardDescription,
-      language: game.languages?.[0] || '',  // Pick the first language, or empty string if not available
-      date: game.releaseDate ? new Date(game.releaseDate).toISOString().split('T')[0] : '',
-      icon: game.coverImage || '',  // Assuming icon is the cover image
-      imageUrl: game.cardImage || '',  // Assuming the cover image is the primary image URL
-      sku: game.SKU || '',
-      stock: game.stock?.toString() || '',  // Convert stock to string
-      selling_price: "$"+game.sellingPrice?.toString() || '',
-      regular_price: "$"+game.regularPrice?.toString() || '',
-      status: game.stockStatus || '',
-      saleQuantity: game.stock || 0,  // Assuming saleQuantity is equivalent to stock
-      coverImage: game.coverImage || '',
-      galleryImages: game.screenshots || [],  // Assuming screenshots are gallery images
-      latestImage: game.latestImage || '',
-      cardImage: game.cardImage || '',
-      videoUrl: game.video || '',
-      addToLatestGame: game.addToLatestGames || false,
-      carousel: game.addToCarousel || false,
-      displayLatestGame: game.displayInLatesGames || false,
-      platform: game.platformId || '',  // Assuming platform is represented by platformId
-      brand: game.brandId || '',  // Assuming brand is represented by brandId
-      categories: game.gameCategories?.map((cat: { category: { name: any; }; }) => cat.category.name) || [],  // Map category names
-      tags: game.tags?.map((tag: { tag: { name: any; }; }) => tag.tag.name) || [],  // Map tag names
-      minimumOS: game.minimumOS || '',
-      minimumCPU: game.minimumCPU || '',
-      minimumRAM: game.minimumRAM || '',
-      minimumStorage: game.minimumStorage || '',
-      minimumGPU: game.minimumGPU || '',
-      recommendedOS: game.recommendedOS || '',
-      recommendedCPU: game.recommendedCPU || '',
-      recommendedRAM: game.recommendedRAM || '',
-      recommendedStorage: game.recommendedStorage || '',
-      recommendedGPU: game.recommendedGPU || '',
-    }));
-  }
-  
-  const getGames = async()=>{
-      const res = await axiosInstance("/games")
-      console.log("res",res.data)
-      const processedData = mapGamesResponse(res.data);
-      setProducts(processedData)
-      }
+  useEffect(() => {
+    function mapGamesResponse(games: any[]): any[] {
+      return games.map((game) => ({
+        id: game.id,
+        name: game.productName,
+        displayName: game.displayName,
+        about: game.aboutThisGame,
+        cardDescription: game.cardDescription,
+        language: game.languages?.[0] || "", // Pick the first language, or empty string if not available
+        date: game.releaseDate
+          ? new Date(game.releaseDate).toISOString().split("T")[0]
+          : "",
+        icon: game.coverImage || "", // Assuming icon is the cover image
+        imageUrl: game.cardImage || "", // Assuming the cover image is the primary image URL
+        sku: game.SKU || "",
+        stock: game.stock?.toString() || "", // Convert stock to string
+        selling_price: "$" + game.sellingPrice?.toString() || "",
+        regular_price: "$" + game.regularPrice?.toString() || "",
+        status: game.stockStatus || "",
+        saleQuantity: game.stock || 0, // Assuming saleQuantity is equivalent to stock
+        coverImage: game.coverImage || "",
+        galleryImages: game.screenshots || [], // Assuming screenshots are gallery images
+        latestImage: game.latestImage || "",
+        cardImage: game.cardImage || "",
+        videoUrl: game.video || "",
+        addToLatestGame: game.addToLatestGames || false,
+        carousel: game.addToCarousel || false,
+        displayLatestGame: game.displayInLatesGames || false,
+        platform: game.platformId || "", // Assuming platform is represented by platformId
+        brand: game.brandId || "", // Assuming brand is represented by brandId
+        categories:
+          game.gameCategories?.map(
+            (cat: { category: { name: any } }) => cat.category.name
+          ) || [], // Map category names
+        tags:
+          game.tags?.map((tag: { tag: { name: any } }) => tag.tag.name) || [], // Map tag names
+        minimumOS: game.minimumOS || "",
+        minimumCPU: game.minimumCPU || "",
+        minimumRAM: game.minimumRAM || "",
+        minimumStorage: game.minimumStorage || "",
+        minimumGPU: game.minimumGPU || "",
+        recommendedOS: game.recommendedOS || "",
+        recommendedCPU: game.recommendedCPU || "",
+        recommendedRAM: game.recommendedRAM || "",
+        recommendedStorage: game.recommendedStorage || "",
+        recommendedGPU: game.recommendedGPU || "",
+      }));
+    }
 
-    getGames()
-},[])
+    const getGames = async () => {
+      const res = await axiosInstance("/games");
+      console.log("res", res.data);
+      const processedData = mapGamesResponse(res.data);
+      setProducts(processedData);
+    };
+
+    getGames();
+  }, []);
 
   const handleDeleteProduct = (id: string) => {
     setProducts((prevProducts) =>
@@ -202,7 +206,7 @@ useEffect(()=>{
     <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
       <div className="pb-[2em] px-[36px]">
         <h1 className="font-bold text-[1.5em] leading-none text-white">
-          All Products
+          {isEditModalOpen ? "Edit Product" : "All Products"}
         </h1>
         <p className="text-[0.9em] text-white md:text-[0.5em]">
           Products / All Products
@@ -210,7 +214,9 @@ useEffect(()=>{
       </div>
 
       {/* Data Table */}
-      <DataTable columns={columnsWithActions} data={products} />
+      {!isEditModalOpen && (
+        <DataTable columns={columnsWithActions} data={products} />
+      )}
 
       {/* Edit Product Modal */}
       <EditAllProductsPopup
