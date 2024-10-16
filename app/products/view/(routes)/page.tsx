@@ -32,6 +32,7 @@ import samplePic from "@/public/images/sample-pic.png";
 import "../_components/product.css";
 import { useSearchParams } from "next/navigation";
 import axiosInstance from "@/axios/axiosInstance";
+import Spinner from "@/components/Spinner/Spinner";
 
 const reviews = [
   {
@@ -179,7 +180,7 @@ export default function ProductPage() {
   };
 
   if (!gameData) {
-    return <div>Loading...</div>;
+    return <Spinner loading={true} />;
   }
 
   return (
