@@ -230,7 +230,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       {/* Dropdown area */}
       <div className="lg:col-span-4 lg:pt-[3.4em]">
         {/* Publish status */}
-        {/* <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
+        <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <label className="block mb-[0.1em] text-[1.2em]">Publish</label>
           <hr className="border-t-[#606060] mb-[0.6em]" />
           <Select
@@ -238,7 +238,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
             onValueChange={(value: string) => setStatus(value)}
             required
           >
-            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[15px] border-[#606060] rounded-sm">
+            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
               <SelectValue placeholder="Select status" />
             </SelectTrigger>
             <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px] rounded-sm">
@@ -246,14 +246,14 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
                 <SelectItem
                   key={option}
                   value={option}
-                  className="h-fit ps-[3.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[15px] rounded-sm"
+                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
                 >
                   {option}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-        </div> */}
+        </div>
 
         {/* Categories */}
         <ProductCategories
