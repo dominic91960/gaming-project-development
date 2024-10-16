@@ -3,14 +3,29 @@ import Image from "next/image";
 import Logo from "../../public/images/sign-in/logo.png";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState, useRef, use } from "react";
+import { useState, useRef, useEffect } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
-const ForgotPasswordOtp = () => {
-  const [values, setValues] = useState<string[]>(["", "", "", ""]);
+interface ForgotPasswordOtpProps {
+  email: string;
+  setIsPin: (isPin: boolean) => void;
+  setIsReset: (isReset: boolean) => void;
+}
+
+const ForgotPasswordOtp: React.FC<ForgotPasswordOtpProps> = ({
+  email,
+  setIsPin,
+  setIsReset,
+}) => {
+  const [values, setValues] = useState<string[]>(["", "", "", "", "", ""]);
+  const [isResendDisabled, setIsResendDisabled] = useState<boolean>(false);
+  const [timer, setTimer] = useState<number>(60);
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
 
+  // Handle OTP input change
   const handleChange = (index: number, value: string) => {
-    if (value.length <= 1) {
+    if (/^\d*$/.test(value)) {
       const newValues = [...values];
       newValues[index] = value;
       setValues(newValues);
@@ -21,6 +36,7 @@ const ForgotPasswordOtp = () => {
     }
   };
 
+  // Handle backspace key press
   const handleKeyDown = (
     index: number,
     event: React.KeyboardEvent<HTMLInputElement>
@@ -29,6 +45,52 @@ const ForgotPasswordOtp = () => {
       inputRefs.current[index - 1]?.focus();
     }
   };
+
+  // Handle form submit
+  const handleSubmit = async () => {
+    const otpCode = values.join("");
+
+    try {
+      const url = process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-otp";
+      const response = await axios.post(url, {
+        email,
+        pin: otpCode,
+      });
+      setIsPin(false);
+      setIsReset(true);
+      toast.success("OTP verified successfully!");
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  // Resend OTP function
+  const resendCode = async () => {
+    try {
+      const url = process.env.NEXT_PUBLIC_BASE_URL + "/auth/request-password-reset";
+      await axios.post(url, { email });
+      toast.success("OTP has been resent!");
+      setIsResendDisabled(true);
+      setTimer(60);
+    } catch (error: any) {
+      toast.error("Failed to resend OTP. Please try again later.");
+    }
+  };
+
+  // Timer effect for resend button
+  useEffect(() => {
+    let countdown: NodeJS.Timeout | null = null;
+    if (isResendDisabled && timer > 0) {
+      countdown = setTimeout(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      setIsResendDisabled(false); // Enable resend button after timer ends
+    }
+    return () => {
+      if (countdown) clearTimeout(countdown);
+    };
+  }, [isResendDisabled, timer]);
 
   return (
     <div className="flex items-center justify-center bg-[#0B0E13] h-full">
@@ -40,15 +102,12 @@ const ForgotPasswordOtp = () => {
           Forgot Password
         </p>
         <p className="text-white text-[15px] text-center">
-          Please Enter the 4 digit code sent to
+          Please Enter the 6 digit code sent to
         </p>
-
-        <p className="text-white text-[15px] text-center mb-2">
-          avishkarathnaya@gmail.com
-        </p>
+        <p className="text-white text-[15px] text-center mb-2">{email}</p>
         <div className="h-[1px] bg-white mb-8"></div>
 
-        <div className="flex items-center justify-center gap-6 mb-12 text-white">
+        <div className="flex items-center justify-center gap-3 mb-12 text-white">
           {values.map((value, index) => (
             <Input
               key={index}
@@ -65,14 +124,22 @@ const ForgotPasswordOtp = () => {
         </div>
 
         <Button
-          type="submit"
+          type="button"
+          onClick={handleSubmit}
           variant="gaming"
           className="w-full h-fit font-primaryFont text-[1.1em] px-[1em] py-[0.5em] mb-3"
         >
           Verify
         </Button>
+
         <p className="text-white text-[13px] text-center font-primaryFont font-regular underline">
-          Resend Code
+          {isResendDisabled ? (
+            <span>Resend Code in {timer}s</span>
+          ) : (
+            <span onClick={resendCode} className="cursor-pointer">
+              Resend Code
+            </span>
+          )}
         </p>
       </div>
     </div>
