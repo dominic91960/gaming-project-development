@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 import Spinner from "@/components/Spinner/Spinner";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 export type Category = {
   id: string;
@@ -74,7 +74,7 @@ const ProductCategories = ({
             key={category.id}
             className={category.level > 1 ? "ms-[1em]" : undefined}
           >
-            <div className="flex items-center gap-x-[0.3em] mb-[0.5em]">
+            <div className="flex items-center gap-x-[0.3em] mb-[0.5em] hover:opacity-85">
               <Checkbox
                 id={category.id}
                 className="bg-transparent border-[#606060] rounded-[2px] data-[state=checked]:bg-inherit data-[state=checked]:text-[#00FFA1]"
@@ -83,7 +83,7 @@ const ProductCategories = ({
               />
               <label
                 htmlFor={category.id}
-                className="cursor-pointer capitalize"
+                className="cursor-pointer capitalize select-none"
               >
                 {category.name}
               </label>
@@ -110,33 +110,25 @@ const ProductCategories = ({
   return (
     <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
       <div
-        className="flex justify-between items-center cursor-pointer text-[1.2em] mb-[0.1em]"
+        className="flex justify-between items-center cursor-pointer text-[1.2em] mb-[0.1em] hover:opacity-85"
         onClick={toggleDropdown}
       >
-        <p>Product Categories</p>
+        <p className="select-none">Product Categories</p>
         <button type="button">
           {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
         </button>
       </div>
       <hr className="border-t-[#606060] mb-[0.6em]" />
 
-      <div
-        className={`transition-all duration-300 ease-in-out ${
-          isOpen ? "block" : "hidden"
-        }`}
-      >
-        <p className="text-[1.1em] mb-[0.5em]">All categories</p>
-        <ScrollArea className="h-[10em] px-[0.4em] py-[0.2em] border border-[#606060] rounded-sm">
+      <div className={isOpen ? "block" : "hidden"}>
+        <p className="text-[1.1em] mb-[0.5em]">All Categories</p>
+
+        <ScrollArea className="h-[10em] px-[0.4em] py-[0.2em] border border-[#606060] rounded-sm mb-[0.9em]">
           {renderCategories(data)}
         </ScrollArea>
-        <div className="w-fit mx-auto mt-[1em]">
-          <button type="button" onClick={toggleDropdown}>
-            <IoIosArrowUp />
-          </button>
-        </div>
       </div>
 
-      <a href="#" className="text-[#0BDB45] text-sm mt-2 inline-block">
+      <a href="#" className="text-[#0BDB45] hover:opacity-85">
         Add new category
       </a>
     </div>

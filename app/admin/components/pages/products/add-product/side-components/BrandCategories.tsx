@@ -1,6 +1,10 @@
-import axiosInstance from "@/axios/axiosInstance";
 import { useEffect, useState } from "react";
+
+import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 interface Brands {
   id: string;
@@ -53,45 +57,63 @@ const BrandCategories = ({ brand, setBrand }: BrandCategoriesProps) => {
   };
 
   return (
-    <div className="border border-green-700 p-4 rounded-md max-w-xs">
+    <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
       <div
-        className="flex justify-between items-center cursor-pointer"
+        className="flex justify-between items-center cursor-pointer text-[1.2em] mb-[0.1em] hover:opacity-85"
         onClick={toggleDropdown}
       >
-        <h2 className="text-white font-semibold">Brand Categories</h2>
-        <span>{isOpen ? "▲" : "▼"}</span>
+        <p className="select-none">Brand Categories</p>
+        <button type="button">
+          {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+        </button>
       </div>
+      <hr className="border-t-[#606060] mb-[0.6em]" />
 
-      <div
-        className={`transition-all duration-300 ease-in-out overflow-hidden ${
-          isOpen ? "max-h-40 mt-2" : "max-h-0"
-        }`}
-      >
-        <h3 className="text-white text-sm mb-2">All brands</h3>
-        <div
-          className={`bg-black border border-gray-600 rounded-md p-2 ${
-            isOpen ? "max-h-32 overflow-y-auto" : "hidden"
-          }`}
-        >
-          <ul className="text-white text-sm space-y-2">
+      <div className={isOpen ? "block" : "hidden"}>
+        <p className="text-[1.1em] mb-[0.5em]">All Brands</p>
+
+        <ScrollArea className="h-[10em] px-[0.4em] py-[0.2em] border border-[#606060] rounded-sm mb-[0.9em]">
+          {/* <ul> */}
+          <RadioGroup>
             {brands.map((brandItem) => (
-              <li key={brandItem.id} className="flex items-center">
-                <input
-                  type="radio"
-                  name="brand"
-                  className="mr-2"
-                  checked={brand === brandItem.id}
-                  onChange={() => handleBrandSelect(brandItem.id)}
-                />
-                {brandItem.name}
-              </li>
+              // <li
+              //   key={brandItem.id}
+              //   className="flex items-center gap-x-[0.3em] mb-[0.5em] hover:opacity-85"
+              // >
+              //   <input
+              //     type="radio"
+              //     id={brandItem.id}
+              //     name="brand"
+              //     checked={brand === brandItem.id}
+              //     onChange={() => handleBrandSelect(brandItem.id)}
+              //   />
+              //   <label
+              //     htmlFor={brandItem.id}
+              //     className="cursor-pointer capitalize select-none"
+              //   >
+              //     {brandItem.name}
+              //   </label>
+              // </li>
+              <div
+                key={brandItem.id}
+                className="flex items-center gap-x-[0.3em] mb-[0.5em] hover:opacity-85"
+                onClick={() => handleBrandSelect(brandItem.id)}
+              >
+                <RadioGroupItem value={brandItem.id} id={brandItem.id} />
+                <label
+                  htmlFor={brandItem.id}
+                  className="cursor-pointer select-none"
+                >
+                  {brandItem.name}
+                </label>
+              </div>
             ))}
-          </ul>
-        </div>
-        <div className="text-center mt-2"></div>
+          </RadioGroup>
+          {/* </ul> */}
+        </ScrollArea>
       </div>
 
-      <a href="#" className="text-green-500 text-sm mt-2 inline-block">
+      <a href="#" className="text-[#0BDB45] hover:opacity-85">
         Add new brand
       </a>
     </div>

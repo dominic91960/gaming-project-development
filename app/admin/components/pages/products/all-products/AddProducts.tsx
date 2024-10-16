@@ -263,15 +263,19 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           </Select>
         </div>
 
+        {/* Categories */}
         <ProductCategories
           categories={categories}
           setCategories={setCategories}
         />
 
+        {/* Brands */}
         <BrandCategories brand={brand} setBrand={setBrand} />
 
+        {/* Tags */}
         <TagsCategories tagIds={tags} setTagIds={setTags} />
 
+        {/* Platforms */}
         <PlatformCategories platform={platform} setPlatform={setPlatform} />
       </div>
     </form>
