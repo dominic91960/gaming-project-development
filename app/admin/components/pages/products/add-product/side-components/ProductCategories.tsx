@@ -18,7 +18,10 @@ interface ProductCategoriesProps {
   setCategories: (categories: string[]) => void;
 }
 
-const ProductCategories = ({ categories, setCategories }: ProductCategoriesProps) => {
+const ProductCategories = ({
+  categories,
+  setCategories,
+}: ProductCategoriesProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [data, setData] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -71,7 +74,9 @@ const ProductCategories = ({ categories, setCategories }: ProductCategoriesProps
               onChange={() => handleCheckboxChange(category.id)}
             />
             {category.name}
-            {category.children && category.children.length > 0 && renderCategories(category.children)}
+            {category.children &&
+              category.children.length > 0 &&
+              renderCategories(category.children)}
           </li>
         ))}
       </ul>
@@ -83,7 +88,7 @@ const ProductCategories = ({ categories, setCategories }: ProductCategoriesProps
   }
 
   return (
-    <div className="border border-green-700 p-4 rounded-md max-w-xs">
+    <div className="border border-[#0D6D49] p-4 rounded-md max-w-xs">
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={toggleDropdown}
@@ -112,7 +117,7 @@ const ProductCategories = ({ categories, setCategories }: ProductCategoriesProps
         </div>
       </div>
 
-      <a href="#" className="text-green-500 text-sm mt-2 inline-block">
+      <a href="#" className="text-[#0BDB45] text-sm mt-2 inline-block">
         Add new category
       </a>
     </div>

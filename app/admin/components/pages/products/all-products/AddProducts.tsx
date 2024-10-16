@@ -61,7 +61,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   const [recommendedGPU, setRecommendedGPU] = useState("");
 
   // Other states
-  const [status, setStatus] = useState("Public");// Initialize with a valid Platforms value if needed
+  const [status, setStatus] = useState("Public"); // Initialize with a valid Platforms value if needed
   const [platform, setPlatform] = useState("");
   const [brand, setBrand] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
@@ -69,7 +69,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     const newProduct: AllProductsNew = {
       id: Math.random().toString(36).substr(2, 9),
       imageUrl,
@@ -109,10 +109,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       recommendedStorage,
       recommendedGPU,
     };
-  
-    console.log(newProduct, 'newProduct');
+
+    console.log(newProduct, "newProduct");
     onAddProduct(newProduct);
-  
+
     // Clear form fields if needed
     /* setName("");
     setDisplayName("");
@@ -159,7 +159,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
 
         {/* Pricing data form */}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">Pricing Data</h2>
-        <div className="bg-black/40 px-[2.2em] py-[3.3em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
+        <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <PricingDataForm
             regularPrice={regularPrice}
             setRegularPrice={setRegularPrice}
@@ -174,8 +174,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           />
         </div>
 
-        <div>
-          <ProductImages 
+        {/* Product images form */}
+        <h2 className="font-bold text-[1.3em] mb-[1.15em]">Product Images</h2>
+        <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
+          <ProductImages
             coverImage={coverImage}
             setCoverImage={setCoverImage}
             videoUrl={videoUrl}
@@ -195,39 +197,34 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           />
         </div>
 
-        {/* <div className="mt-[2em] mb-[1.5em]">
-          <label className="block mb-[0.5em]">Image URL</label>
-          <input
-            type="text"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
-            required
+        {/* System requirements form */}
+        <h2 className="font-bold text-[1.3em] mb-[1.15em]">
+          System Requirements
+        </h2>
+        <div className="bg-black/40 px-[2.2em] py-[3.3em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
+          <SystemRequirements
+            minimumOS={minimumOS}
+            setMinimumOS={setMinimumOS}
+            minimumCPU={minimumCPU}
+            setMinimumCPU={setMinimumCPU}
+            minimumRAM={minimumRAM}
+            setMinimumRAM={setMinimumRAM}
+            minimumStorage={minimumStorage}
+            setMinimumStorage={setMinimumStorage}
+            minimumGPU={minimumGPU}
+            setMinimumGPU={setMinimumGPU}
+            recommendedOS={recommendedOS}
+            setRecommendedOS={setRecommendedOS}
+            recommendedCPU={recommendedCPU}
+            setRecommendedCPU={setRecommendedCPU}
+            recommendedRAM={recommendedRAM}
+            setRecommendedRAM={setRecommendedRAM}
+            recommendedStorage={recommendedStorage}
+            setRecommendedStorage={setRecommendedStorage}
+            recommendedGPU={recommendedGPU}
+            setRecommendedGPU={setRecommendedGPU}
           />
-        </div> */}
-
-        <SystemRequirements 
-          minimumOS={minimumOS}
-          setMinimumOS={setMinimumOS}
-          minimumCPU={minimumCPU}
-          setMinimumCPU={setMinimumCPU}
-          minimumRAM={minimumRAM}
-          setMinimumRAM={setMinimumRAM}
-          minimumStorage={minimumStorage}
-          setMinimumStorage={setMinimumStorage}
-          minimumGPU={minimumGPU}
-          setMinimumGPU={setMinimumGPU}
-          recommendedOS={recommendedOS}
-          setRecommendedOS={setRecommendedOS}
-          recommendedCPU={recommendedCPU}
-          setRecommendedCPU={setRecommendedCPU}
-          recommendedRAM={recommendedRAM}
-          setRecommendedRAM={setRecommendedRAM}
-          recommendedStorage={recommendedStorage}
-          setRecommendedStorage={setRecommendedStorage}
-          recommendedGPU={recommendedGPU}
-          setRecommendedGPU={setRecommendedGPU}
-        />
+        </div>
       </div>
 
       {/* Dropdown area */}
@@ -268,31 +265,22 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
 
         <div>
           <div className="mb-10">
-            <ProductCategories 
+            <ProductCategories
               categories={categories}
               setCategories={setCategories}
             />
           </div>
 
           <div className="mb-10">
-            <BrandCategories
-              brand={brand}
-              setBrand={setBrand}
-            />
+            <BrandCategories brand={brand} setBrand={setBrand} />
           </div>
 
           <div className="mb-10">
-            <TagsCategories 
-              tagIds={tags}
-              setTagIds={setTags}
-            />
+            <TagsCategories tagIds={tags} setTagIds={setTags} />
           </div>
 
           <div className="mb-10">
-            <PlatformCategories 
-              platform={platform}
-              setPlatform={setPlatform}
-            />
+            <PlatformCategories platform={platform} setPlatform={setPlatform} />
           </div>
         </div>
       </div>

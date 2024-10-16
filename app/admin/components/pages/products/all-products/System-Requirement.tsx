@@ -84,7 +84,9 @@ const SystemRequirements = ({
                     <SelectItem value="WINDOWS 10 / 11 WITH DIRECTX 12">
                       WINDOWS 10 / 11 WITH DIRECTX 12
                     </SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -103,7 +105,9 @@ const SystemRequirements = ({
                     <SelectItem value="INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600">
                       INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600
                     </SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -120,9 +124,12 @@ const SystemRequirements = ({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)">
-                      GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)
+                      GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC
+                      A750 · 8GB (REBAR ON)
                     </SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -141,7 +148,9 @@ const SystemRequirements = ({
                     <SelectItem value="16 GB (dual-channel mode)">
                       16 GB (dual-channel mode)
                     </SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -158,7 +167,9 @@ const SystemRequirements = ({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="65 GB SSD">65 GB SSD</SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -177,7 +188,9 @@ const SystemRequirements = ({
                     <SelectItem value="1080p / 30 Fps / Low Preset with Upscaler Set to Quality">
                       1080p / 30 Fps / Low Preset with Upscaler Set to Quality
                     </SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -205,7 +218,9 @@ const SystemRequirements = ({
                     <SelectItem value="WINDOWS 10 / 11 WITH DIRECTX 12">
                       WINDOWS 10 / 11 WITH DIRECTX 12
                     </SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -224,7 +239,9 @@ const SystemRequirements = ({
                     <SelectItem value="INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600">
                       INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600
                     </SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -241,9 +258,12 @@ const SystemRequirements = ({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)">
-                      GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)
+                      GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC
+                      A750 · 8GB (REBAR ON)
                     </SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -262,7 +282,9 @@ const SystemRequirements = ({
                     <SelectItem value="16 GB (dual-channel mode)">
                       16 GB (dual-channel mode)
                     </SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -279,13 +301,15 @@ const SystemRequirements = ({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="65 GB SSD">65 GB SSD</SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
             <div className="grid grid-cols-12 mb-8">
-              <div className="col-span-2"></div>
+              <div className="col-span-2">
                 <p className="text-white font-medium text-[16px]">Resolution</p>
               </div>
 
@@ -298,11 +322,14 @@ const SystemRequirements = ({
                     <SelectItem value="1080p / 30 Fps / Low Preset with Upscaler Set to Quality">
                       1080p / 30 Fps / Low Preset with Upscaler Set to Quality
                     </SelectItem>
-                    <SelectItem value="More Options..">More Options..</SelectItem>
+                    <SelectItem value="More Options..">
+                      More Options..
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
+          </div>
         </TabsContent>
         <TabsContent value="xbox"></TabsContent>
 
