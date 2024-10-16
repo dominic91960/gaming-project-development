@@ -1,7 +1,11 @@
-import axiosInstance from "@/axios/axiosInstance";
 import { useEffect, useState } from "react";
+
+import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 import Spinner from "@/components/Spinner/Spinner";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export type Category = {
   id: string;
@@ -64,16 +68,32 @@ const ProductCategories = ({
 
   const renderCategories = (categoryList: Category[]) => {
     return (
-      <ul className="ml-4">
+      <ul>
         {categoryList.map((category) => (
-          <li key={category.id} className="mb-2">
-            <input
+          <li
+            key={category.id}
+            className={category.level > 1 ? "ms-[1em]" : undefined}
+          >
+            <div className="flex items-center gap-x-[0.3em] mb-[0.5em]">
+              <Checkbox
+                id={category.id}
+                className="bg-transparent border-[#606060] rounded-[2px] data-[state=checked]:bg-inherit data-[state=checked]:text-[#00FFA1]"
+                checked={categories.includes(category.id)}
+                onCheckedChange={() => handleCheckboxChange(category.id)}
+              />
+              <label
+                htmlFor={category.id}
+                className="cursor-pointer capitalize"
+              >
+                {category.name}
+              </label>
+            </div>
+            {/* <input
               type="checkbox"
-              className="mr-2"
               checked={categories.includes(category.id)}
               onChange={() => handleCheckboxChange(category.id)}
-            />
-            {category.name}
+            /> */}
+            {/* {category.name} */}
             {category.children &&
               category.children.length > 0 &&
               renderCategories(category.children)}
@@ -88,31 +108,30 @@ const ProductCategories = ({
   }
 
   return (
-    <div className="border border-[#0D6D49] p-4 rounded-md max-w-xs">
+    <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
       <div
-        className="flex justify-between items-center cursor-pointer"
+        className="flex justify-between items-center cursor-pointer text-[1.2em] mb-[0.1em]"
         onClick={toggleDropdown}
       >
-        <h2 className="text-white font-semibold">Product categories</h2>
-        <span>{isOpen ? "▲" : "▼"}</span>
+        <p>Product Categories</p>
+        <button type="button">
+          {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+        </button>
       </div>
+      <hr className="border-t-[#606060] mb-[0.6em]" />
 
       <div
         className={`transition-all duration-300 ease-in-out ${
-          isOpen ? "max-h-64 mt-2" : "max-h-0 overflow-hidden"
+          isOpen ? "block" : "hidden"
         }`}
       >
-        <h3 className="text-white text-sm mb-2">All categories</h3>
-        <div
-          className={`bg-black border border-gray-600 rounded-md p-2 ${
-            isOpen ? "max-h-48 overflow-y-auto" : "hidden"
-          }`}
-        >
+        <p className="text-[1.1em] mb-[0.5em]">All categories</p>
+        <ScrollArea className="h-[10em] px-[0.4em] py-[0.2em] border border-[#606060] rounded-sm">
           {renderCategories(data)}
-        </div>
-        <div className="text-center mt-2">
-          <button className="text-white text-sm mt-2" onClick={toggleDropdown}>
-            ▲
+        </ScrollArea>
+        <div className="w-fit mx-auto mt-[1em]">
+          <button type="button" onClick={toggleDropdown}>
+            <IoIosArrowUp />
           </button>
         </div>
       </div>

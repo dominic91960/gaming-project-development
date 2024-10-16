@@ -97,20 +97,20 @@ const AdminPanel: React.FC = () => {
     <CategoryProvider>
       <RoleProvider>
         <SidebarProvider>
-        <StatusBar
-          isMobileNavToggled={isMobileNavToggled}
-          setIsMobileNavToggled={setIsMobileNavToggled}
-        />
-        <div className="leaklights">
-          <Sidebar
-            onSelect={handleSelect}
+          <StatusBar
             isMobileNavToggled={isMobileNavToggled}
             setIsMobileNavToggled={setIsMobileNavToggled}
           />
-          <div className="hide-scrollbar flex-1 overflow-y-scroll z-10 min-h-screen">
-            {renderContent()}
+          <div className="leaklights">
+            <Sidebar
+              onSelect={handleSelect}
+              isMobileNavToggled={isMobileNavToggled}
+              setIsMobileNavToggled={setIsMobileNavToggled}
+            />
+            <div className="hide-scrollbar flex-1 overflow-y-scroll z-10 min-h-screen font-primaryFont">
+              {renderContent()}
+            </div>
           </div>
-        </div>
         </SidebarProvider>
       </RoleProvider>
     </CategoryProvider>

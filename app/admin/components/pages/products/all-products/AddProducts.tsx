@@ -239,7 +239,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
 
         {/* Publish status */}
         <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
-          <label className="block mb-1">Status</label>
+          <label className="block mb-[0.1em] text-[1.2em]">Publish</label>
           <hr className="border-t-[#606060] mb-[0.6em]" />
           <Select
             value={status}
@@ -263,26 +263,16 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           </Select>
         </div>
 
-        <div>
-          <div className="mb-10">
-            <ProductCategories
-              categories={categories}
-              setCategories={setCategories}
-            />
-          </div>
+        <ProductCategories
+          categories={categories}
+          setCategories={setCategories}
+        />
 
-          <div className="mb-10">
-            <BrandCategories brand={brand} setBrand={setBrand} />
-          </div>
+        <BrandCategories brand={brand} setBrand={setBrand} />
 
-          <div className="mb-10">
-            <TagsCategories tagIds={tags} setTagIds={setTags} />
-          </div>
+        <TagsCategories tagIds={tags} setTagIds={setTags} />
 
-          <div className="mb-10">
-            <PlatformCategories platform={platform} setPlatform={setPlatform} />
-          </div>
-        </div>
+        <PlatformCategories platform={platform} setPlatform={setPlatform} />
       </div>
     </form>
   );
