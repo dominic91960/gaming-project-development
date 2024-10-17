@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import ProductCard from "./ProductCard";
+import ProgressBar from "./ProgressBar";
 
 const ContentGrid: React.FC = () => {
   // Mock data: 50 products for demonstration
@@ -68,6 +69,8 @@ const ContentGrid: React.FC = () => {
           &gt;
         </button>
       </div>
+
+      <ProgressBar />
     </div>
   );
 };
