@@ -2,16 +2,23 @@
 import React from "react";
 import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+
+import { IoIosStar } from "react-icons/io";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import StarRating from "./StarRating";
 
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleRating = (rating: number) => {
+    console.log(`User rated: ${rating} stars`);
+    // You can add logic to save the rating to a database or state here.
+  };
   return (
     <aside className="w-1/4 bg-gray-800 text-white p-4 font-semibold">
       {/* Genres starts here */}
@@ -143,6 +150,25 @@ const Sidebar: React.FC = () => {
                   </a>
                 </li>
               </ul>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
+      {/* Ratingstarts here */}
+
+      <Accordion type="single" collapsible>
+        <AccordionItem value="item-1">
+          <AccordionTrigger>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Rating
+            </h2>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="mb-4">
+              <div className="flex items-center justify-between">
+                <StarRating onRate={handleRating} />
+              </div>
             </div>
           </AccordionContent>
         </AccordionItem>

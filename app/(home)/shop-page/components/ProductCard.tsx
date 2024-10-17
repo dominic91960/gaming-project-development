@@ -1,5 +1,7 @@
 import React from "react";
-
+import Image from "next/image";
+import gameCard from "@/public/images/shop/game-card.png";
+import { IoIosStar } from "react-icons/io";
 interface ProductCardProps {
   title: string;
   price: number;
@@ -22,11 +24,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
           SOLD OUT
         </div>
       )}
-      <img src="/greedfall.jpg" alt={title} className="mb-4" />
+
+      <Image src={gameCard} alt="Ghost" className="mb-4" />
+
       <h3 className="text-lg font-bold">{title}</h3>
+      <div className="flex gap-1 text-[#f29d38]">
+        {Array.from({ length: rating }, (_, index) => (
+          <IoIosStar key={index} />
+        ))}
+      </div>
       <p className="text-green-500">${price}</p>
       <p className="text-gray-500 line-through">${oldPrice}</p>
-      <div className="mt-2">{"⭐".repeat(rating)}</div>
     </div>
   );
 };
