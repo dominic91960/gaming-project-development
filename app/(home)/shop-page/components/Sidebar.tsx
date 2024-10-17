@@ -1,90 +1,501 @@
-// components/Sidebar.tsx
-import React, { useState } from "react";
+"use client";
+import React from "react";
+import { useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
-interface SidebarProps {
-  onCategoryChange: (category: string | null) => void;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ onCategoryChange }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
-  };
-
-  const handleCategorySelect = (category: string | null) => {
-    setSelectedCategory(category);
-    onCategoryChange(category);
-    setIsDropdownOpen(false);
-  };
-
+const Sidebar: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="w-1/4 bg-gray-800 p-4">
-      <h2 className="text-xl mb-4">Categories</h2>
+    <aside className="w-1/4 bg-gray-800 text-white p-4 font-semibold">
+      {/* Genres starts here */}
 
-      <div className="relative">
-        <button
-          onClick={toggleDropdown}
-          className="w-full text-left flex justify-between items-center p-2 bg-gray-700 rounded"
-        >
-          {selectedCategory ? selectedCategory : "Select Category"}
-          <span>{isDropdownOpen ? "▲" : "▼"}</span>
-        </button>
-        {isDropdownOpen && (
-          <ul className="absolute left-0 w-full mt-2 bg-gray-700 rounded shadow-lg">
-            <li
-              className="p-2 hover:bg-gray-600 cursor-pointer"
-              onClick={() => handleCategorySelect(null)}
-            >
-              All
-            </li>
-            <li
-              className="p-2 hover:bg-gray-600 cursor-pointer"
-              onClick={() => handleCategorySelect("Racing")}
-            >
-              Racing
-            </li>
-            <li
-              className="p-2 hover:bg-gray-600 cursor-pointer"
-              onClick={() => handleCategorySelect("Shooting")}
-            >
-              Shooting
-            </li>
-            <li
-              className="p-2 hover:bg-gray-600 cursor-pointer"
-              onClick={() => handleCategorySelect("Adventure")}
-            >
-              Adventure
-            </li>
-            <li
-              className="p-2 hover:bg-gray-600 cursor-pointer"
-              onClick={() => handleCategorySelect("Action")}
-            >
-              Action
-            </li>
-            <li
-              className="p-2 hover:bg-gray-600 cursor-pointer"
-              onClick={() => handleCategorySelect("Strategy")}
-            >
-              Strategy
-            </li>
-          </ul>
-        )}
-      </div>
+      <Accordion type="single" collapsible>
+        <AccordionItem value="item-1">
+          <AccordionTrigger>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Genres
+            </h2>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="mb-4">
+              <ul>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Single Player
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    100
+                  </p>
+                </div>
 
-      <div className="mt-6">
-        <h2 className="text-xl mb-4">Price</h2>
-        <input type="range" min="0" max="110" className="w-full" />
-      </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Action
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    120
+                  </p>
+                </div>
 
-      <div className="mt-6">
-        <h2 className="text-xl mb-4">Rating</h2>
-        <div className="flex items-center space-x-1">
-          <span>⭐⭐⭐⭐⭐</span>
-        </div>
-      </div>
-    </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Role-playing
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    134
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Adventure
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    100
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Multiplayer
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    120
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Sports
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    134
+                  </p>
+                </div>
+
+                <li>
+                  <a
+                    href="#"
+                    className="font-primaryFont text-[12px] text-[#75F94C]"
+                  >
+                    See more...
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
+      {/* Operating Systems starts here */}
+
+      <Accordion type="single" collapsible>
+        <AccordionItem value="item-1">
+          <AccordionTrigger>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Operating System
+            </h2>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="mb-4">
+              <ul>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Xbox
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    100
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Windows
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    120
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Playstation
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    134
+                  </p>
+                </div>
+
+                <li>
+                  <a
+                    href="#"
+                    className="font-primaryFont text-[12px] text-[#75F94C]"
+                  >
+                    See more...
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
+      {/* Platforms starts here */}
+
+      <Accordion type="single" collapsible>
+        <AccordionItem value="item-1">
+          <AccordionTrigger>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Platforms
+            </h2>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="mb-4">
+              <ul>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Steam
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    100
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Xbox Live
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    120
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Origin
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    134
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      GOG.com
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    100
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Ubisoft Connect
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    120
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Epic Games
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    134
+                  </p>
+                </div>
+
+                <li>
+                  <a
+                    href="#"
+                    className="font-primaryFont text-[12px] text-[#75F94C]"
+                  >
+                    See more...
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
+      {/* Brands starts here */}
+
+      <Accordion type="single" collapsible>
+        <AccordionItem value="item-1">
+          <AccordionTrigger>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Brand
+            </h2>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="mb-4">
+              <ul>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Nintendo
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    100
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Ubisoft
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    120
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Electronic Arts
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    134
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Microsoft
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    100
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Sony
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    120
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="terms"
+                      className="border-white rounded-none"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      2K
+                    </label>
+                  </div>
+                  <p className="font-primaryFont font-normal text-[13px] leading-none">
+                    134
+                  </p>
+                </div>
+
+                <li>
+                  <a
+                    href="#"
+                    className="font-primaryFont text-[12px] text-[#75F94C]"
+                  >
+                    See more...
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </aside>
   );
 };
 
