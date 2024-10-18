@@ -5,7 +5,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React from "react";
+import React, { useState } from "react";
+import { MultiSelect } from "@/components/ui/multi-select";
+import { IoLanguageOutline } from "react-icons/io5";
 
 interface GeneralDataFormProps {
   name: string;
@@ -18,40 +20,94 @@ interface GeneralDataFormProps {
   setCardDescription: (value: string) => void;
   icon: string;
   setIcon: (value: string) => void;
-  language: string;
-  setLanguage: (value: string) => void;
+  language: string[];
+  setLanguage: (value: string[]) => void;
   date: string;
   setDate: (value: string) => void;
 }
 
+// const languageOptions = [
+//   "English",
+//   "Spanish (Spain)",
+//   "Spanish (Latin America)",
+//   "French",
+//   "German",
+//   "Italian",
+//   "Portuguese (Portugal)",
+//   "Portuguese (Brazilian)",
+//   "Russian",
+//   "Chinese (Simplified)",
+//   "Chinese (Traditional)",
+//   "Japanese",
+//   "Korean",
+//   "Dutch",
+//   "Polish",
+//   "Turkish",
+//   "Arabic",
+//   "Swedish",
+//   "Danish",
+//   "Finnish",
+//   "Norwegian",
+//   "Czech",
+//   "Hungarian",
+//   "Thai",
+//   "Indonesian",
+//   "Vietnamese",
+//   "Greek",
+// ];
+
 const languageOptions = [
-  "English",
-  "Spanish (Spain)",
-  "Spanish (Latin America)",
-  "French",
-  "German",
-  "Italian",
-  "Portuguese (Portugal)",
-  "Portuguese (Brazilian)",
-  "Russian",
-  "Chinese (Simplified)",
-  "Chinese (Traditional)",
-  "Japanese",
-  "Korean",
-  "Dutch",
-  "Polish",
-  "Turkish",
-  "Arabic",
-  "Swedish",
-  "Danish",
-  "Finnish",
-  "Norwegian",
-  "Czech",
-  "Hungarian",
-  "Thai",
-  "Indonesian",
-  "Vietnamese",
-  "Greek",
+  { value: "English", label: "English", icon: IoLanguageOutline },
+  {
+    value: "Spanish (Spain)",
+    label: "Spanish (Spain)",
+    icon: IoLanguageOutline,
+  },
+  {
+    value: "Spanish (Latin America)",
+    label: "Spanish (Latin America)",
+    icon: IoLanguageOutline,
+  },
+  { value: "French", label: "French", icon: IoLanguageOutline },
+  { value: "German", label: "German", icon: IoLanguageOutline },
+  { value: "Italian", label: "Italian", icon: IoLanguageOutline },
+  {
+    value: "Portuguese (Portugal)",
+    label: "Portuguese (Portugal)",
+    icon: IoLanguageOutline,
+  },
+  {
+    value: "Portuguese (Brazilian)",
+    label: "Portuguese (Brazilian)",
+    icon: IoLanguageOutline,
+  },
+  { value: "Russian", label: "Russian", icon: IoLanguageOutline },
+  {
+    value: "Chinese (Simplified)",
+    label: "Chinese (Simplified)",
+    icon: IoLanguageOutline,
+  },
+  {
+    value: "Chinese (Traditional)",
+    label: "Chinese (Traditional)",
+    icon: IoLanguageOutline,
+  },
+  { value: "Japanese", label: "Japanese", icon: IoLanguageOutline },
+  { value: "Korean", label: "Korean", icon: IoLanguageOutline },
+  { value: "Dutch", label: "Dutch", icon: IoLanguageOutline },
+  { value: "Polish", label: "Polish", icon: IoLanguageOutline },
+  { value: "Turkish", label: "Turkish", icon: IoLanguageOutline },
+  { value: "Arabic", label: "Arabic", icon: IoLanguageOutline },
+  { value: "Swedish", label: "Swedish", icon: IoLanguageOutline },
+  { value: "Danish", label: "Danish", icon: IoLanguageOutline },
+  { value: "Finnish", label: "Finnish", icon: IoLanguageOutline },
+  { value: "Norwegian", label: "Norwegian", icon: IoLanguageOutline },
+  { value: "Czech", label: "Czech", icon: IoLanguageOutline },
+  { value: "Hungarian", label: "Hungarian", icon: IoLanguageOutline },
+  { value: "Thai", label: "Thai", icon: IoLanguageOutline },
+  { value: "Indonesian", label: "Indonesian", icon: IoLanguageOutline },
+  { value: "Vietnamese", label: "Vietnamese", icon: IoLanguageOutline },
+  { value: "Greek", label: "Greek", icon: IoLanguageOutline },
 ];
 
 const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
@@ -144,7 +200,16 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
 
         <div>
           <label className="block mb-[0.5em]">Select Language</label>
-          <Select
+          <MultiSelect
+            options={languageOptions}
+            onValueChange={setLanguage}
+            defaultValue={language}
+            placeholder="Select Languages"
+            variant="secondary"
+            animation={2}
+            maxCount={3}
+          />
+          {/* <Select
             value={language}
             onValueChange={(value: string) => setLanguage(value)}
             required
@@ -163,7 +228,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
                 </SelectItem>
               ))}
             </SelectContent>
-          </Select>
+          </Select> */}
         </div>
 
         <div>

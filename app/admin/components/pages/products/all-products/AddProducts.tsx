@@ -27,7 +27,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   const [about, setAbout] = useState("");
   const [cardDescription, setCardDescription] = useState("");
   const [icon, setIcon] = useState("");
-  const [language, setLanguage] = useState("");
+  const [language, setLanguage] = useState<string[]>([]);
   const [date, setDate] = useState("");
 
   // PricingDataForm input states
