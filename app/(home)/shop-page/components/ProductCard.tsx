@@ -18,7 +18,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   soldOut,
 }) => {
   return (
-    <div className="border border-white p-4  text-white relative w-max">
+    <div className="border border-white p-4  text-white relative w-full">
       {soldOut && (
         <div className="absolute top-0 right-0 bg-red-600 text-white text-xs p-1">
           SOLD OUT

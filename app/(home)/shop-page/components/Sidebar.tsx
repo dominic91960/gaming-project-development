@@ -23,7 +23,7 @@ const Sidebar: React.FC = () => {
     // You can add logic to save the rating to a database or state here.
   };
   return (
-    <aside className="w-1/4 text-white px-4 font-semibold border border-[#fff]">
+    <aside className="w-full text-white px-4 font-semibold border border-[#fff]">
       {/* Genres starts here */}
 
       <Accordion type="single" collapsible>
