@@ -10,7 +10,7 @@ const ShopPage = () => {
     //   <Image src={bg} alt="shop page cover image" className="" />
     // </div>
 
-    <div className="flex min-h-screen bg-gray-900">
+    <div className="flex min-h-screen bg-[#010300]">
       <Sidebar />
       <ContentGrid />
     </div>
