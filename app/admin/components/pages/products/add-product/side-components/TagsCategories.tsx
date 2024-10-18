@@ -1,6 +1,9 @@
-import axiosInstance from "@/axios/axiosInstance";
 import { useEffect, useState } from "react";
+import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 interface Tags {
   id: string;
@@ -49,52 +52,57 @@ const TagsCategories = ({ tagIds, setTagIds }: TagsCategoriesProps) => {
   };
 
   const handleCheckboxChange = (tagId: string) => {
+    console.log("Tag ID : ", tagId);
+
     if (tagIds.includes(tagId)) {
-      setTagIds(tagIds.filter(id => id !== tagId));
+      setTagIds(tagIds.filter((id) => id !== tagId));
     } else {
       setTagIds([...tagIds, tagId]);
     }
   };
 
   return (
-    <div className="border border-green-700 p-4 rounded-md max-w-xs">
+    <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
       <div
-        className="flex justify-between items-center cursor-pointer"
+        className="flex justify-between items-center cursor-pointer text-[1.2em] mb-[0.1em] hover:opacity-85"
         onClick={toggleDropdown}
       >
-        <h2 className="text-white font-semibold">Tags Categories</h2>
-        <span>{isOpen ? "▲" : "▼"}</span>
+        <p className="select-none">Tags Categories</p>
+        <button type="button">
+          {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+        </button>
       </div>
+      <hr className="border-t-[#606060] mb-[0.6em]" />
 
-      <div
-        className={`transition-all duration-300 ease-in-out overflow-hidden ${
-          isOpen ? "max-h-40 mt-2" : "max-h-0"
-        }`}
-      >
-        <h3 className="text-white text-sm mb-2">All Tags</h3>
-        <div
-          className={`bg-black border border-gray-600 rounded-md p-2 ${
-            isOpen ? "max-h-32 overflow-y-auto" : "hidden"
-          }`}
-        >
-          <ul className="text-white text-sm space-y-2">
+      <div className={isOpen ? "block" : "hidden"}>
+        <p className="text-[1.1em] mb-[0.5em]">All Tags</p>
+
+        <ScrollArea className="h-[20em] px-2 py-2 border border-[#606060] rounded-sm mb-[0.9em] lg:h-[10em]">
+          <ul>
             {tags.map((tag) => (
-              <li key={tag.id} className="flex items-center">
-                <input
-                  type="checkbox"
-                  className="mr-2"
+              <li
+                key={tag.id}
+                className="w-fit flex items-center gap-x-[0.3em] mb-5 hover:opacity-85 lg:text-[12px] xl:mb-[1em]"
+              >
+                <Checkbox
+                  id={tag.id}
+                  className="bg-transparent border-[#606060] rounded-[2px] data-[state=checked]:bg-inherit data-[state=checked]:text-[#00FFA1]"
                   checked={tagIds.includes(tag.id)}
-                  onChange={() => handleCheckboxChange(tag.id)}
+                  onCheckedChange={() => handleCheckboxChange(tag.id)}
                 />
-                {tag.name}
+                <label
+                  htmlFor={tag.id}
+                  className="cursor-pointer capitalize select-none"
+                >
+                  {tag.name}
+                </label>
               </li>
             ))}
           </ul>
-        </div>
-        <div className="text-center mt-2"></div>
+        </ScrollArea>
       </div>
 
-      <a href="#" className="text-green-500 text-sm mt-2 inline-block">
+      <a href="#" className="text-[#0BDB45] hover:opacity-85">
         Add new tag
       </a>
     </div>

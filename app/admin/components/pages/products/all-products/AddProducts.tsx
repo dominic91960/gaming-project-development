@@ -61,7 +61,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   const [recommendedGPU, setRecommendedGPU] = useState("");
 
   // Other states
-  const [status, setStatus] = useState("Public");// Initialize with a valid Platforms value if needed
+  const [status, setStatus] = useState("Public"); // Initialize with a valid Platforms value if needed
   const [platform, setPlatform] = useState("");
   const [brand, setBrand] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
@@ -69,7 +69,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     const newProduct: AllProductsNew = {
       id: Math.random().toString(36).substr(2, 9),
       imageUrl,
@@ -109,10 +109,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       recommendedStorage,
       recommendedGPU,
     };
-  
-    console.log(newProduct, 'newProduct');
+
+    console.log(newProduct, "newProduct");
     onAddProduct(newProduct);
-  
+
     // Clear form fields if needed
     /* setName("");
     setDisplayName("");
@@ -132,10 +132,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="text-[15px] text-white px-[36px] grid grid-cols-12 gap-[3em]"
+      className="text-[9px] text-white px-[36px] grid lg:grid-cols-12 lg:gap-[3em] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
     >
       {/* Main form area */}
-      <div className="col-span-9">
+      <div className="lg:col-span-8">
         {/* General data form */}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">General Data</h2>
         <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
@@ -159,7 +159,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
 
         {/* Pricing data form */}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">Pricing Data</h2>
-        <div className="bg-black/40 px-[2.2em] py-[3.3em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
+        <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
           <PricingDataForm
             regularPrice={regularPrice}
             setRegularPrice={setRegularPrice}
@@ -174,8 +174,10 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           />
         </div>
 
-        <div>
-          <ProductImages 
+        {/* Product images form */}
+        <h2 className="font-bold text-[1.3em] mb-[1.15em]">Product Images</h2>
+        <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
+          <ProductImages
             coverImage={coverImage}
             setCoverImage={setCoverImage}
             videoUrl={videoUrl}
@@ -195,69 +197,56 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           />
         </div>
 
-        {/* <div className="mt-[2em] mb-[1.5em]">
-          <label className="block mb-[0.5em]">Image URL</label>
-          <input
-            type="text"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
-            required
+        {/* System requirements form */}
+        <h2 className="font-bold text-[1.3em] mb-[1.15em]">
+          System Requirements
+        </h2>
+        <div className="bg-black/40 px-[2.2em] pt-[1.8em] pb-[1em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px] lg:pt-[1.5em] xl:mb-0">
+          <SystemRequirements
+            minimumOS={minimumOS}
+            setMinimumOS={setMinimumOS}
+            minimumCPU={minimumCPU}
+            setMinimumCPU={setMinimumCPU}
+            minimumRAM={minimumRAM}
+            setMinimumRAM={setMinimumRAM}
+            minimumStorage={minimumStorage}
+            setMinimumStorage={setMinimumStorage}
+            minimumGPU={minimumGPU}
+            setMinimumGPU={setMinimumGPU}
+            recommendedOS={recommendedOS}
+            setRecommendedOS={setRecommendedOS}
+            recommendedCPU={recommendedCPU}
+            setRecommendedCPU={setRecommendedCPU}
+            recommendedRAM={recommendedRAM}
+            setRecommendedRAM={setRecommendedRAM}
+            recommendedStorage={recommendedStorage}
+            setRecommendedStorage={setRecommendedStorage}
+            recommendedGPU={recommendedGPU}
+            setRecommendedGPU={setRecommendedGPU}
           />
-        </div> */}
-
-        <SystemRequirements 
-          minimumOS={minimumOS}
-          setMinimumOS={setMinimumOS}
-          minimumCPU={minimumCPU}
-          setMinimumCPU={setMinimumCPU}
-          minimumRAM={minimumRAM}
-          setMinimumRAM={setMinimumRAM}
-          minimumStorage={minimumStorage}
-          setMinimumStorage={setMinimumStorage}
-          minimumGPU={minimumGPU}
-          setMinimumGPU={setMinimumGPU}
-          recommendedOS={recommendedOS}
-          setRecommendedOS={setRecommendedOS}
-          recommendedCPU={recommendedCPU}
-          setRecommendedCPU={setRecommendedCPU}
-          recommendedRAM={recommendedRAM}
-          setRecommendedRAM={setRecommendedRAM}
-          recommendedStorage={recommendedStorage}
-          setRecommendedStorage={setRecommendedStorage}
-          recommendedGPU={recommendedGPU}
-          setRecommendedGPU={setRecommendedGPU}
-        />
+        </div>
       </div>
 
       {/* Dropdown area */}
-      <div className="col-span-3 pt-[3.4em]">
-        {/* Submit button */}
-        <button
-          type="submit"
-          className="w-full bg-[#00FFA1] font-semibold text-black text-[calc(1em+1px)] uppercase px-[2.4em] py-[0.5em] rounded-sm hover:opacity-90 transition-opacity duration-100 mb-12"
-        >
-          Add product
-        </button>
-
+      <div className="lg:col-span-4 lg:pt-[3.4em]">
         {/* Publish status */}
         <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
-          <label className="block mb-1">Status</label>
+          <label className="block mb-[0.1em] text-[1.2em]">Publish</label>
           <hr className="border-t-[#606060] mb-[0.6em]" />
           <Select
             value={status}
             onValueChange={(value: string) => setStatus(value)}
             required
           >
-            <SelectTrigger className="text-[15px] border-[#606060]">
+            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
               <SelectValue placeholder="Select status" />
             </SelectTrigger>
-            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px] rounded-sm">
               {["Public", "Private", "Archived"].map((option) => (
                 <SelectItem
                   key={option}
                   value={option}
-                  className="h-fit ps-[3.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[15px]"
+                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
                 >
                   {option}
                 </SelectItem>
@@ -266,35 +255,28 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
           </Select>
         </div>
 
-        <div>
-          <div className="mb-10">
-            <ProductCategories 
-              categories={categories}
-              setCategories={setCategories}
-            />
-          </div>
+        {/* Categories */}
+        <ProductCategories
+          categories={categories}
+          setCategories={setCategories}
+        />
 
-          <div className="mb-10">
-            <BrandCategories
-              brand={brand}
-              setBrand={setBrand}
-            />
-          </div>
+        {/* Brands */}
+        <BrandCategories brand={brand} setBrand={setBrand} />
 
-          <div className="mb-10">
-            <TagsCategories 
-              tagIds={tags}
-              setTagIds={setTags}
-            />
-          </div>
+        {/* Tags */}
+        <TagsCategories tagIds={tags} setTagIds={setTags} />
 
-          <div className="mb-10">
-            <PlatformCategories 
-              platform={platform}
-              setPlatform={setPlatform}
-            />
-          </div>
-        </div>
+        {/* Platforms */}
+        <PlatformCategories platform={platform} setPlatform={setPlatform} />
+
+        {/* Submit button */}
+        <button
+          type="submit"
+          className="w-full bg-[#00FFA1] font-semibold text-black text-[calc(1em+1px)] uppercase px-[2.4em] py-[0.5em] rounded-sm hover:opacity-90 transition-opacity duration-100 mb-12"
+        >
+          Add product
+        </button>
       </div>
     </form>
   );

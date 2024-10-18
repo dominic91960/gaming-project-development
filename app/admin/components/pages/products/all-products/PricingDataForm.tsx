@@ -17,7 +17,7 @@ interface PricingDataFormProps {
   setSku: (value: SetStateAction<string>) => void;
   stock: string;
   setStock: (value: SetStateAction<string>) => void;
-  saleQuantity: number,
+  saleQuantity: number;
   setSaleQuantity: (value: SetStateAction<number>) => void;
 }
 
@@ -36,7 +36,7 @@ const PricingDataForm: React.FC<PricingDataFormProps> = ({
   return (
     <>
       {/* Regular pice and selling price */}
-      <div className="grid grid-cols-2 gap-x-[7.4em] mb-[1.5em]">
+      <div className="grid grid-cols-2 gap-x-[2em] mb-[1.5em]">
         {/* Regular price */}
         <div>
           <label className="block mb-[0.5em]">Regular Price ($)</label>
@@ -63,7 +63,7 @@ const PricingDataForm: React.FC<PricingDataFormProps> = ({
       </div>
 
       {/* Sale quantity and SKU */}
-      <div className="grid grid-cols-2 gap-x-[7.4em] mb-[1.5em]">
+      <div className="grid grid-cols-2 gap-x-[2em] mb-[1.5em]">
         {/* Sale quantity */}
         <div>
           <label className="block mb-[0.5em]">Sale Quantity</label>
@@ -97,7 +97,7 @@ const PricingDataForm: React.FC<PricingDataFormProps> = ({
           onValueChange={(value: string) => setStock(value)}
           required
         >
-          <SelectTrigger className="text-[15px] border-[#606060]">
+          <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
             <SelectValue placeholder="Select status" />
           </SelectTrigger>
           <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
@@ -105,7 +105,7 @@ const PricingDataForm: React.FC<PricingDataFormProps> = ({
               <SelectItem
                 key={option}
                 value={option}
-                className="h-fit ps-[3.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[15px]"
+                className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
               >
                 {option}
               </SelectItem>

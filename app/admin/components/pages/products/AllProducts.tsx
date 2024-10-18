@@ -46,7 +46,7 @@ function getInitialData(): AllProductsNew[] {
       recommendedStorage: "",
       recommendedGPU: "",
       categories: [],
-      tags: []
+      tags: [],
     },
     {
       imageUrl: "/images/sample-pic.png",
@@ -85,12 +85,10 @@ function getInitialData(): AllProductsNew[] {
       recommendedStorage: "",
       recommendedGPU: "",
       categories: [],
-      tags: []
+      tags: [],
     },
   ];
 }
-
-
 
 export default function AllProducts() {
   const [products, setProducts] = useState<AllProductsNew[]>([]);
@@ -107,38 +105,44 @@ export default function AllProducts() {
         displayName: game.displayName,
         about: game.aboutThisGame,
         cardDescription: game.cardDescription,
-        language: game.languages?.[0] || '',
-        date: game.releaseDate ? new Date(game.releaseDate).toISOString().split('T')[0] : '',
-        icon: game.coverImage || '',
-        imageUrl: game.cardImage || '',
-        sku: game.SKU || '',
-        stock: game.stock?.toString() || '',
-        selling_price: "$" + game.sellingPrice?.toString() || '',
-        regular_price: "$" + game.regularPrice?.toString() || '',
-        status: game.stockStatus || '',
+        language: game.languages?.[0] || "",
+        date: game.releaseDate
+          ? new Date(game.releaseDate).toISOString().split("T")[0]
+          : "",
+        icon: game.coverImage || "",
+        imageUrl: game.cardImage || "",
+        sku: game.SKU || "",
+        stock: game.stock?.toString() || "",
+        selling_price: "$" + game.sellingPrice?.toString() || "",
+        regular_price: "$" + game.regularPrice?.toString() || "",
+        status: game.stockStatus || "",
         saleQuantity: game.stock || 0,
-        coverImage: game.coverImage || '',
+        coverImage: game.coverImage || "",
         galleryImages: game.screenshots || [],
-        latestImage: game.latestImage || '',
-        cardImage: game.cardImage || '',
-        videoUrl: game.video || '',
+        latestImage: game.latestImage || "",
+        cardImage: game.cardImage || "",
+        videoUrl: game.video || "",
         addToLatestGame: game.addToLatestGames || false,
         carousel: game.addToCarousel || false,
         displayLatestGame: game.displayInLatesGames || false,
-        platform: game.platformId || '',
-        brand: game.brandId || '',
-        categories: game.gameCategories?.map((cat: { category: { name: any; }; }) => cat.category.name) || [],
-        tags: game.tags?.map((tag: { tag: { name: any; }; }) => tag.tag.name) || [],
-        minimumOS: game.minimumOS || '',
-        minimumCPU: game.minimumCPU || '',
-        minimumRAM: game.minimumRAM || '',
-        minimumStorage: game.minimumStorage || '',
-        minimumGPU: game.minimumGPU || '',
-        recommendedOS: game.recommendedOS || '',
-        recommendedCPU: game.recommendedCPU || '',
-        recommendedRAM: game.recommendedRAM || '',
-        recommendedStorage: game.recommendedStorage || '',
-        recommendedGPU: game.recommendedGPU || '',
+        platform: game.platformId || "",
+        brand: game.brandId || "",
+        categories:
+          game.gameCategories?.map(
+            (cat: { category: { name: any } }) => cat.category.name
+          ) || [],
+        tags:
+          game.tags?.map((tag: { tag: { name: any } }) => tag.tag.name) || [],
+        minimumOS: game.minimumOS || "",
+        minimumCPU: game.minimumCPU || "",
+        minimumRAM: game.minimumRAM || "",
+        minimumStorage: game.minimumStorage || "",
+        minimumGPU: game.minimumGPU || "",
+        recommendedOS: game.recommendedOS || "",
+        recommendedCPU: game.recommendedCPU || "",
+        recommendedRAM: game.recommendedRAM || "",
+        recommendedStorage: game.recommendedStorage || "",
+        recommendedGPU: game.recommendedGPU || "",
       }));
     }
 
@@ -202,14 +206,16 @@ export default function AllProducts() {
     <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
       <div className="pb-[2em] px-[36px]">
         <h1 className="font-bold text-[1.5em] leading-none text-white">
-          All Products
+          {isEditModalOpen ? "Edit Product" : "All Products"}
         </h1>
         <p className="text-[0.9em] text-white md:text-[0.5em]">
           Products / All Products
         </p>
       </div>
 
-      <DataTable columns={columnsWithActions} data={products} />
+      {!isEditModalOpen && (
+        <DataTable columns={columnsWithActions} data={products} />
+      )}
 
       <EditAllProductsPopup
         product={editingProduct}
