@@ -75,7 +75,7 @@ export const columns = (
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            className="bg-black/20 backdrop-blur-[2px] rounded-sm text-white border border-white/10 text-[14px]"
+            className="bg-black/20 backdrop-blur-md rounded-sm text-white border border-white/10 text-[14px]"
           >
             <DropdownMenuLabel className="text-[1em]">
               Actions

@@ -100,7 +100,7 @@ const PricingDataForm: React.FC<PricingDataFormProps> = ({
           <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
             <SelectValue placeholder="Select status" />
           </SelectTrigger>
-          <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+          <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
             {["In Stock", "Out Of Stock", "On Backorder"].map((option) => (
               <SelectItem
                 key={option}

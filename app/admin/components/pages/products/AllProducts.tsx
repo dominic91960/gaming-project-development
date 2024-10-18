@@ -6,6 +6,8 @@ import EditAllProductsPopup from "./all-products/EditAllProductsPopup";
 import { ColumnDef } from "@tanstack/react-table";
 import axiosInstance from "@/axios/axiosInstance";
 import { useSidebar } from "@/context/SidebarContext";
+import { IoTrash } from "react-icons/io5";
+import { LuPencilLine } from "react-icons/lu";
 
 function getInitialData(): AllProductsNew[] {
   return [
@@ -182,16 +184,16 @@ export default function AllProducts() {
     cell: ({ row }) => (
       <div className="flex space-x-2">
         <button
-          className="bg-red-500 text-white px-2 py-1 rounded"
-          onClick={() => handleDeleteProduct(row.original.id)}
-        >
-          Delete
-        </button>
-        <button
-          className="bg-blue-500 text-white px-2 py-1 rounded"
+          className="hover:opacity-80 transition-opacity duration-100"
           onClick={() => handleEditProduct(row.original)}
         >
-          Edit
+          <LuPencilLine />
+        </button>
+        <button
+          className="hover:opacity-80 transition-opacity duration-100"
+          onClick={() => handleDeleteProduct(row.original.id)}
+        >
+          <IoTrash />
         </button>
       </div>
     ),
@@ -203,7 +205,7 @@ export default function AllProducts() {
   ];
 
   return (
-    <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
+    <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
       <div className="pb-[2em] px-[36px]">
         <h1 className="font-bold text-[1.5em] leading-none text-white">
           {isEditModalOpen ? "Edit Product" : "All Products"}

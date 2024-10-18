@@ -99,7 +99,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
         Add Categories
       </button>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="bg-gradient-to-tr from-black/40 from-15% to-[#00a76a66] border-[#0D6D49] backdrop-blur-[2px] rounded-sm font-primaryFont text-white text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] 2xl:text-[13px] p-[3em]">
+        <DialogContent className="bg-gradient-to-tr from-black/40 from-15% to-[#00a76a66] border-[#0D6D49] backdrop-blur-md rounded-sm font-primaryFont text-white text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] 2xl:text-[13px] p-[3em]">
           <DialogHeader>
             <DialogTitle className="flex items-center justify-between border-b border-b-[#606060] pb-[1em] text-[1.5em]">
               <h2>Add Category</h2>
@@ -135,7 +135,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
                   <SelectTrigger className="h-fit px-[1em] py-[0.5em] border-[#606060] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] 2xl:text-[13px]">
                     <SelectValue placeholder="Select Parent Category" />
                   </SelectTrigger>
-                  <SelectContent className="h-[20em] overflow-y-scroll bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                  <SelectContent className="h-[20em] overflow-y-scroll bg-transparent border border-[#606060] text-white backdrop-blur-md">
                     {data.map((category) => (
                       <SelectItem
                         key={category.id}

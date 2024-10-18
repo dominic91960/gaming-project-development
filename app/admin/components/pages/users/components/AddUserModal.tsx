@@ -146,7 +146,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
 
   return (
     <div className="fixed h-full inset-0 bg-black/80 flex justify-center items-center font-medium text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] xl:text-[13px]">
-      <div className="relative bg-gradient-to-tr from-black/40 from-15% to-[#00a76966] backdrop-blur-[2px] p-[3em] rounded-md border border-[#19D38E]">
+      <div className="relative bg-gradient-to-tr from-black/40 from-15% to-[#00a76966] backdrop-blur-md p-[3em] rounded-md border border-[#19D38E]">
         <div className="font-bold text-[1.5em] pb-[0.6em] border-b border-b-[#0D6D49] flex justify-between">
           <h2>{editingUser ? "Edit User" : "Add User"}</h2>
           <button

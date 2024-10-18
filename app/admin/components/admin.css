@@ -68,6 +68,10 @@
   animation: open-menu 1s;
 }
 
+.animate-category-dropdown {
+  animation: animate-category-dropdown 300ms forwards;
+}
+
 @keyframes animate-admin-menu {
   from {
     transform: translateX(-100%);
@@ -96,6 +100,17 @@
   }
   to {
     transform: scaleY(1);
+  }
+}
+
+@keyframes animate-category-dropdown {
+  from {
+    transform: scaleY(0);
+    display: none;
+  }
+  to {
+    transform: scaleY(1);
+    display: block;
   }
 }
 

@@ -8,12 +8,11 @@ import { set } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useCategoryContext } from "../../../../../context/CategoryContext";
 
-
 export default function DemoPage() {
   const [data, setData] = useState<Category[]>([]);
   const [reload, setReload] = useState(false);
   const [isEitOpen, setIsEditOpen] = useState(false);
-  const {categories} = useCategoryContext();
+  const { categories } = useCategoryContext();
 
   useEffect(() => {
     setData(categories);
@@ -60,7 +59,7 @@ export default function DemoPage() {
   };
 
   return (
-    <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
+    <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
       <div className="pb-[2em] px-[36px]">
         <h1 className="font-bold text-[1.5em] leading-none text-white">
           All Categories

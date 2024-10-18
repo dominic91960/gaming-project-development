@@ -59,14 +59,14 @@ export default function TagsPage() {
     setData((prevData) => [...prevData, newEntry]);
   };
 
-  const handleDelete = async(id: string) => {
+  const handleDelete = async (id: string) => {
     // setData((prevData) => prevData.filter((item) => item.id !== id));
     console.log("Delete tag with id: ", id);
     try {
       await axiosInstance.delete(`/tags/${id}`);
       // setData((prevData) => prevData.filter((item) => item.id !== id));
       toast.success("Tag deleted successfully");
-      setReload(prev => !prev);
+      setReload((prev) => !prev);
     } catch (error) {
       toast.error("Error deleting tag");
       console.error(error);
@@ -80,26 +80,26 @@ export default function TagsPage() {
     setEditPopupOpen(true);
   };
 
-  const handleSaveEdit = async(tagData: {
+  const handleSaveEdit = async (tagData: {
     id: string;
     name: string;
     description: string;
     imageUrl: string;
   }) => {
-    // 
+    //
     console.log("Save tag with data: ", tagData);
     try {
       const data = {
         name: tagData.name,
         description: tagData.description,
         image: tagData.imageUrl,
-      }
+      };
       const res = await axiosInstance.patch(`/tags/${tagData.id}`, data);
       if (res.status !== 200) {
         throw new Error("Failed to update tag");
       }
       toast.success("Tag updated successfully");
-      setReload(prev => !prev);
+      setReload((prev) => !prev);
     } catch (error) {
       console.error(error);
       toast.error("Error updating tag");
@@ -107,7 +107,7 @@ export default function TagsPage() {
   };
 
   return (
-    <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
+    <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
       <div className="pb-[2em] px-[36px]">
         <h1 className="font-bold text-[1.5em] leading-none text-white">
           All Tags
