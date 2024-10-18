@@ -8,13 +8,19 @@ import { Button } from "@/components/ui/button";
 import StatusPopup from "./StatusPopup";
 
 export type AllReviews = {
-  imageUrl: string;
-  author: string;
+  user: {
+    profile_image: string;
+    firstName: string;
+  };
+  game: {
+    productName: string;
+  };
   id: string;
   rating: string;
-  review: string;
+  comment: string;
   product: string;
   status: string;
+  publish: string;
 };
 
 export const columns: ColumnDef<AllReviews>[] = [
@@ -26,7 +32,7 @@ export const columns: ColumnDef<AllReviews>[] = [
       return (
         <div className="flex items-center size-[2em]">
           <img
-            src={AllReviews.imageUrl}
+            src={AllReviews.user.profile_image}
             alt={AllReviews.rating}
             className="w-full h-full rounded-full"
           />
@@ -36,7 +42,7 @@ export const columns: ColumnDef<AllReviews>[] = [
   },
 
   {
-    accessorKey: "author",
+    accessorKey: "user.firstName",
     header: "Author",
   },
 
@@ -70,21 +76,21 @@ export const columns: ColumnDef<AllReviews>[] = [
     },
   },
   {
-    accessorKey: "review",
+    accessorKey: "comment",
     header: "Review",
   },
 
   {
-    accessorKey: "product",
+    accessorKey: "game.productName",
     header: "Product",
   },
 
   {
-    accessorKey: "status",
+    accessorKey: "publish",
     header: "Status",
     cell: ({ row }) => {
       const [showPopup, setShowPopup] = useState(false);
-      const [status, setStatus] = useState(row.original.status);
+      const [status, setStatus] = useState(row.original.publish);
 
       const handleStatusClick = () => {
         setShowPopup(true);
@@ -92,7 +98,7 @@ export const columns: ColumnDef<AllReviews>[] = [
 
       const handleStatusChange = (newStatus: string) => {
         setStatus(newStatus);
-        row.original.status = newStatus; // Update the row's status value
+        row.original.publish = newStatus;
       };
 
       return (
@@ -106,6 +112,7 @@ export const columns: ColumnDef<AllReviews>[] = [
           {showPopup && (
             <StatusPopup
               initialStatus={status}
+              id={row.original.id}
               onSave={handleStatusChange}
               onClose={() => setShowPopup(false)}
             />

@@ -37,8 +37,6 @@ interface SignInFormInputs {
 const SignIn = () => {
   const router = useRouter();
 
-  const [isForget, setIsForget] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -68,7 +66,6 @@ const SignIn = () => {
       }
     } catch (error: any) {
       toast.error(error.response.data.message);
-      setIsForget(true);
     }
   };
   const handleGoogleLogin = () => {
@@ -200,14 +197,12 @@ const SignIn = () => {
                 </label>
               </div>
 
-              {isForget && (
-                <Link
+              <Link
                   href="/forgot-password"
                   className="text-[#45F882] font-primaryFont font-normal text-[0.8em] hover:opacity-80"
                 >
                   Forgot your password ?
                 </Link>
-              )}
             </div>
 
             <Button
