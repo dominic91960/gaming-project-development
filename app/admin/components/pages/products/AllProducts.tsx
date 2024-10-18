@@ -6,6 +6,8 @@ import EditAllProductsPopup from "./all-products/EditAllProductsPopup";
 import { ColumnDef } from "@tanstack/react-table";
 import axiosInstance from "@/axios/axiosInstance";
 import { useSidebar } from "@/context/SidebarContext";
+import { IoTrash } from "react-icons/io5";
+import { LuPencilLine } from "react-icons/lu";
 
 function getInitialData(): AllProductsNew[] {
   return [
@@ -182,16 +184,16 @@ export default function AllProducts() {
     cell: ({ row }) => (
       <div className="flex space-x-2">
         <button
-          className="bg-red-500 text-white px-2 py-1 rounded"
-          onClick={() => handleDeleteProduct(row.original.id)}
-        >
-          Delete
-        </button>
-        <button
-          className="bg-blue-500 text-white px-2 py-1 rounded"
+          className="hover:opacity-80 transition-opacity duration-100"
           onClick={() => handleEditProduct(row.original)}
         >
-          Edit
+          <LuPencilLine />
+        </button>
+        <button
+          className="hover:opacity-80 transition-opacity duration-100"
+          onClick={() => handleDeleteProduct(row.original.id)}
+        >
+          <IoTrash />
         </button>
       </div>
     ),
