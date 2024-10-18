@@ -15,22 +15,22 @@ export default function PlatformsPage() {
 
   useEffect(() => {
     const getData = async () => {
-    axiosInstance
-      .get("/platforms")
-      .then((response) => {
-        setData(
-          response.data.map((brand: any) => ({
-            id: brand.id,
-            name: brand.name,
-            description: brand.description,
-            imageUrl: brand.image || "/images/sample-pic.png",
-          }))
-        );
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }
+      axiosInstance
+        .get("/platforms")
+        .then((response) => {
+          setData(
+            response.data.map((brand: any) => ({
+              id: brand.id,
+              name: brand.name,
+              description: brand.description,
+              imageUrl: brand.image || "/images/sample-pic.png",
+            }))
+          );
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
     console.log("BrandsPage reloaded");
     getData();
   }, [reload]);
@@ -43,15 +43,15 @@ export default function PlatformsPage() {
     console.log(newPlatforms);
     try {
       const data = {
-      name: newPlatforms.name,
-      description: newPlatforms.description,
-      image: newPlatforms.imageUrl,
+        name: newPlatforms.name,
+        description: newPlatforms.description,
+        image: newPlatforms.imageUrl,
       };
       const response = await axiosInstance.post("/platforms", data);
       if (response.status === 201) {
-      toast.success("Platform added successfully");
+        toast.success("Platform added successfully");
       } else {
-      throw new Error("Failed to add platform");
+        throw new Error("Failed to add platform");
       }
     } catch (error) {
       console.error(error);
@@ -114,7 +114,7 @@ export default function PlatformsPage() {
   };
 
   return (
-    <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-[2px] text-white">
+    <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
       <div className="pb-[2em] px-[36px]">
         <h1 className="font-bold text-[1.5em] leading-none text-white">
           All Platforms

@@ -62,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           : isMobileNavToggled === false
           ? "reverse-animate-admin-menu"
           : "hidden xl:block"
-      } absolute w-[16em] min-h-full bg-black/60 font-secondaryFont text-[12px] text-white pt-[2.5em] border-e border-[#0D6D49] z-50 xl:relative sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-base backdrop-blur-[2px]`}
+      } absolute w-[16em] min-h-full bg-black/60 font-secondaryFont text-[12px] text-white pt-[2.5em] border-e border-[#0D6D49] z-50 xl:relative sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-base backdrop-blur-md`}
     >
       <ul>
         {/* Dashboard Section */}

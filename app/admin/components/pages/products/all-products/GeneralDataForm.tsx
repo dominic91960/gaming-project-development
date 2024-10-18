@@ -192,7 +192,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
             <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
               <SelectValue placeholder="Select Icon" />
             </SelectTrigger>
-            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
               {iconOptions.map(({ icon, label }) => (
                 <SelectItem
                   key={label}
@@ -227,7 +227,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
             <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
               <SelectValue placeholder="Select Language" />
             </SelectTrigger>
-            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
               {languageOptions.map((option) => (
                 <SelectItem
                   key={option}

@@ -46,7 +46,7 @@ const AddBrandsPop: React.FC<AddBrandsPopProps> = ({ onAddBrands }) => {
         Add Brand
       </button>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="bg-gradient-to-tr from-black/40 from-15% to-[#00a76a66] border-[#0D6D49] backdrop-blur-[2px] rounded-sm font-primaryFont text-white text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] 2xl:text-[13px] p-[3em]">
+        <DialogContent className="bg-gradient-to-tr from-black/40 from-15% to-[#00a76a66] border-[#0D6D49] backdrop-blur-md rounded-sm font-primaryFont text-white text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] 2xl:text-[13px] p-[3em]">
           <DialogHeader>
             <DialogTitle className="flex items-center justify-between border-b border-b-[#606060] pb-[1em] text-[1.5em]">
               <h2>Add Brand</h2>
@@ -80,9 +80,8 @@ const AddBrandsPop: React.FC<AddBrandsPopProps> = ({ onAddBrands }) => {
                   const file = e.target.files?.[0];
                   if (file) {
                     const fileType = file.type;
-                    const url = await uploadImage(file, fileType );
+                    const url = await uploadImage(file, fileType);
                     setImageUrl(url);
-                  
                   }
                 }}
                 className="text-[1em] p-0 border-[#606060] h-fit file:bg-[#313131] file:text-[1em] file:text-[#D9D9D9] file:px-[1em] file:py-[0.6em] file:me-[1em] file:cursor-pointer hover:file:text-white rounded-sm"
