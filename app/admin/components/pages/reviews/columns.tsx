@@ -11,6 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { IoIosArrowForward } from "react-icons/io";
 
 export type AllReviews = {
   imageUrl: string;
@@ -105,9 +106,12 @@ export const columns: ColumnDef<AllReviews>[] = [
         <Popover open={showPopup}>
           <PopoverTrigger
             onClick={() => setShowPopup(true)}
-            className="capitalize"
+            className="w-[10ch] capitalize hover:opacity-85"
           >
-            {status}
+            <div className="flex items-center justify-between gap-[0.3em]">
+              <p>{status}</p>
+              <IoIosArrowForward className="text-[#00FFA1]" />
+            </div>
           </PopoverTrigger>
           <PopoverContent className="w-[14em] bg-black/40 border-[#0D6D49] text-white backdrop-blur-md font-primaryFont">
             {/* <div className="relative">
