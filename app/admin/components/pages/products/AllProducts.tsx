@@ -111,7 +111,7 @@ export default function AllProducts() {
         date: game.releaseDate
           ? new Date(game.releaseDate).toISOString().split("T")[0]
           : "",
-        icon: game.coverImage || "",
+        icon: game.system || "",
         imageUrl: game.cardImage || "",
         sku: game.SKU || "",
         stock: game.stock?.toString() || "",
@@ -168,12 +168,59 @@ export default function AllProducts() {
     setIsEditModalOpen(true);
   };
 
-  const handleSaveProduct = (updatedProduct: AllProductsNew) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === updatedProduct.id ? updatedProduct : product
-      )
-    );
+  const handleSaveProduct = async (updatedProduct: AllProductsNew) => {
+    // setProducts((prevProducts) =>
+    //   prevProducts.map((product) =>
+    //     product.id === updatedProduct.id ? updatedProduct : product
+    //   )
+    // );
+    console.log("update",updatedProduct);
+    const data = {
+      productName: updatedProduct.name,
+      displayName: updatedProduct.displayName,
+      aboutThisGame: updatedProduct.about,
+      cardDescription: updatedProduct.cardDescription,
+      system: updatedProduct.icon,
+      languages: updatedProduct.language ? [updatedProduct.language] : [],
+      releaseDate: new Date(updatedProduct.date).toISOString(),
+      regularPrice: parseFloat(updatedProduct.regular_price.replace("$", "")),
+      sellingPrice: parseFloat(updatedProduct.selling_price.replace("$", "")),
+      stock: updatedProduct.saleQuantity,
+      SKU: updatedProduct.sku,
+      categoryIds: updatedProduct.categories,
+      stockStatus:
+      updatedProduct.stock === "In Stock" ? "IN_STOCK" : "OUT_OF_STOCK",
+      minimumOS: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumOS : "",
+      minimumCPU: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumCPU : "",
+      minimumRAM: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumRAM : "",
+      minimumGPU: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumGPU : "",
+      minimumStorage:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumStorage : "",
+      recommendedOS:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedOS : "",
+      recommendedCPU:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedCPU : "",
+      recommendedRAM:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedRAM : "",
+      recommendedGPU:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedGPU : "",
+      recommendedStorage:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedStorage : "",
+      coverImage: updatedProduct.coverImage,
+      screenshots: updatedProduct.galleryImages,
+      video: updatedProduct.videoUrl,
+      cardImage: updatedProduct.cardImage,
+      latestImage: updatedProduct.latestImage,
+      addToLatestGames: updatedProduct.addToLatestGame,
+      addToCarousel: updatedProduct.carousel,
+      displayInLatesGames: updatedProduct.displayLatestGame,
+      published: updatedProduct.status === "Public",
+      tagIds: updatedProduct.tags,
+      brandId: updatedProduct.brand,
+      platformId: updatedProduct.platform,
+    };
+    const res = await axiosInstance.patch(`/games/${updatedProduct.id}`, data);
+    console.log("res",res);
     setIsEditModalOpen(false);
     setEditingProduct(null);
   };

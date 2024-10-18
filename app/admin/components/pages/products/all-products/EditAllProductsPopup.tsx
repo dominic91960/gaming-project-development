@@ -19,6 +19,13 @@ import PlatformCategories from "../add-product/side-components/PlatformCategorie
 import ProductImages from "../add-product/side-components/ProductImages";
 import SystemRequirements from "./System-Requirement";
 import { set } from "date-fns";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const iconOptions = [
   { icon: <FaWindows />, label: "Windows" },
@@ -96,6 +103,36 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
   const [editedProduct, setEditedProduct] =
     React.useState<AllProductsNew | null>(product);
 
+    const languageOptions = [
+      "English",
+      "Spanish (Spain)",
+      "Spanish (Latin America)",
+      "French",
+      "German",
+      "Italian",
+      "Portuguese (Portugal)",
+      "Portuguese (Brazilian)",
+      "Russian",
+      "Chinese (Simplified)",
+      "Chinese (Traditional)",
+      "Japanese",
+      "Korean",
+      "Dutch",
+      "Polish",
+      "Turkish",
+      "Arabic",
+      "Swedish",
+      "Danish",
+      "Finnish",
+      "Norwegian",
+      "Czech",
+      "Hungarian",
+      "Thai",
+      "Indonesian",
+      "Vietnamese",
+      "Greek",
+    ];
+
   const [platform, setPlatform] = useState(product?.platform || "");
   const [brand, setBrand] = useState(product?.brand || "");
   const [categories, setCategories] = useState<string[]>(product?.categories || []);
@@ -158,7 +195,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
 
   const handleSave = () => {
     if (editedProduct) {
-      // onSave(editedProduct);
+      onSave(editedProduct);
       console.log("editedProduct", editedProduct);
     }
   };
@@ -237,51 +274,57 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
           {/* Icon, language and release date */}
           <div className="grid 2xl:grid-cols-3 gap-[1.5em]">
             <div>
-              <label className="block mb-[0.5em]">Select Icon</label>
-              <Select
-                value={icon}
-                onValueChange={(value: string) => setIcon(value)}
-                required
-              >
-                <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
-                  <SelectValue placeholder="Select Icon" />
-                </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
-                  {iconOptions.map(({ icon, label }) => (
-                    <SelectItem
-                      key={label}
-                      value={label}
-                      className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
-                    >
-                      <div className="flex items-center gap-x-[0.4em]">
-                        {icon} <p>{label}</p>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
+          <label className="block mb-[0.5em]">Select Icon</label>
+          <Select
+            value={editedProduct.icon}
+            onValueChange={
+              (value: string) => {
+                setEditedProduct({
+                  ...editedProduct,
+                  icon: value,
+                });
+            
+            }
+            }
+            required
+          >
+            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
+              <SelectValue placeholder="Select Icon" />
+            </SelectTrigger>
+            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+              {["WINDOWS", "PLAYSTATION", "XBOX"].map((option) => (
+                <SelectItem
+                  key={option}
+                  value={option}
+                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                >
+                  {option}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+            {/* Language */}
             <div>
-              <label className="block mb-[0.5em]">Select Language</label>
-              <MultiSelect
-                options={languageOptions}
-                onValueChange={(value) => setLanguage(value)}
-                defaultValue={language}
-                placeholder="Select Languages"
-                variant="secondary"
-                animation={2}
-                maxCount={3}
-              />
-              {/* <Select
-            value={language}
-            onValueChange={(value: string) => setLanguage(value)}
+          <label className="block mb-[0.5em]">Select Language</label>
+          <Select
+            value={editedProduct.language}
+            onValueChange={
+              (value: string) => {
+                setEditedProduct({
+                  ...editedProduct,
+                  language: value,
+            })
+            }
+
+            }
+
             required
           >
             <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
               <SelectValue placeholder="Select Language" />
             </SelectTrigger>
-            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
+            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
               {languageOptions.map((option) => (
                 <SelectItem
                   key={option}
@@ -292,8 +335,8 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 </SelectItem>
               ))}
             </SelectContent>
-          </Select> */}
-            </div>
+          </Select>
+        </div>
 
             {/* Release date */}
             <div>
@@ -638,68 +681,3 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
 
 export default EditAllProductsPopup;
 
-{
-  /* <input
-            type="text"
-            name="name"
-            value={editedProduct.name}
-            onChange={handleInputChange}
-            placeholder="Product Name"
-            className="bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
-          />
-          <input
-            type="text"
-            name="sku"
-            value={editedProduct.sku}
-            onChange={handleInputChange}
-            placeholder="SKU"
-            className="bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
-          />
-          <input
-            type="text"
-            name="stock"
-            value={editedProduct.stock}
-            onChange={handleInputChange}
-            placeholder="Stock"
-            className="bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
-          />
-          <input
-            type="text"
-            name="selling_price"
-            value={editedProduct.selling_price}
-            onChange={handleInputChange}
-            placeholder="Selling Price"
-            className="bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
-          />
-          <input
-            type="text"
-            name="regular_price"
-            value={editedProduct.regular_price}
-            onChange={handleInputChange}
-            placeholder="Regular Price"
-            className="bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
-          />
-          <select
-            name="status"
-            value={editedProduct.status}
-            onChange={handleInputChange}
-            className="bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
-          >
-            <option value="Public">Public</option>
-            <option value="Private">Private</option>
-            <option value="Archived">Archived</option>
-          </select>
-          <input
-            type="date"
-            name="date"
-            value={editedProduct.date}
-            onChange={handleInputChange}
-            className="bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="w-full mb-4 p-2"
-          /> */
-}
