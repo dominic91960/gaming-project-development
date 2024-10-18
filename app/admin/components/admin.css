@@ -72,10 +72,6 @@
   animation: animate-category-dropdown 300ms forwards;
 }
 
-.reverse-animate-category-dropdown {
-  animation: reverse-animate-category-dropdown 300ms forwards;
-}
-
 @keyframes animate-admin-menu {
   from {
     transform: translateX(-100%);
@@ -115,17 +111,6 @@
   to {
     transform: scaleY(1);
     display: block;
-  }
-}
-
-@keyframes reverse-animate-category-dropdown {
-  from {
-    transform: scaleY(1);
-    display: block;
-  }
-  to {
-    transform: scaleY(0);
-    display: none;
   }
 }
 

@@ -71,9 +71,7 @@ const BrandCategories = ({ brand, setBrand }: BrandCategoriesProps) => {
 
       <div
         className={`${
-          isOpen
-            ? "animate-category-dropdown"
-            : "reverse-animate-category-dropdown"
+          isOpen ? "animate-category-dropdown" : "hidden"
         } origin-top`}
       >
         <p className="text-[1.1em] mb-[0.5em]">All Brands</p>

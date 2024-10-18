@@ -23,8 +23,8 @@ import { RiShieldStarFill } from "react-icons/ri";
 
 import SidebarLink from "./SidebarLink";
 import SidebarButton from "./SidebarButton";
-import "./admin.css";
 import { useSidebar } from "@/context/SidebarContext";
+import "./admin.css";
 
 interface SidebarProps {
   onSelect: (content: string) => void;
@@ -98,52 +98,54 @@ const Sidebar: React.FC<SidebarProps> = ({
           >
             <FaBoxArchive />
           </SidebarButton>
-          {isProductOpen && (
-            <ul>
-              <SidebarLink
-                selectedItem={selectedItem}
-                itemName="all-products"
-                handleItemClick={handleItemClick}
-              >
-                <FaBoxesPacking />
-              </SidebarLink>
-              <SidebarLink
-                selectedItem={selectedItem}
-                itemName="add-new"
-                handleItemClick={handleItemClick}
-              >
-                <FaSquarePlus />
-              </SidebarLink>
-              <SidebarLink
-                selectedItem={selectedItem}
-                itemName="categories"
-                handleItemClick={handleItemClick}
-              >
-                <BiSolidCategoryAlt />
-              </SidebarLink>
-              <SidebarLink
-                selectedItem={selectedItem}
-                itemName="tags"
-                handleItemClick={handleItemClick}
-              >
-                <IoPricetagsSharp />
-              </SidebarLink>
-              <SidebarLink
-                selectedItem={selectedItem}
-                itemName="brands"
-                handleItemClick={handleItemClick}
-              >
-                <IoPricetagSharp />
-              </SidebarLink>
-              <SidebarLink
-                selectedItem={selectedItem}
-                itemName="platforms"
-                handleItemClick={handleItemClick}
-              >
-                <FaLaptop />
-              </SidebarLink>
-            </ul>
-          )}
+          <ul
+            className={`${
+              isProductOpen ? "animate-category-dropdown" : "hidden"
+            } origin-top`}
+          >
+            <SidebarLink
+              selectedItem={selectedItem}
+              itemName="all-products"
+              handleItemClick={handleItemClick}
+            >
+              <FaBoxesPacking />
+            </SidebarLink>
+            <SidebarLink
+              selectedItem={selectedItem}
+              itemName="add-new"
+              handleItemClick={handleItemClick}
+            >
+              <FaSquarePlus />
+            </SidebarLink>
+            <SidebarLink
+              selectedItem={selectedItem}
+              itemName="categories"
+              handleItemClick={handleItemClick}
+            >
+              <BiSolidCategoryAlt />
+            </SidebarLink>
+            <SidebarLink
+              selectedItem={selectedItem}
+              itemName="tags"
+              handleItemClick={handleItemClick}
+            >
+              <IoPricetagsSharp />
+            </SidebarLink>
+            <SidebarLink
+              selectedItem={selectedItem}
+              itemName="brands"
+              handleItemClick={handleItemClick}
+            >
+              <IoPricetagSharp />
+            </SidebarLink>
+            <SidebarLink
+              selectedItem={selectedItem}
+              itemName="platforms"
+              handleItemClick={handleItemClick}
+            >
+              <FaLaptop />
+            </SidebarLink>
+          </ul>
         </li>
 
         {/* Customers Section */}
@@ -174,24 +176,26 @@ const Sidebar: React.FC<SidebarProps> = ({
           >
             <FaUsers />
           </SidebarButton>
-          {isUsersOpen && (
-            <ul>
-              <SidebarLink
-                selectedItem={selectedItem}
-                itemName="all-users"
-                handleItemClick={handleItemClick}
-              >
-                <FaUsers />
-              </SidebarLink>
-              <SidebarLink
-                selectedItem={selectedItem}
-                itemName="roles"
-                handleItemClick={handleItemClick}
-              >
-                <TiSpanner />
-              </SidebarLink>
-            </ul>
-          )}
+          <ul
+            className={`${
+              isUsersOpen ? "animate-category-dropdown" : "hidden"
+            } origin-top`}
+          >
+            <SidebarLink
+              selectedItem={selectedItem}
+              itemName="all-users"
+              handleItemClick={handleItemClick}
+            >
+              <FaUsers />
+            </SidebarLink>
+            <SidebarLink
+              selectedItem={selectedItem}
+              itemName="roles"
+              handleItemClick={handleItemClick}
+            >
+              <TiSpanner />
+            </SidebarLink>
+          </ul>
         </li>
 
         {/* Orders Section */}
