@@ -52,9 +52,6 @@ export default function AllCustomerReviews() {
     id: "actions",
     cell: ({ row }) => (
       <div className="flex items-center justify-center gap-x-[1em] w-[6ch] lg:w-fit lg:gap-x-[0.5em]">
-        <button className="hover:opacity-80 transition-opacity duration-100">
-          <LuPencilLine />
-        </button>
         <button
           className="hover:opacity-80 transition-opacity duration-100"
           onClick={() => handleDeletecustomer(row.original.id)}
