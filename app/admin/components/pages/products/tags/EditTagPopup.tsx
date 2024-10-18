@@ -45,7 +45,7 @@ export const EditTagPopup = ({
 
   return (
     <div className="fixed inset-0 bg-black/80 flex justify-center items-center font-medium text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] xl:text-[13px] z-50">
-      <div className="w-fit bg-gradient-to-tr from-black/40 from-15% to-[#00a76a66] border-[#0D6D49] backdrop-blur-[2px] rounded-sm font-primaryFont text-white p-[3em]">
+      <div className="w-fit bg-gradient-to-tr from-black/40 from-15% to-[#00a76a66] border-[#0D6D49] backdrop-blur-md rounded-sm font-primaryFont text-white p-[3em]">
         <div className="flex items-center justify-between border-b border-b-[#606060] pb-[1em] text-[1.5em]">
           <h2>Edit Tag</h2>
           <button

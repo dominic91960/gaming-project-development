@@ -1,11 +1,17 @@
 "use client";
 import { useState } from "react";
-import { Star } from "lucide-react";
+import { IoStar } from "react-icons/io5";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import StatusPopup from "./StatusPopup";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { IoIosArrowForward } from "react-icons/io";
 
 export type AllReviews = {
   user: {
@@ -52,22 +58,23 @@ export const columns: ColumnDef<AllReviews>[] = [
       return (
         <Button
           variant="ghost"
+          className="text-[1em] px-[1em] py-[0.5em] h-fit"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Rating
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ml-[0.5em] size-[1em]" />
         </Button>
       );
     },
     cell: ({ row }) => {
       const rating = parseInt(row.original.rating, 10);
       return (
-        <div className="flex">
+        <div className="flex gap-[0.3em]">
           {Array.from({ length: 5 }, (_, index) => (
-            <Star
+            <IoStar
               key={index}
               className={`w-4 h-4 ${
-                index < rating ? "text-yellow-500" : "text-gray-300"
+                index < rating ? "text-[#f29d38]" : "text-gray-300"
               }`}
             />
           ))}
@@ -102,22 +109,37 @@ export const columns: ColumnDef<AllReviews>[] = [
       };
 
       return (
-        <div className="relative">
-          <button
-            onClick={handleStatusClick}
-            className="text-blue-500 underline"
+        <Popover open={showPopup}>
+          <PopoverTrigger
+            onClick={() => setShowPopup(true)}
+            className="w-[10ch] capitalize hover:opacity-85"
           >
-            {status}
-          </button>
-          {showPopup && (
+            <div className="flex items-center justify-between gap-[0.3em]">
+              <p>{status}</p>
+              <IoIosArrowForward className="text-[#00FFA1]" />
+            </div>
+          </PopoverTrigger>
+          <PopoverContent className="w-[14em] bg-black/40 border-[#0D6D49] text-white backdrop-blur-md font-primaryFont">
+            {/* <div className="relative">
+              <button onClick={handleStatusClick} className="text white">
+                {status}
+              </button>
+              {showPopup && (
+                <StatusPopup
+                  initialStatus={status}
+                  onSave={handleStatusChange}
+                  onClose={() => setShowPopup(false)}
+                />
+              )}
+            </div> */}
             <StatusPopup
               initialStatus={status}
               id={row.original.id}
               onSave={handleStatusChange}
               onClose={() => setShowPopup(false)}
             />
-          )}
-        </div>
+          </PopoverContent>
+        </Popover>
       );
     },
   },

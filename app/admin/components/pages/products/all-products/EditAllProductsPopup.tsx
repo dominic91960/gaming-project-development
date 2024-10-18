@@ -1,8 +1,16 @@
 import React, { ChangeEvent, useState } from "react";
 
 import { AllProductsNew } from "./columns";
-import { Button } from "@/components/ui/button";
-import { IoClose } from "react-icons/io5";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { MultiSelect } from "@/components/ui/multi-select";
+import { FaWindows, FaXbox, FaPlaystation } from "react-icons/fa";
+import { IoLanguageOutline } from "react-icons/io5";
 
 import ProductCategories from "../add-product/side-components/ProductCategories";
 import BrandCategories from "../add-product/side-components/BrandCategories";
@@ -10,6 +18,66 @@ import TagsCategories from "../add-product/side-components/TagsCategories";
 import PlatformCategories from "../add-product/side-components/PlatformCategories";
 import ProductImages from "../add-product/side-components/ProductImages";
 import SystemRequirements from "./System-Requirement";
+
+const iconOptions = [
+  { icon: <FaWindows />, label: "Windows" },
+  { icon: <FaXbox />, label: "Xbox" },
+  { icon: <FaPlaystation />, label: "Playstation" },
+];
+
+const languageOptions = [
+  { value: "English", label: "English", icon: IoLanguageOutline },
+  {
+    value: "Spanish (Spain)",
+    label: "Spanish (Spain)",
+    icon: IoLanguageOutline,
+  },
+  {
+    value: "Spanish (Latin America)",
+    label: "Spanish (Latin America)",
+    icon: IoLanguageOutline,
+  },
+  { value: "French", label: "French", icon: IoLanguageOutline },
+  { value: "German", label: "German", icon: IoLanguageOutline },
+  { value: "Italian", label: "Italian", icon: IoLanguageOutline },
+  {
+    value: "Portuguese (Portugal)",
+    label: "Portuguese (Portugal)",
+    icon: IoLanguageOutline,
+  },
+  {
+    value: "Portuguese (Brazilian)",
+    label: "Portuguese (Brazilian)",
+    icon: IoLanguageOutline,
+  },
+  { value: "Russian", label: "Russian", icon: IoLanguageOutline },
+  {
+    value: "Chinese (Simplified)",
+    label: "Chinese (Simplified)",
+    icon: IoLanguageOutline,
+  },
+  {
+    value: "Chinese (Traditional)",
+    label: "Chinese (Traditional)",
+    icon: IoLanguageOutline,
+  },
+  { value: "Japanese", label: "Japanese", icon: IoLanguageOutline },
+  { value: "Korean", label: "Korean", icon: IoLanguageOutline },
+  { value: "Dutch", label: "Dutch", icon: IoLanguageOutline },
+  { value: "Polish", label: "Polish", icon: IoLanguageOutline },
+  { value: "Turkish", label: "Turkish", icon: IoLanguageOutline },
+  { value: "Arabic", label: "Arabic", icon: IoLanguageOutline },
+  { value: "Swedish", label: "Swedish", icon: IoLanguageOutline },
+  { value: "Danish", label: "Danish", icon: IoLanguageOutline },
+  { value: "Finnish", label: "Finnish", icon: IoLanguageOutline },
+  { value: "Norwegian", label: "Norwegian", icon: IoLanguageOutline },
+  { value: "Czech", label: "Czech", icon: IoLanguageOutline },
+  { value: "Hungarian", label: "Hungarian", icon: IoLanguageOutline },
+  { value: "Thai", label: "Thai", icon: IoLanguageOutline },
+  { value: "Indonesian", label: "Indonesian", icon: IoLanguageOutline },
+  { value: "Vietnamese", label: "Vietnamese", icon: IoLanguageOutline },
+  { value: "Greek", label: "Greek", icon: IoLanguageOutline },
+];
 
 interface EditAllProductsPopupProps {
   product: AllProductsNew | null;
@@ -31,9 +99,11 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
   const [brand, setBrand] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
+  const [icon, setIcon] = useState("");
+  const [language, setLanguage] = useState<string[]>([]);
 
   //image data inputs
-  const [imageUrl, setImageUrl] = useState("");
+  // const [imageUrl, setImageUrl] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
@@ -72,19 +142,19 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
     });
   };
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setEditedProduct({
-          ...editedProduct,
-          imageUrl: reader.result as string,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files && e.target.files[0]) {
+  //     const file = e.target.files[0];
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setEditedProduct({
+  //         ...editedProduct,
+  //         imageUrl: reader.result as string,
+  //       });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   const handleSave = () => {
     if (editedProduct) {
@@ -98,9 +168,9 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
       <div className="lg:col-span-8">
         {/* General data form*/}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">General Data</h2>
-        <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
+        <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-md">
           {/* Product name and display name */}
-          <div className="grid grid-cols-2 gap-x-[7.4em] mb-[1.5em]">
+          <div className="grid grid-cols-2 gap-x-[2em] mb-[1.5em]">
             {/* Product name */}
             <div>
               <label className="block mb-[0.5em]">Product Name</label>
@@ -142,23 +212,64 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
           </div>
 
           {/* Icon, language and release date */}
-          <div className="grid grid-cols-3 gap-x-[7.4em]">
-            {/* Icon */}
+          <div className="grid 2xl:grid-cols-3 gap-[1.5em]">
             <div>
               <label className="block mb-[0.5em]">Select Icon</label>
-              <input
-                type="text"
-                className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
-              />
+              <Select
+                value={icon}
+                onValueChange={(value: string) => setIcon(value)}
+                required
+              >
+                <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
+                  <SelectValue placeholder="Select Icon" />
+                </SelectTrigger>
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
+                  {iconOptions.map(({ icon, label }) => (
+                    <SelectItem
+                      key={label}
+                      value={label}
+                      className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                    >
+                      <div className="flex items-center gap-x-[0.4em]">
+                        {icon} <p>{label}</p>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
-            {/* Language */}
             <div>
               <label className="block mb-[0.5em]">Select Language</label>
-              <input
-                type="text"
-                className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
+              <MultiSelect
+                options={languageOptions}
+                onValueChange={(value) => setLanguage(value)}
+                defaultValue={language}
+                placeholder="Select Languages"
+                variant="secondary"
+                animation={2}
+                maxCount={3}
               />
+              {/* <Select
+            value={language}
+            onValueChange={(value: string) => setLanguage(value)}
+            required
+          >
+            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
+              <SelectValue placeholder="Select Language" />
+            </SelectTrigger>
+            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
+              {languageOptions.map((option) => (
+                <SelectItem
+                  key={option}
+                  value={option}
+                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                >
+                  {option}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select> */}
             </div>
 
             {/* Release date */}
@@ -177,9 +288,9 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
 
         {/* Pricing data form */}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">Pricing Data</h2>
-        <div className="bg-black/40 px-[2.2em] py-[3.3em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
+        <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-md">
           {/* Regular pice and selling price */}
-          <div className="grid grid-cols-2 gap-x-[7.4em] mb-[1.5em]">
+          <div className="grid grid-cols-2 gap-x-[2em] mb-[1.5em]">
             {/* Regular price */}
             <div>
               <label className="block mb-[0.5em]">Regular Price ($)</label>
@@ -208,7 +319,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
           </div>
 
           {/* Sale quantity and SKU */}
-          <div className="grid grid-cols-2 gap-x-[7.4em] mb-[1.5em]">
+          <div className="grid grid-cols-2 gap-x-[2em] mb-[1.5em]">
             {/* Sale quantity */}
             <div>
               <label className="block mb-[0.5em]">Sale Quantity</label>
@@ -236,23 +347,32 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
           {/* Stock status */}
           <div>
             <label className="block mb-[0.5em]">Stock status</label>
-            <select
-              name="stock"
-              value={editedProduct.stock}
-              onChange={handleInputChange}
-              className="bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
+            <Select
+              // value={stock}
+              // onValueChange={(value: string) => setStock(value)}
+              required
             >
-              {["In Stock", "Out Of Stock", "On Backorder"].map((option) => (
-                <option key={option} value={option} className="bg-black">
-                  {option}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
+                <SelectValue placeholder="Select status" />
+              </SelectTrigger>
+              <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
+                {["In Stock", "Out Of Stock", "On Backorder"].map((option) => (
+                  <SelectItem
+                    key={option}
+                    value={option}
+                    className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                  >
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
-        {/* Image upload */}
-        <div>
+        {/* Product images form */}
+        <h2 className="font-bold text-[1.3em] mb-[1.15em]">Product Images</h2>
+        <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-md">
           <ProductImages
             coverImage={coverImage}
             setCoverImage={setCoverImage}
@@ -271,7 +391,13 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
             displayLatestGame={displayLatestGame}
             setDisplayLatestGame={setDisplayLatestGame}
           />
+        </div>
 
+        {/* System requirements form */}
+        <h2 className="font-bold text-[1.3em] mb-[1.15em]">
+          System Requirements
+        </h2>
+        <div className="bg-black/40 px-[2.2em] pt-[1.8em] pb-[1em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-md lg:pt-[1.5em] xl:mb-0">
           <SystemRequirements
             minimumOS={minimumOS}
             setMinimumOS={setMinimumOS}
@@ -300,7 +426,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
       {/* Dropdown area */}
       <div className="lg:col-span-4 lg:pt-[3.4em]">
         {/* Publish status */}
-        <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-[2px]">
+        <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-md">
           <label className="block mb-1">Status</label>
           <hr className="border-t-[#606060] mb-[0.6em]" />
           <select

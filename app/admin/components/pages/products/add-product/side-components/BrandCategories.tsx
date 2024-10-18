@@ -69,7 +69,11 @@ const BrandCategories = ({ brand, setBrand }: BrandCategoriesProps) => {
       </div>
       <hr className="border-t-[#606060] mb-[0.6em]" />
 
-      <div className={isOpen ? "block" : "hidden"}>
+      <div
+        className={`${
+          isOpen ? "animate-category-dropdown" : "hidden"
+        } origin-top`}
+      >
         <p className="text-[1.1em] mb-[0.5em]">All Brands</p>
 
         <ScrollArea className="h-[20em] px-2 py-2 border border-[#606060] rounded-sm mb-[0.9em] lg:h-[10em]">

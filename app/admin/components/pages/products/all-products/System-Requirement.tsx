@@ -77,7 +77,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Operating System" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="WINDOWS 10 / 11 WITH DIRECTX 12"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
@@ -104,7 +104,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select CPU" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
@@ -131,7 +131,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Graphics" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
@@ -159,7 +159,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Memory" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="16 GB (dual-channel mode)"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
@@ -186,7 +186,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Storage" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="65 GB SSD"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
@@ -213,7 +213,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Resolution" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="1080p / 30 Fps / Low Preset with Upscaler Set to Quality"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
@@ -247,7 +247,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Operating System" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="WINDOWS 10 / 11 WITH DIRECTX 12"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
@@ -274,7 +274,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select CPU" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="INTEL® CORE™ i7-8700K, AMD RYZEN™ 5 3600"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
@@ -301,7 +301,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Graphics" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="GEFORCE® GTX 1660 · 6GB, AMD RX 5600 XT · 6GB, INTEL® ARC A750 · 8GB (REBAR ON)"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
@@ -329,7 +329,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Memory" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="16 GB (dual-channel mode)"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
@@ -356,7 +356,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Storage" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="65 GB SSD"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
@@ -383,7 +383,7 @@ const SystemRequirements = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Resolution" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
                   <SelectItem
                     value="1080p / 30 Fps / Low Preset with Upscaler Set to Quality"
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
