@@ -1,51 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AllReviews, columns } from "./columns";
 import { DataTable } from "./data-table";
 
 import { ColumnDef } from "@tanstack/react-table";
 import { IoTrash } from "react-icons/io5";
 import { LuPencilLine } from "react-icons/lu";
+import axiosInstance from "@/axios/axiosInstance";
+import toast from "react-hot-toast";
 
-function getInitialData(): AllReviews[] {
-  return [
-    {
-      imageUrl: "/images/sample-pic.png",
-      author: "Dominic Brian",
-      id: "728ed512",
-      rating: "4",
-      review: "It was popularised in the 1960s with the...",
-      product: "BL104",
-      status: "Approved",
-    },
-    {
-      imageUrl: "/images/sample-pic.png",
-      author: "Steve Smith",
-      id: "728ed534",
-      rating: "3",
-      review: "It was popularised in the 1960s with the...",
-      product: "BL105",
-      status: "Rejected",
-    },
-    {
-      imageUrl: "/images/sample-pic.png",
-      author: "Ricky Ponting",
-      id: "728ed556",
-      rating: "5",
-      review: "It was popularised in the 1960s with the...",
-      product: "BL106",
-      status: "Approved",
-    },
-  ];
-}
+
 
 export default function AllCustomerReviews() {
-  const [reviews, setreviews] = useState<AllReviews[]>(getInitialData());
+  const [reviews, setReviews] = useState<AllReviews[]>([]);
+
+  useEffect(() => {
+    getAllReviews();
+  }, []);
+
+  const getAllReviews = async () => {
+    try {
+      const res = await axiosInstance.get("/reviews");
+      setReviews(res.data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to add product");
+    }
+  };
 
   const handleDeletecustomer = (id: string) => {
-    setreviews((prevreviews) =>
+    setReviews((prevreviews) =>
       prevreviews.filter((review) => review.id !== id)
     );
+    
   };
+
+  const deleteReview = async  (id:string) => {
+    try {
+      const res = await axiosInstance.get("/reviews");
+      setReviews(res.data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to add product");
+    }
+  }
 
   const actionColumn: ColumnDef<AllReviews> = {
     header: "Actions",
