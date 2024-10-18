@@ -1,38 +1,40 @@
-// components/ProductCard.tsx
 import React from "react";
-
+import Image from "next/image";
+import gameCard from "@/public/images/shop/game-card.png";
+import { IoIosStar } from "react-icons/io";
 interface ProductCardProps {
-  image: string;
   title: string;
-  price: string;
-  oldPrice?: string;
+  price: number;
+  oldPrice: number;
   rating: number;
+  soldOut?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  image,
   title,
   price,
   oldPrice,
   rating,
+  soldOut,
 }) => {
   return (
-    <div className="bg-gray-800 p-4 rounded-lg">
-      <img src={image} alt={title} className="w-full rounded-md" />
-      <div className="mt-4">
-        <h3 className="text-lg font-bold">{title}</h3>
-        <p className="text-sm text-gray-400">Lorem ipsum dolor sit amet...</p>
-        <div className="flex items-center justify-between mt-2">
-          <span className="text-green-400 text-xl">{price}</span>
-          {oldPrice && (
-            <span className="line-through text-gray-500">{oldPrice}</span>
-          )}
+    <div className="border border-gray-700 p-4 bg-gray-900 text-white relative">
+      {soldOut && (
+        <div className="absolute top-0 right-0 bg-red-600 text-white text-xs p-1">
+          SOLD OUT
         </div>
-        <div className="mt-2 flex items-center">
-          {"⭐".repeat(rating)}
-          {/* Creates stars based on rating */}
-        </div>
+      )}
+
+      <Image src={gameCard} alt="Ghost" className="mb-4" />
+
+      <h3 className="text-lg font-bold">{title}</h3>
+      <div className="flex gap-1 text-[#f29d38]">
+        {Array.from({ length: rating }, (_, index) => (
+          <IoIosStar key={index} />
+        ))}
       </div>
+      <p className="text-green-500">${price}</p>
+      <p className="text-gray-500 line-through">${oldPrice}</p>
     </div>
   );
 };
