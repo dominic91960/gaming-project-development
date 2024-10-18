@@ -131,10 +131,10 @@ export default function AllProducts() {
         brand: game.brandId || "",
         categories:
           game.gameCategories?.map(
-            (cat: { category: { name: any } }) => cat.category.name
+            (cat: { category: { id: any } }) => cat.category.id
           ) || [],
         tags:
-          game.tags?.map((tag: { tag: { name: any } }) => tag.tag.name) || [],
+          game.tags?.map((tag: { tag: { id: any } }) => tag.tag.id) || [],
         minimumOS: game.minimumOS || "",
         minimumCPU: game.minimumCPU || "",
         minimumRAM: game.minimumRAM || "",

@@ -21,12 +21,15 @@ export type Category = {
 interface ProductCategoriesProps {
   categories: string[];
   setCategories: (categories: string[]) => void;
+  selectedCategories?: string[];
 }
 
 const ProductCategories = ({
   categories,
   setCategories,
+  selectedCategories
 }: ProductCategoriesProps) => {
+  console.log("cat",categories);
   const [isOpen, setIsOpen] = useState(true);
   const [data, setData] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(false);

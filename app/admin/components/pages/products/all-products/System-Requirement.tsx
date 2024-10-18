@@ -73,7 +73,7 @@ const SystemRequirements = ({
             </div>
 
             <div className="col-span-9">
-              <Select onValueChange={setMinimumOS}>
+              <Select defaultValue={minimumOS} onValueChange={setMinimumOS}>
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Operating System" />
                 </SelectTrigger>
@@ -100,7 +100,7 @@ const SystemRequirements = ({
             </div>
 
             <div className="col-span-9">
-              <Select onValueChange={setMinimumCPU}>
+              <Select defaultValue={minimumCPU} onValueChange={setMinimumCPU}>
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select CPU" />
                 </SelectTrigger>
@@ -127,7 +127,7 @@ const SystemRequirements = ({
             </div>
 
             <div className="col-span-9">
-              <Select onValueChange={setMinimumGPU}>
+              <Select defaultValue={minimumGPU} onValueChange={setMinimumGPU}>
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Graphics" />
                 </SelectTrigger>
@@ -155,7 +155,7 @@ const SystemRequirements = ({
             </div>
 
             <div className="col-span-9">
-              <Select onValueChange={setMinimumRAM}>
+              <Select defaultValue={minimumRAM} onValueChange={setMinimumRAM}>
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Memory" />
                 </SelectTrigger>
@@ -182,7 +182,7 @@ const SystemRequirements = ({
             </div>
 
             <div className="col-span-9">
-              <Select onValueChange={setMinimumStorage}>
+              <Select defaultValue={minimumStorage} onValueChange={setMinimumStorage}>
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Storage" />
                 </SelectTrigger>
@@ -243,7 +243,7 @@ const SystemRequirements = ({
             </div>
 
             <div className="col-span-9">
-              <Select onValueChange={setRecommendedOS}>
+              <Select defaultValue={recommendedOS} onValueChange={setRecommendedOS}>
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Operating System" />
                 </SelectTrigger>
@@ -270,7 +270,7 @@ const SystemRequirements = ({
             </div>
 
             <div className="col-span-9">
-              <Select onValueChange={setRecommendedCPU}>
+              <Select defaultValue={recommendedCPU} onValueChange={setRecommendedCPU}>
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select CPU" />
                 </SelectTrigger>
@@ -297,7 +297,7 @@ const SystemRequirements = ({
             </div>
 
             <div className="col-span-9">
-              <Select onValueChange={setRecommendedGPU}>
+              <Select defaultValue={recommendedGPU} onValueChange={setRecommendedGPU}>
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Graphics" />
                 </SelectTrigger>
@@ -325,7 +325,7 @@ const SystemRequirements = ({
             </div>
 
             <div className="col-span-9">
-              <Select onValueChange={setRecommendedRAM}>
+              <Select defaultValue={recommendedRAM} onValueChange={setRecommendedRAM}>
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Memory" />
                 </SelectTrigger>
@@ -352,7 +352,7 @@ const SystemRequirements = ({
             </div>
 
             <div className="col-span-9">
-              <Select onValueChange={setRecommendedStorage}>
+              <Select defaultValue={recommendedStorage} onValueChange={setRecommendedStorage}>
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Storage" />
                 </SelectTrigger>

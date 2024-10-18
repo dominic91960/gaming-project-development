@@ -8,10 +8,11 @@ interface ImageUploadProps {
   label: string;
   aspectRatio: string;
   setImageUrl: (url: string) => void;
+  imageUrl?: string;
 }
 
-const ImageUpload = ({ label, aspectRatio, setImageUrl }: ImageUploadProps) => {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+const ImageUpload = ({ label, aspectRatio, setImageUrl, imageUrl }: ImageUploadProps) => {
+  const [imageSrc, setImageSrc] = useState<string | null>(imageUrl || null);
 
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -133,14 +134,16 @@ const ProductImages = ({
           label="Add Product Image"
           aspectRatio="1920:300"
           setImageUrl={setCoverImage}
+          imageUrl={coverImage}
         />
         <div className="grid grid-cols-2 gap-x-[1em] mt-[1em] sm:grid-cols-3">
           <ImageUpload
             label="Add video"
             aspectRatio="1920:1080"
             setImageUrl={setVideoUrl}
+            imageUrl={videoUrl}
           />
-          {[1, 2, 3, 4].map((_, index) => (
+          {[galleryImages[0] ?? 1, galleryImages[1] ?? 2, galleryImages[2] ?? 3 , galleryImages[3] ?? 4].map((i, index) => (
             <ImageUpload
               key={index}
               label={`Add image`}
@@ -152,6 +155,7 @@ const ProductImages = ({
                   return newImages; // Return the updated array
                 })
               }
+              imageUrl={i}
             />
           ))}
         </div>
@@ -161,6 +165,7 @@ const ProductImages = ({
               label="Add Card Image"
               aspectRatio="800:1080"
               setImageUrl={setCardImage}
+              imageUrl={cardImage}
             />
           </div>
           <div className="sm:col-span-4">
@@ -168,6 +173,7 @@ const ProductImages = ({
               label="Latest Image"
               aspectRatio="1080:1920"
               setImageUrl={setLatestImage}
+              imageUrl={latestImage}
             />
           </div>
         </div>
@@ -179,6 +185,7 @@ const ProductImages = ({
             className="bg-transparent border-[#606060] rounded-[2px] data-[state=checked]:bg-inherit data-[state=checked]:text-[#00FFA1]"
             checked={addToLatestGame}
             onCheckedChange={(checked: boolean) => setAddToLatestGame(checked)}
+            
           />
           <label
             htmlFor="add-to-latest"
