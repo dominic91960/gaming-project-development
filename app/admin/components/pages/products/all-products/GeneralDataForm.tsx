@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import {
   Select,
   SelectContent,
@@ -5,8 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React, { useState } from "react";
 import { MultiSelect } from "@/components/ui/multi-select";
+import { FaWindows, FaXbox, FaPlaystation } from "react-icons/fa";
 import { IoLanguageOutline } from "react-icons/io5";
 
 interface GeneralDataFormProps {
@@ -55,6 +57,12 @@ interface GeneralDataFormProps {
 //   "Vietnamese",
 //   "Greek",
 // ];
+
+const iconOptions = [
+  { icon: <FaWindows />, label: "Windows" },
+  { icon: <FaXbox />, label: "Xbox" },
+  { icon: <FaPlaystation />, label: "Playstation" },
+];
 
 const languageOptions = [
   { value: "English", label: "English", icon: IoLanguageOutline },
@@ -185,13 +193,15 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
               <SelectValue placeholder="Select Icon" />
             </SelectTrigger>
             <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
-              {["WINDOWS", "PLAYSTATION", "XBOX"].map((option) => (
+              {iconOptions.map(({ icon, label }) => (
                 <SelectItem
-                  key={option}
-                  value={option}
+                  key={label}
+                  value={label}
                   className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
                 >
-                  {option}
+                  <div className="flex items-center gap-x-[0.4em]">
+                    {icon} <p>{label}</p>
+                  </div>
                 </SelectItem>
               ))}
             </SelectContent>
