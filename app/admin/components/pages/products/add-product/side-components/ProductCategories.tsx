@@ -117,16 +117,12 @@ const ProductCategories = ({
 
       <div
         className={`${
-          isOpen ? "animate-category-dropdown" : "hidden"
-        } origin-top`}
+          isOpen ? "h-[23em] lg:h-[13em]" : "h-0"
+        } overflow-clip transition-all duration-500`}
       >
         <p className="text-[1.1em] mb-[0.5em]">All Categories</p>
 
-        <ScrollArea
-          className={`h-[20em] px-2 py-2 border border-[#606060] rounded-sm mb-[0.9em] lg:h-[10em] ${
-            isOpen ? "block" : "hidden"
-          }`}
-        >
+        <ScrollArea className="h-[20em] px-2 py-2 border border-[#606060] rounded-sm mb-[0.9em] lg:h-[10em]">
           {renderCategories(data)}
         </ScrollArea>
       </div>

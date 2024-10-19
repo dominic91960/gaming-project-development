@@ -76,8 +76,8 @@ const TagsCategories = ({ tagIds, setTagIds }: TagsCategoriesProps) => {
 
       <div
         className={`${
-          isOpen ? "animate-category-dropdown" : "hidden"
-        } origin-top`}
+          isOpen ? "h-[23em] lg:h-[13em]" : "h-0"
+        } overflow-clip transition-all duration-500`}
       >
         <p className="text-[1.1em] mb-[0.5em]">All Tags</p>
 
