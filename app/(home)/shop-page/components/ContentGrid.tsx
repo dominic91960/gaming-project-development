@@ -56,7 +56,7 @@ const ContentGrid: React.FC = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Fruits</SelectLabel>
+                  <SelectLabel>Title Here</SelectLabel>
                   <SelectItem value="option1">option 1</SelectItem>
                   <SelectItem value="option2">option 2</SelectItem>
                   <SelectItem value="option3">option 3</SelectItem>
