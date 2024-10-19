@@ -34,7 +34,7 @@ const ContentGrid: React.FC = () => {
   };
 
   return (
-    <div className="w-3/4 p-4">
+    <div className="w-max p-4">
       <div className="flex items-center justify-between mb-4">
         <p className="text-[15px] font-normal font-primaryFont text-white">
           result found: 23

@@ -3,7 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { IoIosStar } from "react-icons/io";
+import { Slider } from "@/components/ui/slider";
+
 import {
   Accordion,
   AccordionContent,
@@ -13,6 +14,8 @@ import {
 import StarRating from "./StarRating";
 
 const Sidebar: React.FC = () => {
+  const [value, setValue] = useState([33]);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const handleRating = (rating: number) => {
@@ -20,7 +23,7 @@ const Sidebar: React.FC = () => {
     // You can add logic to save the rating to a database or state here.
   };
   return (
-    <aside className="w-1/4 bg-gray-800 text-white p-4 font-semibold">
+    <aside className="w-full text-white px-4 font-semibold border border-[#fff]">
       {/* Genres starts here */}
 
       <Accordion type="single" collapsible>
@@ -155,7 +158,41 @@ const Sidebar: React.FC = () => {
         </AccordionItem>
       </Accordion>
 
-      {/* Ratingstarts here */}
+      {/* Pricing starts here */}
+
+      <Accordion type="single" collapsible>
+        <AccordionItem value="item-1">
+          <AccordionTrigger>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Pricing
+            </h2>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="mb-4">
+              <div className="mt-3">
+                <Slider
+                  value={value}
+                  onValueChange={(newValue) => setValue(newValue)} // Update state when the slider is moved
+                  max={100}
+                  step={1}
+                />
+
+                <div className="flex items-center mt-3 gap-2">
+                  <p className="text-[15px] font-normal font-primaryFont">
+                    Price :
+                  </p>
+
+                  <p className="text-[15px] text-[#0BDB45] font-normal font-primaryFont">
+                    {`0 - ${value[0]}`} <span className="text-white">$</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
+      {/* Rating starts here */}
 
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
