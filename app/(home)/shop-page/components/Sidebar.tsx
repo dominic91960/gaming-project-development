@@ -428,7 +428,7 @@ const Sidebar: React.FC = () => {
       {/* Brands starts here */}
 
       <Accordion type="single" collapsible>
-        <AccordionItem value="item-1">
+        <AccordionItem value="item-1" className="mb-4">
           <AccordionTrigger>
             <h2 className="text-[20px] font-semibold font-primaryFont">
               Brand

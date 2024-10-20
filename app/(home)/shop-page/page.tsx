@@ -3,6 +3,9 @@ import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
 
 import Sidebar from "./components/Sidebar";
 import ContentGrid from "./components/ContentGrid";
+import ProductSearchBar from "@/components/product-search/product-search";
+import Navbar from "@/components/navbar/navbar";
+import Footer from "@/components/footer/footer";
 
 const ShopPage = () => {
   return (
@@ -17,6 +20,8 @@ const ShopPage = () => {
     // </div>
 
     <div className="bg-[#010300]">
+      <ProductSearchBar />
+      <Navbar />
       {/* Title */}
 
       <div className="relative">
@@ -53,6 +58,8 @@ const ShopPage = () => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
