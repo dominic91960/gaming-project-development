@@ -227,6 +227,21 @@ const Sidebar: React.FC<SidebarProps> = ({
             <span>Reviews</span>
           </div>
         </button>
+
+        {/* Coupons Section */}
+        <button
+          className={`flex justify-between items-center w-full py-[1em] px-[2.5em] mb-[1em] hover:opacity-80 ${
+            selectedItem === "coupons"
+              ? "bg-gradient-to-r from-black to-[#0D6D49]"
+              : ""
+          }`}
+          onClick={() => handleItemClick("coupons")}
+        >
+          <div className="flex items-center gap-x-[0.7em]">
+            <RiShieldStarFill />
+            <span>Coupons</span>
+          </div>
+        </button>
       </ul>
     </div>
   );

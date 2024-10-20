@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import StarRating from "./StarRating";
+import { Button } from "@/components/ui/button";
 
 const Sidebar: React.FC = () => {
   const [value, setValue] = useState([33]);
@@ -428,7 +429,7 @@ const Sidebar: React.FC = () => {
       {/* Brands starts here */}
 
       <Accordion type="single" collapsible>
-        <AccordionItem value="item-1">
+        <AccordionItem value="item-1" className="mb-4">
           <AccordionTrigger>
             <h2 className="text-[20px] font-semibold font-primaryFont">
               Brand
@@ -558,6 +559,8 @@ const Sidebar: React.FC = () => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+
+      <Button className="bg-[#BD0202] rounded-none px-6 mb-6">Clear all</Button>
     </aside>
   );
 };

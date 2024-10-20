@@ -19,6 +19,7 @@ import AllUsers from "../admin/components/pages/users/AllUsers";
 import RolesPage from "../admin/components/pages/users/Roles";
 import Orders from "./components/pages/orders/Orders";
 import Reviews from "./components/pages/reviews/Reviews";
+import Coupons from "./components/pages/coupons/Coupons";
 import "./components/admin.css";
 import { CategoryProvider } from "@/context/CategoryContext";
 import { SidebarProvider } from "@/context/SidebarContext";
@@ -82,6 +83,9 @@ const AdminPanel: React.FC = () => {
 
       case "reviews":
         return <Reviews />;
+
+      case "coupons":
+        return <Coupons />;
 
       default:
         return <Dashboard />;
