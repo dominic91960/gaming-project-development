@@ -20,8 +20,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="border border-white p-4  text-white relative w-full bg-[#10160e]">
       {soldOut && (
-        <div className="absolute top-0 right-0 bg-red-600 text-white text-xs p-1">
-          SOLD OUT
+        <div className="absolute top-0 right-0  backdrop-blur-sm bg-black/30 text-white p-1 h-full w-full flex items-center justify-center">
+          <div className="flex items-center justify-center">
+            <p className="text-[#FF374E] text-center font-primaryFont font-bold text-[25px]">
+              SOLD OUT
+            </p>
+          </div>
         </div>
       )}
       <Image src={gameCard} alt="Ghost" className="mb-4" />

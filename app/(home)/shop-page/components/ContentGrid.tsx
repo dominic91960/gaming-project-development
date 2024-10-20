@@ -77,7 +77,7 @@ const ContentGrid: React.FC = () => {
             price={299}
             oldPrice={399}
             rating={5}
-            soldOut={startIndex + index === 7} // Example of marking one item as sold out
+            soldOut={startIndex + index === 5} // Example of marking one item as sold out
           />
         ))}
       </div>
