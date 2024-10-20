@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import ProductCard from "./ProductCard";
 import { CiSearch } from "react-icons/ci";
+import { GrNext, GrPrevious } from "react-icons/gr";
 import {
   Select,
   SelectContent,
@@ -86,9 +87,9 @@ const ContentGrid: React.FC = () => {
         <button
           onClick={() => changePage(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 mx-1 bg-gray-700 text-white rounded disabled:opacity-50"
+          className="px-4 py-2 mx-1 text-white rounded disabled:opacity-50"
         >
-          &lt;
+          <GrPrevious />
         </button>
         {Array.from({ length: totalPages }, (_, i) => (
           <button
@@ -96,8 +97,8 @@ const ContentGrid: React.FC = () => {
             onClick={() => changePage(i + 1)}
             className={`px-4 py-2 mx-1 rounded ${
               currentPage === i + 1
-                ? "bg-green-500 text-white"
-                : "bg-gray-700 text-white"
+                ? " text-[#45F882] font-primaryFont font-semibold"
+                : "text-white font-primaryFont font-semibold"
             }`}
           >
             {i + 1}
@@ -106,9 +107,9 @@ const ContentGrid: React.FC = () => {
         <button
           onClick={() => changePage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 mx-1 bg-gray-700 text-white rounded disabled:opacity-50"
+          className="px-4 py-2 mx-1 text-white rounded disabled:opacity-50"
         >
-          &gt;
+          <GrNext />
         </button>
       </div>
     </div>
