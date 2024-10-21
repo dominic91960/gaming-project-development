@@ -67,6 +67,194 @@ export default function ProfilePage() {
           {/* Bottom gradient  */}
           <div className="w-full h-1/2 absolute bottom-0 bg-gradient-to-t from-black to-transparent"></div>
         </div>
+
+        <div className="bg-gradient-to-b from-black from-0% via-transparent via-20% to-black to-80%">
+          {/* Container for the rest of the content */}
+          <div className="container mx-auto px-[36px]">
+            {/* Container for account details and security details */}
+            <div className="grid grid-cols-1 sm:grid-cols-12">
+              {/* Account details */}
+              <menu
+                className="bg-gradient-to-b from-transparent to-white/30 text-[8px] p-[2em] border border-t-0 sm:col-span-7 sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
+                style={{
+                  borderImage:
+                    "linear-gradient(to bottom, transparent, #75F94C) 1",
+                }}
+              >
+                {/* Header */}
+                <p className="sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
+                  Manage your account&apos;s details.
+                </p>
+                <div className="flex items-center justify-between">
+                  <h3 className="font-bold text-[15px] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[32px] 2xl:text-[35px]">
+                    Account Information
+                  </h3>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="h-fit text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[20px] uppercase px-[1em] py-[0.5em] rounded-sm"
+                  >
+                    Edit&nbsp;&nbsp;
+                    <FaPencilAlt />
+                  </Button>
+                </div>
+                <hr className="border-t-[#BCBCBC] mt-[0.1em] mb-[1.7em]" />
+
+                {/* Account info */}
+                <form>
+                  {/* ID */}
+                  <div className="flex items-center justify-between mb-[0.5em]">
+                    <p>
+                      <span className="font-bold">ID:</span> {profile.id}
+                    </p>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
+                    >
+                      <FaPencilAlt />
+                    </Button>
+                  </div>
+
+                  {/* Username */}
+                  <div className="flex items-center justify-between  mb-[0.5em]">
+                    <p>
+                      <span className="font-bold">Username: </span>
+                      {profile.username}
+                    </p>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
+                    >
+                      <FaPencilAlt />
+                    </Button>
+                  </div>
+
+                  {/* Email */}
+                  <div className="flex items-center justify-between  mb-[0.5em]">
+                    <p>
+                      <span className="font-bold">Email: </span> {profile.email}
+                    </p>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
+                    >
+                      <FaPencilAlt />
+                    </Button>
+                  </div>
+
+                  {/* Language */}
+                  <div className="flex items-center justify-between  mb-[0.5em]">
+                    <p>
+                      <span className="font-bold">Language: </span>
+                      {profile.language}
+                    </p>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
+                    >
+                      <FaPencilAlt />
+                    </Button>
+                  </div>
+
+                  {/* First name */}
+                  <div className="flex items-center justify-between  mb-[0.5em]">
+                    <p>
+                      <span className="font-bold">First Name: </span>
+                      {profile.firstName}
+                    </p>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
+                    >
+                      <FaPencilAlt />
+                    </Button>
+                  </div>
+
+                  {/* Last name */}
+                  <div className="flex items-center justify-between  mb-[0.5em]">
+                    <p>
+                      <span className="font-bold">Last Name: </span>
+                      {profile.lastName}
+                    </p>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
+                    >
+                      <FaPencilAlt />
+                    </Button>
+                  </div>
+
+                  {/* Address */}
+                  <div className="flex items-center justify-between  mb-[0.5em]">
+                    <p>
+                      <span className="font-bold">Address: </span>
+                      {profile.address}
+                    </p>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
+                    >
+                      <FaPencilAlt />
+                    </Button>
+                  </div>
+
+                  {/* Postal code */}
+                  <div className="flex items-center justify-between  mb-[0.5em]">
+                    <p>
+                      <span className="font-bold">Postal Code: </span>
+                      {profile.postalCode}
+                    </p>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
+                    >
+                      <FaPencilAlt />
+                    </Button>
+                  </div>
+
+                  {/* Region */}
+                  <div className="flex items-center justify-between  mb-[0.5em]">
+                    <p>
+                      <span className="font-bold">Region: </span>
+                      {profile.region}
+                    </p>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
+                    >
+                      <FaPencilAlt />
+                    </Button>
+                  </div>
+
+                  {/* DOB */}
+                  <div className="flex items-center justify-between  mb-[0.5em]">
+                    <p>
+                      <span className="font-bold">Date of Birth: </span>
+                      {profile.DOB}
+                    </p>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
+                    >
+                      <FaPencilAlt />
+                    </Button>
+                  </div>
+                </form>
+              </menu>
+              <menu className="sm:col-span-5 bg-slate-200"></menu>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   );
