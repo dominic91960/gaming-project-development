@@ -420,20 +420,33 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
 
           {/* Stock status */}
           <div>
-            <label className="block mb-[0.5em]">Stock status</label>
+            <label className="block mb-[0.5em]">Stock status1</label>
             <Select
-              // value={stock}
-              // onValueChange={(value: string) => setStock(value)}
+              value={editedProduct.stockStatus}
+              onValueChange={
+                (value: string) => {
+                  setEditedProduct({
+                    ...editedProduct,
+                    stockStatus: value,
+                  });
+                }
+              }
               required
             >
               <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
-                {["In Stock", "Out Of Stock", "On Backorder"].map((option) => (
+                {["In Stock", "Out Of Stock", "On Backorder"].map((option, index) => (
                   <SelectItem
-                    key={option}
-                    value={option}
+                    key={index}
+                    value={
+                      option === "In Stock"
+                        ? "IN_STOCK"
+                        : option === "Out Of Stock"
+                        ? "OUT_OF_STOCK"
+                        : "ON_BACKORDER"
+                    }
                     className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
                   >
                     {option}

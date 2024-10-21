@@ -1,24 +1,39 @@
+'use client'
 import React from "react";
 import Image from "next/image";
 import gameCard from "@/public/images/shop/game-card.png";
 import { IoIosStar } from "react-icons/io";
-interface ProductCardProps {
+import { useRouter } from "next/navigation";
+
+interface Game {
+  id: number;
   title: string;
   price: number;
-  oldPrice: number;
+  sellingPrice: number;
   rating: number;
-  soldOut?: boolean;
+  soldOut: boolean;
+  cardImage: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
+const ProductCard: React.FC<Game> = ({
+  id,
   title,
+  sellingPrice,
   price,
-  oldPrice,
   rating,
   soldOut,
+  cardImage,
 }) => {
+  const router = useRouter();
   return (
-    <div className="border border-white p-4  text-white relative w-full bg-[#10160e]">
+    <div 
+    onClick={
+      ()=>{
+        console.log("clicked");
+        router.push(`/products/view/?id=${id}`);
+      }
+    }
+    className="border border-white p-4  text-white relative w-full bg-[#10160e] cursor-pointer">
       {soldOut && (
         <div className="absolute top-0 right-0  backdrop-blur-sm bg-black/30 text-white p-1 h-full w-full flex items-center justify-center">
           <div className="flex items-center justify-center">
@@ -28,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
       )}
-      <Image src={gameCard} alt="Ghost" className="mb-4" />
+      <img src={cardImage} alt="Game Card" className="mb-4" />
       <div className="flex items-center mb-1">
         <h3 className="text-[24px] font-bold uppercase font-primaryFont">
           {title}
@@ -44,10 +59,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       <div className="flex items-center gap-6">
         <p className=" text-[#75F94C] text-[45px] font-bold uppercase font-primaryFont">
-          ${price}
+          ${sellingPrice}
         </p>
         <p className="line-through text-[#fff] text-[16px] font-normal uppercase font-primaryFont">
-          ${oldPrice}
+          ${price}
         </p>
       </div>
     </div>

@@ -51,6 +51,7 @@ export type AllProductsNew = {
   recommendedRAM: string;
   recommendedStorage: string;
   recommendedGPU: string;
+  stockStatus: string;
 };
 
 export const columns: ColumnDef<AllProductsNew>[] = [

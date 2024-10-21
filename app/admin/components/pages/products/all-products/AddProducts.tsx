@@ -108,6 +108,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       recommendedRAM,
       recommendedStorage,
       recommendedGPU,
+      stockStatus: ""
     };
 
     console.log(newProduct, "newProduct");
