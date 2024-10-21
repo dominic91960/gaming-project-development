@@ -83,15 +83,13 @@ const transactions = [
         productId: "#rid294",
         poster: samplePic,
         name: "Greed Fall",
-        originalPrice: 12.5,
-        discountPrice: 10.5,
+        price: 12.5,
       },
       {
         productId: "#ri6s94",
         poster: samplePic,
         name: "Sample game",
-        originalPrice: 59.99,
-        discountPrice: 39.99,
+        price: 12.5,
       },
     ],
     coupon: 5.99,
@@ -106,15 +104,13 @@ const transactions = [
         productId: "#rid294",
         poster: samplePic,
         name: "Greed Fall",
-        originalPrice: 12.5,
-        discountPrice: 10.5,
+        price: 12.5,
       },
       {
         productId: "#ri6s94",
         poster: samplePic,
         name: "Sample game",
-        originalPrice: 59.99,
-        discountPrice: 39.99,
+        price: 12.5,
       },
     ],
     coupon: 5.99,
@@ -129,15 +125,13 @@ const transactions = [
         productId: "#rid294",
         poster: samplePic,
         name: "Greed Fall",
-        originalPrice: 12.5,
-        discountPrice: 10.5,
+        price: 12.5,
       },
       {
         productId: "#ri6s94",
         poster: samplePic,
         name: "Sample game",
-        originalPrice: 59.99,
-        discountPrice: 39.99,
+        price: 12.5,
       },
     ],
     coupon: 5.99,
@@ -160,12 +154,12 @@ export default function ProfilePage() {
         </PopoverTrigger>
         <PopoverContent className="w-80">
           {transactions
-            .filter(({ orderId }) => orderId === row.original.orderId)
-            .map(({ orderId, date, total, username }) => (
-              <div key={orderId}>
-                <p>{date}</p>
-                <p>{total}</p>
-                <p>{username}</p>
+            .filter(({ orderId }) => orderId === row.original.orderId)[0]
+            .products.map(({ productId, poster, name, price }) => (
+              <div key={productId} className="flex justify-between">
+                <p>{name}</p>
+                <p>{productId}</p>
+                <p>${price}</p>
               </div>
             ))}
         </PopoverContent>
