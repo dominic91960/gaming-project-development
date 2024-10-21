@@ -1,17 +1,30 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
+import { ColumnDef } from "@tanstack/react-table";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Transaction, columns } from "./columns";
+import { DataTable } from "./data-table";
+
 import { FaPencilAlt } from "react-icons/fa";
 import { FaCircleCheck } from "react-icons/fa6";
 import { FaMobileAlt } from "react-icons/fa";
 import { LuMonitor } from "react-icons/lu";
+import { FaEye } from "react-icons/fa";
 
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
 import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
 import StarRating from "../_components/star-rating";
+import Footer from "@/components/footer/footer";
 
 const profile = {
   id: "b0ijjfb4343asc4848##56",
@@ -61,26 +74,104 @@ const recentActivity = [
 
 const transactions = [
   {
-    id: "#546FGd",
-    name: "Dominic Brian",
+    orderId: "#546FGd",
     date: "2023/08/04",
-    cost: 9.25,
+    username: "Dominic Brian",
+    total: 9.25,
+    products: [
+      {
+        productId: "#rid294",
+        poster: samplePic,
+        name: "Greed Fall",
+        originalPrice: 12.5,
+        discountPrice: 10.5,
+      },
+      {
+        productId: "#ri6s94",
+        poster: samplePic,
+        name: "Sample game",
+        originalPrice: 59.99,
+        discountPrice: 39.99,
+      },
+    ],
+    coupon: 5.99,
   },
   {
-    id: "#546FGd",
-    name: "Dominic Brian",
+    orderId: "#546FGw",
     date: "2023/08/04",
-    cost: 9.25,
+    username: "Dominic Brian",
+    total: 12.99,
+    products: [
+      {
+        productId: "#rid294",
+        poster: samplePic,
+        name: "Greed Fall",
+        originalPrice: 12.5,
+        discountPrice: 10.5,
+      },
+      {
+        productId: "#ri6s94",
+        poster: samplePic,
+        name: "Sample game",
+        originalPrice: 59.99,
+        discountPrice: 39.99,
+      },
+    ],
+    coupon: 5.99,
   },
   {
-    id: "#546FGd",
-    name: "Dominic Brian",
-    date: "2023/08/04",
-    cost: 9.25,
+    orderId: "#546FGa",
+    date: "2023/02/14",
+    username: "Dominic Brian",
+    total: 6.5,
+    products: [
+      {
+        productId: "#rid294",
+        poster: samplePic,
+        name: "Greed Fall",
+        originalPrice: 12.5,
+        discountPrice: 10.5,
+      },
+      {
+        productId: "#ri6s94",
+        poster: samplePic,
+        name: "Sample game",
+        originalPrice: 59.99,
+        discountPrice: 39.99,
+      },
+    ],
+    coupon: 5.99,
   },
 ];
 
 export default function ProfilePage() {
+  const viewColumn: ColumnDef<Transaction> = {
+    id: "view",
+    header: "Action",
+    cell: ({ row }) => (
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="ghost">
+            <FaEye />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-80">
+          {transactions
+            .filter(({ orderId }) => orderId === row.original.orderId)
+            .map(({ orderId, date, total, username }) => (
+              <div key={orderId}>
+                <p>{date}</p>
+                <p>{total}</p>
+                <p>{username}</p>
+              </div>
+            ))}
+        </PopoverContent>
+      </Popover>
+    ),
+  };
+
+  const updatedColumns: ColumnDef<Transaction>[] = [...columns, viewColumn];
+
   return (
     <>
       <ProductSearchBar />
@@ -461,26 +552,26 @@ export default function ProfilePage() {
                   >
                     <div
                       className="w-[86px] h-[96px] bg-cover bg-center mb-[0.5em] sm:w-[120px] md:w-[150px] lg:w-[180px] xl:w-[210px] 2xl:w-[246px] sm:h-[130px] md:h-[160px] lg:h-[200px] xl:h-[240px] 2xl:h-[270px]"
-                      style={{ backgroundImage: `url(${samplePic.src})` }}
+                      style={{ backgroundImage: `url(${poster.src})` }}
                     ></div>
 
                     <h5 className="w-[12ch] font-bold text-[9px] uppercase overflow-hidden text-nowrap text-ellipsis sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">
-                      Greed Fall Greed Fall
+                      {name}
                     </h5>
                     <p className="w-[14ch] font-medium uppercase overflow-hidden text-nowrap text-ellipsis">
-                      In greed fall In greed fall In greed fall
+                      {desc}
                     </p>
                     <hr className="border-t-white/20 my-[0.5em]" />
 
                     <div className="text-[6px] text-[#f29d38] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px]">
-                      <StarRating rating={5} />
+                      <StarRating rating={rating} />
                     </div>
 
                     <div className="flex items-baseline gap-x-[0.5em]">
                       <p className="font-semibold text-[17px] text-[#75F94C] sm:text-[24px] md:text-[30px] lg:text-[36px] xl:text-[42px] 2xl:text-[46px]">
-                        $299
+                        ${discountPrice}
                       </p>
-                      <p className="line-through">$399</p>
+                      <p className="line-through">${originalPrice}</p>
                     </div>
                   </article>
                 )
@@ -488,10 +579,16 @@ export default function ProfilePage() {
             </div>
 
             {/* Transaction history */}
-            <div className="h-[200px]"></div>
+            <h3 className="font-semibold text-[15px] mt-[1.2em] mb-[0.7em] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[35px] 2xl:text-[40px]">
+              Transaction History
+            </h3>
+            <div className="pb-[20px] 2xl:pb-[80px]">
+              <DataTable columns={updatedColumns} data={transactions} />
+            </div>
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }
