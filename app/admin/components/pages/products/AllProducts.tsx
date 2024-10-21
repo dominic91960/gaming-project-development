@@ -8,6 +8,7 @@ import axiosInstance from "@/axios/axiosInstance";
 import { useSidebar } from "@/context/SidebarContext";
 import { IoTrash } from "react-icons/io5";
 import { LuPencilLine } from "react-icons/lu";
+import toast from "react-hot-toast";
 
 function getInitialData(): AllProductsNew[] {
   return [
@@ -98,6 +99,7 @@ export default function AllProducts() {
   const [editingProduct, setEditingProduct] = useState<AllProductsNew | null>(
     null
   );
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     function mapGamesResponse(games: any[]): any[] {
@@ -155,7 +157,7 @@ export default function AllProducts() {
     };
 
     getGames();
-  }, []);
+  }, [reload]);
 
   const handleDeleteProduct = (id: string) => {
     setProducts((prevProducts) =>
@@ -219,10 +221,22 @@ export default function AllProducts() {
       brandId: updatedProduct.brand,
       platformId: updatedProduct.platform,
     };
+    try{
     const res = await axiosInstance.patch(`/games/${updatedProduct.id}`, data);
+    if(res.status === 200){
+      toast.success("Product updated successfully");
+    }else{
+      throw new Error("Failed to update product");
+    }
     console.log("res",res);
-    setIsEditModalOpen(false);
-    setEditingProduct(null);
+    }catch(err){
+      console.log(err);
+      toast.error("Failed to update product");
+    }finally{
+      setIsEditModalOpen(false);
+      setEditingProduct(null);
+      setReload(prev => !prev);
+    }
   };
 
   const actionColumn: ColumnDef<AllProductsNew> = {
