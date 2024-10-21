@@ -11,6 +11,7 @@ import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
 import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
+import StarRating from "../_components/star-rating";
 
 const profile = {
   id: "b0ijjfb4343asc4848##56",
@@ -30,6 +31,54 @@ const profile = {
   tel: "0284948483",
   trustedDevices: 2,
 };
+
+const recentActivity = [
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
+];
+
+const transactions = [
+  {
+    id: "#546FGd",
+    name: "Dominic Brian",
+    date: "2023/08/04",
+    cost: 9.25,
+  },
+  {
+    id: "#546FGd",
+    name: "Dominic Brian",
+    date: "2023/08/04",
+    cost: 9.25,
+  },
+  {
+    id: "#546FGd",
+    name: "Dominic Brian",
+    date: "2023/08/04",
+    cost: 9.25,
+  },
+];
 
 export default function ProfilePage() {
   return (
@@ -391,6 +440,55 @@ export default function ProfilePage() {
                 </div>
               </menu>
             </div>
+
+            {/* Recent activity */}
+            <h3 className="font-semibold text-[15px] mt-[1.2em] mb-[0.7em] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[35px] 2xl:text-[40px]">
+              Recent Activity
+            </h3>
+            <div className="flex justify-between">
+              {recentActivity.map(
+                ({
+                  poster,
+                  name,
+                  desc,
+                  rating,
+                  originalPrice,
+                  discountPrice,
+                }) => (
+                  <article
+                    key={name}
+                    className="w-fit bg-white/5 text-[7px] p-[0.6em] border border-white/20 sm:text-[9px] md:text-[11px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]"
+                  >
+                    <div
+                      className="w-[86px] h-[96px] bg-cover bg-center mb-[0.5em] sm:w-[120px] md:w-[150px] lg:w-[180px] xl:w-[210px] 2xl:w-[246px] sm:h-[130px] md:h-[160px] lg:h-[200px] xl:h-[240px] 2xl:h-[270px]"
+                      style={{ backgroundImage: `url(${samplePic.src})` }}
+                    ></div>
+
+                    <h5 className="w-[12ch] font-bold text-[9px] uppercase overflow-hidden text-nowrap text-ellipsis sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">
+                      Greed Fall Greed Fall
+                    </h5>
+                    <p className="w-[14ch] font-medium uppercase overflow-hidden text-nowrap text-ellipsis">
+                      In greed fall In greed fall In greed fall
+                    </p>
+                    <hr className="border-t-white/20 my-[0.5em]" />
+
+                    <div className="text-[6px] text-[#f29d38] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px]">
+                      <StarRating rating={5} />
+                    </div>
+
+                    <div className="flex items-baseline gap-x-[0.5em]">
+                      <p className="font-semibold text-[17px] text-[#75F94C] sm:text-[24px] md:text-[30px] lg:text-[36px] xl:text-[42px] 2xl:text-[46px]">
+                        $299
+                      </p>
+                      <p className="line-through">$399</p>
+                    </div>
+                  </article>
+                )
+              )}
+            </div>
+
+            {/* Transaction history */}
+            <div className="h-[200px]"></div>
           </div>
         </div>
       </section>
