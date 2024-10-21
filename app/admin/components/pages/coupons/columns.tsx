@@ -14,44 +14,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export type AllCouponsNew = {
-  imageUrl: string;
   id: string;
-  customer_name: string;
-  customer_id: string;
-  customer_username: string;
-  customer_country: string;
-  customer_phone: string;
-  status: string;
-  date: string;
+  coupon_code: string;
+  coupon_description: string;
+  coupon_discount: string;
+  coupon_type: string;
+  coupon_start_date: string;
+  coupon_end_date: string;
 };
 
 export const columns: ColumnDef<AllCouponsNew>[] = [
   {
-    accessorKey: "imageUrl",
-    header: "Image",
-    cell: ({ row }) => {
-      const AllCouponsNew = row.original;
-      return (
-        <div className="flex items-center size-[2em]">
-          <img
-            src={AllCouponsNew.imageUrl}
-            alt={AllCouponsNew.customer_name}
-            className="w-full h-full rounded-full"
-          />
-        </div>
-      );
-    },
-  },
-
-  {
-    accessorKey: "customer_name",
+    accessorKey: "coupon_code",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Customer Name
+          Coupon Code
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -59,33 +40,28 @@ export const columns: ColumnDef<AllCouponsNew>[] = [
   },
 
   {
-    accessorKey: "customer_id",
-    header: "Customer_id",
+    accessorKey: "coupon_description",
+    header: "Description",
   },
 
   {
-    accessorKey: "customer_username",
-    header: "Customer_username",
+    accessorKey: "coupon_discount",
+    header: "Discount",
   },
 
   {
-    accessorKey: "customer_country",
-    header: "Customer_country",
+    accessorKey: "coupon_type",
+    header: "Type",
   },
 
   {
-    accessorKey: "customer_phone",
-    header: "customer_phone",
+    accessorKey: "coupon_start_date",
+    header: "Start Date",
   },
 
   {
-    accessorKey: "status",
-    header: "Status",
-  },
-
-  {
-    accessorKey: "date",
-    header: "Date",
+    accessorKey: "coupon_end_date",
+    header: "Expiry Date",
   },
 
   {
