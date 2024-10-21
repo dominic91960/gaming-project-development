@@ -84,7 +84,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       about,
       cardDescription,
       icon,
-      language,
+      language: language.join(", "),
       saleQuantity,
       coverImage,
       videoUrl,
