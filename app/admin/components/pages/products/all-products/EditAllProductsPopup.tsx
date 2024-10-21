@@ -19,13 +19,13 @@ import PlatformCategories from "../add-product/side-components/PlatformCategorie
 import ProductImages from "../add-product/side-components/ProductImages";
 import SystemRequirements from "./System-Requirement";
 import { set } from "date-fns";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
 
 const iconOptions = [
   { icon: <FaWindows />, label: "Windows" },
