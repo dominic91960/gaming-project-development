@@ -9,22 +9,12 @@ function getInitialData(): AllCouponsNew[] {
   return [
     {
       id: "728ed52f",
-      coupon_code: "Wukong",
-      coupon_description: "#w0342",
-      coupon_discount: "In Stock",
-      coupon_type: "Public",
+      coupon_code: "254GF45",
+      coupon_description: "It was popularised in the 1960s with...",
+      coupon_discount: "$  05.00",
+      coupon_type: "Fixed product discount",
       coupon_start_date: "23/05/2024",
-      coupon_end_date: "23/05/2024",
-    },
-    {
-      id: "728ed52g",
-      coupon_code: "UFO 50",
-      coupon_description: "#u0343",
-      coupon_discount: "In Stock",
-
-      coupon_type: "Public",
-      coupon_start_date: "23/05/2024",
-      coupon_end_date: "23/05/2024",
+      coupon_end_date: "12/06/2024",
     },
   ];
 }

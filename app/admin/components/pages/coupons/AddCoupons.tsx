@@ -37,6 +37,7 @@ export default function AddCoupons({ onAddCoupon }: AddCouponsProps) {
 
     setType("Public");
     setCoupon_start_date("");
+    setCoupon_end_date("");
   };
 
   return (
@@ -55,6 +56,7 @@ export default function AddCoupons({ onAddCoupon }: AddCouponsProps) {
           required
         />
       </div>
+
       <div className="mb-4">
         <label className="block mb-1 text-white">Coupon Description</label>
         <input
@@ -65,6 +67,7 @@ export default function AddCoupons({ onAddCoupon }: AddCouponsProps) {
           required
         />
       </div>
+
       <div className="mb-4">
         <label className="block mb-1">Discount</label>
         <input
@@ -75,6 +78,7 @@ export default function AddCoupons({ onAddCoupon }: AddCouponsProps) {
           required
         />
       </div>
+
       <div className="mb-4">
         <label className="block mb-1">Type</label>
         <select
@@ -87,6 +91,7 @@ export default function AddCoupons({ onAddCoupon }: AddCouponsProps) {
           <option value="Option3">option 03</option>
         </select>
       </div>
+
       <div className="mb-4">
         <label className="block mb-1">Coupon Start Date</label>
         <input
@@ -97,6 +102,18 @@ export default function AddCoupons({ onAddCoupon }: AddCouponsProps) {
           required
         />
       </div>
+
+      <div className="mb-4">
+        <label className="block mb-1">Expiry Date</label>
+        <input
+          type="date"
+          value={coupon_end_date}
+          onChange={(e) => setCoupon_end_date(e.target.value)}
+          className="w-full p-2 border rounded text-black"
+          required
+        />
+      </div>
+
       <button
         type="submit"
         className="px-4 py-2 bg-blue-500 text-white rounded"

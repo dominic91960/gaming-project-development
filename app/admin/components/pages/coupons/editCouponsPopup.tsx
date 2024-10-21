@@ -54,6 +54,7 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
             placeholder="coupon Name"
             className="w-full mb-2 p-2 border rounded"
           />
+
           <input
             type="text"
             name="coupon_description"
@@ -62,6 +63,7 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
             placeholder="coupon_id"
             className="w-full mb-2 p-2 border rounded"
           />
+
           <input
             type="text"
             name="coupon_discount"
@@ -77,14 +79,23 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
           >
-            <option value="Public">Public</option>
-            <option value="Private">Private</option>
-            <option value="Archived">Archived</option>
+            <option value="Option1">option 01</option>
+            <option value="Option2">option 02</option>
+            <option value="Option3">option 03</option>
           </select>
+
           <input
             type="date"
             name="date"
             value={editedcoupon.coupon_start_date}
+            onChange={handleInputChange}
+            className="w-full mb-2 p-2 border rounded"
+          />
+
+          <input
+            type="date"
+            name="date"
+            value={editedcoupon.coupon_end_date}
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
           />
