@@ -24,10 +24,11 @@ export const columns: ColumnDef<Transaction>[] = [
       return (
         <Button
           variant="ghost"
+          className="h-fit text-[1em] px-[1em] py-[0.5em] rounded-none"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Date
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ms-[0.5em] size-[1em]" />
         </Button>
       );
     },
@@ -42,10 +43,11 @@ export const columns: ColumnDef<Transaction>[] = [
       return (
         <Button
           variant="ghost"
+          className="h-fit text-[1em] px-[1em] py-[0.5em] rounded-none"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Total Price
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ms-[0.5em] size-[1em]" />
         </Button>
       );
     },

@@ -151,7 +151,10 @@ export default function ProfilePage() {
     cell: ({ row }) => (
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="ghost">
+          <Button
+            variant="ghost"
+            className="h-fit text-[1em] px-[0.6em] py-[0.6em] rounded-sm"
+          >
             <FaEye />
           </Button>
         </PopoverTrigger>
@@ -214,9 +217,9 @@ export default function ProfilePage() {
           <div className="w-full h-1/2 absolute bottom-0 bg-gradient-to-t from-black to-transparent"></div>
         </div>
 
-        <div className="bg-gradient-to-b from-black from-0% via-transparent via-20% to-black to-80%">
+        <div className="bg-gradient-to-b from-black to-transparent">
           {/* Container for the rest of the content */}
-          <div className="container mx-auto px-[36px]">
+          <div className="container mx-auto px-[36px] pb-[20px] 2xl:pb-[80px]">
             {/* Container for account details and security details */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-[20px] sm:gap-[16px] md:gap-[20px] lg:gap-[26px] xl:gap-[32px] 2xl:gap-[38px]">
               {/* Account details */}
@@ -582,7 +585,13 @@ export default function ProfilePage() {
             <h3 className="font-semibold text-[15px] mt-[1.2em] mb-[0.7em] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[35px] 2xl:text-[40px]">
               Transaction History
             </h3>
-            <div className="pb-[20px] 2xl:pb-[80px]">
+            <div
+              className="bg-gradient-to-b from-transparent to-white/30 border border-t-0 text-[8px] p-[12px] 2xl:p-[50px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
+              style={{
+                borderImage:
+                  "linear-gradient(to bottom, transparent, #75F94C) 1",
+              }}
+            >
               <DataTable columns={updatedColumns} data={transactions} />
             </div>
           </div>
