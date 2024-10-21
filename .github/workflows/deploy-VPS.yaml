@@ -1,0 +1,49 @@
+name: Build and Deploy to Hostinger VPS
+
+on:
+  push:
+    branches:
+      - master
+      - dep/githubWorkflow
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Decode .env file
+        run: |
+          echo "${{ secrets.ENV_BASE64 }}" | base64 --decode > .env.local
+
+      - name: Install dependencies without scripts
+        # working-directory: ./app/frontend
+        run: npm ci --ignore-scripts
+
+      - name: Build the project
+        # working-directory: ./app/frontend
+        run: npm run build
+
+      - name: Deploy to Remote Server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} # Add your SSH private key to GitHub Secrets
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key
+          chmod 600 private_key
+
+          # Delete previous content in the remote server's frontend directory
+          ssh -i private_key -o StrictHostKeyChecking=no root@147.79.102.153 'rm -rf /frontend/*'
+
+          # Copy new content to the remote server
+          scp -i private_key -o StrictHostKeyChecking=no -r ./out/* root@147.79.102.153:/frontend/
+
+      - name: Clean up private key
+        run: rm -f private_key
