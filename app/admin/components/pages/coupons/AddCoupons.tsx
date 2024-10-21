@@ -86,9 +86,8 @@ export default function AddCoupons({ onAddCoupon }: AddCouponsProps) {
           onChange={(e) => setType(e.target.value)}
           className="w-full p-2 border rounded text-black"
         >
-          <option value="Option1">option 01</option>
-          <option value="Option2">option 02</option>
-          <option value="Option3">option 03</option>
+          <option value="Fixed_product_discount">Fixed product discount</option>
+          <option value="Percentage_discount">Percentage discount</option>
         </select>
       </div>
 

@@ -74,19 +74,20 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
           />
 
           <select
-            name="status"
+            name="coupon_type" // Updated name to match the state property
             value={editedcoupon.coupon_type}
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
           >
-            <option value="Option1">option 01</option>
-            <option value="Option2">option 02</option>
-            <option value="Option3">option 03</option>
+            <option value="Fixed_product_discount">
+              Fixed product discount
+            </option>
+            <option value="Percentage_discount">Percentage discount</option>
           </select>
 
           <input
             type="date"
-            name="date"
+            name="coupon_start_date"
             value={editedcoupon.coupon_start_date}
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
@@ -94,7 +95,7 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
 
           <input
             type="date"
-            name="date"
+            name="coupon_end_date"
             value={editedcoupon.coupon_end_date}
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
