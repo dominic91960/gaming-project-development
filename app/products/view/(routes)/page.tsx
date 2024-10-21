@@ -36,39 +36,6 @@ import axiosInstance from "@/axios/axiosInstance";
 import Spinner from "@/components/Spinner/Spinner";
 import toast from "react-hot-toast";
 
-const reviews = [
-  {
-    avatar: samplePic,
-    username: "The Gamer",
-    fullname: "John Doe",
-    title: "Incredibly fun game. Worth it!",
-    content:
-      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
-    date: "March 29, 2024",
-    rating: 5,
-  },
-  {
-    avatar: samplePic,
-    username: "The Gamer 2",
-    fullname: "John Doe",
-    title: "Incredibly fun game. Worth it!",
-    content:
-      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
-    date: "March 29, 2024",
-    rating: 4,
-  },
-  {
-    avatar: samplePic,
-    username: "The Gamer 3",
-    fullname: "John Doe",
-    title: "Incredibly fun game. Worth it!",
-    content:
-      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
-    date: "March 29, 2024",
-    rating: 5,
-  },
-];
-
 export default function ProductPage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
@@ -76,6 +43,7 @@ export default function ProductPage() {
   const [isLanguageTooltipOpen, setIsLanguageTooltipOpen] = useState(false);
   const [rate, setRate] = useState<number>(1);
   const [comment, setComment] = useState<string>("");
+  const [reviews, setReviews] = useState<any[]>([]);
   interface GameData {
     image: string;
     title: string;
@@ -118,7 +86,6 @@ export default function ProductPage() {
   const [gameData, setGameData] = useState<GameData | null>(null);
 
   useEffect(() => {
-    console.log("id", id);
     const getData = async () => {
       try {
         const res = await axiosInstance.get(`/games/${id}`);
@@ -173,7 +140,28 @@ export default function ProductPage() {
       }
     };
     getData();
+    getReviewsByGameId(id);
   }, []);
+  const getReviewsByGameId = async (id: any) => {
+    try {
+      const response = await axiosInstance.get(
+        `/reviews/reviewByFlat?gameId=${id}`
+      );
+      setReviews(response.data);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    } finally {
+      // setLoading(false);
+    }
+  };
+  const calculateOverallRating = (reviews: any) => {
+    console.log(reviews, 'rateing');
+    let total = 0;
+    reviews.forEach((review: any) => {
+      total = total + review.rating;
+    });
+    return total/(reviews.length * 5)
+  }
   const calDiscountPercentage = () => {
     if (!gameData) {
       return "0";
@@ -603,7 +591,7 @@ export default function ProductPage() {
                       <span className="text-[#f29d38]">
                         <StarRating rating={1} />
                       </span>
-                      &nbsp;{gameData.rating}/5
+                      &nbsp;{calculateOverallRating(reviews)}
                     </p>
                     <p>Overall Rating</p>
                   </div>
@@ -685,6 +673,15 @@ export default function ProductPage() {
 
                 {/* Review card */}
                 <div className="flex justify-between flex-wrap">
+                  {/* {reviews.length > 0 ? (
+                    reviews.map((review: any) => (
+                      <p key={review.id}>
+                        Review by {review.username}: {review.comment}
+                      </p>
+                    ))
+                  ) : (
+                    <p>No reviews found</p>
+                  )} */}
                   {reviews.map(
                     ({
                       avatar,
