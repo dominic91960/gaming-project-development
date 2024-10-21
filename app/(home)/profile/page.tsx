@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
@@ -89,7 +89,7 @@ const transactions = [
         productId: "#ri6s94",
         poster: samplePic,
         name: "Sample game",
-        price: 12.5,
+        price: 11.5,
       },
     ],
     coupon: 5.99,
@@ -104,7 +104,7 @@ const transactions = [
         productId: "#rid294",
         poster: samplePic,
         name: "Greed Fall",
-        price: 12.5,
+        price: 23.99,
       },
       {
         productId: "#ri6s94",
@@ -139,6 +139,9 @@ const transactions = [
 ];
 
 export default function ProfilePage() {
+  const getTransaction = (selectedOrderId: string) =>
+    transactions.filter(({ orderId }) => orderId === selectedOrderId)[0];
+
   const viewColumn: ColumnDef<Transaction> = {
     id: "view",
     header: "Action",
@@ -153,15 +156,45 @@ export default function ProfilePage() {
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-80">
-          {transactions
-            .filter(({ orderId }) => orderId === row.original.orderId)[0]
-            .products.map(({ productId, poster, name, price }) => (
+          {/* Order no */}
+          <h4>Order No {row.original.orderId}</h4>
+
+          {/* Ordered products */}
+          {getTransaction(row.original.orderId).products.map(
+            ({ productId, poster, name, price }) => (
               <div key={productId} className="flex justify-between">
+                <Image src={poster} alt={name} className="size-[20px]" />
                 <p>{name}</p>
                 <p>{productId}</p>
                 <p>${price}</p>
               </div>
-            ))}
+            )
+          )}
+
+          {/* Order subtotal */}
+          <p>
+            Items Subtotal: $
+            {getTransaction(row.original.orderId)
+              .products.reduce((sum, product) => sum + product.price, 0)
+              .toFixed(2)}
+          </p>
+
+          {/* Coupons */}
+          <p>Coupon: ${getTransaction(row.original.orderId).coupon}</p>
+
+          {/* Order total */}
+          <p>
+            Order Total: $
+            {(
+              getTransaction(row.original.orderId).products.reduce(
+                (sum, product) => sum + product.price,
+                0
+              ) -
+              transactions.filter(
+                ({ orderId }) => orderId === row.original.orderId
+              )[0].coupon
+            ).toFixed(2)}
+          </p>
         </PopoverContent>
       </Popover>
     ),
