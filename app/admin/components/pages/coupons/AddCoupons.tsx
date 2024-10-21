@@ -2,44 +2,42 @@ import { useState } from "react";
 import { AllCouponsNew } from "./columns";
 
 interface AddCouponsProps {
-  onAddCustomer: (newCustomer: AllCouponsNew) => void;
+  onAddCoupon: (newCoupon: AllCouponsNew) => void;
 }
 
-export default function AddCustomers({ onAddCustomer }: AddCouponsProps) {
-  const [customer_name, setCustomer_name] = useState("");
-  const [customer_id, setCustomer_id] = useState("");
-  const [customer_username, setCustomer_username] = useState("");
-  const [customer_country, setCustomer_country] = useState("");
-  const [customer_phone, setCustomer_phone] = useState("");
-  const [status, setStatus] = useState("Public");
-  const [date, setDate] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+export default function AddCoupons({ onAddCoupon }: AddCouponsProps) {
+  const [coupon_code, setCoupon_code] = useState("");
+  const [coupon_description, setCoupon_description] = useState("");
+  const [coupon_discount, setCoupon_discount] = useState("");
+
+  const [coupon_type, setType] = useState("Public");
+  const [coupon_start_date, setCoupon_start_date] = useState("");
+  const [coupon_end_date, setCoupon_end_date] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newCustomer: AllCouponsNew = {
+    const newCoupon: AllCouponsNew = {
       id: Math.random().toString(36).substr(2, 9),
-      imageUrl,
-      customer_name,
-      customer_id,
-      customer_username,
-      customer_country: customer_country,
-      customer_phone: customer_phone,
-      status,
-      date,
+
+      coupon_code,
+      coupon_description,
+      coupon_discount,
+
+      coupon_type,
+      coupon_start_date,
+      coupon_end_date,
     };
 
-    onAddCustomer(newCustomer);
+    onAddCoupon(newCoupon);
 
-    setCustomer_name("");
-    setCustomer_id("");
-    setCustomer_username("");
-    setCustomer_country("");
-    setCustomer_phone("");
-    setStatus("Public");
-    setDate("");
-    setImageUrl("");
+    setCoupon_code("");
+    setCoupon_description("");
+    setCoupon_discount("");
+
+    setType("Public");
+    setCoupon_start_date("");
+    setCoupon_end_date("");
   };
 
   return (
@@ -47,94 +45,80 @@ export default function AddCustomers({ onAddCustomer }: AddCouponsProps) {
       onSubmit={handleSubmit}
       className="mb-6 p-4 border rounded-md text-white"
     >
-      <h2 className="text-xl font-semibold mb-4">Add New Customer</h2>
+      <h2 className="text-xl font-semibold mb-4">Add New Coupon</h2>
       <div className="mb-4">
-        <label className="block mb-1">Customer Name</label>
+        <label className="block mb-1">Coupon Code</label>
         <input
           type="text"
-          value={customer_name}
-          onChange={(e) => setCustomer_name(e.target.value)}
+          value={coupon_code}
+          onChange={(e) => setCoupon_code(e.target.value)}
           className="w-full p-2 border rounded text-black"
           required
         />
       </div>
+
       <div className="mb-4">
-        <label className="block mb-1 text-white">Customer ID</label>
+        <label className="block mb-1 text-white">Coupon Description</label>
         <input
           type="text"
-          value={customer_id}
-          onChange={(e) => setCustomer_id(e.target.value)}
+          value={coupon_description}
+          onChange={(e) => setCoupon_description(e.target.value)}
           className="w-full p-2 border rounded text-black"
           required
         />
       </div>
+
       <div className="mb-4">
-        <label className="block mb-1">Customer Username</label>
+        <label className="block mb-1">Discount</label>
         <input
           type="text"
-          value={customer_username}
-          onChange={(e) => setCustomer_username(e.target.value)}
+          value={coupon_discount}
+          onChange={(e) => setCoupon_discount(e.target.value)}
           className="w-full p-2 border rounded text-black"
           required
         />
       </div>
+
       <div className="mb-4">
-        <label className="block mb-1">Country</label>
-        <input
-          type="text"
-          value={customer_country}
-          onChange={(e) => setCustomer_country(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block mb-1">Phone</label>
-        <input
-          type="text"
-          value={customer_phone}
-          onChange={(e) => setCustomer_phone(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block mb-1">Status</label>
+        <label className="block mb-1">Type</label>
         <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          value={coupon_type}
+          onChange={(e) => setType(e.target.value)}
           className="w-full p-2 border rounded text-black"
         >
-          <option value="Public">Public</option>
-          <option value="Private">Private</option>
-          <option value="Archived">Archived</option>
+          <option value="Option1">option 01</option>
+          <option value="Option2">option 02</option>
+          <option value="Option3">option 03</option>
         </select>
       </div>
+
       <div className="mb-4">
-        <label className="block mb-1">Date</label>
+        <label className="block mb-1">Coupon Start Date</label>
         <input
           type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
+          value={coupon_start_date}
+          onChange={(e) => setCoupon_start_date(e.target.value)}
           className="w-full p-2 border rounded text-black"
           required
         />
       </div>
+
       <div className="mb-4">
-        <label className="block mb-1">Image URL</label>
+        <label className="block mb-1">Expiry Date</label>
         <input
-          type="text"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          className="w-full p-2 border rounded"
+          type="date"
+          value={coupon_end_date}
+          onChange={(e) => setCoupon_end_date(e.target.value)}
+          className="w-full p-2 border rounded text-black"
           required
         />
       </div>
+
       <button
         type="submit"
         className="px-4 py-2 bg-blue-500 text-white rounded"
       >
-        Save Product
+        Save Coupon
       </button>
     </form>
   );
