@@ -1,6 +1,6 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-
+import samplePic from "@/public/images/sample-pic.png";
 import { Button } from "@/components/ui/button";
 
 import StarRating from "@/app/(home)/_components/star-rating";
@@ -30,9 +30,11 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       <div className="flex items-center gap-x-[1.5em] pb-[1.25em] border-b">
         <div>
           <Image
-            src={avatar}
+            src={avatar || samplePic}
             alt={username}
-            className="size-[4.5em] rounded-full"
+            width={72} // 4.5em ~ 72px
+            height={72}
+            className="rounded-full"
           />
         </div>
         <div>
