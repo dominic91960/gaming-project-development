@@ -181,7 +181,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
         />
       </div>
 
-      <div className="grid 2xl:grid-cols-3 gap-[1.5em]">
+      <div className="grid 2xl:grid-cols-2 gap-[1.5em] mb-[1.5em]">
         <div>
           <label className="block mb-[0.5em]">Select Icon</label>
           <Select
@@ -208,18 +208,18 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
           </Select>
         </div>
 
-        <div>
+        {/* <div>
           <label className="block mb-[0.5em]">Select Language</label>
           <MultiSelect
             options={languageOptions}
             onValueChange={setLanguage}
             defaultValue={language}
             placeholder="Select Languages"
-            variant="secondary"
-            animation={2}
+            variant="ghost"
+            animation={1}
             maxCount={3}
           />
-          {/* <Select
+          <Select
             value={language}
             onValueChange={(value: string) => setLanguage(value)}
             required
@@ -238,8 +238,8 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
                 </SelectItem>
               ))}
             </SelectContent>
-          </Select> */}
-        </div>
+          </Select>
+        </div> */}
 
         <div>
           <label className="block mb-[0.5em]">Release Date</label>
@@ -251,6 +251,19 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
             required
           />
         </div>
+      </div>
+
+      <div>
+        <label className="block mb-[0.5em]">Select Language</label>
+        <MultiSelect
+          options={languageOptions}
+          onValueChange={setLanguage}
+          defaultValue={language}
+          placeholder="Select Languages"
+          variant="ghost"
+          animation={1}
+          maxCount={1}
+        />
       </div>
     </>
   );

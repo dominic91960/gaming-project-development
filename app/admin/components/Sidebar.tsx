@@ -81,7 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </button>
 
         {/* Product Section */}
-        <li className="mb-[1em]">
+        <li>
           <SidebarButton
             itemArray={[
               "all-products",
@@ -100,8 +100,8 @@ const Sidebar: React.FC<SidebarProps> = ({
           </SidebarButton>
           <ul
             className={`${
-              isProductOpen ? "animate-category-dropdown" : "hidden"
-            } origin-top`}
+              isProductOpen ? "max-h-[30em]" : "max-h-0"
+            } transition-all duration-500 overflow-hidden`}
           >
             <SidebarLink
               selectedItem={selectedItem}
@@ -166,7 +166,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </li>
 
         {/* Users Section */}
-        <li className="mb-[1em]">
+        <li>
           <SidebarButton
             itemArray={["all-users", "roles"]}
             selectedItem={selectedItem}
@@ -178,8 +178,8 @@ const Sidebar: React.FC<SidebarProps> = ({
           </SidebarButton>
           <ul
             className={`${
-              isUsersOpen ? "animate-category-dropdown" : "hidden"
-            } origin-top`}
+              isUsersOpen ? "max-h-[30em]" : "max-h-0"
+            } transition-all duration-500 overflow-hidden`}
           >
             <SidebarLink
               selectedItem={selectedItem}
