@@ -76,7 +76,9 @@ const PlatformCategories = ({
         <p className="text-[1.1em] mb-[0.5em]">All Platforms</p>
 
         <ScrollArea className="h-[20em] px-2 py-2 border border-[#606060] rounded-sm mb-[0.9em] lg:h-[10em]">
-          <RadioGroup onValueChange={(value: string) => setPlatform(value)}>
+          <RadioGroup 
+          value={platform}
+          onValueChange={(value: string) => setPlatform(value)}>
             {platforms.map((platformItem) => (
               <div
                 key={platformItem.id}

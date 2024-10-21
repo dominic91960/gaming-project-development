@@ -8,89 +8,90 @@ import axiosInstance from "@/axios/axiosInstance";
 import { useSidebar } from "@/context/SidebarContext";
 import { IoTrash } from "react-icons/io5";
 import { LuPencilLine } from "react-icons/lu";
+import toast from "react-hot-toast";
 
-function getInitialData(): AllProductsNew[] {
-  return [
-    {
-      imageUrl: "/images/sample-pic.png",
-      id: "728ed52f",
-      name: "Wukong",
-      sku: "#w0342",
-      stock: "In Stock",
-      selling_price: "$40",
-      regular_price: "$60",
-      status: "Public",
-      date: "23/05/2024",
-      displayName: "Wukong",
-      about: "",
-      cardDescription: "",
-      language: "",
-      icon: "",
-      saleQuantity: 0,
-      coverImage: "",
-      galleryImages: [],
-      latestImage: "",
-      cardImage: "",
-      videoUrl: "",
-      addToLatestGame: false,
-      carousel: false,
-      displayLatestGame: false,
-      platform: "",
-      brand: "",
-      minimumOS: "",
-      minimumCPU: "",
-      minimumRAM: "",
-      minimumStorage: "",
-      minimumGPU: "",
-      recommendedOS: "",
-      recommendedCPU: "",
-      recommendedRAM: "",
-      recommendedStorage: "",
-      recommendedGPU: "",
-      categories: [],
-      tags: [],
-    },
-    {
-      imageUrl: "/images/sample-pic.png",
-      id: "728ed52g",
-      name: "UFO 50",
-      sku: "#u0343",
-      stock: "In Stock",
-      selling_price: "$40",
-      regular_price: "$60",
-      status: "Public",
-      date: "23/05/2024",
-      displayName: "UFO 50",
-      about: "",
-      cardDescription: "",
-      language: "",
-      icon: "",
-      saleQuantity: 0,
-      coverImage: "",
-      galleryImages: [],
-      latestImage: "",
-      cardImage: "",
-      videoUrl: "",
-      addToLatestGame: false,
-      carousel: false,
-      displayLatestGame: false,
-      platform: "",
-      brand: "",
-      minimumOS: "",
-      minimumCPU: "",
-      minimumRAM: "",
-      minimumStorage: "",
-      minimumGPU: "",
-      recommendedOS: "",
-      recommendedCPU: "",
-      recommendedRAM: "",
-      recommendedStorage: "",
-      recommendedGPU: "",
-      categories: [],
-      tags: [],
-    },
-  ];
-}
+// function getInitialData(): AllProductsNew[] {
+//   return [
+//     {
+//       imageUrl: "/images/sample-pic.png",
+//       id: "728ed52f",
+//       name: "Wukong",
+//       sku: "#w0342",
+//       stock: "In Stock",
+//       selling_price: "$40",
+//       regular_price: "$60",
+//       status: "Public",
+//       date: "23/05/2024",
+//       displayName: "Wukong",
+//       about: "",
+//       cardDescription: "",
+//       language: [],
+//       icon: "",
+//       saleQuantity: 0,
+//       coverImage: "",
+//       galleryImages: [],
+//       latestImage: "",
+//       cardImage: "",
+//       videoUrl: "",
+//       addToLatestGame: false,
+//       carousel: false,
+//       displayLatestGame: false,
+//       platform: "",
+//       brand: "",
+//       minimumOS: "",
+//       minimumCPU: "",
+//       minimumRAM: "",
+//       minimumStorage: "",
+//       minimumGPU: "",
+//       recommendedOS: "",
+//       recommendedCPU: "",
+//       recommendedRAM: "",
+//       recommendedStorage: "",
+//       recommendedGPU: "",
+//       categories: [],
+//       tags: [],
+//     },
+//     {
+//       imageUrl: "/images/sample-pic.png",
+//       id: "728ed52g",
+//       name: "UFO 50",
+//       sku: "#u0343",
+//       stock: "In Stock",
+//       selling_price: "$40",
+//       regular_price: "$60",
+//       status: "Public",
+//       date: "23/05/2024",
+//       displayName: "UFO 50",
+//       about: "",
+//       cardDescription: "",
+//       language: [],
+//       icon: "",
+//       saleQuantity: 0,
+//       coverImage: "",
+//       galleryImages: [],
+//       latestImage: "",
+//       cardImage: "",
+//       videoUrl: "",
+//       addToLatestGame: false,
+//       carousel: false,
+//       displayLatestGame: false,
+//       platform: "",
+//       brand: "",
+//       minimumOS: "",
+//       minimumCPU: "",
+//       minimumRAM: "",
+//       minimumStorage: "",
+//       minimumGPU: "",
+//       recommendedOS: "",
+//       recommendedCPU: "",
+//       recommendedRAM: "",
+//       recommendedStorage: "",
+//       recommendedGPU: "",
+//       categories: [],
+//       tags: [],
+//     },
+//   ];
+// }
 
 export default function AllProducts() {
   const [products, setProducts] = useState<AllProductsNew[]>([]);
@@ -98,6 +99,7 @@ export default function AllProducts() {
   const [editingProduct, setEditingProduct] = useState<AllProductsNew | null>(
     null
   );
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     function mapGamesResponse(games: any[]): any[] {
@@ -111,7 +113,7 @@ export default function AllProducts() {
         date: game.releaseDate
           ? new Date(game.releaseDate).toISOString().split("T")[0]
           : "",
-        icon: game.coverImage || "",
+        icon: game.system || "",
         imageUrl: game.cardImage || "",
         sku: game.SKU || "",
         stock: game.stock?.toString() || "",
@@ -131,10 +133,10 @@ export default function AllProducts() {
         brand: game.brandId || "",
         categories:
           game.gameCategories?.map(
-            (cat: { category: { name: any } }) => cat.category.name
+            (cat: { category: { id: any } }) => cat.category.id
           ) || [],
         tags:
-          game.tags?.map((tag: { tag: { name: any } }) => tag.tag.name) || [],
+          game.tags?.map((tag: { tag: { id: any } }) => tag.tag.id) || [],
         minimumOS: game.minimumOS || "",
         minimumCPU: game.minimumCPU || "",
         minimumRAM: game.minimumRAM || "",
@@ -155,7 +157,7 @@ export default function AllProducts() {
     };
 
     getGames();
-  }, []);
+  }, [reload]);
 
   const handleDeleteProduct = (id: string) => {
     setProducts((prevProducts) =>
@@ -168,14 +170,73 @@ export default function AllProducts() {
     setIsEditModalOpen(true);
   };
 
-  const handleSaveProduct = (updatedProduct: AllProductsNew) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === updatedProduct.id ? updatedProduct : product
-      )
-    );
-    setIsEditModalOpen(false);
-    setEditingProduct(null);
+  const handleSaveProduct = async (updatedProduct: AllProductsNew) => {
+    // setProducts((prevProducts) =>
+    //   prevProducts.map((product) =>
+    //     product.id === updatedProduct.id ? updatedProduct : product
+    //   )
+    // );
+    console.log("update",updatedProduct);
+    const data = {
+      productName: updatedProduct.name,
+      displayName: updatedProduct.displayName,
+      aboutThisGame: updatedProduct.about,
+      cardDescription: updatedProduct.cardDescription,
+      system: updatedProduct.icon,
+      languages: updatedProduct.language ? [updatedProduct.language] : [],
+      releaseDate: new Date(updatedProduct.date).toISOString(),
+      regularPrice: parseFloat(updatedProduct.regular_price.replace("$", "")),
+      sellingPrice: parseFloat(updatedProduct.selling_price.replace("$", "")),
+      stock: updatedProduct.saleQuantity,
+      SKU: updatedProduct.sku,
+      categoryIds: updatedProduct.categories,
+      stockStatus:
+      updatedProduct.stock === "In Stock" ? "IN_STOCK" : "OUT_OF_STOCK",
+      minimumOS: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumOS : "",
+      minimumCPU: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumCPU : "",
+      minimumRAM: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumRAM : "",
+      minimumGPU: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumGPU : "",
+      minimumStorage:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumStorage : "",
+      recommendedOS:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedOS : "",
+      recommendedCPU:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedCPU : "",
+      recommendedRAM:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedRAM : "",
+      recommendedGPU:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedGPU : "",
+      recommendedStorage:
+      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedStorage : "",
+      coverImage: updatedProduct.coverImage,
+      screenshots: updatedProduct.galleryImages,
+      video: updatedProduct.videoUrl,
+      cardImage: updatedProduct.cardImage,
+      latestImage: updatedProduct.latestImage,
+      addToLatestGames: updatedProduct.addToLatestGame,
+      addToCarousel: updatedProduct.carousel,
+      displayInLatesGames: updatedProduct.displayLatestGame,
+      published: updatedProduct.status === "Public",
+      tagIds: updatedProduct.tags,
+      brandId: updatedProduct.brand,
+      platformId: updatedProduct.platform,
+    };
+    try{
+    const res = await axiosInstance.patch(`/games/${updatedProduct.id}`, data);
+    if(res.status === 200){
+      toast.success("Product updated successfully");
+    }else{
+      throw new Error("Failed to update product");
+    }
+    console.log("res",res);
+    }catch(err){
+      console.log(err);
+      toast.error("Failed to update product");
+    }finally{
+      setIsEditModalOpen(false);
+      setEditingProduct(null);
+      setReload(prev => !prev);
+    }
   };
 
   const actionColumn: ColumnDef<AllProductsNew> = {

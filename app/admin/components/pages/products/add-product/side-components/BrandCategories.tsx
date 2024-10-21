@@ -79,6 +79,7 @@ const BrandCategories = ({ brand, setBrand }: BrandCategoriesProps) => {
         <ScrollArea className="h-[20em] px-2 py-2 border border-[#606060] rounded-sm mb-[0.9em] lg:h-[10em]">
           <RadioGroup
             onValueChange={(value: string) => handleBrandSelect(value)}
+            value={brand}
           >
             {brands.map((brandItem) => (
               <div
