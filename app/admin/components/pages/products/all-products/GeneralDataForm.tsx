@@ -59,9 +59,9 @@ interface GeneralDataFormProps {
 // ];
 
 const iconOptions = [
-  { icon: <FaWindows />, label: "Windows" },
-  { icon: <FaXbox />, label: "Xbox" },
-  { icon: <FaPlaystation />, label: "Playstation" },
+  { icon: <FaWindows />, label: "WINDOWS" },
+  { icon: <FaXbox />, label: "XBOX" },
+  { icon: <FaPlaystation />, label: "PLAYSTATION" },
 ];
 
 const languageOptions = [

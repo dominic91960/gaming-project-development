@@ -7,23 +7,30 @@ import { IoTrash } from "react-icons/io5";
 import { LuPencilLine } from "react-icons/lu";
 import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
-
-
+import Spinner from "@/components/Spinner/Spinner";
 
 export default function AllCustomerReviews() {
   const [reviews, setReviews] = useState<AllReviews[]>([]);
 
-  useEffect(() => {
-    getAllReviews();
-  }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  const getAllReviews = async () => {
+  useEffect(() => {
+    getAllReviews(currentPage);
+  }, [currentPage]);
+
+  const getAllReviews = async (page: number) => {
+    setLoading(true);
     try {
-      const res = await axiosInstance.get("/reviews");
-      setReviews(res.data);
+      const response = await axiosInstance.get(`/reviews?page=${page}`);
+      setReviews(response.data.reviews);
+      setTotalPages(response.data.totalReviews);
     } catch (error) {
       console.error(error);
       toast.error("Failed to add product");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -31,10 +38,9 @@ export default function AllCustomerReviews() {
     setReviews((prevreviews) =>
       prevreviews.filter((review) => review.id !== id)
     );
-    
   };
 
-  const deleteReview = async  (id:string) => {
+  const deleteReview = async (id: string) => {
     try {
       const res = await axiosInstance.get("/reviews");
       setReviews(res.data);
@@ -42,7 +48,7 @@ export default function AllCustomerReviews() {
       console.error(error);
       toast.error("Failed to add product");
     }
-  }
+  };
 
   const actionColumn: ColumnDef<AllReviews> = {
     header: "Actions",
@@ -64,6 +70,29 @@ export default function AllCustomerReviews() {
     actionColumn,
   ];
 
+  // Render pagination buttons dynamically
+  const renderPagination = () => {
+    const buttons = [];
+    for (let i = 1; i <= totalPages; i++) {
+      buttons.push(
+        <div
+          key={i}
+          className={`cursor-pointer font-medium px-[1em] py-[0.5em] rounded-sm ${
+            i === currentPage ? "bg-[#00FFA1]" : "bg-white"
+          }`}
+          onClick={() => setCurrentPage(i)}
+        >
+          {i}
+        </div>
+      );
+    }
+    return buttons;
+  };
+
+  if (loading) {
+    return <Spinner loading={loading} />;
+  }
+
   return (
     <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
       <div className="pb-[2em] px-[36px]">
@@ -75,6 +104,10 @@ export default function AllCustomerReviews() {
 
       {/* Data Table */}
       <DataTable columns={columnsWithActions} data={reviews} />
+      {/* Pagination */}
+      <div className="px-[4em] mt-[2em] flex items-center justify-between md:text-[0.65em]">
+        <div className="flex text-black gap-x-[1em]">{renderPagination()}</div>
+      </div>
     </div>
   );
 }
