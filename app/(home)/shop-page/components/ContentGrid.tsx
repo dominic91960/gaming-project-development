@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import ProductCard from "./ProductCard";
 import { CiSearch } from "react-icons/ci";
+import { GrNext, GrPrevious } from "react-icons/gr";
 import {
   Select,
   SelectContent,
@@ -34,7 +35,7 @@ const ContentGrid: React.FC = () => {
   };
 
   return (
-    <div className="w-3/4 p-4">
+    <div className="w-max p-4">
       <div className="flex items-center justify-between mb-4">
         <p className="text-[15px] font-normal font-primaryFont text-white">
           result found: 23
@@ -56,7 +57,7 @@ const ContentGrid: React.FC = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Fruits</SelectLabel>
+                  <SelectLabel>Title Here</SelectLabel>
                   <SelectItem value="option1">option 1</SelectItem>
                   <SelectItem value="option2">option 2</SelectItem>
                   <SelectItem value="option3">option 3</SelectItem>
@@ -76,7 +77,7 @@ const ContentGrid: React.FC = () => {
             price={299}
             oldPrice={399}
             rating={5}
-            soldOut={startIndex + index === 7} // Example of marking one item as sold out
+            soldOut={startIndex + index === 5} // Example of marking one item as sold out
           />
         ))}
       </div>
@@ -86,9 +87,9 @@ const ContentGrid: React.FC = () => {
         <button
           onClick={() => changePage(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 mx-1 bg-gray-700 text-white rounded disabled:opacity-50"
+          className="px-4 py-2 mx-1 text-white rounded disabled:opacity-50"
         >
-          &lt;
+          <GrPrevious />
         </button>
         {Array.from({ length: totalPages }, (_, i) => (
           <button
@@ -96,8 +97,8 @@ const ContentGrid: React.FC = () => {
             onClick={() => changePage(i + 1)}
             className={`px-4 py-2 mx-1 rounded ${
               currentPage === i + 1
-                ? "bg-green-500 text-white"
-                : "bg-gray-700 text-white"
+                ? " text-[#45F882] font-primaryFont font-semibold"
+                : "text-white font-primaryFont font-semibold"
             }`}
           >
             {i + 1}
@@ -106,9 +107,9 @@ const ContentGrid: React.FC = () => {
         <button
           onClick={() => changePage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 mx-1 bg-gray-700 text-white rounded disabled:opacity-50"
+          className="px-4 py-2 mx-1 text-white rounded disabled:opacity-50"
         >
-          &gt;
+          <GrNext />
         </button>
       </div>
     </div>
