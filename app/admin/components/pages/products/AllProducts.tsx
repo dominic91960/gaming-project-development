@@ -10,88 +10,7 @@ import { IoTrash } from "react-icons/io5";
 import { LuPencilLine } from "react-icons/lu";
 import toast from "react-hot-toast";
 
-// function getInitialData(): AllProductsNew[] {
-//   return [
-//     {
-//       imageUrl: "/images/sample-pic.png",
-//       id: "728ed52f",
-//       name: "Wukong",
-//       sku: "#w0342",
-//       stock: "In Stock",
-//       selling_price: "$40",
-//       regular_price: "$60",
-//       status: "Public",
-//       date: "23/05/2024",
-//       displayName: "Wukong",
-//       about: "",
-//       cardDescription: "",
-//       language: [],
-//       icon: "",
-//       saleQuantity: 0,
-//       coverImage: "",
-//       galleryImages: [],
-//       latestImage: "",
-//       cardImage: "",
-//       videoUrl: "",
-//       addToLatestGame: false,
-//       carousel: false,
-//       displayLatestGame: false,
-//       platform: "",
-//       brand: "",
-//       minimumOS: "",
-//       minimumCPU: "",
-//       minimumRAM: "",
-//       minimumStorage: "",
-//       minimumGPU: "",
-//       recommendedOS: "",
-//       recommendedCPU: "",
-//       recommendedRAM: "",
-//       recommendedStorage: "",
-//       recommendedGPU: "",
-//       categories: [],
-//       tags: [],
-//     },
-//     {
-//       imageUrl: "/images/sample-pic.png",
-//       id: "728ed52g",
-//       name: "UFO 50",
-//       sku: "#u0343",
-//       stock: "In Stock",
-//       selling_price: "$40",
-//       regular_price: "$60",
-//       status: "Public",
-//       date: "23/05/2024",
-//       displayName: "UFO 50",
-//       about: "",
-//       cardDescription: "",
-//       language: [],
-//       icon: "",
-//       saleQuantity: 0,
-//       coverImage: "",
-//       galleryImages: [],
-//       latestImage: "",
-//       cardImage: "",
-//       videoUrl: "",
-//       addToLatestGame: false,
-//       carousel: false,
-//       displayLatestGame: false,
-//       platform: "",
-//       brand: "",
-//       minimumOS: "",
-//       minimumCPU: "",
-//       minimumRAM: "",
-//       minimumStorage: "",
-//       minimumGPU: "",
-//       recommendedOS: "",
-//       recommendedCPU: "",
-//       recommendedRAM: "",
-//       recommendedStorage: "",
-//       recommendedGPU: "",
-//       categories: [],
-//       tags: [],
-//     },
-//   ];
-// }
+
 
 export default function AllProducts() {
   const [products, setProducts] = useState<AllProductsNew[]>([]);
@@ -152,7 +71,7 @@ export default function AllProducts() {
 
     const getGames = async () => {
       const res = await axiosInstance("/games");
-      const processedData = mapGamesResponse(res.data);
+      const processedData = mapGamesResponse(res.data.data);
       setProducts(processedData);
     };
 
@@ -191,7 +110,7 @@ export default function AllProducts() {
       SKU: updatedProduct.sku,
       categoryIds: updatedProduct.categories,
       stockStatus:
-      updatedProduct.stock === "In Stock" ? "IN_STOCK" : "OUT_OF_STOCK",
+      updatedProduct.stockStatus,
       minimumOS: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumOS : "",
       minimumCPU: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumCPU : "",
       minimumRAM: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumRAM : "",
