@@ -10,8 +10,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Transaction, columns } from "./components/columns";
-import { DataTable } from "./components/data-table";
+import { Transaction, columns } from "./components/transaction-columns";
+import { DataTable } from "./components/transaction-data-table";
 
 import { FaEye } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
@@ -25,6 +25,8 @@ import Footer from "@/components/footer/footer";
 import AccountInfo from "./components/account-info";
 import SecurityInfo from "./components/security-info";
 import RecentActivityCard from "./components/recent-activity-card";
+import TransactionAction from "./components/transaction-action";
+import RecentActivities from "./components/recent-activities";
 
 const profile = {
   id: "b0ijjfb4343asc4848##56",
@@ -604,57 +606,24 @@ export default function ProfilePage() {
     id: "view",
     header: "Action",
     cell: ({ row }) => (
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant="ghost"
-            className="h-fit text-[1em] px-[0.6em] py-[0.6em] rounded-sm"
-          >
-            <FaEye />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-80">
-          {/* Order no */}
-          <h4>Order No {row.original.orderId}</h4>
-
-          {/* Ordered products */}
-          {getTransaction(row.original.orderId).products.map(
-            ({ productId, poster, name, price }, index) => (
-              <div key={index} className="flex justify-between">
-                <Image src={poster} alt={name} className="size-[20px]" />
-                <p>{name}</p>
-                <p>{productId}</p>
-                <p>${price}</p>
-              </div>
-            )
-          )}
-
-          {/* Order subtotal */}
-          <p>
-            Items Subtotal: $
-            {getTransaction(row.original.orderId)
-              .products.reduce((sum, product) => sum + product.price, 0)
-              .toFixed(2)}
-          </p>
-
-          {/* Coupons */}
-          <p>Coupon: ${getTransaction(row.original.orderId).coupon}</p>
-
-          {/* Order total */}
-          <p>
-            Order Total: $
-            {(
-              getTransaction(row.original.orderId).products.reduce(
-                (sum, product) => sum + product.price,
-                0
-              ) -
-              transactions.filter(
-                ({ orderId }) => orderId === row.original.orderId
-              )[0].coupon
-            ).toFixed(2)}
-          </p>
-        </PopoverContent>
-      </Popover>
+      <TransactionAction
+        row={row}
+        products={getTransaction(row.original.orderId).products}
+        subTotal={
+          +getTransaction(row.original.orderId)
+            .products.reduce((sum, product) => sum + product.price, 0)
+            .toFixed(2)
+        }
+        coupon={getTransaction(row.original.orderId).coupon}
+        orderTotal={
+          +(
+            getTransaction(row.original.orderId).products.reduce(
+              (sum, product) => sum + product.price,
+              0
+            ) - getTransaction(row.original.orderId).coupon
+          ).toFixed(2)
+        }
+      />
     ),
   };
 
@@ -736,61 +705,13 @@ export default function ProfilePage() {
             <h3 className="font-semibold text-[15px] mt-[1.2em] mb-[0.7em] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[35px] 2xl:text-[40px]">
               Recent Activity
             </h3>
-            <div
-              className={`flex ${
-                displayedProducts.length < productsPerPage
-                  ? "gap-x-[1em]"
-                  : "justify-around"
-              }`}
-            >
-              {displayedProducts.map(
-                (
-                  { poster, name, desc, rating, originalPrice, discountPrice },
-                  index
-                ) => (
-                  <RecentActivityCard
-                    key={index}
-                    poster={poster}
-                    name={name}
-                    desc={desc}
-                    rating={rating}
-                    originalPrice={originalPrice}
-                    discountPrice={discountPrice}
-                  />
-                )
-              )}
-            </div>
-            <div
-              className={`${
-                totalPages < 2 ? "hidden" : ""
-              } flex justify-center gap-x-[1em] mt-[1.8em] text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]`}
-            >
-              <button
-                className="hover:text-[#45F882] disabled:hover:text-white disabled:opacity-70"
-                onClick={() => setCurrentPage((prev) => prev - 1)}
-                disabled={currentPage === 1}
-              >
-                <IoIosArrowBack />
-              </button>
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i}
-                  className={`${
-                    i + 1 === currentPage ? "text-[#45F882]" : ""
-                  } hover:opacity-80`}
-                  onClick={() => setCurrentPage(i + 1)}
-                >
-                  {i + 1}
-                </button>
-              ))}
-              <button
-                className="hover:text-[#45F882] disabled:hover:text-white disabled:opacity-70"
-                onClick={() => setCurrentPage((prev) => prev + 1)}
-                disabled={currentPage === totalPages}
-              >
-                <IoIosArrowForward />
-              </button>
-            </div>
+            <RecentActivities
+              displayedProducts={displayedProducts}
+              productsPerPage={productsPerPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+            />
 
             {/* Transaction history */}
             <h3 className="font-semibold text-[15px] mt-[1.2em] mb-[0.7em] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[35px] 2xl:text-[40px]">
