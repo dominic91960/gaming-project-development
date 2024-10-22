@@ -13,11 +13,9 @@ import {
 import { Transaction, columns } from "./columns";
 import { DataTable } from "./data-table";
 
-import { FaPencilAlt } from "react-icons/fa";
-import { FaCircleCheck } from "react-icons/fa6";
-import { FaMobileAlt } from "react-icons/fa";
-import { LuMonitor } from "react-icons/lu";
 import { FaEye } from "react-icons/fa";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
@@ -51,7 +49,7 @@ const profile = {
 const recentActivity = [
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "1Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -59,7 +57,7 @@ const recentActivity = [
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "2Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -67,7 +65,7 @@ const recentActivity = [
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "3Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -75,7 +73,7 @@ const recentActivity = [
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "4Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -83,7 +81,7 @@ const recentActivity = [
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "5Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -91,7 +89,7 @@ const recentActivity = [
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "6Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -99,7 +97,7 @@ const recentActivity = [
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "7Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -107,7 +105,7 @@ const recentActivity = [
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "8Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -115,7 +113,7 @@ const recentActivity = [
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "9Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -123,7 +121,7 @@ const recentActivity = [
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "10Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -131,7 +129,7 @@ const recentActivity = [
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "11Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -139,7 +137,7 @@ const recentActivity = [
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
+    name: "12Greed Fall",
     desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
     rating: 5,
     originalPrice: 299,
@@ -223,13 +221,12 @@ interface RecentActivity {
 }
 
 export default function ProfilePage() {
-  const productsPerPage = 5;
-  const totalPages = Math.ceil(recentActivity.length / productsPerPage);
-
+  const [productsPerPage, setProductsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedProducts, setDisplayedProducts] = useState<RecentActivity[]>(
     []
   );
+  const totalPages = Math.ceil(recentActivity.length / productsPerPage);
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * productsPerPage;
@@ -237,7 +234,35 @@ export default function ProfilePage() {
     setDisplayedProducts(
       recentActivity.slice(startIndex, startIndex + productsPerPage)
     );
-  }, [currentPage]);
+  }, [currentPage, productsPerPage]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setCurrentPage(1);
+      const screenWidth = window.innerWidth;
+
+      switch (true) {
+        case screenWidth < 550:
+          setProductsPerPage(3);
+          break;
+        case screenWidth >= 550 && screenWidth < 1280:
+          setProductsPerPage(4);
+          break;
+        case screenWidth >= 1280:
+          setProductsPerPage(5);
+          break;
+        default:
+          setProductsPerPage(3);
+          break;
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const getTransaction = (selectedOrderId: string) =>
     transactions.filter(({ orderId }) => orderId === selectedOrderId)[0];
@@ -378,7 +403,13 @@ export default function ProfilePage() {
             <h3 className="font-semibold text-[15px] mt-[1.2em] mb-[0.7em] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[35px] 2xl:text-[40px]">
               Recent Activity
             </h3>
-            <div className="flex justify-between">
+            <div
+              className={`flex ${
+                displayedProducts.length < productsPerPage
+                  ? "gap-x-[1em]"
+                  : "justify-around"
+              }`}
+            >
               {displayedProducts.map(
                 (
                   { poster, name, desc, rating, originalPrice, discountPrice },
@@ -395,6 +426,33 @@ export default function ProfilePage() {
                   />
                 )
               )}
+            </div>
+            <div className="flex justify-center gap-x-[1em] mt-[1.8em] text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+              <button
+                className="hover:text-[#45F882] disabled:hover:text-white disabled:opacity-70"
+                onClick={() => setCurrentPage((prev) => prev - 1)}
+                disabled={currentPage === 1}
+              >
+                <IoIosArrowBack />
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  className={`${
+                    i + 1 === currentPage ? "text-[#45F882]" : ""
+                  } hover:opacity-80`}
+                  onClick={() => setCurrentPage(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+              <button
+                className="hover:text-[#45F882] disabled:hover:text-white disabled:opacity-70"
+                onClick={() => setCurrentPage((prev) => prev + 1)}
+                disabled={currentPage === totalPages}
+              >
+                <IoIosArrowForward />
+              </button>
             </div>
 
             {/* Transaction history */}
