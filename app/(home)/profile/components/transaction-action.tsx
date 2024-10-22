@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StaticImageData } from "next/image";
 
 import { columns } from "./order-columns";
@@ -35,12 +35,15 @@ const TransactionAction: React.FC<TransactionActionProps> = ({
   coupon,
   orderTotal,
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Popover>
+    <Popover open={isOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="ghost"
           className="h-fit text-[8px] px-[0.6em] py-[0.6em] rounded-sm sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
+          onClick={() => setIsOpen(true)}
         >
           <FaEye />
         </Button>
@@ -50,13 +53,17 @@ const TransactionAction: React.FC<TransactionActionProps> = ({
         style={{
           borderImage: "linear-gradient(to bottom, #19D38E, #0D6D49) 1",
         }}
+        onInteractOutside={() => setIsOpen(false)}
       >
         <div className="flex justify-between pb-[1em] border-b border-b-[#0D6D49]">
           {/* Order no */}
           <h4 className="font-bold">Order No {row.original.orderId}</h4>
 
           {/* Close button */}
-          <IoClose className="text-[1.3em] text-[#00FFA1] cursor-pointer hover:scale-110" />
+          <IoClose
+            className="text-[1.3em] text-[#00FFA1] cursor-pointer hover:scale-110"
+            onClick={() => setIsOpen(false)}
+          />
         </div>
 
         {/* Ordered products */}
