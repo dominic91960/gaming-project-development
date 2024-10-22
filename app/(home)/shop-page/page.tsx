@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
 
@@ -6,8 +7,31 @@ import ContentGrid from "./components/ContentGrid";
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
+import { useState } from "react";
+
+type FilterParams = {
+  rating: number;
+  price: number;
+  genres: string[];
+  platforms: string[];
+  brands: string[];
+  operatingSystems: string[];
+};
 
 const ShopPage = () => {
+  const initialFilterParams = {
+    rating: 0,
+    price: 0,
+    genres: [],
+    platforms: [],
+    brands: [],
+    operatingSystems: [],
+  };
+
+  const [filterParams, setFilterParams] = useState<FilterParams>(
+    initialFilterParams
+  );
+  const [clearFilters, setClearFilters] = useState(false);
   return (
     // <div className="text-black">
     //   <Image src={bg} alt="shop page cover image" className="" />
@@ -49,11 +73,17 @@ const ShopPage = () => {
         <div className="flex items-center justify-center">
           <div className="grid grid-cols-12 gap-6">
             <div className="col-span-2">
-              <Sidebar />
+              <Sidebar 
+                setFilters={setFilterParams}
+                setClearFilters={setClearFilters}
+              />
             </div>
 
             <div className="col-span-10 flex justify-center">
-              <ContentGrid />
+              <ContentGrid
+                filterParams={filterParams}
+                clearFilters={clearFilters}
+              />
             </div>
           </div>
         </div>

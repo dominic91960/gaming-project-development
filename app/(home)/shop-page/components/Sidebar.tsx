@@ -1,10 +1,8 @@
 "use client";
-import React from "react";
+import React, { use, useEffect } from "react";
 import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
-
 import { Slider } from "@/components/ui/slider";
-
 import {
   Accordion,
   AccordionContent,
@@ -13,146 +11,174 @@ import {
 } from "@/components/ui/accordion";
 import StarRating from "./StarRating";
 import { Button } from "@/components/ui/button";
+import axiosInstance from "@/axios/axiosInstance";
 
-const Sidebar: React.FC = () => {
+type Genres = {
+  id: string;
+  name: string;
+};
+
+type Platforms = {
+  id: string;
+  name: string;
+};
+
+type Brands = {
+  id: string;
+  name: string;
+};
+
+type FilterParams = {
+  rating: number;
+  price: number;
+  genres: string[];
+  platforms: string[];
+  brands: string[];
+  operatingSystems: string[];
+};
+
+interface SidebarProps {
+  setFilters: (params: FilterParams) => void;
+  setClearFilters: (clear: any) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
+  const initialFilterParams = {
+    rating: 0,
+    price: 0,
+    genres: [],
+    platforms: [],
+    brands: [],
+    operatingSystems: [],
+  };
+
   const [value, setValue] = useState([33]);
+  const [genres, setGenres] = useState<Genres[]>([]);
+  const [platforms, setPlatforms] = useState<Platforms[]>([]);
+  const [brands, setBrands] = useState<Brands[]>([]);
+  const [filterParams, setFilterParams] = useState<FilterParams>(initialFilterParams);
+  const [checkedGenres, setCheckedGenres] = useState<{ [key: string]: boolean }>({});
+  const [checkedPlatforms, setCheckedPlatforms] = useState<{ [key: string]: boolean }>({});
+  const [checkedBrands, setCheckedBrands] = useState<{ [key: string]: boolean }>({});
+  const [checkedOs, setCheckedOs] = useState<{ [key: string]: boolean }>({});
 
-  const [isOpen, setIsOpen] = useState(false);
+  const getData = async () => {
+    const resTags = await axiosInstance.get(`/tags`);
+    const mappedGenres = resTags.data.map((g: any) => ({
+      id: g.id,
+      name: g.name,
+    }));
+    setGenres(mappedGenres);
+
+    const resPlatforms = await axiosInstance.get(`/platforms`);
+    const mappedPlatforms = resPlatforms.data.map((p: any) => ({
+      id: p.id,
+      name: p.name,
+    }));
+    setPlatforms(mappedPlatforms);
+
+    const resBrands = await axiosInstance.get(`/brands`);
+    const mappedBrands = resBrands.data.map((b: any) => ({
+      id: b.id,
+      name: b.name,
+    }));
+    setBrands(mappedBrands);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const handleRating = (rating: number) => {
-    console.log(`User rated: ${rating} stars`);
-    // You can add logic to save the rating to a database or state here.
+    setFilterParams((prevParams) => ({ ...prevParams, rating }));
   };
+
+  const handleGenreChange = (id: string, isChecked: boolean) => {
+    setCheckedGenres((prev) => ({ ...prev, [id]: isChecked }));
+    setFilterParams((prevParams) => {
+      const updatedGenres = isChecked
+        ? [...prevParams.genres, id]
+        : prevParams.genres.filter((genreId) => genreId !== id);
+      return { ...prevParams, genres: updatedGenres };
+    });
+  };
+
+  const handlePlatformChange = (id: string, isChecked: boolean) => {
+    setCheckedPlatforms((prev) => ({ ...prev, [id]: isChecked }));
+    setFilterParams((prevParams) => {
+      const updatedPlatforms = isChecked
+        ? [...prevParams.platforms, id]
+        : prevParams.platforms.filter((platformId) => platformId !== id);
+      return { ...prevParams, platforms: updatedPlatforms };
+    });
+  };
+
+  const handleBrandChange = (id: string, isChecked: boolean) => {
+    setCheckedBrands((prev) => ({ ...prev, [id]: isChecked }));
+    setFilterParams((prevParams) => {
+      const updatedBrands = isChecked
+        ? [...prevParams.brands, id]
+        : prevParams.brands.filter((brandId) => brandId !== id);
+      return { ...prevParams, brands: updatedBrands };
+    });
+  };
+
+  const handleOsChange = (osName: string, isChecked: boolean) => {
+    const osMap: { [key: string]: string } = {
+      Xbox: "XBOX",
+      Windows: "WINDOWS",
+      Playstation: "PLAYSTATION",
+    };
+    setCheckedOs((prev) => ({ ...prev, [osName]: isChecked }));
+    setFilterParams((prevParams) => {
+      const updatedOperatingSystems = isChecked
+        ? [...prevParams.operatingSystems, osMap[osName]]
+        : prevParams.operatingSystems.filter((os) => os !== osMap[osName]);
+      return { ...prevParams, operatingSystems: updatedOperatingSystems };
+    });
+  };
+
+  const handleClearAll = () => {
+    setFilterParams(initialFilterParams);
+    setCheckedGenres({});
+    setCheckedPlatforms({});
+    setCheckedBrands({});
+    setCheckedOs({});
+    setValue([0]); // Reset slider to 0
+    setClearFilters((prev: any) => !prev);
+  };
+
   return (
     <aside className="w-full text-white px-4 font-semibold border border-[#fff]">
       {/* Genres starts here */}
-
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
-              Genres
-            </h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">Genres</h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="mb-4">
               <ul>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Single Player
-                    </label>
+                {genres.map((genre) => (
+                  <div className="flex items-center justify-between" key={genre.id}>
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Checkbox
+                        id={`genre-${genre.id}`}
+                        className="border-white rounded-none"
+                        checked={checkedGenres[genre.id] || false}
+                        onCheckedChange={(isChecked: boolean) =>
+                          handleGenreChange(genre.id, isChecked)
+                        }
+                      />
+                      <label
+                        htmlFor={`genre-${genre.id}`}
+                        className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        {genre.name}
+                      </label>
+                    </div>
                   </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    100
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Action
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    120
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Role-playing
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    134
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Adventure
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    100
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Multiplayer
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    120
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Sports
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    134
-                  </p>
-                </div>
-
-                <li>
-                  <a
-                    href="#"
-                    className="font-primaryFont text-[12px] text-[#75F94C]"
-                  >
-                    See more...
-                  </a>
-                </li>
+                ))}
               </ul>
             </div>
           </AccordionContent>
@@ -160,33 +186,30 @@ const Sidebar: React.FC = () => {
       </Accordion>
 
       {/* Pricing starts here */}
-
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
-              Pricing
-            </h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">Pricing</h2>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="mb-4">
-              <div className="mt-3">
-                <Slider
-                  value={value}
-                  onValueChange={(newValue) => setValue(newValue)} // Update state when the slider is moved
-                  max={100}
-                  step={1}
-                />
-
-                <div className="flex items-center mt-3 gap-2">
-                  <p className="text-[15px] font-normal font-primaryFont">
-                    Price :
-                  </p>
-
-                  <p className="text-[15px] text-[#0BDB45] font-normal font-primaryFont">
-                    {`0 - ${value[0]}`} <span className="text-white">$</span>
-                  </p>
-                </div>
+            <div className="mb-2 mt-2">
+              <Slider
+                value={value}
+                onValueChange={(newValue) => {
+                  setValue(newValue);
+                  setFilterParams((prevParams) => ({
+                    ...prevParams,
+                    price: newValue[0],
+                  }));
+                }}
+                max={100}
+                step={1}
+              />
+              <div className="flex items-center mt-3 gap-2">
+                <p className="text-[15px] font-normal font-primaryFont">Price :</p>
+                <p className="text-[15px] text-[#0BDB45] font-normal font-primaryFont">
+                  {`0 - ${value[0]}`} <span className="text-white">$</span>
+                </p>
               </div>
             </div>
           </AccordionContent>
@@ -194,98 +217,63 @@ const Sidebar: React.FC = () => {
       </Accordion>
 
       {/* Rating starts here */}
-
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
-              Rating
-            </h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">Rating</h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="mb-4">
-              <div className="flex items-center justify-between">
-                <StarRating onRate={handleRating} />
-              </div>
+              <StarRating onRate={handleRating} />
             </div>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
 
       {/* Operating Systems starts here */}
-
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
-              Operating System
-            </h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">Operating System</h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="mb-4">
               <ul>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Xbox
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    100
-                  </p>
+                <div className="flex items-center justify-start gap-2">
+                  <Checkbox
+                    id="os-xbox"
+                    className="border-white rounded-none"
+                    checked={checkedOs["Xbox"] || false}
+                    onCheckedChange={(isChecked: boolean) => handleOsChange("Xbox", isChecked)}
+                  />
+                  <label htmlFor="os-xbox" className="font-primaryFont font-medium text-[13px]">
+                    Xbox
+                  </label>
                 </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Windows
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    120
-                  </p>
+                <div className="flex items-center justify-start gap-2">
+                  <Checkbox
+                    id="os-windows"
+                    className="border-white rounded-none"
+                    checked={checkedOs["Windows"] || false}
+                    onCheckedChange={(isChecked: boolean) => handleOsChange("Windows", isChecked)}
+                  />
+                  <label htmlFor="os-windows" className="font-primaryFont font-medium text-[13px]">
+                    Windows
+                  </label>
                 </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Playstation
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    134
-                  </p>
+                <div className="flex items-center justify-start gap-2">
+                  <Checkbox
+                    id="os-playstation"
+                    className="border-white rounded-none"
+                    checked={checkedOs["Playstation"] || false}
+                    onCheckedChange={(isChecked: boolean) =>
+                      handleOsChange("Playstation", isChecked)
+                    }
+                  />
+                  <label htmlFor="os-playstation" className="font-primaryFont font-medium text-[13px]">
+                    Playstation
+                  </label>
                 </div>
-
-                <li>
-                  <a
-                    href="#"
-                    className="font-primaryFont text-[12px] text-[#75F94C]"
-                  >
-                    See more...
-                  </a>
-                </li>
               </ul>
             </div>
           </AccordionContent>
@@ -293,133 +281,34 @@ const Sidebar: React.FC = () => {
       </Accordion>
 
       {/* Platforms starts here */}
-
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
-              Platforms
-            </h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">Platforms</h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="mb-4">
               <ul>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Steam
-                    </label>
+                {platforms.map((platform) => (
+                  <div className="flex items-center justify-between" key={platform.id}>
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Checkbox
+                        id={`platform-${platform.id}`}
+                        className="border-white rounded-none"
+                        checked={checkedPlatforms[platform.id] || false}
+                        onCheckedChange={(isChecked: boolean) =>
+                          handlePlatformChange(platform.id, isChecked)
+                        }
+                      />
+                      <label
+                        htmlFor={`platform-${platform.id}`}
+                        className="font-primaryFont font-medium text-[13px]"
+                      >
+                        {platform.name}
+                      </label>
+                    </div>
                   </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    100
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Xbox Live
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    120
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Origin
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    134
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      GOG.com
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    100
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Ubisoft Connect
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    120
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Epic Games
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    134
-                  </p>
-                </div>
-
-                <li>
-                  <a
-                    href="#"
-                    className="font-primaryFont text-[12px] text-[#75F94C]"
-                  >
-                    See more...
-                  </a>
-                </li>
+                ))}
               </ul>
             </div>
           </AccordionContent>
@@ -427,142 +316,45 @@ const Sidebar: React.FC = () => {
       </Accordion>
 
       {/* Brands starts here */}
-
       <Accordion type="single" collapsible>
-        <AccordionItem value="item-1" className="mb-4">
+        <AccordionItem value="item-1">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
-              Brand
-            </h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">Brands</h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="mb-4">
               <ul>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
+                {brands.map((brand) => (
+                  <div className="flex items-center justify-start gap-2" key={brand.id}>
                     <Checkbox
-                      id="terms"
+                      id={`brand-${brand.id}`}
                       className="border-white rounded-none"
+                      checked={checkedBrands[brand.id] || false}
+                      onCheckedChange={(isChecked: boolean) => handleBrandChange(brand.id, isChecked)}
                     />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Nintendo
+                    <label htmlFor={`brand-${brand.id}`} className="font-primaryFont font-medium text-[13px]">
+                      {brand.name}
                     </label>
                   </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    100
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Ubisoft
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    120
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Electronic Arts
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    134
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Microsoft
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    100
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Sony
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    120
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="terms"
-                      className="border-white rounded-none"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      2K
-                    </label>
-                  </div>
-                  <p className="font-primaryFont font-normal text-[13px] leading-none">
-                    134
-                  </p>
-                </div>
-
-                <li>
-                  <a
-                    href="#"
-                    className="font-primaryFont text-[12px] text-[#75F94C]"
-                  >
-                    See more...
-                  </a>
-                </li>
+                ))}
               </ul>
             </div>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
 
-      <Button className="bg-[#BD0202] rounded-none px-6 mb-6">Clear all</Button>
+      <Button className="bg-[#BD0202] rounded-none px-6 mb-6 mr-2" onClick={handleClearAll}>
+        Clear all
+      </Button>
+      <Button onClick={() => {
+        setFilters(filterParams);
+        console.log(filterParams);
+      }} className="bg-[#BD0202] rounded-none px-6 mb-6">
+        Filter
+      </Button>
     </aside>
   );
 };
 
 export default Sidebar;
+
