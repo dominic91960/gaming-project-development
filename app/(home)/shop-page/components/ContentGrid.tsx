@@ -14,23 +14,22 @@ import {
 } from "@/components/ui/select";
 import axiosInstance from "@/axios/axiosInstance";
 
-const ContentGrid: React.FC = () => {
-  // Mock data: 50 products for demonstration
-  // const totalProducts = [...Array(20)];
-  // const productsPerPage = 12;
-  // const totalPages = Math.ceil(totalProducts.length / productsPerPage);
+type FilterParams = {
+  rating: number;
+  price: number;
+  genres: string[];
+  platforms: string[];
+  brands: string[];
+  operatingSystems: string[];
+};
 
-  // // State for pagination
+interface ContentGridProps {
+  filterParams: FilterParams
+  clearFilters: boolean
+}
 
+const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters }) => {
 
-  // // Get the products for the current page
-  // const startIndex = (currentPage - 1) * productsPerPage;
-  // const currentProducts = totalProducts.slice(
-  //   startIndex,
-  //   startIndex + productsPerPage
-  // );
-
-  // Function to change pages
   const changePage = (page: number) => {
     setCurrentPage(page);
   };
@@ -83,7 +82,62 @@ const ContentGrid: React.FC = () => {
     };
     getData();
 
-  }, [currentPage]);
+  }, [currentPage, clearFilters]);
+
+  useEffect(() => {
+    console.log("Filter Params", filterParams);
+
+    const buildQueryParams = () => {
+      const params = new URLSearchParams();
+      
+      if (search) params.append("productName", search);
+      if (filterParams.rating) params.append("rating", filterParams.rating.toString());
+      if (filterParams.price) params.append("price", filterParams.price.toString());
+      if (filterParams.genres.length) params.append("tags", filterParams.genres.join(","));
+      if (filterParams.platforms.length) params.append("platforms", filterParams.platforms.join(","));
+      if (filterParams.brands.length) params.append("brands", filterParams.brands.join(","));
+      if (filterParams.operatingSystems.length)
+        params.append("systems", filterParams.operatingSystems.join(","));
+      
+      params.append("page", currentPage.toString());
+      
+      return params.toString();
+    };
+
+    console.log("Query Params", buildQueryParams());
+
+    const getData = async () => {
+      const res = await axiosInstance.get(`/games?${buildQueryParams()}`);
+      console.log(res.data.data);
+
+      const games = res.data.data.map((game: any) => {
+        return {
+          id: game.id,
+          title: game.productName,
+          price: game.regularPrice,
+          sellingPrice: game.sellingPrice,
+          rating: 5,
+          soldOut: game.stockStatus === "OUT_OF_STOCK",
+          cardImage: game.cardImage,
+        };
+      });
+
+      console.log("Games", games);
+
+      const meta = res.data.meta;
+
+      setTotalPages(meta.totalPages);
+      setStartIndex(meta.startIndex);
+      setProductsPerPage(meta.productsPerPage);
+      setCurrentPage(meta.currentPage);
+      setTotal(meta.totalProducts);
+
+      setGames(games);
+    };
+
+    getData();
+
+  }, [filterParams, clearFilters, currentPage]);
 
   const handleSearch = async () => {
     const res = await axiosInstance.get(`/games?productName=${search}&page=${currentPage}`);

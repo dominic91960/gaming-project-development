@@ -482,7 +482,12 @@ type FilterParams = {
   operatingSystems: string[];
 };
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  setFilters: (params: FilterParams) => void;
+  setClearFilters: (clear: any) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
   const initialFilterParams = {
     rating: 0,
     price: 0,
@@ -585,6 +590,7 @@ const Sidebar: React.FC = () => {
     setCheckedBrands({});
     setCheckedOs({});
     setValue([0]); // Reset slider to 0
+    setClearFilters((prev: any) => !prev);
   };
 
   return (
@@ -785,7 +791,10 @@ const Sidebar: React.FC = () => {
       <Button className="bg-[#BD0202] rounded-none px-6 mb-6 mr-2" onClick={handleClearAll}>
         Clear all
       </Button>
-      <Button onClick={() => console.log(filterParams)} className="bg-[#BD0202] rounded-none px-6 mb-6">
+      <Button onClick={() => {
+        setFilters(filterParams);
+        console.log(filterParams);
+      }} className="bg-[#BD0202] rounded-none px-6 mb-6">
         Filter
       </Button>
     </aside>
