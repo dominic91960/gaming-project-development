@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar/navbar";
 import ProductSearchBar from "@/components/product-search/product-search";
 import cardBgOne from "../../../public/images/404/bg.png";
 import Image from "next/image";
+import ShoppingCartSidebar from "../_components/shopping-cart-sidebar";
 
 function NotFound() {
   return (
@@ -34,6 +35,10 @@ function NotFound() {
       </div>
       <Footer />
     </section>
+
+    // <div>
+    //   <ShoppingCartSidebar />
+    // </div>
   );
 }
 
