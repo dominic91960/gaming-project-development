@@ -98,7 +98,8 @@ export default function Navbar() {
   const [selectedSubMenu, setSelectedSubMenu] = useState("");
   const [subMenuData, setSubMenuData] = useState<string[]>([]);
   const [isContentChanged, setIsContentChanged] = useState(false);
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext) || {};
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
@@ -194,11 +195,16 @@ export default function Navbar() {
                 <IoMdHeartEmpty />
               </Link>
 
-              <Link href="/" className="hover:scale-110">
+              <Link href="/" className="hover:scale-110 ">
                 <IoIosCart />
               </Link>
 
-              <Link href="/sign-in" className="hover:scale-110">
+              <Link
+                href="/sign-in"
+                className={`hover:scale-110 ${
+                  path.startsWith("/sign") ? "text-[#0BDB45]" : ""
+                }`}
+              >
                 {user?.profile_image ? (
                   <Image
                     src={

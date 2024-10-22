@@ -202,7 +202,7 @@ export default function ProductPage() {
     <Suspense fallback={<Spinner loading={true} />}>
       <>
         <ProductSearchBar />
-        {/* <Navbar /> */}
+        <Navbar />
         <section className="bg-[#051301] font-primaryFont text-white">
           {/* Image area with gradient */}
           <div
