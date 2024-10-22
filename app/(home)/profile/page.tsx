@@ -1,30 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Transaction, columns } from "./columns";
-import { DataTable } from "./data-table";
-
-import { FaPencilAlt } from "react-icons/fa";
-import { FaCircleCheck } from "react-icons/fa6";
-import { FaMobileAlt } from "react-icons/fa";
-import { LuMonitor } from "react-icons/lu";
-import { FaEye } from "react-icons/fa";
+import { Transaction, columns } from "./components/transaction-columns";
+import { DataTable } from "./components/transaction-data-table";
 
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
 import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
-import StarRating from "../_components/star-rating";
 import Footer from "@/components/footer/footer";
+import AccountInfo from "./components/account-info";
+import SecurityInfo from "./components/security-info";
+import TransactionAction from "./components/transaction-action";
+import RecentActivities from "./components/recent-activities";
 
 const profile = {
   id: "b0ijjfb4343asc4848##56",
@@ -49,154 +40,619 @@ const recentActivity = [
   {
     poster: samplePic,
     name: "Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    desc: "Explore uncharted new lands as you set foot on a remote island seeping with magic, and filled with riches, lost secrets, and fantastic creatures.",
     rating: 5,
     originalPrice: 299,
     discountPrice: 399,
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
-    originalPrice: 299,
-    discountPrice: 399,
+    name: "Cyberpunk 2077",
+    desc: "An open-world RPG set in the dystopian future, where you can explore a massive city and complete missions to gain power and influence.",
+    rating: 4.5,
+    originalPrice: 199,
+    discountPrice: 249,
   },
   {
     poster: samplePic,
-    name: "Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
+    name: "Assassin's Creed Valhalla",
+    desc: "Join Eivor and lead a Viking clan to glory. Build settlements, wage wars, and uncover a grand storyline in this action-packed RPG.",
+    rating: 4.8,
+    originalPrice: 329,
+    discountPrice: 379,
+  },
+  {
+    poster: samplePic,
+    name: "FIFA 2023",
+    desc: "Experience the latest iteration of the iconic soccer series with enhanced graphics and real-life player mechanics.",
+    rating: 4.2,
+    originalPrice: 249,
+    discountPrice: 299,
+  },
+  {
+    poster: samplePic,
+    name: "NBA 2K23",
+    desc: "Hit the courts with the latest in basketball simulation. Enjoy an authentic NBA experience with realistic gameplay and team management.",
+    rating: 4.0,
+    originalPrice: 199,
+    discountPrice: 259,
+  },
+  {
+    poster: samplePic,
+    name: "Call of Duty: Modern Warfare",
+    desc: "Enter the battlefield in this intense first-person shooter with advanced weapons, high-end graphics, and a gripping campaign mode.",
+    rating: 4.7,
     originalPrice: 299,
-    discountPrice: 399,
+    discountPrice: 349,
+  },
+  {
+    poster: samplePic,
+    name: "Red Dead Redemption 2",
+    desc: "Step into the Wild West with this stunning open-world game where you can explore a vast world filled with danger and intrigue.",
+    rating: 4.9,
+    originalPrice: 399,
+    discountPrice: 499,
+  },
+  {
+    poster: samplePic,
+    name: "Watch Dogs Legion",
+    desc: "Join the resistance and hack your way through London in this thrilling open-world adventure that combines action and technology.",
+    rating: 4.1,
+    originalPrice: 279,
+    discountPrice: 339,
+  },
+  {
+    poster: samplePic,
+    name: "Far Cry 6",
+    desc: "Fight to liberate a tropical island from a ruthless dictator in this action-packed first-person shooter.",
+    rating: 4.4,
+    originalPrice: 259,
+    discountPrice: 309,
+  },
+  {
+    poster: samplePic,
+    name: "Spider-Man: Miles Morales",
+    desc: "Swing into action as Miles Morales in this follow-up to the hit Spider-Man game, featuring new powers and an exciting storyline.",
+    rating: 4.9,
+    originalPrice: 349,
+    discountPrice: 429,
+  },
+  {
+    poster: samplePic,
+    name: "The Last of Us Part II",
+    desc: "Experience the emotionally charged and action-filled sequel to the critically acclaimed The Last of Us, with a deep and engaging story.",
+    rating: 5,
+    originalPrice: 399,
+    discountPrice: 499,
+  },
+  {
+    poster: samplePic,
+    name: "Horizon Zero Dawn",
+    desc: "Explore a beautiful post-apocalyptic world filled with mechanical creatures and uncover the secrets of the past.",
+    rating: 4.8,
+    originalPrice: 299,
+    discountPrice: 379,
+  },
+  {
+    poster: samplePic,
+    name: "God of War",
+    desc: "Join Kratos on an epic journey through Norse mythology in this action-adventure game with breathtaking visuals and a gripping story.",
+    rating: 4.9,
+    originalPrice: 349,
+    discountPrice: 449,
+  },
+  {
+    poster: samplePic,
+    name: "Halo Infinite",
+    desc: "Return to the world of Halo in this thrilling installment with expansive environments, powerful weapons, and intense multiplayer action.",
+    rating: 4.6,
+    originalPrice: 299,
+    discountPrice: 349,
+  },
+  {
+    poster: samplePic,
+    name: "Doom Eternal",
+    desc: "Take on the role of the Doom Slayer in this fast-paced and brutal first-person shooter with non-stop action.",
+    rating: 4.5,
+    originalPrice: 249,
+    discountPrice: 299,
+  },
+  {
+    poster: samplePic,
+    name: "Wolfenstein II: The New Colossus",
+    desc: "Fight to liberate America from Nazi control in this alternate-history first-person shooter with high-stakes missions and gripping gameplay.",
+    rating: 4.3,
+    originalPrice: 229,
+    discountPrice: 279,
+  },
+  {
+    poster: samplePic,
+    name: "Final Fantasy XV",
+    desc: "Join Prince Noctis and his friends on an epic journey in this action-packed role-playing game with stunning visuals and engaging combat.",
+    rating: 4.8,
+    originalPrice: 369,
+    discountPrice: 449,
+  },
+  {
+    poster: samplePic,
+    name: "Ghost of Tsushima",
+    desc: "Become a samurai warrior and defend your homeland from invaders in this visually stunning open-world game.",
+    rating: 4.9,
+    originalPrice: 349,
+    discountPrice: 429,
+  },
+  {
+    poster: samplePic,
+    name: "Resident Evil Village",
+    desc: "Survive the horrors of a mysterious village in this atmospheric and terrifying entry in the Resident Evil series.",
+    rating: 4.7,
+    originalPrice: 299,
+    discountPrice: 369,
+  },
+  {
+    poster: samplePic,
+    name: "Elden Ring",
+    desc: "Explore a vast open world and take on powerful enemies in this highly anticipated action RPG from the creators of Dark Souls.",
+    rating: 5,
+    originalPrice: 399,
+    discountPrice: 499,
   },
 ];
 
 const transactions = [
   {
+    orderId: "#112Htk",
+    date: "2023/11/10",
+    username: "Ethan Clark",
+    total: 398.93,
+    products: [
+      {
+        productId: "#prd101",
+        poster: samplePic,
+        name: "Cyberpunk 2077",
+        price: 29.99,
+        quantity: 2,
+      },
+      {
+        productId: "#prd102",
+        poster: samplePic,
+        name: "Assassin's Creed Valhalla",
+        price: 34.99,
+        quantity: 1,
+      },
+      {
+        productId: "#prd103",
+        poster: samplePic,
+        name: "Far Cry 6",
+        price: 23.49,
+        quantity: 1,
+      },
+      {
+        productId: "#prd104",
+        poster: samplePic,
+        name: "Watch Dogs Legion",
+        price: 24.99,
+        quantity: 1,
+      },
+      {
+        productId: "#prd105",
+        poster: samplePic,
+        name: "Red Dead Redemption 2",
+        price: 40.0,
+        quantity: 3,
+      },
+      {
+        productId: "#prd106",
+        poster: samplePic,
+        name: "Spider-Man Miles Morales",
+        price: 29.5,
+        quantity: 1,
+      },
+      {
+        productId: "#prd107",
+        poster: samplePic,
+        name: "The Last of Us Part II",
+        price: 35.5,
+        quantity: 1,
+      },
+      {
+        productId: "#prd108",
+        poster: samplePic,
+        name: "Ghost of Tsushima",
+        price: 21.5,
+        quantity: 2,
+      },
+      {
+        productId: "#prd109",
+        poster: samplePic,
+        name: "Halo Infinite",
+        price: 13.0,
+        quantity: 1,
+      },
+      {
+        productId: "#prd110",
+        poster: samplePic,
+        name: "FIFA 2023",
+        price: 15.99,
+        quantity: 1,
+      },
+      {
+        productId: "#prd111",
+        poster: samplePic,
+        name: "NBA 2K23",
+        price: 18.5,
+        quantity: 1,
+      },
+      {
+        productId: "#prd112",
+        poster: samplePic,
+        name: "Call of Duty: Modern Warfare",
+        price: 19.99,
+        quantity: 1,
+      },
+    ],
+    coupon: 40.0,
+  },
+  {
     orderId: "#546FGd",
     date: "2023/08/04",
     username: "Dominic Brian",
-    total: 9.25,
+    total: 53.51,
     products: [
       {
         productId: "#rid294",
         poster: samplePic,
         name: "Greed Fall",
         price: 12.5,
+        quantity: 2,
       },
       {
         productId: "#ri6s94",
         poster: samplePic,
         name: "Sample game",
         price: 11.5,
+        quantity: 3,
       },
     ],
     coupon: 5.99,
   },
   {
-    orderId: "#546FGw",
-    date: "2023/08/04",
-    username: "Dominic Brian",
-    total: 12.99,
+    orderId: "#324TYb",
+    date: "2023/08/12",
+    username: "Sarah Connor",
+    total: 97.99,
     products: [
       {
-        productId: "#rid294",
+        productId: "#pmk876",
         poster: samplePic,
-        name: "Greed Fall",
+        name: "Cyberpunk 2077",
+        price: 29.99,
+        quantity: 2,
+      },
+      {
+        productId: "#ptr567",
+        poster: samplePic,
+        name: "The Witcher 3",
+        price: 24.5,
+        quantity: 2,
+      },
+    ],
+    coupon: 10.99,
+  },
+  {
+    orderId: "#872HFk",
+    date: "2023/09/02",
+    username: "John Doe",
+    total: 19.51,
+    products: [
+      {
+        productId: "#otg123",
+        poster: samplePic,
+        name: "Assassin's Creed Valhalla",
+        price: 14.5,
+        quantity: 1,
+      },
+      {
+        productId: "#kjl994",
+        poster: samplePic,
+        name: "Halo Infinite",
+        price: 13.0,
+        quantity: 1,
+      },
+    ],
+    coupon: 7.99,
+  },
+  {
+    orderId: "#672Ghf",
+    date: "2023/09/15",
+    username: "Alice Smith",
+    total: 21.5,
+    products: [
+      {
+        productId: "#nmw879",
+        poster: samplePic,
+        name: "FIFA 2023",
+        price: 15.99,
+        quantity: 1,
+      },
+      {
+        productId: "#bgt560",
+        poster: samplePic,
+        name: "NBA 2K23",
+        price: 18.5,
+        quantity: 1,
+      },
+    ],
+    coupon: 12.99,
+  },
+  {
+    orderId: "#214Kmn",
+    date: "2023/09/25",
+    username: "Michael Johnson",
+    total: 38.51,
+    products: [
+      {
+        productId: "#qwe938",
+        poster: samplePic,
+        name: "Resident Evil Village",
+        price: 17.5,
+        quantity: 2,
+      },
+      {
+        productId: "#vbn543",
+        poster: samplePic,
+        name: "Call of Duty",
+        price: 19.5,
+        quantity: 1,
+      },
+    ],
+    coupon: 15.99,
+  },
+  {
+    orderId: "#874Wkm",
+    date: "2023/10/01",
+    username: "Emma Taylor",
+    total: 53,
+    products: [
+      {
+        productId: "#rgh295",
+        poster: samplePic,
+        name: "Far Cry 6",
         price: 23.99,
+        quantity: 1,
       },
       {
-        productId: "#ri6s94",
+        productId: "#tyu883",
         poster: samplePic,
-        name: "Sample game",
-        price: 12.5,
+        name: "Watch Dogs",
+        price: 20.5,
+        quantity: 2,
       },
     ],
-    coupon: 5.99,
+    coupon: 11.99,
   },
   {
-    orderId: "#546FGa",
-    date: "2023/02/14",
-    username: "Dominic Brian",
-    total: 6.5,
+    orderId: "#913Zkv",
+    date: "2023/10/08",
+    username: "Sophia Brown",
+    total: 71.5,
     products: [
       {
-        productId: "#rid294",
+        productId: "#plr937",
         poster: samplePic,
-        name: "Greed Fall",
-        price: 12.5,
+        name: "Horizon Zero Dawn",
+        price: 22.99,
+        quantity: 1,
       },
       {
-        productId: "#ri6s94",
+        productId: "#lkj283",
         poster: samplePic,
-        name: "Sample game",
-        price: 12.5,
+        name: "Ghost of Tsushima",
+        price: 21.5,
+        quantity: 3,
       },
     ],
-    coupon: 5.99,
+    coupon: 15.99,
+  },
+  {
+    orderId: "#526Qlp",
+    date: "2023/10/12",
+    username: "Daniel White",
+    total: 31.51,
+    products: [
+      {
+        productId: "#osd945",
+        poster: samplePic,
+        name: "Elden Ring",
+        price: 27.5,
+        quantity: 1,
+      },
+      {
+        productId: "#gth356",
+        poster: samplePic,
+        name: "Dark Souls 3",
+        price: 25.0,
+        quantity: 1,
+      },
+    ],
+    coupon: 20.99,
+  },
+  {
+    orderId: "#245Yks",
+    date: "2023/10/20",
+    username: "Olivia Harris",
+    total: 63.51,
+    products: [
+      {
+        productId: "#poj953",
+        poster: samplePic,
+        name: "Spider-Man Miles Morales",
+        price: 29.5,
+        quantity: 1,
+      },
+      {
+        productId: "#nty829",
+        poster: samplePic,
+        name: "God of War",
+        price: 30.0,
+        quantity: 2,
+      },
+    ],
+    coupon: 25.99,
+  },
+  {
+    orderId: "#731Jwe",
+    date: "2023/10/25",
+    username: "Liam Thompson",
+    total: 167.01,
+    products: [
+      {
+        productId: "#zxk273",
+        poster: samplePic,
+        name: "Red Dead Redemption 2",
+        price: 40.0,
+        quantity: 4,
+      },
+      {
+        productId: "#fdp763",
+        poster: samplePic,
+        name: "Final Fantasy XV",
+        price: 38.0,
+        quantity: 1,
+      },
+    ],
+    coupon: 30.99,
+  },
+  {
+    orderId: "#128Pmg",
+    date: "2023/10/28",
+    username: "James Lee",
+    total: 194.01,
+    products: [
+      {
+        productId: "#tyu372",
+        poster: samplePic,
+        name: "Doom Eternal",
+        price: 32.5,
+        quantity: 4,
+      },
+      {
+        productId: "#iru938",
+        poster: samplePic,
+        name: "Wolfenstein 2",
+        price: 30.0,
+        quantity: 3,
+      },
+    ],
+    coupon: 25.99,
+  },
+  {
+    orderId: "#349Klm",
+    date: "2023/11/01",
+    username: "Charlotte Martinez",
+    total: 75.51,
+    products: [
+      {
+        productId: "#plo583",
+        poster: samplePic,
+        name: "The Last of Us Part II",
+        price: 35.5,
+        quantity: 2,
+      },
+      {
+        productId: "#zxc764",
+        poster: samplePic,
+        name: "Uncharted 4",
+        price: 33.5,
+        quantity: 1,
+      },
+    ],
+    coupon: 28.99,
   },
 ];
 
+interface RecentActivity {
+  poster: StaticImageData;
+  name: string;
+  desc: string;
+  rating: number;
+  originalPrice: number;
+  discountPrice: number;
+}
+
 export default function ProfilePage() {
+  const [productsPerPage, setProductsPerPage] = useState(3);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [displayedProducts, setDisplayedProducts] = useState<RecentActivity[]>(
+    []
+  );
+  const totalPages = Math.ceil(recentActivity.length / productsPerPage);
+
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * productsPerPage;
+
+    setDisplayedProducts(
+      recentActivity.slice(startIndex, startIndex + productsPerPage)
+    );
+  }, [currentPage, productsPerPage]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setCurrentPage(1);
+      const screenWidth = window.innerWidth;
+
+      switch (true) {
+        case screenWidth < 550:
+          setProductsPerPage(3);
+          break;
+        case screenWidth >= 550 && screenWidth < 1280:
+          setProductsPerPage(4);
+          break;
+        case screenWidth >= 1280:
+          setProductsPerPage(5);
+          break;
+        default:
+          setProductsPerPage(3);
+          break;
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const getTransaction = (selectedOrderId: string) =>
     transactions.filter(({ orderId }) => orderId === selectedOrderId)[0];
+
+  const getTransactionSubTotal = (selectedOrderId: string) => {
+    const products = getTransaction(selectedOrderId).products;
+    let subTotal = 0;
+
+    products.forEach((product) => {
+      subTotal += product.price * product.quantity;
+    });
+    return subTotal.toFixed(2);
+  };
 
   const viewColumn: ColumnDef<Transaction> = {
     id: "view",
     header: "Action",
     cell: ({ row }) => (
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant="ghost"
-            className="h-fit text-[1em] px-[0.6em] py-[0.6em] rounded-sm"
-          >
-            <FaEye />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-80">
-          {/* Order no */}
-          <h4>Order No {row.original.orderId}</h4>
-
-          {/* Ordered products */}
-          {getTransaction(row.original.orderId).products.map(
-            ({ productId, poster, name, price }) => (
-              <div key={productId} className="flex justify-between">
-                <Image src={poster} alt={name} className="size-[20px]" />
-                <p>{name}</p>
-                <p>{productId}</p>
-                <p>${price}</p>
-              </div>
-            )
-          )}
-
-          {/* Order subtotal */}
-          <p>
-            Items Subtotal: $
-            {getTransaction(row.original.orderId)
-              .products.reduce((sum, product) => sum + product.price, 0)
-              .toFixed(2)}
-          </p>
-
-          {/* Coupons */}
-          <p>Coupon: ${getTransaction(row.original.orderId).coupon}</p>
-
-          {/* Order total */}
-          <p>
-            Order Total: $
-            {(
-              getTransaction(row.original.orderId).products.reduce(
-                (sum, product) => sum + product.price,
-                0
-              ) -
-              transactions.filter(
-                ({ orderId }) => orderId === row.original.orderId
-              )[0].coupon
-            ).toFixed(2)}
-          </p>
-        </PopoverContent>
-      </Popover>
+      <TransactionAction
+        row={row}
+        products={getTransaction(row.original.orderId).products}
+        subTotal={+getTransactionSubTotal(row.original.orderId)}
+        coupon={getTransaction(row.original.orderId).coupon}
+        orderTotal={
+          +(
+            +getTransactionSubTotal(row.original.orderId) -
+            getTransaction(row.original.orderId).coupon
+          ).toFixed(2)
+        }
+      />
     ),
   };
 
@@ -250,363 +706,41 @@ export default function ProfilePage() {
             {/* Container for account details and security details */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-[20px] sm:gap-[16px] md:gap-[20px] lg:gap-[26px] xl:gap-[32px] 2xl:gap-[38px]">
               {/* Account details */}
-              <menu
-                className="bg-gradient-to-b from-transparent to-white/30 text-[8px] p-[2em] border border-t-0 sm:text-[10px] md:col-span-7 md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
-                style={{
-                  borderImage:
-                    "linear-gradient(to bottom, transparent, #75F94C) 1",
-                }}
-              >
-                {/* Header */}
-                <p className="sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
-                  Manage your account&apos;s details.
-                </p>
-                <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-[15px] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[32px] 2xl:text-[35px]">
-                    Account Information
-                  </h3>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="h-fit text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[20px] uppercase px-[1em] py-[0.5em] rounded-sm"
-                  >
-                    Edit&nbsp;&nbsp;
-                    <FaPencilAlt />
-                  </Button>
-                </div>
-                <hr className="border-t-[#BCBCBC] mt-[0.1em] mb-[1.7em]" />
-
-                {/* Account info */}
-                <form>
-                  {/* ID */}
-                  <div className="flex items-center justify-between mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">ID: </span>
-                      {profile.id}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Username */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Username: </span>
-                      {profile.username}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Email */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Email: </span> {profile.email}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Language */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Language: </span>
-                      {profile.language}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* First name */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">First Name: </span>
-                      {profile.firstName}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Last name */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Last Name: </span>
-                      {profile.lastName}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Address */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Address: </span>
-                      {profile.address}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Postal code */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Postal Code: </span>
-                      {profile.postalCode}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Region */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Region: </span>
-                      {profile.region}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* DOB */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Date of Birth: </span>
-                      {profile.DOB}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-                </form>
-              </menu>
+              <AccountInfo
+                id={profile.id}
+                avatar={profile.avatar}
+                username={profile.username}
+                email={profile.email}
+                city={profile.city}
+                country={profile.country}
+                language={profile.language}
+                firstName={profile.firstName}
+                lastName={profile.lastName}
+                address={profile.address}
+                postalCode={profile.postalCode}
+                region={profile.region}
+                DOB={profile.DOB}
+              />
 
               {/* Security details */}
-              <menu
-                className="bg-gradient-to-b from-transparent to-white/30 text-[8px] p-[2em] border border-t-0 sm:text-[10px] md:col-span-5 md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
-                style={{
-                  borderImage:
-                    "linear-gradient(to bottom, transparent, #75F94C) 1",
-                }}
-              >
-                {/* Header */}
-                <p className="sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
-                  Security details.
-                </p>
-                <h3 className="font-bold text-[15px] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[32px] 2xl:text-[35px]">
-                  Security
-                </h3>
-                <hr className="border-t-[#BCBCBC] mt-[0.1em]" />
-
-                {/* Security info */}
-                <form>
-                  {/* Password */}
-                  <div className="flex items-center justify-between my-[0.6em] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[21px] 2xl:text-[23px]">
-                    <p>
-                      <span className="font-bold text">Password: </span>
-                      <input
-                        type="password"
-                        value={profile.password}
-                        className="bg-transparent outline-none"
-                        readOnly
-                      />
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[8px] uppercase px-[0.5em] py-[0.5em] rounded-sm sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                    >
-                      Edit&nbsp;&nbsp;
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  <hr className="border-t-[#BCBCBC]" />
-
-                  <h4 className="font-bold text-[10px] mt-[0.6em] sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[21px] 2xl:text-[23px]">
-                    2-Step Verification
-                  </h4>
-
-                  <div className="mt-[0.3em]">
-                    <p className="flex items-center gap-x-[0.3em] text-[8px] sm:text-[8.5px] md:text-[8.75px] lg:text-[9px]">
-                      <FaCircleCheck className="text-[#0BDB45]" />
-                      Email
-                    </p>
-                    <p className="text-[8px] sm:text-[8.5px] md:text-[8.75px] lg:text-[9px]">
-                      Each time you log in with a new device, you&apos;ll be
-                      asked for the security code sent to v
-                    </p>
-                  </div>
-
-                  {/* Backup phone number */}
-                  <div className="flex items-center justify-between mt-[1.5em]">
-                    <div className="flex items-center gap-x-[0.4em]">
-                      <FaMobileAlt className="size-[12px] sm:size-[15px] md:size-[18px] lg:size-[21px] xl:size-[24px] 2xl:size-[27px]" />
-                      <div className="w-px h-[2.5em] bg-[#BCBCBC]"></div>
-                      <div className="text-[8px] sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
-                        <p className="font-semibold">
-                          Phone number used for backup class
-                        </p>
-                        <p>
-                          {profile.tel.replace(
-                            profile.tel.slice(0, 7),
-                            "*******"
-                          )}
-                        </p>
-                      </div>
-                    </div>
-
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[8px] uppercase px-[0.5em] py-[0.5em] rounded-sm sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                    >
-                      Edit&nbsp;&nbsp;
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  <hr className="border-t-[#BCBCBC] my-[0.6em]" />
-
-                  {/* Trusted devices */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-x-[0.4em]">
-                      <LuMonitor className="size-[12px] sm:size-[15px] md:size-[18px] lg:size-[21px] xl:size-[24px] 2xl:size-[27px]" />
-                      <div className="w-px h-[2.5em] bg-[#BCBCBC]"></div>
-                      <div className="text-[8px] sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
-                        <p className="font-semibold">Trusted devices</p>
-                        <p>
-                          You have <span>{profile.trustedDevices}</span> trusted
-                          devices
-                        </p>
-                      </div>
-                    </div>
-
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[8px] uppercase px-[0.5em] py-[0.5em] rounded-sm sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                    >
-                      Edit&nbsp;&nbsp;
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-                </form>
-
-                <div className="mt-[1.5em]">
-                  <p className="text-justify text-[8px] sm:text-[8.5px] md:text-[8.75px] lg:text-[9px]">
-                    Each time you log in with a new device, you&apos;ll be asked
-                    for the security code sent toEach time you log in with a new
-                    device, you&apos;ll be asked for the security code sent to v
-                    v
-                  </p>
-
-                  <p className="mt-[0.5em] text-justify text-[8px] sm:text-[8.5px] md:text-[8.75px] lg:text-[9px]">
-                    Each time you log in with a new device, you&apos;ll be asked
-                    for the security code sent toEach time you log in with a new
-                    device, you&apos;ll be asked for the security code sent to v
-                    vEach time you log in with a new device, you&apos;ll be
-                    asked for the security code sent toEach time you log in with
-                    a new device, you&apos;ll be asked for the security code
-                    sent to v v
-                  </p>
-                </div>
-              </menu>
+              <SecurityInfo
+                password={profile.password}
+                tel={profile.password}
+                trustedDevices={profile.trustedDevices}
+              />
             </div>
 
             {/* Recent activity */}
             <h3 className="font-semibold text-[15px] mt-[1.2em] mb-[0.7em] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[35px] 2xl:text-[40px]">
               Recent Activity
             </h3>
-            <div className="flex justify-between">
-              {recentActivity.map(
-                ({
-                  poster,
-                  name,
-                  desc,
-                  rating,
-                  originalPrice,
-                  discountPrice,
-                }) => (
-                  <article
-                    key={name}
-                    className="w-fit bg-white/5 text-[7px] p-[0.6em] border border-white/20 sm:text-[9px] md:text-[11px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]"
-                  >
-                    <div
-                      className="w-[86px] h-[96px] bg-cover bg-center mb-[0.5em] sm:w-[120px] md:w-[150px] lg:w-[180px] xl:w-[210px] 2xl:w-[246px] sm:h-[130px] md:h-[160px] lg:h-[200px] xl:h-[240px] 2xl:h-[270px]"
-                      style={{ backgroundImage: `url(${poster.src})` }}
-                    ></div>
-
-                    <h5 className="w-[12ch] font-bold text-[9px] uppercase overflow-hidden text-nowrap text-ellipsis sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">
-                      {name}
-                    </h5>
-                    <p className="w-[14ch] font-medium uppercase overflow-hidden text-nowrap text-ellipsis">
-                      {desc}
-                    </p>
-                    <hr className="border-t-white/20 my-[0.5em]" />
-
-                    <div className="text-[6px] text-[#f29d38] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px]">
-                      <StarRating rating={rating} />
-                    </div>
-
-                    <div className="flex items-baseline gap-x-[0.5em]">
-                      <p className="font-semibold text-[17px] text-[#75F94C] sm:text-[24px] md:text-[30px] lg:text-[36px] xl:text-[42px] 2xl:text-[46px]">
-                        ${discountPrice}
-                      </p>
-                      <p className="line-through">${originalPrice}</p>
-                    </div>
-                  </article>
-                )
-              )}
-            </div>
+            <RecentActivities
+              displayedProducts={displayedProducts}
+              productsPerPage={productsPerPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+            />
 
             {/* Transaction history */}
             <h3 className="font-semibold text-[15px] mt-[1.2em] mb-[0.7em] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[35px] 2xl:text-[40px]">

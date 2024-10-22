@@ -72,16 +72,16 @@ export default function Footer() {
             <ul className="uppercase text-[calc(1em+1px)]">
               <h4 className="font-medium text-[1.25em]">Company</h4>
               <li className="w-fit mt-[0.8em] opacity-70 hover:opacity-90">
-                <Link href="/">Products</Link>
+                <Link href="/">Home</Link>
               </li>
               <li className="w-fit mt-[0.8em] opacity-70 hover:opacity-90">
-                <Link href="/">Blog</Link>
+                <Link href="/shop-page">Store</Link>
               </li>
               <li className="w-fit mt-[0.8em] opacity-70 hover:opacity-90">
-                <Link href="/">About</Link>
+                <Link href="/about">About</Link>
               </li>
               <li className="w-fit mt-[0.8em] opacity-70 hover:opacity-90">
-                <Link href="/">Contact</Link>
+                <Link href="/contact">Contact</Link>
               </li>
             </ul>
 
