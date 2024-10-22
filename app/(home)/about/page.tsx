@@ -13,6 +13,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import ProductSearchBar from "@/components/product-search/product-search";
+import Navbar from "@/components/navbar/navbar";
 import FeedbackCard from "./_components/feedback-card";
 import Footer from "@/components/footer/footer";
 
@@ -126,6 +127,7 @@ function AboutPage() {
   return (
     <>
       <ProductSearchBar />
+      <Navbar />
       <section className="bg-[#051301] font-primaryFont text-white">
         {/* Header */}
         <div

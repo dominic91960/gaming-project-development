@@ -98,7 +98,8 @@ export default function Navbar() {
   const [selectedSubMenu, setSelectedSubMenu] = useState("");
   const [subMenuData, setSubMenuData] = useState<string[]>([]);
   const [isContentChanged, setIsContentChanged] = useState(false);
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext) || {};
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
@@ -163,9 +164,9 @@ export default function Navbar() {
                 Home
               </Link>
               <Link
-                href="/products"
+                href="/shop-page"
                 className={`hover:opacity-80 ${
-                  path.startsWith("/about") ? "text-[#0BDB45]" : ""
+                  path.startsWith("/shop-page") ? "text-[#0BDB45]" : ""
                 }`}
               >
                 Store
@@ -194,11 +195,16 @@ export default function Navbar() {
                 <IoMdHeartEmpty />
               </Link>
 
-              <Link href="/" className="hover:scale-110">
+              <Link href="/" className="hover:scale-110 ">
                 <IoIosCart />
               </Link>
 
-              <Link href="/sign-in" className="hover:scale-110">
+              <Link
+                href="/sign-in"
+                className={`hover:scale-110 ${
+                  path.startsWith("/sign") ? "text-[#0BDB45]" : ""
+                }`}
+              >
                 {user?.profile_image ? (
                   <Image
                     src={
@@ -266,9 +272,9 @@ export default function Navbar() {
           Home
         </Link>
         <Link
-          href="/products"
+          href="/shop-page"
           className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
-            path.startsWith("/about") ? "text-[#0BDB45]" : ""
+            path.startsWith("/shop-page") ? "text-[#0BDB45]" : ""
           }`}
         >
           Store
