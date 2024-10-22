@@ -10,8 +10,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Transaction, columns } from "./columns";
-import { DataTable } from "./data-table";
+import { Transaction, columns } from "./components/columns";
+import { DataTable } from "./components/data-table";
 
 import { FaEye } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
@@ -21,7 +21,6 @@ import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
 import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
-import StarRating from "../_components/star-rating";
 import Footer from "@/components/footer/footer";
 import AccountInfo from "./components/account-info";
 import SecurityInfo from "./components/security-info";
@@ -49,103 +48,248 @@ const profile = {
 const recentActivity = [
   {
     poster: samplePic,
-    name: "1Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    name: "Greed Fall",
+    desc: "Explore uncharted new lands as you set foot on a remote island seeping with magic, and filled with riches, lost secrets, and fantastic creatures.",
     rating: 5,
     originalPrice: 299,
     discountPrice: 399,
   },
   {
     poster: samplePic,
-    name: "2Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
-    originalPrice: 299,
-    discountPrice: 399,
+    name: "Cyberpunk 2077",
+    desc: "An open-world RPG set in the dystopian future, where you can explore a massive city and complete missions to gain power and influence.",
+    rating: 4.5,
+    originalPrice: 199,
+    discountPrice: 249,
   },
   {
     poster: samplePic,
-    name: "3Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
-    originalPrice: 299,
-    discountPrice: 399,
+    name: "Assassin's Creed Valhalla",
+    desc: "Join Eivor and lead a Viking clan to glory. Build settlements, wage wars, and uncover a grand storyline in this action-packed RPG.",
+    rating: 4.8,
+    originalPrice: 329,
+    discountPrice: 379,
   },
   {
     poster: samplePic,
-    name: "4Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
-    originalPrice: 299,
-    discountPrice: 399,
+    name: "FIFA 2023",
+    desc: "Experience the latest iteration of the iconic soccer series with enhanced graphics and real-life player mechanics.",
+    rating: 4.2,
+    originalPrice: 249,
+    discountPrice: 299,
   },
   {
     poster: samplePic,
-    name: "5Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
-    originalPrice: 299,
-    discountPrice: 399,
+    name: "NBA 2K23",
+    desc: "Hit the courts with the latest in basketball simulation. Enjoy an authentic NBA experience with realistic gameplay and team management.",
+    rating: 4.0,
+    originalPrice: 199,
+    discountPrice: 259,
   },
   {
     poster: samplePic,
-    name: "6Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
+    name: "Call of Duty: Modern Warfare",
+    desc: "Enter the battlefield in this intense first-person shooter with advanced weapons, high-end graphics, and a gripping campaign mode.",
+    rating: 4.7,
     originalPrice: 299,
-    discountPrice: 399,
+    discountPrice: 349,
   },
   {
     poster: samplePic,
-    name: "7Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
-    originalPrice: 299,
-    discountPrice: 399,
+    name: "Red Dead Redemption 2",
+    desc: "Step into the Wild West with this stunning open-world game where you can explore a vast world filled with danger and intrigue.",
+    rating: 4.9,
+    originalPrice: 399,
+    discountPrice: 499,
   },
   {
     poster: samplePic,
-    name: "8Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
-    originalPrice: 299,
-    discountPrice: 399,
+    name: "Watch Dogs Legion",
+    desc: "Join the resistance and hack your way through London in this thrilling open-world adventure that combines action and technology.",
+    rating: 4.1,
+    originalPrice: 279,
+    discountPrice: 339,
   },
   {
     poster: samplePic,
-    name: "9Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
-    originalPrice: 299,
-    discountPrice: 399,
+    name: "Far Cry 6",
+    desc: "Fight to liberate a tropical island from a ruthless dictator in this action-packed first-person shooter.",
+    rating: 4.4,
+    originalPrice: 259,
+    discountPrice: 309,
   },
   {
     poster: samplePic,
-    name: "10Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
-    originalPrice: 299,
-    discountPrice: 399,
+    name: "Spider-Man: Miles Morales",
+    desc: "Swing into action as Miles Morales in this follow-up to the hit Spider-Man game, featuring new powers and an exciting storyline.",
+    rating: 4.9,
+    originalPrice: 349,
+    discountPrice: 429,
   },
   {
     poster: samplePic,
-    name: "11Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    name: "The Last of Us Part II",
+    desc: "Experience the emotionally charged and action-filled sequel to the critically acclaimed The Last of Us, with a deep and engaging story.",
     rating: 5,
-    originalPrice: 299,
-    discountPrice: 399,
+    originalPrice: 399,
+    discountPrice: 499,
   },
   {
     poster: samplePic,
-    name: "12Greed Fall",
-    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
-    rating: 5,
+    name: "Horizon Zero Dawn",
+    desc: "Explore a beautiful post-apocalyptic world filled with mechanical creatures and uncover the secrets of the past.",
+    rating: 4.8,
     originalPrice: 299,
-    discountPrice: 399,
+    discountPrice: 379,
+  },
+  {
+    poster: samplePic,
+    name: "God of War",
+    desc: "Join Kratos on an epic journey through Norse mythology in this action-adventure game with breathtaking visuals and a gripping story.",
+    rating: 4.9,
+    originalPrice: 349,
+    discountPrice: 449,
+  },
+  {
+    poster: samplePic,
+    name: "Halo Infinite",
+    desc: "Return to the world of Halo in this thrilling installment with expansive environments, powerful weapons, and intense multiplayer action.",
+    rating: 4.6,
+    originalPrice: 299,
+    discountPrice: 349,
+  },
+  {
+    poster: samplePic,
+    name: "Doom Eternal",
+    desc: "Take on the role of the Doom Slayer in this fast-paced and brutal first-person shooter with non-stop action.",
+    rating: 4.5,
+    originalPrice: 249,
+    discountPrice: 299,
+  },
+  {
+    poster: samplePic,
+    name: "Wolfenstein II: The New Colossus",
+    desc: "Fight to liberate America from Nazi control in this alternate-history first-person shooter with high-stakes missions and gripping gameplay.",
+    rating: 4.3,
+    originalPrice: 229,
+    discountPrice: 279,
+  },
+  {
+    poster: samplePic,
+    name: "Final Fantasy XV",
+    desc: "Join Prince Noctis and his friends on an epic journey in this action-packed role-playing game with stunning visuals and engaging combat.",
+    rating: 4.8,
+    originalPrice: 369,
+    discountPrice: 449,
+  },
+  {
+    poster: samplePic,
+    name: "Ghost of Tsushima",
+    desc: "Become a samurai warrior and defend your homeland from invaders in this visually stunning open-world game.",
+    rating: 4.9,
+    originalPrice: 349,
+    discountPrice: 429,
+  },
+  {
+    poster: samplePic,
+    name: "Resident Evil Village",
+    desc: "Survive the horrors of a mysterious village in this atmospheric and terrifying entry in the Resident Evil series.",
+    rating: 4.7,
+    originalPrice: 299,
+    discountPrice: 369,
+  },
+  {
+    poster: samplePic,
+    name: "Elden Ring",
+    desc: "Explore a vast open world and take on powerful enemies in this highly anticipated action RPG from the creators of Dark Souls.",
+    rating: 5,
+    originalPrice: 399,
+    discountPrice: 499,
   },
 ];
 
 const transactions = [
+  {
+    orderId: "#112Htk",
+    date: "2023/11/10",
+    username: "Ethan Clark",
+    total: 89.99,
+    products: [
+      {
+        productId: "#prd101",
+        poster: samplePic,
+        name: "Cyberpunk 2077",
+        price: 29.99,
+      },
+      {
+        productId: "#prd102",
+        poster: samplePic,
+        name: "Assassin's Creed Valhalla",
+        price: 34.99,
+      },
+      {
+        productId: "#prd103",
+        poster: samplePic,
+        name: "Far Cry 6",
+        price: 23.49,
+      },
+      {
+        productId: "#prd104",
+        poster: samplePic,
+        name: "Watch Dogs Legion",
+        price: 24.99,
+      },
+      {
+        productId: "#prd105",
+        poster: samplePic,
+        name: "Red Dead Redemption 2",
+        price: 40.0,
+      },
+      {
+        productId: "#prd106",
+        poster: samplePic,
+        name: "Spider-Man Miles Morales",
+        price: 29.5,
+      },
+      {
+        productId: "#prd107",
+        poster: samplePic,
+        name: "The Last of Us Part II",
+        price: 35.5,
+      },
+      {
+        productId: "#prd108",
+        poster: samplePic,
+        name: "Ghost of Tsushima",
+        price: 21.5,
+      },
+      {
+        productId: "#prd109",
+        poster: samplePic,
+        name: "Halo Infinite",
+        price: 13.0,
+      },
+      {
+        productId: "#prd110",
+        poster: samplePic,
+        name: "FIFA 2023",
+        price: 15.99,
+      },
+      {
+        productId: "#prd111",
+        poster: samplePic,
+        name: "NBA 2K23",
+        price: 18.5,
+      },
+      {
+        productId: "#prd112",
+        poster: samplePic,
+        name: "Call of Duty: Modern Warfare",
+        price: 19.99,
+      },
+    ],
+    coupon: 40.0,
+  },
   {
     orderId: "#546FGd",
     date: "2023/08/04",
@@ -168,46 +312,235 @@ const transactions = [
     coupon: 5.99,
   },
   {
-    orderId: "#546FGw",
-    date: "2023/08/04",
-    username: "Dominic Brian",
-    total: 12.99,
+    orderId: "#324TYb",
+    date: "2023/08/12",
+    username: "Sarah Connor",
+    total: 19.35,
     products: [
       {
-        productId: "#rid294",
+        productId: "#pmk876",
         poster: samplePic,
-        name: "Greed Fall",
+        name: "Cyberpunk 2077",
+        price: 29.99,
+      },
+      {
+        productId: "#ptr567",
+        poster: samplePic,
+        name: "The Witcher 3",
+        price: 24.5,
+      },
+    ],
+    coupon: 10.99,
+  },
+  {
+    orderId: "#872HFk",
+    date: "2023/09/02",
+    username: "John Doe",
+    total: 8.75,
+    products: [
+      {
+        productId: "#otg123",
+        poster: samplePic,
+        name: "Assassin's Creed Valhalla",
+        price: 14.5,
+      },
+      {
+        productId: "#kjl994",
+        poster: samplePic,
+        name: "Halo Infinite",
+        price: 13.0,
+      },
+    ],
+    coupon: 7.99,
+  },
+  {
+    orderId: "#672Ghf",
+    date: "2023/09/15",
+    username: "Alice Smith",
+    total: 6.49,
+    products: [
+      {
+        productId: "#nmw879",
+        poster: samplePic,
+        name: "FIFA 2023",
+        price: 15.99,
+      },
+      {
+        productId: "#bgt560",
+        poster: samplePic,
+        name: "NBA 2K23",
+        price: 18.5,
+      },
+    ],
+    coupon: 12.99,
+  },
+  {
+    orderId: "#214Kmn",
+    date: "2023/09/25",
+    username: "Michael Johnson",
+    total: 4.99,
+    products: [
+      {
+        productId: "#qwe938",
+        poster: samplePic,
+        name: "Resident Evil Village",
+        price: 17.5,
+      },
+      {
+        productId: "#vbn543",
+        poster: samplePic,
+        name: "Call of Duty",
+        price: 19.5,
+      },
+    ],
+    coupon: 15.99,
+  },
+  {
+    orderId: "#874Wkm",
+    date: "2023/10/01",
+    username: "Emma Taylor",
+    total: 13.45,
+    products: [
+      {
+        productId: "#rgh295",
+        poster: samplePic,
+        name: "Far Cry 6",
         price: 23.99,
       },
       {
-        productId: "#ri6s94",
+        productId: "#tyu883",
         poster: samplePic,
-        name: "Sample game",
-        price: 12.5,
+        name: "Watch Dogs",
+        price: 20.5,
       },
     ],
-    coupon: 5.99,
+    coupon: 11.99,
   },
   {
-    orderId: "#546FGa",
-    date: "2023/02/14",
-    username: "Dominic Brian",
-    total: 6.5,
+    orderId: "#913Zkv",
+    date: "2023/10/08",
+    username: "Sophia Brown",
+    total: 7.89,
     products: [
       {
-        productId: "#rid294",
+        productId: "#plr937",
         poster: samplePic,
-        name: "Greed Fall",
-        price: 12.5,
+        name: "Horizon Zero Dawn",
+        price: 22.99,
       },
       {
-        productId: "#ri6s94",
+        productId: "#lkj283",
         poster: samplePic,
-        name: "Sample game",
-        price: 12.5,
+        name: "Ghost of Tsushima",
+        price: 21.5,
       },
     ],
-    coupon: 5.99,
+    coupon: 15.99,
+  },
+  {
+    orderId: "#526Qlp",
+    date: "2023/10/12",
+    username: "Daniel White",
+    total: 5.75,
+    products: [
+      {
+        productId: "#osd945",
+        poster: samplePic,
+        name: "Elden Ring",
+        price: 27.5,
+      },
+      {
+        productId: "#gth356",
+        poster: samplePic,
+        name: "Dark Souls 3",
+        price: 25.0,
+      },
+    ],
+    coupon: 20.99,
+  },
+  {
+    orderId: "#245Yks",
+    date: "2023/10/20",
+    username: "Olivia Harris",
+    total: 11.59,
+    products: [
+      {
+        productId: "#poj953",
+        poster: samplePic,
+        name: "Spider-Man Miles Morales",
+        price: 29.5,
+      },
+      {
+        productId: "#nty829",
+        poster: samplePic,
+        name: "God of War",
+        price: 30.0,
+      },
+    ],
+    coupon: 25.99,
+  },
+  {
+    orderId: "#731Jwe",
+    date: "2023/10/25",
+    username: "Liam Thompson",
+    total: 16.25,
+    products: [
+      {
+        productId: "#zxk273",
+        poster: samplePic,
+        name: "Red Dead Redemption 2",
+        price: 40.0,
+      },
+      {
+        productId: "#fdp763",
+        poster: samplePic,
+        name: "Final Fantasy XV",
+        price: 38.0,
+      },
+    ],
+    coupon: 30.99,
+  },
+  {
+    orderId: "#128Pmg",
+    date: "2023/10/28",
+    username: "James Lee",
+    total: 14.99,
+    products: [
+      {
+        productId: "#tyu372",
+        poster: samplePic,
+        name: "Doom Eternal",
+        price: 32.5,
+      },
+      {
+        productId: "#iru938",
+        poster: samplePic,
+        name: "Wolfenstein 2",
+        price: 30.0,
+      },
+    ],
+    coupon: 25.99,
+  },
+  {
+    orderId: "#349Klm",
+    date: "2023/11/01",
+    username: "Charlotte Martinez",
+    total: 18.49,
+    products: [
+      {
+        productId: "#plo583",
+        poster: samplePic,
+        name: "The Last of Us Part II",
+        price: 35.5,
+      },
+      {
+        productId: "#zxc764",
+        poster: samplePic,
+        name: "Uncharted 4",
+        price: 33.5,
+      },
+    ],
+    coupon: 28.99,
   },
 ];
 
@@ -286,8 +619,8 @@ export default function ProfilePage() {
 
           {/* Ordered products */}
           {getTransaction(row.original.orderId).products.map(
-            ({ productId, poster, name, price }) => (
-              <div key={productId} className="flex justify-between">
+            ({ productId, poster, name, price }, index) => (
+              <div key={index} className="flex justify-between">
                 <Image src={poster} alt={name} className="size-[20px]" />
                 <p>{name}</p>
                 <p>{productId}</p>
@@ -427,7 +760,11 @@ export default function ProfilePage() {
                 )
               )}
             </div>
-            <div className="flex justify-center gap-x-[1em] mt-[1.8em] text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+            <div
+              className={`${
+                totalPages < 2 ? "hidden" : ""
+              } flex justify-center gap-x-[1em] mt-[1.8em] text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]`}
+            >
               <button
                 className="hover:text-[#45F882] disabled:hover:text-white disabled:opacity-70"
                 onClick={() => setCurrentPage((prev) => prev - 1)}

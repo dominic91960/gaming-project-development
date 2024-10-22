@@ -35,7 +35,7 @@ const RecentActivityCard: React.FC<RecentActivityCardProps> = ({
       <hr className="border-t-white/20 my-[0.5em]" />
 
       <div className="text-[6px] text-[#f29d38] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px]">
-        <StarRating rating={rating} />
+        <StarRating rating={Math.round(rating)} />
       </div>
 
       <div className="flex items-baseline gap-x-[0.5em]">
