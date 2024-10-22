@@ -3,19 +3,9 @@
 import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Transaction, columns } from "./components/transaction-columns";
 import { DataTable } from "./components/transaction-data-table";
-
-import { FaEye } from "react-icons/fa";
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
 
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
@@ -24,7 +14,6 @@ import samplePic from "@/public/images/sample-pic.png";
 import Footer from "@/components/footer/footer";
 import AccountInfo from "./components/account-info";
 import SecurityInfo from "./components/security-info";
-import RecentActivityCard from "./components/recent-activity-card";
 import TransactionAction from "./components/transaction-action";
 import RecentActivities from "./components/recent-activities";
 
@@ -211,87 +200,91 @@ const recentActivity = [
 ];
 
 const transactions = [
-  {
-    orderId: "#112Htk",
-    date: "2023/11/10",
-    username: "Ethan Clark",
-    total: 89.99,
-    products: [
-      {
-        productId: "#prd101",
-        poster: samplePic,
-        name: "Cyberpunk 2077",
-        price: 29.99,
-      },
-      {
-        productId: "#prd102",
-        poster: samplePic,
-        name: "Assassin's Creed Valhalla",
-        price: 34.99,
-      },
-      {
-        productId: "#prd103",
-        poster: samplePic,
-        name: "Far Cry 6",
-        price: 23.49,
-      },
-      {
-        productId: "#prd104",
-        poster: samplePic,
-        name: "Watch Dogs Legion",
-        price: 24.99,
-      },
-      {
-        productId: "#prd105",
-        poster: samplePic,
-        name: "Red Dead Redemption 2",
-        price: 40.0,
-      },
-      {
-        productId: "#prd106",
-        poster: samplePic,
-        name: "Spider-Man Miles Morales",
-        price: 29.5,
-      },
-      {
-        productId: "#prd107",
-        poster: samplePic,
-        name: "The Last of Us Part II",
-        price: 35.5,
-      },
-      {
-        productId: "#prd108",
-        poster: samplePic,
-        name: "Ghost of Tsushima",
-        price: 21.5,
-      },
-      {
-        productId: "#prd109",
-        poster: samplePic,
-        name: "Halo Infinite",
-        price: 13.0,
-      },
-      {
-        productId: "#prd110",
-        poster: samplePic,
-        name: "FIFA 2023",
-        price: 15.99,
-      },
-      {
-        productId: "#prd111",
-        poster: samplePic,
-        name: "NBA 2K23",
-        price: 18.5,
-      },
-      {
-        productId: "#prd112",
-        poster: samplePic,
-        name: "Call of Duty: Modern Warfare",
-        price: 19.99,
-      },
-    ],
-    coupon: 40.0,
-  },
+  // {
+  //   orderId: "#112Htk",
+  //   date: "2023/11/10",
+  //   username: "Ethan Clark",
+  //   total: 89.99,
+  //   products: [
+  //     {
+  //       productId: "#prd101",
+  //       poster: samplePic,
+  //       name: "Cyberpunk 2077",
+  //       price: 29.99,
+  //       quantity: 2,
+  //     },
+  //     {
+  //       productId: "#prd102",
+  //       poster: samplePic,
+  //       name: "Assassin's Creed Valhalla",
+  //       price: 34.99,
+  //       quantity: 1,
+  //     },
+  //     {
+  //       productId: "#prd103",
+  //       poster: samplePic,
+  //       name: "Far Cry 6",
+  //       price: 23.49,
+  //       quantity: 1,
+  //     },
+  //     {
+  //       productId: "#prd104",
+  //       poster: samplePic,
+  //       name: "Watch Dogs Legion",
+  //       price: 24.99,
+  //       quantity: 1,
+  //     },
+  //     {
+  //       productId: "#prd105",
+  //       poster: samplePic,
+  //       name: "Red Dead Redemption 2",
+  //       price: 40.0,
+  //     },
+  //     {
+  //       productId: "#prd106",
+  //       poster: samplePic,
+  //       name: "Spider-Man Miles Morales",
+  //       price: 29.5,
+  //     },
+  //     {
+  //       productId: "#prd107",
+  //       poster: samplePic,
+  //       name: "The Last of Us Part II",
+  //       price: 35.5,
+  //     },
+  //     {
+  //       productId: "#prd108",
+  //       poster: samplePic,
+  //       name: "Ghost of Tsushima",
+  //       price: 21.5,
+  //     },
+  //     {
+  //       productId: "#prd109",
+  //       poster: samplePic,
+  //       name: "Halo Infinite",
+  //       price: 13.0,
+  //     },
+  //     {
+  //       productId: "#prd110",
+  //       poster: samplePic,
+  //       name: "FIFA 2023",
+  //       price: 15.99,
+  //     },
+  //     {
+  //       productId: "#prd111",
+  //       poster: samplePic,
+  //       name: "NBA 2K23",
+  //       price: 18.5,
+  //     },
+  //     {
+  //       productId: "#prd112",
+  //       poster: samplePic,
+  //       name: "Call of Duty: Modern Warfare",
+  //       price: 19.99,
+  //     },
+  //   ],
+  //   coupon: 40.0,
+  // },
   {
     orderId: "#546FGd",
     date: "2023/08/04",
@@ -303,247 +296,249 @@ const transactions = [
         poster: samplePic,
         name: "Greed Fall",
         price: 12.5,
+        quantity: 2,
       },
       {
         productId: "#ri6s94",
         poster: samplePic,
         name: "Sample game",
         price: 11.5,
+        quantity: 3,
       },
     ],
     coupon: 5.99,
   },
-  {
-    orderId: "#324TYb",
-    date: "2023/08/12",
-    username: "Sarah Connor",
-    total: 19.35,
-    products: [
-      {
-        productId: "#pmk876",
-        poster: samplePic,
-        name: "Cyberpunk 2077",
-        price: 29.99,
-      },
-      {
-        productId: "#ptr567",
-        poster: samplePic,
-        name: "The Witcher 3",
-        price: 24.5,
-      },
-    ],
-    coupon: 10.99,
-  },
-  {
-    orderId: "#872HFk",
-    date: "2023/09/02",
-    username: "John Doe",
-    total: 8.75,
-    products: [
-      {
-        productId: "#otg123",
-        poster: samplePic,
-        name: "Assassin's Creed Valhalla",
-        price: 14.5,
-      },
-      {
-        productId: "#kjl994",
-        poster: samplePic,
-        name: "Halo Infinite",
-        price: 13.0,
-      },
-    ],
-    coupon: 7.99,
-  },
-  {
-    orderId: "#672Ghf",
-    date: "2023/09/15",
-    username: "Alice Smith",
-    total: 6.49,
-    products: [
-      {
-        productId: "#nmw879",
-        poster: samplePic,
-        name: "FIFA 2023",
-        price: 15.99,
-      },
-      {
-        productId: "#bgt560",
-        poster: samplePic,
-        name: "NBA 2K23",
-        price: 18.5,
-      },
-    ],
-    coupon: 12.99,
-  },
-  {
-    orderId: "#214Kmn",
-    date: "2023/09/25",
-    username: "Michael Johnson",
-    total: 4.99,
-    products: [
-      {
-        productId: "#qwe938",
-        poster: samplePic,
-        name: "Resident Evil Village",
-        price: 17.5,
-      },
-      {
-        productId: "#vbn543",
-        poster: samplePic,
-        name: "Call of Duty",
-        price: 19.5,
-      },
-    ],
-    coupon: 15.99,
-  },
-  {
-    orderId: "#874Wkm",
-    date: "2023/10/01",
-    username: "Emma Taylor",
-    total: 13.45,
-    products: [
-      {
-        productId: "#rgh295",
-        poster: samplePic,
-        name: "Far Cry 6",
-        price: 23.99,
-      },
-      {
-        productId: "#tyu883",
-        poster: samplePic,
-        name: "Watch Dogs",
-        price: 20.5,
-      },
-    ],
-    coupon: 11.99,
-  },
-  {
-    orderId: "#913Zkv",
-    date: "2023/10/08",
-    username: "Sophia Brown",
-    total: 7.89,
-    products: [
-      {
-        productId: "#plr937",
-        poster: samplePic,
-        name: "Horizon Zero Dawn",
-        price: 22.99,
-      },
-      {
-        productId: "#lkj283",
-        poster: samplePic,
-        name: "Ghost of Tsushima",
-        price: 21.5,
-      },
-    ],
-    coupon: 15.99,
-  },
-  {
-    orderId: "#526Qlp",
-    date: "2023/10/12",
-    username: "Daniel White",
-    total: 5.75,
-    products: [
-      {
-        productId: "#osd945",
-        poster: samplePic,
-        name: "Elden Ring",
-        price: 27.5,
-      },
-      {
-        productId: "#gth356",
-        poster: samplePic,
-        name: "Dark Souls 3",
-        price: 25.0,
-      },
-    ],
-    coupon: 20.99,
-  },
-  {
-    orderId: "#245Yks",
-    date: "2023/10/20",
-    username: "Olivia Harris",
-    total: 11.59,
-    products: [
-      {
-        productId: "#poj953",
-        poster: samplePic,
-        name: "Spider-Man Miles Morales",
-        price: 29.5,
-      },
-      {
-        productId: "#nty829",
-        poster: samplePic,
-        name: "God of War",
-        price: 30.0,
-      },
-    ],
-    coupon: 25.99,
-  },
-  {
-    orderId: "#731Jwe",
-    date: "2023/10/25",
-    username: "Liam Thompson",
-    total: 16.25,
-    products: [
-      {
-        productId: "#zxk273",
-        poster: samplePic,
-        name: "Red Dead Redemption 2",
-        price: 40.0,
-      },
-      {
-        productId: "#fdp763",
-        poster: samplePic,
-        name: "Final Fantasy XV",
-        price: 38.0,
-      },
-    ],
-    coupon: 30.99,
-  },
-  {
-    orderId: "#128Pmg",
-    date: "2023/10/28",
-    username: "James Lee",
-    total: 14.99,
-    products: [
-      {
-        productId: "#tyu372",
-        poster: samplePic,
-        name: "Doom Eternal",
-        price: 32.5,
-      },
-      {
-        productId: "#iru938",
-        poster: samplePic,
-        name: "Wolfenstein 2",
-        price: 30.0,
-      },
-    ],
-    coupon: 25.99,
-  },
-  {
-    orderId: "#349Klm",
-    date: "2023/11/01",
-    username: "Charlotte Martinez",
-    total: 18.49,
-    products: [
-      {
-        productId: "#plo583",
-        poster: samplePic,
-        name: "The Last of Us Part II",
-        price: 35.5,
-      },
-      {
-        productId: "#zxc764",
-        poster: samplePic,
-        name: "Uncharted 4",
-        price: 33.5,
-      },
-    ],
-    coupon: 28.99,
-  },
+  // {
+  //   orderId: "#324TYb",
+  //   date: "2023/08/12",
+  //   username: "Sarah Connor",
+  //   total: 19.35,
+  //   products: [
+  //     {
+  //       productId: "#pmk876",
+  //       poster: samplePic,
+  //       name: "Cyberpunk 2077",
+  //       price: 29.99,
+  //     },
+  //     {
+  //       productId: "#ptr567",
+  //       poster: samplePic,
+  //       name: "The Witcher 3",
+  //       price: 24.5,
+  //     },
+  //   ],
+  //   coupon: 10.99,
+  // },
+  // {
+  //   orderId: "#872HFk",
+  //   date: "2023/09/02",
+  //   username: "John Doe",
+  //   total: 8.75,
+  //   products: [
+  //     {
+  //       productId: "#otg123",
+  //       poster: samplePic,
+  //       name: "Assassin's Creed Valhalla",
+  //       price: 14.5,
+  //     },
+  //     {
+  //       productId: "#kjl994",
+  //       poster: samplePic,
+  //       name: "Halo Infinite",
+  //       price: 13.0,
+  //     },
+  //   ],
+  //   coupon: 7.99,
+  // },
+  // {
+  //   orderId: "#672Ghf",
+  //   date: "2023/09/15",
+  //   username: "Alice Smith",
+  //   total: 6.49,
+  //   products: [
+  //     {
+  //       productId: "#nmw879",
+  //       poster: samplePic,
+  //       name: "FIFA 2023",
+  //       price: 15.99,
+  //     },
+  //     {
+  //       productId: "#bgt560",
+  //       poster: samplePic,
+  //       name: "NBA 2K23",
+  //       price: 18.5,
+  //     },
+  //   ],
+  //   coupon: 12.99,
+  // },
+  // {
+  //   orderId: "#214Kmn",
+  //   date: "2023/09/25",
+  //   username: "Michael Johnson",
+  //   total: 4.99,
+  //   products: [
+  //     {
+  //       productId: "#qwe938",
+  //       poster: samplePic,
+  //       name: "Resident Evil Village",
+  //       price: 17.5,
+  //     },
+  //     {
+  //       productId: "#vbn543",
+  //       poster: samplePic,
+  //       name: "Call of Duty",
+  //       price: 19.5,
+  //     },
+  //   ],
+  //   coupon: 15.99,
+  // },
+  // {
+  //   orderId: "#874Wkm",
+  //   date: "2023/10/01",
+  //   username: "Emma Taylor",
+  //   total: 13.45,
+  //   products: [
+  //     {
+  //       productId: "#rgh295",
+  //       poster: samplePic,
+  //       name: "Far Cry 6",
+  //       price: 23.99,
+  //     },
+  //     {
+  //       productId: "#tyu883",
+  //       poster: samplePic,
+  //       name: "Watch Dogs",
+  //       price: 20.5,
+  //     },
+  //   ],
+  //   coupon: 11.99,
+  // },
+  // {
+  //   orderId: "#913Zkv",
+  //   date: "2023/10/08",
+  //   username: "Sophia Brown",
+  //   total: 7.89,
+  //   products: [
+  //     {
+  //       productId: "#plr937",
+  //       poster: samplePic,
+  //       name: "Horizon Zero Dawn",
+  //       price: 22.99,
+  //     },
+  //     {
+  //       productId: "#lkj283",
+  //       poster: samplePic,
+  //       name: "Ghost of Tsushima",
+  //       price: 21.5,
+  //     },
+  //   ],
+  //   coupon: 15.99,
+  // },
+  // {
+  //   orderId: "#526Qlp",
+  //   date: "2023/10/12",
+  //   username: "Daniel White",
+  //   total: 5.75,
+  //   products: [
+  //     {
+  //       productId: "#osd945",
+  //       poster: samplePic,
+  //       name: "Elden Ring",
+  //       price: 27.5,
+  //     },
+  //     {
+  //       productId: "#gth356",
+  //       poster: samplePic,
+  //       name: "Dark Souls 3",
+  //       price: 25.0,
+  //     },
+  //   ],
+  //   coupon: 20.99,
+  // },
+  // {
+  //   orderId: "#245Yks",
+  //   date: "2023/10/20",
+  //   username: "Olivia Harris",
+  //   total: 11.59,
+  //   products: [
+  //     {
+  //       productId: "#poj953",
+  //       poster: samplePic,
+  //       name: "Spider-Man Miles Morales",
+  //       price: 29.5,
+  //     },
+  //     {
+  //       productId: "#nty829",
+  //       poster: samplePic,
+  //       name: "God of War",
+  //       price: 30.0,
+  //     },
+  //   ],
+  //   coupon: 25.99,
+  // },
+  // {
+  //   orderId: "#731Jwe",
+  //   date: "2023/10/25",
+  //   username: "Liam Thompson",
+  //   total: 16.25,
+  //   products: [
+  //     {
+  //       productId: "#zxk273",
+  //       poster: samplePic,
+  //       name: "Red Dead Redemption 2",
+  //       price: 40.0,
+  //     },
+  //     {
+  //       productId: "#fdp763",
+  //       poster: samplePic,
+  //       name: "Final Fantasy XV",
+  //       price: 38.0,
+  //     },
+  //   ],
+  //   coupon: 30.99,
+  // },
+  // {
+  //   orderId: "#128Pmg",
+  //   date: "2023/10/28",
+  //   username: "James Lee",
+  //   total: 14.99,
+  //   products: [
+  //     {
+  //       productId: "#tyu372",
+  //       poster: samplePic,
+  //       name: "Doom Eternal",
+  //       price: 32.5,
+  //     },
+  //     {
+  //       productId: "#iru938",
+  //       poster: samplePic,
+  //       name: "Wolfenstein 2",
+  //       price: 30.0,
+  //     },
+  //   ],
+  //   coupon: 25.99,
+  // },
+  // {
+  //   orderId: "#349Klm",
+  //   date: "2023/11/01",
+  //   username: "Charlotte Martinez",
+  //   total: 18.49,
+  //   products: [
+  //     {
+  //       productId: "#plo583",
+  //       poster: samplePic,
+  //       name: "The Last of Us Part II",
+  //       price: 35.5,
+  //     },
+  //     {
+  //       productId: "#zxc764",
+  //       poster: samplePic,
+  //       name: "Uncharted 4",
+  //       price: 33.5,
+  //     },
+  //   ],
+  //   coupon: 28.99,
+  // },
 ];
 
 interface RecentActivity {

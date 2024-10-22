@@ -1,6 +1,8 @@
 import React from "react";
-import Image, { StaticImageData } from "next/image";
+import { StaticImageData } from "next/image";
 
+import { Order, columns } from "./order-columns";
+import { DataTable } from "./order-data-table";
 import { Button } from "@/components/ui/button";
 import { Row } from "@tanstack/react-table";
 import {
@@ -18,6 +20,7 @@ interface TransactionActionProps {
     poster: StaticImageData;
     name: string;
     price: number;
+    quantity: number;
   }[];
   subTotal: number;
   coupon: number;
@@ -51,14 +54,7 @@ const TransactionAction: React.FC<TransactionActionProps> = ({
         <h4>Order No {row.original.orderId}</h4>
 
         {/* Ordered products */}
-        {products.map(({ productId, poster, name, price }, index) => (
-          <div key={index} className="flex justify-between">
-            <Image src={poster} alt={name} className="size-[20px]" />
-            <p>{name}</p>
-            <p>{productId}</p>
-            <p>${price}</p>
-          </div>
-        ))}
+        <DataTable columns={columns} data={products} />
 
         {/* Order subtotal */}
         <p>Items Subtotal: ${subTotal}</p>
