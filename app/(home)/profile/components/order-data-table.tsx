@@ -21,6 +21,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { MdOutlineSearchOff } from "react-icons/md";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -50,13 +51,16 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <Table>
+      <Table className="border-separate border-spacing-y-[2em] px-[0.4em] md:border-spacing-y-[1em] text-[1em]">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow
+              key={headerGroup.id}
+              className="hover:bg-inherit border-none"
+            >
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="text-white">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -75,9 +79,10 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                className="bg-white/5 hover:bg-white/10 cursor-pointer"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} className="py-[0.5em] max-w-[15ch]">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -85,26 +90,32 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+              <TableCell
+                colSpan={columns.length}
+                className="bg-white/5 hover:bg-black/5 cursor-pointer text-center"
+              >
+                <div className="flex flex-col items-center">
+                  <MdOutlineSearchOff className="text-[2em]" />
+                  <p className="animate-pulse">No products found.</p>
+                </div>
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
 
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center gap-x-[0.4em] text-[0.9em] px-[0.4em] pt-[0.1em]">
         <Button
-          variant="outline"
-          size="sm"
+          variant="secondary"
+          className="h-fit text-[1em] px-[1em] py-[0.5em] rounded-none"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
           Previous
         </Button>
         <Button
-          variant="outline"
-          size="sm"
+          variant="secondary"
+          className="h-fit text-[1em] px-[1em] py-[0.5em] rounded-none"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >

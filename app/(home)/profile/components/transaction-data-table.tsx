@@ -19,6 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { MdOutlineSearchOff } from "react-icons/md";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -76,7 +77,7 @@ export function DataTable<TData, TValue>({
                 className="bg-white/5 hover:bg-white/10 cursor-pointer"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} className="max-w-[15ch]">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -84,8 +85,14 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+              <TableCell
+                colSpan={columns.length}
+                className="bg-white/5 hover:bg-black/5 cursor-pointer text-center"
+              >
+                <div className="flex flex-col items-center">
+                  <MdOutlineSearchOff className="text-[2em]" />
+                  <p className="animate-pulse">No transactions found.</p>
+                </div>
               </TableCell>
             </TableRow>
           )}

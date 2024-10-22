@@ -30,7 +30,7 @@ export const columns: ColumnDef<Order>[] = [
         <Image
           src={row.original.poster}
           alt={row.original.name}
-          className="size-[40px]"
+          className="size-[3em]"
         />
       );
     },
@@ -41,10 +41,11 @@ export const columns: ColumnDef<Order>[] = [
       return (
         <Button
           variant="ghost"
+          className="h-fit text-[1em] px-[1em] py-[0.5em] rounded-none"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ms-[0.5em] size-[1em]" />
         </Button>
       );
     },
@@ -59,10 +60,11 @@ export const columns: ColumnDef<Order>[] = [
       return (
         <Button
           variant="ghost"
+          className="h-fit text-[1em] px-[1em] py-[0.5em] rounded-none"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Price
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ms-[0.5em] size-[1em]" />
         </Button>
       );
     },
