@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,9 @@ import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
 import StarRating from "../_components/star-rating";
 import Footer from "@/components/footer/footer";
+import AccountInfo from "./components/account-info";
+import SecurityInfo from "./components/security-info";
+import RecentActivityCard from "./components/recent-activity-card";
 
 const profile = {
   id: "b0ijjfb4343asc4848##56",
@@ -46,6 +49,78 @@ const profile = {
 };
 
 const recentActivity = [
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
+  {
+    poster: samplePic,
+    name: "Greed Fall",
+    desc: "Wishlist is a game key store offering top titles at unbeatable prices. Find and purchase game keys quickly and securely.",
+    rating: 5,
+    originalPrice: 299,
+    discountPrice: 399,
+  },
   {
     poster: samplePic,
     name: "Greed Fall",
@@ -138,7 +213,32 @@ const transactions = [
   },
 ];
 
+interface RecentActivity {
+  poster: StaticImageData;
+  name: string;
+  desc: string;
+  rating: number;
+  originalPrice: number;
+  discountPrice: number;
+}
+
 export default function ProfilePage() {
+  const productsPerPage = 5;
+  const totalPages = Math.ceil(recentActivity.length / productsPerPage);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [displayedProducts, setDisplayedProducts] = useState<RecentActivity[]>(
+    []
+  );
+
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * productsPerPage;
+
+    setDisplayedProducts(
+      recentActivity.slice(startIndex, startIndex + productsPerPage)
+    );
+  }, [currentPage]);
+
   const getTransaction = (selectedOrderId: string) =>
     transactions.filter(({ orderId }) => orderId === selectedOrderId)[0];
 
@@ -250,316 +350,28 @@ export default function ProfilePage() {
             {/* Container for account details and security details */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-[20px] sm:gap-[16px] md:gap-[20px] lg:gap-[26px] xl:gap-[32px] 2xl:gap-[38px]">
               {/* Account details */}
-              <menu
-                className="bg-gradient-to-b from-transparent to-white/30 text-[8px] p-[2em] border border-t-0 sm:text-[10px] md:col-span-7 md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
-                style={{
-                  borderImage:
-                    "linear-gradient(to bottom, transparent, #75F94C) 1",
-                }}
-              >
-                {/* Header */}
-                <p className="sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
-                  Manage your account&apos;s details.
-                </p>
-                <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-[15px] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[32px] 2xl:text-[35px]">
-                    Account Information
-                  </h3>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="h-fit text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[20px] uppercase px-[1em] py-[0.5em] rounded-sm"
-                  >
-                    Edit&nbsp;&nbsp;
-                    <FaPencilAlt />
-                  </Button>
-                </div>
-                <hr className="border-t-[#BCBCBC] mt-[0.1em] mb-[1.7em]" />
-
-                {/* Account info */}
-                <form>
-                  {/* ID */}
-                  <div className="flex items-center justify-between mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">ID: </span>
-                      {profile.id}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Username */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Username: </span>
-                      {profile.username}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Email */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Email: </span> {profile.email}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Language */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Language: </span>
-                      {profile.language}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* First name */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">First Name: </span>
-                      {profile.firstName}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Last name */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Last Name: </span>
-                      {profile.lastName}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Address */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Address: </span>
-                      {profile.address}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Postal code */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Postal Code: </span>
-                      {profile.postalCode}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* Region */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Region: </span>
-                      {profile.region}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  {/* DOB */}
-                  <div className="flex items-center justify-between  mb-[0.5em]">
-                    <p>
-                      <span className="font-bold">Date of Birth: </span>
-                      {profile.DOB}
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-                    >
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-                </form>
-              </menu>
+              <AccountInfo
+                id={profile.id}
+                avatar={profile.avatar}
+                username={profile.username}
+                email={profile.email}
+                city={profile.city}
+                country={profile.country}
+                language={profile.language}
+                firstName={profile.firstName}
+                lastName={profile.lastName}
+                address={profile.address}
+                postalCode={profile.postalCode}
+                region={profile.region}
+                DOB={profile.DOB}
+              />
 
               {/* Security details */}
-              <menu
-                className="bg-gradient-to-b from-transparent to-white/30 text-[8px] p-[2em] border border-t-0 sm:text-[10px] md:col-span-5 md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
-                style={{
-                  borderImage:
-                    "linear-gradient(to bottom, transparent, #75F94C) 1",
-                }}
-              >
-                {/* Header */}
-                <p className="sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
-                  Security details.
-                </p>
-                <h3 className="font-bold text-[15px] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[32px] 2xl:text-[35px]">
-                  Security
-                </h3>
-                <hr className="border-t-[#BCBCBC] mt-[0.1em]" />
-
-                {/* Security info */}
-                <form>
-                  {/* Password */}
-                  <div className="flex items-center justify-between my-[0.6em] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[21px] 2xl:text-[23px]">
-                    <p>
-                      <span className="font-bold text">Password: </span>
-                      <input
-                        type="password"
-                        value={profile.password}
-                        className="bg-transparent outline-none"
-                        readOnly
-                      />
-                    </p>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[8px] uppercase px-[0.5em] py-[0.5em] rounded-sm sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                    >
-                      Edit&nbsp;&nbsp;
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  <hr className="border-t-[#BCBCBC]" />
-
-                  <h4 className="font-bold text-[10px] mt-[0.6em] sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[21px] 2xl:text-[23px]">
-                    2-Step Verification
-                  </h4>
-
-                  <div className="mt-[0.3em]">
-                    <p className="flex items-center gap-x-[0.3em] text-[8px] sm:text-[8.5px] md:text-[8.75px] lg:text-[9px]">
-                      <FaCircleCheck className="text-[#0BDB45]" />
-                      Email
-                    </p>
-                    <p className="text-[8px] sm:text-[8.5px] md:text-[8.75px] lg:text-[9px]">
-                      Each time you log in with a new device, you&apos;ll be
-                      asked for the security code sent to v
-                    </p>
-                  </div>
-
-                  {/* Backup phone number */}
-                  <div className="flex items-center justify-between mt-[1.5em]">
-                    <div className="flex items-center gap-x-[0.4em]">
-                      <FaMobileAlt className="size-[12px] sm:size-[15px] md:size-[18px] lg:size-[21px] xl:size-[24px] 2xl:size-[27px]" />
-                      <div className="w-px h-[2.5em] bg-[#BCBCBC]"></div>
-                      <div className="text-[8px] sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
-                        <p className="font-semibold">
-                          Phone number used for backup class
-                        </p>
-                        <p>
-                          {profile.tel.replace(
-                            profile.tel.slice(0, 7),
-                            "*******"
-                          )}
-                        </p>
-                      </div>
-                    </div>
-
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[8px] uppercase px-[0.5em] py-[0.5em] rounded-sm sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                    >
-                      Edit&nbsp;&nbsp;
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-
-                  <hr className="border-t-[#BCBCBC] my-[0.6em]" />
-
-                  {/* Trusted devices */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-x-[0.4em]">
-                      <LuMonitor className="size-[12px] sm:size-[15px] md:size-[18px] lg:size-[21px] xl:size-[24px] 2xl:size-[27px]" />
-                      <div className="w-px h-[2.5em] bg-[#BCBCBC]"></div>
-                      <div className="text-[8px] sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
-                        <p className="font-semibold">Trusted devices</p>
-                        <p>
-                          You have <span>{profile.trustedDevices}</span> trusted
-                          devices
-                        </p>
-                      </div>
-                    </div>
-
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      className="h-fit text-[8px] uppercase px-[0.5em] py-[0.5em] rounded-sm sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                    >
-                      Edit&nbsp;&nbsp;
-                      <FaPencilAlt />
-                    </Button>
-                  </div>
-                </form>
-
-                <div className="mt-[1.5em]">
-                  <p className="text-justify text-[8px] sm:text-[8.5px] md:text-[8.75px] lg:text-[9px]">
-                    Each time you log in with a new device, you&apos;ll be asked
-                    for the security code sent toEach time you log in with a new
-                    device, you&apos;ll be asked for the security code sent to v
-                    v
-                  </p>
-
-                  <p className="mt-[0.5em] text-justify text-[8px] sm:text-[8.5px] md:text-[8.75px] lg:text-[9px]">
-                    Each time you log in with a new device, you&apos;ll be asked
-                    for the security code sent toEach time you log in with a new
-                    device, you&apos;ll be asked for the security code sent to v
-                    vEach time you log in with a new device, you&apos;ll be
-                    asked for the security code sent toEach time you log in with
-                    a new device, you&apos;ll be asked for the security code
-                    sent to v v
-                  </p>
-                </div>
-              </menu>
+              <SecurityInfo
+                password={profile.password}
+                tel={profile.password}
+                trustedDevices={profile.trustedDevices}
+              />
             </div>
 
             {/* Recent activity */}
@@ -567,43 +379,20 @@ export default function ProfilePage() {
               Recent Activity
             </h3>
             <div className="flex justify-between">
-              {recentActivity.map(
-                ({
-                  poster,
-                  name,
-                  desc,
-                  rating,
-                  originalPrice,
-                  discountPrice,
-                }) => (
-                  <article
-                    key={name}
-                    className="w-fit bg-white/5 text-[7px] p-[0.6em] border border-white/20 sm:text-[9px] md:text-[11px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]"
-                  >
-                    <div
-                      className="w-[86px] h-[96px] bg-cover bg-center mb-[0.5em] sm:w-[120px] md:w-[150px] lg:w-[180px] xl:w-[210px] 2xl:w-[246px] sm:h-[130px] md:h-[160px] lg:h-[200px] xl:h-[240px] 2xl:h-[270px]"
-                      style={{ backgroundImage: `url(${poster.src})` }}
-                    ></div>
-
-                    <h5 className="w-[12ch] font-bold text-[9px] uppercase overflow-hidden text-nowrap text-ellipsis sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">
-                      {name}
-                    </h5>
-                    <p className="w-[14ch] font-medium uppercase overflow-hidden text-nowrap text-ellipsis">
-                      {desc}
-                    </p>
-                    <hr className="border-t-white/20 my-[0.5em]" />
-
-                    <div className="text-[6px] text-[#f29d38] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px]">
-                      <StarRating rating={rating} />
-                    </div>
-
-                    <div className="flex items-baseline gap-x-[0.5em]">
-                      <p className="font-semibold text-[17px] text-[#75F94C] sm:text-[24px] md:text-[30px] lg:text-[36px] xl:text-[42px] 2xl:text-[46px]">
-                        ${discountPrice}
-                      </p>
-                      <p className="line-through">${originalPrice}</p>
-                    </div>
-                  </article>
+              {displayedProducts.map(
+                (
+                  { poster, name, desc, rating, originalPrice, discountPrice },
+                  index
+                ) => (
+                  <RecentActivityCard
+                    key={index}
+                    poster={poster}
+                    name={name}
+                    desc={desc}
+                    rating={rating}
+                    originalPrice={originalPrice}
+                    discountPrice={discountPrice}
+                  />
                 )
               )}
             </div>
