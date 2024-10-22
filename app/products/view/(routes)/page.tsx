@@ -2,10 +2,12 @@
 
 import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
-import { PiWarningCircleLight } from "react-icons/pi";
+import toast from "react-hot-toast";
+import axiosInstance from "@/axios/axiosInstance";
+import Spinner from "@/components/Spinner/Spinner";
 import { Button } from "@/components/ui/button";
-import StarRating from "@/app/(home)/_components/star-rating";
 import Reviews from "@/app/(home)/_components/reviews";
 import {
   Tooltip,
@@ -13,10 +15,13 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { PiWarningCircleLight } from "react-icons/pi";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { IoMdHeartEmpty, IoIosCart } from "react-icons/io";
 
 import ProductSearchBar from "@/components/product-search/product-search";
+import Navbar from "@/components/navbar/navbar";
+import StarRating from "@/app/(home)/_components/star-rating";
 import ImageCarousel from "../_components/image-carousel";
 import RequirementsCard from "../_components/requirements-card";
 import ReviewCard from "../_components/review-card";
@@ -31,10 +36,6 @@ import mastercard from "@/public/images/product/mastercard.png";
 import skrill from "@/public/images/product/skrill.png";
 import samplePic from "@/public/images/sample-pic.png";
 import "../_components/product.css";
-import { useSearchParams } from "next/navigation";
-import axiosInstance from "@/axios/axiosInstance";
-import Spinner from "@/components/Spinner/Spinner";
-import toast from "react-hot-toast";
 
 export default function ProductPage() {
   const searchParams = useSearchParams();
@@ -155,13 +156,13 @@ export default function ProductPage() {
     }
   };
   const calculateOverallRating = (reviews: any) => {
-    console.log(reviews, 'rateing');
+    console.log(reviews, "rateing");
     let total = 0;
     reviews.forEach((review: any) => {
       total = total + review.rating;
     });
-    return total/(reviews.length * 5)
-  }
+    return total / (reviews.length * 5);
+  };
   const calDiscountPercentage = () => {
     if (!gameData) {
       return "0";
