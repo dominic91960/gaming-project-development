@@ -16,18 +16,27 @@ import { Button } from "@/components/ui/button";
 import axiosInstance from "@/axios/axiosInstance";
 
 type Genres = {
-  id: number;
+  id: string;
   name: string;
 };
 
 type Platforms = {
-  id: number;
+  id: string;
   name: string;
 };
 
 type Brands = {
-  id: number;
+  id: string;
   name: string;
+};
+
+type FilterParams = {
+  rating: number;
+  price: number;
+  genres: string[];
+  platforms: string[];
+  brands: string[];
+  operatingSystems: string[];
 };
 
 const Sidebar: React.FC = () => {
@@ -37,6 +46,14 @@ const Sidebar: React.FC = () => {
   const [genres, setGenres] = useState<Genres[]>([]);
   const [platforms, setPlatforms] = useState<Platforms[]>([]);
   const [brands, setBrands] = useState<Brands[]>([]);
+  const [filterParams, setFilterParams] = useState<FilterParams>({
+    rating: 0,
+    price: 0,
+    genres: [],
+    platforms: [],
+    brands: [],
+    operatingSystems: [],
+  });
 
   const getData = async () => {
     const resTags = await axiosInstance.get(`/tags`);
@@ -79,6 +96,60 @@ const Sidebar: React.FC = () => {
   const handleRating = (rating: number) => {
     console.log(`User rated: ${rating} stars`);
     // You can add logic to save the rating to a database or state here.
+    setFilterParams((prevParams) => {
+      return { ...prevParams, rating };
+    });
+  };
+
+  const handleGenreChange = (id: string, isChecked: boolean) => {
+    setFilterParams((prevParams) => {
+      const updatedGenres = isChecked
+        ? [...prevParams.genres, id.toString()]
+        : prevParams.genres.filter((genreId) => genreId !== id.toString());
+
+      return { ...prevParams, genres: updatedGenres };
+    });
+    console.log("FP",filterParams);
+  };
+
+  const handlePlatformChange = (id: string, isChecked: boolean) => {
+    setFilterParams((prevParams) => {
+      const updatedPlatforms = isChecked
+        ? [...prevParams.platforms, id.toString()]
+        : prevParams.platforms.filter(
+            (platformId) => platformId !== id.toString()
+          );
+
+      return { ...prevParams, platforms: updatedPlatforms };
+    });
+    console.log("FP",filterParams);
+  };
+
+  const handleBrandChange = (id: string, isChecked: boolean) => {
+    setFilterParams((prevParams) => {
+      const updatedBrands = isChecked
+        ? [...prevParams.brands, id.toString()]
+        : prevParams.brands.filter((brandId) => brandId !== id.toString());
+
+      return { ...prevParams, brands: updatedBrands };
+    });
+    console.log("FP",filterParams);
+  }
+
+  const handleOsChange = (osName: string, isChecked: boolean) => {
+    const osMap: { [key: string]: string } = {
+      Xbox: "XBOX",
+      Windows: "WINDOWS",
+      Playstation: "PLAYSTATION",
+    };
+
+    setFilterParams((prevParams) => {
+      const updatedOperatingSystems = isChecked
+        ? [...prevParams.operatingSystems, osMap[osName]]
+        : prevParams.operatingSystems.filter((os) => os !== osMap[osName]);
+
+      return { ...prevParams, operatingSystems: updatedOperatingSystems };
+    });
   };
   return (
     <aside className="w-full text-white px-4 font-semibold border border-[#fff]">
@@ -95,7 +166,13 @@ const Sidebar: React.FC = () => {
           {genres.map((genre) => (
             <div className="flex items-center justify-between" key={genre.id}>
               <div className="flex items-center space-x-2 mb-2">
-                <Checkbox id={`genre-${genre.id}`} className="border-white rounded-none" />
+              <Checkbox
+                        id={`genre-${genre.id}`}
+                        className="border-white rounded-none"
+                        onCheckedChange={(isChecked: boolean) =>
+                          handleGenreChange(genre.id, isChecked)
+                        }
+                      />
                 <label
                   htmlFor={`genre-${genre.id}`}
                   className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -135,7 +212,13 @@ const Sidebar: React.FC = () => {
               <div className="mt-3">
                 <Slider
                   value={value}
-                  onValueChange={(newValue) => setValue(newValue)} // Update state when the slider is moved
+                  onValueChange={(newValue) =>{
+                    setValue(newValue);
+                    setFilterParams((prevParams) => {
+                      return { ...prevParams, price: newValue[0] };
+                    });
+                  }
+                  } // Update state when the slider is moved
                   max={100}
                   step={1}
                 />
@@ -191,6 +274,9 @@ const Sidebar: React.FC = () => {
                     <Checkbox
                       id="terms"
                       className="border-white rounded-none"
+                      onCheckedChange={(isChecked: boolean) =>
+                        handleOsChange("Xbox", isChecked)
+                      }
                     />
                     <label
                       htmlFor="terms"
@@ -209,6 +295,9 @@ const Sidebar: React.FC = () => {
                     <Checkbox
                       id="terms"
                       className="border-white rounded-none"
+                      onCheckedChange={(isChecked: boolean) =>
+                        handleOsChange("Windows", isChecked)
+                      }
                     />
                     <label
                       htmlFor="terms"
@@ -227,6 +316,9 @@ const Sidebar: React.FC = () => {
                     <Checkbox
                       id="terms"
                       className="border-white rounded-none"
+                      onCheckedChange={(isChecked: boolean) =>
+                        handleOsChange("Playstation", isChecked)
+                      }
                     />
                     <label
                       htmlFor="terms"
@@ -267,7 +359,11 @@ const Sidebar: React.FC = () => {
           {platforms.map((platform) => (
             <div className="flex items-center justify-between" key={platform.id}>
               <div className="flex items-center space-x-2 mb-2">
-                <Checkbox id={`platform-${platform.id}`} className="border-white rounded-none" />
+                <Checkbox 
+                onCheckedChange={(isChecked: boolean) =>
+                  handlePlatformChange(platform.id, isChecked)
+                }
+                id={`platform-${platform.id}`} className="border-white rounded-none" />
                 <label
                   htmlFor={`platform-${platform.id}`}
                   className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -306,7 +402,11 @@ const Sidebar: React.FC = () => {
           {brands.map((brand) => (
             <div className="flex items-center justify-between" key={brand.id}>
               <div className="flex items-center space-x-2 mb-2">
-                <Checkbox id={`brand-${brand.id}`} className="border-white rounded-none" />
+                <Checkbox 
+                onCheckedChange={(isChecked: boolean) =>
+                  handleBrandChange(brand.id, isChecked)
+                }
+                id={`brand-${brand.id}`} className="border-white rounded-none" />
                 <label
                   htmlFor={`brand-${brand.id}`}
                   className="font-primaryFont font-medium text-[13px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -332,7 +432,10 @@ const Sidebar: React.FC = () => {
 </Accordion>
 
 
-      <Button className="bg-[#BD0202] rounded-none px-6 mb-6">Clear all</Button>
+      <Button className="bg-[#BD0202] rounded-none px-6 mb-6 mr-2">Clear all</Button>
+      <Button 
+      onClick={() => console.log(filterParams)}
+      className="bg-[#BD0202] rounded-none px-6 mb-6">Filter</Button>
     </aside>
   );
 };
