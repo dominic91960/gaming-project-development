@@ -7,6 +7,14 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import logo from "@/public/images/home/logo.png";
 import samplePic from "@/public/images/sample-pic.png";
 import "./admin.css";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface StatusBarProps {
   isMobileNavToggled: boolean | undefined;
@@ -24,7 +32,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
           {/* Logo */}
           <div className="hidden xl:flex xl:items-center">
             <Image src={logo} alt="Logo" className="size-[4.6em]" />
-            <h2 className="font-primaryFont font-semibold text-[1.6em] uppercase">
+            <h2 className="font-primaryFont font-semibold text-[1.6em] uppercase text-white">
               Logo
             </h2>
           </div>
@@ -47,21 +55,34 @@ const StatusBar: React.FC<StatusBarProps> = ({
         {/* Status area */}
         <div className="flex items-center gap-x-[1em]">
           <div className="flex items-center gap-x-[0.4em]">
-            <CiSearch className="size-[1.5em] lg:size-[1.8em]" />
-            <IoMdNotificationsOutline className="size-[1.5em] lg:size-[1.8em]" />
+            <CiSearch className="size-[1.5em] lg:size-[1.8em] text-white" />
+            <IoMdNotificationsOutline className="size-[1.5em] lg:size-[1.8em] text-white" />
           </div>
           <div className="flex items-center gap-x-[0.8em]">
             <div>
-              <p>Avishka Rathnayake</p>
+              <p className="text-white">Avishka Rathnayake</p>
               <p className="hidden lg:block text-[0.8em] text-[#A1A1AA]">
                 Owner
               </p>
             </div>
-            <Image
-              src={samplePic}
-              alt="Avatar"
-              className="size-[2em] rounded-full lg:size-[2.5em]"
-            />
+
+            <DropdownMenu>
+              <DropdownMenuTrigger className="cursor-pointer">
+                <Image
+                  src={samplePic}
+                  alt="Avatar"
+                  className="size-[2em] rounded-full lg:size-[2.5em]"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuItem>Team</DropdownMenuItem>
+                <DropdownMenuItem>Subscription</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
