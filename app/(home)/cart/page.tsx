@@ -12,7 +12,14 @@ import ProductSearchBar from "@/components/product-search/product-search";
 import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
 import { GoDotFill } from "react-icons/go";
 import { MdOutlineNavigateNext } from "react-icons/md";
+import { useCartContext } from "@/context/CartContext";
 
+const SERVICE_FEE = 12;
+const discountCodes: { [key: string]: number } = {
+  "12345": 15,
+  "11111": 30,
+  "44444": 40,
+};
 type CartItem = {
   id: number;
   image: string;
@@ -23,54 +30,19 @@ type CartItem = {
   productType: string;
 };
 
-const initialCartItems: CartItem[] = [
-  {
-    id: 1,
-    image: "/images/cart/itemImage1.png",
-    choiceType: "Ultimate Choice",
-    title: "Six-Sided Oracles (PC) Steam Key GLOBAL",
-    quantity: 2,
-    price: 299,
-    productType: "Digital product",
-  },
-  {
-    id: 2,
-    image: "/images/cart/itemImage2.png",
-    choiceType: "Best Choice",
-    title: "Call of duty - Modern warfare",
-    quantity: 5,
-    price: 155,
-    productType: "DVD Product",
-  },
-];
-
-const SERVICE_FEE = 12;
-const discountCodes: { [key: string]: number } = {
-  "12345": 15,
-  "11111": 30,
-  "44444": 40,
-};
-
 const Cart: React.FC = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
+  const { cart, removeItem, increaseQuantity, decreaseQuantity, createOrder } =
+    useCartContext(); // Access cart data from context
   const [discountCode, setDiscountCode] = useState<string>("");
   const [discountApplied, setDiscountApplied] = useState<number>(0);
   const [discountMessage, setDiscountMessage] = useState<string>("");
 
-  const handleQuantityChange = (id: number, newQuantity: number) => {
-    const updatedItems = cartItems.map((item) =>
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    );
-    setCartItems(updatedItems);
-  };
-
   const handleRemoveItem = (id: number) => {
-    const updatedItems = cartItems.filter((item) => item.id !== id);
-    setCartItems(updatedItems);
+    removeItem(id);
   };
 
-  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = cartItems.reduce(
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalPrice = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
@@ -134,7 +106,7 @@ const Cart: React.FC = () => {
         <div className="h-full container mx-auto">
           <div className="grid grid-cols-12 gap-16 content-start">
             <div className="col-span-8">
-              {cartItems.map((item) => (
+              {cart.map((item) => (
                 <div key={item.id} className="mb-12">
                   <div>
                     <div className="grid grid-cols-12 gap-6 px-6 py-2 border border-white bg-[#222222]">
@@ -174,12 +146,7 @@ const Cart: React.FC = () => {
                                 <div className="flex items-center gap-2 mt-2 mb-5">
                                   <div className="flex items-center space-x-4">
                                     <button
-                                      onClick={() =>
-                                        handleQuantityChange(
-                                          item.id,
-                                          item.quantity - 1
-                                        )
-                                      }
+                                      onClick={() => decreaseQuantity(item.id)}
                                       className="text-white font-bold text-[18px] rounded"
                                       disabled={item.quantity <= 1}
                                     >
@@ -189,12 +156,7 @@ const Cart: React.FC = () => {
                                       {item.quantity}
                                     </span>
                                     <button
-                                      onClick={() =>
-                                        handleQuantityChange(
-                                          item.id,
-                                          item.quantity + 1
-                                        )
-                                      }
+                                      onClick={() => increaseQuantity(item.id)}
                                       className="text-white font-bold text-[18px] rounded"
                                     >
                                       +
@@ -238,7 +200,7 @@ const Cart: React.FC = () => {
 
                 <div className="flex items-center justify-between">
                   <p className="font-primaryFont text-[20px] font-normal text-white mb-2">
-                    {totalItems} Prodcuts
+                    {totalItems} Products
                   </p>
                   <p className="font-primaryFont text-[20px] font-bold text-white mb-2">
                     ${totalPrice}
@@ -264,123 +226,46 @@ const Cart: React.FC = () => {
                       type="text"
                       value={discountCode}
                       onChange={(e) => setDiscountCode(e.target.value)}
-                      placeholder="Discount code"
-                      className="w-max mb-3 text-white rounded-none"
+                      className="bg-transparent border border-white"
                     />
-                    <div className="flex items-center justify-end">
-                      <div
-                        className="bg-[#0BDB45] w-max px-4 py-1 text-[11px] text-black font-bold cursor-pointer"
-                        onClick={handleApplyDiscount}
-                      >
-                        Add
-                      </div>
-                    </div>
+                    <Button
+                      onClick={handleApplyDiscount}
+                      className="bg-transparent text-white"
+                    >
+                      Apply
+                    </Button>
                   </div>
                 </div>
 
-                {discountApplied > 0 && (
-                  <div className="flex items-center justify-between border-b-2 border-[#676866] py-3">
-                    <p className="font-primaryFont text-[20px] font-normal text-green-600">
-                      Discount price
-                    </p>
-                    <p className="font-primaryFont text-[20px] font-normal text-green-600 mb-2">
-                      -${discountApplied}
-                    </p>
-                  </div>
-                )}
-                <div className="flex items-center justify-between py-3 mb-3">
-                  <p className="font-primaryFont text-[32px] font-normal text-white mb-2">
-                    Total :
+                <p className="font-primaryFont text-[16px] font-normal text-white mb-4">
+                  {discountMessage}
+                </p>
+
+                <div className="flex items-center justify-between">
+                  <p className="font-primaryFont text-[24px] font-bold text-white mb-2">
+                    Total
                   </p>
-                  <p className="font-primaryFont text-[36px] font-bold text-white mb-2">
+                  <p className="font-primaryFont text-[30px] font-bold text-[#75F94C] mb-2">
                     ${lastPrice}
                   </p>
                 </div>
 
-                <Button
-                  variant="gaming"
-                  className="h-fit w-full text-[24px] text-black px-[1em] py-[0.5em]"
-                >
-                  Proceed to checkout
-                </Button>
-
-                {discountMessage && (
-                  <p
-                    className={`mt-2 ${
-                      discountApplied > 0 ? "text-green-600" : "text-red-600"
-                    }`}
+                <div className="w-full flex justify-center">
+                  <Button
+                    className="bg-[#75F94C] text-white text-[22px] font-bold font-primaryFont rounded-none px-8"
+                    onClick={createOrder}
                   >
-                    {discountMessage}
-                  </p>
-                )}
+                    Proceed to checkout
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-
-          <p className="font-primaryFont text-white text-[28px] font-medium mb-4 mt-16">
-            Recommended based on the games you play
-          </p>
-
-          <div className="grid grid-cols-5 gap-4">
-            <div>
-              <RecommendedGames
-                title="Amazing Game"
-                price={49.99}
-                oldPrice={59.99}
-                rating={5}
-                soldOut={false}
-              />
-            </div>
-            <div>
-              <RecommendedGames
-                title="Amazing Game"
-                price={49.99}
-                oldPrice={59.99}
-                rating={5}
-                soldOut={false}
-              />
-            </div>
-            <div>
-              <RecommendedGames
-                title="Amazing Game"
-                price={49.99}
-                oldPrice={59.99}
-                rating={5}
-                soldOut={false}
-              />
-            </div>
-            <div>
-              <RecommendedGames
-                title="Amazing Game"
-                price={49.99}
-                oldPrice={59.99}
-                rating={5}
-                soldOut={false}
-              />
-            </div>
-            <div>
-              <RecommendedGames
-                title="Amazing Game"
-                price={49.99}
-                oldPrice={59.99}
-                rating={5}
-                soldOut={false}
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-end mt-8 pb-16">
-            <Button
-              variant="gaming"
-              className="h-fit w-max text-[24px] text-black px-[1em] py-1"
-            >
-              See More <MdOutlineNavigateNext />
-            </Button>
-          </div>
         </div>
-      </div>
 
-      <Footer />
+        {/* <RecommendedGames /> */}
+        <Footer />
+      </div>
     </div>
   );
 };

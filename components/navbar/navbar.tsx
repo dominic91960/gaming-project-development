@@ -197,7 +197,7 @@ export default function Navbar() {
                 <IoMdHeartEmpty />
               </Link>
 
-              <Link href="/" className="relative hover:scale-110">
+              <Link href="/cart" className="relative hover:scale-110">
                 {cart.length > 0 && (
                   <span className="absolute  bottom-[16px] right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
                     {cart.length}
