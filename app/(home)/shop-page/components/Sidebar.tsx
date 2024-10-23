@@ -12,6 +12,7 @@ import {
 import StarRating from "./StarRating";
 import { Button } from "@/components/ui/button";
 import axiosInstance from "@/axios/axiosInstance";
+import { useDebounce } from "@/hooks/useDebounce";
 
 type Genres = {
   id: string;
@@ -61,6 +62,9 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
   const [checkedPlatforms, setCheckedPlatforms] = useState<{ [key: string]: boolean }>({});
   const [checkedBrands, setCheckedBrands] = useState<{ [key: string]: boolean }>({});
   const [checkedOs, setCheckedOs] = useState<{ [key: string]: boolean }>({});
+
+  // add debounce to the filterParams
+  const debouncedFilterParams = useDebounce(filterParams, 500);
 
   const getData = async () => {
     const resTags = await axiosInstance.get(`/tags`);
@@ -147,6 +151,10 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
     setValue([0]); // Reset slider to 0
     setClearFilters((prev: any) => !prev);
   };
+
+  useEffect(() => {
+    setFilters(debouncedFilterParams);
+  }, [debouncedFilterParams]);
 
   return (
     <aside className="w-full text-white px-4 font-semibold border border-[#fff]">
