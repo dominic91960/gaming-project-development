@@ -15,6 +15,7 @@ import {
 import axiosInstance from "@/axios/axiosInstance";
 import { set } from "date-fns";
 import Spinner from "@/components/Spinner/Spinner";
+import { useDebounce } from "@/hooks/useDebounce";
 
 type FilterParams = {
   rating: number;
@@ -53,6 +54,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [search, setSearch] = useState("");
+  const debouncedSeatch = useDebounce(search, 500);
   const [loading, setLoading] = useState(true);
 
 
@@ -146,7 +148,14 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
 
   }, [filterParams, clearFilters, currentPage]);
 
+  useEffect(() => {
+    // if (debouncedSeatch) {
+      handleSearch();
+    // }
+  }, [debouncedSeatch]);
+
   const handleSearch = async () => {
+    setLoading(true);
     const res = await axiosInstance.get(`/games?productName=${search}&page=${currentPage}`);
     console.log(res.data.data);
 
@@ -171,6 +180,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
     setTotal(meta.totalProducts);
 
     setGames(games);
+    setLoading(false);
   }
 
   if (loading) {
