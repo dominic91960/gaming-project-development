@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 import logo from "@/public/images/navbar/logo.png";
+import { useCartContext } from "@/context/CartContext";
 
 import {
   IoIosArrowForward,
@@ -85,6 +86,7 @@ const categories = [
 ];
 
 export default function Navbar() {
+  const { cart } = useCartContext();
   const path = usePathname();
   const [isCategoryMenuToggled, setIsCategoryMenuToggled] = useState<
     boolean | undefined
@@ -195,8 +197,15 @@ export default function Navbar() {
                 <IoMdHeartEmpty />
               </Link>
 
-              <Link href="/" className="hover:scale-110 ">
-                <IoIosCart />
+              <Link href="/" className="relative hover:scale-110">
+                {cart.length > 0 && (
+                  <span className="absolute  bottom-[16px] right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
+                    {cart.length}
+                  </span>
+                )}
+                <div className="relative">
+                  <IoIosCart className="text-2xl" />
+                </div>
               </Link>
 
               <Link
