@@ -8,6 +8,7 @@ import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
 import { useState } from "react";
+import Spinner from "@/components/Spinner/Spinner";
 
 type FilterParams = {
   rating: number;
@@ -32,6 +33,11 @@ const ShopPage = () => {
     initialFilterParams
   );
   const [clearFilters, setClearFilters] = useState(false);
+  // const [loading, setLoading] = useState(true);
+
+  // if (loading) {
+  //   return <Spinner loading={loading} />;
+  // }
   return (
     // <div className="text-black">
     //   <Image src={bg} alt="shop page cover image" className="" />
@@ -83,6 +89,7 @@ const ShopPage = () => {
               <ContentGrid
                 filterParams={filterParams}
                 clearFilters={clearFilters}
+                // setLoading={setLoading}
               />
             </div>
           </div>

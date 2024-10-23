@@ -13,6 +13,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import axiosInstance from "@/axios/axiosInstance";
+import { set } from "date-fns";
+import Spinner from "@/components/Spinner/Spinner";
 
 type FilterParams = {
   rating: number;
@@ -51,10 +53,12 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
     const getData = async () => {
+      setLoading(true);
       const res = await axiosInstance.get(`/games?page=${currentPage}`);
       console.log(res.data.data);
 
@@ -79,6 +83,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
       setTotal(meta.totalProducts);
 
       setGames(games);
+      setLoading(false);
     };
     getData();
 
@@ -86,6 +91,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
 
   useEffect(() => {
     console.log("Filter Params", filterParams);
+    setLoading(true);
 
     const buildQueryParams = () => {
       const params = new URLSearchParams();
@@ -133,6 +139,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
       setTotal(meta.totalProducts);
 
       setGames(games);
+      setLoading(false);
     };
 
     getData();
@@ -164,6 +171,10 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
     setTotal(meta.totalProducts);
 
     setGames(games);
+  }
+
+  if (loading) {
+    return <Spinner loading={loading}/>
   }
 
   return (
