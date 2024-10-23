@@ -2,6 +2,7 @@ import "./globals.css";
 
 import { Montserrat, Inter } from "@next/font/google";
 import Providers from "../providers";
+import { CartProvider } from "@/context/CartContext";
 
 // Configure Montserrat with all required weights
 const montserrat = Montserrat({
@@ -21,7 +22,9 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
       <Providers>
-        <body>{children}</body>
+        <CartProvider>
+          <body>{children}</body>
+        </CartProvider>
       </Providers>
     </html>
   );
