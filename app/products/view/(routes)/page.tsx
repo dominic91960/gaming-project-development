@@ -49,12 +49,15 @@ export default function ProductPage() {
 
   const { addItem } = useCartContext();
 
-  interface CartItem {
-    id: string;
-    name: string;
-    price: number;
+  type CartItem = {
+    id: number;
+    image: string;
+    choiceType: string;
+    title: string;
     quantity: number;
-  }
+    price: number;
+    productType: string;
+  };
 
   const addToCardItem = (cartItemId: any) => {
     if (!gameData) {
@@ -64,9 +67,12 @@ export default function ProductPage() {
 
     const newCardItem: CartItem = {
       id: cartItemId,
-      name: gameData?.title,
-      price: gameData?.discountPrice,
+      image: gameData?.image,
+      choiceType: "aaaaaa",
+      title: gameData?.title,
       quantity: 1,
+      price: gameData?.discountPrice,
+      productType: "bbbbbb",
     };
 
     addItem(newCardItem);
