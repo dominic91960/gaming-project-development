@@ -13,6 +13,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import axiosInstance from "@/axios/axiosInstance";
+import { set } from "date-fns";
+import Spinner from "@/components/Spinner/Spinner";
+import { useDebounce } from "@/hooks/useDebounce";
 
 type FilterParams = {
   rating: number;
@@ -51,10 +54,15 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [search, setSearch] = useState("");
+  const debouncedSeatch = useDebounce(search, 500);
+  const [sortTerm, setSortTerm] = useState("latest");
+  const debouncedSortTerm = useDebounce(sortTerm, 500);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
     const getData = async () => {
+      setLoading(true);
       const res = await axiosInstance.get(`/games?page=${currentPage}`);
       console.log(res.data.data);
 
@@ -79,6 +87,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
       setTotal(meta.totalProducts);
 
       setGames(games);
+      setLoading(false);
     };
     getData();
 
@@ -86,6 +95,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
 
   useEffect(() => {
     console.log("Filter Params", filterParams);
+    setLoading(true);
 
     const buildQueryParams = () => {
       const params = new URLSearchParams();
@@ -133,13 +143,27 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
       setTotal(meta.totalProducts);
 
       setGames(games);
+      setLoading(false);
     };
 
     getData();
 
   }, [filterParams, clearFilters, currentPage]);
 
+  useEffect(() => {
+    // if (debouncedSeatch) {
+      handleSearch();
+    // }
+  }, [debouncedSeatch]);
+
+  useEffect(() => {
+    // if (debouncedSortTerm) {
+      handleSort();
+    // }
+  }, [debouncedSortTerm]);
+
   const handleSearch = async () => {
+    setLoading(true);
     const res = await axiosInstance.get(`/games?productName=${search}&page=${currentPage}`);
     console.log(res.data.data);
 
@@ -164,7 +188,41 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
     setTotal(meta.totalProducts);
 
     setGames(games);
+    setLoading(false);
   }
+
+  const handleSort = async () => {
+    setLoading(true);
+    const res = await axiosInstance.get(`/games?sort=${sortTerm}&page=${currentPage}`);
+    console.log(res.data.data);
+
+    const games = res.data.data.map((game: any) => {
+      return {
+        id: game.id,
+        title: game.productName,
+        price: game.regularPrice,
+        sellingPrice: game.sellingPrice,
+        rating: 5,
+        soldOut: game.stockStatus === "OUT_OF_STOCK",
+        cardImage: game.cardImage,
+      };
+    });
+
+    const meta = res.data.meta;
+
+    setTotalPages(meta.totalPages);
+    setStartIndex(meta.startIndex);
+    setProductsPerPage(meta.productsPerPage);
+    setCurrentPage(meta.currentPage);
+    setTotal(meta.totalProducts);
+
+    setGames(games);
+    setLoading(false);
+  }
+
+  // if (loading) {
+  //   return <Spinner loading={loading}/>
+  // }
 
   return (
     <div className="w-max p-4">
@@ -188,24 +246,25 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
           </div>
 
           <div className="bg-[#666666]">
-            <Select>
+            <Select  onValueChange={setSortTerm}>
               <SelectTrigger className="w-[180px] rounded-none border-none">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Title Here</SelectLabel>
-                  <SelectItem value="option1">option 1</SelectItem>
-                  <SelectItem value="option2">option 2</SelectItem>
-                  <SelectItem value="option3">option 3</SelectItem>
-                  <SelectItem value="option4">option 4</SelectItem>
-                  <SelectItem value="option5">option 5</SelectItem>
+                  <SelectLabel>Default Sorting</SelectLabel>
+                  <SelectItem value="popularity">Popularity</SelectItem>
+                  <SelectItem value="rating">Average Rating</SelectItem>
+                  <SelectItem value="latest">Latest</SelectItem>
+                  <SelectItem value="pricel2h">Price: low to high</SelectItem>
+                  <SelectItem value="priceh2l">Price: high to low</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
           </div>
         </div>
       </div>
+      {loading? <Spinner loading={loading} /> : 
       <div className="grid grid-cols-4 gap-4">
         {games.map((game, index) => (
           <ProductCard
@@ -219,7 +278,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
             cardImage={game.cardImage}
           />
         ))}
-      </div>
+      </div>}
 
       {/* Pagination Controls */}
       <div className="flex justify-center items-center mt-8">
