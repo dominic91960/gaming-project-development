@@ -221,7 +221,8 @@ export default function Navbar() {
                     }
                     alt="Profile"
                     className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
-                    fill
+                    width={25}
+                    height={25}
                   />
                 ) : (
                   <IoMdPerson />
@@ -320,7 +321,8 @@ export default function Navbar() {
                 src={user?.profile_image ? user?.profile_image : ProfileDefault}
                 alt="Profile"
                 className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
-                fill
+                width={25}
+                height={25}
               />
             ) : (
               <IoMdPerson />
