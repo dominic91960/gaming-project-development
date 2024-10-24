@@ -1,6 +1,9 @@
-import React from "react";
-import StarRating from "../../_components/star-rating";
+import React, { useState } from "react";
 import { StaticImageData } from "next/image";
+
+import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
+
+import StarRating from "../../_components/star-rating";
 
 interface RecentActivityCardProps {
   poster: StaticImageData;
@@ -19,12 +22,26 @@ const RecentActivityCard: React.FC<RecentActivityCardProps> = ({
   discountPrice,
   originalPrice,
 }) => {
+  const [isWishlisted, setIsWishlisted] = useState(false);
+
   return (
-    <article className="w-fit bg-white/5 text-[7px] p-[0.6em] border border-white/20 sm:text-[9px] md:text-[11px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+    <article className="w-fit bg-white/5 text-[7px] p-[0.6em] border border-white/20 select-none sm:text-[9px] md:text-[11px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
       <div
-        className="w-[86px] h-[96px] bg-cover bg-center mb-[0.5em] sm:w-[120px] md:w-[150px] lg:w-[180px] xl:w-[210px] 2xl:w-[246px] sm:h-[130px] md:h-[160px] lg:h-[200px] xl:h-[240px] 2xl:h-[270px]"
+        className="relative w-[86px] h-[96px] bg-cover bg-center mb-[0.5em] sm:w-[120px] md:w-[150px] lg:w-[180px] xl:w-[210px] 2xl:w-[246px] sm:h-[130px] md:h-[160px] lg:h-[200px] xl:h-[240px] 2xl:h-[270px]"
         style={{ backgroundImage: `url(${poster.src})` }}
-      ></div>
+      >
+        {isWishlisted ? (
+          <IoHeartSharp
+            className="absolute top-[0.2em] left-[0.2em] text-[1.5em] cursor-pointer hover:scale-105"
+            onClick={() => setIsWishlisted(false)}
+          />
+        ) : (
+          <IoHeartOutline
+            className="absolute top-[0.2em] left-[0.2em] text-[1.5em] cursor-pointer hover:scale-105"
+            onClick={() => setIsWishlisted(true)}
+          />
+        )}
+      </div>
 
       <h5 className="w-[12ch] font-bold text-[9px] uppercase overflow-hidden text-nowrap text-ellipsis sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">
         {name}
