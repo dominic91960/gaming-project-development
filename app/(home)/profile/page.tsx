@@ -27,7 +27,7 @@ import EditAccountInfo from "./components/edit-account-info";
 //   email: "kavindakmanohara@gmail.com",
 //   firstName: "Ellison",
 //   lastName: "Smith",
-//   DOB: "2001/08/04",
+//   DOB: "2004-06-24",
 //   address: "270/F, Kadawatha Road Ganemulla",
 //   city: "Kandy",
 //   state: "western",
