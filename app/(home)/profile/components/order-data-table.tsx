@@ -56,11 +56,11 @@ export function DataTable<TData, TValue>({
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow
               key={headerGroup.id}
-              className="hover:bg-inherit border-none"
+              className="h-fit border-none hover:bg-inherit"
             >
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="text-white">
+                  <TableHead key={header.id} className="h-fit text-white py-0">
                     {header.isPlaceholder
                       ? null
                       : flexRender(

@@ -30,7 +30,7 @@ const TransactionAction: React.FC<TransactionActionProps> = ({
 }) => {
   return (
     <aside
-      className="fixed top-0 left-0 w-full h-full bg-black/60 flex items-center justify-center px-[36px] backdrop-blur-sm z-50"
+      className="fixed top-0 left-0 w-full h-full bg-black/60 flex items-center justify-center px-[36px] backdrop-blur-md z-50"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div
@@ -39,7 +39,7 @@ const TransactionAction: React.FC<TransactionActionProps> = ({
           borderImage: "linear-gradient(to bottom, #19D38E, #0D6D49) 1",
         }}
       >
-        <div className="flex justify-between pb-[1em] border-b border-b-[#0D6D49]">
+        <div className="flex justify-between text-[1.125em] pb-[1em] border-b border-b-[#0D6D49]">
           {/* Order no */}
           <h4 className="font-bold">Order No {orderId}</h4>
 
