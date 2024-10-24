@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { useRouter } from "next/navigation";
+import { FaUserPlus } from "react-icons/fa6";
 
 const categories = [
   {
@@ -257,7 +258,7 @@ export default function Navbar() {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
                                 onClick={() => {
-                                  router.push("/profile");
+                                  router.push("/profile?id="+user.id);
                                 }}
                                 >Profile</DropdownMenuItem>
                                 <DropdownMenuItem>Billing</DropdownMenuItem>
@@ -280,7 +281,8 @@ export default function Navbar() {
                                 path.startsWith("/sign") ? "text-[#0BDB45]" : ""
                               }`}
                             >
-                              <IoMdPerson />
+                              {/* <IoMdPerson /> */}
+                              <FaUserPlus />
                             </Link>
                           )}
 
