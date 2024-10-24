@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { StaticImageData } from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { IoClose } from "react-icons/io5";
@@ -7,7 +6,7 @@ import { FaPencilAlt } from "react-icons/fa";
 
 interface EditAccountInfoProps {
   profile: {
-    avatar: StaticImageData;
+    avatar: string | null;
     id: string;
     username: string | null;
     email: string;
@@ -25,7 +24,7 @@ interface EditAccountInfoProps {
   };
   setProfile: React.Dispatch<
     React.SetStateAction<{
-      avatar: StaticImageData;
+      avatar: string | null;
       id: string;
       username: string | null;
       email: string;
@@ -51,7 +50,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
   onClose,
 }) => {
   const [updatedProfile, setUpdatedProfile] = useState<{
-    avatar: StaticImageData;
+    avatar: string | null;
     id: string;
     username: string | null;
     email: string;

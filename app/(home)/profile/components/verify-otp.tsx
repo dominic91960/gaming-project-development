@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { StaticImageData } from "next/image";
 
 import {
   InputOTP,
@@ -13,7 +12,7 @@ interface VerifyOTPProps {
   updatedTel: string;
   setProfile: React.Dispatch<
     React.SetStateAction<{
-      avatar: StaticImageData;
+      avatar: string | null;
       id: string;
       username: string | null;
       email: string;

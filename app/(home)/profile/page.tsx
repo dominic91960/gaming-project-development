@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Transaction, columns } from "./components/transaction-columns";
 import { DataTable } from "./components/transaction-data-table";
 import { Button } from "@/components/ui/button";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaPencilAlt, FaCheck } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 
 import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
@@ -16,29 +17,11 @@ import Navbar from "@/components/navbar/navbar";
 import AccountInfo from "./components/account-info";
 import SecurityInfo from "./components/security-info";
 import RecentActivities from "./components/recent-activities";
-import TransactionAction from "./components/transaction-action";
 import Footer from "@/components/footer/footer";
 import EditAccountInfo from "./components/edit-account-info";
 import EditPassword from "./components/edit-password";
 import EditTel from "./components/edit-tel";
-
-// const profile = {
-//   avatar: samplePic,
-//   id: "b0ijjfb4343asc4848##56",
-//   username: "ellison342",
-//   email: "kavindakmanohara@gmail.com",
-//   firstName: "Ellison",
-//   lastName: "Smith",
-//   DOB: "2004-06-24",
-//   address: "270/F, Kadawatha Road Ganemulla",
-//   city: "Kandy",
-//   state: "western",
-//   country: "Sri Lanka",
-//   postalCode: "11020",
-//   password: "ABCD1234",
-//   tel: "0284948483",
-//   trustedDevices: 2,
-// };
+import TransactionAction from "./components/transaction-action";
 
 const recentActivity = [
   {
@@ -586,7 +569,7 @@ interface RecentActivity {
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<{
-    avatar: StaticImageData;
+    avatar: string | null;
     id: string;
     username: string | null;
     email: string;
@@ -602,7 +585,7 @@ export default function ProfilePage() {
     tel: string;
     trustedDevices: number;
   }>({
-    avatar: samplePic,
+    avatar: null,
     id: "b0ijjfb4343asc4848##56",
     username: null,
     email: "kavindakmanohara@gmail.com",
@@ -624,6 +607,7 @@ export default function ProfilePage() {
   const [displayedProducts, setDisplayedProducts] = useState<RecentActivity[]>(
     []
   );
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isEditAccountInfoPopupOpen, setIsEditAccountInfoPopupOpen] =
     useState(false);
   const [isEditPasswordPopupOpen, setIsEditPasswordPopupOpen] = useState(false);
@@ -676,6 +660,15 @@ export default function ProfilePage() {
     };
   }, []);
 
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => setImageUrl(reader.result as string);
+      reader.readAsDataURL(file);
+    }
+  };
+
   const getTransaction = () =>
     transactions.filter(({ orderId }) => orderId === selectedOrderId)[0];
 
@@ -721,11 +714,49 @@ export default function ProfilePage() {
           {/* Header text container */}
           <div className="relative container mx-auto px-[36px] text-[7px] z-10 sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]">
             <div className="flex items-center gap-x-[15px] pt-[64px] sm:gap-x-[25px] md:gap-x-[35px] lg:gap-x-[45px] xl:gap-x-[50px] 2xl:gap-x-[56px] pb-[55px] sm:pt-[74px] md:pt-[86px] lg:pt-[98px] xl:pt-[107px] 2xl:pt-[116px]">
-              <div className="size-[46px] sm:size-[70px] md:size-[94px] lg:size-[118px] xl:size-[135px] 2xl:size-[152px]">
+              <div className="relative size-[46px] sm:size-[70px] md:size-[94px] lg:size-[118px] xl:size-[135px] 2xl:size-[152px]">
                 <Image
-                  src={profile.avatar}
+                  src={imageUrl ?? samplePic}
                   alt={profile.id}
                   className="w-full rounded-full"
+                  fill
+                />
+                {imageUrl ? (
+                  <div className="absolute bottom-0 right-0 flex flex-col items-end">
+                    <button
+                      className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] mb-[0.2em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                      onClick={() => {
+                        setProfile((prev) => ({ ...prev, avatar: imageUrl }));
+                        setImageUrl(null);
+                      }}
+                    >
+                      Save&nbsp;&nbsp;
+                      <FaCheck />
+                    </button>
+                    <button
+                      className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                      onClick={() => setImageUrl(null)}
+                    >
+                      Cancel&nbsp;&nbsp;
+                      <IoMdClose />
+                    </button>
+                  </div>
+                ) : (
+                  <label
+                    htmlFor="profile-image"
+                    className="absolute bottom-[5%] right-0 bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                  >
+                    Edit&nbsp;&nbsp;
+                    <FaPencilAlt />
+                  </label>
+                )}
+
+                <input
+                  type="file"
+                  id="profile-image"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageChange}
                 />
               </div>
               <div>
