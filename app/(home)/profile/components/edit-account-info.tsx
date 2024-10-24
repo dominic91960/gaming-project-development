@@ -50,8 +50,6 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
   onClose,
 }) => {
   const [updatedProfile, setUpdatedProfile] = useState<{
-    avatar: string | null;
-    id: string;
     username: string | null;
     email: string;
     firstName: string;
@@ -62,9 +60,6 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
     state: string | null;
     country: string | null;
     postalCode: string | null;
-    password: string;
-    tel: string;
-    trustedDevices: number;
   }>({
     ...profile,
   });
@@ -96,7 +91,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              setProfile(() => ({ ...updatedProfile }));
+              setProfile((prev) => ({ ...prev, ...updatedProfile }));
               onClose();
             }}
           >
