@@ -75,16 +75,20 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
   const hanldeSubmit = () => {
     const currentTime = new Date();
     const remainingTime = expirationTime.getTime() - currentTime.getTime();
-    console.log(remainingTime);
+    console.log(inputOTP.length);
 
+    if (inputOTP === "" || inputOTP.length !== 6) {
+      setErrorMessage("Please enter the OTP to continue.");
+      return;
+    }
     if (remainingTime < 1) {
       setInputOTP("");
-      setErrorMessage("OTP has expired. Please try again");
+      setErrorMessage("The OTP has expired. Please request a new one.");
       return;
     }
     if (OTP !== inputOTP) {
       setInputOTP("");
-      setErrorMessage("Incorrect OTP. Please check and try again.");
+      setErrorMessage("Invalid OTP. Please check and try again.");
       return;
     }
     setProfile((prev) => ({ ...prev, tel: updatedTel }));
@@ -94,31 +98,31 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
 
   return (
     <div
-      className="relative w-full h-fit flex flex-col items-center justify-center bg-gradient-to-tr from-black to-[#007147] text-[8px] text-white border rounded-none p-[1.5em] overflow-auto z-10 sm:w-[664px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
+      className="relative w-full h-fit flex flex-col items-center justify-center bg-gradient-to-tr from-black to-[#007147] text-[8px] text-white border rounded-none p-[1.5em] overflow-auto z-10 sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] sm:w-[400px] md:w-[500px] lg:w-[580px] xl:w-[630px] 2xl:w-[680px]"
       style={{
         borderImage: "linear-gradient(to bottom, #19D38E, #0D6D49) 1",
       }}
     >
       {/* Close button */}
       <IoClose
-        className="absolute top-[5%] right-[1.5%] text-[1.5em] text-[#00FFA1] cursor-pointer hover:scale-110"
+        className="absolute top-[0.7em] right-[0.7em] text-[1.5em] text-[#00FFA1] cursor-pointer hover:scale-110"
         onClick={onClose}
       />
 
       {/* Title */}
-      <h4 className="font-bold text-[1.125em] text-center pt-[1em] pb-[2em]">
+      <h4 className="font-bold text-[1.6em] text-center pt-[1em] pb-[2em]">
         OTP VERIFICATION
       </h4>
 
       {/* Message */}
-      <p className="text-[0.75em] text-center pb-[2em]">
+      <p className="text-center pb-[2em]">
         Enter the code from the sms we sent to
         <br />
         <span className="font-semibold">{updatedTel}</span>
       </p>
 
       {/* Timer */}
-      <p className="font-bold text-[0.75em] text-[#0BDB45] text-center pb-[2em]">
+      <p className="font-bold text-[#0BDB45] text-center pb-[2em]">
         {`${minutes.toString().padStart(2, "0")}:${seconds
           .toString()
           .padStart(2, "0")}`}
@@ -131,7 +135,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
         onFocus={() => setErrorMessage(null)}
         onChange={(value) => setInputOTP(value)}
       >
-        <InputOTPGroup className="text-[1em] *:text-[1em]">
+        <InputOTPGroup className="text-[1em] *:text-[1.2em] *:size-[3em]">
           <InputOTPSlot index={0} className="first:rounded-l-none" />
           <InputOTPSlot index={1} />
           <InputOTPSlot index={2} />
@@ -141,16 +145,16 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
         </InputOTPGroup>
       </InputOTP>
       {errorMessage && (
-        <p className="mt-[0.7em] text-[0.8em] text-[#8b8b8b]">{errorMessage}</p>
+        <p className="mt-[0.7em] text-[0.9em] text-[#8b8b8b]">{errorMessage}</p>
       )}
 
       {/* Message */}
-      <p className="text-[0.75em] text-center  pt-[2em] pb-[0.5em]">
+      <p className="text-center  pt-[2em] pb-[0.5em]">
         Didn&apos;t receive OTP code ?
       </p>
 
       {/* Resend */}
-      <button className="font-bold text-[0.75em] text-[#0BDB45] text-center pb-[2em] hover:opacity-80">
+      <button className="font-bold text-[#0BDB45] text-center pb-[2em] hover:opacity-80">
         Resend
       </button>
 
