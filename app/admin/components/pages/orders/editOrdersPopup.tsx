@@ -35,20 +35,6 @@ const EditAllOrdersPopup: React.FC<EditAllOrdersPopupProps> = ({
     });
   };
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setEditedorder({
-          ...editedorder,
-          imageUrl: reader.result as string,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const handleSave = () => {
     if (editedorder) {
       onSave(editedorder);
@@ -62,44 +48,30 @@ const EditAllOrdersPopup: React.FC<EditAllOrdersPopupProps> = ({
         <form>
           <input
             type="text"
-            name="customer_name"
-            value={editedorder.customer_name}
+            name="order_id"
+            value={editedorder.order_id}
             onChange={handleInputChange}
             placeholder="customer Name"
             className="w-full mb-2 p-2 border rounded"
           />
+
           <input
             type="text"
-            name="customer_id"
-            value={editedorder.customer_id}
+            name="username"
+            value={editedorder.username}
             onChange={handleInputChange}
-            placeholder="customer_id"
+            placeholder="username"
             className="w-full mb-2 p-2 border rounded"
           />
           <input
             type="text"
-            name="customer_username"
-            value={editedorder.customer_username}
-            onChange={handleInputChange}
-            placeholder="Customer_username"
-            className="w-full mb-2 p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="customer_country"
-            value={editedorder.customer_country}
+            name="order_total"
+            value={editedorder.order_total}
             onChange={handleInputChange}
             placeholder="Customer Country"
             className="w-full mb-2 p-2 border rounded"
           />
-          <input
-            type="text"
-            name="customer_phone"
-            value={editedorder.customer_phone}
-            onChange={handleInputChange}
-            placeholder="Customer Phone"
-            className="w-full mb-2 p-2 border rounded"
-          />
+
           <select
             name="status"
             value={editedorder.status}
@@ -110,6 +82,7 @@ const EditAllOrdersPopup: React.FC<EditAllOrdersPopupProps> = ({
             <option value="Private">Private</option>
             <option value="Archived">Archived</option>
           </select>
+
           <input
             type="date"
             name="date"
@@ -117,12 +90,7 @@ const EditAllOrdersPopup: React.FC<EditAllOrdersPopupProps> = ({
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
           />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="w-full mb-4 p-2"
-          />
+
           <div className="flex justify-end space-x-2">
             <button
               type="button"
@@ -131,6 +99,7 @@ const EditAllOrdersPopup: React.FC<EditAllOrdersPopupProps> = ({
             >
               Cancel
             </button>
+
             <button
               type="button"
               className="bg-green-500 text-white px-4 py-2 rounded"

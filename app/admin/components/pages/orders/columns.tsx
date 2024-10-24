@@ -14,44 +14,26 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export type AllOrdersNew = {
-  imageUrl: string;
   id: string;
-  customer_name: string;
-  customer_id: string;
-  customer_username: string;
-  customer_country: string;
-  customer_phone: string;
+  order_id: string;
+
+  username: string;
+  order_total: string;
+
   status: string;
   date: string;
 };
 
 export const columns: ColumnDef<AllOrdersNew>[] = [
   {
-    accessorKey: "imageUrl",
-    header: "Image",
-    cell: ({ row }) => {
-      const AllOrdersNew = row.original;
-      return (
-        <div className="flex items-center size-[2em]">
-          <img
-            src={AllOrdersNew.imageUrl}
-            alt={AllOrdersNew.customer_name}
-            className="w-full h-full rounded-full"
-          />
-        </div>
-      );
-    },
-  },
-
-  {
-    accessorKey: "customer_name",
+    accessorKey: "order_id",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Customer Name
+          Order ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -59,23 +41,13 @@ export const columns: ColumnDef<AllOrdersNew>[] = [
   },
 
   {
-    accessorKey: "customer_id",
-    header: "Customer_id",
+    accessorKey: "username",
+    header: "Username",
   },
 
   {
-    accessorKey: "customer_username",
-    header: "Customer_username",
-  },
-
-  {
-    accessorKey: "customer_country",
-    header: "Customer_country",
-  },
-
-  {
-    accessorKey: "customer_phone",
-    header: "customer_phone",
+    accessorKey: "order_total",
+    header: "Order Total",
   },
 
   {

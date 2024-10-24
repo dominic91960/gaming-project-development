@@ -8,24 +8,23 @@ import { ColumnDef } from "@tanstack/react-table";
 function getInitialData(): AllOrdersNew[] {
   return [
     {
-      imageUrl: "/images/sample-pic.png",
       id: "728ed52f",
-      customer_name: "Wukong",
-      customer_id: "#w0342",
-      customer_username: "In Stock",
-      customer_country: "$40",
-      customer_phone: "$60",
+      order_id: "Wukong",
+
+      username: "In Stock",
+      order_total: "$40",
+
       status: "Public",
       date: "23/05/2024",
     },
+
     {
-      imageUrl: "/images/sample-pic.png",
-      id: "728ed52g",
-      customer_name: "UFO 50",
-      customer_id: "#u0343",
-      customer_username: "In Stock",
-      customer_country: "$40",
-      customer_phone: "$60",
+      id: "728ed52f",
+      order_id: "Wukong",
+
+      username: "In Stock",
+      order_total: "$40",
+
       status: "Public",
       date: "23/05/2024",
     },
@@ -88,12 +87,12 @@ export default function Allorders() {
 
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-4">All customers</h1>
-      {/* Add customers Component */}
+      <h1 className="text-2xl font-bold mb-4">All Orders</h1>
+      {/* Add Orders Component */}
       <Addorders onAddOrder={handleAddorder} />
       {/* Data Table */}
       <DataTable columns={columnsWithActions} data={orders} />
-      {/* Edit customer Modal */}
+      {/* Edit order Modal */}
 
       <EditAllOrdersPopup
         order={editingorder}
