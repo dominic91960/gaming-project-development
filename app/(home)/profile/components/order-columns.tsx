@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 export type Order = {
   productId: string;
-  poster: StaticImageData;
+  poster: string;
   name: string;
   price: number;
   quantity: number;
@@ -27,11 +27,14 @@ export const columns: ColumnDef<Order>[] = [
     header: "Product",
     cell: ({ row }) => {
       return (
-        <Image
-          src={row.original.poster}
-          alt={row.original.name}
-          className="size-[3em]"
-        />
+        <div className="relative size-[3em]">
+          <Image
+            src={row.original.poster}
+            alt={row.original.name}
+            className="size-fit"
+            fill
+          />
+        </div>
       );
     },
   },

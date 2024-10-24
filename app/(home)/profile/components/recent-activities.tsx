@@ -1,11 +1,12 @@
 import React from "react";
-import RecentActivityCard from "./recent-activity-card";
+
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { StaticImageData } from "next/image";
+
+import ProductCard from "@/components/product-card/product-card";
 
 interface RecentActivitiesProps {
   displayedProducts: {
-    poster: StaticImageData;
+    poster: string;
     name: string;
     desc: string;
     rating: number;
@@ -39,7 +40,7 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({
             { poster, name, desc, rating, originalPrice, discountPrice },
             index
           ) => (
-            <RecentActivityCard
+            <ProductCard
               key={index}
               poster={poster}
               name={name}

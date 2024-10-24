@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { StaticImageData } from "next/image";
 
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 
-import StarRating from "../../_components/star-rating";
+import StarRating from "@/app/(home)/_components/star-rating";
 
-interface RecentActivityCardProps {
-  poster: StaticImageData;
+interface ProductCardProps {
+  poster: string;
   name: string;
   desc: string;
   rating: number;
@@ -14,7 +13,7 @@ interface RecentActivityCardProps {
   originalPrice: number;
 }
 
-const RecentActivityCard: React.FC<RecentActivityCardProps> = ({
+const ProductCard: React.FC<ProductCardProps> = ({
   poster,
   name,
   desc,
@@ -28,7 +27,7 @@ const RecentActivityCard: React.FC<RecentActivityCardProps> = ({
     <article className="w-fit bg-white/5 text-[7px] p-[0.6em] border border-white/20 select-none sm:text-[9px] md:text-[11px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
       <div
         className="relative w-[86px] h-[96px] bg-cover bg-center mb-[0.5em] sm:w-[120px] md:w-[150px] lg:w-[180px] xl:w-[210px] 2xl:w-[246px] sm:h-[130px] md:h-[160px] lg:h-[200px] xl:h-[240px] 2xl:h-[270px]"
-        style={{ backgroundImage: `url(${poster.src})` }}
+        style={{ backgroundImage: `url(${poster})` }}
       >
         {isWishlisted ? (
           <IoHeartSharp
@@ -65,4 +64,4 @@ const RecentActivityCard: React.FC<RecentActivityCardProps> = ({
   );
 };
 
-export default RecentActivityCard;
+export default ProductCard;

@@ -25,7 +25,7 @@ import TransactionAction from "./components/transaction-action";
 
 const recentActivity = [
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Greed Fall",
     desc: "Explore uncharted new lands as you set foot on a remote island seeping with magic, and filled with riches, lost secrets, and fantastic creatures.",
     rating: 5,
@@ -33,7 +33,7 @@ const recentActivity = [
     discountPrice: 399,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Cyberpunk 2077",
     desc: "An open-world RPG set in the dystopian future, where you can explore a massive city and complete missions to gain power and influence.",
     rating: 4.5,
@@ -41,7 +41,7 @@ const recentActivity = [
     discountPrice: 249,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Assassin's Creed Valhalla",
     desc: "Join Eivor and lead a Viking clan to glory. Build settlements, wage wars, and uncover a grand storyline in this action-packed RPG.",
     rating: 4.8,
@@ -49,7 +49,7 @@ const recentActivity = [
     discountPrice: 379,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "FIFA 2023",
     desc: "Experience the latest iteration of the iconic soccer series with enhanced graphics and real-life player mechanics.",
     rating: 4.2,
@@ -57,7 +57,7 @@ const recentActivity = [
     discountPrice: 299,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "NBA 2K23",
     desc: "Hit the courts with the latest in basketball simulation. Enjoy an authentic NBA experience with realistic gameplay and team management.",
     rating: 4.0,
@@ -65,7 +65,7 @@ const recentActivity = [
     discountPrice: 259,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Call of Duty: Modern Warfare",
     desc: "Enter the battlefield in this intense first-person shooter with advanced weapons, high-end graphics, and a gripping campaign mode.",
     rating: 4.7,
@@ -73,7 +73,7 @@ const recentActivity = [
     discountPrice: 349,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Red Dead Redemption 2",
     desc: "Step into the Wild West with this stunning open-world game where you can explore a vast world filled with danger and intrigue.",
     rating: 4.9,
@@ -81,7 +81,7 @@ const recentActivity = [
     discountPrice: 499,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Watch Dogs Legion",
     desc: "Join the resistance and hack your way through London in this thrilling open-world adventure that combines action and technology.",
     rating: 4.1,
@@ -89,7 +89,7 @@ const recentActivity = [
     discountPrice: 339,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Far Cry 6",
     desc: "Fight to liberate a tropical island from a ruthless dictator in this action-packed first-person shooter.",
     rating: 4.4,
@@ -97,7 +97,7 @@ const recentActivity = [
     discountPrice: 309,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Spider-Man: Miles Morales",
     desc: "Swing into action as Miles Morales in this follow-up to the hit Spider-Man game, featuring new powers and an exciting storyline.",
     rating: 4.9,
@@ -105,7 +105,7 @@ const recentActivity = [
     discountPrice: 429,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "The Last of Us Part II",
     desc: "Experience the emotionally charged and action-filled sequel to the critically acclaimed The Last of Us, with a deep and engaging story.",
     rating: 5,
@@ -113,7 +113,7 @@ const recentActivity = [
     discountPrice: 499,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Horizon Zero Dawn",
     desc: "Explore a beautiful post-apocalyptic world filled with mechanical creatures and uncover the secrets of the past.",
     rating: 4.8,
@@ -121,7 +121,7 @@ const recentActivity = [
     discountPrice: 379,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "God of War",
     desc: "Join Kratos on an epic journey through Norse mythology in this action-adventure game with breathtaking visuals and a gripping story.",
     rating: 4.9,
@@ -129,7 +129,7 @@ const recentActivity = [
     discountPrice: 449,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Halo Infinite",
     desc: "Return to the world of Halo in this thrilling installment with expansive environments, powerful weapons, and intense multiplayer action.",
     rating: 4.6,
@@ -137,7 +137,7 @@ const recentActivity = [
     discountPrice: 349,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Doom Eternal",
     desc: "Take on the role of the Doom Slayer in this fast-paced and brutal first-person shooter with non-stop action.",
     rating: 4.5,
@@ -145,7 +145,7 @@ const recentActivity = [
     discountPrice: 299,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Wolfenstein II: The New Colossus",
     desc: "Fight to liberate America from Nazi control in this alternate-history first-person shooter with high-stakes missions and gripping gameplay.",
     rating: 4.3,
@@ -153,7 +153,7 @@ const recentActivity = [
     discountPrice: 279,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Final Fantasy XV",
     desc: "Join Prince Noctis and his friends on an epic journey in this action-packed role-playing game with stunning visuals and engaging combat.",
     rating: 4.8,
@@ -161,7 +161,7 @@ const recentActivity = [
     discountPrice: 449,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Ghost of Tsushima",
     desc: "Become a samurai warrior and defend your homeland from invaders in this visually stunning open-world game.",
     rating: 4.9,
@@ -169,7 +169,7 @@ const recentActivity = [
     discountPrice: 429,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Resident Evil Village",
     desc: "Survive the horrors of a mysterious village in this atmospheric and terrifying entry in the Resident Evil series.",
     rating: 4.7,
@@ -177,7 +177,7 @@ const recentActivity = [
     discountPrice: 369,
   },
   {
-    poster: samplePic,
+    poster: samplePic.src,
     name: "Elden Ring",
     desc: "Explore a vast open world and take on powerful enemies in this highly anticipated action RPG from the creators of Dark Souls.",
     rating: 5,
@@ -195,84 +195,84 @@ const transactions = [
     products: [
       {
         productId: "#prd101",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Cyberpunk 2077",
         price: 29.99,
         quantity: 2,
       },
       {
         productId: "#prd102",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Assassin's Creed Valhalla",
         price: 34.99,
         quantity: 1,
       },
       {
         productId: "#prd103",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Far Cry 6",
         price: 23.49,
         quantity: 1,
       },
       {
         productId: "#prd104",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Watch Dogs Legion",
         price: 24.99,
         quantity: 1,
       },
       {
         productId: "#prd105",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Red Dead Redemption 2",
         price: 40.0,
         quantity: 3,
       },
       {
         productId: "#prd106",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Spider-Man Miles Morales",
         price: 29.5,
         quantity: 1,
       },
       {
         productId: "#prd107",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "The Last of Us Part II",
         price: 35.5,
         quantity: 1,
       },
       {
         productId: "#prd108",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Ghost of Tsushima",
         price: 21.5,
         quantity: 2,
       },
       {
         productId: "#prd109",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Halo Infinite",
         price: 13.0,
         quantity: 1,
       },
       {
         productId: "#prd110",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "FIFA 2023",
         price: 15.99,
         quantity: 1,
       },
       {
         productId: "#prd111",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "NBA 2K23",
         price: 18.5,
         quantity: 1,
       },
       {
         productId: "#prd112",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Call of Duty: Modern Warfare",
         price: 19.99,
         quantity: 1,
@@ -288,14 +288,14 @@ const transactions = [
     products: [
       {
         productId: "#rid294",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Greed Fall",
         price: 12.5,
         quantity: 2,
       },
       {
         productId: "#ri6s94",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Sample game",
         price: 11.5,
         quantity: 3,
@@ -311,14 +311,14 @@ const transactions = [
     products: [
       {
         productId: "#pmk876",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Cyberpunk 2077",
         price: 29.99,
         quantity: 2,
       },
       {
         productId: "#ptr567",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "The Witcher 3",
         price: 24.5,
         quantity: 2,
@@ -334,14 +334,14 @@ const transactions = [
     products: [
       {
         productId: "#otg123",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Assassin's Creed Valhalla",
         price: 14.5,
         quantity: 1,
       },
       {
         productId: "#kjl994",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Halo Infinite",
         price: 13.0,
         quantity: 1,
@@ -357,14 +357,14 @@ const transactions = [
     products: [
       {
         productId: "#nmw879",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "FIFA 2023",
         price: 15.99,
         quantity: 1,
       },
       {
         productId: "#bgt560",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "NBA 2K23",
         price: 18.5,
         quantity: 1,
@@ -380,14 +380,14 @@ const transactions = [
     products: [
       {
         productId: "#qwe938",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Resident Evil Village",
         price: 17.5,
         quantity: 2,
       },
       {
         productId: "#vbn543",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Call of Duty",
         price: 19.5,
         quantity: 1,
@@ -403,14 +403,14 @@ const transactions = [
     products: [
       {
         productId: "#rgh295",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Far Cry 6",
         price: 23.99,
         quantity: 1,
       },
       {
         productId: "#tyu883",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Watch Dogs",
         price: 20.5,
         quantity: 2,
@@ -426,14 +426,14 @@ const transactions = [
     products: [
       {
         productId: "#plr937",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Horizon Zero Dawn",
         price: 22.99,
         quantity: 1,
       },
       {
         productId: "#lkj283",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Ghost of Tsushima",
         price: 21.5,
         quantity: 3,
@@ -449,14 +449,14 @@ const transactions = [
     products: [
       {
         productId: "#osd945",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Elden Ring",
         price: 27.5,
         quantity: 1,
       },
       {
         productId: "#gth356",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Dark Souls 3",
         price: 25.0,
         quantity: 1,
@@ -472,14 +472,14 @@ const transactions = [
     products: [
       {
         productId: "#poj953",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Spider-Man Miles Morales",
         price: 29.5,
         quantity: 1,
       },
       {
         productId: "#nty829",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "God of War",
         price: 30.0,
         quantity: 2,
@@ -495,14 +495,14 @@ const transactions = [
     products: [
       {
         productId: "#zxk273",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Red Dead Redemption 2",
         price: 40.0,
         quantity: 4,
       },
       {
         productId: "#fdp763",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Final Fantasy XV",
         price: 38.0,
         quantity: 1,
@@ -518,14 +518,14 @@ const transactions = [
     products: [
       {
         productId: "#tyu372",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Doom Eternal",
         price: 32.5,
         quantity: 4,
       },
       {
         productId: "#iru938",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Wolfenstein 2",
         price: 30.0,
         quantity: 3,
@@ -541,14 +541,14 @@ const transactions = [
     products: [
       {
         productId: "#plo583",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "The Last of Us Part II",
         price: 35.5,
         quantity: 2,
       },
       {
         productId: "#zxc764",
-        poster: samplePic,
+        poster: samplePic.src,
         name: "Uncharted 4",
         price: 33.5,
         quantity: 1,
@@ -559,7 +559,7 @@ const transactions = [
 ];
 
 interface RecentActivity {
-  poster: StaticImageData;
+  poster: string;
   name: string;
   desc: string;
   rating: number;
@@ -716,7 +716,7 @@ export default function ProfilePage() {
             <div className="flex items-center gap-x-[15px] pt-[64px] sm:gap-x-[25px] md:gap-x-[35px] lg:gap-x-[45px] xl:gap-x-[50px] 2xl:gap-x-[56px] pb-[55px] sm:pt-[74px] md:pt-[86px] lg:pt-[98px] xl:pt-[107px] 2xl:pt-[116px]">
               <div className="relative size-[46px] sm:size-[70px] md:size-[94px] lg:size-[118px] xl:size-[135px] 2xl:size-[152px]">
                 <Image
-                  src={imageUrl ?? samplePic}
+                  src={imageUrl ?? samplePic.src}
                   alt={profile.id}
                   className="w-full rounded-full"
                   fill
