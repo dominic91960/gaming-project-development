@@ -20,6 +20,7 @@ import TransactionAction from "./components/transaction-action";
 import Footer from "@/components/footer/footer";
 import EditAccountInfo from "./components/edit-account-info";
 import EditPassword from "./components/edit-password";
+import EditTel from "./components/edit-tel";
 
 // const profile = {
 //   avatar: samplePic,
@@ -625,8 +626,8 @@ export default function ProfilePage() {
   );
   const [isEditAccountInfoPopupOpen, setIsEditAccountInfoPopupOpen] =
     useState(false);
-  const [isEditSecurityInfoPopupOpen, setIsEditSecurityInfoPopupOpen] =
-    useState(false);
+  const [isEditPasswordPopupOpen, setIsEditPasswordPopupOpen] = useState(false);
+  const [isEditTelPopupOpen, setIsEditTelPopupOpen] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   const [isActionPopupOpen, setIsActionPopupOpen] = useState(false);
   const totalPages = Math.ceil(recentActivity.length / productsPerPage);
@@ -781,7 +782,8 @@ export default function ProfilePage() {
                 password={profile.password}
                 tel={profile.password}
                 trustedDevices={profile.trustedDevices}
-                handleClick={() => setIsEditSecurityInfoPopupOpen(true)}
+                handlePasswordEditClick={() => setIsEditPasswordPopupOpen(true)}
+                handleTelEditClick={() => setIsEditTelPopupOpen(true)}
               />
             </div>
 
@@ -821,11 +823,18 @@ export default function ProfilePage() {
           />
         )}
 
-        {isEditSecurityInfoPopupOpen && (
+        {isEditPasswordPopupOpen && (
           <EditPassword
             password={profile.password}
             setProfile={setProfile}
-            onClose={() => setIsEditSecurityInfoPopupOpen(false)}
+            onClose={() => setIsEditPasswordPopupOpen(false)}
+          />
+        )}
+
+        {isEditTelPopupOpen && (
+          <EditTel
+            setProfile={setProfile}
+            onClose={() => setIsEditTelPopupOpen(false)}
           />
         )}
 
