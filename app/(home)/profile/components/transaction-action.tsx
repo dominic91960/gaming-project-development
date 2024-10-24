@@ -1,21 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { StaticImageData } from "next/image";
 
 import { columns } from "./order-columns";
 import { DataTable } from "./order-data-table";
-import { Button } from "@/components/ui/button";
-import { Row } from "@tanstack/react-table";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Transaction } from "./transaction-columns";
-import { FaEye } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 
 interface TransactionActionProps {
-  row: Row<Transaction>;
+  orderId: string;
   products: {
     productId: string;
     poster: StaticImageData;
@@ -26,43 +17,36 @@ interface TransactionActionProps {
   subTotal: number;
   coupon: number;
   orderTotal: number;
+  onClose: () => void;
 }
 
 const TransactionAction: React.FC<TransactionActionProps> = ({
-  row,
+  orderId,
   products,
   subTotal,
   coupon,
   orderTotal,
+  onClose,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <Popover open={isOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="ghost"
-          className="h-fit text-[8px] px-[0.6em] py-[0.6em] rounded-sm sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
-          onClick={() => setIsOpen(true)}
-        >
-          <FaEye />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent
-        className="w-fit bg-gradient-to-tr from-black to-[#007147] text-[8px] text-white border rounded-none p-[1.5em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
+    <aside
+      className="fixed top-0 left-0 w-full h-full bg-black/60 flex items-center justify-center px-[36px] backdrop-blur-md z-50"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div
+        className="w-fit h-fit bg-gradient-to-tr from-black to-[#007147] text-[8px] text-white border rounded-none p-[1.5em] z-10 sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] overflow-auto"
         style={{
           borderImage: "linear-gradient(to bottom, #19D38E, #0D6D49) 1",
         }}
-        onInteractOutside={() => setIsOpen(false)}
       >
-        <div className="flex justify-between pb-[1em] border-b border-b-[#0D6D49]">
+        <div className="flex justify-between text-[1.125em] pb-[1em] border-b border-b-[#0D6D49]">
           {/* Order no */}
-          <h4 className="font-bold">Order No {row.original.orderId}</h4>
+          <h4 className="font-bold">Order No {orderId}</h4>
 
           {/* Close button */}
           <IoClose
             className="text-[1.3em] text-[#00FFA1] cursor-pointer hover:scale-110"
-            onClick={() => setIsOpen(false)}
+            onClick={onClose}
           />
         </div>
 
@@ -82,8 +66,8 @@ const TransactionAction: React.FC<TransactionActionProps> = ({
         {/* Order total */}
         <p className="text-right">Order Total: ${orderTotal}</p>
         <hr className="border-t-[#0D6D49] mt-[1em]" />
-      </PopoverContent>
-    </Popover>
+      </div>
+    </aside>
   );
 };
 

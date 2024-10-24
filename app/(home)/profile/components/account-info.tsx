@@ -1,39 +1,36 @@
 import React from "react";
-import { StaticImageData } from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { FaPencilAlt } from "react-icons/fa";
 
 interface AccountInfoProps {
   id: string;
-  avatar: StaticImageData;
-  username: string;
+  username: string | null;
   email: string;
-  city: string;
-  country: string;
-  language: string;
   firstName: string;
   lastName: string;
-  address: string;
-  postalCode: string;
-  region: string;
-  DOB: string;
+  DOB: string | null;
+  address: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  postalCode: string | null;
+  handleClick: () => void;
 }
 
 const AccountInfo: React.FC<AccountInfoProps> = ({
   id,
-  avatar,
   username,
   email,
-  city,
-  country,
-  language,
   firstName,
   lastName,
-  address,
-  postalCode,
-  region,
   DOB,
+  address,
+  city,
+  state,
+  country,
+  postalCode,
+  handleClick,
 }) => {
   return (
     <menu
@@ -46,14 +43,15 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
       <p className="sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[14px]">
         Manage your account&apos;s details.
       </p>
-      <div className="flex items-center justify-between">
+      <div className="flex items-baseline justify-between">
         <h3 className="font-bold text-[15px] sm:text-[20px] md:text-[25px] lg:text-[30px] xl:text-[32px] 2xl:text-[35px]">
           Account Information
         </h3>
         <Button
           type="button"
           variant="ghost"
-          className="h-fit text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[20px] uppercase px-[1em] py-[0.5em] rounded-sm"
+          className="h-fit text-[8px] uppercase px-[0.5em] py-[0.5em] rounded-sm sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+          onClick={handleClick}
         >
           Edit&nbsp;&nbsp;
           <FaPencilAlt />
@@ -62,156 +60,100 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
       <hr className="border-t-[#BCBCBC] mt-[0.1em] mb-[1.7em]" />
 
       {/* Account info */}
-      <form>
+      <div className="*:mb-[0.7em]">
         {/* ID */}
-        <div className="flex items-center justify-between mb-[0.5em]">
-          <p>
-            <span className="font-bold">ID: </span>
-            {id}
-          </p>
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-          >
-            <FaPencilAlt />
-          </Button>
-        </div>
+        <p className="mb-[0.7em]">
+          <span className="font-bold">ID: </span>
+          {id}
+        </p>
 
         {/* Username */}
-        <div className="flex items-center justify-between  mb-[0.5em]">
-          <p>
-            <span className="font-bold">Username: </span>
-            {username}
-          </p>
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-          >
-            <FaPencilAlt />
-          </Button>
-        </div>
+        <p className="mb-[0.7em]">
+          <span className="font-bold">Username: </span>
+          {username ?? (
+            <span className="opacity-70 italic text-[0.8em]">
+              Please provide a username
+            </span>
+          )}
+        </p>
 
         {/* Email */}
-        <div className="flex items-center justify-between  mb-[0.5em]">
-          <p>
-            <span className="font-bold">Email: </span> {email}
-          </p>
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-          >
-            <FaPencilAlt />
-          </Button>
-        </div>
-
-        {/* Language */}
-        <div className="flex items-center justify-between  mb-[0.5em]">
-          <p>
-            <span className="font-bold">Language: </span>
-            {language}
-          </p>
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-          >
-            <FaPencilAlt />
-          </Button>
-        </div>
+        <p>
+          <span className="font-bold">Email: </span> {email}
+        </p>
 
         {/* First name */}
-        <div className="flex items-center justify-between  mb-[0.5em]">
-          <p>
-            <span className="font-bold">First Name: </span>
-            {firstName}
-          </p>
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-          >
-            <FaPencilAlt />
-          </Button>
-        </div>
+        <p>
+          <span className="font-bold">First Name: </span>
+          {firstName}
+        </p>
 
         {/* Last name */}
-        <div className="flex items-center justify-between  mb-[0.5em]">
-          <p>
-            <span className="font-bold">Last Name: </span>
-            {lastName}
-          </p>
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-          >
-            <FaPencilAlt />
-          </Button>
-        </div>
-
-        {/* Address */}
-        <div className="flex items-center justify-between  mb-[0.5em]">
-          <p>
-            <span className="font-bold">Address: </span>
-            {address}
-          </p>
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-          >
-            <FaPencilAlt />
-          </Button>
-        </div>
-
-        {/* Postal code */}
-        <div className="flex items-center justify-between  mb-[0.5em]">
-          <p>
-            <span className="font-bold">Postal Code: </span>
-            {postalCode}
-          </p>
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-          >
-            <FaPencilAlt />
-          </Button>
-        </div>
-
-        {/* Region */}
-        <div className="flex items-center justify-between  mb-[0.5em]">
-          <p>
-            <span className="font-bold">Region: </span>
-            {region}
-          </p>
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-          >
-            <FaPencilAlt />
-          </Button>
-        </div>
+        <p>
+          <span className="font-bold">Last Name: </span>
+          {lastName}
+        </p>
 
         {/* DOB */}
-        <div className="flex items-center justify-between  mb-[0.5em]">
-          <p>
-            <span className="font-bold">Date of Birth: </span>
-            {DOB}
-          </p>
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-fit text-[1em] uppercase px-[0.5em] py-[0.5em] rounded-sm"
-          >
-            <FaPencilAlt />
-          </Button>
-        </div>
-      </form>
+        <p>
+          <span className="font-bold">Date of Birth: </span>
+          {DOB ?? (
+            <span className="opacity-70 italic text-[0.8em]">
+              Please provide a DOB
+            </span>
+          )}
+        </p>
+
+        {/* Address */}
+        <p>
+          <span className="font-bold">Address: </span>
+          {address ?? (
+            <span className="opacity-70 italic text-[0.8em]">
+              Please provide a address
+            </span>
+          )}
+        </p>
+
+        {/* City */}
+        <p>
+          <span className="font-bold">City: </span>
+          {city ?? (
+            <span className="opacity-70 italic text-[0.8em]">
+              Please provide a city
+            </span>
+          )}
+        </p>
+
+        {/* State */}
+        <p>
+          <span className="font-bold">State: </span>
+          {state ?? (
+            <span className="opacity-70 italic text-[0.8em]">
+              Please provide a state
+            </span>
+          )}
+        </p>
+
+        {/* Country */}
+        <p>
+          <span className="font-bold">Country: </span>
+          {country ?? (
+            <span className="opacity-70 italic text-[0.8em]">
+              Please provide a country
+            </span>
+          )}
+        </p>
+
+        {/* Postal code */}
+        <p>
+          <span className="font-bold">Postal Code: </span>
+          {postalCode ?? (
+            <span className="opacity-70 italic text-[0.8em]">
+              Please provide a postal code
+            </span>
+          )}
+        </p>
+      </div>
     </menu>
   );
 };

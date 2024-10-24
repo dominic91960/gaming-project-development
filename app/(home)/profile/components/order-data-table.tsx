@@ -56,11 +56,11 @@ export function DataTable<TData, TValue>({
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow
               key={headerGroup.id}
-              className="hover:bg-inherit border-none"
+              className="h-fit border-none hover:bg-inherit"
             >
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="text-white">
+                  <TableHead key={header.id} className="h-fit text-white py-0">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -106,7 +106,7 @@ export function DataTable<TData, TValue>({
 
       <div className="flex items-center gap-x-[0.4em] text-[0.9em] px-[0.4em] pt-[0.1em]">
         <Button
-          variant="secondary"
+          variant="outline"
           className="h-fit text-[1em] px-[1em] py-[0.5em] rounded-none"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
@@ -114,7 +114,7 @@ export function DataTable<TData, TValue>({
           Previous
         </Button>
         <Button
-          variant="secondary"
+          variant="outline"
           className="h-fit text-[1em] px-[1em] py-[0.5em] rounded-none"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}

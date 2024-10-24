@@ -6,35 +6,39 @@ import Image, { StaticImageData } from "next/image";
 import { ColumnDef } from "@tanstack/react-table";
 import { Transaction, columns } from "./components/transaction-columns";
 import { DataTable } from "./components/transaction-data-table";
+import { Button } from "@/components/ui/button";
+import { FaEye } from "react-icons/fa";
 
-import ProductSearchBar from "@/components/product-search/product-search";
-import Navbar from "@/components/navbar/navbar";
 import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
-import Footer from "@/components/footer/footer";
+import ProductSearchBar from "@/components/product-search/product-search";
+import Navbar from "@/components/navbar/navbar";
 import AccountInfo from "./components/account-info";
 import SecurityInfo from "./components/security-info";
-import TransactionAction from "./components/transaction-action";
 import RecentActivities from "./components/recent-activities";
+import TransactionAction from "./components/transaction-action";
+import Footer from "@/components/footer/footer";
+import EditAccountInfo from "./components/edit-account-info";
+import EditPassword from "./components/edit-password";
+import EditTel from "./components/edit-tel";
 
-const profile = {
-  id: "b0ijjfb4343asc4848##56",
-  avatar: samplePic,
-  username: "ellison342",
-  email: "kavindakmanohara@gmail.com",
-  city: "Kandy",
-  country: "Sri Lanka",
-  language: "English",
-  firstName: "Ellison",
-  lastName: "Smith",
-  address: "270/F, Kadawatha Road Ganemulla",
-  postalCode: "11020",
-  region: "western",
-  DOB: "2001/08/04",
-  password: "ABCD1234",
-  tel: "0284948483",
-  trustedDevices: 2,
-};
+// const profile = {
+//   avatar: samplePic,
+//   id: "b0ijjfb4343asc4848##56",
+//   username: "ellison342",
+//   email: "kavindakmanohara@gmail.com",
+//   firstName: "Ellison",
+//   lastName: "Smith",
+//   DOB: "2004-06-24",
+//   address: "270/F, Kadawatha Road Ganemulla",
+//   city: "Kandy",
+//   state: "western",
+//   country: "Sri Lanka",
+//   postalCode: "11020",
+//   password: "ABCD1234",
+//   tel: "0284948483",
+//   trustedDevices: 2,
+// };
 
 const recentActivity = [
   {
@@ -581,12 +585,60 @@ interface RecentActivity {
 }
 
 export default function ProfilePage() {
+  const [profile, setProfile] = useState<{
+    avatar: StaticImageData;
+    id: string;
+    username: string | null;
+    email: string;
+    firstName: string;
+    lastName: string;
+    DOB: string | null;
+    address: string | null;
+    city: string | null;
+    state: string | null;
+    country: string | null;
+    postalCode: string | null;
+    password: string;
+    tel: string;
+    trustedDevices: number;
+  }>({
+    avatar: samplePic,
+    id: "b0ijjfb4343asc4848##56",
+    username: null,
+    email: "kavindakmanohara@gmail.com",
+    firstName: "Ellison",
+    lastName: "Smith",
+    DOB: null,
+    address: null,
+    city: null,
+    state: null,
+    country: null,
+    postalCode: null,
+    password: "ABCD1234",
+    tel: "0284948483",
+    trustedDevices: 2,
+  });
+
   const [productsPerPage, setProductsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedProducts, setDisplayedProducts] = useState<RecentActivity[]>(
     []
   );
+  const [isEditAccountInfoPopupOpen, setIsEditAccountInfoPopupOpen] =
+    useState(false);
+  const [isEditPasswordPopupOpen, setIsEditPasswordPopupOpen] = useState(false);
+  const [isEditTelPopupOpen, setIsEditTelPopupOpen] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+  const [isActionPopupOpen, setIsActionPopupOpen] = useState(false);
   const totalPages = Math.ceil(recentActivity.length / productsPerPage);
+
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * productsPerPage;
+
+    setDisplayedProducts(
+      recentActivity.slice(startIndex, startIndex + productsPerPage)
+    );
+  }, [currentPage, productsPerPage]);
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * productsPerPage;
@@ -624,11 +676,11 @@ export default function ProfilePage() {
     };
   }, []);
 
-  const getTransaction = (selectedOrderId: string) =>
+  const getTransaction = () =>
     transactions.filter(({ orderId }) => orderId === selectedOrderId)[0];
 
-  const getTransactionSubTotal = (selectedOrderId: string) => {
-    const products = getTransaction(selectedOrderId).products;
+  const getTransactionSubTotal = () => {
+    const products = getTransaction().products;
     let subTotal = 0;
 
     products.forEach((product) => {
@@ -641,18 +693,16 @@ export default function ProfilePage() {
     id: "view",
     header: "Action",
     cell: ({ row }) => (
-      <TransactionAction
-        row={row}
-        products={getTransaction(row.original.orderId).products}
-        subTotal={+getTransactionSubTotal(row.original.orderId)}
-        coupon={getTransaction(row.original.orderId).coupon}
-        orderTotal={
-          +(
-            +getTransactionSubTotal(row.original.orderId) -
-            getTransaction(row.original.orderId).coupon
-          ).toFixed(2)
-        }
-      />
+      <Button
+        variant="ghost"
+        className="h-fit text-[8px] px-[0.6em] py-[0.6em] rounded-sm sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
+        onClick={() => {
+          setSelectedOrderId(row.original.orderId);
+          setIsActionPopupOpen(true);
+        }}
+      >
+        <FaEye />
+      </Button>
     ),
   };
 
@@ -685,7 +735,13 @@ export default function ProfilePage() {
                 <p>
                   {profile.email}
                   <span className="text-[#BCBCBC]">&nbsp;|&nbsp;</span>
-                  {profile.city} {profile.country}
+                  {profile.city && profile.country ? (
+                    `${profile.city} ${profile.country}`
+                  ) : (
+                    <span className="opacity-70 italic text-[0.8em]">
+                      location unknown
+                    </span>
+                  )}
                 </p>
                 <hr className="border-t-[#0BDB45] my-[0.2em]" />
                 <p className="capitalize sm:text-[8px] md:text-[9px] lg:text-[10px] xl:text-[10.5px] 2xl:text-[11px]">
@@ -708,25 +764,26 @@ export default function ProfilePage() {
               {/* Account details */}
               <AccountInfo
                 id={profile.id}
-                avatar={profile.avatar}
                 username={profile.username}
                 email={profile.email}
-                city={profile.city}
-                country={profile.country}
-                language={profile.language}
                 firstName={profile.firstName}
                 lastName={profile.lastName}
-                address={profile.address}
-                postalCode={profile.postalCode}
-                region={profile.region}
                 DOB={profile.DOB}
+                address={profile.address}
+                city={profile.city}
+                state={profile.state}
+                country={profile.country}
+                postalCode={profile.postalCode}
+                handleClick={() => setIsEditAccountInfoPopupOpen(true)}
               />
 
               {/* Security details */}
               <SecurityInfo
                 password={profile.password}
-                tel={profile.password}
+                tel={profile.tel}
                 trustedDevices={profile.trustedDevices}
+                handlePasswordEditClick={() => setIsEditPasswordPopupOpen(true)}
+                handleTelEditClick={() => setIsEditTelPopupOpen(true)}
               />
             </div>
 
@@ -757,6 +814,42 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
+
+        {isEditAccountInfoPopupOpen && (
+          <EditAccountInfo
+            profile={profile}
+            setProfile={setProfile}
+            onClose={() => setIsEditAccountInfoPopupOpen(false)}
+          />
+        )}
+
+        {isEditPasswordPopupOpen && (
+          <EditPassword
+            password={profile.password}
+            setProfile={setProfile}
+            onClose={() => setIsEditPasswordPopupOpen(false)}
+          />
+        )}
+
+        {isEditTelPopupOpen && (
+          <EditTel
+            setProfile={setProfile}
+            onClose={() => setIsEditTelPopupOpen(false)}
+          />
+        )}
+
+        {isActionPopupOpen && selectedOrderId && (
+          <TransactionAction
+            orderId={selectedOrderId}
+            products={getTransaction().products}
+            subTotal={+getTransactionSubTotal()}
+            coupon={getTransaction().coupon}
+            orderTotal={
+              +(+getTransactionSubTotal() - getTransaction().coupon).toFixed(2)
+            }
+            onClose={() => setIsActionPopupOpen(false)}
+          />
+        )}
       </section>
       <Footer />
     </>
