@@ -3,6 +3,7 @@ import { IoIosStar } from "react-icons/io";
 interface StarRatingProps {
   maxStars?: number;
   onRate: (rating: number) => void;
+  // clearRating?: boolean;
 }
 
 const StarRating: React.FC<StarRatingProps> = ({ maxStars = 5, onRate }) => {
@@ -32,8 +33,8 @@ const StarRating: React.FC<StarRatingProps> = ({ maxStars = 5, onRate }) => {
             className={`cursor-pointer text-[25px] ${
               starValue <= selectedRating ? "text-[#f29d38]" : "text-gray-400"
             }`}
-            onMouseEnter={() => handleMouseEnter(starValue)}
-            onMouseLeave={handleMouseLeave}
+            // onMouseEnter={() => handleMouseEnter(starValue)}
+            // onMouseLeave={handleMouseLeave}
             onClick={() => handleClick(starValue)}
           >
             <IoIosStar />
