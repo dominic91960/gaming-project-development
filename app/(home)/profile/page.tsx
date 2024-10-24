@@ -19,6 +19,7 @@ import RecentActivities from "./components/recent-activities";
 import TransactionAction from "./components/transaction-action";
 import Footer from "@/components/footer/footer";
 import EditAccountInfo from "./components/edit-account-info";
+import EditPassword from "./components/edit-password";
 
 // const profile = {
 //   avatar: samplePic,
@@ -616,24 +617,17 @@ export default function ProfilePage() {
     tel: "0284948483",
     trustedDevices: 2,
   });
-  // const [date, setDate] = useState<string | null>(null);
-  // const [email, setEmail] = useState<string | null>(null);
-  // const [firstName, setFirstName] = useState<string | null>(null);
-  // const [lastName, setLastName] = useState<string | null>(null);
-  // const [address, setAddress] = useState<string | null>(null);
-  // const [city, setCity] = useState<string | null>(null);
-  // const [state, setState] = useState<string | null>(null);
-  // const [country, setCountry] = useState<string | null>(null);
-  // const [postalCode, setPostalCode] = useState<string | null>(null);
 
   const [productsPerPage, setProductsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedProducts, setDisplayedProducts] = useState<RecentActivity[]>(
     []
   );
-  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   const [isEditAccountInfoPopupOpen, setIsEditAccountInfoPopupOpen] =
     useState(false);
+  const [isEditSecurityInfoPopupOpen, setIsEditSecurityInfoPopupOpen] =
+    useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   const [isActionPopupOpen, setIsActionPopupOpen] = useState(false);
   const totalPages = Math.ceil(recentActivity.length / productsPerPage);
 
@@ -787,6 +781,7 @@ export default function ProfilePage() {
                 password={profile.password}
                 tel={profile.password}
                 trustedDevices={profile.trustedDevices}
+                handleClick={() => setIsEditSecurityInfoPopupOpen(true)}
               />
             </div>
 
@@ -818,6 +813,22 @@ export default function ProfilePage() {
           </div>
         </div>
 
+        {isEditAccountInfoPopupOpen && (
+          <EditAccountInfo
+            profile={profile}
+            setProfile={setProfile}
+            onClose={() => setIsEditAccountInfoPopupOpen(false)}
+          />
+        )}
+
+        {isEditSecurityInfoPopupOpen && (
+          <EditPassword
+            password={profile.password}
+            setProfile={setProfile}
+            onClose={() => setIsEditSecurityInfoPopupOpen(false)}
+          />
+        )}
+
         {isActionPopupOpen && selectedOrderId && (
           <TransactionAction
             orderId={selectedOrderId}
@@ -828,14 +839,6 @@ export default function ProfilePage() {
               +(+getTransactionSubTotal() - getTransaction().coupon).toFixed(2)
             }
             onClose={() => setIsActionPopupOpen(false)}
-          />
-        )}
-
-        {isEditAccountInfoPopupOpen && (
-          <EditAccountInfo
-            profile={profile}
-            setProfile={setProfile}
-            onClose={() => setIsEditAccountInfoPopupOpen(false)}
           />
         )}
       </section>

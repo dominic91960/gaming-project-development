@@ -79,7 +79,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
       {/* Form to general data*/}
       {!isEditingEmail && (
         <div
-          className="w-fit h-fit bg-gradient-to-tr from-black to-[#007147] text-[8px] text-white border rounded-none p-[1.5em] z-10 sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] overflow-auto"
+          className="w-full h-fit bg-gradient-to-tr from-black to-[#007147] text-[8px] text-white border rounded-none p-[1.5em] overflow-auto z-10 sm:text-[10px] md:text-[12px] lg:w-fit lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
           style={{
             borderImage: "linear-gradient(to bottom, #19D38E, #0D6D49) 1",
           }}
@@ -118,7 +118,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                       username: e.target.value,
                     }))
                   }
-                  className="bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
                   required
                 />
               </div>
@@ -186,7 +186,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                       firstName: e.target.value,
                     }))
                   }
-                  className="bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
                   required
                 />
               </div>
@@ -206,7 +206,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                       lastName: e.target.value,
                     }))
                   }
-                  className="bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
                   required
                 />
               </div>
@@ -227,7 +227,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                     address: e.target.value,
                   }))
                 }
-                className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
+                className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none lg:w-[87ch]"
                 required
               />
             </div>
@@ -249,7 +249,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                       city: e.target.value,
                     }))
                   }
-                  className="bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
                   required
                 />
               </div>
@@ -269,7 +269,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                       state: e.target.value,
                     }))
                   }
-                  className="bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
                   required
                 />
               </div>
@@ -292,7 +292,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                       country: e.target.value,
                     }))
                   }
-                  className="bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
                   required
                 />
               </div>
@@ -312,7 +312,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                       postalCode: e.target.value,
                     }))
                   }
-                  className="bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
                   required
                 />
               </div>
@@ -323,7 +323,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
               <Button
                 type="submit"
                 variant="gaming"
-                className="h-fit text-[1em] px-[1em] py-[0.5em] rounded-none"
+                className="h-fit text-[8px] px-[2em] py-[0.2em] rounded-none sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
               >
                 Save
               </Button>

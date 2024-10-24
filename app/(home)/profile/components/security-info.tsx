@@ -9,12 +9,14 @@ interface SecurityInfoProps {
   password: string;
   tel: string;
   trustedDevices: number;
+  handleClick: () => void;
 }
 
 const SecurityInfo: React.FC<SecurityInfoProps> = ({
   password,
   tel,
   trustedDevices,
+  handleClick,
 }) => {
   return (
     <menu
@@ -49,6 +51,7 @@ const SecurityInfo: React.FC<SecurityInfoProps> = ({
             type="button"
             variant="ghost"
             className="h-fit text-[8px] uppercase px-[0.5em] py-[0.5em] rounded-sm sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+            onClick={handleClick}
           >
             Edit&nbsp;&nbsp;
             <FaPencilAlt />
@@ -109,15 +112,6 @@ const SecurityInfo: React.FC<SecurityInfoProps> = ({
               </p>
             </div>
           </div>
-
-          <Button
-            type="button"
-            variant="ghost"
-            className="h-fit text-[8px] uppercase px-[0.5em] py-[0.5em] rounded-sm sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-          >
-            Edit&nbsp;&nbsp;
-            <FaPencilAlt />
-          </Button>
         </div>
       </form>
 
