@@ -96,6 +96,7 @@ const EditTel: React.FC<EditTelProps> = ({ setProfile, onClose }) => {
           updatedTel={updatedTel}
           setProfile={setProfile}
           onClose={() => setIsOtpPopupOpen(false)}
+          onSuccess={onClose}
         />
       )}
     </aside>

@@ -780,7 +780,7 @@ export default function ProfilePage() {
               {/* Security details */}
               <SecurityInfo
                 password={profile.password}
-                tel={profile.password}
+                tel={profile.tel}
                 trustedDevices={profile.trustedDevices}
                 handlePasswordEditClick={() => setIsEditPasswordPopupOpen(true)}
                 handleTelEditClick={() => setIsEditTelPopupOpen(true)}

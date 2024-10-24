@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StaticImageData } from "next/image";
 
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
 import { IoClose } from "react-icons/io5";
 
-interface VerifyOtpProps {
+interface VerifyOTPProps {
   updatedTel: string;
   setProfile: React.Dispatch<
     React.SetStateAction<{
@@ -32,22 +31,40 @@ interface VerifyOtpProps {
     }>
   >;
   onClose: () => void;
+  onSuccess: () => void;
 }
 
-const VerifyOtp: React.FC<VerifyOtpProps> = ({
+const VerifyOTP: React.FC<VerifyOTPProps> = ({
   updatedTel,
   setProfile,
   onClose,
+  onSuccess,
 }) => {
-  const [inputOtp, setInputOtp] = useState("");
+  const [OTP, setOTP] = useState("");
+  //   const [timer, setTimer] = useState("");
+  const [inputOTP, setInputOTP] = useState("");
+  const [isOTPWrong, setIsOTPWrong] = useState(false);
 
-  const hanldeSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // setProfile((prev) => ({
-    //   ...prev,
-    //   tel: updatedTel,
-    // }));
+  useEffect(() => {
+    setOTP("123456");
+
+    const currentTime = new Date();
+    const OTPExpirationTime = new Date();
+    // time.setMinutes(time.getMinutes() + 1);
+
+    // setInterval(() => setTimer(time.getSeconds()), 1000);
+    // setTimer(time.toISOString());
+  }, []);
+
+  const hanldeSubmit = () => {
+    if (OTP !== inputOTP) {
+      setInputOTP("");
+      setIsOTPWrong(true);
+      return;
+    }
+    setProfile((prev) => ({ ...prev, tel: updatedTel }));
     onClose();
+    onSuccess();
   };
 
   return (
@@ -65,24 +82,30 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({
 
       {/* Title */}
       <h4 className="font-bold text-[1.125em] text-center pt-[1em] pb-[2em]">
-        OTP Verification
+        OTP VERIFICATION
       </h4>
 
       {/* Message */}
       <p className="text-[0.75em] text-center pb-[2em]">
         Enter the code from the sms we sent to
         <br />
-        <span className="font-semibold">+8801774280874</span>
+        <span className="font-semibold">{updatedTel}</span>
       </p>
 
       {/* Timer */}
       <p className="font-bold text-[0.75em] text-[#0BDB45] text-center pb-[2em]">
-        00:34
+        {/* {timer} */}
+        00:00
       </p>
 
       {/* OTP */}
-      <InputOTP maxLength={6} onChange={(value) => setInputOtp(value)}>
-        <InputOTPGroup className="text-[1em] pb-[2em] *:text-[1em]">
+      <InputOTP
+        maxLength={6}
+        value={inputOTP}
+        onFocus={() => setIsOTPWrong(false)}
+        onChange={(value) => setInputOTP(value)}
+      >
+        <InputOTPGroup className="text-[1em] *:text-[1em]">
           <InputOTPSlot index={0} className="first:rounded-l-none" />
           <InputOTPSlot index={1} />
           <InputOTPSlot index={2} />
@@ -91,9 +114,14 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({
           <InputOTPSlot index={5} className="last:rounded-r-none" />
         </InputOTPGroup>
       </InputOTP>
+      {isOTPWrong && (
+        <p className="mt-[0.7em] text-[0.8em] text-[#8b8b8b]">
+          Incorrect OTP. Please check and try again.
+        </p>
+      )}
 
       {/* Message */}
-      <p className="text-[0.75em] text-center pb-[0.5em]">
+      <p className="text-[0.75em] text-center  pt-[2em] pb-[0.5em]">
         Didn&apos;t receive OTP code ?
       </p>
 
@@ -102,18 +130,16 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({
         Resend
       </p>
 
-      <form onSubmit={hanldeSubmit}>
-        {/* Submit */}
-        <Button
-          type="submit"
-          variant="gaming"
-          className="h-fit text-[8px] px-[2em] py-[0.2em] rounded-none sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
-        >
-          Enable SMS Authentication
-        </Button>
-      </form>
+      {/* Submit */}
+      <Button
+        variant="gaming"
+        className="h-fit text-[8px] px-[2em] py-[0.2em] rounded-none sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
+        onClick={hanldeSubmit}
+      >
+        Enable SMS Authentication
+      </Button>
     </div>
   );
 };
 
-export default VerifyOtp;
+export default VerifyOTP;
