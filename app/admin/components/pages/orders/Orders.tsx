@@ -10,23 +10,19 @@ function getInitialData(): AllOrdersNew[] {
     {
       id: "728ed52f",
       order_id: "Wukong",
-
+      date: "23/05/2024",
       username: "In Stock",
       order_total: "$40",
-
-      status: "Public",
-      date: "23/05/2024",
+      status: "Approved",
     },
 
     {
       id: "728ed52f",
       order_id: "Wukong",
-
+      date: "23/05/2024",
       username: "In Stock",
       order_total: "$40",
-
-      status: "Public",
-      date: "23/05/2024",
+      status: "Rejected",
     },
   ];
 }
@@ -70,12 +66,12 @@ export default function Allorders() {
         >
           Delete
         </button>
-        <button
+        {/* <button
           className="bg-blue-500 text-white px-2 py-1 rounded"
           onClick={() => handleEditorder(row.original)}
         >
           Edit
-        </button>
+        </button> */}
       </div>
     ),
   };
@@ -87,7 +83,7 @@ export default function Allorders() {
 
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-4">All Orders</h1>
+      <h1 className="text-2xl font-bold mb-4 text-white">All Orders</h1>
       {/* Add Orders Component */}
       <Addorders onAddOrder={handleAddorder} />
       {/* Data Table */}

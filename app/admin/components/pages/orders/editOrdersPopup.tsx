@@ -78,9 +78,8 @@ const EditAllOrdersPopup: React.FC<EditAllOrdersPopupProps> = ({
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
           >
-            <option value="Public">Public</option>
-            <option value="Private">Private</option>
-            <option value="Archived">Archived</option>
+            <option value="Public">Pending</option>
+            <option value="Private">Completed</option>
           </select>
 
           <input

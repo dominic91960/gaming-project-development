@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import StatusPopup from "./OrderStatusPopup";
 
 export type AllOrdersNew = {
   id: string;
@@ -41,6 +42,11 @@ export const columns: ColumnDef<AllOrdersNew>[] = [
   },
 
   {
+    accessorKey: "date",
+    header: "Date",
+  },
+
+  {
     accessorKey: "username",
     header: "Username",
   },
@@ -50,14 +56,42 @@ export const columns: ColumnDef<AllOrdersNew>[] = [
     header: "Order Total",
   },
 
+  //   {
+  //     accessorKey: "status",
+  //     header: "Status",
+  //   },
+
   {
     accessorKey: "status",
     header: "Status",
-  },
-
-  {
-    accessorKey: "date",
-    header: "Date",
+    cell: ({ row }) => {
+      const [showPopup, setShowPopup] = useState(false);
+      const [status, setStatus] = useState(row.original.status);
+      const handleStatusClick = () => {
+        setShowPopup(true);
+      };
+      const handleStatusChange = (newStatus: string) => {
+        setStatus(newStatus);
+        row.original.status = newStatus; // Update the row's status value
+      };
+      return (
+        <div className="relative">
+          <button
+            onClick={handleStatusClick}
+            className="text-blue-500 underline"
+          >
+            {status}
+          </button>
+          {showPopup && (
+            <StatusPopup
+              initialStatus={status}
+              onSave={handleStatusChange}
+              onClose={() => setShowPopup(false)}
+            />
+          )}
+        </div>
+      );
+    },
   },
 
   {

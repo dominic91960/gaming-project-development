@@ -7,10 +7,11 @@ interface AddOrdersProps {
 
 export default function AddOrders({ onAddOrder }: AddOrdersProps) {
   const [order_id, setOrder_id] = useState("");
+  const [date, setDate] = useState("");
   const [username, setusername] = useState("");
   const [order_total, setOrder_total] = useState("");
   const [status, setStatus] = useState("Public");
-  const [date, setDate] = useState("");
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -26,12 +27,10 @@ export default function AddOrders({ onAddOrder }: AddOrdersProps) {
     onAddOrder(newOrder);
 
     setOrder_id("");
-
+    setDate("");
     setusername("");
     setOrder_total("");
-
     setStatus("Public");
-    setDate("");
   };
 
   return (
@@ -52,6 +51,17 @@ export default function AddOrders({ onAddOrder }: AddOrdersProps) {
       </div>
 
       <div className="mb-4">
+        <label className="block mb-1">Date</label>
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          className="w-full p-2 border rounded text-black"
+          required
+        />
+      </div>
+
+      <div className="mb-4">
         <label className="block mb-1">Username</label>
         <input
           type="text"
@@ -61,6 +71,7 @@ export default function AddOrders({ onAddOrder }: AddOrdersProps) {
           required
         />
       </div>
+
       <div className="mb-4">
         <label className="block mb-1">Total</label>
         <input
@@ -79,27 +90,16 @@ export default function AddOrders({ onAddOrder }: AddOrdersProps) {
           onChange={(e) => setStatus(e.target.value)}
           className="w-full p-2 border rounded text-black"
         >
-          <option value="Public">Public</option>
-          <option value="Private">Private</option>
-          <option value="Archived">Archived</option>
+          <option value="Public">Pending</option>
+          <option value="Private">Completed</option>
         </select>
-      </div>
-      <div className="mb-4">
-        <label className="block mb-1">Date</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="w-full p-2 border rounded text-black"
-          required
-        />
       </div>
 
       <button
         type="submit"
         className="px-4 py-2 bg-blue-500 text-white rounded"
       >
-        Save Product
+        Save Order
       </button>
     </form>
   );
