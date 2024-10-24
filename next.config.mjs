@@ -7,7 +7,7 @@ const nextConfig = {
       },
     images: {
       unoptimized: true,
-      domains: ["gaming-app.s3.amazonaws.com"],
+      domains: ["gaming-app.s3.amazonaws.com", "store.thevingame.com"],
     },
 };
 

@@ -60,7 +60,12 @@ const SignIn = () => {
         toast.success(message);
 
         // Redirect to home page
-        router.push("/admin");
+        // router.push("/admin");
+        if (user.role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/");
+        }
       } else {
         console.error("Login failed");
       }
@@ -106,7 +111,13 @@ const SignIn = () => {
 
         localStorage.setItem("user", JSON.stringify(user));
 
-        router.push("/admin");
+        if (user.role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/");
+        }
+
+        // router.push("/admin");
       }
     };
 

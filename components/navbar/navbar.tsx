@@ -21,6 +21,19 @@ import { AuthContext } from "@/context/AuthContext";
 import axiosInstance from "@/axios/axiosInstance";
 import ProfileDefault from "@/public/images/navbar/profile_default.jpg";
 import "./navbar.css";
+// import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import samplePic from "@/public/images/sample-pic.png";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { useRouter } from "next/navigation";
+import { FaUserPlus } from "react-icons/fa6";
 
 const categories = [
   {
@@ -102,6 +115,8 @@ export default function Navbar() {
   const [isContentChanged, setIsContentChanged] = useState(false);
   // const { user } = useContext(AuthContext);
   const { user } = useContext(AuthContext) || {};
+
+  const router = useRouter();
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
@@ -208,7 +223,7 @@ export default function Navbar() {
                 </div>
               </Link>
 
-              <Link
+              {/* <Link
                 href="/sign-in"
                 className={`hover:scale-110 ${
                   path.startsWith("/sign") ? "text-[#0BDB45]" : ""
@@ -221,14 +236,58 @@ export default function Navbar() {
                     }
                     alt="Profile"
                     className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
-                    fill
+                    width={25}
+                    height={25}
                   />
                 ) : (
                   <IoMdPerson />
                 )}
-              </Link>
+              </Link> */}
+                          {user?.profile_image ? (
+                            <DropdownMenu>
+                              <DropdownMenuTrigger className="cursor-pointer">
+                                <Image
+                                  src={user?.profile_image}
+                                  width={20}
+                                  height={20}
+                                  alt="Avatar"
+                                  className="size-[2em] rounded-full lg:size-[1.5em]"
+                                />
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent>
+                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem
+                                onClick={() => {
+                                  router.push("/profile?id="+user.id);
+                                }}
+                                >Profile</DropdownMenuItem>
+                                <DropdownMenuItem>Billing</DropdownMenuItem>
+                                <DropdownMenuItem>Team</DropdownMenuItem>
+                                <DropdownMenuItem
+                                  onClick={() => {
+                                    axiosInstance.patch("/auth/logout");
+                                    localStorage.clear();
+                                    window.location.href = "/sign-in";
+                                  }}
+                                >
+                                  Logout
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          ) : (
+                            <Link
+                              href="/sign-in"
+                              className={`hover:scale-110 ${
+                                path.startsWith("/sign") ? "text-[#0BDB45]" : ""
+                              }`}
+                            >
+                              {/* <IoMdPerson /> */}
+                              <FaUserPlus />
+                            </Link>
+                          )}
 
-              <div
+              {/* <div
                 onClick={() => {
                   axiosInstance.patch("/auth/logout");
                   localStorage.clear();
@@ -237,7 +296,7 @@ export default function Navbar() {
                 className="cursor-pointer hover:scale-110"
               >
                 <IoIosLogOut />
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -320,7 +379,8 @@ export default function Navbar() {
                 src={user?.profile_image ? user?.profile_image : ProfileDefault}
                 alt="Profile"
                 className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
-                fill
+                width={25}
+                height={25}
               />
             ) : (
               <IoMdPerson />
