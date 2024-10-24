@@ -6,16 +6,18 @@ import Image, { StaticImageData } from "next/image";
 import { ColumnDef } from "@tanstack/react-table";
 import { Transaction, columns } from "./components/transaction-columns";
 import { DataTable } from "./components/transaction-data-table";
+import { Button } from "@/components/ui/button";
+import { FaEye } from "react-icons/fa";
 
-import ProductSearchBar from "@/components/product-search/product-search";
-import Navbar from "@/components/navbar/navbar";
 import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
-import Footer from "@/components/footer/footer";
+import ProductSearchBar from "@/components/product-search/product-search";
+import Navbar from "@/components/navbar/navbar";
 import AccountInfo from "./components/account-info";
 import SecurityInfo from "./components/security-info";
-import TransactionAction from "./components/transaction-action";
 import RecentActivities from "./components/recent-activities";
+import TransactionAction from "./components/transaction-action";
+import Footer from "@/components/footer/footer";
 
 const profile = {
   id: "b0ijjfb4343asc4848##56",
@@ -586,6 +588,8 @@ export default function ProfilePage() {
   const [displayedProducts, setDisplayedProducts] = useState<RecentActivity[]>(
     []
   );
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const totalPages = Math.ceil(recentActivity.length / productsPerPage);
 
   useEffect(() => {
@@ -624,11 +628,11 @@ export default function ProfilePage() {
     };
   }, []);
 
-  const getTransaction = (selectedOrderId: string) =>
+  const getTransaction = () =>
     transactions.filter(({ orderId }) => orderId === selectedOrderId)[0];
 
-  const getTransactionSubTotal = (selectedOrderId: string) => {
-    const products = getTransaction(selectedOrderId).products;
+  const getTransactionSubTotal = () => {
+    const products = getTransaction().products;
     let subTotal = 0;
 
     products.forEach((product) => {
@@ -641,18 +645,16 @@ export default function ProfilePage() {
     id: "view",
     header: "Action",
     cell: ({ row }) => (
-      <TransactionAction
-        row={row}
-        products={getTransaction(row.original.orderId).products}
-        subTotal={+getTransactionSubTotal(row.original.orderId)}
-        coupon={getTransaction(row.original.orderId).coupon}
-        orderTotal={
-          +(
-            +getTransactionSubTotal(row.original.orderId) -
-            getTransaction(row.original.orderId).coupon
-          ).toFixed(2)
-        }
-      />
+      <Button
+        variant="ghost"
+        className="h-fit text-[8px] px-[0.6em] py-[0.6em] rounded-sm sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
+        onClick={() => {
+          setSelectedOrderId(row.original.orderId);
+          setIsPopupOpen(true);
+        }}
+      >
+        <FaEye />
+      </Button>
     ),
   };
 
@@ -754,6 +756,21 @@ export default function ProfilePage() {
               }}
             >
               <DataTable columns={updatedColumns} data={transactions} />
+
+              {isPopupOpen && selectedOrderId && (
+                <TransactionAction
+                  orderId={selectedOrderId}
+                  products={getTransaction().products}
+                  subTotal={+getTransactionSubTotal()}
+                  coupon={getTransaction().coupon}
+                  orderTotal={
+                    +(
+                      +getTransactionSubTotal() - getTransaction().coupon
+                    ).toFixed(2)
+                  }
+                  onClose={() => setIsPopupOpen(false)}
+                />
+              )}
             </div>
           </div>
         </div>
