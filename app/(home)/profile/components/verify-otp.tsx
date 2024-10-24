@@ -41,25 +41,50 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
   onSuccess,
 }) => {
   const [OTP, setOTP] = useState("");
-  //   const [timer, setTimer] = useState("");
+  const [expirationTime, setExpirationTime] = useState(new Date());
+  const [timeRemaining, setTimeRemaining] = useState(120);
   const [inputOTP, setInputOTP] = useState("");
-  const [isOTPWrong, setIsOTPWrong] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const minutes = Math.floor((timeRemaining % 3600) / 60);
+  const seconds = timeRemaining % 60;
 
   useEffect(() => {
     setOTP("123456");
 
-    const currentTime = new Date();
     const OTPExpirationTime = new Date();
-    // time.setMinutes(time.getMinutes() + 1);
+    OTPExpirationTime.setMinutes(OTPExpirationTime.getMinutes() + 2);
 
-    // setInterval(() => setTimer(time.getSeconds()), 1000);
-    // setTimer(time.toISOString());
+    setExpirationTime(OTPExpirationTime);
+  }, []);
+
+  useEffect(() => {
+    const timerInterval = setInterval(() => {
+      setTimeRemaining((prevTime) => {
+        if (prevTime === 0) {
+          clearInterval(timerInterval);
+          return 0;
+        } else {
+          return prevTime - 1;
+        }
+      });
+    }, 1000);
+
+    return () => clearInterval(timerInterval);
   }, []);
 
   const hanldeSubmit = () => {
+    const currentTime = new Date();
+    const remainingTime = expirationTime.getTime() - currentTime.getTime();
+    console.log(remainingTime);
+
+    if (remainingTime < 1) {
+      setInputOTP("");
+      setErrorMessage("OTP has expired. Please try again");
+      return;
+    }
     if (OTP !== inputOTP) {
       setInputOTP("");
-      setIsOTPWrong(true);
+      setErrorMessage("Incorrect OTP. Please check and try again.");
       return;
     }
     setProfile((prev) => ({ ...prev, tel: updatedTel }));
@@ -94,15 +119,16 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
 
       {/* Timer */}
       <p className="font-bold text-[0.75em] text-[#0BDB45] text-center pb-[2em]">
-        {/* {timer} */}
-        00:00
+        {`${minutes.toString().padStart(2, "0")}:${seconds
+          .toString()
+          .padStart(2, "0")}`}
       </p>
 
       {/* OTP */}
       <InputOTP
         maxLength={6}
         value={inputOTP}
-        onFocus={() => setIsOTPWrong(false)}
+        onFocus={() => setErrorMessage(null)}
         onChange={(value) => setInputOTP(value)}
       >
         <InputOTPGroup className="text-[1em] *:text-[1em]">
@@ -114,10 +140,8 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
           <InputOTPSlot index={5} className="last:rounded-r-none" />
         </InputOTPGroup>
       </InputOTP>
-      {isOTPWrong && (
-        <p className="mt-[0.7em] text-[0.8em] text-[#8b8b8b]">
-          Incorrect OTP. Please check and try again.
-        </p>
+      {errorMessage && (
+        <p className="mt-[0.7em] text-[0.8em] text-[#8b8b8b]">{errorMessage}</p>
       )}
 
       {/* Message */}
@@ -126,9 +150,9 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
       </p>
 
       {/* Resend */}
-      <p className="font-bold text-[0.75em] text-[#0BDB45] text-center pb-[2em]">
+      <button className="font-bold text-[0.75em] text-[#0BDB45] text-center pb-[2em] hover:opacity-80">
         Resend
-      </p>
+      </button>
 
       {/* Submit */}
       <Button
