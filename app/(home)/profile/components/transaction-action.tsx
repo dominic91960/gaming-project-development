@@ -1,5 +1,4 @@
 import React from "react";
-import { StaticImageData } from "next/image";
 
 import { columns } from "./order-columns";
 import { DataTable } from "./order-data-table";
@@ -9,7 +8,7 @@ interface TransactionActionProps {
   orderId: string;
   products: {
     productId: string;
-    poster: StaticImageData;
+    poster: string;
     name: string;
     price: number;
     quantity: number;

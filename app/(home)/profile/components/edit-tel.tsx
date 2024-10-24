@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { StaticImageData } from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { IoClose } from "react-icons/io5";
@@ -8,7 +7,7 @@ import VerifyOtp from "./verify-otp";
 interface EditTelProps {
   setProfile: React.Dispatch<
     React.SetStateAction<{
-      avatar: StaticImageData;
+      avatar: string | null;
       id: string;
       username: string | null;
       email: string;

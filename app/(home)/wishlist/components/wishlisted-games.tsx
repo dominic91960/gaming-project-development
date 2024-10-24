@@ -4,7 +4,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 import ProductCard from "@/components/product-card/product-card";
 
-interface RecentActivitiesProps {
+interface WishlistedGamesProps {
   displayedProducts: {
     poster: string;
     name: string;
@@ -19,7 +19,7 @@ interface RecentActivitiesProps {
   currentPage: number;
 }
 
-const RecentActivities: React.FC<RecentActivitiesProps> = ({
+const WishlistedGames: React.FC<WishlistedGamesProps> = ({
   displayedProducts,
   productsPerPage,
   totalPages,
@@ -87,4 +87,4 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({
   );
 };
 
-export default RecentActivities;
+export default WishlistedGames;
