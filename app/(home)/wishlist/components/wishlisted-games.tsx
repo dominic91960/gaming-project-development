@@ -55,7 +55,7 @@ const WishlistedGames: React.FC<WishlistedGamesProps> = ({
       <div
         className={`${
           totalPages < 2 ? "hidden" : ""
-        } flex justify-center gap-x-[1em] mt-[1.8em] text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]`}
+        } flex justify-center gap-x-[1.5em] mt-[1.8em] text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px]`}
       >
         <button
           className="hover:text-[#45F882] disabled:hover:text-white disabled:opacity-70"
