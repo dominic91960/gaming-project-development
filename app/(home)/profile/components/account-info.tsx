@@ -9,7 +9,7 @@ interface AccountInfoProps {
   email: string;
   firstName: string;
   lastName: string;
-  DOB: string | null;
+  // DOB: string | null;
   address: string | null;
   city: string | null;
   state: string | null;
@@ -24,7 +24,7 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
   email,
   firstName,
   lastName,
-  DOB,
+  // DOB,
   address,
   city,
   state,
@@ -62,10 +62,10 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
       {/* Account info */}
       <div className="*:mb-[0.7em]">
         {/* ID */}
-        <p className="mb-[0.7em]">
+        {/* <p className="mb-[0.7em]">
           <span className="font-bold">ID: </span>
           {id}
-        </p>
+        </p> */}
 
         {/* Username */}
         <p className="mb-[0.7em]">
@@ -85,16 +85,16 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* First name */}
         <p>
           <span className="font-bold">First Name: </span>
-          {firstName}
+            {firstName.charAt(0).toUpperCase() + firstName.slice(1)}
         </p>
 
         {/* Last name */}
         <p>
           <span className="font-bold">Last Name: </span>
-          {lastName}
+            {lastName.charAt(0).toUpperCase() + lastName.slice(1)}
         </p>
 
-        {/* DOB */}
+        {/* DOB
         <p>
           <span className="font-bold">Date of Birth: </span>
           {DOB ?? (
@@ -102,12 +102,12 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
               Please provide a DOB
             </span>
           )}
-        </p>
+        </p> */}
 
         {/* Address */}
         <p>
           <span className="font-bold">Address: </span>
-          {address ?? (
+          {address?.trim() ?address : (
             <span className="opacity-70 italic text-[0.8em]">
               Please provide a address
             </span>
@@ -117,7 +117,7 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* City */}
         <p>
           <span className="font-bold">City: </span>
-          {city ?? (
+          {city?.trim() ? city : (
             <span className="opacity-70 italic text-[0.8em]">
               Please provide a city
             </span>
@@ -127,7 +127,7 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* State */}
         <p>
           <span className="font-bold">State: </span>
-          {state ?? (
+          {state?.trim() ? state : (
             <span className="opacity-70 italic text-[0.8em]">
               Please provide a state
             </span>
@@ -137,7 +137,7 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* Country */}
         <p>
           <span className="font-bold">Country: </span>
-          {country ?? (
+          {country?.trim() ? country : (
             <span className="opacity-70 italic text-[0.8em]">
               Please provide a country
             </span>
@@ -147,7 +147,7 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* Postal code */}
         <p>
           <span className="font-bold">Postal Code: </span>
-          {postalCode ?? (
+          {postalCode?.trim() ? postalCode : (
             <span className="opacity-70 italic text-[0.8em]">
               Please provide a postal code
             </span>

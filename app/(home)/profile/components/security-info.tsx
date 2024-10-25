@@ -87,7 +87,7 @@ const SecurityInfo: React.FC<SecurityInfoProps> = ({
               <p className="font-semibold">
                 Phone number used for backup class
               </p>
-              <p>{tel.replace(tel.slice(0, 7), "*******")}</p>
+              <p>{tel?.replace(tel.slice(0, 7), "*******")}</p>
             </div>
           </div>
 

@@ -12,7 +12,7 @@ interface EditAccountInfoProps {
     email: string;
     firstName: string;
     lastName: string;
-    DOB: string | null;
+    // DOB: string | null;
     address: string | null;
     city: string | null;
     state: string | null;
@@ -30,7 +30,7 @@ interface EditAccountInfoProps {
       email: string;
       firstName: string;
       lastName: string;
-      DOB: string | null;
+      // DOB: string | null;
       address: string | null;
       city: string | null;
       state: string | null;
@@ -54,7 +54,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
     email: string;
     firstName: string;
     lastName: string;
-    DOB: string | null;
+    // DOB: string | null;
     address: string | null;
     city: string | null;
     state: string | null;
@@ -102,23 +102,15 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                 <label htmlFor="username" className="block mb-[0.5em]">
                   User Name
                 </label>
-                <input
-                  type="text"
-                  id="username"
-                  value={updatedProfile.username ?? ""}
-                  onChange={(e) =>
-                    setUpdatedProfile((prev) => ({
-                      ...prev,
-                      username: e.target.value,
-                    }))
-                  }
-                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  required
-                />
+<label
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 cursor-not-allowed outline-none"
+                >
+                  {updatedProfile.username ?? ""}
+                </label>
               </div>
 
               {/* DOB */}
-              <div>
+              {/* <div>
                 <label htmlFor="dob" className="block mb-[0.5em]">
                   Date Of Birth
                 </label>
@@ -135,7 +127,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
                   required
                 />
-              </div>
+              </div> */}
             </div>
 
             {/* Email */}
@@ -145,21 +137,24 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
               </label>
 
               <div className="flex items-center mt-[1em]">
-                <input
-                  type="email"
-                  id="email"
-                  value={updatedProfile.email}
-                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  readOnly
-                />
-                <button
+                <label
+                  // type="email"
+                  // id="email"
+                  // value={updatedProfile.email}
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 cursor-not-allowed outline-none"
+                  // readOnly
+                >
+                  {updatedProfile.email}
+                </label>
+
+                {/* <button
                   type="button"
                   className="flex items-center text-[0.8em] uppercase px-[1em] py-[0.6em] hover:opacity-80"
                   onClick={() => setIsEditingEmail(true)}
                 >
                   Edit&nbsp;&nbsp;
                   <FaPencilAlt />
-                </button>
+                </button> */}
               </div>
             </div>
 
@@ -222,7 +217,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                   }))
                 }
                 className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none lg:w-[87ch]"
-                required
+                // required
               />
             </div>
 
@@ -244,7 +239,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                     }))
                   }
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  required
+                  // required
                 />
               </div>
 
@@ -264,7 +259,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                     }))
                   }
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  required
+                  // required
                 />
               </div>
             </div>
@@ -287,7 +282,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                     }))
                   }
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  required
+                  // required
                 />
               </div>
 
@@ -307,7 +302,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                     }))
                   }
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  required
+                  // required
                 />
               </div>
             </div>

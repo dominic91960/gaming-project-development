@@ -22,6 +22,9 @@ import EditAccountInfo from "./components/edit-account-info";
 import EditPassword from "./components/edit-password";
 import EditTel from "./components/edit-tel";
 import TransactionAction from "./components/transaction-action";
+import { useSearchParams } from "next/navigation";
+import axiosInstance from "@/axios/axiosInstance";
+import { set } from "date-fns";
 
 const recentActivity = [
   {
@@ -574,7 +577,6 @@ interface Profile {
   email: string;
   firstName: string;
   lastName: string;
-  DOB: string | null;
   address: string | null;
   city: string | null;
   state: string | null;
@@ -586,6 +588,8 @@ interface Profile {
 }
 
 export default function ProfilePage() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const [profile, setProfile] = useState<Profile>({
     avatar: null,
     id: "b0ijjfb4343asc4848##56",
@@ -593,7 +597,6 @@ export default function ProfilePage() {
     email: "kavindakmanohara@gmail.com",
     firstName: "Ellison",
     lastName: "Smith",
-    DOB: null,
     address: null,
     city: null,
     state: null,
@@ -603,6 +606,32 @@ export default function ProfilePage() {
     tel: "0284948483",
     trustedDevices: 2,
   });
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const res = await axiosInstance.get(`/user/profile/`);
+      console.log(res.data);
+      setProfile({
+        id: res.data.id,
+        username: res.data.username,
+        email: res.data.email,
+        firstName: res.data.firstName,
+        lastName: res.data.lastName,
+        address: res.data.address,
+        city: res.data.city,
+        state: res.data.state,
+        country: res.data.country,
+        postalCode: res.data.postalCode,
+        password: res.data.password,
+        tel: res.data.tel,
+        trustedDevices: res.data.trustedDevices,
+        avatar: res.data.profile_image,
+      });
+    }
+    if (id) {
+      getUserData();
+    }
+  }, [id]);
 
   // Pagination states
   const [productsPerPage, setProductsPerPage] = useState(3);
@@ -724,7 +753,7 @@ export default function ProfilePage() {
             <div className="flex items-center gap-x-[15px] pt-[64px] sm:gap-x-[25px] md:gap-x-[35px] lg:gap-x-[45px] xl:gap-x-[50px] 2xl:gap-x-[56px] pb-[55px] sm:pt-[74px] md:pt-[86px] lg:pt-[98px] xl:pt-[107px] 2xl:pt-[116px]">
               <div className="relative size-[46px] sm:size-[70px] md:size-[94px] lg:size-[118px] xl:size-[135px] 2xl:size-[152px]">
                 <Image
-                  src={imageUrl ?? samplePic.src}
+                  src={profile.avatar || samplePic.src}
                   alt={profile.id}
                   className="w-full rounded-full"
                   fill
@@ -807,7 +836,7 @@ export default function ProfilePage() {
                 email={profile.email}
                 firstName={profile.firstName}
                 lastName={profile.lastName}
-                DOB={profile.DOB}
+                // DOB={profile.DOB}
                 address={profile.address}
                 city={profile.city}
                 state={profile.state}
