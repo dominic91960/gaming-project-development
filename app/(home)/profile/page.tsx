@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ChangeEvent, useEffect, useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Transaction, columns } from "./components/transaction-columns";
@@ -567,24 +567,26 @@ interface RecentActivity {
   discountPrice: number;
 }
 
+interface Profile {
+  avatar: string | null;
+  id: string;
+  username: string | null;
+  email: string;
+  firstName: string;
+  lastName: string;
+  DOB: string | null;
+  address: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  postalCode: string | null;
+  password: string;
+  tel: string;
+  trustedDevices: number;
+}
+
 export default function ProfilePage() {
-  const [profile, setProfile] = useState<{
-    avatar: string | null;
-    id: string;
-    username: string | null;
-    email: string;
-    firstName: string;
-    lastName: string;
-    DOB: string | null;
-    address: string | null;
-    city: string | null;
-    state: string | null;
-    country: string | null;
-    postalCode: string | null;
-    password: string;
-    tel: string;
-    trustedDevices: number;
-  }>({
+  const [profile, setProfile] = useState<Profile>({
     avatar: null,
     id: "b0ijjfb4343asc4848##56",
     username: null,
@@ -602,20 +604,30 @@ export default function ProfilePage() {
     trustedDevices: 2,
   });
 
+  // Pagination states
   const [productsPerPage, setProductsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedProducts, setDisplayedProducts] = useState<RecentActivity[]>(
     []
   );
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [isEditAccountInfoPopupOpen, setIsEditAccountInfoPopupOpen] =
-    useState(false);
-  const [isEditPasswordPopupOpen, setIsEditPasswordPopupOpen] = useState(false);
-  const [isEditTelPopupOpen, setIsEditTelPopupOpen] = useState(false);
-  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
-  const [isActionPopupOpen, setIsActionPopupOpen] = useState(false);
   const totalPages = Math.ceil(recentActivity.length / productsPerPage);
 
+  // Image upload state
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  // Account info state
+  const [isEditAccountInfoPopupOpen, setIsEditAccountInfoPopupOpen] =
+    useState(false);
+
+  // Security info states
+  const [isEditPasswordPopupOpen, setIsEditPasswordPopupOpen] = useState(false);
+  const [isEditTelPopupOpen, setIsEditTelPopupOpen] = useState(false);
+
+  // Transaction states
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+  const [isActionPopupOpen, setIsActionPopupOpen] = useState(false);
+
+  // Determines which products are displayed
   useEffect(() => {
     const startIndex = (currentPage - 1) * productsPerPage;
 
@@ -624,14 +636,7 @@ export default function ProfilePage() {
     );
   }, [currentPage, productsPerPage]);
 
-  useEffect(() => {
-    const startIndex = (currentPage - 1) * productsPerPage;
-
-    setDisplayedProducts(
-      recentActivity.slice(startIndex, startIndex + productsPerPage)
-    );
-  }, [currentPage, productsPerPage]);
-
+  // Calculates productsPerPage according to screen size
   useEffect(() => {
     const handleResize = () => {
       setCurrentPage(1);
@@ -660,6 +665,7 @@ export default function ProfilePage() {
     };
   }, []);
 
+  // Handles profile picture changes
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -669,9 +675,11 @@ export default function ProfilePage() {
     }
   };
 
+  // Helper function to find selected transaction id
   const getTransaction = () =>
     transactions.filter(({ orderId }) => orderId === selectedOrderId)[0];
 
+  // Helper function to find subtotal for selected transaction
   const getTransactionSubTotal = () => {
     const products = getTransaction().products;
     let subTotal = 0;
@@ -682,6 +690,7 @@ export default function ProfilePage() {
     return subTotal.toFixed(2);
   };
 
+  // An action column for transaction table
   const viewColumn: ColumnDef<Transaction> = {
     id: "view",
     header: "Action",
@@ -698,7 +707,6 @@ export default function ProfilePage() {
       </Button>
     ),
   };
-
   const updatedColumns: ColumnDef<Transaction>[] = [...columns, viewColumn];
 
   return (
