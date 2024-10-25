@@ -32,7 +32,7 @@ const WishlistedGames: React.FC<WishlistedGamesProps> = ({
         className={`flex ${
           displayedProducts.length < productsPerPage
             ? "gap-x-[1em]"
-            : "justify-around"
+            : "justify-between"
         }`}
       >
         {displayedProducts.map(

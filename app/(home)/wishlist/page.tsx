@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { MdVerified } from "react-icons/md";
+import { Input } from "@/components/ui/input";
+import { FaRegHeart } from "react-icons/fa";
+import { CiSearch } from "react-icons/ci";
 
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
@@ -233,21 +236,28 @@ interface WishlistedGame {
 }
 
 export default function WishlistPage() {
+  const [wishlistedGames, setWishlistedGames] = useState<WishlistedGame[]>([]);
   const [productsPerPage, setProductsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedProducts, setDisplayedProducts] = useState<WishlistedGame[]>(
     []
   );
-  const totalPages = Math.ceil(wishlist.length / productsPerPage);
+  const totalPages = Math.ceil(wishlistedGames.length / productsPerPage);
+  const [searchName, setSearchName] = useState("");
+
+  // Set wishlist data
+  useEffect(() => {
+    setWishlistedGames(wishlist);
+  }, []);
 
   // Determines which products are displayed
   useEffect(() => {
     const startIndex = (currentPage - 1) * productsPerPage;
 
     setDisplayedProducts(
-      wishlist.slice(startIndex, startIndex + productsPerPage)
+      wishlistedGames.slice(startIndex, startIndex + productsPerPage)
     );
-  }, [currentPage, productsPerPage]);
+  }, [currentPage, productsPerPage, wishlistedGames]);
 
   // Calculates productsPerPage according to screen size
   useEffect(() => {
@@ -278,12 +288,19 @@ export default function WishlistPage() {
     };
   }, []);
 
+  useEffect(() => {
+    const filteredGames = wishlist.filter((product) =>
+      product.name.toLowerCase().includes(searchName.toLowerCase())
+    );
+    setWishlistedGames(filteredGames);
+  }, [searchName]);
+
   return (
     <>
       <ProductSearchBar />
       <Navbar />
       <section className="bg-[#051301] font-primaryFont text-white">
-        <div className="bg-gradient-to-b from-black to-transparent">
+        <div className="bg-gradient-to-b from-black to-transparent to-20%">
           {/* Container for the rest of the content */}
           <div className="container mx-auto px-[36px] pb-[20px] 2xl:pb-[80px]">
             {/* Profile details */}
@@ -300,20 +317,49 @@ export default function WishlistPage() {
               <MdVerified className="text-[#0BDB45]" />
             </div>
 
+            <div className="flex items-center gap-[0.3em] font-medium text-[24px] mb-[0.8em]">
+              <FaRegHeart />
+              <p>Your Wishlist &#40;{wishlist.length}&#41;</p>
+            </div>
+
+            <div className="flex justify-between bg-white/5 p-[0.625em]">
+              <div className="w-fit flex items-center gap-[0.5em] bg-white/20 px-[1em] py-[0.5em]">
+                <Input
+                  type="text"
+                  value={searchName}
+                  placeholder="Search by name"
+                  className="w-[40ch] h-fit p-0 border-none rounded-none placeholder:text-white/70"
+                  onChange={(e) => setSearchName(e.target.value)}
+                />
+                <CiSearch className="text-[1.2em]" />
+              </div>
+            </div>
+
+            <p className="text-[9px] 2xl:text-[18px] mt-[1.2em] mb-[1.7em]">
+              Wishlist is a game key store offering top titles at unbeatable
+              prices. Find and purchase game keys quickly and securely.
+            </p>
+
             {/* Wishlisted Games */}
-            <WishlistedGames
-              displayedProducts={displayedProducts}
-              productsPerPage={productsPerPage}
-              totalPages={totalPages}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
-            />
+            {displayedProducts.length > 0 ? (
+              <WishlistedGames
+                displayedProducts={displayedProducts}
+                productsPerPage={productsPerPage}
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
+              />
+            ) : (
+              <div className="flex justify-center pt-[4em]">
+                <p>no products</p>
+              </div>
+            )}
 
             {/* Recommended Games */}
-            <h4 className="font-medium text-[8px] ps-[0.5em] mt-[1.6em] mb-[1em] sm:text-[12px] md:text-[16px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">
+            <h4 className="font-medium text-[8px] mt-[1.6em] mb-[1em] sm:text-[12px] md:text-[16px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">
               You may also like...
             </h4>
-            <div className="flex justify-around">
+            <div className="flex justify-between">
               {recommendedGames.map(
                 (
                   { poster, name, desc, rating, discountPrice, originalPrice },
