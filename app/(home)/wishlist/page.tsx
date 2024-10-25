@@ -198,6 +198,7 @@ const wishlist = [
     rating: 5,
     originalPrice: 299,
     discountPrice: 399,
+    releaseDate: "2023-10-25",
   },
   {
     poster: samplePic.src,
@@ -206,6 +207,7 @@ const wishlist = [
     rating: 4.8,
     originalPrice: 329,
     discountPrice: 379,
+    releaseDate: "2020-10-25",
   },
   {
     poster: samplePic.src,
@@ -214,6 +216,7 @@ const wishlist = [
     rating: 4.5,
     originalPrice: 199,
     discountPrice: 249,
+    releaseDate: "2022-10-25",
   },
 ];
 
@@ -267,6 +270,7 @@ interface WishlistedGame {
   rating: number;
   originalPrice: number;
   discountPrice: number;
+  releaseDate: string;
 }
 
 export default function WishlistPage() {
@@ -294,6 +298,22 @@ export default function WishlistPage() {
       method: (a: WishlistedGame, b: WishlistedGame) =>
         b.discountPrice - a.discountPrice,
     },
+    date_asc: {
+      method: (a: WishlistedGame, b: WishlistedGame) => {
+        const firstDate = new Date(a.releaseDate);
+        const secondDate = new Date(b.releaseDate);
+
+        return secondDate.getTime() - firstDate.getTime();
+      },
+    },
+    date_des: {
+      method: (a: WishlistedGame, b: WishlistedGame) => {
+        const firstDate = new Date(a.releaseDate);
+        const secondDate = new Date(b.releaseDate);
+
+        return firstDate.getTime() - secondDate.getTime();
+      },
+    },
     a_z: {
       method: (a: WishlistedGame, b: WishlistedGame) =>
         a.name.localeCompare(b.name),
@@ -307,6 +327,8 @@ export default function WishlistPage() {
   // Set wishlist data
   useEffect(() => {
     setWishlistedGames(wishlist);
+    const date = new Date(wishlist[0].releaseDate);
+    console.log(date.getTime());
   }, []);
 
   // Determines which products are displayed
@@ -400,6 +422,8 @@ export default function WishlistPage() {
                 <SelectContent>
                   <SelectItem value="price_asc">Price: Low to High</SelectItem>
                   <SelectItem value="price_des">Price: High to Low</SelectItem>
+                  <SelectItem value="date_asc">Date: Newest First</SelectItem>
+                  <SelectItem value="date_des">Date: Oldest First</SelectItem>
                   <SelectItem value="a_z">Alphabet: A-Z</SelectItem>
                   <SelectItem value="z_a">Alphabet: Z-A</SelectItem>
                 </SelectContent>
