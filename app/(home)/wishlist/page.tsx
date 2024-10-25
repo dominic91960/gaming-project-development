@@ -3,10 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-import { MdVerified } from "react-icons/md";
 import { Input } from "@/components/ui/input";
-import { FaRegHeart } from "react-icons/fa";
-import { CiSearch } from "react-icons/ci";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -14,6 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { MdVerified } from "react-icons/md";
+import { FaRegHeart } from "react-icons/fa";
+import { CiSearch } from "react-icons/ci";
+import { FaList } from "react-icons/fa6";
+import { LiaAngleRightSolid } from "react-icons/lia";
 
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
@@ -217,7 +220,7 @@ const recommendedGames = [
     desc: "Explore uncharted new lands as you set foot on a remote island seeping with magic, and filled with riches, lost secrets, and fantastic creatures.",
     rating: 5,
     originalPrice: 299,
-    discountPrice: 399,
+    discountPrice: 0,
   },
   {
     poster: samplePic.src,
@@ -252,6 +255,57 @@ const recommendedGames = [
     discountPrice: 259,
   },
 ];
+
+const selectValues = [
+  {
+    value: "price_asc",
+    text: "Price: Low to High",
+  },
+  {
+    value: "price_des",
+    text: "Price: High to Low",
+  },
+  {
+    value: "date_des",
+    text: "Date: Newest First",
+  },
+  {
+    value: "date_asc",
+    text: "Date: Oldest First",
+  },
+  {
+    value: "a_z",
+    text: "Alphabet: A-Z",
+  },
+  {
+    value: "z_a",
+    text: "Alphabet: Z-A",
+  },
+];
+
+// <SelectItem value="price_asc" className="text-[7px]">
+//                     Price: Low to High
+//                   </SelectItem>
+
+//                   <SelectItem value="price_des" className="text-[7px]">
+//                     Price: High to Low
+//                   </SelectItem>
+
+//                   <SelectItem value="date_asc" className="text-[7px]">
+//                     Date: Newest First
+//                   </SelectItem>
+
+//                   <SelectItem value="date_des" className="text-[7px]">
+//                     Date: Oldest First
+//                   </SelectItem>
+
+//                   <SelectItem value="a_z" className="text-[7px]">
+//                     Alphabet: A-Z
+//                   </SelectItem>
+
+//                   <SelectItem value="z_a" className="text-[7px]">
+//                     Alphabet: Z-A
+//                   </SelectItem>
 
 interface WishlistedGame {
   poster: string;
@@ -347,7 +401,7 @@ export default function WishlistPage() {
           const firstDate = new Date(a.releaseDate);
           const secondDate = new Date(b.releaseDate);
 
-          return secondDate.getTime() - firstDate.getTime();
+          return firstDate.getTime() - secondDate.getTime();
         },
       },
       date_des: {
@@ -355,7 +409,7 @@ export default function WishlistPage() {
           const firstDate = new Date(a.releaseDate);
           const secondDate = new Date(b.releaseDate);
 
-          return firstDate.getTime() - secondDate.getTime();
+          return secondDate.getTime() - firstDate.getTime();
         },
       },
       a_z: {
@@ -386,8 +440,8 @@ export default function WishlistPage() {
           {/* Container for the rest of the content */}
           <div className="container mx-auto px-[36px] pb-[20px] 2xl:pb-[80px]">
             {/* Profile details */}
-            <div className="flex items-center gap-[0.5em] text-[8px] pt-[4em] mb-[2em] sm:text-[12px] md:text-[16px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">
-              <div className="relative size-[20px] sm:size-[35px] md:size-[50px] lg:size-[65px] xl:size-[80px] 2xl:size-[100px]">
+            <div className="flex items-center gap-[0.5em] text-[10px] pt-[4em] mb-[2em] sm:text-[12px] md:text-[16px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">
+              <div className="relative size-[25px] sm:size-[45px] md:size-[60px] lg:size-[75px] xl:size-[90px] 2xl:size-[100px]">
                 <Image
                   src={profile.profileImage}
                   alt={profile.name}
@@ -399,34 +453,38 @@ export default function WishlistPage() {
               <MdVerified className="text-[#0BDB45]" />
             </div>
 
-            <div className="flex items-center gap-[0.3em] font-medium text-[24px] mb-[0.8em]">
+            <div className="flex items-center gap-[0.3em] font-medium text-[12px] mb-[0.8em] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px]">
               <FaRegHeart />
               <p>Your Wishlist &#40;{wishlist.length}&#41;</p>
             </div>
 
-            <div className="flex justify-between bg-white/5 p-[0.625em]">
+            <div className="flex justify-between bg-white/5 text-[7px] p-[0.625em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
               <div className="w-fit flex items-center gap-[0.5em] bg-white/20 px-[1em] py-[0.5em]">
                 <Input
                   type="text"
                   value={searchName}
                   placeholder="Search by name"
-                  className="w-[40ch] h-fit p-0 border-none rounded-none placeholder:text-white/70"
+                  className="w-[25ch] h-fit p-0 text-[1em] border-none rounded-none placeholder:text-white/70"
                   onChange={(e) => setSearchName(e.target.value)}
                 />
                 <CiSearch className="text-[1.2em]" />
               </div>
 
               <Select onValueChange={(value) => setSortState(value)}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-[22ch] h-fit bg-white/20 border-none rounded-none text-[7px] px-[1em] py-[0.3em] sm:text-[10px] sm:py-[0.5em] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+                  <FaList className="-translate-y-[0.15em] sm:-translate-y-0" />
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="price_asc">Price: Low to High</SelectItem>
-                  <SelectItem value="price_des">Price: High to Low</SelectItem>
-                  <SelectItem value="date_asc">Date: Newest First</SelectItem>
-                  <SelectItem value="date_des">Date: Oldest First</SelectItem>
-                  <SelectItem value="a_z">Alphabet: A-Z</SelectItem>
-                  <SelectItem value="z_a">Alphabet: Z-A</SelectItem>
+                <SelectContent className="bg-[#4B4B4B] text-white border-none rounded-none">
+                  {selectValues.map(({ value, text }, index) => (
+                    <SelectItem
+                      key={index}
+                      value={value}
+                      className="h-fit text-[7px] ps-[6ch] pe-[1em] py-[1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] rounded-none sm:ps-[4ch]"
+                    >
+                      {text}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -446,7 +504,7 @@ export default function WishlistPage() {
                 currentPage={currentPage}
               />
             ) : (
-              <div className="flex justify-center pt-[4em]">
+              <div className="h-[18em] flex items-center justify-center pt-[4em]">
                 <p>no products</p>
               </div>
             )}
@@ -460,18 +518,28 @@ export default function WishlistPage() {
                 (
                   { poster, name, desc, rating, discountPrice, originalPrice },
                   index
-                ) => (
-                  <ProductCard
-                    key={index}
-                    poster={poster}
-                    name={name}
-                    desc={desc}
-                    rating={rating}
-                    discountPrice={discountPrice}
-                    originalPrice={originalPrice}
-                  />
-                )
+                ) =>
+                  index < productsPerPage && (
+                    <ProductCard
+                      key={index}
+                      poster={poster}
+                      name={name}
+                      desc={desc}
+                      rating={rating}
+                      discountPrice={discountPrice}
+                      originalPrice={originalPrice}
+                    />
+                  )
               )}
+            </div>
+            {/* View all games button */}
+            <div className="flex justify-end text-[7px] pt-[2.2em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+              <Button
+                variant="gaming"
+                className="h-fit capitalize text-[1em] px-[2.26em] py-[0.5em]"
+              >
+                See more <LiaAngleRightSolid />
+              </Button>
             </div>
           </div>
         </div>

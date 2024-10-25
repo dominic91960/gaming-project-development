@@ -56,9 +56,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       <div className="flex items-baseline gap-x-[0.5em]">
         <p className="font-semibold text-[17px] text-[#75F94C] sm:text-[24px] md:text-[30px] lg:text-[36px] xl:text-[42px] 2xl:text-[46px]">
-          ${discountPrice}
+          ${discountPrice === 0 ? originalPrice : discountPrice}
         </p>
-        <p className="line-through">${originalPrice}</p>
+        {discountPrice !== 0 && (
+          <p className="line-through">${originalPrice}</p>
+        )}
       </div>
     </article>
   );
