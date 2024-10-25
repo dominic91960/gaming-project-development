@@ -27,169 +27,6 @@ const profile = {
   name: "Lahiru Rathnayake",
 };
 
-// const wishlist = [
-//   {
-//     poster: samplePic.src,
-//     name: "Greed Fall",
-//     desc: "Explore uncharted new lands as you set foot on a remote island seeping with magic, and filled with riches, lost secrets, and fantastic creatures.",
-//     rating: 5,
-//     originalPrice: 299,
-//     discountPrice: 399,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Cyberpunk 2077",
-//     desc: "An open-world RPG set in the dystopian future, where you can explore a massive city and complete missions to gain power and influence.",
-//     rating: 4.5,
-//     originalPrice: 199,
-//     discountPrice: 249,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Assassin's Creed Valhalla",
-//     desc: "Join Eivor and lead a Viking clan to glory. Build settlements, wage wars, and uncover a grand storyline in this action-packed RPG.",
-//     rating: 4.8,
-//     originalPrice: 329,
-//     discountPrice: 379,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "FIFA 2023",
-//     desc: "Experience the latest iteration of the iconic soccer series with enhanced graphics and real-life player mechanics.",
-//     rating: 4.2,
-//     originalPrice: 249,
-//     discountPrice: 299,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "NBA 2K23",
-//     desc: "Hit the courts with the latest in basketball simulation. Enjoy an authentic NBA experience with realistic gameplay and team management.",
-//     rating: 4.0,
-//     originalPrice: 199,
-//     discountPrice: 259,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Call of Duty: Modern Warfare",
-//     desc: "Enter the battlefield in this intense first-person shooter with advanced weapons, high-end graphics, and a gripping campaign mode.",
-//     rating: 4.7,
-//     originalPrice: 299,
-//     discountPrice: 349,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Red Dead Redemption 2",
-//     desc: "Step into the Wild West with this stunning open-world game where you can explore a vast world filled with danger and intrigue.",
-//     rating: 4.9,
-//     originalPrice: 399,
-//     discountPrice: 499,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Watch Dogs Legion",
-//     desc: "Join the resistance and hack your way through London in this thrilling open-world adventure that combines action and technology.",
-//     rating: 4.1,
-//     originalPrice: 279,
-//     discountPrice: 339,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Far Cry 6",
-//     desc: "Fight to liberate a tropical island from a ruthless dictator in this action-packed first-person shooter.",
-//     rating: 4.4,
-//     originalPrice: 259,
-//     discountPrice: 309,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Spider-Man: Miles Morales",
-//     desc: "Swing into action as Miles Morales in this follow-up to the hit Spider-Man game, featuring new powers and an exciting storyline.",
-//     rating: 4.9,
-//     originalPrice: 349,
-//     discountPrice: 429,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "The Last of Us Part II",
-//     desc: "Experience the emotionally charged and action-filled sequel to the critically acclaimed The Last of Us, with a deep and engaging story.",
-//     rating: 5,
-//     originalPrice: 399,
-//     discountPrice: 499,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Horizon Zero Dawn",
-//     desc: "Explore a beautiful post-apocalyptic world filled with mechanical creatures and uncover the secrets of the past.",
-//     rating: 4.8,
-//     originalPrice: 299,
-//     discountPrice: 379,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "God of War",
-//     desc: "Join Kratos on an epic journey through Norse mythology in this action-adventure game with breathtaking visuals and a gripping story.",
-//     rating: 4.9,
-//     originalPrice: 349,
-//     discountPrice: 449,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Halo Infinite",
-//     desc: "Return to the world of Halo in this thrilling installment with expansive environments, powerful weapons, and intense multiplayer action.",
-//     rating: 4.6,
-//     originalPrice: 299,
-//     discountPrice: 349,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Doom Eternal",
-//     desc: "Take on the role of the Doom Slayer in this fast-paced and brutal first-person shooter with non-stop action.",
-//     rating: 4.5,
-//     originalPrice: 249,
-//     discountPrice: 299,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Wolfenstein II: The New Colossus",
-//     desc: "Fight to liberate America from Nazi control in this alternate-history first-person shooter with high-stakes missions and gripping gameplay.",
-//     rating: 4.3,
-//     originalPrice: 229,
-//     discountPrice: 279,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Final Fantasy XV",
-//     desc: "Join Prince Noctis and his friends on an epic journey in this action-packed role-playing game with stunning visuals and engaging combat.",
-//     rating: 4.8,
-//     originalPrice: 369,
-//     discountPrice: 449,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Ghost of Tsushima",
-//     desc: "Become a samurai warrior and defend your homeland from invaders in this visually stunning open-world game.",
-//     rating: 4.9,
-//     originalPrice: 349,
-//     discountPrice: 429,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Resident Evil Village",
-//     desc: "Survive the horrors of a mysterious village in this atmospheric and terrifying entry in the Resident Evil series.",
-//     rating: 4.7,
-//     originalPrice: 299,
-//     discountPrice: 369,
-//   },
-//   {
-//     poster: samplePic.src,
-//     name: "Elden Ring",
-//     desc: "Explore a vast open world and take on powerful enemies in this highly anticipated action RPG from the creators of Dark Souls.",
-//     rating: 5,
-//     originalPrice: 399,
-//     discountPrice: 499,
-//   },
-// ];
-
 const wishlist = [
   {
     poster: samplePic.src,
@@ -198,16 +35,7 @@ const wishlist = [
     rating: 5,
     originalPrice: 299,
     discountPrice: 399,
-    releaseDate: "2023-10-25",
-  },
-  {
-    poster: samplePic.src,
-    name: "Assassin's Creed Valhalla",
-    desc: "Join Eivor and lead a Viking clan to glory. Build settlements, wage wars, and uncover a grand storyline in this action-packed RPG.",
-    rating: 4.8,
-    originalPrice: 329,
-    discountPrice: 379,
-    releaseDate: "2020-10-25",
+    releaseDate: "2019-09-10",
   },
   {
     poster: samplePic.src,
@@ -216,7 +44,169 @@ const wishlist = [
     rating: 4.5,
     originalPrice: 199,
     discountPrice: 249,
-    releaseDate: "2022-10-25",
+    releaseDate: "2020-12-10",
+  },
+  {
+    poster: samplePic.src,
+    name: "Assassin's Creed Valhalla",
+    desc: "Join Eivor and lead a Viking clan to glory. Build settlements, wage wars, and uncover a grand storyline in this action-packed RPG.",
+    rating: 4.8,
+    originalPrice: 329,
+    discountPrice: 379,
+    releaseDate: "2020-11-10",
+  },
+  {
+    poster: samplePic.src,
+    name: "FIFA 2023",
+    desc: "Experience the latest iteration of the iconic soccer series with enhanced graphics and real-life player mechanics.",
+    rating: 4.2,
+    originalPrice: 249,
+    discountPrice: 299,
+    releaseDate: "2022-09-30",
+  },
+  {
+    poster: samplePic.src,
+    name: "NBA 2K23",
+    desc: "Hit the courts with the latest in basketball simulation. Enjoy an authentic NBA experience with realistic gameplay and team management.",
+    rating: 4.0,
+    originalPrice: 199,
+    discountPrice: 259,
+    releaseDate: "2022-09-08",
+  },
+  {
+    poster: samplePic.src,
+    name: "Call of Duty: Modern Warfare",
+    desc: "Enter the battlefield in this intense first-person shooter with advanced weapons, high-end graphics, and a gripping campaign mode.",
+    rating: 4.7,
+    originalPrice: 299,
+    discountPrice: 349,
+    releaseDate: "2019-10-25",
+  },
+  {
+    poster: samplePic.src,
+    name: "Red Dead Redemption 2",
+    desc: "Step into the Wild West with this stunning open-world game where you can explore a vast world filled with danger and intrigue.",
+    rating: 4.9,
+    originalPrice: 399,
+    discountPrice: 499,
+    releaseDate: "2018-10-26",
+  },
+  {
+    poster: samplePic.src,
+    name: "Watch Dogs Legion",
+    desc: "Join the resistance and hack your way through London in this thrilling open-world adventure that combines action and technology.",
+    rating: 4.1,
+    originalPrice: 279,
+    discountPrice: 339,
+    releaseDate: "2020-10-29",
+  },
+  {
+    poster: samplePic.src,
+    name: "Far Cry 6",
+    desc: "Fight to liberate a tropical island from a ruthless dictator in this action-packed first-person shooter.",
+    rating: 4.4,
+    originalPrice: 259,
+    discountPrice: 309,
+    releaseDate: "2021-10-07",
+  },
+  {
+    poster: samplePic.src,
+    name: "Spider-Man: Miles Morales",
+    desc: "Swing into action as Miles Morales in this follow-up to the hit Spider-Man game, featuring new powers and an exciting storyline.",
+    rating: 4.9,
+    originalPrice: 349,
+    discountPrice: 429,
+    releaseDate: "2020-11-12",
+  },
+  {
+    poster: samplePic.src,
+    name: "The Last of Us Part II",
+    desc: "Experience the emotionally charged and action-filled sequel to the critically acclaimed The Last of Us, with a deep and engaging story.",
+    rating: 5,
+    originalPrice: 399,
+    discountPrice: 499,
+    releaseDate: "2020-06-19",
+  },
+  {
+    poster: samplePic.src,
+    name: "Horizon Zero Dawn",
+    desc: "Explore a beautiful post-apocalyptic world filled with mechanical creatures and uncover the secrets of the past.",
+    rating: 4.8,
+    originalPrice: 299,
+    discountPrice: 379,
+    releaseDate: "2017-02-28",
+  },
+  {
+    poster: samplePic.src,
+    name: "God of War",
+    desc: "Join Kratos on an epic journey through Norse mythology in this action-adventure game with breathtaking visuals and a gripping story.",
+    rating: 4.9,
+    originalPrice: 349,
+    discountPrice: 449,
+    releaseDate: "2018-04-20",
+  },
+  {
+    poster: samplePic.src,
+    name: "Halo Infinite",
+    desc: "Return to the world of Halo in this thrilling installment with expansive environments, powerful weapons, and intense multiplayer action.",
+    rating: 4.6,
+    originalPrice: 299,
+    discountPrice: 349,
+    releaseDate: "2021-12-08",
+  },
+  {
+    poster: samplePic.src,
+    name: "Doom Eternal",
+    desc: "Take on the role of the Doom Slayer in this fast-paced and brutal first-person shooter with non-stop action.",
+    rating: 4.5,
+    originalPrice: 249,
+    discountPrice: 299,
+    releaseDate: "2020-03-20",
+  },
+  {
+    poster: samplePic.src,
+    name: "Wolfenstein II: The New Colossus",
+    desc: "Fight to liberate America from Nazi control in this alternate-history first-person shooter with high-stakes missions and gripping gameplay.",
+    rating: 4.3,
+    originalPrice: 229,
+    discountPrice: 279,
+    releaseDate: "2017-10-27",
+  },
+  {
+    poster: samplePic.src,
+    name: "Final Fantasy XV",
+    desc: "Join Prince Noctis and his friends on an epic journey in this action-packed role-playing game with stunning visuals and engaging combat.",
+    rating: 4.8,
+    originalPrice: 369,
+    discountPrice: 449,
+    releaseDate: "2016-11-29",
+  },
+  {
+    poster: samplePic.src,
+    name: "Ghost of Tsushima",
+    desc: "Become a samurai warrior and defend your homeland from invaders in this visually stunning open-world game.",
+    rating: 4.9,
+    originalPrice: 349,
+    discountPrice: 429,
+    releaseDate: "2020-07-17",
+  },
+  {
+    poster: samplePic.src,
+    name: "Resident Evil Village",
+    desc: "Survive the horrors of a mysterious village in this atmospheric and terrifying entry in the Resident Evil series.",
+    rating: 4.7,
+    originalPrice: 299,
+    discountPrice: 369,
+    releaseDate: "2021-05-07",
+  },
+  {
+    poster: samplePic.src,
+    name: "Elden Ring",
+    desc: "Explore a vast open world and take on powerful enemies in this highly anticipated action RPG from the creators of Dark Souls.",
+    rating: 5,
+    originalPrice: 399,
+    discountPrice: 499,
+    releaseDate: "2022-02-25",
   },
 ];
 
@@ -288,41 +278,6 @@ export default function WishlistPage() {
 
   // Sort states
   const [sortState, setSortState] = useState("none");
-  const sortMethods = {
-    none: { method: () => null },
-    price_asc: {
-      method: (a: WishlistedGame, b: WishlistedGame) =>
-        a.discountPrice - b.discountPrice,
-    },
-    price_des: {
-      method: (a: WishlistedGame, b: WishlistedGame) =>
-        b.discountPrice - a.discountPrice,
-    },
-    date_asc: {
-      method: (a: WishlistedGame, b: WishlistedGame) => {
-        const firstDate = new Date(a.releaseDate);
-        const secondDate = new Date(b.releaseDate);
-
-        return secondDate.getTime() - firstDate.getTime();
-      },
-    },
-    date_des: {
-      method: (a: WishlistedGame, b: WishlistedGame) => {
-        const firstDate = new Date(a.releaseDate);
-        const secondDate = new Date(b.releaseDate);
-
-        return firstDate.getTime() - secondDate.getTime();
-      },
-    },
-    a_z: {
-      method: (a: WishlistedGame, b: WishlistedGame) =>
-        a.name.localeCompare(b.name),
-    },
-    z_a: {
-      method: (a: WishlistedGame, b: WishlistedGame) =>
-        b.name.localeCompare(a.name),
-    },
-  };
 
   // Set wishlist data
   useEffect(() => {
@@ -375,6 +330,52 @@ export default function WishlistPage() {
     );
     setWishlistedGames(filteredGames);
   }, [searchName]);
+
+  useEffect(() => {
+    const sortMethods = {
+      none: { method: () => null },
+      price_asc: {
+        method: (a: WishlistedGame, b: WishlistedGame) =>
+          a.discountPrice - b.discountPrice,
+      },
+      price_des: {
+        method: (a: WishlistedGame, b: WishlistedGame) =>
+          b.discountPrice - a.discountPrice,
+      },
+      date_asc: {
+        method: (a: WishlistedGame, b: WishlistedGame) => {
+          const firstDate = new Date(a.releaseDate);
+          const secondDate = new Date(b.releaseDate);
+
+          return secondDate.getTime() - firstDate.getTime();
+        },
+      },
+      date_des: {
+        method: (a: WishlistedGame, b: WishlistedGame) => {
+          const firstDate = new Date(a.releaseDate);
+          const secondDate = new Date(b.releaseDate);
+
+          return firstDate.getTime() - secondDate.getTime();
+        },
+      },
+      a_z: {
+        method: (a: WishlistedGame, b: WishlistedGame) =>
+          a.name.localeCompare(b.name),
+      },
+      z_a: {
+        method: (a: WishlistedGame, b: WishlistedGame) =>
+          b.name.localeCompare(a.name),
+      },
+    };
+
+    const sortedGames = wishlistedGames.sort(sortMethods[sortState].method);
+
+    const startIndex = (currentPage - 1) * productsPerPage;
+
+    setDisplayedProducts(
+      sortedGames.slice(startIndex, startIndex + productsPerPage)
+    );
+  }, [currentPage, productsPerPage, sortState, wishlistedGames]);
 
   return (
     <>
@@ -438,9 +439,7 @@ export default function WishlistPage() {
             {/* Wishlisted Games */}
             {displayedProducts.length > 0 ? (
               <WishlistedGames
-                displayedProducts={displayedProducts.sort(
-                  sortMethods[sortState].method
-                )}
+                displayedProducts={displayedProducts}
                 productsPerPage={productsPerPage}
                 totalPages={totalPages}
                 setCurrentPage={setCurrentPage}
