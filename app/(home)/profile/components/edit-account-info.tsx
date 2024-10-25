@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { IoClose } from "react-icons/io5";
 import { FaPencilAlt } from "react-icons/fa";
+import axiosInstance from "@/axios/axiosInstance";
+import toast from "react-hot-toast";
 
 interface EditAccountInfoProps {
   profile: {
@@ -12,7 +14,7 @@ interface EditAccountInfoProps {
     email: string;
     firstName: string;
     lastName: string;
-    DOB: string | null;
+    // DOB: string | null;
     address: string | null;
     city: string | null;
     state: string | null;
@@ -30,7 +32,7 @@ interface EditAccountInfoProps {
       email: string;
       firstName: string;
       lastName: string;
-      DOB: string | null;
+      // DOB: string | null;
       address: string | null;
       city: string | null;
       state: string | null;
@@ -42,26 +44,33 @@ interface EditAccountInfoProps {
     }>
   >;
   onClose: () => void;
+  setReloadProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+type EditProfile = {
+  firstName: string;
+  lastName: string;
+  address: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  postalCode: string | null;
+};
 
 const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
   profile,
   setProfile,
   onClose,
+  setReloadProfile
 }) => {
-  const [updatedProfile, setUpdatedProfile] = useState<{
-    username: string | null;
-    email: string;
-    firstName: string;
-    lastName: string;
-    DOB: string | null;
-    address: string | null;
-    city: string | null;
-    state: string | null;
-    country: string | null;
-    postalCode: string | null;
-  }>({
-    ...profile,
+  const [updatedProfile, setUpdatedProfile] = useState<EditProfile>({
+    firstName: profile.firstName,
+    lastName: profile.lastName,
+    address: profile.address,
+    city: profile.city,
+    state: profile.state,
+    country: profile.country,
+    postalCode: profile.postalCode,
   });
   const [isEditingEmail, setIsEditingEmail] = useState(false);
 
@@ -89,10 +98,28 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
           </div>
 
           <form
-            onSubmit={(e) => {
+            onSubmit={async(e) => {
               e.preventDefault();
-              setProfile((prev) => ({ ...prev, ...updatedProfile }));
-              onClose();
+              // setProfile((prev) => ({ ...prev, ...updatedProfile }));
+              console.log("profile",profile);
+              console.log("updated profile",updatedProfile);
+              try{
+              const res = await axiosInstance.patch(`/user/${profile.id}`, updatedProfile);
+              console.log("res",res);
+              if(res.status === 200){
+                // setProfile((prev) => ({ ...prev, ...updatedProfile }));
+                toast.success("Profile updated successfully");
+              }else{
+                throw new Error("Error updating profile");
+              }
+              }catch(err){
+                console.log("err",err);
+                toast.error("Error updating profile");
+              }finally{
+                setReloadProfile(prev => !prev);
+                onClose();
+              }
+              // onClose();
             }}
           >
             {/* Username and DOB */}
@@ -102,23 +129,15 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                 <label htmlFor="username" className="block mb-[0.5em]">
                   User Name
                 </label>
-                <input
-                  type="text"
-                  id="username"
-                  value={updatedProfile.username ?? ""}
-                  onChange={(e) =>
-                    setUpdatedProfile((prev) => ({
-                      ...prev,
-                      username: e.target.value,
-                    }))
-                  }
-                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  required
-                />
+<label
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 cursor-not-allowed outline-none"
+                >
+                  {profile.username ?? ""}
+                </label>
               </div>
 
               {/* DOB */}
-              <div>
+              {/* <div>
                 <label htmlFor="dob" className="block mb-[0.5em]">
                   Date Of Birth
                 </label>
@@ -135,7 +154,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
                   required
                 />
-              </div>
+              </div> */}
             </div>
 
             {/* Email */}
@@ -145,21 +164,24 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
               </label>
 
               <div className="flex items-center mt-[1em]">
-                <input
-                  type="email"
-                  id="email"
-                  value={updatedProfile.email}
-                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  readOnly
-                />
-                <button
+                <label
+                  // type="email"
+                  // id="email"
+                  // value={updatedProfile.email}
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 cursor-not-allowed outline-none"
+                  // readOnly
+                >
+                  {profile.email}
+                </label>
+
+                {/* <button
                   type="button"
                   className="flex items-center text-[0.8em] uppercase px-[1em] py-[0.6em] hover:opacity-80"
                   onClick={() => setIsEditingEmail(true)}
                 >
                   Edit&nbsp;&nbsp;
                   <FaPencilAlt />
-                </button>
+                </button> */}
               </div>
             </div>
 
@@ -222,7 +244,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                   }))
                 }
                 className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none lg:w-[87ch]"
-                required
+                // required
               />
             </div>
 
@@ -244,7 +266,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                     }))
                   }
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  required
+                  // required
                 />
               </div>
 
@@ -264,7 +286,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                     }))
                   }
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  required
+                  // required
                 />
               </div>
             </div>
@@ -287,7 +309,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                     }))
                   }
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  required
+                  // required
                 />
               </div>
 
@@ -307,7 +329,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                     }))
                   }
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  required
+                  // required
                 />
               </div>
             </div>
@@ -358,7 +380,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
               <input
                 type="email"
                 id="email"
-                value={updatedProfile.email}
+                value={profile.email}
                 onChange={(e) =>
                   setUpdatedProfile((prev) => ({
                     ...prev,
