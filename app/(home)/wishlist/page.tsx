@@ -283,30 +283,6 @@ const selectValues = [
   },
 ];
 
-// <SelectItem value="price_asc" className="text-[7px]">
-//                     Price: Low to High
-//                   </SelectItem>
-
-//                   <SelectItem value="price_des" className="text-[7px]">
-//                     Price: High to Low
-//                   </SelectItem>
-
-//                   <SelectItem value="date_asc" className="text-[7px]">
-//                     Date: Newest First
-//                   </SelectItem>
-
-//                   <SelectItem value="date_des" className="text-[7px]">
-//                     Date: Oldest First
-//                   </SelectItem>
-
-//                   <SelectItem value="a_z" className="text-[7px]">
-//                     Alphabet: A-Z
-//                   </SelectItem>
-
-//                   <SelectItem value="z_a" className="text-[7px]">
-//                     Alphabet: Z-A
-//                   </SelectItem>
-
 interface WishlistedGame {
   poster: string;
   name: string;
@@ -480,7 +456,7 @@ export default function WishlistPage() {
                     <SelectItem
                       key={index}
                       value={value}
-                      className="h-fit text-[7px] ps-[6ch] pe-[1em] py-[1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] rounded-none sm:ps-[4ch]"
+                      className="h-fit text-[7px] ps-[6ch] pe-[1em] py-[1em] rounded-none sm:text-[8px] sm:ps-[4ch] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
                     >
                       {text}
                     </SelectItem>
