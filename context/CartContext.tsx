@@ -29,7 +29,7 @@ interface CartContextProps {
   decreaseQuantity: (id: number) => void;
   clearCart: () => void;
   viewCart: () => CartItem[];
-  createOrder: () => void;
+  createOrder: (discountCode?: string) => Promise<void>;
 }
 
 // Create the CartContext with a default undefined value
@@ -113,7 +113,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Function to create Order
-  const createOrder = async () => {
+  const createOrder = async (discountCode?: string) => {
     const user = JSON.parse(localStorage.getItem("user") as string);
 
     if (!user || !user.id) {
@@ -121,13 +121,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
+    // Create the products array from the cart
+    const products = cart.map((item) => ({
+      gameId: item.id,
+      quantity: item.quantity,
+    }));
+
+    // Initialize the coupons array; you may want to populate this based on the discount code
+    const coupons = discountCode ? [discountCode] : [];
+
     try {
-      const response = await axiosInstance.post(`orders/${user?.id}`, {
+      const response = await axiosInstance.post(`orders/${user.id}`, {
         userId: user.id,
-        products: cart.map((item) => ({
-          gameId: item.id,
-          quantity: item.quantity,
-        })),
+        products: products,
+        coupons: coupons, // Include the coupons array here
       });
 
       console.log("Order created successfully:", response.data);

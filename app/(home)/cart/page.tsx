@@ -13,6 +13,8 @@ import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
 import { GoDotFill } from "react-icons/go";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { useCartContext } from "@/context/CartContext";
+import axiosInstance from "@/axios/axiosInstance";
+import toast from "react-hot-toast";
 
 const SERVICE_FEE = 12;
 const discountCodes: { [key: string]: number } = {
@@ -49,13 +51,25 @@ const Cart: React.FC = () => {
 
   const lastPrice = totalPrice + SERVICE_FEE - discountApplied;
 
-  const handleApplyDiscount = () => {
-    if (discountCodes[discountCode]) {
-      setDiscountApplied(discountCodes[discountCode]);
-      setDiscountMessage("Discount added successfully");
-    } else {
-      setDiscountApplied(0);
+  const handleApplyDiscount = async () => {
+    try {
+      const response = await axiosInstance.post("/coupons/validateCoupon", {
+        code: discountCode,
+      });
+
+      if (response.data && response.data.discount) {
+        setDiscountMessage("Discount added successfully");
+        setDiscountApplied(response.data.discount); 
+        toast.success("Discount applied successfully");
+      } else {
+        setDiscountMessage("Your discount code is invalid");
+        setDiscountApplied(0);
+        toast.error("Invalid discount code");
+      }
+    } catch (error) {
       setDiscountMessage("Your discount code is incorrect");
+      setDiscountApplied(0);
+      toast.error("Your discount code is incorrect");
     }
   };
 
@@ -226,7 +240,7 @@ const Cart: React.FC = () => {
                       type="text"
                       value={discountCode}
                       onChange={(e) => setDiscountCode(e.target.value)}
-                      className="bg-transparent border border-white"
+                      className="bg-transparent border border-white text-white"
                     />
                     <Button
                       onClick={handleApplyDiscount}
@@ -253,7 +267,14 @@ const Cart: React.FC = () => {
                 <div className="w-full flex justify-center">
                   <Button
                     className="bg-[#75F94C] text-white text-[22px] font-bold font-primaryFont rounded-none px-8"
-                    onClick={createOrder}
+                    onClick={() => {
+                      // Ensure discountCode is defined before creating the order
+                      if (discountCode) {
+                        createOrder(discountCode);
+                      } else {
+                        toast.error("Please enter a valid discount code before proceeding.");
+                      }
+                    }}
                   >
                     Proceed to checkout
                   </Button>
