@@ -25,6 +25,8 @@ import TransactionAction from "./components/transaction-action";
 import { useSearchParams } from "next/navigation";
 import axiosInstance from "@/axios/axiosInstance";
 import { set } from "date-fns";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const recentActivity = [
   {
@@ -697,12 +699,27 @@ export default function ProfilePage() {
   }, []);
 
   // Handles profile picture changes
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const reader = new FileReader();
-      reader.onloadend = () => setImageUrl(reader.result as string);
-      reader.readAsDataURL(file);
+      const formData = new FormData();
+      formData.append('image', file);
+
+      try {
+          const response = await axios('https://store.thevingame.com/upload', {
+              method: 'POST',
+              data: formData,
+          });
+          if (response.status === 201) {
+              const url = response.data.fileUrl;
+                  setImageUrl(url);
+          } else {
+              throw new Error(response.data.fileUrl);
+          }
+      } catch (error) {
+          toast.error('Error uploading file: ' + (error as Error).message);
+      }
     }
   };
 
@@ -765,9 +782,25 @@ export default function ProfilePage() {
                   <div className="absolute bottom-0 right-0 flex flex-col items-end">
                     <button
                       className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] mb-[0.2em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                      onClick={() => {
+                      onClick={async() => {
                         setProfile((prev) => ({ ...prev, avatar: imageUrl }));
                         setImageUrl(null);
+                        try{
+                          const res = await axiosInstance.patch(`/user/${profile.id}/profile-image`, 
+                          { profile_image: imageUrl });
+                          console.log(res);
+                          if(res.status === 200) {
+                            toast.success('Profile picture updated successfully');
+                            const user = localStorage.getItem('user');
+                            localStorage.setItem('user', JSON.stringify({ ...JSON.parse(user || '{}'), profile_image: imageUrl }));
+                          }else{
+                            // toast.error('Error updating profile picture');
+                            throw new Error('Error updating profile picture');
+                          }
+                        } catch (error) {
+                          console.log(error);
+                          toast.error('Error updating profile picture');
+                        }
                       }}
                     >
                       Save&nbsp;&nbsp;
