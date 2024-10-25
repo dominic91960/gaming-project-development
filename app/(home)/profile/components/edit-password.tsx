@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { IoClose } from "react-icons/io5";
+import axiosInstance from "@/axios/axiosInstance";
+import toast from "react-hot-toast";
 
 interface EditPasswordProps {
   password: string;
@@ -38,17 +40,45 @@ const EditPassword: React.FC<EditPasswordProps> = ({
   const [isCurrentPasswordWrong, setIsCurrentPasswordWrong] = useState(false);
   const [isConfirmPasswordWrong, setIsConfirmPasswordWrong] = useState(false);
 
-  const hanldeSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const hanldeSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (password !== currentPassword) {
-      setIsCurrentPasswordWrong(true);
-      return;
-    }
+    // if (password !== currentPassword) {
+    //   setIsCurrentPasswordWrong(true);
+    //   return;
+    // }
     if (updatedPassword !== confirmUpdatedPassword) {
       setIsConfirmPasswordWrong(true);
       return;
     }
+
+    const data = {
+      "oldPassword": currentPassword,
+      "newPassword": updatedPassword,
+    }
+
+    try {
+      const res = await axiosInstance.patch('/auth/update-password', data);
+      console.log(res);
+      if (res.status === 200) {
+        console.log('Password updated successfully');
+        toast.success('Password updated successfully');
+        axiosInstance.patch("/auth/logout");
+        localStorage.clear();
+        window.location.href = "/sign-in";
+      }else {
+        console.log('Failed to update password');
+        // toast.error('Failed to update password');
+        throw new Error('Failed to update password');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to update password');
+    }
+    // const res = axiosInstance.patch('/auth/update-password', data);
+
+    console.log(data);
+    
 
     setProfile((prev) => ({
       ...prev,
