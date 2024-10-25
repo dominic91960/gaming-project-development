@@ -16,6 +16,7 @@ interface AccountInfoProps {
   country: string | null;
   postalCode: string | null;
   handleClick: () => void;
+  setReloadProfile: (state: boolean) => void;
 }
 
 const AccountInfo: React.FC<AccountInfoProps> = ({
@@ -31,6 +32,7 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
   country,
   postalCode,
   handleClick,
+  setReloadProfile,
 }) => {
   return (
     <menu

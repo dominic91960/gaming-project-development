@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { IoClose } from "react-icons/io5";
 import { FaPencilAlt } from "react-icons/fa";
+import axiosInstance from "@/axios/axiosInstance";
+import toast from "react-hot-toast";
 
 interface EditAccountInfoProps {
   profile: {
@@ -42,26 +44,33 @@ interface EditAccountInfoProps {
     }>
   >;
   onClose: () => void;
+  setReloadProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+type EditProfile = {
+  firstName: string;
+  lastName: string;
+  address: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  postalCode: string | null;
+};
 
 const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
   profile,
   setProfile,
   onClose,
+  setReloadProfile
 }) => {
-  const [updatedProfile, setUpdatedProfile] = useState<{
-    username: string | null;
-    email: string;
-    firstName: string;
-    lastName: string;
-    // DOB: string | null;
-    address: string | null;
-    city: string | null;
-    state: string | null;
-    country: string | null;
-    postalCode: string | null;
-  }>({
-    ...profile,
+  const [updatedProfile, setUpdatedProfile] = useState<EditProfile>({
+    firstName: profile.firstName,
+    lastName: profile.lastName,
+    address: profile.address,
+    city: profile.city,
+    state: profile.state,
+    country: profile.country,
+    postalCode: profile.postalCode,
   });
   const [isEditingEmail, setIsEditingEmail] = useState(false);
 
@@ -89,10 +98,28 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
           </div>
 
           <form
-            onSubmit={(e) => {
+            onSubmit={async(e) => {
               e.preventDefault();
-              setProfile((prev) => ({ ...prev, ...updatedProfile }));
-              onClose();
+              // setProfile((prev) => ({ ...prev, ...updatedProfile }));
+              console.log("profile",profile);
+              console.log("updated profile",updatedProfile);
+              try{
+              const res = await axiosInstance.patch(`/user/${profile.id}`, updatedProfile);
+              console.log("res",res);
+              if(res.status === 200){
+                // setProfile((prev) => ({ ...prev, ...updatedProfile }));
+                toast.success("Profile updated successfully");
+              }else{
+                throw new Error("Error updating profile");
+              }
+              }catch(err){
+                console.log("err",err);
+                toast.error("Error updating profile");
+              }finally{
+                setReloadProfile(prev => !prev);
+                onClose();
+              }
+              // onClose();
             }}
           >
             {/* Username and DOB */}
@@ -105,7 +132,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
 <label
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 cursor-not-allowed outline-none"
                 >
-                  {updatedProfile.username ?? ""}
+                  {profile.username ?? ""}
                 </label>
               </div>
 
@@ -144,7 +171,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 cursor-not-allowed outline-none"
                   // readOnly
                 >
-                  {updatedProfile.email}
+                  {profile.email}
                 </label>
 
                 {/* <button
@@ -353,7 +380,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
               <input
                 type="email"
                 id="email"
-                value={updatedProfile.email}
+                value={profile.email}
                 onChange={(e) =>
                   setUpdatedProfile((prev) => ({
                     ...prev,

@@ -607,6 +607,8 @@ export default function ProfilePage() {
     trustedDevices: 2,
   });
 
+  const [reloadProfile, setReloadProfile] = useState(false);
+
   useEffect(() => {
     const getUserData = async () => {
       const res = await axiosInstance.get(`/user/profile/`);
@@ -631,7 +633,7 @@ export default function ProfilePage() {
     if (id) {
       getUserData();
     }
-  }, [id]);
+  }, [id, reloadProfile]);
 
   // Pagination states
   const [productsPerPage, setProductsPerPage] = useState(3);
@@ -738,6 +740,7 @@ export default function ProfilePage() {
   };
   const updatedColumns: ColumnDef<Transaction>[] = [...columns, viewColumn];
 
+
   return (
     <>
       <ProductSearchBar />
@@ -843,6 +846,7 @@ export default function ProfilePage() {
                 country={profile.country}
                 postalCode={profile.postalCode}
                 handleClick={() => setIsEditAccountInfoPopupOpen(true)}
+                setReloadProfile={setReloadProfile}
               />
 
               {/* Security details */}
@@ -887,6 +891,7 @@ export default function ProfilePage() {
           <EditAccountInfo
             profile={profile}
             setProfile={setProfile}
+            setReloadProfile={setReloadProfile}
             onClose={() => setIsEditAccountInfoPopupOpen(false)}
           />
         )}
