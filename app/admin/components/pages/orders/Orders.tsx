@@ -3,24 +3,25 @@ import { AllOrdersNew, columns } from "./columns";
 import { DataTable } from "./data-table";
 import Addorders from "./AddOrders";
 import EditAllOrdersPopup from "./editOrdersPopup";
+import OrderDetailPopup from "./OrderDetailPopup";
 import { ColumnDef } from "@tanstack/react-table";
 
 function getInitialData(): AllOrdersNew[] {
   return [
     {
       id: "728ed52f",
-      order_id: "Wukong",
+      order_id: "#254GF45",
       date: "23/05/2024",
-      username: "In Stock",
+      username: "SteveSmith",
       order_total: "$40",
       status: "Approved",
     },
 
     {
       id: "728ed52f",
-      order_id: "Wukong",
-      date: "23/05/2024",
-      username: "In Stock",
+      order_id: "#254GF96",
+      date: "12/01/2022",
+      username: "RickyPonting",
       order_total: "$40",
       status: "Rejected",
     },
@@ -31,6 +32,13 @@ export default function Allorders() {
   const [orders, setorders] = useState<AllOrdersNew[]>(getInitialData());
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingorder, setEditingorder] = useState<AllOrdersNew | null>(null);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<AllOrdersNew | null>(null);
+
+  const handleViewOrder = (order: AllOrdersNew) => {
+    setSelectedOrder(order);
+    setIsViewModalOpen(true);
+  };
 
   const handleAddorder = (neworder: AllOrdersNew) => {
     setorders((prevorders) => [...prevorders, neworder]);
@@ -66,6 +74,13 @@ export default function Allorders() {
         >
           Delete
         </button>
+
+        <button
+          className="bg-blue-500 text-white px-2 py-1 rounded"
+          onClick={() => handleViewOrder(row.original)}
+        >
+          view
+        </button>
         {/* <button
           className="bg-blue-500 text-white px-2 py-1 rounded"
           onClick={() => handleEditorder(row.original)}
@@ -96,6 +111,26 @@ export default function Allorders() {
         onClose={() => setIsEditModalOpen(false)}
         onSave={handleSaveorder}
       />
+
+      {/* Order Details Popup */}
+
+      {selectedOrder && (
+        <OrderDetailPopup
+          isOpen={isViewModalOpen}
+          onClose={() => setIsViewModalOpen(false)}
+          customerName={
+            selectedOrder.order_id === "#254GF45"
+              ? "Steve Smith"
+              : "Ricky Ponting"
+          }
+          customerEmail={
+            selectedOrder.order_id === "#254GF45"
+              ? "Steve@gmail.com"
+              : "Ricky@gmail.com"
+          }
+          date={selectedOrder.date}
+        />
+      )}
     </div>
   );
 }

@@ -56,11 +56,6 @@ export const columns: ColumnDef<AllOrdersNew>[] = [
     header: "Order Total",
   },
 
-  //   {
-  //     accessorKey: "status",
-  //     header: "Status",
-  //   },
-
   {
     accessorKey: "status",
     header: "Status",
@@ -111,7 +106,7 @@ export const columns: ColumnDef<AllOrdersNew>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem>View</DropdownMenuItem>
             <DropdownMenuItem>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
