@@ -232,7 +232,7 @@ interface WishlistedGame {
   discountPrice: number;
 }
 
-export default function page() {
+export default function WishlistPage() {
   const [productsPerPage, setProductsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedProducts, setDisplayedProducts] = useState<WishlistedGame[]>(
@@ -240,6 +240,7 @@ export default function page() {
   );
   const totalPages = Math.ceil(wishlist.length / productsPerPage);
 
+  // Determines which products are displayed
   useEffect(() => {
     const startIndex = (currentPage - 1) * productsPerPage;
 
@@ -248,14 +249,7 @@ export default function page() {
     );
   }, [currentPage, productsPerPage]);
 
-  useEffect(() => {
-    const startIndex = (currentPage - 1) * productsPerPage;
-
-    setDisplayedProducts(
-      wishlist.slice(startIndex, startIndex + productsPerPage)
-    );
-  }, [currentPage, productsPerPage]);
-
+  // Calculates productsPerPage according to screen size
   useEffect(() => {
     const handleResize = () => {
       setCurrentPage(1);
@@ -321,15 +315,12 @@ export default function page() {
             </h4>
             <div className="flex justify-around">
               {recommendedGames.map(
-                ({
-                  poster,
-                  name,
-                  desc,
-                  rating,
-                  discountPrice,
-                  originalPrice,
-                }) => (
+                (
+                  { poster, name, desc, rating, discountPrice, originalPrice },
+                  index
+                ) => (
                   <ProductCard
+                    key={index}
                     poster={poster}
                     name={name}
                     desc={desc}
