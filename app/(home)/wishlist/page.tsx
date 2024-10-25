@@ -270,6 +270,7 @@ interface WishlistedGame {
 }
 
 export default function WishlistPage() {
+  // Pagination states
   const [wishlistedGames, setWishlistedGames] = useState<WishlistedGame[]>([]);
   const [productsPerPage, setProductsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
@@ -278,11 +279,21 @@ export default function WishlistPage() {
   );
   const totalPages = Math.ceil(wishlistedGames.length / productsPerPage);
 
+  // Product search state
   const [searchName, setSearchName] = useState("");
 
+  // Sort states
   const [sortState, setSortState] = useState("none");
   const sortMethods = {
     none: { method: () => null },
+    price_asc: {
+      method: (a: WishlistedGame, b: WishlistedGame) =>
+        a.discountPrice - b.discountPrice,
+    },
+    price_des: {
+      method: (a: WishlistedGame, b: WishlistedGame) =>
+        b.discountPrice - a.discountPrice,
+    },
     a_z: {
       method: (a: WishlistedGame, b: WishlistedGame) =>
         a.name.localeCompare(b.name),
@@ -387,6 +398,8 @@ export default function WishlistPage() {
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="price_asc">Price: Low to High</SelectItem>
+                  <SelectItem value="price_des">Price: High to Low</SelectItem>
                   <SelectItem value="a_z">Alphabet: A-Z</SelectItem>
                   <SelectItem value="z_a">Alphabet: Z-A</SelectItem>
                 </SelectContent>
