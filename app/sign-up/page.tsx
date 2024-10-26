@@ -63,8 +63,6 @@ const SignUp = () => {
         password: data.password,
         role: "USER",
       });
-
-      console.log("Registration successful", response.data);
       toast.success(response.data.message);
       router.push("/emailVerify");
     } catch (error: any) {
@@ -202,7 +200,7 @@ const SignUp = () => {
                 <p className="text-white font-primaryFont font-medium text-[0.8em]">
                   I agree to all
                   <Link href="/" className="text-[#45F882] hover:opacity-80">
-                    &nbsp;terms and conditons
+                    &nbsp;terms and conditions
                   </Link>
                 </p>
               </div>

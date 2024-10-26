@@ -151,7 +151,7 @@ export function DataTable<TData, TValue>({
       </div>
 
       {/* Pagination */}
-      <div className="text-[0.65em] px-[4em] mt-[2em] hidden md:flex md:items-center md:justify-between">
+      {/* <div className="text-[0.65em] px-[4em] mt-[2em] hidden md:flex md:items-center md:justify-between">
         <div className="flex gap-x-[1em]">
           <Button
             variant="secondary"
@@ -172,26 +172,7 @@ export function DataTable<TData, TValue>({
             Next
           </Button>
         </div>
-
-        {/* Group select */}
-        {/* <div className="flex gap-x-[1em]">
-          <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-sm min-w-[12ch] flex items-center justify-center h-fit">
-            Selected: 0
-          </p>
-          <Button
-            variant="secondary"
-            className="font-medium w-[12ch] text-[1em] px-[1em] py-[0.5em] h-fit rounded-sm"
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="destructive"
-            className="font-medium w-[12ch] text-[1em] px-[1em] py-[0.5em] h-fit rounded-sm"
-          >
-            Delete
-          </Button>
-        </div> */}
-      </div>
+      </div> */}
     </>
   );
 }

@@ -223,7 +223,8 @@ export default function ProductPage() {
     try {
       await axiosInstance.post(`/reviews`, newReview);
     } catch (error: any) {
-      toast.error(error.response.data.message);
+      // toast.error(error.response.data.message);
+      toast.error("You already reviewed the game");
     } finally {
       setComment("");
       setRate(0);
@@ -636,7 +637,7 @@ export default function ProductPage() {
                       <span className="text-[#f29d38]">
                         <StarRating rating={1} />
                       </span>
-                      &nbsp;{calculateOverallRating(reviews)}
+                      &nbsp;{calculateOverallRating(reviews) || 0}
                     </p>
                     <p>Overall Rating</p>
                   </div>
