@@ -109,10 +109,7 @@ const OrderDetailPopup: React.FC<OrderDetailPopupProps> = ({
           </button>
         </div>
 
-        {/* All Customers Table */}
-        <div className="table-section">
-          <Allcustomers data={customers} />
-        </div>
+        <Allcustomers />
       </DialogContent>
     </Dialog>
   );
