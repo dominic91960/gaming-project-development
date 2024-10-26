@@ -14,15 +14,23 @@ import {
 } from "@/components/ui/dropdown-menu";
 import StatusPopup from "./OrderStatusPopup";
 
+export type OrderItem = {
+  productImage: string;
+  productName: string;
+  productCode: string;
+  regularPrice: string; // Change to number if it's a numeric value
+  quantity: number;
+  total: string; // Change to number if it's a numeric value
+};
+
 export type AllOrdersNew = {
   id: string;
   order_id: string;
-
   username: string;
   order_total: string;
-
   status: string;
   date: string;
+  items: OrderItem[]; // Include items property
 };
 
 export const columns: ColumnDef<AllOrdersNew>[] = [
@@ -40,22 +48,18 @@ export const columns: ColumnDef<AllOrdersNew>[] = [
       );
     },
   },
-
   {
     accessorKey: "date",
     header: "Date",
   },
-
   {
     accessorKey: "username",
     header: "Username",
   },
-
   {
     accessorKey: "order_total",
     header: "Order Total",
   },
-
   {
     accessorKey: "status",
     header: "Status",
@@ -88,7 +92,6 @@ export const columns: ColumnDef<AllOrdersNew>[] = [
       );
     },
   },
-
   {
     id: "actions",
     cell: ({ row }) => {
@@ -104,7 +107,6 @@ export const columns: ColumnDef<AllOrdersNew>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-
             <DropdownMenuSeparator />
             <DropdownMenuItem>View</DropdownMenuItem>
             <DropdownMenuItem>Delete</DropdownMenuItem>
