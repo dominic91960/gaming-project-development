@@ -6,6 +6,8 @@ import EditAllOrdersPopup from "./editOrdersPopup";
 import OrderDetailPopup from "./OrderDetailPopup";
 import { ColumnDef } from "@tanstack/react-table";
 
+import OrderDetailsTable from "./_components/Order-details-table";
+
 function getInitialData(): AllOrdersNew[] {
   return [
     {
@@ -97,7 +99,7 @@ export default function Allorders() {
   ];
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-10 text-white">
       <h1 className="text-2xl font-bold mb-4 text-white">All Orders</h1>
       {/* Add Orders Component */}
       <Addorders onAddOrder={handleAddorder} />
@@ -134,3 +136,14 @@ export default function Allorders() {
     </div>
   );
 }
+
+// const MyOrders = () => {
+//   return (
+//     <div>
+//       <p className="text-[55px] text-white">This is new my orders page</p>
+//       <OrderDetailsTable />
+//     </div>
+//   );
+// };
+
+// export default MyOrders;
