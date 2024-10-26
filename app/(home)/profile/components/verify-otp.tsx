@@ -71,7 +71,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     return () => clearInterval(timerInterval);
   }, []);
 
-  const hanldeSubmit = () => {
+  const handleSubmit = () => {
     const currentTime = new Date();
     const remainingTime = expirationTime.getTime() - currentTime.getTime();
     console.log(inputOTP.length);
@@ -161,7 +161,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
       <Button
         variant="gaming"
         className="h-fit text-[8px] px-[2em] py-[0.2em] rounded-none sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
-        onClick={hanldeSubmit}
+        onClick={handleSubmit}
       >
         Enable SMS Authentication
       </Button>

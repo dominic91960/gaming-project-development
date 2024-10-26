@@ -25,7 +25,7 @@ export default function AllCustomerReviews() {
     try {
       const response = await axiosInstance.get(`/reviews?page=${page}`);
       setReviews(response.data.reviews);
-      setTotalPages(response.data.totalReviews);
+      setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error(error);
       toast.error("Failed to add product");

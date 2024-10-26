@@ -56,7 +56,7 @@ const StatusPopup: React.FC<StatusPopupProps> = ({
           />
           <span>Rejected</span>
         </label>
-        <label className="flex items-center space-x-2">
+        {/* <label className="flex items-center space-x-2">
           <input
             type="radio"
             value="Publish"
@@ -64,8 +64,8 @@ const StatusPopup: React.FC<StatusPopupProps> = ({
             onChange={() => setSelectedStatus("Publish")}
           />
           <span>Publish (True)</span>
-        </label>
-        <label className="flex items-center space-x-2">
+        </label> */}
+        {/* <label className="flex items-center space-x-2">
           <input
             type="radio"
             value="unPublish"
@@ -73,7 +73,7 @@ const StatusPopup: React.FC<StatusPopupProps> = ({
             onChange={() => setSelectedStatus("unPublish")}
           />
           <span>UnPublish (False)</span>
-        </label>
+        </label> */}
       </div>
       <div className="flex justify-end mt-4 space-x-2">
         <Button variant="outline" onClick={onClose}>
