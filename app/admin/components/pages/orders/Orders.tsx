@@ -161,6 +161,7 @@ export default function AllOrders() {
           }
           date={selectedOrder.date}
           items={selectedOrder.items} // Pass the order items correctly
+          order_id={selectedOrder.order_id}
         />
       )}
     </div>

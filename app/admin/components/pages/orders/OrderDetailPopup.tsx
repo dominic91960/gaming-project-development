@@ -18,6 +18,7 @@ interface OrderDetailPopupProps {
   customerName: string;
   customerEmail: string;
   date: string;
+  order_id: string;
   items: OrderItem[];
 }
 
@@ -28,12 +29,17 @@ const OrderDetailPopup: React.FC<OrderDetailPopupProps> = ({
   customerEmail,
   date,
   items,
+  order_id,
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogTitle>Order Details</DialogTitle>
         <div className="space-y-4 text-white">
+          <p>
+            <strong>Order ID:</strong> {order_id}
+          </p>
+
           <p>
             <strong>Customer Name:</strong> {customerName}
           </p>
