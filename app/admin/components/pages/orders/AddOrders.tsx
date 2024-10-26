@@ -22,6 +22,7 @@ export default function AddOrders({ onAddOrder }: AddOrdersProps) {
       order_total: order_total,
       status,
       date,
+      items: [],
     };
 
     onAddOrder(newOrder);

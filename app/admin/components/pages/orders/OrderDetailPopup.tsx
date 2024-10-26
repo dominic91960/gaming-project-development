@@ -7,9 +7,9 @@ interface OrderItem {
   productImage: string;
   productName: string;
   productCode: string;
-  regularPrice: string;
+  regularPrice: number; // Updated to number
   quantity: number;
-  total: string;
+  total: number; // Updated to number
 }
 
 interface OrderDetailPopupProps {

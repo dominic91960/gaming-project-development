@@ -20,21 +20,20 @@ function getInitialData(): AllOrdersNew[] {
           productImage: "/images/all-orders/cod.jpeg",
           productName: "Call of Duty",
           productCode: "#COD451",
-          regularPrice: "$15", // Ensure it's a string
+          regularPrice: 15, // Convert to number
           quantity: 3,
-          total: "$45", // Ensure it's a string
+          total: 45, // Convert to number
         },
         {
           productImage: "/images/all-orders/battlefield.jpg",
           productName: "Battlefield 2042",
           productCode: "#BFD800",
-          regularPrice: "$20", // Ensure it's a string
+          regularPrice: 20, // Convert to number
           quantity: 2,
-          total: "$40", // Ensure it's a string
+          total: 40, // Convert to number
         },
       ],
     },
-
     {
       id: "728ed52f2",
       order_id: "#254GF96",
@@ -47,9 +46,9 @@ function getInitialData(): AllOrdersNew[] {
           productImage: "/images/all-orders/aoe.jpg",
           productName: "Age of Empires",
           productCode: "#AOE923",
-          regularPrice: "$22", // Ensure it's a string
+          regularPrice: 22, // Convert to number
           quantity: 3,
-          total: "$66", // Ensure it's a string
+          total: 66, // Convert to number
         },
       ],
     },

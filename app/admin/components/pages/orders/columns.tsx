@@ -18,9 +18,9 @@ export type OrderItem = {
   productImage: string;
   productName: string;
   productCode: string;
-  regularPrice: string; // Change to number if it's a numeric value
+  regularPrice: number; // Change to number if it's a numeric value
   quantity: number;
-  total: string; // Change to number if it's a numeric value
+  total: number; // Change to number if it's a numeric value
 };
 
 export type AllOrdersNew = {
