@@ -5,6 +5,18 @@ import Addorders from "./AddOrders";
 import EditAllOrdersPopup from "./editOrdersPopup";
 import OrderDetailPopup from "./OrderDetailPopup";
 import { ColumnDef } from "@tanstack/react-table";
+import OrderItemsTable from "./_components/OrderItemsTable";
+const COUPON_VALUE = 10; // Static coupon value of $10
+
+function calculateOrderTotal(
+  items: { regularPrice: number; quantity: number }[]
+) {
+  const subtotal = items.reduce(
+    (acc, item) => acc + item.regularPrice * item.quantity,
+    0
+  );
+  return subtotal - COUPON_VALUE;
+}
 
 function getInitialData(): AllOrdersNew[] {
   return [
@@ -13,7 +25,7 @@ function getInitialData(): AllOrdersNew[] {
       order_id: "#254GF45",
       date: "23/05/2024",
       username: "SteveSmith",
-      order_total: "$40",
+      order_total: "",
       status: "Approved",
       items: [
         {
@@ -34,12 +46,13 @@ function getInitialData(): AllOrdersNew[] {
         },
       ],
     },
+
     {
       id: "728ed52f2",
       order_id: "#254GF96",
       date: "12/01/2022",
       username: "RickyPonting",
-      order_total: "$40",
+      order_total: "",
       status: "Rejected",
       items: [
         {
@@ -52,7 +65,10 @@ function getInitialData(): AllOrdersNew[] {
         },
       ],
     },
-  ];
+  ].map((order) => ({
+    ...order,
+    order_total: `$${calculateOrderTotal(order.items).toFixed(2)}`, // Calculate the order total
+  }));
 }
 
 export default function AllOrders() {
