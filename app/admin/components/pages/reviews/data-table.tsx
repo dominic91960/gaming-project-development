@@ -28,16 +28,23 @@ import { CiSearch } from "react-icons/ci";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  searchTerm: string;
+  setSearchTerm: (key: string) => void;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  searchTerm,
+  setSearchTerm,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+
+  // Handle search input change
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
 
   const table = useReactTable({
     data,
@@ -58,51 +65,34 @@ export function DataTable<TData, TValue>({
     <>
       <div className="flex-grow bg-black/40 border border-[#0D6D49] px-[2em] py-[1.2em] rounded-3xl md:rounded-md text-white">
         <div className="hidden pb-[1.2em] border-b border-b-[#0D6D49] md:flex md:justify-between md:items-center">
-          {/* Title */}
           <h2 className="font-semibold text-white">Reviews</h2>
 
-          {/* Search bar and add menu */}
           <div className="flex items-center text-[0.5em] gap-x-[1em]">
-            <div className="border p-[0.75em] rounded-sm flex items-center gap-x-[0.75em]">
+            <div className="border p-[0.75em] rounded-sm flex items-center gap-x-[0.75em] mb-[1em]">
               <CiSearch className="text-[1.6em] text-white" />
               <input
-                placeholder="Filter emails..."
-                value={
-                  (table.getColumn("name")?.getFilterValue() as string) ?? ""
-                }
-                onChange={(event) =>
-                  table.getColumn("name")?.setFilterValue(event.target.value)
-                }
-                className="bg-transparent outline-none border-y-0 border-e-0 border-s rounded-none px-[1em] w-[38ch] text-white"
+                type="text"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                placeholder="Search by email"
+                className="bg-transparent outline-none border-s px-[1em] w-[50ch] text-white"
               />
             </div>
           </div>
         </div>
 
-        {/* Table */}
         <div className="text-white md:mt-[1.5em]">
           <Table className="border-separate border-spacing-y-[2em] px-[0.4em] text-[0.65em] md:border-spacing-y-[1em]">
             <TableHeader className="text-[1.1em]">
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow
-                  key={headerGroup.id}
-                  className="hover:bg-inherit border-none"
-                >
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableHead
-                        key={header.id}
-                        className="hidden md:table-cell h-fit py-[1em]"
-                      >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                      </TableHead>
-                    );
-                  })}
+                <TableRow key={headerGroup.id} className="hover:bg-inherit border-none">
+                  {headerGroup.headers.map((header) => (
+                    <TableHead key={header.id} className="hidden md:table-cell h-fit py-[1em]">
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
+                  ))}
                 </TableRow>
               ))}
             </TableHeader>
@@ -130,10 +120,7 @@ export function DataTable<TData, TValue>({
                         {index === 0 && (
                           <div className="w-[0.3em] h-full bg-[#00FFA1] absolute top-0 left-0 rounded-full"></div>
                         )}
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                     ))}
                   </TableRow>
@@ -149,30 +136,6 @@ export function DataTable<TData, TValue>({
           </Table>
         </div>
       </div>
-
-      {/* Pagination */}
-      {/* <div className="text-[0.65em] px-[4em] mt-[2em] hidden md:flex md:items-center md:justify-between">
-        <div className="flex gap-x-[1em]">
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            className="text-[1em] hover:bg-[#00FFA1] px-[1em] py-[0.5em] h-fit rounded-sm"
-          >
-            Previous
-          </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            className="text-[1em] hover:bg-[#00FFA1] px-[1em] py-[0.5em] h-fit rounded-sm"
-          >
-            Next
-          </Button>
-        </div>
-      </div> */}
     </>
   );
 }
