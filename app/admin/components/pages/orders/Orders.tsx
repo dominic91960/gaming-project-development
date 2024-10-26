@@ -5,9 +5,26 @@ import Addorders from "./AddOrders";
 import EditAllOrdersPopup from "./editOrdersPopup";
 import OrderDetailPopup from "./OrderDetailPopup";
 import { ColumnDef } from "@tanstack/react-table";
-import OrderItemsTable from "./_components/OrderItemsTable";
+
 const COUPON_VALUE = 10; // Static coupon value of $10
 
+// Calculates total price for each item based on regular price and quantity
+function calculateItemsWithTotal(
+  items: {
+    regularPrice: number;
+    quantity: number;
+    productImage: string;
+    productName: string;
+    productCode: string;
+  }[]
+) {
+  return items.map((item) => ({
+    ...item,
+    total: item.regularPrice * item.quantity,
+  }));
+}
+
+// Calculates the final order total for an array of items with an applied discount
 function calculateOrderTotal(
   items: { regularPrice: number; quantity: number }[]
 ) {
@@ -18,8 +35,9 @@ function calculateOrderTotal(
   return subtotal - COUPON_VALUE;
 }
 
+// Initializes order data, dynamically adding totals
 function getInitialData(): AllOrdersNew[] {
-  return [
+  const orders = [
     {
       id: "728ed52f",
       order_id: "#254GF45",
@@ -32,43 +50,88 @@ function getInitialData(): AllOrdersNew[] {
           productImage: "/images/all-orders/cod.jpeg",
           productName: "Call of Duty",
           productCode: "#COD451",
-          regularPrice: 15, // Convert to number
+          regularPrice: 15,
           quantity: 3,
-          total: 45, // Convert to number
         },
         {
           productImage: "/images/all-orders/battlefield.jpg",
           productName: "Battlefield 2042",
           productCode: "#BFD800",
-          regularPrice: 20, // Convert to number
-          quantity: 2,
-          total: 40, // Convert to number
+          regularPrice: 20,
+          quantity: 3,
+        },
+
+        {
+          productImage: "/images/all-orders/red_dead.jpg",
+          productName: "Red Dead Redemption",
+          productCode: "#BFD800",
+          regularPrice: 100,
+          quantity: 3,
         },
       ],
     },
 
     {
-      id: "728ed52f2",
-      order_id: "#254GF96",
-      date: "12/01/2022",
-      username: "RickyPonting",
+      id: "728ed53a",
+      order_id: "#254GF11",
+      date: "25/07/2024",
+      username: "Ricky Ponting",
       order_total: "",
-      status: "Rejected",
+      status: "Approved",
       items: [
         {
-          productImage: "/images/all-orders/aoe.jpg",
-          productName: "Age of Empires",
-          productCode: "#AOE923",
-          regularPrice: 22, // Convert to number
-          quantity: 3,
-          total: 66, // Convert to number
+          productImage: "/images/all-orders/igi.jpg",
+          productName: "Project IGI",
+          productCode: "#IGI345",
+          regularPrice: 12,
+          quantity: 4,
         },
       ],
     },
-  ].map((order) => ({
-    ...order,
-    order_total: `$${calculateOrderTotal(order.items).toFixed(2)}`, // Calculate the order total
-  }));
+
+    {
+      id: "728ed533",
+      order_id: "#254GD00",
+      date: "01/07/2024",
+      username: "David Warner",
+      order_total: "",
+      status: "Approved",
+      items: [
+        {
+          productImage: "/images/all-orders/igi.jpg",
+          productName: "GTA",
+          productCode: "#GTA345",
+          regularPrice: 10,
+          quantity: 5,
+        },
+
+        {
+          productImage: "/images/all-orders/aoe.jpg",
+          productName: "Age of Empires",
+          productCode: "#AOE345",
+          regularPrice: 25,
+          quantity: 10,
+        },
+
+        {
+          productImage: "/images/all-orders/cricket.jpg",
+          productName: "Cricket",
+          productCode: "#GTA345",
+          regularPrice: 30,
+          quantity: 3,
+        },
+      ],
+    },
+  ];
+
+  return orders.map((order) => {
+    const itemsWithTotal = calculateItemsWithTotal(order.items); // Calculate total for each item
+    return {
+      ...order,
+      items: itemsWithTotal,
+      order_total: `$${calculateOrderTotal(itemsWithTotal).toFixed(2)}`, // Calculate the order total
+    };
+  });
 }
 
 export default function AllOrders() {
@@ -153,14 +216,14 @@ export default function AllOrders() {
         <OrderDetailPopup
           isOpen={isViewModalOpen}
           onClose={() => setIsViewModalOpen(false)}
-          customerName={selectedOrder.username} // Use username for customer name
+          customerName={selectedOrder.username}
           customerEmail={
             selectedOrder.username === "SteveSmith"
               ? "Steve@gmail.com"
               : "Ricky@gmail.com"
           }
           date={selectedOrder.date}
-          items={selectedOrder.items} // Pass the order items correctly
+          items={selectedOrder.items}
           order_id={selectedOrder.order_id}
         />
       )}
