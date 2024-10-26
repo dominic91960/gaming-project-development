@@ -17,20 +17,20 @@ function getInitialData(): AllOrdersNew[] {
       status: "Approved",
       items: [
         {
-          productImage: "path/to/image1.jpg",
-          productName: "Product 1",
-          productCode: "P001",
-          regularPrice: "$20", // Ensure it's a string
-          quantity: 1,
-          total: "$20", // Ensure it's a string
+          productImage: "/images/all-orders/cod.jpeg",
+          productName: "Call of Duty",
+          productCode: "#COD451",
+          regularPrice: "$15", // Ensure it's a string
+          quantity: 3,
+          total: "$45", // Ensure it's a string
         },
         {
-          productImage: "path/to/image2.jpg",
-          productName: "Product 2",
-          productCode: "P002",
+          productImage: "/images/all-orders/battlefield.jpg",
+          productName: "Battlefield 2042",
+          productCode: "#BFD800",
           regularPrice: "$20", // Ensure it's a string
-          quantity: 1,
-          total: "$20", // Ensure it's a string
+          quantity: 2,
+          total: "$40", // Ensure it's a string
         },
       ],
     },
@@ -44,12 +44,12 @@ function getInitialData(): AllOrdersNew[] {
       status: "Rejected",
       items: [
         {
-          productImage: "path/to/image3.jpg",
-          productName: "Product 3",
-          productCode: "P003",
-          regularPrice: "$40", // Ensure it's a string
-          quantity: 1,
-          total: "$40", // Ensure it's a string
+          productImage: "/images/all-orders/aoe.jpg",
+          productName: "Age of Empires",
+          productCode: "#AOE923",
+          regularPrice: "$22", // Ensure it's a string
+          quantity: 3,
+          total: "$66", // Ensure it's a string
         },
       ],
     },
