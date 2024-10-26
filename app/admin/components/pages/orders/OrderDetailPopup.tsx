@@ -34,11 +34,13 @@ const OrderDetailPopup: React.FC<OrderDetailPopupProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
-        <DialogTitle>Order Details</DialogTitle>
+        <DialogTitle className="text-white">
+          Order Details - {order_id}
+        </DialogTitle>
         <div className="space-y-4 text-white">
-          <p>
+          {/* <p>
             <strong>Order ID:</strong> {order_id}
-          </p>
+          </p> */}
 
           <p>
             <strong>Customer Name:</strong> {customerName}

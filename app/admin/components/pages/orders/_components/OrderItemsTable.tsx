@@ -1,4 +1,13 @@
 import React from "react";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface OrderItem {
   productImage: string;
@@ -23,39 +32,41 @@ const OrderItemsTable: React.FC<OrderItemsTableProps> = ({ items }) => {
   const finalPrice = subtotal - couponValue;
   return (
     <div>
-      {" "}
-      <table className="min-w-full ">
-        <thead>
-          <tr>
-            <th className="py-2">Image</th>
-            <th className="py-2">Product Name</th>
-            <th className="py-2">Product Code</th>
-            <th className="py-2">Regular Price</th>
-            <th className="py-2">Quantity</th>
-            <th className="py-2">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item, index) => (
-            <tr key={index}>
-              <td className="py-2">
+      <Table>
+        {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]">Product</TableHead>
+            <TableHead className="w-[100px]">Name</TableHead>
+            <TableHead className="w-[100px]">Product Code</TableHead>
+            <TableHead className="w-[100px]">Regular Price</TableHead>
+            <TableHead className="w-[100px]">Quantity</TableHead>
+            <TableHead className="w-[100px]">Total</TableHead>
+          </TableRow>
+        </TableHeader>
+
+        {items.map((item, index) => (
+          <TableBody>
+            <TableRow>
+              <TableCell>
                 <img
                   src={item.productImage}
                   alt={item.productName}
                   className="w-16 h-16 object-cover"
                 />
-              </td>
-              <td className="py-2">{item.productName}</td>
-              <td className="py-2">{item.productCode}</td>
-              <td className="py-2">${item.regularPrice.toFixed(2)}</td>
-              <td className="py-2">{item.quantity}</td>
-              <td className="py-2">
+              </TableCell>
+              <TableCell>{item.productName}</TableCell>
+              <TableCell>{item.productCode}</TableCell>
+              <TableCell>${item.regularPrice.toFixed(2)}</TableCell>
+              <TableCell>{item.quantity}</TableCell>
+              <TableCell>
                 ${(item.regularPrice * item.quantity).toFixed(2)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        ))}
+      </Table>
+
       {/* Display Subtotal */}
       <div className="mt-4 text-right">
         <strong>Subtotal: ${subtotal.toFixed(2)}</strong>
