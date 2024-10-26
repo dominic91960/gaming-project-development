@@ -136,14 +136,3 @@ export default function Allorders() {
     </div>
   );
 }
-
-// const MyOrders = () => {
-//   return (
-//     <div>
-//       <p className="text-[55px] text-white">This is new my orders page</p>
-//       <OrderDetailsTable />
-//     </div>
-//   );
-// };
-
-// export default MyOrders;
