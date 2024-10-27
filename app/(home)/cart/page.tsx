@@ -17,39 +17,31 @@ import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 
 const SERVICE_FEE = 12;
-const discountCodes: { [key: string]: number } = {
-  "12345": 15,
-  "11111": 30,
-  "44444": 40,
-};
-type CartItem = {
-  id: number;
-  image: string;
-  choiceType: string;
-  title: string;
-  quantity: number;
-  price: number;
-  productType: string;
-};
 
 const Cart: React.FC = () => {
-  const { cart, removeItem, increaseQuantity, decreaseQuantity, createOrder } =
-    useCartContext(); // Access cart data from context
+  const {
+    cart,
+    removeItem,
+    increaseQuantity,
+    decreaseQuantity,
+    createOrder,
+    totalPrice,
+    totalItems,
+    setDiscount,
+    totalDiscount,
+    discountData,
+  } = useCartContext(); // Access cart data from context
   const [discountCode, setDiscountCode] = useState<string>("");
   const [discountApplied, setDiscountApplied] = useState<number>(0);
   const [discountMessage, setDiscountMessage] = useState<string>("");
+
+  const [tempDiscount, setTempDiscount] =useState<string>("")
 
   const handleRemoveItem = (id: number) => {
     removeItem(id);
   };
 
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-
-  const lastPrice = totalPrice + SERVICE_FEE - discountApplied;
+  const lastPrice = totalPrice;
 
   const handleApplyDiscount = async () => {
     try {
@@ -59,18 +51,36 @@ const Cart: React.FC = () => {
 
       if (response.data && response.data.discount) {
         setDiscountMessage("Discount added successfully");
-        setDiscountApplied(response.data.discount); 
+        // Clear the previous discount
+        setDiscountApplied(0);
+        setTempDiscount(response.data.code)
+        setDiscount({
+          code: response.data.code,
+          discount: response.data.discount,
+          id: response.data.id,
+          type: response.data.type,
+        });
+
+        // Update applied discount
+        setDiscountApplied(response.data.discount);      
         toast.success("Discount applied successfully");
       } else {
         setDiscountMessage("Your discount code is invalid");
-        setDiscountApplied(0);
         toast.error("Invalid discount code");
       }
     } catch (error) {
       setDiscountMessage("Your discount code is incorrect");
-      setDiscountApplied(0);
       toast.error("Your discount code is incorrect");
     }
+  };
+
+  const removeCoupon = () => {
+    setDiscount({
+      code: "",
+      discount: 0,
+      id: "",
+      type: "",
+    });
   };
 
   return (
@@ -221,14 +231,14 @@ const Cart: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between border-b-2 border-[#676866]">
+                {/* <div className="flex items-center justify-between border-b-2 border-[#676866]">
                   <p className="font-primaryFont text-[20px] font-normal text-white mb-2">
                     Service fee
                   </p>
                   <p className="font-primaryFont text-[20px] font-bold text-white mb-2">
                     ${SERVICE_FEE}
                   </p>
-                </div>
+                </div> */}
 
                 <div className="flex items-center justify-between border-b-2 border-[#676866] py-3">
                   <p className="self-start font-primaryFont text-[20px] font-normal text-white mb-2">
@@ -236,18 +246,34 @@ const Cart: React.FC = () => {
                   </p>
 
                   <div>
-                    <Input
-                      type="text"
-                      value={discountCode}
-                      onChange={(e) => setDiscountCode(e.target.value)}
-                      className="bg-transparent border border-white text-white"
-                    />
-                    <Button
-                      onClick={handleApplyDiscount}
-                      className="bg-transparent text-white"
-                    >
-                      Apply
-                    </Button>
+                    {!(totalDiscount > 0) ? (
+                      <div>
+                        <Input
+                          type="text"
+                          value={discountCode}
+                          onChange={(e) => setDiscountCode(e.target.value)}
+                          className="bg-transparent border border-white text-white"
+                        />
+                        <Button
+                          onClick={handleApplyDiscount}
+                          className="bg-transparent text-white"
+                        >
+                          Apply
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="bg-red-400 rounded-3xl px-2 flex justify-between items-center h-6 w-24  mb-2">
+                        <span className="text-white pt-1">
+                          {discountData.code}
+                        </span>
+                        <span
+                          className="text-white cursor-pointer"
+                          onClick={removeCoupon}
+                        >
+                          x
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -255,12 +281,23 @@ const Cart: React.FC = () => {
                   {discountMessage}
                 </p>
 
+                {totalDiscount > 0 && (
+                  <div className="flex items-center justify-between border-b-2 border-[#676866]">
+                    <p className="font-primaryFont text-[20px] font-normal text-white mb-2">
+                      Discount
+                    </p>
+                    <p className="font-primaryFont text-[20px] font-bold text-white mb-2">
+                      - ${Math.max(totalDiscount, 0)}
+                    </p>
+                  </div>
+                )}
+
                 <div className="flex items-center justify-between">
                   <p className="font-primaryFont text-[24px] font-bold text-white mb-2">
                     Total
                   </p>
                   <p className="font-primaryFont text-[30px] font-bold text-[#75F94C] mb-2">
-                    ${lastPrice}
+                    ${Math.max((lastPrice - totalDiscount), 0)}
                   </p>
                 </div>
 
@@ -272,7 +309,9 @@ const Cart: React.FC = () => {
                       if (discountCode) {
                         createOrder(discountCode);
                       } else {
-                        toast.error("Please enter a valid discount code before proceeding.");
+                        toast.error(
+                          "Please enter a valid discount code before proceeding."
+                        );
                       }
                     }}
                   >

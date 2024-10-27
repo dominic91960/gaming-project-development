@@ -111,7 +111,7 @@ const SignIn = () => {
 
         localStorage.setItem("user", JSON.stringify(user));
 
-        if (user.role === "admin") {
+        if (user.role === "ADMIN") {
           router.push("/admin");
         } else {
           router.push("/");
