@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -62,7 +62,7 @@ const SignIn = () => {
 
         // Redirect to home page
         // router.push("/admin");
-        if (user.role === "admin") {
+        if (user.role.name === "ADMIN") {
           router.push("/admin");
         } else {
           router.push("/");
@@ -168,6 +168,7 @@ const SignIn = () => {
               <p className="mb-[0.2em]">EMAIL</p>
               <Input
                 type="email"
+                autoFocus
                 placeholder="Enter your email"
                 className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit sm:w-[44ch]"
                 {...register("email")}

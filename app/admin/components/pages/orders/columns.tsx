@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,29 +14,43 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import StatusPopup from "./OrderStatusPopup";
+import OrderDetailPopupCopy from "./OrderDetailPopup copy";
 
-export type OrderItem = {
-  productImage: string;
-  productName: string;
-  productCode: string;
-  regularPrice: number; // Change to number if it's a numeric value
-  quantity: number;
-  total: number; // Change to number if it's a numeric value
-};
+interface OrderItem {
+  price: number;
+  game: {
+    cardImage: string;
+    displayName: string;
+    id: string;
+    regularPrice: number;
+    quantity: number;
+  };
+}
 
-export type AllOrdersNew = {
+
+/* export type AllOrdersNew = {
+  createdAt: string;
   id: string;
   order_id: string;
   username: string;
-  order_total: string;
+  totalAmount: string;
   status: string;
-  date: string;
   items: OrderItem[]; // Include items property
+}; */
+
+export type AllOrdersNew1 = {
+  createdAt: string;
+  id: string;
+  order_id: string;
+  username: string;
+  totalAmount: string;
+  status: string;
+  products: OrderItem[]; // Include items property
 };
 
-export const columns: ColumnDef<AllOrdersNew>[] = [
+export const columns: ColumnDef<AllOrdersNew1>[] = [
   {
-    accessorKey: "order_id",
+    accessorKey: "id",
     header: ({ column }) => {
       return (
         <Button
@@ -49,15 +64,20 @@ export const columns: ColumnDef<AllOrdersNew>[] = [
     },
   },
   {
-    accessorKey: "date",
+    accessorKey: "createdAt",
     header: "Date",
+    cell: ({ row }) => {
+      return (
+        <div className="relative">{row.original.createdAt.split("T")[0]}</div>
+      );
+    },
   },
   {
-    accessorKey: "username",
+    accessorKey: "user.username",
     header: "Username",
   },
   {
-    accessorKey: "order_total",
+    accessorKey: "totalAmount",
     header: "Order Total",
   },
   {
@@ -93,6 +113,44 @@ export const columns: ColumnDef<AllOrdersNew>[] = [
     },
   },
   {
+    accessorKey: "Actions",
+    id: "actions",
+    cell: ({ row }) => {
+      const [selectedOrder, setSelectedOrder] = useState<AllOrdersNew1 | null>(
+        null
+      );
+      const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+
+      const handleViewOrder = (order: AllOrdersNew1) => {
+        setSelectedOrder(order);
+        setIsViewModalOpen(true);
+      };
+      return (
+        <div className="flex space-x-2">
+          <button
+            className="bg-red-500 text-white px-2 py-1 rounded"
+            /* onClick={() => handleDeleteOrder(row.original.id)} */
+          >
+            Delete1
+          </button>
+
+          <button
+            className="bg-blue-500 text-white px-2 py-1 rounded"
+            onClick={() => handleViewOrder(row.original)}
+          >
+            View1
+          </button>
+          <OrderDetailPopupCopy
+            isOpen={isViewModalOpen}
+            onClose={() => setIsViewModalOpen(false)}
+            products={row.original.products}
+          />
+        </div>
+      );
+    },
+  },
+
+  /* {
     id: "actions",
     cell: ({ row }) => {
       const payment = row.original;
@@ -114,5 +172,5 @@ export const columns: ColumnDef<AllOrdersNew>[] = [
         </DropdownMenu>
       );
     },
-  },
+  }, */
 ];

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-const user = {
-  name: "Avishka",
-};
-
 const Greeting = () => {
   const [greetingMessage, setGreetingMessage] = useState("Greetings");
+  const [user, setUser] = useState<string>("");
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      setUser(parsedUser.firstName);
+    }
+  }, []);
 
   const updateGreeting = () => {
     const currentHour = new Date().getHours() + 3;
@@ -21,7 +26,7 @@ const Greeting = () => {
       greeting = "Good Night";
     }
 
-    setGreetingMessage(`${greeting} ${user.name}`);
+    setGreetingMessage(`${greeting}`);
   };
 
   useEffect(() => {
@@ -34,7 +39,9 @@ const Greeting = () => {
 
   return (
     <div className="text-[12px] mt-[3em]">
-      <h1 className="font-bold">{greetingMessage}</h1>
+      <h1 className="font-bold">
+        {greetingMessage} {user}
+      </h1>
       <hr className="w-[25ch] border-t-[#00FFA1]" />
     </div>
   );

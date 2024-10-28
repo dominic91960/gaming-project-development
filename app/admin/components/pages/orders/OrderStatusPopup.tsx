@@ -27,20 +27,29 @@ const StatusPopup: React.FC<StatusPopupProps> = ({
         <label className="flex items-center space-x-2">
           <input
             type="radio"
-            value="approved"
-            checked={selectedStatus === "approved"}
-            onChange={() => setSelectedStatus("approved")}
+            value="PENDING"
+            checked={selectedStatus === "PENDING"}
+            onChange={() => setSelectedStatus("PENDING")}
           />
-          <span>Approved</span>
+          <span>PENDING</span>
         </label>
         <label className="flex items-center space-x-2">
           <input
             type="radio"
-            value="rejected"
-            checked={selectedStatus === "rejected"}
-            onChange={() => setSelectedStatus("rejected")}
+            value="COMPLETED"
+            checked={selectedStatus === "COMPLETED"}
+            onChange={() => setSelectedStatus("COMPLETED")}
           />
-          <span>Rejected</span>
+          <span>Completed</span>
+        </label>
+        <label className="flex items-center space-x-2">
+          <input
+            type="radio"
+            value="CANCELLED"
+            checked={selectedStatus === "CANCELLED"}
+            onChange={() => setSelectedStatus("CANCELLED")}
+          />
+          <span>Cancelled</span>
         </label>
       </div>
       <div className="flex justify-end mt-4 space-x-2">

@@ -120,6 +120,7 @@ const SignUp = () => {
                 <p className="mb-[0.2em]">FIRST NAME</p>
                 <Input
                   type="text"
+                  autoFocus
                   className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
                   placeholder="Enter first name"
                   {...register("firstName")}

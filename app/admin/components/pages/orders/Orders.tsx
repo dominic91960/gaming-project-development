@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { AllOrdersNew, columns } from "./columns";
+import { useEffect, useState } from "react";
+import { AllOrdersNew1, columns } from "./columns";
 import { DataTable } from "./data-table";
 import Addorders from "./AddOrders";
 import EditAllOrdersPopup from "./editOrdersPopup";
 import OrderDetailPopup from "./OrderDetailPopup";
 import { ColumnDef } from "@tanstack/react-table";
+import { useOrderContext } from "@/context/OrderContext";
+
 
 const COUPON_VALUE = 10; // Static coupon value of $10
 
@@ -35,131 +37,34 @@ function calculateOrderTotal(
   return subtotal - COUPON_VALUE;
 }
 
-// Initializes order data, dynamically adding totals
-function getInitialData(): AllOrdersNew[] {
-  const orders = [
-    {
-      id: "728ed52f",
-      order_id: "#254GF45",
-      date: "23/05/2024",
-      username: "SteveSmith",
-      order_total: "",
-      status: "Approved",
-      items: [
-        {
-          productImage: "/images/all-orders/cod.jpeg",
-          productName: "Call of Duty",
-          productCode: "#COD451",
-          regularPrice: 15,
-          quantity: 3,
-        },
-        {
-          productImage: "/images/all-orders/battlefield.jpg",
-          productName: "Battlefield 2042",
-          productCode: "#BFD800",
-          regularPrice: 20,
-          quantity: 3,
-        },
 
-        {
-          productImage: "/images/all-orders/red_dead.jpg",
-          productName: "Red Dead Redemption",
-          productCode: "#BFD800",
-          regularPrice: 100,
-          quantity: 3,
-        },
-      ],
-    },
-
-    {
-      id: "728ed53a",
-      order_id: "#254GF11",
-      date: "25/07/2024",
-      username: "Ricky Ponting",
-      order_total: "",
-      status: "Approved",
-      items: [
-        {
-          productImage: "/images/all-orders/igi.jpg",
-          productName: "Project IGI",
-          productCode: "#IGI345",
-          regularPrice: 12,
-          quantity: 4,
-        },
-      ],
-    },
-
-    {
-      id: "728ed533",
-      order_id: "#254GD00",
-      date: "01/07/2024",
-      username: "David Warner",
-      order_total: "",
-      status: "Approved",
-      items: [
-        {
-          productImage: "/images/all-orders/igi.jpg",
-          productName: "GTA",
-          productCode: "#GTA345",
-          regularPrice: 10,
-          quantity: 5,
-        },
-
-        {
-          productImage: "/images/all-orders/aoe.jpg",
-          productName: "Age of Empires",
-          productCode: "#AOE345",
-          regularPrice: 25,
-          quantity: 10,
-        },
-
-        {
-          productImage: "/images/all-orders/cricket.jpg",
-          productName: "Cricket",
-          productCode: "#GTA345",
-          regularPrice: 30,
-          quantity: 3,
-        },
-      ],
-    },
-  ];
-
-  return orders.map((order) => {
-    const itemsWithTotal = calculateItemsWithTotal(order.items); // Calculate total for each item
-    return {
-      ...order,
-      items: itemsWithTotal,
-      order_total: `$${calculateOrderTotal(itemsWithTotal).toFixed(2)}`, // Calculate the order total
-    };
-  });
-}
 
 export default function AllOrders() {
-  const [orders, setOrders] = useState<AllOrdersNew[]>(getInitialData());
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editingOrder, setEditingOrder] = useState<AllOrdersNew | null>(null);
+  const [editingOrder, setEditingOrder] = useState<AllOrdersNew1 | null>(null);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<AllOrdersNew | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<AllOrdersNew1 | null>(null);
+  const { allOrders, loading } = useOrderContext();
 
-  const handleViewOrder = (order: AllOrdersNew) => {
+  const handleViewOrder = (order: AllOrdersNew1) => {
     setSelectedOrder(order);
     setIsViewModalOpen(true);
   };
 
-  const handleAddOrder = (newOrder: AllOrdersNew) => {
+  /* const handleAddOrder = (newOrder: AllOrdersNew1) => {
     setOrders((prevOrders) => [...prevOrders, newOrder]);
   };
 
   const handleDeleteOrder = (id: string) => {
     setOrders((prevOrders) => prevOrders.filter((order) => order.id !== id));
-  };
+  }; */
 
-  const handleEditOrder = (order: AllOrdersNew) => {
+  const handleEditOrder = (order: AllOrdersNew1) => {
     setEditingOrder(order);
     setIsEditModalOpen(true);
   };
 
-  const handleSaveOrder = (updatedOrder: AllOrdersNew) => {
+  /* const handleSaveOrder = (updatedOrder: AllOrdersNew1) => {
     setOrders((prevOrders) =>
       prevOrders.map((order) =>
         order.id === updatedOrder.id ? updatedOrder : order
@@ -167,9 +72,9 @@ export default function AllOrders() {
     );
     setIsEditModalOpen(false);
     setEditingOrder(null);
-  };
+  }; */
 
-  const actionColumn: ColumnDef<AllOrdersNew> = {
+ /*  const actionColumn: ColumnDef<AllOrdersNew> = {
     header: "Actions",
     id: "actions",
     cell: ({ row }) => (
@@ -189,31 +94,30 @@ export default function AllOrders() {
         </button>
       </div>
     ),
-  };
+  }; */
 
-  const columnsWithActions: ColumnDef<AllOrdersNew>[] = [
+  /* const columnsWithActions: ColumnDef<AllOrdersNew>[] = [
     ...columns,
-    actionColumn,
-  ];
+  ]; */
 
   return (
     <div className="container mx-auto py-10 text-white">
       <h1 className="text-2xl font-bold mb-4 text-white">All Orders</h1>
       {/* Add Orders Component */}
-      <Addorders onAddOrder={handleAddOrder} />
+      {/* <Addorders onAddOrder={handleAddOrder} /> */}
       {/* Data Table */}
-      <DataTable columns={columnsWithActions} data={orders} />
+      <DataTable columns={columns} data={allOrders} />
       {/* Edit order Modal */}
-      <EditAllOrdersPopup
+      {/* <EditAllOrdersPopup
         order={editingOrder}
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
         onSave={handleSaveOrder}
-      />
+      /> */}
 
       {/* Order Details Popup */}
-      {selectedOrder && (
-        <OrderDetailPopup
+      {/* {selectedOrder && (
+       <OrderDetailPopup
           isOpen={isViewModalOpen}
           onClose={() => setIsViewModalOpen(false)}
           customerName={selectedOrder.username}
@@ -222,11 +126,11 @@ export default function AllOrders() {
               ? "Steve@gmail.com"
               : "Ricky@gmail.com"
           }
-          date={selectedOrder.date}
+          date={selectedOrder.createdAt}
           items={selectedOrder.items}
-          order_id={selectedOrder.order_id}
+          order_id= {selectedOrder.order_id}
         />
-      )}
+      )} */}
     </div>
   );
 }

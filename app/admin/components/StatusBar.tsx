@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 
 import { CiSearch } from "react-icons/ci";
@@ -24,7 +24,20 @@ interface StatusBarProps {
 const StatusBar: React.FC<StatusBarProps> = ({
   isMobileNavToggled,
   setIsMobileNavToggled,
+  
 }) => {
+
+  const [user, setUser] = useState<any>({})
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      setUser(parsedUser);
+      
+    }
+  }, []);
+
   return (
     <section className="bg-black font-secondaryFont font-medium text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px] border-b border-b-[#0D6D49]">
       <div className="container mx-auto px-[36px] py-[1.2em] xl:py-[0.4em] flex items-center justify-between">
@@ -60,9 +73,9 @@ const StatusBar: React.FC<StatusBarProps> = ({
           </div>
           <div className="flex items-center gap-x-[0.8em]">
             <div>
-              <p className="text-white">Avishka Rathnayake</p>
+              <p className="text-white">{`${user.firstName} ${user.lastName}`}</p>
               <p className="hidden lg:block text-[0.8em] text-[#A1A1AA]">
-                Owner
+                {user.role?.name}
               </p>
             </div>
 
