@@ -29,6 +29,7 @@ interface StatusBarProps {
 const StatusBar: React.FC<StatusBarProps> = ({
   isMobileNavToggled,
   setIsMobileNavToggled,
+  
 }) => {
 
   const { user } = useContext(AuthContext);
@@ -77,9 +78,9 @@ const StatusBar: React.FC<StatusBarProps> = ({
           </div>
           <div className="flex items-center gap-x-[0.8em]">
             <div>
-              <p className="text-white">Avishka Rathnayake</p>
+              <p className="text-white">{`${user.firstName} ${user.lastName}`}</p>
               <p className="hidden lg:block text-[0.8em] text-[#A1A1AA]">
-                Owner
+                {user.role?.name}
               </p>
             </div>
 

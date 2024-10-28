@@ -10,20 +10,22 @@ import {
 } from "@/components/ui/table";
 
 interface OrderItem {
-  productImage: string;
-  productName: string;
-  productCode: string;
-  regularPrice: number;
-  quantity: number;
-  total: number;
+  price: number;
+  game: {
+    cardImage: string;
+    displayName: string;
+    id: string;
+    regularPrice: number;
+    quantity: number;
+  };
 }
 
 interface OrderItemsTableProps {
-  items: OrderItem[];
+  products: OrderItem[];
 }
 
-const OrderItemsTable: React.FC<OrderItemsTableProps> = ({ items }) => {
-  const subtotal = items.reduce((acc, item) => acc + item.total, 0);
+const OrderItemsTable: React.FC<OrderItemsTableProps> = ({ products }) => {
+  const subtotal = products.reduce((acc, product) => acc + product.price, 0);
 
   // Static coupon value
   const couponValue = 10;
@@ -45,22 +47,26 @@ const OrderItemsTable: React.FC<OrderItemsTableProps> = ({ items }) => {
           </TableRow>
         </TableHeader>
 
-        {items.map((item, index) => (
+        {products.map((product, index) => (
           <TableBody>
             <TableRow>
               <TableCell>
                 <img
-                  src={item.productImage}
-                  alt={item.productName}
+                  src={product.game.cardImage}
+                  alt={product.game.displayName}
                   className="w-16 h-16 object-cover"
                 />
               </TableCell>
-              <TableCell>{item.productName}</TableCell>
-              <TableCell>{item.productCode}</TableCell>
-              <TableCell>${item.regularPrice.toFixed(2)}</TableCell>
-              <TableCell>{item.quantity}</TableCell>
-              <TableCell>
-                ${(item.regularPrice * item.quantity).toFixed(2)}
+              <TableCell className="text-white">
+                {product.game.displayName}
+              </TableCell>
+              <TableCell className="text-white">{product.game.id}</TableCell>
+               <TableCell className="text-white">${product.game.regularPrice.toFixed(2)}</TableCell>
+              <TableCell className="text-white">
+                {product.game.quantity}
+              </TableCell>
+              <TableCell className="text-white">
+                ${(product.game.regularPrice * product.game.quantity).toFixed(2)}
               </TableCell>
             </TableRow>
           </TableBody>

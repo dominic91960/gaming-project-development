@@ -52,7 +52,7 @@ const OrderDetailPopup: React.FC<OrderDetailPopupProps> = ({
             <strong>Date:</strong> {date}
           </p>
           {/* Use the OrderItemsTable component here */}
-          <OrderItemsTable items={items} />
+          {/* <OrderItemsTable items={items} /> */}
           <Button variant="outline" onClick={onClose}>
             Close
           </Button>

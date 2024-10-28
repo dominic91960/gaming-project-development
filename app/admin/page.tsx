@@ -25,6 +25,7 @@ import { CategoryProvider } from "@/context/CategoryContext";
 import { SidebarProvider } from "@/context/SidebarContext";
 import Spinner from "@/components/Spinner/Spinner";
 import { AuthProvider } from "@/context/AuthContext";
+import { OrderProvider } from "@/context/OrderContext";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
@@ -102,22 +103,24 @@ const AdminPanel: React.FC = () => {
     <AuthProvider>
     <CategoryProvider>
       <RoleProvider>
-        <SidebarProvider>
-          <StatusBar
-            isMobileNavToggled={isMobileNavToggled}
-            setIsMobileNavToggled={setIsMobileNavToggled}
-          />
-          <div className="leaklights">
-            <Sidebar
-              onSelect={handleSelect}
+        <OrderProvider>
+          <SidebarProvider>
+            <StatusBar
               isMobileNavToggled={isMobileNavToggled}
               setIsMobileNavToggled={setIsMobileNavToggled}
             />
-            <div className="hide-scrollbar flex-1 overflow-y-scroll z-10 min-h-screen font-primaryFont">
-              {renderContent()}
+            <div className="leaklights">
+              <Sidebar
+                onSelect={handleSelect}
+                isMobileNavToggled={isMobileNavToggled}
+                setIsMobileNavToggled={setIsMobileNavToggled}
+              />
+              <div className="hide-scrollbar flex-1 overflow-y-scroll z-10 min-h-screen font-primaryFont">
+                {renderContent()}
+              </div>
             </div>
-          </div>
-        </SidebarProvider>
+          </SidebarProvider>
+        </OrderProvider>
       </RoleProvider>
     </CategoryProvider>
     </AuthProvider>
