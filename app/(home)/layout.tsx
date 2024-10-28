@@ -1,4 +1,6 @@
 'use client';
+import Navbar from "@/components/navbar/navbar";
+import ProductSearchBar from "@/components/product-search/product-search";
 import { AuthProvider } from "@/context/AuthContext";
 import { Montserrat, Inter } from "@next/font/google";
 
@@ -21,6 +23,8 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
       <body>
         <AuthProvider>
+        <ProductSearchBar />
+        <Navbar />
         {children}
         </AuthProvider>
         </body>
