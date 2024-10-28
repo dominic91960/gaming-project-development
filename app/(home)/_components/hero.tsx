@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 import IconBar from "./icon-bar";
@@ -37,12 +37,15 @@ const Hero = () => {
           </p>
 
           {/* Call to action */}
-          <Button
-            variant="gaming"
-            className="h-fit text-[9px] text-black px-[1em] py-[0.5em] uppercase sm:text-[12px] md:text-[15px] lg:text-[20px] xl:text-[24px] 2xl:text-[27px] z-20"
-          >
-            Buy now
-          </Button>
+
+          <Link href="/shop-page">
+            <Button
+              variant="gaming"
+              className="h-fit text-[9px] text-black px-[1em] py-[0.5em] uppercase sm:text-[12px] md:text-[15px] lg:text-[20px] xl:text-[24px] 2xl:text-[27px] z-20"
+            >
+              Buy now
+            </Button>
+          </Link>
 
           {/* Hero image */}
           <div className="absolute bottom-0 left-[48px] w-[375px] z-10 sm:left-[50px] sm:w-full sm:h-[350px] md:left-[60px] md:h-[450px] lg:left-[100px] lg:h-[570px] xl:left-[150px] xl:h-[700px] 2xl:left-[180px] 2xl:h-[777px]">
