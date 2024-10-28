@@ -424,8 +424,8 @@ export default function WishlistPage() {
 
   return (
     <>
-      <ProductSearchBar />
-      <Navbar />
+      {/* <ProductSearchBar /> */}
+      {/* <Navbar /> */}
       <section className="bg-[#051301] font-primaryFont text-white">
         <div className="bg-gradient-to-b from-black to-transparent to-20%">
           {/* Container for the rest of the content */}

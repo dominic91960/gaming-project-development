@@ -101,7 +101,7 @@ const categories = [
   },
 ];
 
-export default function Navbar() {
+export default function AuthNavbar() {
   const { cart } = useCartContext();
   const path = usePathname();
   const [isCategoryMenuToggled, setIsCategoryMenuToggled] = useState<
@@ -141,33 +141,33 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    const verifySession = async () => {
-      setLoading(true)
-      try {
-        const res = await axios.get(process.env.NEXT_PUBLIC_BASE_URL+"/auth/verify-session", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-        if (res.status === 200) {
-          setVerifySession(true)
-          return res.data
-        }else {
-          setVerifySession(false)
-        }
-        setLoading(false)
-      } catch (error) {
-        console.log(error)
-      }finally {
-        setLoading(false)
-      }
-    }
-    // setLoading(true)
-    verifySession()
-    if (user) {
-      // setIsMobileNavToggled(false);
-      console.log("User:", user);
-    }
+    // const verifySession = async () => {
+    //   setLoading(true)
+    //   try {
+    //     const res = await axios.get(process.env.NEXT_PUBLIC_BASE_URL+"/auth/verify-session", {
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    //       },
+    //     });
+    //     if (res.status === 200) {
+    //       setVerifySession(true)
+    //       return res.data
+    //     }else {
+    //       setVerifySession(false)
+    //     }
+    //     setLoading(false)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }finally {
+    //     setLoading(false)
+    //   }
+    // }
+    // // setLoading(true)
+    // verifySession()
+    // if (user) {
+    //   // setIsMobileNavToggled(false);
+    //   console.log("User:", user);
+    // }
   },[]);
 
   // useEffect(() => {
@@ -251,38 +251,6 @@ export default function Navbar() {
                 </div>
               </Link>
 
-              {loading ? <NavBarSpinner loading={loading} /> :
-                          (verifySession ? (
-                            <DropdownMenu>
-                              <DropdownMenuTrigger className="cursor-pointer">
-                                <Image
-                                  src={user?.profile_image}
-                                  width={20}
-                                  height={20}
-                                  alt="Avatar"
-                                  className="size-[2em] rounded-full lg:size-[1.5em]"
-                                />
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent>
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem
-                                onClick={() => {
-                                  router.push("/profile?id="+user.id);
-                                }}
-                                >Profile</DropdownMenuItem>
-                                <DropdownMenuItem
-                                  onClick={() => {
-                                    axiosInstance.patch("/auth/logout");
-                                    localStorage.clear();
-                                    window.location.href = "/sign-in";
-                                  }}
-                                >
-                                  Logout
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          ) : (
                             <Link
                               href="/sign-in"
                               className={`hover:scale-110 ${
@@ -292,8 +260,6 @@ export default function Navbar() {
                               {/* <IoMdPerson /> */}
                               <FaUserPlus />
                             </Link>
-                          ))
-                        }
 
               {/* <div
                 onClick={() => {

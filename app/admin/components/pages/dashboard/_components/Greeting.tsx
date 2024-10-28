@@ -13,7 +13,7 @@ const Greeting = () => {
   }, []);
 
   const updateGreeting = () => {
-    const currentHour = new Date().getHours() + 3;
+    const currentHour = new Date().getHours();
     let greeting;
 
     if (currentHour >= 5 && currentHour < 12) {

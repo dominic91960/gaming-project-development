@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import toast from "react-hot-toast";
@@ -23,6 +23,8 @@ import Coupons from "./components/pages/coupons/Coupons";
 import "./components/admin.css";
 import { CategoryProvider } from "@/context/CategoryContext";
 import { SidebarProvider } from "@/context/SidebarContext";
+import Spinner from "@/components/Spinner/Spinner";
+import { AuthProvider } from "@/context/AuthContext";
 import { OrderProvider } from "@/context/OrderContext";
 
 const AdminPanel: React.FC = () => {
@@ -40,11 +42,11 @@ const AdminPanel: React.FC = () => {
       if (parsedUser.role.name === "ADMIN") {
         setIsAuthorized(true);
       } else {
-        toast.error("You Are Not Admin");
+        // toast.error("You Are Not Admin");
         router.push("/"); // Redirect if not admin
       }
     } else {
-      toast.error("You Are Not Admin");
+      // toast.error("You Are Not Admin");
       router.push("/sign-in"); // Redirect if no user found
     }
   }, [router]);
@@ -94,11 +96,11 @@ const AdminPanel: React.FC = () => {
   };
 
   if (!isAuthorized) {
-    // Optionally, return a loading spinner while checking the role
-    return <div>Loading...</div>;
+    return <Spinner loading={!isAuthorized} />;
   }
 
   return (
+    <AuthProvider>
     <CategoryProvider>
       <RoleProvider>
         <OrderProvider>
@@ -121,6 +123,7 @@ const AdminPanel: React.FC = () => {
         </OrderProvider>
       </RoleProvider>
     </CategoryProvider>
+    </AuthProvider>
   );
 };
 

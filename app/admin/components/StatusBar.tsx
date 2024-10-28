@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import Image from "next/image";
 
 import { CiSearch } from "react-icons/ci";
@@ -15,6 +15,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import axiosInstance from "@/axios/axiosInstance";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
+import { set } from "date-fns";
+import NavBarSpinner from "@/components/Spinner/NavBarSpinner";
 
 interface StatusBarProps {
   isMobileNavToggled: boolean | undefined;
@@ -27,17 +32,17 @@ const StatusBar: React.FC<StatusBarProps> = ({
   
 }) => {
 
-  const [user, setUser] = useState<any>({})
+  const { user } = useContext(AuthContext);
+  const [loading, setLoading] = React.useState<boolean>(true);
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      setUser(parsedUser);
-      
+    setLoading(true);
+    if(user){
+      console.log("lllllllllllllll",user);
+      setLoading(false);
     }
-  }, []);
-
+  }
+  , [user]);
   return (
     <section className="bg-black font-secondaryFont font-medium text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px] border-b border-b-[#0D6D49]">
       <div className="container mx-auto px-[36px] py-[1.2em] xl:py-[0.4em] flex items-center justify-between">
@@ -81,19 +86,24 @@ const StatusBar: React.FC<StatusBarProps> = ({
 
             <DropdownMenu>
               <DropdownMenuTrigger className="cursor-pointer">
-                <Image
-                  src={samplePic}
+                {loading? <NavBarSpinner loading={loading}/> :<Image
+                  src={user?.profile_image}
+                  width={30}
+                  height={30}
                   alt="Avatar"
                   className="size-[2em] rounded-full lg:size-[2.5em]"
-                />
+                />}
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+                <DropdownMenuItem
+                                                  onClick={() => {
+                                                    axiosInstance.patch("/auth/logout");
+                                                    localStorage.clear();
+                                                    window.location.href = "/sign-in";
+                                                  }}
+                >Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

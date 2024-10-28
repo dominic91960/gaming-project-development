@@ -126,8 +126,8 @@ const reviews = [
 function AboutPage() {
   return (
     <>
-      <ProductSearchBar />
-      <Navbar />
+      {/* <ProductSearchBar />
+      <Navbar /> */}
       <section className="bg-[#051301] font-primaryFont text-white">
         {/* Header */}
         <div
