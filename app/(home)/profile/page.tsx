@@ -27,6 +27,7 @@ import axiosInstance from "@/axios/axiosInstance";
 import { set } from "date-fns";
 import toast from "react-hot-toast";
 import axios from "axios";
+import Spinner from "@/components/Spinner/Spinner";
 
 const recentActivity = [
   {
@@ -592,27 +593,31 @@ interface Profile {
 export default function ProfilePage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  const [profile, setProfile] = useState<Profile>({
-    avatar: null,
-    id: "b0ijjfb4343asc4848##56",
-    username: null,
-    email: "kavindakmanohara@gmail.com",
-    firstName: "Ellison",
-    lastName: "Smith",
-    address: null,
-    city: null,
-    state: null,
-    country: null,
-    postalCode: null,
-    password: "ABCD1234",
-    tel: "0284948483",
-    trustedDevices: 2,
-  });
+  const [profile, setProfile] = useState<Profile>(
+    {
+      avatar: null,
+      id: '',
+      username: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      address: '',
+      city: '',
+      state: '',
+      country: '',
+      postalCode: '',
+      password: '',
+      tel: '',
+      trustedDevices: 0,
+    }
+  );
+  const [loading, setLoading] = useState(true);
 
   const [reloadProfile, setReloadProfile] = useState(false);
 
   useEffect(() => {
     const getUserData = async () => {
+      setLoading(true);
       const res = await axiosInstance.get(`/user/profile/`);
       console.log(res.data);
       setProfile({
@@ -634,6 +639,7 @@ export default function ProfilePage() {
     }
     if (id) {
       getUserData();
+      setLoading(false);
     }
   }, [id, reloadProfile]);
 
@@ -757,11 +763,13 @@ export default function ProfilePage() {
   };
   const updatedColumns: ColumnDef<Transaction>[] = [...columns, viewColumn];
 
+  if(loading) return <Spinner loading={loading} />
+
 
   return (
     <>
-      <ProductSearchBar />
-      <Navbar />
+      {/* <ProductSearchBar />
+      <Navbar /> */}
       <section className="bg-[#051301] font-primaryFont text-white">
         {/* Header */}
         <div
@@ -773,8 +781,8 @@ export default function ProfilePage() {
             <div className="flex items-center gap-x-[15px] pt-[64px] sm:gap-x-[25px] md:gap-x-[35px] lg:gap-x-[45px] xl:gap-x-[50px] 2xl:gap-x-[56px] pb-[55px] sm:pt-[74px] md:pt-[86px] lg:pt-[98px] xl:pt-[107px] 2xl:pt-[116px]">
               <div className="relative size-[46px] sm:size-[70px] md:size-[94px] lg:size-[118px] xl:size-[135px] 2xl:size-[152px]">
                 <Image
-                  src={profile.avatar || samplePic.src}
-                  alt={profile.id}
+                  src={profile?.avatar || samplePic.src}
+                  alt={profile?.id || "default-alt-text"}
                   className="w-full rounded-full"
                   fill
                 />
@@ -783,10 +791,10 @@ export default function ProfilePage() {
                     <button
                       className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] mb-[0.2em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
                       onClick={async() => {
-                        setProfile((prev) => ({ ...prev, avatar: imageUrl }));
+                        setProfile((prev) => prev ? { ...prev, avatar: imageUrl } : prev);
                         setImageUrl(null);
                         try{
-                          const res = await axiosInstance.patch(`/user/${profile.id}/profile-image`, 
+                          const res = await axiosInstance.patch(`/user/${profile?.id}/profile-image`, 
                           { profile_image: imageUrl });
                           console.log(res);
                           if(res.status === 200) {
@@ -834,12 +842,12 @@ export default function ProfilePage() {
               </div>
               <div>
                 <h3 className="font-bold text-[16px] mb-[0.1em] sm:text-[22px] md:text-[28px] lg:text-[34px] xl:text-[37px] 2xl:text-[40px]">
-                  {profile.firstName} {profile.lastName}
+                  {profile?.firstName} {profile?.lastName}
                 </h3>
                 <p>
-                  {profile.email}
+                  {profile?.email}
                   <span className="text-[#BCBCBC]">&nbsp;|&nbsp;</span>
-                  {profile.city && profile.country ? (
+                  {profile?.city && profile.country ? (
                     `${profile.city} ${profile.country}`
                   ) : (
                     <span className="opacity-70 italic text-[0.8em]">
