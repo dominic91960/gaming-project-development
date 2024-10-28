@@ -129,7 +129,7 @@ const SignIn = () => {
   }, [router]);
 
   return (
-    <section className="flex flex-col min-h-svh bg-[#0B0E13]">
+    <section className="flex flex-col h-screen bg-[#0B0E13] overflow-hidden">
       <ProductSearchBar />
       <Navbar />
       <div className="bg-[#0B0E13] flex-grow flex items-center justify-center font-primaryFont text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] text-white px-[36px] p-[50px]">
@@ -137,7 +137,7 @@ const SignIn = () => {
           <div className="flex items-center justify-center">
             <Image src={Logo} alt="logo" />
           </div>
-          <p className="font-primaryFont text-[1.6em] font-medium text-white text-center mb-[4em]">
+          <p className="font-primaryFont text-[1.6em] font-medium text-white text-center mb-[2em]">
             Sign In To Your Account
           </p>
 
