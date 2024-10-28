@@ -245,6 +245,20 @@ const Dashboard = () => {
       <div className="md:grid md:grid-cols-2 md:gap-[16px] lg:gap-[18px] xl:gap-[22px] 2xl:gap-[24px]">
         <div>
           <Summary summary={summary} />
+          <div className="mt-[30px]">
+            <h1 className="font-medium leading-none text-[90px] uppercase">
+              Black Myth
+            </h1>
+            <h1 className="font-bold leading-none text-[96px] uppercase">
+              Wukong
+            </h1>
+            <p className="w-[47ch] font-medium">
+              Black Myth: Wukong is an action RPG rooted in Chinese mythology.
+              You shall set out as the Destined One to venture into the
+              challenges and marvels ahead, to uncover the obscured truth
+              beneath the veil of a glorious legend from the past.
+            </p>
+          </div>
           <MonthlyEarnings chartData={chartData} />
         </div>
         <div>
