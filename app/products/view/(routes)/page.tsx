@@ -265,7 +265,7 @@ export default function ProductPage() {
                 {/* Container for title, info and tags*/}
                 <div>
                   {/* Full title */}
-                  <h2 className="font-bold pt-[1em] sm:pt-[0.8em] text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] sm:max-w-[19ch] md:max-w-[21ch] lg:max-w-[29ch] xl:max-w-[38ch] 2xl:max-w-[46ch]">
+                  <h2 className="font-bold pt-[1em] sm:pt-[0.8em] text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] xl:text-[27px] 2xl:text-[29px] sm:max-w-[19ch] md:max-w-[21ch] lg:max-w-[29ch] xl:max-w-[38ch] 2xl:max-w-[46ch]">
                     {gameData?.fullTitle}
                   </h2>
 
@@ -374,17 +374,17 @@ export default function ProductPage() {
                     }}
                   >
                     {/* Game title */}
-                    <h3 className="uppercase font-bold text-[1.3em] border-b">
+                    <h3 className="uppercase font-bold text-[1.2em] border-b">
                       {gameData.title}
                     </h3>
 
                     {/* Price */}
-                    <div className="flex text-[2em] font-bold mt-[0.3em]">
+                    <div className="flex text-[1.8em] font-bold mt-[0.3em]">
                       <p className="">
                         $ {gameData.discountPrice || gameData.originalPrice}
                       </p>
-                      <div className="flex items-center text-[0.35em] font-medium ps-[0.7em] gap-x-[0.2em]">
-                        <PiWarningCircleLight className="size-[1.25em]" />
+                      <div className="flex items-center text-[0.33em] font-medium ps-[0.7em] gap-x-[0.2em]">
+                        <PiWarningCircleLight className="size-[1.22em]" />
                         <p className="opacity-70">Price is not final</p>
                       </div>
                     </div>
@@ -395,7 +395,7 @@ export default function ProductPage() {
                         <span className="line-through opacity-70">
                           $ {gameData.originalPrice}
                         </span>
-                        <span className="font-medium text-[0.8em] text-[#0BDB45] ">
+                        <span className="font-medium text-[0.7em] text-[#0BDB45] ">
                           &nbsp;Save&nbsp;
                           {calDiscountPercentage()}%
                         </span>
@@ -405,7 +405,7 @@ export default function ProductPage() {
                     {/* Paypal button */}
                     <Button
                       variant="secondary"
-                      className="w-full h-[2em] rounded-none text-[1em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
+                      className="w-full h-[2em] rounded-none text-[0.9em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
                     >
                       <Image
                         src={paypalLogo}
@@ -418,15 +418,15 @@ export default function ProductPage() {
                     <div className="flex gap-x-[3%]">
                       <Button
                         variant="gaming"
-                        className="h-[2em] text-[1em] px-[1em] py-0 font-semibold flex-grow"
+                        className="h-[2em] text-[0.9em] px-[1em] py-0 font-semibold flex-grow"
                       >
                         Buy now
                       </Button>
-                      <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
+                      <button className="size-[1.8em] hover:opacity-80 border flex items-center justify-center">
                         <IoMdHeartEmpty className="text-[1em]" />
                       </button>
                       <button
-                        className="size-[2em] hover:opacity-80 border flex items-center justify-center"
+                        className="size-[1.8em] hover:opacity-80 border flex items-center justify-center"
                         onClick={() => {
                           addToCardItem(id);
                         }}
@@ -515,7 +515,7 @@ export default function ProductPage() {
               </div>
 
               {/* Card Area */}
-              <div className="flex flex-wrap justify-around gap-y-[2.4em] border-t border-t-[#999999] capitalize font-medium text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-center pt-[4em] mt-[4em] lg:text-left">
+              <div className="flex flex-wrap justify-around gap-y-[2.4em] border-t border-t-[#999999] capitalize font-medium text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] text-center pt-[4em] mt-[4em] lg:text-left">
                 {/* Card one */}
                 <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
                   <Image
@@ -523,10 +523,10 @@ export default function ProductPage() {
                     alt="Availability"
                     width={68}
                     height={68}
-                    className="size-[3.4em]"
+                    className="size-[3.3em]"
                   />
                   <div>
-                    <p className="font-bold text-[1.4em] uppercase">Global</p>
+                    <p className="font-bold text-[1.3em] uppercase">Global</p>
                     <p className="opacity-70">All country</p>
                   </div>
                 </div>
@@ -541,7 +541,7 @@ export default function ProductPage() {
                     className="size-[3.4em]"
                   />
                   <div>
-                    <p className="font-bold text-[1.4em] uppercase">
+                    <p className="font-bold text-[1.3em] uppercase">
                       {gameData.platform.name}
                     </p>
                     <p className="opacity-70">Activate/redeem on Steam</p>
@@ -558,7 +558,7 @@ export default function ProductPage() {
                     className="size-[3.4em]"
                   />
                   <div>
-                    <p className="font-bold text-[1.4em] uppercase">
+                    <p className="font-bold text-[1.3em] uppercase">
                       Digital keys
                     </p>
                     <p className="opacity-70">Instant delivery</p>
@@ -567,8 +567,8 @@ export default function ProductPage() {
               </div>
 
               {/* Checkout Area */}
-              <div className="text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em]">
-                <h3 className="font-semibold text-[1.4em] capitalize">
+              <div className="text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] pt-[4em]">
+                <h3 className="font-semibold text-[1.2em] capitalize">
                   Checkout guaranteed
                 </h3>
                 <div className="bg-white/5 p-[2em] mt-[2em]">
@@ -591,30 +591,30 @@ export default function ProductPage() {
               </div>
 
               {/* About */}
-              <div className="text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em]">
-                <h3 className="font-semibold text-[1.4em] capitalize">
+              <div className="text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] pt-[4em]">
+                <h3 className="font-semibold text-[1.2em] capitalize">
                   About this game
                 </h3>
                 <div className="bg-white/5 p-[2em] mt-[2em]">
                   <p className="pb-[2em] text-justify opacity-70">
                     {gameData.about}
                   </p>
-                  <p className="flex justify-between items-center text-[1.2em] font-medium ">
+                  <p className="flex justify-between items-center text-[1.1em] font-medium ">
                     Release Date: {gameData.releaseDate}
                   </p>
                 </div>
               </div>
 
               {/* System requirements */}
-              <div className="text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em]">
-                <h3 className="font-semibold text-[1.4em] capitalize">
+              <div className="text-[8px] sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[15px] 2xl:text-[17px] pt-[4em]">
+                <h3 className="font-semibold text-[1.2em] capitalize">
                   System Requirements for {gameData.title}
                 </h3>
                 <RequirementsCard requirements={gameData.requirements} />
               </div>
 
               {/* Reviews */}
-              <div className=" text-[8px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] pt-[4em] pb-[4.5em]">
+              <div className=" text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] pt-[4em] pb-[4.5em]">
                 <h3 className="font-semibold capitalize text-[1.4em]">
                   User Reviews
                 </h3>
@@ -637,7 +637,7 @@ export default function ProductPage() {
                       <span className="text-[#f29d38]">
                         <StarRating rating={1} />
                       </span>
-                      &nbsp;{calculateOverallRating(reviews) || 0}
+                      &nbsp;{calculateOverallRating(reviews)}
                     </p>
                     <p>Overall Rating</p>
                   </div>
