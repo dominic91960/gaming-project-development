@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { FaDollarSign } from "react-icons/fa";
 import { PiListStarFill } from "react-icons/pi";
 import { TbUserFilled } from "react-icons/tb";
@@ -6,8 +8,9 @@ import { RiBox3Fill } from "react-icons/ri";
 import Greeting from "./_components/Greeting";
 import Summary from "./_components/Summary";
 import TopCustomers from "./_components/TopCustomers";
-import samplePic from "@/public/images/sample-pic.png";
 import TopGames from "./_components/TopGames";
+import samplePic from "@/public/images/sample-pic.png";
+import character from "@/public/images/dashboard/character.png";
 
 const summary = [
   {
@@ -220,7 +223,7 @@ const games = [
 
 const Dashboard = () => {
   return (
-    <section className="font-primaryFont text-white px-[36px]">
+    <section className="relative font-primaryFont text-white px-[36px]">
       <Greeting />
       <div className="md:grid md:grid-cols-2 md:gap-[16px] lg:gap-[18px] xl:gap-[22px] 2xl:gap-[24px]">
         <div>
@@ -232,6 +235,11 @@ const Dashboard = () => {
           <TopGames games={games} />
         </div>
       </div>
+      <Image
+        src={character}
+        alt="Dashboard character"
+        className="hidden absolute bottom-0 left-0 right-0 mx-auto -translate-x-[40%] md:block md:w-[220px] lg:w-[260px] xl:w-[300px] 2xl:w-[322px]"
+      />
     </section>
   );
 };
