@@ -34,6 +34,9 @@ import {
 
 import { useRouter } from "next/navigation";
 import { FaUserPlus } from "react-icons/fa6";
+import NavBarSpinner from "../Spinner/NavBarSpinner";
+import { set } from "date-fns";
+import axios from "axios";
 
 const categories = [
   {
@@ -113,6 +116,8 @@ export default function Navbar() {
   const [selectedSubMenu, setSelectedSubMenu] = useState("");
   const [subMenuData, setSubMenuData] = useState<string[]>([]);
   const [isContentChanged, setIsContentChanged] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [verifySession, setVerifySession] = useState(false);
   // const { user } = useContext(AuthContext);
   const { user } = useContext(AuthContext) || {};
 
@@ -136,15 +141,38 @@ export default function Navbar() {
   };
 
   useEffect(() => {
+    const verifySession = async () => {
+      setLoading(true)
+      try {
+        const res = await axios.get(process.env.NEXT_PUBLIC_BASE_URL+"/auth/verify-session", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        if (res.status === 200) {
+          setVerifySession(true)
+          return res.data
+        }else {
+          setVerifySession(false)
+        }
+        setLoading(false)
+      } catch (error) {
+        console.log(error)
+      }finally {
+        setLoading(false)
+      }
+    }
+    // setLoading(true)
+    verifySession()
     if (user) {
       // setIsMobileNavToggled(false);
       console.log("User:", user);
     }
-  }, [user]);
+  },[]);
 
-  useEffect(() => {
-    setTimeout(() => setIsContentChanged(true), 3000);
-  }, [isContentChanged]);
+  // useEffect(() => {
+  //   setTimeout(() => setIsContentChanged(true), 3000);
+  // }, [isContentChanged]);
 
   return (
     <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white] z-50">
@@ -223,71 +251,51 @@ export default function Navbar() {
                 </div>
               </Link>
 
-              {/* <Link
-                href="/sign-in"
-                className={`hover:scale-110 ${
-                  path.startsWith("/sign") ? "text-[#0BDB45]" : ""
-                }`}
-              >
-                {user?.profile_image ? (
-                  <Image
-                    src={
-                      user?.profile_image ? user?.profile_image : ProfileDefault
-                    }
-                    alt="Profile"
-                    className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
-                    width={25}
-                    height={25}
-                  />
-                ) : (
-                  <IoMdPerson />
-                )}
-              </Link> */}
-              {user?.profile_image ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="cursor-pointer">
-                    <Image
-                      src={user?.profile_image}
-                      width={20}
-                      height={20}
-                      alt="Avatar"
-                      className="size-[2em] rounded-full lg:size-[1.5em]"
-                    />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      onClick={() => {
-                        router.push("/profile?id=" + user.id);
-                      }}
-                    >
-                      Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>Billing</DropdownMenuItem>
-                    <DropdownMenuItem>Team</DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() => {
-                        axiosInstance.patch("/auth/logout");
-                        localStorage.clear();
-                        window.location.href = "/sign-in";
-                      }}
-                    >
-                      Logout
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Link
-                  href="/sign-in"
-                  className={`hover:scale-110 ${
-                    path.startsWith("/sign") ? "text-[#0BDB45]" : ""
-                  }`}
-                >
-                  {/* <IoMdPerson /> */}
-                  <FaUserPlus />
-                </Link>
-              )}
+              {loading ? <NavBarSpinner loading={loading} /> :
+                          (verifySession ? (
+                            <DropdownMenu>
+                              <DropdownMenuTrigger className="cursor-pointer">
+                                <Image
+                                  src={user?.profile_image}
+                                  width={20}
+                                  height={20}
+                                  alt="Avatar"
+                                  className="size-[2em] rounded-full lg:size-[1.5em]"
+                                />
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent>
+                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem
+                                onClick={() => {
+                                  router.push("/profile?id="+user.id);
+                                }}
+                                >Profile</DropdownMenuItem>
+                                <DropdownMenuItem>Billing</DropdownMenuItem>
+                                <DropdownMenuItem>Team</DropdownMenuItem>
+                                <DropdownMenuItem
+                                  onClick={() => {
+                                    axiosInstance.patch("/auth/logout");
+                                    localStorage.clear();
+                                    window.location.href = "/sign-in";
+                                  }}
+                                >
+                                  Logout
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          ) : (
+                            <Link
+                              href="/sign-in"
+                              className={`hover:scale-110 ${
+                                path.startsWith("/sign") ? "text-[#0BDB45]" : ""
+                              }`}
+                            >
+                              {/* <IoMdPerson /> */}
+                              <FaUserPlus />
+                            </Link>
+                          ))
+                        }
 
               {/* <div
                 onClick={() => {
