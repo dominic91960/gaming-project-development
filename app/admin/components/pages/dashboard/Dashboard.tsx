@@ -1,12 +1,5 @@
 import Image from "next/image";
 
-import { Bar, BarChart, XAxis } from "recharts";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
 import { FaDollarSign } from "react-icons/fa";
 import { PiListStarFill } from "react-icons/pi";
 import { TbUserFilled } from "react-icons/tb";
@@ -18,6 +11,7 @@ import TopCustomers from "./_components/TopCustomers";
 import TopGames from "./_components/TopGames";
 import samplePic from "@/public/images/sample-pic.png";
 import character from "@/public/images/dashboard/character.png";
+import MonthlyEarnings from "./_components/MonthlyEarnings";
 
 const summary = [
   {
@@ -43,19 +37,19 @@ const summary = [
 ];
 
 const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-  { month: "July", desktop: 184 },
-  { month: "August", desktop: 314 },
-  { month: "September", desktop: 223 },
-  { month: "October", desktop: 269 },
-  { month: "September", desktop: 134 },
-  { month: "November", desktop: 176 },
-  { month: "December", desktop: 265 },
+  { month: "January", totalIncome: 186 },
+  { month: "February", totalIncome: 305 },
+  { month: "March", totalIncome: 237 },
+  { month: "April", totalIncome: 73 },
+  { month: "May", totalIncome: 209 },
+  { month: "June", totalIncome: 214 },
+  { month: "July", totalIncome: 184 },
+  { month: "August", totalIncome: 314 },
+  { month: "September", totalIncome: 223 },
+  { month: "October", totalIncome: 269 },
+  { month: "September", totalIncome: 134 },
+  { month: "November", totalIncome: 176 },
+  { month: "December", totalIncome: 265 },
 ];
 
 const customers = [
@@ -244,17 +238,6 @@ const games = [
   },
 ];
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "#2563eb",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "#60a5fa",
-  },
-} satisfies ChartConfig;
-
 const Dashboard = () => {
   return (
     <section className="relative font-primaryFont text-white px-[36px]">
@@ -262,24 +245,7 @@ const Dashboard = () => {
       <div className="md:grid md:grid-cols-2 md:gap-[16px] lg:gap-[18px] xl:gap-[22px] 2xl:gap-[24px]">
         <div>
           <Summary summary={summary} />
-          <div className="w-full bg-black/40 my-[24px] border border-[#0D6D49] rounded-sm">
-            <ChartContainer
-              config={chartConfig}
-              className="min-h-[200px] w-full"
-            >
-              <BarChart accessibilityLayer data={chartData}>
-                <XAxis
-                  dataKey="month"
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                  tickFormatter={(value) => value.slice(0, 3)}
-                />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="desktop" fill="#00FFA199" radius={4} />
-              </BarChart>
-            </ChartContainer>
-          </div>
+          <MonthlyEarnings chartData={chartData} />
         </div>
         <div>
           <TopCustomers customers={customers} />
