@@ -17,6 +17,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { FaList } from "react-icons/fa6";
 import { LiaAngleRightSolid } from "react-icons/lia";
+import { MdOutlinePlaylistRemove } from "react-icons/md";
+import { LuSearchX } from "react-icons/lu";
 
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
@@ -303,17 +305,9 @@ export default function WishlistPage() {
   );
   const totalPages = Math.ceil(wishlistedGames.length / productsPerPage);
 
-  // Product search state
-  const [searchName, setSearchName] = useState("");
-
-  // Sort states
-  const [sortState, setSortState] = useState("none");
-
   // Set wishlist data
   useEffect(() => {
     setWishlistedGames(wishlist);
-    const date = new Date(wishlist[0].releaseDate);
-    console.log(date.getTime());
   }, []);
 
   // Determines which products are displayed
@@ -354,58 +348,79 @@ export default function WishlistPage() {
     };
   }, []);
 
-  useEffect(() => {
+  // Filter products by name
+  function filterProducts(searchString: string) {
+    setCurrentPage(1);
+
     const filteredGames = wishlist.filter((product) =>
-      product.name.toLowerCase().includes(searchName.toLowerCase())
+      product.name.toLowerCase().includes(searchString.toLowerCase())
     );
     setWishlistedGames(filteredGames);
-  }, [searchName]);
+  }
 
-  useEffect(() => {
-    const sortMethods = {
-      none: { method: () => null },
-      price_asc: {
-        method: (a: WishlistedGame, b: WishlistedGame) =>
-          a.discountPrice - b.discountPrice,
-      },
-      price_des: {
-        method: (a: WishlistedGame, b: WishlistedGame) =>
-          b.discountPrice - a.discountPrice,
-      },
-      date_asc: {
-        method: (a: WishlistedGame, b: WishlistedGame) => {
-          const firstDate = new Date(a.releaseDate);
-          const secondDate = new Date(b.releaseDate);
+  // Sort Products
+  function sortProducts(sortValue: string) {
+    setCurrentPage(1);
+    let sortedGames = wishlistedGames;
 
-          return firstDate.getTime() - secondDate.getTime();
-        },
-      },
-      date_des: {
-        method: (a: WishlistedGame, b: WishlistedGame) => {
-          const firstDate = new Date(a.releaseDate);
-          const secondDate = new Date(b.releaseDate);
+    switch (sortValue) {
+      case "price_asc":
+        sortedGames = wishlistedGames.sort(
+          (a: WishlistedGame, b: WishlistedGame) =>
+            a.discountPrice - b.discountPrice
+        );
+        break;
 
-          return secondDate.getTime() - firstDate.getTime();
-        },
-      },
-      a_z: {
-        method: (a: WishlistedGame, b: WishlistedGame) =>
-          a.name.localeCompare(b.name),
-      },
-      z_a: {
-        method: (a: WishlistedGame, b: WishlistedGame) =>
-          b.name.localeCompare(a.name),
-      },
-    };
+      case "price_des":
+        sortedGames = wishlistedGames.sort(
+          (a: WishlistedGame, b: WishlistedGame) =>
+            b.discountPrice - a.discountPrice
+        );
+        break;
 
-    const sortedGames = wishlistedGames.sort(sortMethods[sortState].method);
+      case "date_asc":
+        sortedGames = wishlistedGames.sort(
+          (a: WishlistedGame, b: WishlistedGame) => {
+            const firstDate = new Date(a.releaseDate);
+            const secondDate = new Date(b.releaseDate);
+
+            return firstDate.getTime() - secondDate.getTime();
+          }
+        );
+        break;
+
+      case "date_des":
+        sortedGames = wishlistedGames.sort(
+          (a: WishlistedGame, b: WishlistedGame) => {
+            const firstDate = new Date(a.releaseDate);
+            const secondDate = new Date(b.releaseDate);
+
+            return secondDate.getTime() - firstDate.getTime();
+          }
+        );
+        break;
+
+      case "a_z":
+        sortedGames = wishlistedGames.sort(
+          (a: WishlistedGame, b: WishlistedGame) => a.name.localeCompare(b.name)
+        );
+        break;
+
+      case "z_a":
+        sortedGames = wishlistedGames.sort(
+          (a: WishlistedGame, b: WishlistedGame) => b.name.localeCompare(a.name)
+        );
+        break;
+    }
 
     const startIndex = (currentPage - 1) * productsPerPage;
-
-    setDisplayedProducts(
-      sortedGames.slice(startIndex, startIndex + productsPerPage)
+    const productsToDisplay = sortedGames.slice(
+      startIndex,
+      startIndex + productsPerPage
     );
-  }, [currentPage, productsPerPage, sortState, wishlistedGames]);
+
+    setDisplayedProducts(productsToDisplay);
+  }
 
   return (
     <>
@@ -438,15 +453,14 @@ export default function WishlistPage() {
               <div className="w-fit flex items-center gap-[0.5em] bg-white/20 px-[1em] py-[0.5em]">
                 <Input
                   type="text"
-                  value={searchName}
                   placeholder="Search by name"
                   className="w-[25ch] h-fit p-0 text-[1em] border-none rounded-none placeholder:text-white/70"
-                  onChange={(e) => setSearchName(e.target.value)}
+                  onChange={(e) => filterProducts(e.target.value)}
                 />
                 <CiSearch className="text-[1.2em]" />
               </div>
 
-              <Select onValueChange={(value) => setSortState(value)}>
+              <Select onValueChange={(value) => sortProducts(value)}>
                 <SelectTrigger className="w-[22ch] h-fit bg-white/20 border-none rounded-none text-[7px] px-[1em] py-[0.3em] sm:text-[10px] sm:py-[0.5em] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
                   <FaList className="-translate-y-[0.15em] sm:-translate-y-0" />
                   <SelectValue placeholder="Sort by" />
@@ -465,13 +479,27 @@ export default function WishlistPage() {
               </Select>
             </div>
 
-            <p className="text-[9px] 2xl:text-[18px] mt-[1.2em] mb-[1.7em]">
+            <p className="text-[9px] mt-[1.2em] mb-[1.7em] sm:text-[11px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text-[18px]">
               Wishlist is a game key store offering top titles at unbeatable
               prices. Find and purchase game keys quickly and securely.
             </p>
 
             {/* Wishlisted Games */}
-            {displayedProducts.length > 0 ? (
+            {wishlist.length < 1 ? (
+              <div className="h-[18em] bg-white/5 flex flex-col items-center justify-center text-[8px] pb-[1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
+                <MdOutlinePlaylistRemove className="text-[4em] opacity-80 animate-pulse" />
+                <p className="mt-[0.5em]">
+                  Your wishlist is currently empty. Start adding games you love!
+                </p>
+              </div>
+            ) : displayedProducts.length < 1 ? (
+              <div className="h-[18em] bg-white/5 flex flex-col items-center justify-center text-[8px] pb-[1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
+                <LuSearchX className="text-[4em] opacity-80 animate-pulse" />
+                <p className="mt-[0.5em]">
+                  Sorry, we couldn&apos;t find any results for that name.
+                </p>
+              </div>
+            ) : (
               <WishlistedGames
                 displayedProducts={displayedProducts}
                 productsPerPage={productsPerPage}
@@ -479,10 +507,6 @@ export default function WishlistPage() {
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
               />
-            ) : (
-              <div className="h-[18em] flex items-center justify-center pt-[4em]">
-                <p>no products</p>
-              </div>
             )}
 
             {/* Recommended Games */}

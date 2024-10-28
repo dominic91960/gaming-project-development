@@ -67,7 +67,7 @@ export default function Footer() {
           </div>
 
           {/* Site links */}
-          <div className="flex justify-center gap-x-[7em] mb-[2.86em] xl:mb-0">
+          <div className="flex justify-between px-[2.86em] gap-x-[7em] mb-[2.86em] xl:mb-0">
             {/* Company list */}
             <ul className="uppercase text-[calc(1em+1px)]">
               <h4 className="font-medium text-[1.25em]">Company</h4>
@@ -86,7 +86,7 @@ export default function Footer() {
             </ul>
 
             {/* Categories list */}
-            <ul className="uppercase text-[calc(1em+1px)] flex flex-col items-end xl:items-start">
+            <ul className="uppercase text-[calc(1em+1px)] flex flex-col items-start xl:items-start">
               <h4 className="font-medium text-[1.25em]">Categories</h4>
               <li className="w-fit mt-[0.8em] opacity-70 hover:opacity-90">
                 <Link href="/">Games</Link>
@@ -143,48 +143,22 @@ export default function Footer() {
           <RiCopyrightFill className="size-[1.5em]" />
           <p>Copyright {new Date().getFullYear()}. All Rights Reserved.</p>
         </div>
-        <div className="flex flex-col items-center justify-center gap-x-[1em] sm:flex-row sm:items-start sm:gap-x-[2em]">
-          <div className="flex flex-row gap-x-[0.7em] mb-[1.5em] sm:gap-x-[1em] sm:mb-0">
+        <div className="flex flex-row items-center justify-between gap-x-[1em] sm:flex-row sm:items-start sm:gap-x-[2em] px-[2.86em]">
+          <div className="flex flex-row gap-x-[0.7em] sm:gap-x-[1em] sm:mb-0">
             <Image src={paypal} alt="PayPal" className="w-[1.9em]" />
             <Image src={visa} alt="Visa" className="w-[1.9em]" />
             <Image src={mastercard} alt="Mastercard" className="w-[1.9em]" />
             <Image src={skrill} alt="Skrill" className="w-[1.9em]" />
           </div>
-          <div className="flex gap-[1em]">
-            <p className="hover:opacity-80">
-              <Link href="/">Privacy policy</Link>
-            </p>
-            <p>|</p>
-            <p className="hover:opacity-80">
-              <Link href="/">Terms & conditions</Link>
-            </p>
-          </div>
+          <p className="hover:opacity-80">
+            <Link href="/">Privacy policy</Link>
+          </p>
+          <p className="hidden sm:block">|</p>
+          <p className="hover:opacity-80">
+            <Link href="/">Terms & conditions</Link>
+          </p>
         </div>
       </div>
     </section>
   );
-}
-
-{
-  /* <div
-  className="bg-[#2D2E37] flex items-center justify-between px-[2em] py-[1em]"
-  style={{
-    clipPath: "polygon(0% 0%, 98% 0%, 100% 20%, 100% 100%, 2% 100%, 0% 80%)",
-  }}
->
-  <h2 className="font-semibold text-[calc(1em+1px)] uppercase">
-    Subscribe Newsletter
-  </h2>
-
-  <form className="flex gap-x-[calc(1em-1px)]">
-    <Input
-      type="email"
-      placeholder="Email Address"
-      className="w-[23ch] h-fit bg-[#0B0E13] text-[1em] px-[6px] py-[0.5em] border-none rounded-none"
-    />
-    <Button variant="gaming" className="h-fit text-[1em] px-[4px] py-[0.5em]">
-      Subscribe
-    </Button>
-  </form>
-</div> */
 }
