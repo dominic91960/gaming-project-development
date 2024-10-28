@@ -21,7 +21,7 @@ const GameCard: React.FC<GameCardProps> = ({
 }) => {
   return (
     <article
-      className="w-fit h-full p-[0.25em] text-[8px] border sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[15px] 2xl:text-[15.2px]"
+      className="w-[64px] h-full p-[2px] border sm:w-[83px] sm:p-[3px] md:w-[104px] md:p-[4px] lg:w-[125px] lg:p-[5px] xl:w-[146px] xl:p-[6px] 2xl:w-[156px]"
       style={{
         borderImage: `linear-gradient(to top, #00FFA1 0%, black 100%) 1`,
       }}
@@ -34,7 +34,7 @@ const GameCard: React.FC<GameCardProps> = ({
         className="size-[60px] sm:size-[80px] md:size-[100px] lg:size-[120px] xl:size-[140px] 2xl:size-[150px]"
       />
 
-      <h3 className="font-bold mt-[0.5em] w-[11ch] overflow-hidden text-nowrap text-ellipsis">
+      <h3 className="w-[11ch] font-bold text-[8px] mt-[0.5em] overflow-hidden text-nowrap text-ellipsis sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[15px] 2xl:text-[15.2px]">
         {name}
       </h3>
 

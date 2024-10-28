@@ -26,7 +26,6 @@ const TopGames: React.FC<TopGamesInterface> = ({ games }) => {
       <Swiper
         slidesPerView={4}
         slidesPerGroup={4}
-        spaceBetween={5}
         breakpoints={{
           640: {
             slidesPerView: 5,
