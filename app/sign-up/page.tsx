@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-
+import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
@@ -18,6 +18,8 @@ import { FaFacebook, FaApple } from "react-icons/fa";
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
 import Logo from "../../public/images/sign-in/logo.png";
+
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -69,6 +71,10 @@ const SignUp = () => {
       toast.error(error.response.data.message);
     }
   };
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <section className="flex flex-col min-h-svh bg-[#0B0E13]">
@@ -163,12 +169,28 @@ const SignUp = () => {
               {/* Password */}
               <div className="mb-[2.1em]">
                 <p className="mb-[0.2em]">PASSWORD</p>
-                <Input
-                  type="password"
-                  className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
-                  placeholder="Enter password"
-                  {...register("password")}
-                />
+
+                <div className="relative w-full">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
+                    placeholder="Enter password"
+                    {...register("password")}
+                  />
+
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? (
+                      <FaEyeSlash className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <FaEye className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+
                 {errors.password && (
                   <p className="text-red-500 mt-[0.2em]">
                     {errors.password.message}
@@ -179,12 +201,28 @@ const SignUp = () => {
               {/* Confirm Password */}
               <div className="mb-[2.1em]">
                 <p className="mb-[0.2em]">CONFIRM PASSWORD</p>
-                <Input
-                  type="password"
-                  className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
-                  placeholder="Confirm password"
-                  {...register("confirmPassword")}
-                />
+
+                <div className="relative w-full">
+                  <Input
+                    type={showConfirmPassword ? "text" : "password"}
+                    className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
+                    placeholder="Confirm password"
+                    {...register("confirmPassword")}
+                  />
+
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  >
+                    {showConfirmPassword ? (
+                      <FaEyeSlash className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <FaEye className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+
                 {errors.confirmPassword && (
                   <p className="text-red-500 mt-[0.2em]">
                     {errors.confirmPassword.message}

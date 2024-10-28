@@ -15,10 +15,11 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaApple } from "react-icons/fa";
-
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
 import Logo from "../../public/images/sign-in/logo.png";
+
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -128,6 +129,8 @@ const SignIn = () => {
     };
   }, [router]);
 
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <section className="flex flex-col bg-[#0B0E13] overflow-hidden">
       <ProductSearchBar />
@@ -179,12 +182,27 @@ const SignIn = () => {
 
             <div className="mb-[calc(1em+1px)] text-white font-primaryFont font-medium">
               <p className="mb-[0.2em]">PASSWORD</p>
-              <Input
-                type="password"
-                placeholder="Enter your password"
-                className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
-                {...register("password")}
-              />
+
+              <div className="relative w-full">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
+                  {...register("password")}
+                />
+
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? (
+                    <FaEyeSlash className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <FaEye className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
+              </div>
 
               {errors.password && (
                 <p className="text-red-500 mt-[0.2em]">
