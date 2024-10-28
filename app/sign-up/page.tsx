@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-
+import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
@@ -18,6 +18,10 @@ import { FaFacebook, FaApple } from "react-icons/fa";
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
 import Logo from "../../public/images/sign-in/logo.png";
+
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import AuthNavbar from "@/components/navbar/AuthNavbar";
+import Spinner from "@/components/Spinner/Spinner";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -43,6 +47,35 @@ const validationSchema = Yup.object().shape({
 
 const SignUp = () => {
   const router = useRouter();
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const verifySession = async () => {
+      setLoading(true)
+      try {
+        const res = await axios.get(process.env.NEXT_PUBLIC_BASE_URL+"/auth/verify-session", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        if (res.status === 200) {
+          console.log(res.data)
+          if (res.data.role.name === "ADMIN") {
+            router.push("/admin");
+          } else {
+            router.push("/");
+          }
+        }else {
+          throw new Error("Session expired");
+        }
+      } catch (error) {
+        console.log(error)
+        setLoading(false);
+      }
+    }
+    verifySession()
+  }, []);
 
   const {
     register,
@@ -70,10 +103,19 @@ const SignUp = () => {
     }
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  if (loading) {
+    return <Spinner loading={loading} />;
+  }
+
   return (
     <section className="flex flex-col min-h-svh bg-[#0B0E13]">
       <ProductSearchBar />
-      <Navbar />
+      {/* <Navbar /> */}
+      <AuthNavbar/>
       <div className="bg-[#0B0E13] flex-grow flex items-center justify-center font-primaryFont text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] text-white px-[36px] p-[50px]">
         <div className="w-full border px-[2em] py-[1em] sm:px-[8em] sm:py-[3.3em] sm:w-fit">
           <div className="flex items-center justify-center">
@@ -163,12 +205,28 @@ const SignUp = () => {
               {/* Password */}
               <div className="mb-[2.1em]">
                 <p className="mb-[0.2em]">PASSWORD</p>
-                <Input
-                  type="password"
-                  className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
-                  placeholder="Enter password"
-                  {...register("password")}
-                />
+
+                <div className="relative w-full">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
+                    placeholder="Enter password"
+                    {...register("password")}
+                  />
+
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? (
+                      <FaEyeSlash className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <FaEye className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+
                 {errors.password && (
                   <p className="text-red-500 mt-[0.2em]">
                     {errors.password.message}
@@ -179,12 +237,28 @@ const SignUp = () => {
               {/* Confirm Password */}
               <div className="mb-[2.1em]">
                 <p className="mb-[0.2em]">CONFIRM PASSWORD</p>
-                <Input
-                  type="password"
-                  className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
-                  placeholder="Confirm password"
-                  {...register("confirmPassword")}
-                />
+
+                <div className="relative w-full">
+                  <Input
+                    type={showConfirmPassword ? "text" : "password"}
+                    className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit"
+                    placeholder="Confirm password"
+                    {...register("confirmPassword")}
+                  />
+
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  >
+                    {showConfirmPassword ? (
+                      <FaEyeSlash className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <FaEye className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+
                 {errors.confirmPassword && (
                   <p className="text-red-500 mt-[0.2em]">
                     {errors.confirmPassword.message}

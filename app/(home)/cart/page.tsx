@@ -85,8 +85,8 @@ const Cart: React.FC = () => {
 
   return (
     <div>
-      <ProductSearchBar />
-      <Navbar />
+      {/* <ProductSearchBar /> */}
+      {/* <Navbar /> */}
       <div className="bg-[#000000] h-full">
         <div className="relative">
           <Image

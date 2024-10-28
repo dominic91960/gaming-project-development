@@ -50,8 +50,8 @@ const ShopPage = () => {
     // </div>
 
     <div className="bg-[#010300]">
-      <ProductSearchBar />
-      <Navbar />
+      {/* <ProductSearchBar />
+      <Navbar /> */}
       {/* Title */}
 
       <div className="relative">
