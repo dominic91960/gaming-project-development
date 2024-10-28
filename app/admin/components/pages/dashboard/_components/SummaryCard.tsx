@@ -12,7 +12,7 @@ interface SummaryCardProps {
 const SummaryCard: React.FC<SummaryCardProps> = ({ icon, title, value }) => {
   return (
     <article className="flex items-center bg-[#0D6D49]/40 font-secondaryFont text-[7px] py-[0.8em] border border-[#0D6D49] rounded-sm sm:text-[8px] md:text-[9px] lg:text-[10px] xl:text-[11px] 2xl:text-[12px]">
-      <div className="relative flex items-center justify-center text-[11px] mx-[1em] p-[0.6em] sm:text-[14px] md:text-[18px] lg:text-[22px] xl:text-[25px] 2xl:text-[26.4px]">
+      <div className="relative flex items-center justify-center text-[11px] mx-[1em] p-[0.6em] sm:text-[14px] md:text-[18px] md:mx-[0.4em] lg:text-[22px] lg:mx-[1em] xl:text-[25px] xl:mx-[0.4em] 2xl:text-[26.4px] 2xl:mx-[1em]">
         <Image
           src={summaryCardBorder}
           alt="Summary card border"

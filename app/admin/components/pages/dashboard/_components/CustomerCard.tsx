@@ -29,12 +29,12 @@ const CustomerCard: React.FC<CustomerCardProps> = ({
       ></div>
       <Image
         src={profilePic}
-        alt="user"
+        alt={username}
         className="absolute top-0 left-0 right-0 mx-auto -translate-y-1/2 rounded-full size-[32px] z-10 sm:size-[44px] md:size-[56px] lg:size-[64px] xl:size-[72px] 2xl:size-[80px]"
         width={80}
         height={80}
       />
-      <div className="drop-shadow-[0px_5px_5px_#00FFA1]">
+      <div className="drop-shadow-[0px_5px_15px_#00FFA1] lg:drop-shadow-[0px_5px_20px_#00FFA1]">
         <div
           className="absolute top-0 left-0 right-0 mx-auto -translate-y-1/2 size-[32px] flex items-center justify-center bg-[#00FFA1] rounded-full -z-10 sm:size-[44px] md:size-[56px] lg:size-[64px] xl:size-[72px] 2xl:size-[80px]"
           style={{ clipPath: "polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%)" }}
