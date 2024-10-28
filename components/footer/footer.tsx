@@ -81,7 +81,7 @@ export default function Footer() {
                 <Link href="/about">About</Link>
               </li>
               <li className="w-fit mt-[0.8em] opacity-70 hover:opacity-90">
-                <Link href="/contact">Contact</Link>
+                <Link href="/contact-us">Contact</Link>
               </li>
             </ul>
 

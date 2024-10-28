@@ -197,9 +197,9 @@ export default function Navbar() {
                 About
               </Link>
               <Link
-                href="/contact"
+                href="/contact-us"
                 className={`hover:opacity-80 ${
-                  path.startsWith("/contact") ? "text-[#0BDB45]" : ""
+                  path.startsWith("/contact-us") ? "text-[#0BDB45]" : ""
                 }`}
               >
                 Contact
@@ -208,7 +208,7 @@ export default function Navbar() {
 
             {/* Desktop navigation icons */}
             <div className="flex text-[1.5em] gap-x-[0.7em] lg:gap-x-[1em] justify-around">
-              <Link href="/" className="hover:scale-110">
+              <Link href="/wishlist" className="hover:scale-110">
                 <IoMdHeartEmpty />
               </Link>
 
@@ -243,49 +243,51 @@ export default function Navbar() {
                   <IoMdPerson />
                 )}
               </Link> */}
-                          {user?.profile_image ? (
-                            <DropdownMenu>
-                              <DropdownMenuTrigger className="cursor-pointer">
-                                <Image
-                                  src={user?.profile_image}
-                                  width={20}
-                                  height={20}
-                                  alt="Avatar"
-                                  className="size-[2em] rounded-full lg:size-[1.5em]"
-                                />
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent>
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem
-                                onClick={() => {
-                                  router.push("/profile?id="+user.id);
-                                }}
-                                >Profile</DropdownMenuItem>
-                                <DropdownMenuItem>Billing</DropdownMenuItem>
-                                <DropdownMenuItem>Team</DropdownMenuItem>
-                                <DropdownMenuItem
-                                  onClick={() => {
-                                    axiosInstance.patch("/auth/logout");
-                                    localStorage.clear();
-                                    window.location.href = "/sign-in";
-                                  }}
-                                >
-                                  Logout
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          ) : (
-                            <Link
-                              href="/sign-in"
-                              className={`hover:scale-110 ${
-                                path.startsWith("/sign") ? "text-[#0BDB45]" : ""
-                              }`}
-                            >
-                              {/* <IoMdPerson /> */}
-                              <FaUserPlus />
-                            </Link>
-                          )}
+              {user?.profile_image ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="cursor-pointer">
+                    <Image
+                      src={user?.profile_image}
+                      width={20}
+                      height={20}
+                      alt="Avatar"
+                      className="size-[2em] rounded-full lg:size-[1.5em]"
+                    />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={() => {
+                        router.push("/profile?id=" + user.id);
+                      }}
+                    >
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>Billing</DropdownMenuItem>
+                    <DropdownMenuItem>Team</DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        axiosInstance.patch("/auth/logout");
+                        localStorage.clear();
+                        window.location.href = "/sign-in";
+                      }}
+                    >
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link
+                  href="/sign-in"
+                  className={`hover:scale-110 ${
+                    path.startsWith("/sign") ? "text-[#0BDB45]" : ""
+                  }`}
+                >
+                  {/* <IoMdPerson /> */}
+                  <FaUserPlus />
+                </Link>
+              )}
 
               {/* <div
                 onClick={() => {
@@ -358,14 +360,14 @@ export default function Navbar() {
         <Link
           href="/contact"
           className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
-            path.startsWith("/contact") ? "text-[#0BDB45]" : ""
+            path.startsWith("/contact-us") ? "text-[#0BDB45]" : ""
           }`}
         >
           Contact
         </Link>
         {/* Mobile navigation icons */}
         <div className="flex text-[1.5em] justify-around mt-[1.6em]">
-          <Link href="/" className="hover:scale-110">
+          <Link href="/wishlist" className="hover:scale-110">
             <IoMdHeartEmpty />
           </Link>
 
