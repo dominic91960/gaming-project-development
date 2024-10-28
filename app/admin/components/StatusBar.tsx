@@ -15,6 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import axiosInstance from "@/axios/axiosInstance";
 
 interface StatusBarProps {
   isMobileNavToggled: boolean | undefined;
@@ -77,10 +78,13 @@ const StatusBar: React.FC<StatusBarProps> = ({
               <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+                <DropdownMenuItem
+                                                  onClick={() => {
+                                                    axiosInstance.patch("/auth/logout");
+                                                    localStorage.clear();
+                                                    window.location.href = "/sign-in";
+                                                  }}
+                >Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

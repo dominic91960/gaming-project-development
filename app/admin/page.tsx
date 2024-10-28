@@ -23,6 +23,7 @@ import Coupons from "./components/pages/coupons/Coupons";
 import "./components/admin.css";
 import { CategoryProvider } from "@/context/CategoryContext";
 import { SidebarProvider } from "@/context/SidebarContext";
+import Spinner from "@/components/Spinner/Spinner";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
@@ -39,11 +40,11 @@ const AdminPanel: React.FC = () => {
       if (parsedUser.role.name === "ADMIN") {
         setIsAuthorized(true);
       } else {
-        toast.error("You Are Not Admin");
+        // toast.error("You Are Not Admin");
         router.push("/"); // Redirect if not admin
       }
     } else {
-      toast.error("You Are Not Admin");
+      // toast.error("You Are Not Admin");
       router.push("/sign-in"); // Redirect if no user found
     }
   }, [router]);
@@ -93,8 +94,7 @@ const AdminPanel: React.FC = () => {
   };
 
   if (!isAuthorized) {
-    // Optionally, return a loading spinner while checking the role
-    return <div>Loading...</div>;
+    return <Spinner loading={!isAuthorized} />;
   }
 
   return (

@@ -53,7 +53,7 @@ const SignIn = () => {
         });
         if (res.status === 200) {
           console.log(res.data)
-          if (res.data.role === "admin") {
+          if (res.data.role.name === "ADMIN") {
             router.push("/admin");
           } else {
             router.push("/");
@@ -93,7 +93,8 @@ const SignIn = () => {
 
         // Redirect to home page
         // router.push("/admin");
-        if (user.role === "admin") {
+        console.log("roooooooler", user.role);
+        if (user.role.name === "ADMIN") {
           router.push("/admin");
         } else {
           router.push("/");

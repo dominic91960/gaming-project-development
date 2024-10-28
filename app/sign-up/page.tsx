@@ -61,7 +61,7 @@ const SignUp = () => {
         });
         if (res.status === 200) {
           console.log(res.data)
-          if (res.data.role === "admin") {
+          if (res.data.role.name === "ADMIN") {
             router.push("/admin");
           } else {
             router.push("/");
