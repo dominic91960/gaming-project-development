@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import toast from "react-hot-toast";
@@ -24,6 +24,7 @@ import "./components/admin.css";
 import { CategoryProvider } from "@/context/CategoryContext";
 import { SidebarProvider } from "@/context/SidebarContext";
 import Spinner from "@/components/Spinner/Spinner";
+import { AuthProvider } from "@/context/AuthContext";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
@@ -98,6 +99,7 @@ const AdminPanel: React.FC = () => {
   }
 
   return (
+    <AuthProvider>
     <CategoryProvider>
       <RoleProvider>
         <SidebarProvider>
@@ -118,6 +120,7 @@ const AdminPanel: React.FC = () => {
         </SidebarProvider>
       </RoleProvider>
     </CategoryProvider>
+    </AuthProvider>
   );
 };
 
