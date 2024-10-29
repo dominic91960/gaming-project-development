@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { LiaAngleRightSolid } from "react-icons/lia";
@@ -6,74 +6,47 @@ import { LiaAngleRightSolid } from "react-icons/lia";
 import StarRating from "./star-rating";
 import bg from "@/public/images/home/best-selling/bg.png";
 import cardBg from "@/public/images/home/best-selling/card-bg.png";
+import axiosInstance from "@/axios/axiosInstance";
+import { useRouter } from "next/navigation";
 
-const bestSellingGames = [
-  {
-    title: "Black Myth: Wukong",
-    desc: "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels",
-    discountPrice: 299,
-    originalPrice: 399,
-    poster: cardBg,
-    rating: 3.2,
-  },
-  {
-    title: "Black Myth: Wukong",
-    desc: "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels",
-    discountPrice: 89,
-    originalPrice: 99,
-    poster: cardBg,
-    rating: 4.1,
-  },
-  {
-    title: "Black Myth: Wukong",
-    desc: "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels",
-    originalPrice: 69,
-    poster: cardBg,
-    rating: 4.7,
-  },
-  {
-    title: "Black Myth: Wukong",
-    desc: "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels",
-    discountPrice: 299,
-    originalPrice: 399,
-    poster: cardBg,
-    rating: 4.7,
-  },
-  {
-    title: "Black Myth: Wukong",
-    desc: "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels",
-    discountPrice: 299,
-    originalPrice: 399,
-    poster: cardBg,
-    rating: 4.7,
-  },
-  {
-    title: "Black Myth: Wukong",
-    desc: "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels",
-    discountPrice: 299,
-    originalPrice: 399,
-    poster: cardBg,
-    rating: 4.7,
-  },
-  {
-    title: "Black Myth: Wukong",
-    desc: "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels",
-    discountPrice: 299,
-    originalPrice: 399,
-    poster: cardBg,
-    rating: 4.7,
-  },
-  {
-    title: "Black Myth: Wukong",
-    desc: "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels",
-    discountPrice: 299,
-    originalPrice: 399,
-    poster: cardBg,
-    rating: 4.7,
-  },
-];
+interface Game {
+  id: string;
+  title: string;
+  desc: string;
+  discountPrice?: number;
+  originalPrice: number;
+  poster: string;
+  rating: number;
+}
+
+
 
 const BestSelling = () => {
+  const router = useRouter();
+
+  const [bestSellingGames, setBestSellingGames] = useState<Game[]>([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await axiosInstance.get("/games?sort=popularity&limit=8");
+      console.log(res);
+      const resGames:Game[] = res.data.data.map((game: any) => {
+        return {
+          id: game.id,
+          title: game.productName,
+          desc: game.cardDescription,
+          discountPrice: game.sellingPrice,
+          originalPrice: game.regularPrice,
+          poster: game.cardImage,
+          rating: game.averageRating,
+        };
+      });
+      console.log(resGames);
+      setBestSellingGames(resGames);
+    }
+    getData();
+      
+  }, []);
   return (
     <section
       className="relative bg-black bg-cover font-primaryFont text-white"
@@ -102,8 +75,9 @@ const BestSelling = () => {
         <div className="grid grid-cols-2 gap-y-[10px] place-items-center lg:grid-cols-3 2xl:grid-cols-4 sm:gap-y-[15px] md:gap-y-[20px] lg:gap-y-[25px] xl:gap-y-[30px] 2xl:gap-y-[33px]">
           {/* Products */}
           {bestSellingGames.map(
-            ({ title, desc, discountPrice, originalPrice, poster, rating }) => (
+            ({ id ,title, desc, discountPrice, originalPrice, poster, rating }) => (
               <article
+                onClick={() => router.push(`/products/view/?id=${id}`)}
                 key={title}
                 className="relative w-[150px] cursor-pointer sm:w-[200px] md:w-[240px] lg:w-[280px] xl:w-[300px] 2xl:w-[320px] z-10 group"
               >
@@ -167,7 +141,7 @@ const BestSelling = () => {
                     {/* Image */}
                     <div
                       className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-                      style={{ backgroundImage: `url(${poster.src})` }}
+                      style={{ backgroundImage: `url(${poster})` }}
                     ></div>
 
                     {/* Inset box shadow */}
@@ -225,6 +199,9 @@ const BestSelling = () => {
             <Button
               variant="gaming"
               className="h-fit text-[7px] px-[2.26em] py-[0.5em] mt-[2em] mb-[4.5em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]"
+              onClick={
+                () => router.push("/shop-page")
+              }
             >
               See More <LiaAngleRightSolid />
             </Button>
