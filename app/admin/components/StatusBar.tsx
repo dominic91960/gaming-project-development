@@ -38,7 +38,6 @@ const StatusBar: React.FC<StatusBarProps> = ({
   useEffect(() => {
     setLoading(true);
     if(user){
-      console.log("lllllllllllllll",user);
       setLoading(false);
     }
   }
@@ -78,10 +77,10 @@ const StatusBar: React.FC<StatusBarProps> = ({
           </div>
           <div className="flex items-center gap-x-[0.8em]">
             <div>
-              <p className="text-white">{`${user.firstName} ${user.lastName}`}</p>
-              <p className="hidden lg:block text-[0.8em] text-[#A1A1AA]">
+             {/*  <p className="text-white">{`${user.firstName} ${user.lastName}`}</p> */}
+              {/* <p className="hidden lg:block text-[0.8em] text-[#A1A1AA]">
                 {user.role?.name}
-              </p>
+              </p> */}
             </div>
 
             <DropdownMenu>
