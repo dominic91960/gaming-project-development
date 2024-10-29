@@ -293,10 +293,16 @@ export default function ProductPage() {
                           >
                             <button className="select-none flex gap-x-[0.5ch]">
                               <p className="max-w-[8ch] overflow-hidden text-ellipsis">
-                                {gameData?.languages[0]}
+                                {gameData?.languages[0].split(",")[0]}
                               </p>
-                              {gameData.languages.length > 1 && (
-                                <p> & {gameData.languages.length - 1} more</p>
+                              {gameData.languages[0].split(",").length > 1 && (
+                                <p>
+                                  {" "}
+                                  &{" "}
+                                  {gameData.languages[0].split(",").length -
+                                    1}{" "}
+                                  more
+                                </p>
                               )}
                             </button>
                           </TooltipTrigger>
@@ -312,14 +318,16 @@ export default function ProductPage() {
                             <p className="text-[13px] py-[0.4em] font-bold border-b">
                               Available Languages
                             </p>
-                            {gameData.languages.map((language) => (
-                              <p
-                                key={language}
-                                className="text-[13px] py-[0.4em]"
-                              >
-                                {language}
-                              </p>
-                            ))}
+                            {gameData.languages[0]
+                              .split(",")
+                              .map((language) => (
+                                <p
+                                  key={language}
+                                  className="text-[13px] py-[0.4em]"
+                                >
+                                  {language}
+                                </p>
+                              ))}
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
