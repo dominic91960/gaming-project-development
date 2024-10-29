@@ -15,10 +15,12 @@ import {
   IoMdCart,
   IoMdPerson,
 } from "react-icons/io";
+import { FaUserCog } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
 
 import { AuthContext } from "@/context/AuthContext";
 import axiosInstance from "@/axios/axiosInstance";
-import ProfileDefault from "@/public/images/navbar/profile_default.jpg";
+
 import "./navbar.css";
 import {
   DropdownMenu,
@@ -30,11 +32,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { useRouter } from "next/navigation";
-import { FaUserPlus } from "react-icons/fa6";
 import NavBarSpinner from "../Spinner/NavBarSpinner";
 import { set } from "date-fns";
 import axios from "axios";
 import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
+import { Button } from "../ui/button";
 
 const categories = [
   {
@@ -264,24 +266,40 @@ export default function Navbar() {
                       className="size-[1em] rounded-full"
                     />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
+                  <DropdownMenuContent className="bg-black/60 font-primaryFont text-white rounded-none border border-white/40 backdrop-blur-sm">
+                    <DropdownMenuLabel className="text-center">
+                      Apex47
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator className="bg-white/40" />
                     <DropdownMenuItem
+                      className="bg-transparent text-[1em] focus:bg-transparent"
                       onClick={() => {
                         router.push("/profile?id=" + user.id);
                       }}
                     >
-                      Profile
+                      <Button
+                        variant="secondary"
+                        className="w-full h-fit flex items-center gap-[0.5em] text-[0.8em] px-[1em] py-[0.3em] rounded-none font-primaryFont"
+                      >
+                        <FaUserCog className="text-[1.3em]" />
+                        Profile
+                      </Button>
                     </DropdownMenuItem>
                     <DropdownMenuItem
+                      className="bg-transparent text-[1em] focus:bg-transparent"
                       onClick={() => {
                         axiosInstance.patch("/auth/logout");
                         localStorage.clear();
                         window.location.href = "/sign-in";
                       }}
                     >
-                      Logout
+                      <Button
+                        variant="secondary"
+                        className="w-full h-fit flex items-center gap-[0.5em] text-[0.8em] px-[1em] py-[0.3em] rounded-none font-primaryFont"
+                      >
+                        <IoIosLogOut className="text-[1.3em]" />
+                        Logout
+                      </Button>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -311,7 +329,11 @@ export default function Navbar() {
           </div>
 
           {/* Mobile logo  */}
-          <Link href="/" className="sm:hidden">
+          <Link
+            href="/"
+            className="sm:hidden"
+            onClick={() => setIsMobileNavToggled(false)}
+          >
             <Image src={logo} alt="Logo" className="size-[3em]" />
           </Link>
 
@@ -390,7 +412,7 @@ export default function Navbar() {
           </Link>
 
           <CartSidebar>
-            <IoMdCart />
+            <IoMdCart onClick={() => setIsMobileNavToggled(false)} />
           </CartSidebar>
 
           {loading ? (
@@ -406,24 +428,42 @@ export default function Navbar() {
                   className="size-[1em] rounded-full"
                 />
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
+              <DropdownMenuContent className="bg-black/40 font-primaryFont text-white rounded-none border border-white/40 backdrop-blur-md">
+                <DropdownMenuLabel className="text-center">
+                  Apex47
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-white/40" />
                 <DropdownMenuItem
+                  className="bg-transparent text-[1em] focus:bg-transparent"
                   onClick={() => {
                     router.push("/profile?id=" + user.id);
                   }}
                 >
-                  Profile
+                  <Button
+                    variant="secondary"
+                    className="w-full h-fit flex items-center gap-[0.5em] text-[0.8em] px-[1em] py-[0.3em] rounded-none font-primaryFont"
+                    onClick={() => setIsMobileNavToggled(false)}
+                  >
+                    <FaUserCog className="text-[1.3em]" />
+                    Profile
+                  </Button>
                 </DropdownMenuItem>
                 <DropdownMenuItem
+                  className="bg-transparent text-[1em] focus:bg-transparent"
                   onClick={() => {
                     axiosInstance.patch("/auth/logout");
                     localStorage.clear();
                     window.location.href = "/sign-in";
                   }}
                 >
-                  Logout
+                  <Button
+                    variant="secondary"
+                    className="w-full h-fit flex items-center gap-[0.5em] text-[0.8em] px-[1em] py-[0.3em] rounded-none font-primaryFont"
+                    onClick={() => setIsMobileNavToggled(false)}
+                  >
+                    <IoIosLogOut className="text-[1.3em]" />
+                    Logout
+                  </Button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
