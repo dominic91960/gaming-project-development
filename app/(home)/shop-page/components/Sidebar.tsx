@@ -48,7 +48,7 @@ interface SidebarProps {
   setClearFilters: (clear: any) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
+const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
   const initialFilterParams = {
     rating: 0,
     price: 0,
@@ -62,10 +62,17 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
   const [genres, setGenres] = useState<Genres[]>([]);
   const [platforms, setPlatforms] = useState<Platforms[]>([]);
   const [brands, setBrands] = useState<Brands[]>([]);
-  const [filterParams, setFilterParams] = useState<FilterParams>(initialFilterParams);
-  const [checkedGenres, setCheckedGenres] = useState<{ [key: string]: boolean }>({});
-  const [checkedPlatforms, setCheckedPlatforms] = useState<{ [key: string]: boolean }>({});
-  const [checkedBrands, setCheckedBrands] = useState<{ [key: string]: boolean }>({});
+  const [filterParams, setFilterParams] =
+    useState<FilterParams>(initialFilterParams);
+  const [checkedGenres, setCheckedGenres] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const [checkedPlatforms, setCheckedPlatforms] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const [checkedBrands, setCheckedBrands] = useState<{
+    [key: string]: boolean;
+  }>({});
   const [checkedOs, setCheckedOs] = useState<{ [key: string]: boolean }>({});
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [osMap, setOsMap] = useState<{ [key: string]: string }>({});
@@ -180,16 +187,21 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
   return (
     <aside className="w-full text-white px-4 font-semibold border border-[#fff]">
       {/* Genres starts here */}
-      <Accordion type="single" collapsible>
+      <Accordion type="single" collapsible defaultValue="item-1">
         <AccordionItem value="item-1">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">Genres</h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Genres
+            </h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="mb-4">
               <ul>
                 {genres.map((genre) => (
-                  <div className="flex items-center justify-between" key={genre.id}>
+                  <div
+                    className="flex items-center justify-between"
+                    key={genre.id}
+                  >
                     <div className="flex items-center space-x-2 mb-2">
                       <Checkbox
                         id={`genre-${genre.id}`}
@@ -206,7 +218,9 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
                         {genre.name}
                       </label>
                     </div>
-                    <div className="text-[13px] font-primaryFont">{genre.count}</div>
+                    <div className="text-[13px] font-primaryFont">
+                      {genre.count}
+                    </div>
                   </div>
                 ))}
               </ul>
@@ -216,10 +230,12 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
       </Accordion>
 
       {/* Pricing starts here */}
-      <Accordion type="single" collapsible>
-        <AccordionItem value="item-1">
+      <Accordion type="single" collapsible defaultValue="item-2">
+        <AccordionItem value="item-2">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">Pricing</h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Pricing
+            </h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="mb-2 mt-2">
@@ -236,7 +252,9 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
                 step={1}
               />
               <div className="flex items-center mt-3 gap-2">
-                <p className="text-[15px] font-normal font-primaryFont">Price :</p>
+                <p className="text-[15px] font-normal font-primaryFont">
+                  Price :
+                </p>
                 <p className="text-[15px] text-[#0BDB45] font-normal font-primaryFont">
                   {`0 - ${value[0]}`} <span className="text-white">$</span>
                 </p>
@@ -247,10 +265,12 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
       </Accordion>
 
       {/* Rating starts here */}
-      <Accordion type="single" collapsible>
-        <AccordionItem value="item-1">
+      <Accordion type="single" collapsible defaultValue="item-3">
+        <AccordionItem value="item-3">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">Rating</h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Rating
+            </h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="mb-4">
@@ -261,57 +281,78 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
       </Accordion>
 
       {/* Operating Systems starts here */}
-      <Accordion type="single" collapsible>
-        <AccordionItem value="item-1">
+      <Accordion type="single" collapsible defaultValue="item-4">
+        <AccordionItem value="item-4">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">Operating System</h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Operating System
+            </h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="mb-4">
               <ul>
                 <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center space-x-2 mb-2">
-                  <Checkbox
-                    id="os-xbox"
-                    className="border-white rounded-none"
-                    checked={checkedOs["Xbox"] || false}
-                    onCheckedChange={(isChecked: boolean) => handleOsChange("Xbox", isChecked)}
-                  />
-                  <label htmlFor="os-xbox" className="font-primaryFont font-medium text-[13px]">
-                    Xbox
-                  </label>
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="os-xbox"
+                      className="border-white rounded-none"
+                      checked={checkedOs["Xbox"] || false}
+                      onCheckedChange={(isChecked: boolean) =>
+                        handleOsChange("Xbox", isChecked)
+                      }
+                    />
+                    <label
+                      htmlFor="os-xbox"
+                      className="font-primaryFont font-medium text-[13px]"
+                    >
+                      Xbox
+                    </label>
                   </div>
-                  <div className="text-[13px] font-primaryFont">{osMap.XBOX}</div>
+                  <div className="text-[13px] font-primaryFont">
+                    {osMap.XBOX}
+                  </div>
                 </div>
                 <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center space-x-2 mb-2">
-                  <Checkbox
-                    id="os-windows"
-                    className="border-white rounded-none"
-                    checked={checkedOs["Windows"] || false}
-                    onCheckedChange={(isChecked: boolean) => handleOsChange("Windows", isChecked)}
-                  />
-                  <label htmlFor="os-windows" className="font-primaryFont font-medium text-[13px]">
-                    Windows
-                  </label>
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="os-windows"
+                      className="border-white rounded-none"
+                      checked={checkedOs["Windows"] || false}
+                      onCheckedChange={(isChecked: boolean) =>
+                        handleOsChange("Windows", isChecked)
+                      }
+                    />
+                    <label
+                      htmlFor="os-windows"
+                      className="font-primaryFont font-medium text-[13px]"
+                    >
+                      Windows
+                    </label>
                   </div>
-                  <div className="text-[13px] font-primaryFont">{osMap.WINDOWS}</div>
+                  <div className="text-[13px] font-primaryFont">
+                    {osMap.WINDOWS}
+                  </div>
                 </div>
                 <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center space-x-2 mb-2">
-                  <Checkbox
-                    id="os-playstation"
-                    className="border-white rounded-none"
-                    checked={checkedOs["Playstation"] || false}
-                    onCheckedChange={(isChecked: boolean) =>
-                      handleOsChange("Playstation", isChecked)
-                    }
-                  />
-                  <label htmlFor="os-playstation" className="font-primaryFont font-medium text-[13px]">
-                    Playstation
-                  </label>
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="os-playstation"
+                      className="border-white rounded-none"
+                      checked={checkedOs["Playstation"] || false}
+                      onCheckedChange={(isChecked: boolean) =>
+                        handleOsChange("Playstation", isChecked)
+                      }
+                    />
+                    <label
+                      htmlFor="os-playstation"
+                      className="font-primaryFont font-medium text-[13px]"
+                    >
+                      Playstation
+                    </label>
                   </div>
-                  <div className="text-[13px] font-primaryFont">{osMap.PLAYSTATION} </div>
+                  <div className="text-[13px] font-primaryFont">
+                    {osMap.PLAYSTATION}{" "}
+                  </div>
                 </div>
               </ul>
             </div>
@@ -320,16 +361,21 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
       </Accordion>
 
       {/* Platforms starts here */}
-      <Accordion type="single" collapsible>
-        <AccordionItem value="item-1">
+      <Accordion type="single" collapsible defaultValue="item-5">
+        <AccordionItem value="item-5">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">Platforms</h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Platforms
+            </h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="mb-4">
               <ul>
                 {platforms.map((platform) => (
-                  <div className="flex items-center justify-between" key={platform.id}>
+                  <div
+                    className="flex items-center justify-between"
+                    key={platform.id}
+                  >
                     <div className="flex items-center space-x-2 mb-2">
                       <Checkbox
                         id={`platform-${platform.id}`}
@@ -346,7 +392,9 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
                         {platform.name}
                       </label>
                     </div>
-                    <div className="text-[13px] font-primaryFont">{platform.count}</div>
+                    <div className="text-[13px] font-primaryFont">
+                      {platform.count}
+                    </div>
                   </div>
                 ))}
               </ul>
@@ -356,28 +404,40 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
       </Accordion>
 
       {/* Brands starts here */}
-      <Accordion type="single" collapsible>
-        <AccordionItem value="item-1">
+      <Accordion type="single" collapsible defaultValue="item-6">
+        <AccordionItem value="item-6">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">Brands</h2>
+            <h2 className="text-[20px] font-semibold font-primaryFont">
+              Brands
+            </h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="mb-4">
               <ul>
                 {brands.map((brand) => (
-                  <div className="flex items-center justify-between gap-2" key={brand.id}>
+                  <div
+                    className="flex items-center justify-between gap-2"
+                    key={brand.id}
+                  >
                     <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id={`brand-${brand.id}`}
-                      className="border-white rounded-none"
-                      checked={checkedBrands[brand.id] || false}
-                      onCheckedChange={(isChecked: boolean) => handleBrandChange(brand.id, isChecked)}
-                    />
-                    <label htmlFor={`brand-${brand.id}`} className="font-primaryFont font-medium text-[13px]">
-                      {brand.name}
-                    </label>
+                      <Checkbox
+                        id={`brand-${brand.id}`}
+                        className="border-white rounded-none"
+                        checked={checkedBrands[brand.id] || false}
+                        onCheckedChange={(isChecked: boolean) =>
+                          handleBrandChange(brand.id, isChecked)
+                        }
+                      />
+                      <label
+                        htmlFor={`brand-${brand.id}`}
+                        className="font-primaryFont font-medium text-[13px]"
+                      >
+                        {brand.name}
+                      </label>
                     </div>
-                    <div className="text-[13px] font-primaryFont">{brand.count}</div>
+                    <div className="text-[13px] font-primaryFont">
+                      {brand.count}
+                    </div>
                   </div>
                 ))}
               </ul>
@@ -386,13 +446,19 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
         </AccordionItem>
       </Accordion>
 
-      <Button className="bg-[#BD0202] rounded-none px-6 mb-6 mr-2" onClick={handleClearAll}>
+      <Button
+        className="bg-[#BD0202] rounded-none px-6 mb-6 mr-2"
+        onClick={handleClearAll}
+      >
         Clear all
       </Button>
-      <Button onClick={() => {
-        setFilters(filterParams);
-        console.log(filterParams);
-      }} className="bg-[#BD0202] rounded-none px-6 mb-6">
+      <Button
+        onClick={() => {
+          setFilters(filterParams);
+          console.log(filterParams);
+        }}
+        className="bg-[#BD0202] rounded-none px-6 mb-6"
+      >
         Filter
       </Button>
     </aside>
@@ -400,4 +466,3 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
 };
 
 export default Sidebar;
-
