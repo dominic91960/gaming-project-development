@@ -84,7 +84,7 @@ const ShopPage = () => {
               />
             </div>
 
-            <div className="col-span-10 flex justify-center">
+            <div className="col-span-10 flex mx-auto">
               <ContentGrid
                 filterParams={filterParams}
                 clearFilters={clearFilters}
