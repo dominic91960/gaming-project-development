@@ -99,7 +99,7 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
     setBrands(mappedBrands);
 
     const maxPriceRes = await axiosInstance.get(`/games/max-price`);
-    // setValue([maxPriceRes.data.maxPrice]);
+    setValue([maxPriceRes.data.maxPrice]);
     setMaxPrice(maxPriceRes.data.maxPrice);
 
     const systemRes = await axiosInstance.get(`/games/count-by-system`);
