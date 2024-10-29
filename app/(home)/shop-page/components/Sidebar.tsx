@@ -13,20 +13,25 @@ import StarRating from "./StarRating";
 import { Button } from "@/components/ui/button";
 import axiosInstance from "@/axios/axiosInstance";
 import { useDebounce } from "@/hooks/useDebounce";
+import { count } from "console";
+import { set } from "date-fns";
 
 type Genres = {
   id: string;
   name: string;
+  count: number;
 };
 
 type Platforms = {
   id: string;
   name: string;
+  count: number;
 };
 
 type Brands = {
   id: string;
   name: string;
+  count: number;
 };
 
 type FilterParams = {
@@ -62,6 +67,8 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
   const [checkedPlatforms, setCheckedPlatforms] = useState<{ [key: string]: boolean }>({});
   const [checkedBrands, setCheckedBrands] = useState<{ [key: string]: boolean }>({});
   const [checkedOs, setCheckedOs] = useState<{ [key: string]: boolean }>({});
+  const [maxPrice, setMaxPrice] = useState<number>(0);
+  const [osMap, setOsMap] = useState<{ [key: string]: string }>({});
 
   // add debounce to the filterParams
   const debouncedFilterParams = useDebounce(filterParams, 500);
@@ -71,6 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
     const mappedGenres = resTags.data.map((g: any) => ({
       id: g.id,
       name: g.name,
+      count: g.count,
     }));
     setGenres(mappedGenres);
 
@@ -78,6 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
     const mappedPlatforms = resPlatforms.data.map((p: any) => ({
       id: p.id,
       name: p.name,
+      count: p.gameCount,
     }));
     setPlatforms(mappedPlatforms);
 
@@ -85,8 +94,20 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
     const mappedBrands = resBrands.data.map((b: any) => ({
       id: b.id,
       name: b.name,
+      count: b.gameCount,
     }));
     setBrands(mappedBrands);
+
+    const maxPriceRes = await axiosInstance.get(`/games/max-price`);
+    setValue([maxPriceRes.data.maxPrice]);
+    setMaxPrice(maxPriceRes.data.maxPrice);
+
+    const systemRes = await axiosInstance.get(`/games/count-by-system`);
+    setOsMap({
+      XBOX: systemRes.data.XBOX,
+      WINDOWS: systemRes.data.WINDOWS,
+      PLAYSTATION: systemRes.data.PLAYSTATION,
+    });
   };
 
   useEffect(() => {
@@ -185,6 +206,7 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
                         {genre.name}
                       </label>
                     </div>
+                    <div className="text-[13px] font-primaryFont">{genre.count}</div>
                   </div>
                 ))}
               </ul>
@@ -210,7 +232,7 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
                     price: newValue[0],
                   }));
                 }}
-                max={100}
+                max={maxPrice}
                 step={1}
               />
               <div className="flex items-center mt-3 gap-2">
@@ -247,7 +269,8 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
           <AccordionContent>
             <div className="mb-4">
               <ul>
-                <div className="flex items-center justify-start gap-2">
+                <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center space-x-2 mb-2">
                   <Checkbox
                     id="os-xbox"
                     className="border-white rounded-none"
@@ -257,8 +280,11 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
                   <label htmlFor="os-xbox" className="font-primaryFont font-medium text-[13px]">
                     Xbox
                   </label>
+                  </div>
+                  <div className="text-[13px] font-primaryFont">{osMap.XBOX}</div>
                 </div>
-                <div className="flex items-center justify-start gap-2">
+                <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center space-x-2 mb-2">
                   <Checkbox
                     id="os-windows"
                     className="border-white rounded-none"
@@ -268,8 +294,11 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
                   <label htmlFor="os-windows" className="font-primaryFont font-medium text-[13px]">
                     Windows
                   </label>
+                  </div>
+                  <div className="text-[13px] font-primaryFont">{osMap.WINDOWS}</div>
                 </div>
-                <div className="flex items-center justify-start gap-2">
+                <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center space-x-2 mb-2">
                   <Checkbox
                     id="os-playstation"
                     className="border-white rounded-none"
@@ -281,6 +310,8 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
                   <label htmlFor="os-playstation" className="font-primaryFont font-medium text-[13px]">
                     Playstation
                   </label>
+                  </div>
+                  <div className="text-[13px] font-primaryFont">{osMap.PLAYSTATION} </div>
                 </div>
               </ul>
             </div>
@@ -315,6 +346,7 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
                         {platform.name}
                       </label>
                     </div>
+                    <div className="text-[13px] font-primaryFont">{platform.count}</div>
                   </div>
                 ))}
               </ul>
@@ -333,7 +365,8 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
             <div className="mb-4">
               <ul>
                 {brands.map((brand) => (
-                  <div className="flex items-center justify-start gap-2" key={brand.id}>
+                  <div className="flex items-center justify-between gap-2" key={brand.id}>
+                    <div className="flex items-center space-x-2 mb-2">
                     <Checkbox
                       id={`brand-${brand.id}`}
                       className="border-white rounded-none"
@@ -343,6 +376,8 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
                     <label htmlFor={`brand-${brand.id}`} className="font-primaryFont font-medium text-[13px]">
                       {brand.name}
                     </label>
+                    </div>
+                    <div className="text-[13px] font-primaryFont">{brand.count}</div>
                   </div>
                 ))}
               </ul>
