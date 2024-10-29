@@ -12,6 +12,8 @@ const config: Config = {
       fontFamily: {
         primaryFont: "var(--font-primaryFont)",
         secondaryFont: "var(--font-secondaryFont)",
+
+        rajdhaniFont: "var(--font-rajdhaniFont)",
       },
       colors: {
         background: "hsl(var(--background))",
