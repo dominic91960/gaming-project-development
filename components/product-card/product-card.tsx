@@ -50,12 +50,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </p>
       <hr className="border-t-white/20 my-[0.5em]" />
 
-      <div className="text-[6px] text-[#f29d38] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px]">
-        <StarRating rating={Math.round(rating)} />
+      <div
+        className={`${
+          rating > 0 ? "text-[#f29d38]" : "text-white/20"
+        } text-[6px] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px]`}
+      >
+        {rating > 0 ? (
+          <StarRating rating={Math.round(rating)} />
+        ) : (
+          <StarRating rating={5} />
+        )}
       </div>
 
       <div className="flex items-baseline gap-x-[0.5em]">
-        <p className="font-semibold text-[17px] text-[#75F94C] sm:text-[24px] md:text-[30px] lg:text-[36px] xl:text-[42px] 2xl:text-[46px]">
+        <p className="font-rajdhaniFont font-semibold text-[17px] text-[#75F94C] sm:text-[24px] md:text-[30px] lg:text-[36px] xl:text-[42px] 2xl:text-[46px]">
           ${discountPrice === 0 ? originalPrice : discountPrice}
         </p>
         {discountPrice !== 0 && (
