@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 import toast from "react-hot-toast";
 import axiosInstance from "@/axios/axiosInstance";
@@ -20,8 +20,7 @@ import { LiaAngleRightSolid } from "react-icons/lia";
 import { IoMdHeartEmpty, IoIosCart } from "react-icons/io";
 import { MdOutlineSpeakerNotesOff } from "react-icons/md";
 
-import ProductSearchBar from "@/components/product-search/product-search";
-import Navbar from "@/components/navbar/navbar";
+import { useCartContext } from "@/context/CartContext";
 import StarRating from "@/app/(home)/_components/star-rating";
 import ImageCarousel from "../_components/image-carousel";
 import RequirementsCard from "../_components/requirements-card";
@@ -37,8 +36,6 @@ import mastercard from "@/public/images/product/mastercard.png";
 import skrill from "@/public/images/product/skrill.png";
 import samplePic from "@/public/images/sample-pic.png";
 import "../_components/product.css";
-import { useCartContext } from "@/context/CartContext";
-import { useRouter } from "next/navigation";
 
 export default function ProductPage() {
   const searchParams = useSearchParams();
@@ -181,7 +178,8 @@ export default function ProductPage() {
     };
     getData();
     getReviewsByGameId(id);
-  }, []);
+  }, [id]);
+
   const getReviewsByGameId = async (id: any) => {
     try {
       const response = await axiosInstance.get(
@@ -194,6 +192,7 @@ export default function ProductPage() {
       // setLoading(false);
     }
   };
+
   const calculateOverallRating = (reviews: any) => {
     console.log(reviews, "rateing");
     let total = 0;
@@ -202,6 +201,7 @@ export default function ProductPage() {
     });
     return total / (reviews.length * 5);
   };
+
   const calDiscountPercentage = () => {
     if (!gameData) {
       return "0";

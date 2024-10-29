@@ -30,7 +30,7 @@ const data = [
     price: 40.0,
     wishlistedBy: 9452399,
     releaseDate: "20 Aug, 2024",
-    soldOut: false,
+    soldOut: true,
   },
   {
     id: "670f5ce892cae82274f98b5b",

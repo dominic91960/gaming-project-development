@@ -62,6 +62,11 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
           width={382.2}
           height={512.72}
         />
+        {soldOut && (
+          <h3 className="absolute left-0 right-0 w-fit mx-auto font-rajdhaniFont">
+            SOLD OUT
+          </h3>
+        )}
       </div>
 
       <div className="-mt-[5em] md:-mt-0">
