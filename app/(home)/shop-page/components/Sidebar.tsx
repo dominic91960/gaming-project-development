@@ -62,6 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
   const [checkedPlatforms, setCheckedPlatforms] = useState<{ [key: string]: boolean }>({});
   const [checkedBrands, setCheckedBrands] = useState<{ [key: string]: boolean }>({});
   const [checkedOs, setCheckedOs] = useState<{ [key: string]: boolean }>({});
+  const [maxPrice, setMaxPrice] = useState<number>(0);
 
   // add debounce to the filterParams
   const debouncedFilterParams = useDebounce(filterParams, 500);
@@ -87,6 +88,10 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
       name: b.name,
     }));
     setBrands(mappedBrands);
+
+    const maxPriceRes = await axiosInstance.get(`/games/max-price`);
+    // setValue([maxPriceRes.data.maxPrice]);
+    setMaxPrice(maxPriceRes.data.maxPrice);
   };
 
   useEffect(() => {
@@ -210,7 +215,7 @@ const Sidebar: React.FC<SidebarProps> = ({setFilters, setClearFilters}) => {
                     price: newValue[0],
                   }));
                 }}
-                max={100}
+                max={maxPrice}
                 step={1}
               />
               <div className="flex items-center mt-3 gap-2">
