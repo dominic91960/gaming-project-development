@@ -15,7 +15,7 @@ export default function AddOrders({ onAddOrder }: AddOrdersProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newOrder: AllOrdersNew1 = {
+    const newOrder: any = {
       id: Math.random().toString(36).substr(2, 9),
       order_id,
       username,
