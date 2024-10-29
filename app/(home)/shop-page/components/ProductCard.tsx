@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 
 import cartIcon from "../../../../public/images/cart/cart-icon.png";
+import CartSidebar from "../../_components/shopping-cart-sidebar";
+import { useCartContext } from "@/context/CartContext";
 interface Game {
   id: number;
   title: string;
@@ -16,6 +18,16 @@ interface Game {
   soldOut: boolean;
   cardImage: string;
 }
+
+type CartItem = {
+  id: number;
+  image: string;
+  choiceType: string;
+  title: string;
+  quantity: number;
+  price: number;
+  productType: string;
+};
 
 const ProductCard: React.FC<Game> = ({
   id,
@@ -28,6 +40,22 @@ const ProductCard: React.FC<Game> = ({
 }) => {
   const router = useRouter();
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addItem } = useCartContext();
+
+  const crateCart = (gameId: any) => {
+    const newCardItem: CartItem = {
+      id: gameId,
+      image: cardImage,
+      choiceType: "aaaaaa",
+      title,
+      quantity: 1,
+      price: sellingPrice,
+      productType: "bbbbbb",
+    };
+
+    addItem(newCardItem);
+  };
+
   return (
     <div className="relative bg-[#10160e] w-min">
       {/* Wishlist Icon */}
@@ -47,13 +75,7 @@ const ProductCard: React.FC<Game> = ({
         </div>
       </div>
 
-      <div
-        onClick={() => {
-          console.log("clicked");
-          router.push(`/products/view/?id=${id}`);
-        }}
-        className="border border-[#666a65] p-3  text-white relative w-full  cursor-pointer"
-      >
+      <div className="border border-[#666a65] p-3  text-white relative w-full  cursor-pointer">
         {soldOut && (
           <div className="absolute top-0 right-0  backdrop-blur-sm bg-black/30 text-white p-1 h-full w-full flex items-center justify-center">
             <div className="flex items-center justify-center">
@@ -67,6 +89,10 @@ const ProductCard: React.FC<Game> = ({
         <div className="flex items-center justify-center">
           <img
             src={cardImage}
+            onClick={() => {
+              console.log("clicked");
+              router.push(`/products/view/?id=${id}`);
+            }}
             alt="Game Card"
             className="mb-4 w-[244px] h-[268px]"
           />
@@ -95,11 +121,14 @@ const ProductCard: React.FC<Game> = ({
           <div className="w-full flex justify-end">
             <div className="">
               <div className="flex justify-end mb-2">
-                <Image
-                  src={cartIcon}
-                  alt="Not found background"
-                  className="w-[20px] h-[20px]"
-                />
+                <CartSidebar>
+                  <Image
+                    src={cartIcon}
+                    alt="Not found background"
+                    className="w-[20px] h-[20px]"
+                    onClick={() => crateCart(id)}
+                  />
+                </CartSidebar>
               </div>
 
               <p className="line-through text-[#fff] text-[17px] font-normal uppercase font-rajdhani">
