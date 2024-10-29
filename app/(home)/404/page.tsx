@@ -36,9 +36,9 @@ function NotFound() {
     //   <Footer />
     // </section>
 
-    <div>
+    {/* <div>
       <ShoppingCartSidebar />
-    </div>
+    </div> */}
   );
 }
 
