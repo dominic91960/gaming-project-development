@@ -8,6 +8,7 @@ import {
   ReactNode,
   useEffect,
 } from "react";
+import { useRouter } from "next/navigation";
 
 // Define the CartItem type
 type CartItem = {
@@ -41,6 +42,7 @@ interface CartContextProps {
   totalDiscount: number;
   viewCart: () => CartItem[];
   createOrder: (discountCode?: string) => Promise<void>;
+  proceedCheckout: (discountCode?: string) => Promise<void>;
   discountData: Discount; // Expose discount data for other components
 }
 
@@ -58,6 +60,9 @@ export const useCartContext = () => {
 
 // CartProvider component to wrap around your application or components
 export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
+
+
   const [cart, setCart] = useState<CartItem[]>(() => {
     if (typeof window !== "undefined") {
       const storedCart = localStorage.getItem("cart");
@@ -188,6 +193,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const proceedCheckout = async () => {
+    router.push("/payment");
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -204,6 +213,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         viewCart,
         createOrder,
         discountData, // Expose discount data
+        proceedCheckout,
       }}
     >
       {children}
