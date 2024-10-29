@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
+import axiosInstance from "@/axios/axiosInstance";
 import { Button } from "@/components/ui/button";
 import { LiaAngleRightSolid } from "react-icons/lia";
 
 import StarRating from "./star-rating";
 import bg from "@/public/images/home/best-selling/bg.png";
-import cardBg from "@/public/images/home/best-selling/card-bg.png";
-import axiosInstance from "@/axios/axiosInstance";
-import { useRouter } from "next/navigation";
 
 interface Game {
   id: string;
@@ -19,8 +19,6 @@ interface Game {
   rating: number;
 }
 
-
-
 const BestSelling = () => {
   const router = useRouter();
 
@@ -30,7 +28,7 @@ const BestSelling = () => {
     const getData = async () => {
       const res = await axiosInstance.get("/games?sort=popularity&limit=8");
       console.log(res);
-      const resGames:Game[] = res.data.data.map((game: any) => {
+      const resGames: Game[] = res.data.data.map((game: any) => {
         return {
           id: game.id,
           title: game.productName,
@@ -43,9 +41,8 @@ const BestSelling = () => {
       });
       console.log(resGames);
       setBestSellingGames(resGames);
-    }
+    };
     getData();
-      
   }, []);
   return (
     <section
@@ -75,11 +72,22 @@ const BestSelling = () => {
         <div className="grid grid-cols-2 gap-y-[10px] place-items-center lg:grid-cols-3 2xl:grid-cols-4 sm:gap-y-[15px] md:gap-y-[20px] lg:gap-y-[25px] xl:gap-y-[30px] 2xl:gap-y-[33px]">
           {/* Products */}
           {bestSellingGames.map(
-            ({ id ,title, desc, discountPrice, originalPrice, poster, rating }) => (
+            ({
+              id,
+              title,
+              desc,
+              discountPrice,
+              originalPrice,
+              poster,
+              rating,
+            }) => (
               <article
-                onClick={() => router.push(`/products/view/?id=${id}`)}
                 key={title}
                 className="relative w-[150px] cursor-pointer sm:w-[200px] md:w-[240px] lg:w-[280px] xl:w-[300px] 2xl:w-[320px] z-10 group"
+                onClick={() => {
+                  console.log("clicked");
+                  router.push(`/products/view/?id=${id}`);
+                }}
               >
                 {/* Text area */}
                 <div
@@ -100,16 +108,27 @@ const BestSelling = () => {
                   </p>
 
                   {/* Seperator */}
-                  <hr />
+                  <hr className="my-[0.2em]" />
 
-                  {/* Origianl and discount price */}
-                  <p className="font-semibold">
-                    ${discountPrice || originalPrice}&nbsp;
-                    {discountPrice && (
-                      <span className="text-[8px] font-normal line-through sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[13px]">
-                        ${originalPrice}
-                      </span>
+                  {/* Stars */}
+                  <div
+                    className={`${
+                      rating > 0 ? "text-[#f29d38]" : "text-[#171717]"
+                    } text-[8px] mt-[0.1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]`}
+                  >
+                    {rating > 0 ? (
+                      <StarRating rating={Math.round(rating)} />
+                    ) : (
+                      <StarRating rating={5} />
                     )}
+                  </div>
+
+                  {/* Rating text */}
+                  <p className="mt-[0em] text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+                    {rating.toFixed(1)}&nbsp;
+                    <span className="text-[7px] sm:text-[8px] md:text-[8.5px] lg:text-[9px] xl:text-[9.5px] 2xl:text-[10px]">
+                      Rating
+                    </span>
                   </p>
 
                   {/* Border */}
@@ -155,7 +174,7 @@ const BestSelling = () => {
                   </div>
                 </div>
 
-                {/* Rating */}
+                {/* Price */}
                 <div
                   className="absolute bottom-[5%] left-0 w-fit h-fit bg-black/20 text-[8px] backdrop-blur-[3px] sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
                   style={{
@@ -164,21 +183,19 @@ const BestSelling = () => {
                   }}
                 >
                   <div className="relative ps-[0.8em] pe-[1.2em] py-[0.5em]">
-                    {/* <div className="relative w-[6.425em] pt-[0.5em] pb-[0.24em] ps-[0.579375em]"> */}
-                    {/* Stars */}
-                    <div className="text-[#f29d38]">
-                      <StarRating rating={Math.round(rating)} />
-                    </div>
-
-                    {/* Rating text */}
-                    <p className="mt-[0.2em]">
-                      {rating}&nbsp;
-                      <span className="text-[7px] sm:text-[8px] md:text-[8.5px] lg:text-[9px] xl:text-[9.5px] 2xl:text-[10px]">
-                        Rating
-                      </span>
+                    {/* Origianl and discount price */}
+                    <p className="font-rajdhaniFont font-semibold leading-none text-[#75F94C] text-[12px] sm:text-[16px] md:text-[20px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px]">
+                      ${discountPrice?.toFixed(2) || originalPrice.toFixed(2)}
+                      &nbsp;
                     </p>
 
-                    {/* Rating border */}
+                    {discountPrice && (
+                      <p className="text-[8px] font-normal line-through sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[13px]">
+                        ${originalPrice.toFixed(2)}
+                      </p>
+                    )}
+
+                    {/* Price border */}
                     <div
                       className="w-full h-full absolute left-0 top-0 bg-white"
                       style={{
@@ -196,15 +213,14 @@ const BestSelling = () => {
         {/* See more */}
         <div className="grid grid-cols-2 place-items-center lg:grid-cols-3 2xl:grid-cols-4">
           <div className="w-[150px] col-start-2 flex justify-end sm:w-[200px] md:w-[240px] lg:w-[280px] lg:col-start-3 xl:w-[300px] 2xl:w-[320px] 2xl:col-start-4">
-            <Button
-              variant="gaming"
-              className="h-fit text-[7px] px-[2.26em] py-[0.5em] mt-[2em] mb-[4.5em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]"
-              onClick={
-                () => router.push("/shop-page")
-              }
-            >
-              See More <LiaAngleRightSolid />
-            </Button>
+            <Link href="/shop-page">
+              <Button
+                variant="gaming"
+                className="h-fit text-[7px] px-[2.26em] py-[0.5em] mt-[2em] mb-[4.5em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]"
+              >
+                See More <LiaAngleRightSolid />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

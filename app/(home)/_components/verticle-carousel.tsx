@@ -1,4 +1,4 @@
-import StarRating from "./star-rating";
+import VerticalCarouselCard from "./vertical-carousel-card";
 import one from "@/public/images/home/vertical-carousel/one.png";
 import two from "@/public/images/home/vertical-carousel/two.png";
 import three from "@/public/images/home/vertical-carousel/three.png";
@@ -8,33 +8,33 @@ import "./verticle-carousel.css";
 
 const data = [
   {
-    poster: one,
+    poster: one.src,
     name: "Worshippers of Cthulu",
-    price: 299,
-    rating: 5,
+    price: 2992,
+    rating: 0,
   },
   {
-    poster: two,
+    poster: two.src,
     name: "Warhammer 40,000: Space Marine 2",
-    price: 299,
+    price: 2992,
     rating: 5,
   },
   {
-    poster: three,
+    poster: three.src,
     name: "Assassin's Creed Shadows",
-    price: 299,
+    price: 2991,
     rating: 5,
   },
   {
-    poster: four,
+    poster: four.src,
     name: "Star Wars Outlaws",
-    price: 299,
+    price: 2993,
     rating: 5,
   },
   {
-    poster: five,
+    poster: five.src,
     name: "Skull and Bones",
-    price: 299,
+    price: 2994,
     rating: 5,
   },
 ];
@@ -63,148 +63,18 @@ const VerticalCarousel = () => {
         {/* Carousel */}
         <div className="vertical-carousel-container">
           {data.map(({ poster, name, price, rating }, i) => (
-            <div
-              key={name}
-              className={`vertical-carousel-box vertical-carousel-box-${i} ${
-                i === 3
-                  ? "hidden min-[550px]:block"
-                  : i === 4
-                  ? "hidden sm:block"
-                  : ""
-              }`}
-              style={{ backgroundImage: `url(${poster.src})` }}
-            >
-              <div className="vertical-carousel-box-content w-full h-full bg-gradient-to-b from-black via-transparent to-black flex flex-col items-end justify-end text-right p-[1em]">
-                <h3 className="font-bold text-[#75F94C] uppercase w-[8ch] overflow-hidden text-ellipsis">
-                  {name}
-                </h3>
-                <p className="font-semibold text-[2em] uppercase leading-none">
-                  ${price}
-                </p>
-                <p className="text-[0.5em] text-[#f29d38]">
-                  <StarRating rating={rating} />
-                </p>
-                <p className="font-medium text-[7px] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]">
-                  Rating
-                </p>
-                <hr className="w-full mt-[0.2em]" />
-              </div>
-            </div>
+            <VerticalCarouselCard
+              key={i}
+              poster={poster}
+              name={name}
+              price={price}
+              rating={rating}
+              i={i}
+            />
           ))}
         </div>
       </div>
     </section>
-
-    // <div className="bg-[#000000] pt-[100px]">
-    //   <div className=" ">
-    //     <div className="flex items-center justify-center relative">
-    //       <div className="border-[3px] border-[#0BDB45] w-max px-14 py-5">
-    //         <p className="text-white font-primaryFont font-bold text-[50px] text-center">
-    //           LATEST GAMES
-    //         </p>
-    //       </div>
-
-    //       <div className="absolute flex top-[-20px] justify-center">
-    //         <p className="font-primaryFont font-medium text-[40px] text-[#45F882] text-center w-max inline bg-black px-8">
-    //           TOP MUCH
-    //         </p>
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   <div className="vertical-carousel-container pt-10">
-    //     <div>
-    //       <div className="vertical-carousel-content">
-    //         <div className="flex flex-col items-center justify-end">
-    //           <h2 className="font-primaryFont font-bold text-[45px] text-[#75F94C] mb-4">
-    //             VOLORANT
-    //           </h2>
-    //           <p className="font-secondaryFont font-light text-[65px] text-[#fff] leading-none mb-2">
-    //             $299
-    //           </p>
-    //           <div className="flex items-center text-[#f29d38] mb-2">
-    //             <StarRating rating={4} />
-    //           </div>
-    //           <p className="font-secondaryFont font-light text-[16px] text-[#fff]">
-    //             Rating
-    //           </p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div>
-    //       <div className="vertical-carousel-content">
-    //         <div className="flex flex-col items-center justify-end">
-    //           <h2 className="font-primaryFont font-bold text-[45px] text-[#75F94C] mb-4">
-    //             VOLORANT
-    //           </h2>
-    //           <p className="font-secondaryFont font-light text-[65px] text-[#fff] leading-none mb-2">
-    //             $299
-    //           </p>
-    //           <div className="flex items-center text-[#f29d38] mb-2">
-    //             <StarRating rating={5} />
-    //           </div>
-    //           <p className="font-secondaryFont font-light text-[16px] text-[#fff]">
-    //             Rating
-    //           </p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div>
-    //       <div className="vertical-carousel-content">
-    //         <div className="flex flex-col items-center justify-end">
-    //           <h2 className="font-primaryFont font-bold text-[45px] text-[#75F94C] mb-4">
-    //             VOLORANT
-    //           </h2>
-    //           <p className="font-secondaryFont font-light text-[65px] text-[#fff] leading-none mb-2">
-    //             $299
-    //           </p>
-    //           <div className="flex items-center text-[#f29d38] mb-2">
-    //             <StarRating rating={3} />
-    //           </div>
-    //           <p className="font-secondaryFont font-light text-[16px] text-[#fff]">
-    //             Rating
-    //           </p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div>
-    //       <div className="vertical-carousel-content">
-    //         <div className="flex flex-col items-center justify-end">
-    //           <h2 className="font-primaryFont font-bold text-[45px] text-[#75F94C] mb-4">
-    //             VOLORANT
-    //           </h2>
-    //           <p className="font-secondaryFont font-light text-[65px] text-[#fff] leading-none mb-2">
-    //             $299
-    //           </p>
-    //           <div className="flex items-center text-[#f29d38] mb-2">
-    //             <StarRating rating={2} />
-    //           </div>
-    //           <p className="font-secondaryFont font-light text-[16px] text-[#fff]">
-    //             Rating
-    //           </p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div>
-    //       <div className="vertical-carousel-content">
-    //         <div className="flex flex-col items-center justify-end">
-    //           <h2 className="font-primaryFont font-bold text-[45px] text-[#75F94C] mb-4">
-    //             VOLORANT
-    //           </h2>
-    //           <p className="font-secondaryFont font-light text-[65px] text-[#fff] leading-none mb-2">
-    //             $299
-    //           </p>
-    //           <div className="flex items-center text-[#f29d38] mb-2">
-    //             <StarRating rating={5} />
-    //           </div>
-    //           <p className="font-secondaryFont font-light text-[16px] text-[#fff]">
-    //             Rating
-    //           </p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

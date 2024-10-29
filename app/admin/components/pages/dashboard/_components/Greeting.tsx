@@ -26,7 +26,7 @@ const Greeting = () => {
       greeting = "Good Night";
     }
 
-    setGreetingMessage(`${greeting}`);
+    setGreetingMessage(greeting);
   };
 
   useEffect(() => {
@@ -38,8 +38,8 @@ const Greeting = () => {
   }, []);
 
   return (
-    <div className="text-[12px] mt-[3em]">
-      <h1 className="font-bold">
+    <div className="text-[12px] mt-[3em] mb-[2em] sm:text-[16px] md:text-[20px] sm:mt-[36px] lg:text-[24px] xl:text-[28px] 2xl:text-[30px]">
+      <h1 className="font-bold capitalize">
         {greetingMessage} {user}
       </h1>
       <hr className="w-[25ch] border-t-[#00FFA1]" />

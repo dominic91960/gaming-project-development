@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 import toast from "react-hot-toast";
 import axiosInstance from "@/axios/axiosInstance";
@@ -18,9 +18,9 @@ import {
 import { PiWarningCircleLight } from "react-icons/pi";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { IoMdHeartEmpty, IoIosCart } from "react-icons/io";
+import { MdOutlineSpeakerNotesOff } from "react-icons/md";
 
-import ProductSearchBar from "@/components/product-search/product-search";
-import Navbar from "@/components/navbar/navbar";
+import { useCartContext } from "@/context/CartContext";
 import StarRating from "@/app/(home)/_components/star-rating";
 import ImageCarousel from "../_components/image-carousel";
 import RequirementsCard from "../_components/requirements-card";
@@ -36,8 +36,6 @@ import mastercard from "@/public/images/product/mastercard.png";
 import skrill from "@/public/images/product/skrill.png";
 import samplePic from "@/public/images/sample-pic.png";
 import "../_components/product.css";
-import { useCartContext } from "@/context/CartContext";
-import { useRouter } from "next/navigation";
 
 export default function ProductPage() {
   const searchParams = useSearchParams();
@@ -180,7 +178,8 @@ export default function ProductPage() {
     };
     getData();
     getReviewsByGameId(id);
-  }, []);
+  }, [id]);
+
   const getReviewsByGameId = async (id: any) => {
     try {
       const response = await axiosInstance.get(
@@ -193,6 +192,7 @@ export default function ProductPage() {
       // setLoading(false);
     }
   };
+
   const calculateOverallRating = (reviews: any) => {
     console.log(reviews, "rateing");
     let total = 0;
@@ -201,6 +201,7 @@ export default function ProductPage() {
     });
     return total / (reviews.length * 5);
   };
+
   const calDiscountPercentage = () => {
     if (!gameData) {
       return "0";
@@ -302,15 +303,19 @@ export default function ProductPage() {
                           >
                             <button className="select-none flex gap-x-[0.5ch]">
                               <p className="max-w-[8ch] overflow-hidden text-ellipsis">
-                                {gameData?.languages[0]}
+                                {gameData?.languages[0].split(",")[0]}
                               </p>
-                              {gameData.languages.length > 1 && (
-                                <p> & {gameData.languages.length - 1} more</p>
+                              {gameData.languages[0].split(",").length > 1 && (
+                                <p>
+                                  &&nbsp;
+                                  {gameData.languages[0].split(",").length - 1}
+                                  &nbsp;more
+                                </p>
                               )}
                             </button>
                           </TooltipTrigger>
                           <TooltipContent
-                            className="rounded-none bg-black/50 text-white backdrop-blur-[2px]"
+                            className="rounded-none bg-black/50 text-white backdrop-blur-sm"
                             style={{
                               borderImage:
                                 "linear-gradient(to bottom, transparent, #999999) 1",
@@ -321,14 +326,16 @@ export default function ProductPage() {
                             <p className="text-[13px] py-[0.4em] font-bold border-b">
                               Available Languages
                             </p>
-                            {gameData.languages.map((language) => (
-                              <p
-                                key={language}
-                                className="text-[13px] py-[0.4em]"
-                              >
-                                {language}
-                              </p>
-                            ))}
+                            {gameData.languages[0]
+                              .split(",")
+                              .map((language) => (
+                                <p
+                                  key={language}
+                                  className="text-[13px] py-[0.4em]"
+                                >
+                                  {language}
+                                </p>
+                              ))}
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
@@ -390,7 +397,9 @@ export default function ProductPage() {
                     {/* Price */}
                     <div className="flex text-[1.8em] font-bold mt-[0.3em]">
                       <p className="">
-                        $ {gameData.discountPrice || gameData.originalPrice}
+                        ${" "}
+                        {gameData.discountPrice.toFixed(2) ||
+                          gameData.originalPrice.toFixed(2)}
                       </p>
                       <div className="flex items-center text-[0.33em] font-medium ps-[0.7em] gap-x-[0.2em]">
                         <PiWarningCircleLight className="size-[1.22em]" />
@@ -402,7 +411,7 @@ export default function ProductPage() {
                     {gameData.discountPrice && (
                       <p className="font-semibold flex items-center">
                         <span className="line-through opacity-70">
-                          $ {gameData.originalPrice}
+                          $ {gameData.originalPrice.toFixed(2)}
                         </span>
                         <span className="font-medium text-[0.7em] text-[#0BDB45] ">
                           &nbsp;Save&nbsp;
@@ -473,7 +482,9 @@ export default function ProductPage() {
                 {/* Price */}
                 <div className="flex text-[2em] font-bold mt-[0.3em]">
                   <p className="">
-                    $ {gameData.discountPrice || gameData.originalPrice}
+                    ${" "}
+                    {gameData.discountPrice.toFixed(2) ||
+                      gameData.originalPrice.toFixed(2)}
                   </p>
                   <div className="flex items-center text-[0.35em] font-medium ps-[0.7em] gap-x-[0.2em]">
                     <PiWarningCircleLight className="size-[1.25em]" />
@@ -485,7 +496,7 @@ export default function ProductPage() {
                 {gameData.discountPrice && (
                   <p className="font-semibold flex items-center">
                     <span className="line-through opacity-70">
-                      $ {gameData.originalPrice}
+                      $ {gameData.originalPrice.toFixed(2)}
                     </span>
                     <span className="font-medium text-[0.8em] text-[#0BDB45] ">
                       &nbsp;Save&nbsp;
@@ -533,7 +544,7 @@ export default function ProductPage() {
               </div>
 
               {/* Card Area */}
-              <div className="flex flex-wrap justify-around gap-y-[2.4em] border-t border-t-[#999999] capitalize font-medium text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] text-center pt-[4em] mt-[4em] lg:text-left">
+              <div className="flex justify-around gap-[2em] border-t border-t-[#999999] capitalize font-normal text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] text-center pt-[4em] mt-[4em] lg:text-left">
                 {/* Card one */}
                 <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
                   <Image
@@ -545,14 +556,16 @@ export default function ProductPage() {
                   />
                   <div>
                     <p className="font-bold text-[1.3em] uppercase">Global</p>
-                    <p className="opacity-70">All country</p>
+                    <p className="opacity-70">
+                      Available in all regions worldwide
+                    </p>
                   </div>
                 </div>
 
                 {/* Card two */}
                 <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
                   <Image
-                    src={`${gameData.platform.image}`}
+                    src={gameData.platform.image}
                     alt="Platform"
                     width={68}
                     height={68}
@@ -562,7 +575,11 @@ export default function ProductPage() {
                     <p className="font-bold text-[1.3em] uppercase">
                       {gameData.platform.name}
                     </p>
-                    <p className="opacity-70">Activate/redeem on Steam</p>
+                    <p className="font-normal capitalize">
+                      <span className="opacity-70">Activate/redeem on</span>
+                      &nbsp;
+                      {gameData.platform.name}
+                    </p>
                   </div>
                 </div>
 
@@ -579,7 +596,7 @@ export default function ProductPage() {
                     <p className="font-bold text-[1.3em] uppercase">
                       Digital keys
                     </p>
-                    <p className="opacity-70">Instant delivery</p>
+                    <p className="opacity-70">Instant delivery sent by email</p>
                   </div>
                 </div>
               </div>
@@ -592,13 +609,33 @@ export default function ProductPage() {
                 <div className="bg-white/5 p-[2em] mt-[2em]">
                   <div className="flex justify-between items-center text-[1.2em] font-medium">
                     <p>Payment method</p>
-                    <Image src={lock} alt="Payment secured" />
+                    <Image
+                      src={lock}
+                      alt="Payment secured"
+                      className="w-[25px] sm:w-[30px] md:w-[35px] lg:w-[40px] xl:w-[42px] 2xl:w-[45px]"
+                    />
                   </div>
                   <div className="flex gap-x-[1em] my-[2em]">
-                    <Image src={paypal} alt="Paypal" />
-                    <Image src={visa} alt="Visa" />
-                    <Image src={mastercard} alt="Mastercard" />
-                    <Image src={skrill} alt="Skrill" />
+                    <Image
+                      src={paypal}
+                      alt="Paypal"
+                      className="w-[20px] sm:w-[24px] md:w-[28px] lg:w-[30px] xl:w-[32px] 2xl:w-[36px]"
+                    />
+                    <Image
+                      src={visa}
+                      alt="Visa"
+                      className="w-[20px] sm:w-[24px] md:w-[28px] lg:w-[30px] xl:w-[32px] 2xl:w-[36px]"
+                    />
+                    <Image
+                      src={mastercard}
+                      alt="Mastercard"
+                      className="w-[20px] sm:w-[24px] md:w-[28px] lg:w-[30px] xl:w-[32px] 2xl:w-[36px]"
+                    />
+                    <Image
+                      src={skrill}
+                      alt="Skrill"
+                      className="w-[20px] sm:w-[24px] md:w-[28px] lg:w-[30px] xl:w-[32px] 2xl:w-[36px]"
+                    />
                   </div>
                   <p className="opacity-70">
                     Your payment information is processed securely. We do not
@@ -641,7 +678,7 @@ export default function ProductPage() {
                 {/* Review button */}
                 <div className="flex items-center mb-[1.5em] text-[1.4em] sm:text-[1em] md:text-[0.8em] *:flex-grow">
                   <div>
-                    <StarRating rating={1} />
+                    <StarRating rating={5} />
                     <Button
                       variant="outline"
                       className="h-fit text-white text-[1em] py-[0.5em] px-[1em] mt-[0.8em] rounded-none"
@@ -650,15 +687,17 @@ export default function ProductPage() {
                       &#43; Add your review
                     </Button>
                   </div>
-                  <div>
-                    <p className="flex leading-tight">
-                      <span className="text-[#f29d38]">
-                        <StarRating rating={1} />
-                      </span>
-                      &nbsp;{calculateOverallRating(reviews)}
-                    </p>
-                    <p>Overall Rating</p>
-                  </div>
+                  {calculateOverallRating(reviews) < 0 && (
+                    <div>
+                      <p className="flex leading-tight">
+                        <span className="text-[#f29d38]">
+                          <StarRating rating={1} />
+                        </span>
+                        &nbsp;{calculateOverallRating(reviews)}
+                      </p>
+                      <p>Overall Rating</p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Review form */}
@@ -746,30 +785,40 @@ export default function ProductPage() {
                   ) : (
                     <p>No reviews found</p>
                   )} */}
-                  {reviews.map(
-                    ({
-                      avatar,
-                      username,
-                      fullname,
-                      title,
-                      content,
-                      date,
-                      rating,
-                    }) => (
-                      <ReviewCard
-                        key={username}
-                        avatar={avatar}
-                        username={username}
-                        fullname={fullname}
-                        title={title}
-                        content={content}
-                        date={date}
-                        rating={rating}
-                      />
+                  {reviews.length > 0 ? (
+                    reviews.map(
+                      ({
+                        avatar,
+                        username,
+                        fullname,
+                        title,
+                        content,
+                        date,
+                        rating,
+                      }) => (
+                        <ReviewCard
+                          key={username}
+                          avatar={avatar}
+                          username={username}
+                          fullname={fullname}
+                          title={title}
+                          content={content}
+                          date={date}
+                          rating={rating}
+                        />
+                      )
                     )
+                  ) : (
+                    <div className="w-full h-[20em] bg-white/5 flex flex-col items-center justify-center text-[8px] pb-[1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
+                      <MdOutlineSpeakerNotesOff className="text-[4em] opacity-80 animate-pulse" />
+                      <p className="mt-[0.5em]">
+                        No feedback available. You could be the first to write a
+                        review!
+                      </p>
+                    </div>
                   )}
                 </div>
-                <div className="flex justify-end">
+                <div className="flex justify-end pt-[1em]">
                   <Button
                     variant="gaming"
                     className="text-[1em] px-[1em] py-[0.5em] h-fit"

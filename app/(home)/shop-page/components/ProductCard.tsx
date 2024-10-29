@@ -31,7 +31,7 @@ const ProductCard: React.FC<Game> = ({
   return (
     <div className="relative bg-[#10160e] w-min">
       {/* Wishlist Icon */}
-      <div className="absolute top-[1em] left-[1em] z-50">
+      <div className="absolute top-[1em] left-[1em] z-40">
         <div>
           {isWishlisted ? (
             <IoHeartSharp

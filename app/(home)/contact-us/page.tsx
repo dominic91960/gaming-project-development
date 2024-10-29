@@ -34,7 +34,6 @@ function ContactPage() {
   return (
     // <div className={montserrat.className}>
     <div>
-      <ProductSearchBar />
       {/* <Navbar /> */}
       <div className="relative w-full h-[162px] lg:h-[420px] xl:h-[420px] 2xl:h-[420px] px-8 text-white">
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-100 z-10"></div>
@@ -68,7 +67,7 @@ function ContactPage() {
       <div className="relative bg-[#051301]">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent opacity-100"></div>
         <div className="container mx-auto w-full h-full items-start  text-center pt-2 lg:pt-8">
-          <div className="items-center justify-center text-center relative z-50">
+          <div className="items-center justify-center text-center relative">
             <div className="flex flex-col items-center justify-center">
               <p className="text-[10px]  md:text-[15px] lg:text-[20px]  xl:text-[28px] text-white">
                 Get in touch with us !
@@ -100,11 +99,11 @@ function ContactPage() {
               </div>
             </div>
 
-            <div className="z-50 flex-1 w-full px-8  lg:mt-24 xl:mt-36 2xl:mt-36">
+            <div className="flex-1 w-full px-8  lg:mt-24 xl:mt-36 2xl:mt-36">
               <ContactForm />
             </div>
 
-            <div className="flex flex-col items-center m-[1em] lg:m-[2em] xl:m-[2em]">
+            <div className="relative flex flex-col items-center m-[1em] lg:m-[2em] xl:m-[2em] z-10">
               <ul className="flex gap-x-[2em] mt-[0.8em]">
                 <li className="w-fit hover:scale-110">
                   <Link href="/">
@@ -129,7 +128,7 @@ function ContactPage() {
               </ul>
             </div>
 
-            <div className="w-full h-[158px] lg:h-[365px] z-50 pb-[2em] px-8">
+            <div className="relative w-full h-[158px] lg:h-[365px] pb-[2em] px-8 z-10">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093795!2d144.95373541547944!3d-37.81627944202161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce7e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2slk!4v1602773587239!5m2!1sen!2slk"
                 width="100%"

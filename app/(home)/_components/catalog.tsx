@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { LiaAngleRightSolid } from "react-icons/lia";
@@ -55,12 +56,14 @@ const Catalog = () => {
           </p>
 
           {/* View all games button */}
-          <Button
-            variant="gaming"
-            className="h-fit text-[7px] capitalize px-[2.26em] py-[0.5em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]"
-          >
-            View all games <LiaAngleRightSolid />
-          </Button>
+          <Link href="/shop-page">
+            <Button
+              variant="gaming"
+              className="h-fit text-[7px] capitalize px-[2.26em] py-[0.5em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]"
+            >
+              View all games <LiaAngleRightSolid />
+            </Button>
+          </Link>
         </div>
       </div>
 
