@@ -6,6 +6,8 @@ import { MdDeleteForever } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCartContext } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
+
 import {
   Sheet,
   SheetClose,
@@ -72,6 +74,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
   const [discountApplied, setDiscountApplied] = useState<number>(0);
   const [discountMessage, setDiscountMessage] = useState<string>("");
   const [tempDiscount, setTempDiscount] = useState<string>("");
+  const router = useRouter();
   const handleRemoveItem = (id: number) => {
     removeItem(id);
   };
@@ -243,6 +246,14 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
             Proceed to Checkout
           </Button>
         </SheetClose>
+        <Button
+          className="mt-4"
+          onClick={() => {
+            router.push('/cart')
+          }}
+        >
+          View Cart
+        </Button>
       </SheetContent>
     </Sheet>
   );
