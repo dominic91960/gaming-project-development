@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
+import axiosInstance from "@/axios/axiosInstance";
 import { Button } from "@/components/ui/button";
 import { LiaAngleRightSolid } from "react-icons/lia";
 
 import StarRating from "./star-rating";
 import bg from "@/public/images/home/best-selling/bg.png";
-import axiosInstance from "@/axios/axiosInstance";
-import { useRouter } from "next/navigation";
 
 interface Game {
   id: string;
@@ -212,13 +213,14 @@ const BestSelling = () => {
         {/* See more */}
         <div className="grid grid-cols-2 place-items-center lg:grid-cols-3 2xl:grid-cols-4">
           <div className="w-[150px] col-start-2 flex justify-end sm:w-[200px] md:w-[240px] lg:w-[280px] lg:col-start-3 xl:w-[300px] 2xl:w-[320px] 2xl:col-start-4">
-            <Button
-              variant="gaming"
-              className="h-fit text-[7px] px-[2.26em] py-[0.5em] mt-[2em] mb-[4.5em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]"
-              onClick={() => router.push("/shop-page")}
-            >
-              See More <LiaAngleRightSolid />
-            </Button>
+            <Link href="/shop-page">
+              <Button
+                variant="gaming"
+                className="h-fit text-[7px] px-[2.26em] py-[0.5em] mt-[2em] mb-[4.5em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]"
+              >
+                See More <LiaAngleRightSolid />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

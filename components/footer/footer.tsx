@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -17,6 +20,8 @@ import skrill from "@/public/images/footer/skrill.png";
 import "./footer.css";
 
 export default function Footer() {
+  const path = usePathname();
+
   return (
     <section className="bg-[#0B0E13] font-primaryFont text-white text-[9px] pt-[3em] pb-[2em] sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
       {/* main container */}
@@ -71,16 +76,36 @@ export default function Footer() {
             {/* Company list */}
             <ul className="uppercase text-[calc(1em+1px)]">
               <h4 className="font-medium text-[1.25em]">Company</h4>
-              <li className="w-fit mt-[0.8em] opacity-70 hover:opacity-90">
+              <li
+                className={`w-fit mt-[0.8em] hover:opacity-90 ${
+                  path === "/" ? "text-[#0BDB45]" : "opacity-70"
+                }`}
+              >
                 <Link href="/">Home</Link>
               </li>
-              <li className="w-fit mt-[0.8em] opacity-70 hover:opacity-90">
+              <li
+                className={`w-fit mt-[0.8em] hover:opacity-90 ${
+                  path.startsWith("/shop-page")
+                    ? "text-[#0BDB45]"
+                    : "opacity-70"
+                }`}
+              >
                 <Link href="/shop-page">Store</Link>
               </li>
-              <li className="w-fit mt-[0.8em] opacity-70 hover:opacity-90">
+              <li
+                className={`w-fit mt-[0.8em] hover:opacity-90 ${
+                  path.startsWith("/about") ? "text-[#0BDB45]" : "opacity-70"
+                }`}
+              >
                 <Link href="/about">About</Link>
               </li>
-              <li className="w-fit mt-[0.8em] opacity-70 hover:opacity-90">
+              <li
+                className={`w-fit mt-[0.8em] hover:opacity-90 ${
+                  path.startsWith("/contact-us")
+                    ? "text-[#0BDB45]"
+                    : "opacity-70"
+                }`}
+              >
                 <Link href="/contact-us">Contact</Link>
               </li>
             </ul>
