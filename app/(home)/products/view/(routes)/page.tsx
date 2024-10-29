@@ -305,7 +305,7 @@ export default function ProductPage() {
                             </button>
                           </TooltipTrigger>
                           <TooltipContent
-                            className="rounded-none bg-black/50 text-white backdrop-blur-[2px]"
+                            className="rounded-none bg-black/50 text-white backdrop-blur-sm"
                             style={{
                               borderImage:
                                 "linear-gradient(to bottom, transparent, #999999) 1",
@@ -387,7 +387,9 @@ export default function ProductPage() {
                     {/* Price */}
                     <div className="flex text-[1.8em] font-bold mt-[0.3em]">
                       <p className="">
-                        $ {gameData.discountPrice || gameData.originalPrice}
+                        ${" "}
+                        {gameData.discountPrice.toFixed(2) ||
+                          gameData.originalPrice.toFixed(2)}
                       </p>
                       <div className="flex items-center text-[0.33em] font-medium ps-[0.7em] gap-x-[0.2em]">
                         <PiWarningCircleLight className="size-[1.22em]" />
@@ -399,7 +401,7 @@ export default function ProductPage() {
                     {gameData.discountPrice && (
                       <p className="font-semibold flex items-center">
                         <span className="line-through opacity-70">
-                          $ {gameData.originalPrice}
+                          $ {gameData.originalPrice.toFixed(2)}
                         </span>
                         <span className="font-medium text-[0.7em] text-[#0BDB45] ">
                           &nbsp;Save&nbsp;
@@ -465,7 +467,9 @@ export default function ProductPage() {
                 {/* Price */}
                 <div className="flex text-[2em] font-bold mt-[0.3em]">
                   <p className="">
-                    $ {gameData.discountPrice || gameData.originalPrice}
+                    ${" "}
+                    {gameData.discountPrice.toFixed(2) ||
+                      gameData.originalPrice.toFixed(2)}
                   </p>
                   <div className="flex items-center text-[0.35em] font-medium ps-[0.7em] gap-x-[0.2em]">
                     <PiWarningCircleLight className="size-[1.25em]" />
@@ -477,7 +481,7 @@ export default function ProductPage() {
                 {gameData.discountPrice && (
                   <p className="font-semibold flex items-center">
                     <span className="line-through opacity-70">
-                      $ {gameData.originalPrice}
+                      $ {gameData.originalPrice.toFixed(2)}
                     </span>
                     <span className="font-medium text-[0.8em] text-[#0BDB45] ">
                       &nbsp;Save&nbsp;
@@ -586,13 +590,33 @@ export default function ProductPage() {
                 <div className="bg-white/5 p-[2em] mt-[2em]">
                   <div className="flex justify-between items-center text-[1.2em] font-medium">
                     <p>Payment method</p>
-                    <Image src={lock} alt="Payment secured" />
+                    <Image
+                      src={lock}
+                      alt="Payment secured"
+                      className="w-[25px] sm:w-[30px] md:w-[35px] lg:w-[40px] xl:w-[42px] 2xl:w-[45px]"
+                    />
                   </div>
                   <div className="flex gap-x-[1em] my-[2em]">
-                    <Image src={paypal} alt="Paypal" />
-                    <Image src={visa} alt="Visa" />
-                    <Image src={mastercard} alt="Mastercard" />
-                    <Image src={skrill} alt="Skrill" />
+                    <Image
+                      src={paypal}
+                      alt="Paypal"
+                      className="w-[20px] sm:w-[24px] md:w-[28px] lg:w-[30px] xl:w-[32px] 2xl:w-[36px]"
+                    />
+                    <Image
+                      src={visa}
+                      alt="Visa"
+                      className="w-[20px] sm:w-[24px] md:w-[28px] lg:w-[30px] xl:w-[32px] 2xl:w-[36px]"
+                    />
+                    <Image
+                      src={mastercard}
+                      alt="Mastercard"
+                      className="w-[20px] sm:w-[24px] md:w-[28px] lg:w-[30px] xl:w-[32px] 2xl:w-[36px]"
+                    />
+                    <Image
+                      src={skrill}
+                      alt="Skrill"
+                      className="w-[20px] sm:w-[24px] md:w-[28px] lg:w-[30px] xl:w-[32px] 2xl:w-[36px]"
+                    />
                   </div>
                   <p className="opacity-70">
                     Your payment information is processed securely. We do not
