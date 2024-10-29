@@ -238,7 +238,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
             </h2>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="mb-2 mt-2">
+            <div className="mb-2 mt-3">
               <Slider
                 value={value}
                 onValueChange={(newValue) => {
@@ -251,6 +251,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
                 max={maxPrice}
                 step={1}
               />
+
               <div className="flex items-center mt-3 gap-2">
                 <p className="text-[15px] font-normal font-primaryFont">
                   Price :

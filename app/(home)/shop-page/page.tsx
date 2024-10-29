@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
 
@@ -29,9 +29,8 @@ const ShopPage = () => {
     operatingSystems: [],
   };
 
-  const [filterParams, setFilterParams] = useState<FilterParams>(
-    initialFilterParams
-  );
+  const [filterParams, setFilterParams] =
+    useState<FilterParams>(initialFilterParams);
   const [clearFilters, setClearFilters] = useState(false);
   // const [loading, setLoading] = useState(true);
 
@@ -79,7 +78,7 @@ const ShopPage = () => {
         <div className="flex items-center justify-center">
           <div className="grid grid-cols-12 gap-6">
             <div className="col-span-2">
-              <Sidebar 
+              <Sidebar
                 setFilters={setFilterParams}
                 setClearFilters={setClearFilters}
               />
