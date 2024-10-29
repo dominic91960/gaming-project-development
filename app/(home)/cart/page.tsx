@@ -288,7 +288,7 @@ const Cart: React.FC = () => {
                       Discount
                     </p>
                     <p className="font-primaryFont text-[20px] font-bold text-white mb-2">
-                      - ${Math.max(totalDiscount, 0)}
+                      - ${Math.max(totalDiscount, 0).toFixed(2)}
                     </p>
                   </div>
                 )}
@@ -298,7 +298,7 @@ const Cart: React.FC = () => {
                     Total
                   </p>
                   <p className="font-primaryFont text-[30px] font-bold text-[#75F94C] mb-2">
-                    ${Math.max((lastPrice - totalDiscount), 0)}
+                    ${Math.max((lastPrice - totalDiscount), 0).toFixed(2)}
                   </p>
                 </div>
 

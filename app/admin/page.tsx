@@ -26,6 +26,7 @@ import { SidebarProvider } from "@/context/SidebarContext";
 import Spinner from "@/components/Spinner/Spinner";
 import { AuthProvider } from "@/context/AuthContext";
 import { OrderProvider } from "@/context/OrderContext";
+import { WishlistProvider } from "@/context/WishListContext";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
@@ -101,28 +102,30 @@ const AdminPanel: React.FC = () => {
 
   return (
     <AuthProvider>
-    <CategoryProvider>
-      <RoleProvider>
-        <OrderProvider>
-          <SidebarProvider>
-            <StatusBar
-              isMobileNavToggled={isMobileNavToggled}
-              setIsMobileNavToggled={setIsMobileNavToggled}
-            />
-            <div className="leaklights">
-              <Sidebar
-                onSelect={handleSelect}
-                isMobileNavToggled={isMobileNavToggled}
-                setIsMobileNavToggled={setIsMobileNavToggled}
-              />
-              <div className="hide-scrollbar flex-1 overflow-y-scroll z-10 min-h-screen font-primaryFont">
-                {renderContent()}
-              </div>
-            </div>
-          </SidebarProvider>
-        </OrderProvider>
-      </RoleProvider>
-    </CategoryProvider>
+      <CategoryProvider>
+        <RoleProvider>
+          <OrderProvider>
+            <WishlistProvider>
+              <SidebarProvider>
+                <StatusBar
+                  isMobileNavToggled={isMobileNavToggled}
+                  setIsMobileNavToggled={setIsMobileNavToggled}
+                />
+                <div className="leaklights">
+                  <Sidebar
+                    onSelect={handleSelect}
+                    isMobileNavToggled={isMobileNavToggled}
+                    setIsMobileNavToggled={setIsMobileNavToggled}
+                  />
+                  <div className="hide-scrollbar flex-1 overflow-y-scroll z-10 min-h-screen font-primaryFont">
+                    {renderContent()}
+                  </div>
+                </div>
+              </SidebarProvider>
+            </WishlistProvider>
+          </OrderProvider>
+        </RoleProvider>
+      </CategoryProvider>
     </AuthProvider>
   );
 };

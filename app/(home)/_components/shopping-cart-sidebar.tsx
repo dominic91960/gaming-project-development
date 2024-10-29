@@ -174,7 +174,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                     </button>
                   </div>
                   <p className="text-[#75F94C] font-bold">
-                    ${item.price * item.quantity}
+                    ${Math.max(item.price * item.quantity, 0).toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -193,11 +193,11 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
             </div> */}
             <div className="flex justify-between mt-2 text-white">
               <span>Discount</span>
-              <span>${discountApplied}</span>
+              <span>- ${discountApplied}</span>
             </div>
             <div className="flex justify-between text-lg font-bold mt-4 text-[#75F94C]">
               <span>Total</span>
-              <span>${Math.max(lastPrice - totalDiscount, 0)}</span>
+              <span>${Math.max(lastPrice - totalDiscount, 0).toFixed(2)}</span>
             </div>
           </div>
           {!(totalDiscount > 0) ? (
