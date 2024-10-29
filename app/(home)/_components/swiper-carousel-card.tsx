@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
-import { useRouter } from "next/navigation";
 
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,7 @@ interface SwiperCarouselCardProps {
   rating: number;
   description: string[];
   price: number;
-  wishlistedBy: string;
+  wishlistedBy: number;
   releaseDate: string;
   soldOut: boolean;
 }
@@ -31,8 +30,18 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
   releaseDate,
   soldOut,
 }) => {
-  const router = useRouter();
   const [isWishlisted, setIsWishlisted] = useState(false);
+
+  const formatWishlistedBy = (total: number) => {
+    if (total < 1000) {
+      return total;
+    }
+
+    const formattedValue = total / 1000;
+    const formattedValueString = formattedValue.toFixed(1);
+
+    return `${formattedValueString}K`;
+  };
 
   return (
     <article
@@ -57,11 +66,19 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
 
       <div className="-mt-[5em] md:-mt-0">
         {/* Title */}
-        <h3 className="font-bold text-[2em]">{title}</h3>
+        <h3 className="font-bold text-[2em] line-clamp-1">{title}</h3>
 
         {/* Rating */}
-        <div className="text-[#f29d38] text-[1.25em] pb-[0.7em]">
-          <StarRating rating={rating} />
+        <div
+          className={`${
+            rating > 0 ? "text-[#f29d38]" : "text-black/20"
+          } text-[1.25em] pb-[0.7em]`}
+        >
+          {rating > 0 ? (
+            <StarRating rating={rating} />
+          ) : (
+            <StarRating rating={5} />
+          )}
         </div>
         <hr className="w-2/5" />
 
@@ -77,7 +94,8 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
         {/* Price and release date */}
         <div className="flex justify-between pt-[1.5em]">
           <h4>
-            <span className="text-[2.25em]">$ {price.toFixed(2)}</span>
+            {/* <span className="text-[2.25em]">$ {price.toFixed(2)}</span> */}
+            <span className="text-[2em]">${price.toFixed(2)}</span>
             <span className="text-[1.1em]"> USD</span>
           </h4>
           <div>
@@ -91,7 +109,7 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
                 <IoHeartSharp className="text-[1.4em] me-[0.2em]" />
               )}
 
-              {wishlistedBy}
+              {formatWishlistedBy(wishlistedBy)}
             </p>
             <p>Release Date: {releaseDate}</p>
           </div>
@@ -103,10 +121,6 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
             <Button
               variant="gaming"
               className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] border border-[#0BDB45] h-fit"
-              // onClick={() => {
-              //   console.log("clicked");
-              //   router.push(`/products/view/?id=${id}`);
-              // }}
             >
               Buy now
             </Button>

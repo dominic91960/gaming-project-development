@@ -5,7 +5,6 @@ import { LiaAngleRightSolid } from "react-icons/lia";
 
 import StarRating from "./star-rating";
 import bg from "@/public/images/home/best-selling/bg.png";
-import cardBg from "@/public/images/home/best-selling/card-bg.png";
 import axiosInstance from "@/axios/axiosInstance";
 import { useRouter } from "next/navigation";
 
