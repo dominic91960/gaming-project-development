@@ -447,12 +447,12 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
       </Accordion>
 
       <Button
-        className="bg-[#BD0202] rounded-none px-6 mb-6 mr-2"
+        className="bg-[#BD0202] rounded-none h-[30px] mt-3 text-[12px] mb-8"
         onClick={handleClearAll}
       >
         Clear all
       </Button>
-      <Button
+      {/* <Button
         onClick={() => {
           setFilters(filterParams);
           console.log(filterParams);
@@ -460,7 +460,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
         className="bg-[#BD0202] rounded-none px-6 mb-6"
       >
         Filter
-      </Button>
+      </Button> */}
     </aside>
   );
 };

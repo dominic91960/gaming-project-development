@@ -233,9 +233,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   // }
 
   return (
-    <div className="min-w-full p-4">
-      <div className="flex items-center justify-between mb-4">
-        <p className="text-[15px] font-normal font-primaryFont text-white">
+    <div className="min-w-full px-4 pb-4">
+      <div className="flex items-start justify-between mb-6">
+        <p className="text-[15px] font-normal font-primaryFont text-white leading-none">
           {total} result found:
         </p>
 
