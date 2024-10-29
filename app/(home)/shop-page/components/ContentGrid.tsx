@@ -27,12 +27,14 @@ type FilterParams = {
 };
 
 interface ContentGridProps {
-  filterParams: FilterParams
-  clearFilters: boolean
+  filterParams: FilterParams;
+  clearFilters: boolean;
 }
 
-const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters }) => {
-
+const ContentGrid: React.FC<ContentGridProps> = ({
+  filterParams,
+  clearFilters,
+}) => {
   const changePage = (page: number) => {
     setCurrentPage(page);
   };
@@ -58,7 +60,6 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
   const [sortTerm, setSortTerm] = useState("latest");
   const debouncedSortTerm = useDebounce(sortTerm, 500);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     const getData = async () => {
@@ -90,7 +91,6 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
       setLoading(false);
     };
     getData();
-
   }, [currentPage, clearFilters]);
 
   useEffect(() => {
@@ -99,18 +99,23 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
 
     const buildQueryParams = () => {
       const params = new URLSearchParams();
-      
+
       if (search) params.append("productName", search);
-      if (filterParams.rating) params.append("rating", filterParams.rating.toString());
-      if (filterParams.price) params.append("price", filterParams.price.toString());
-      if (filterParams.genres.length) params.append("tags", filterParams.genres.join(","));
-      if (filterParams.platforms.length) params.append("platforms", filterParams.platforms.join(","));
-      if (filterParams.brands.length) params.append("brands", filterParams.brands.join(","));
+      if (filterParams.rating)
+        params.append("rating", filterParams.rating.toString());
+      if (filterParams.price)
+        params.append("price", filterParams.price.toString());
+      if (filterParams.genres.length)
+        params.append("tags", filterParams.genres.join(","));
+      if (filterParams.platforms.length)
+        params.append("platforms", filterParams.platforms.join(","));
+      if (filterParams.brands.length)
+        params.append("brands", filterParams.brands.join(","));
       if (filterParams.operatingSystems.length)
         params.append("systems", filterParams.operatingSystems.join(","));
-      
+
       params.append("page", currentPage.toString());
-      
+
       return params.toString();
     };
 
@@ -147,24 +152,25 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
     };
 
     getData();
-
   }, [filterParams, clearFilters, currentPage]);
 
   useEffect(() => {
     // if (debouncedSeatch) {
-      handleSearch();
+    handleSearch();
     // }
   }, [debouncedSeatch]);
 
   useEffect(() => {
     // if (debouncedSortTerm) {
-      handleSort();
+    handleSort();
     // }
   }, [debouncedSortTerm]);
 
   const handleSearch = async () => {
     setLoading(true);
-    const res = await axiosInstance.get(`/games?productName=${search}&page=${currentPage}`);
+    const res = await axiosInstance.get(
+      `/games?productName=${search}&page=${currentPage}`
+    );
     console.log(res.data.data);
 
     const games = res.data.data.map((game: any) => {
@@ -189,11 +195,13 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
 
     setGames(games);
     setLoading(false);
-  }
+  };
 
   const handleSort = async () => {
     setLoading(true);
-    const res = await axiosInstance.get(`/games?sort=${sortTerm}&page=${currentPage}`);
+    const res = await axiosInstance.get(
+      `/games?sort=${sortTerm}&page=${currentPage}`
+    );
     console.log(res.data.data);
 
     const games = res.data.data.map((game: any) => {
@@ -218,24 +226,25 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
 
     setGames(games);
     setLoading(false);
-  }
+  };
 
   // if (loading) {
   //   return <Spinner loading={loading}/>
   // }
 
   return (
-    <div className="w-max p-4">
+    <div className="min-w-full p-4">
       <div className="flex items-center justify-between mb-4">
         <p className="text-[15px] font-normal font-primaryFont text-white">
-         {total} result found: 
+          {total} result found:
         </p>
 
         <div className="flex items-center gap-4">
           <div className="border p-2 rounded-none flex items-center gap-x-[0.75em] w-full">
-            <CiSearch 
-            onClick={handleSearch}
-            className="text-[20px] text-white cursor-pointer" />
+            <CiSearch
+              onClick={handleSearch}
+              className="text-[20px] text-white cursor-pointer"
+            />
             <input
               type="text"
               value={search}
@@ -246,7 +255,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
           </div>
 
           <div className="bg-[#666666]">
-            <Select  onValueChange={setSortTerm}>
+            <Select onValueChange={setSortTerm}>
               <SelectTrigger className="w-[180px] rounded-none border-none">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
@@ -264,21 +273,24 @@ const ContentGrid: React.FC<ContentGridProps> = ({ filterParams, clearFilters })
           </div>
         </div>
       </div>
-      {loading? <Spinner loading={loading} /> : 
-      <div className="grid grid-cols-4 gap-4">
-        {games.map((game, index) => (
-          <ProductCard
-            key={index}
-            id={game.id}
-            title={game.title}
-            sellingPrice={game.sellingPrice}
-            price={game.price}
-            rating={5}
-            soldOut={game.soldOut}
-            cardImage={game.cardImage}
-          />
-        ))}
-      </div>}
+      {loading ? (
+        <Spinner loading={loading} />
+      ) : (
+        <div className="grid grid-cols-4 gap-4">
+          {games.map((game, index) => (
+            <ProductCard
+              key={index}
+              id={game.id}
+              title={game.title}
+              sellingPrice={game.sellingPrice}
+              price={game.price}
+              rating={5}
+              soldOut={game.soldOut}
+              cardImage={game.cardImage}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Pagination Controls */}
       <div className="flex justify-center items-center mt-8">
