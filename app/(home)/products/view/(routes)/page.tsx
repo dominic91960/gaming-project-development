@@ -18,6 +18,7 @@ import {
 import { PiWarningCircleLight } from "react-icons/pi";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { IoMdHeartEmpty, IoIosCart } from "react-icons/io";
+import { MdOutlineSpeakerNotesOff } from "react-icons/md";
 
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
@@ -659,7 +660,7 @@ export default function ProductPage() {
                 {/* Review button */}
                 <div className="flex items-center mb-[1.5em] text-[1.4em] sm:text-[1em] md:text-[0.8em] *:flex-grow">
                   <div>
-                    <StarRating rating={1} />
+                    <StarRating rating={5} />
                     <Button
                       variant="outline"
                       className="h-fit text-white text-[1em] py-[0.5em] px-[1em] mt-[0.8em] rounded-none"
@@ -668,15 +669,17 @@ export default function ProductPage() {
                       &#43; Add your review
                     </Button>
                   </div>
-                  <div>
-                    <p className="flex leading-tight">
-                      <span className="text-[#f29d38]">
-                        <StarRating rating={1} />
-                      </span>
-                      &nbsp;{calculateOverallRating(reviews)}
-                    </p>
-                    <p>Overall Rating</p>
-                  </div>
+                  {calculateOverallRating(reviews) < 0 && (
+                    <div>
+                      <p className="flex leading-tight">
+                        <span className="text-[#f29d38]">
+                          <StarRating rating={1} />
+                        </span>
+                        &nbsp;{calculateOverallRating(reviews)}
+                      </p>
+                      <p>Overall Rating</p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Review form */}
@@ -764,30 +767,40 @@ export default function ProductPage() {
                   ) : (
                     <p>No reviews found</p>
                   )} */}
-                  {reviews.map(
-                    ({
-                      avatar,
-                      username,
-                      fullname,
-                      title,
-                      content,
-                      date,
-                      rating,
-                    }) => (
-                      <ReviewCard
-                        key={username}
-                        avatar={avatar}
-                        username={username}
-                        fullname={fullname}
-                        title={title}
-                        content={content}
-                        date={date}
-                        rating={rating}
-                      />
+                  {reviews.length > 0 ? (
+                    reviews.map(
+                      ({
+                        avatar,
+                        username,
+                        fullname,
+                        title,
+                        content,
+                        date,
+                        rating,
+                      }) => (
+                        <ReviewCard
+                          key={username}
+                          avatar={avatar}
+                          username={username}
+                          fullname={fullname}
+                          title={title}
+                          content={content}
+                          date={date}
+                          rating={rating}
+                        />
+                      )
                     )
+                  ) : (
+                    <div className="w-full h-[20em] bg-white/5 flex flex-col items-center justify-center text-[8px] pb-[1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
+                      <MdOutlineSpeakerNotesOff className="text-[4em] opacity-80 animate-pulse" />
+                      <p className="mt-[0.5em]">
+                        No feedback available. You could be the first to write a
+                        review!
+                      </p>
+                    </div>
                   )}
                 </div>
-                <div className="flex justify-end">
+                <div className="flex justify-end pt-[1em]">
                   <Button
                     variant="gaming"
                     className="text-[1em] px-[1em] py-[0.5em] h-fit"
