@@ -37,6 +37,7 @@ import skrill from "@/public/images/product/skrill.png";
 import samplePic from "@/public/images/sample-pic.png";
 import "../_components/product.css";
 import { useCartContext } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 
 export default function ProductPage() {
   const searchParams = useSearchParams();
@@ -46,6 +47,7 @@ export default function ProductPage() {
   const [rate, setRate] = useState<number>(1);
   const [comment, setComment] = useState<string>("");
   const [reviews, setReviews] = useState<any[]>([]);
+  const router = useRouter();
 
   const { addItem } = useCartContext();
 
@@ -214,7 +216,10 @@ export default function ProductPage() {
     return <Spinner loading={true} />;
   }
 
-  const addToCartAndRedirect = (id: string | null) => {};
+  const addToCartAndRedirect = async (id: string | null) => {
+    await addToCardItem(id);
+    router.push("/cart");
+  };
 
   const addReview = async () => {
     const user = JSON.parse(localStorage.getItem("user") as string);

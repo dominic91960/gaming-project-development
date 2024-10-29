@@ -30,6 +30,7 @@ const Cart: React.FC = () => {
     setDiscount,
     totalDiscount,
     discountData,
+    proceedCheckout,
   } = useCartContext(); // Access cart data from context
   const [discountCode, setDiscountCode] = useState<string>("");
   const [discountApplied, setDiscountApplied] = useState<number>(0);
@@ -306,13 +307,14 @@ const Cart: React.FC = () => {
                     className="bg-[#75F94C] text-white text-[22px] font-bold font-primaryFont rounded-none px-8"
                     onClick={() => {
                       // Ensure discountCode is defined before creating the order
-                      if (discountCode) {
-                        createOrder(discountCode);
+                      proceedCheckout();
+                      /* if (discountCode) {
+                        proceedCheckout(discountCode);
                       } else {
                         toast.error(
                           "Please enter a valid discount code before proceeding."
                         );
-                      }
+                      } */
                     }}
                   >
                     Proceed to checkout
