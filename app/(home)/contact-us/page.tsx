@@ -34,7 +34,6 @@ function ContactPage() {
   return (
     // <div className={montserrat.className}>
     <div>
-      <ProductSearchBar />
       {/* <Navbar /> */}
       <div className="relative w-full h-[162px] lg:h-[420px] xl:h-[420px] 2xl:h-[420px] px-8 text-white">
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-100 z-10"></div>
@@ -68,7 +67,7 @@ function ContactPage() {
       <div className="relative bg-[#051301]">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent opacity-100"></div>
         <div className="container mx-auto w-full h-full items-start  text-center pt-2 lg:pt-8">
-          <div className="items-center justify-center text-center relative z-50">
+          <div className="items-center justify-center text-center relative">
             <div className="flex flex-col items-center justify-center">
               <p className="text-[10px]  md:text-[15px] lg:text-[20px]  xl:text-[28px] text-white">
                 Get in touch with us !
@@ -100,7 +99,7 @@ function ContactPage() {
               </div>
             </div>
 
-            <div className="z-50 flex-1 w-full px-8  lg:mt-24 xl:mt-36 2xl:mt-36">
+            <div className="flex-1 w-full px-8  lg:mt-24 xl:mt-36 2xl:mt-36">
               <ContactForm />
             </div>
 

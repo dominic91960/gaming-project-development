@@ -11,18 +11,16 @@ import { useCartContext } from "@/context/CartContext";
 import {
   IoIosArrowForward,
   IoIosArrowBack,
-  IoIosLogOut,
   IoMdHeartEmpty,
-  IoIosCart,
   IoMdPerson,
 } from "react-icons/io";
+import { MdShoppingCart } from "react-icons/md";
 
 import { AuthContext } from "@/context/AuthContext";
 import axiosInstance from "@/axios/axiosInstance";
 import ProfileDefault from "@/public/images/navbar/profile_default.jpg";
 import "./navbar.css";
 // import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import samplePic from "@/public/images/sample-pic.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,7 +31,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { useRouter } from "next/navigation";
-import { FaUserPlus } from "react-icons/fa6";
 import NavBarSpinner from "../Spinner/NavBarSpinner";
 import { set } from "date-fns";
 import axios from "axios";
@@ -139,40 +136,43 @@ export default function Navbar() {
       );
     }
   };
+  const changeContent = () => {
+    setTimeout(() => setIsContentChanged(true), 3000);
+  };
 
   useEffect(() => {
     const verifySession = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
-        const res = await axios.get(process.env.NEXT_PUBLIC_BASE_URL+"/auth/verify-session", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
+        const res = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
         if (res.status === 200) {
-          setVerifySession(true)
-          return res.data
-        }else {
-          setVerifySession(false)
+          setVerifySession(true);
+          return res.data;
+        } else {
+          setVerifySession(false);
         }
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
-        console.log(error)
-      }finally {
-        setLoading(false)
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
     // setLoading(true)
-    verifySession()
+    verifySession();
     if (user) {
       // setIsMobileNavToggled(false);
       console.log("User:", user);
     }
-  },[]);
-
-  // useEffect(() => {
-  //   setTimeout(() => setIsContentChanged(true), 3000);
-  // }, [isContentChanged]);
+    changeContent();
+  }, []);
 
   return (
     <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white] z-50">
@@ -235,8 +235,13 @@ export default function Navbar() {
             </nav>
 
             {/* Desktop navigation icons */}
-            <div className="flex text-[1.5em] gap-x-[0.7em] lg:gap-x-[1em] justify-around">
-              <Link href="/wishlist" className="hover:scale-110">
+            <div className="flex items-center justify-aroundtext-[1.5em] gap-x-[0.7em] lg:gap-x-[1em]">
+              <Link
+                href="/wishlist"
+                className={`hover:scale-110 text-[1.5em] ${
+                  path.startsWith("/wishlist") ? "text-[#0BDB45]" : ""
+                }`}
+              >
                 <IoMdHeartEmpty />
               </Link>
 
@@ -246,54 +251,55 @@ export default function Navbar() {
                     {cart.length}
                   </span>
                 )}
-                <div className="relative">
-                  <IoIosCart className="text-2xl" />
+                <div className="relative text-[1.5em]">
+                  <MdShoppingCart />
                 </div>
               </Link>
 
-              {loading ? <NavBarSpinner loading={loading} /> :
-                          (verifySession ? (
-                            <DropdownMenu>
-                              <DropdownMenuTrigger className="cursor-pointer">
-                                <Image
-                                  src={user?.profile_image}
-                                  width={20}
-                                  height={20}
-                                  alt="Avatar"
-                                  className="size-[2em] rounded-full lg:size-[1.5em]"
-                                />
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent>
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem
-                                onClick={() => {
-                                  router.push("/profile?id="+user.id);
-                                }}
-                                >Profile</DropdownMenuItem>
-                                <DropdownMenuItem
-                                  onClick={() => {
-                                    axiosInstance.patch("/auth/logout");
-                                    localStorage.clear();
-                                    window.location.href = "/sign-in";
-                                  }}
-                                >
-                                  Logout
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          ) : (
-                            <Link
-                              href="/sign-in"
-                              className={`hover:scale-110 ${
-                                path.startsWith("/sign") ? "text-[#0BDB45]" : ""
-                              }`}
-                            >
-                              {/* <IoMdPerson /> */}
-                              <FaUserPlus />
-                            </Link>
-                          ))
-                        }
+              {loading ? (
+                <NavBarSpinner loading={loading} />
+              ) : verifySession ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="cursor-pointer">
+                    <Image
+                      src={user?.profile_image}
+                      width={20}
+                      height={20}
+                      alt="Avatar"
+                      className="size-[2em] rounded-full lg:size-[1.5em]"
+                    />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={() => {
+                        router.push("/profile?id=" + user.id);
+                      }}
+                    >
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        axiosInstance.patch("/auth/logout");
+                        localStorage.clear();
+                        window.location.href = "/sign-in";
+                      }}
+                    >
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link
+                  href="/sign-in"
+                  className={`hover:scale-110 text-[1.5em] ${
+                    path.startsWith("/sign") ? "text-[#0BDB45]" : ""
+                  }`}
+                >
+                  <IoMdPerson />
+                </Link>
+              )}
 
               {/* <div
                 onClick={() => {
@@ -309,7 +315,11 @@ export default function Navbar() {
           </div>
 
           {/* Mobile logo  */}
-          <Link href="/" className="sm:hidden">
+          <Link
+            href="/"
+            className="sm:hidden"
+            onClick={() => setIsMobileNavToggled(false)}
+          >
             <Image src={logo} alt="Logo" className="size-[3em]" />
           </Link>
 
@@ -344,6 +354,7 @@ export default function Navbar() {
           className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
             path === "/" ? "text-[#0BDB45]" : ""
           }`}
+          onClick={() => setIsMobileNavToggled(false)}
         >
           Home
         </Link>
@@ -352,6 +363,7 @@ export default function Navbar() {
           className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
             path.startsWith("/shop-page") ? "text-[#0BDB45]" : ""
           }`}
+          onClick={() => setIsMobileNavToggled(false)}
         >
           Store
         </Link>
@@ -360,51 +372,84 @@ export default function Navbar() {
           className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
             path.startsWith("/about") ? "text-[#0BDB45]" : ""
           }`}
+          onClick={() => setIsMobileNavToggled(false)}
         >
           About
         </Link>
         <Link
-          href="/contact"
+          href="/contact-us"
           className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
             path.startsWith("/contact-us") ? "text-[#0BDB45]" : ""
           }`}
+          onClick={() => setIsMobileNavToggled(false)}
         >
           Contact
         </Link>
         {/* Mobile navigation icons */}
         <div className="flex text-[1.5em] justify-around mt-[1.6em]">
-          <Link href="/wishlist" className="hover:scale-110">
+          <Link
+            href="/wishlist"
+            className={`hover:scale-110 ${
+              path.startsWith("/wishlist") ? "text-[#0BDB45]" : ""
+            }`}
+            onClick={() => setIsMobileNavToggled(false)}
+          >
             <IoMdHeartEmpty />
           </Link>
 
-          <Link href="/" className="hover:scale-110">
-            <IoIosCart />
-          </Link>
-
-          <Link href="/sign-in" className="hover:scale-110">
-            {user?.profile_image ? (
-              <Image
-                src={user?.profile_image ? user?.profile_image : ProfileDefault}
-                alt="Profile"
-                className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
-                width={25}
-                height={25}
-              />
-            ) : (
-              <IoMdPerson />
-            )}
-          </Link>
-
-          <div
-            onClick={() => {
-              axiosInstance.patch("/auth/logout");
-              localStorage.clear();
-              window.location.href = "/sign-in";
-            }}
-            className="cursor-pointer hover:scale-110"
+          <Link
+            href="/"
+            className="hover:scale-110"
+            onClick={() => setIsMobileNavToggled(false)}
           >
-            <IoIosLogOut />
-          </div>
+            <MdShoppingCart />
+          </Link>
+
+          {loading ? (
+            <NavBarSpinner loading={loading} />
+          ) : verifySession ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger className="cursor-pointer">
+                <Image
+                  src={user?.profile_image}
+                  width={20}
+                  height={20}
+                  alt="Avatar"
+                  className="size-[2em] rounded-full lg:size-[1.5em]"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => {
+                    router.push("/profile?id=" + user.id);
+                  }}
+                >
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    axiosInstance.patch("/auth/logout");
+                    localStorage.clear();
+                    window.location.href = "/sign-in";
+                  }}
+                >
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link
+              href="/sign-in"
+              className={`hover:scale-110 ${
+                path.startsWith("/sign") ? "text-[#0BDB45]" : ""
+              }`}
+              onClick={() => setIsMobileNavToggled(false)}
+            >
+              <IoMdPerson />
+            </Link>
+          )}
         </div>
       </nav>
 
