@@ -18,6 +18,13 @@ import React, {
   
   export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<any>(null);
+
+    useEffect(() => {
+        const user = localStorage.getItem("user");
+        if (user) {
+            setUser(JSON.parse(user));
+        }
+    }, []);
   
     useEffect(() => {
       const storedUser = localStorage.getItem("user");

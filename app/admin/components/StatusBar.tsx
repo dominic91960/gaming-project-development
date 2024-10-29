@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import axiosInstance from "@/axios/axiosInstance";
 import { useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
+import { AuthContext, useAuthContext } from "@/context/AuthContext";
 import { set } from "date-fns";
 import NavBarSpinner from "@/components/Spinner/NavBarSpinner";
 
@@ -32,7 +32,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
   
 }) => {
 
-  const { user } = useContext(AuthContext);
+  const { user } = useAuthContext();
   const [loading, setLoading] = React.useState<boolean>(true);
 
   useEffect(() => {
