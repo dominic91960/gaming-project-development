@@ -37,6 +37,7 @@ import { FaUserPlus } from "react-icons/fa6";
 import NavBarSpinner from "../Spinner/NavBarSpinner";
 import { set } from "date-fns";
 import axios from "axios";
+import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
 
 const categories = [
   {
@@ -142,33 +143,36 @@ export default function Navbar() {
 
   useEffect(() => {
     const verifySession = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
-        const res = await axios.get(process.env.NEXT_PUBLIC_BASE_URL+"/auth/verify-session", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
+        const res = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
         if (res.status === 200) {
-          setVerifySession(true)
-          return res.data
-        }else {
-          setVerifySession(false)
+          setVerifySession(true);
+          return res.data;
+        } else {
+          setVerifySession(false);
         }
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
-        console.log(error)
-      }finally {
-        setLoading(false)
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
     // setLoading(true)
-    verifySession()
+    verifySession();
     if (user) {
       // setIsMobileNavToggled(false);
       console.log("User:", user);
     }
-  },[]);
+  }, []);
 
   // useEffect(() => {
   //   setTimeout(() => setIsContentChanged(true), 3000);
@@ -235,65 +239,66 @@ export default function Navbar() {
             </nav>
 
             {/* Desktop navigation icons */}
-            <div className="flex text-[1.5em] gap-x-[0.7em] lg:gap-x-[1em] justify-around">
+            <div className="flex text-[1.5em] gap-x-[0.7em] lg:gap-x-[1em] justify-around items-center">
               <Link href="/wishlist" className="hover:scale-110">
                 <IoMdHeartEmpty />
               </Link>
+              <CartSidebar>
+                 {/*  {cart.length > 0 && (
+                    <span className="absolute  bottom-[16px] right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
+                      {cart.length}
+                    </span>
+                  )} */}
+                  <div className="">
+                    <IoIosCart className="text-2xl" />
+                  </div>
+              </CartSidebar>
 
-              <Link href="/cart" className="relative hover:scale-110">
-                {cart.length > 0 && (
-                  <span className="absolute  bottom-[16px] right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
-                    {cart.length}
-                  </span>
-                )}
-                <div className="relative">
-                  <IoIosCart className="text-2xl" />
-                </div>
-              </Link>
-
-              {loading ? <NavBarSpinner loading={loading} /> :
-                          (verifySession ? (
-                            <DropdownMenu>
-                              <DropdownMenuTrigger className="cursor-pointer">
-                                <Image
-                                  src={user?.profile_image}
-                                  width={20}
-                                  height={20}
-                                  alt="Avatar"
-                                  className="size-[2em] rounded-full lg:size-[1.5em]"
-                                />
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent>
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem
-                                onClick={() => {
-                                  router.push("/profile?id="+user.id);
-                                }}
-                                >Profile</DropdownMenuItem>
-                                <DropdownMenuItem
-                                  onClick={() => {
-                                    axiosInstance.patch("/auth/logout");
-                                    localStorage.clear();
-                                    window.location.href = "/sign-in";
-                                  }}
-                                >
-                                  Logout
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          ) : (
-                            <Link
-                              href="/sign-in"
-                              className={`hover:scale-110 ${
-                                path.startsWith("/sign") ? "text-[#0BDB45]" : ""
-                              }`}
-                            >
-                              {/* <IoMdPerson /> */}
-                              <FaUserPlus />
-                            </Link>
-                          ))
-                        }
+              {loading ? (
+                <NavBarSpinner loading={loading} />
+              ) : verifySession ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="cursor-pointer">
+                    <Image
+                      src={user?.profile_image}
+                      width={20}
+                      height={20}
+                      alt="Avatar"
+                      className="size-[2em] rounded-full lg:size-[1.5em]"
+                    />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={() => {
+                        router.push("/profile?id=" + user.id);
+                      }}
+                    >
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        axiosInstance.patch("/auth/logout");
+                        localStorage.clear();
+                        window.location.href = "/sign-in";
+                      }}
+                    >
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link
+                  href="/sign-in"
+                  className={`hover:scale-110 ${
+                    path.startsWith("/sign") ? "text-[#0BDB45]" : ""
+                  }`}
+                >
+                  {/* <IoMdPerson /> */}
+                  <FaUserPlus />
+                </Link>
+              )}
 
               {/* <div
                 onClick={() => {

@@ -1,7 +1,5 @@
 'use client'
 import React from "react";
-import Image from "next/image";
-import gameCard from "@/public/images/shop/game-card.png";
 import { IoIosStar } from "react-icons/io";
 import { useRouter } from "next/navigation";
 
@@ -29,7 +27,6 @@ const ProductCard: React.FC<Game> = ({
     <div 
     onClick={
       ()=>{
-        console.log("clicked");
         router.push(`/products/view/?id=${id}`);
       }
     }
