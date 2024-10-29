@@ -29,7 +29,7 @@ const ProductCard: React.FC<Game> = ({
   const router = useRouter();
   const [isWishlisted, setIsWishlisted] = useState(false);
   return (
-    <div className="relative bg-[#10160e]">
+    <div className="relative bg-[#10160e] w-min">
       {/* Wishlist Icon */}
       <div className="absolute top-[1em] left-[1em] z-50">
         <div>
