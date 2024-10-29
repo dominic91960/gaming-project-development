@@ -297,11 +297,9 @@ export default function ProductPage() {
                               </p>
                               {gameData.languages[0].split(",").length > 1 && (
                                 <p>
-                                  {" "}
-                                  &{" "}
-                                  {gameData.languages[0].split(",").length -
-                                    1}{" "}
-                                  more
+                                  &&nbsp;
+                                  {gameData.languages[0].split(",").length - 1}
+                                  &nbsp;more
                                 </p>
                               )}
                             </button>
@@ -523,7 +521,7 @@ export default function ProductPage() {
               </div>
 
               {/* Card Area */}
-              <div className="flex flex-wrap justify-around gap-y-[2.4em] border-t border-t-[#999999] capitalize font-medium text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] text-center pt-[4em] mt-[4em] lg:text-left">
+              <div className="flex justify-around gap-[2em] border-t border-t-[#999999] capitalize font-normal text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] text-center pt-[4em] mt-[4em] lg:text-left">
                 {/* Card one */}
                 <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
                   <Image
@@ -535,14 +533,16 @@ export default function ProductPage() {
                   />
                   <div>
                     <p className="font-bold text-[1.3em] uppercase">Global</p>
-                    <p className="opacity-70">All country</p>
+                    <p className="opacity-70">
+                      Available in all regions worldwide
+                    </p>
                   </div>
                 </div>
 
                 {/* Card two */}
                 <div className="w-fit flex flex-col items-center gap-[0.6em] lg:flex-row">
                   <Image
-                    src={`${gameData.platform.image}`}
+                    src={gameData.platform.image}
                     alt="Platform"
                     width={68}
                     height={68}
@@ -552,7 +552,11 @@ export default function ProductPage() {
                     <p className="font-bold text-[1.3em] uppercase">
                       {gameData.platform.name}
                     </p>
-                    <p className="opacity-70">Activate/redeem on Steam</p>
+                    <p className="font-normal capitalize">
+                      <span className="opacity-70">Activate/redeem on</span>
+                      &nbsp;
+                      {gameData.platform.name}
+                    </p>
                   </div>
                 </div>
 
@@ -569,7 +573,7 @@ export default function ProductPage() {
                     <p className="font-bold text-[1.3em] uppercase">
                       Digital keys
                     </p>
-                    <p className="opacity-70">Instant delivery</p>
+                    <p className="opacity-70">Instant delivery sent by email</p>
                   </div>
                 </div>
               </div>
