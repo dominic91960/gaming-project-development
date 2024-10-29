@@ -54,7 +54,6 @@ type CartSidebarProps = {
 };
 
 const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
-
   const {
     cart,
     removeItem,
@@ -121,8 +120,8 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
 
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <Button>{children}</Button>
+      <SheetTrigger asChild className="hover:scale-110">
+        {children}
       </SheetTrigger>
       <SheetContent className="w-[550px] backdrop-blur-md bg-black/30">
         <SheetHeader>
