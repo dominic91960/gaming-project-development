@@ -16,7 +16,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ video, images }) => {
   return (
     <Swiper
       slidesPerView={2}
-      centeredSlides={true}
       breakpoints={{
         768: {
           slidesPerView: 3,
@@ -35,11 +34,31 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ video, images }) => {
       className="mySwiper"
     >
       <SwiperSlide>
-        <Image src={video} alt="Thumbnail" className="mx-auto" width={500} height={300} />
+        <div
+          className="w-[160px] h-[90px] mx-auto bg-cover sm:w-[192px] sm:h-[108px] md:w-[224px] md:h-[126px] lg:w-[256px] lg:h-[144px] xl:w-[288px] xl:h-[162px] 2xl:w-[320px] 2xl:h-[180px]"
+          style={{ backgroundImage: `url(${video})` }}
+        ></div>
+        {/* <Image
+          src={video}
+          alt="Thumbnail"
+          className="w-[325px] h-[164px] mx-auto"
+          width={325}
+          height={164}
+        /> */}
       </SwiperSlide>
       {images.map((image, index) => (
         <SwiperSlide key={index}>
-          <Image src={image} alt="Screenshots" className="mx-auto" width={500} height={300} />
+          <div
+            className="w-[160px] h-[90px] mx-auto bg-cover sm:w-[192px] sm:h-[108px] md:w-[224px] md:h-[126px] lg:w-[256px] lg:h-[144px] xl:w-[288px] xl:h-[162px] 2xl:w-[320px] 2xl:h-[180px]"
+            style={{ backgroundImage: `url(${image})` }}
+          ></div>
+          {/* <Image
+            src={image}
+            alt="Screenshots"
+            className="w-[325px] h-[164px] mx-auto"
+            width={325}
+            height={164}
+          /> */}
         </SwiperSlide>
       ))}
       <style>{`
