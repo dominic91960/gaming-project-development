@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import Image from "next/image";
 import gameCard from "@/public/images/shop/game-card.png";
@@ -26,14 +26,13 @@ const ProductCard: React.FC<Game> = ({
 }) => {
   const router = useRouter();
   return (
-    <div 
-    onClick={
-      ()=>{
+    <div
+      onClick={() => {
         console.log("clicked");
         router.push(`/products/view/?id=${id}`);
-      }
-    }
-    className="border border-white p-4  text-white relative w-full bg-[#10160e] cursor-pointer">
+      }}
+      className="border border-[#666a65] p-3  text-white relative w-full bg-[#10160e] cursor-pointer"
+    >
       {soldOut && (
         <div className="absolute top-0 right-0  backdrop-blur-sm bg-black/30 text-white p-1 h-full w-full flex items-center justify-center">
           <div className="flex items-center justify-center">
@@ -43,14 +42,22 @@ const ProductCard: React.FC<Game> = ({
           </div>
         </div>
       )}
-      <img src={cardImage} alt="Game Card" className="mb-4" />
+
+      <div className="flex items-center justify-center">
+        <img
+          src={cardImage}
+          alt="Game Card"
+          className="mb-4 w-[244px] h-[268px]"
+        />
+      </div>
+
       <div className="flex items-center mb-1">
-        <h3 className="text-[24px] font-bold uppercase font-primaryFont">
+        <h3 className="text-[18px] font-bold uppercase font-primaryFont line-clamp-2">
           {title}
         </h3>
       </div>
 
-      <div className="h-[1px] bg-white mb-2"></div>
+      <div className="h-[1px] bg-[#666a65] mb-2"></div>
       <div className="flex gap-1 text-[#f29d38]">
         {Array.from({ length: rating }, (_, index) => (
           <IoIosStar key={index} className="text-[23px]" />
@@ -58,10 +65,10 @@ const ProductCard: React.FC<Game> = ({
       </div>
 
       <div className="flex items-center gap-6">
-        <p className=" text-[#75F94C] text-[45px] font-bold uppercase font-primaryFont">
+        <p className=" text-[#75F94C] text-[45px] font-bold uppercase !font-rajdhani">
           ${sellingPrice}
         </p>
-        <p className="line-through text-[#fff] text-[16px] font-normal uppercase font-primaryFont">
+        <p className="line-through text-[#fff] text-[16px] font-normal uppercase font-rajdhani">
           ${price}
         </p>
       </div>

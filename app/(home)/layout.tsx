@@ -1,8 +1,8 @@
-'use client';
+"use client";
 import Navbar from "@/components/navbar/navbar";
 import ProductSearchBar from "@/components/product-search/product-search";
 import { AuthProvider } from "@/context/AuthContext";
-import { Montserrat, Inter } from "@next/font/google";
+import { Montserrat, Inter, Rajdhani } from "@next/font/google";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/Spinner/Spinner";
@@ -19,6 +19,12 @@ const inter = Inter({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-secondaryFont",
+});
+
+const rajdhani = Rajdhani({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-rajdhani",
 });
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
@@ -42,14 +48,17 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
     return <Spinner loading={!isAuthorized} />;
   }
   return (
-    <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`${montserrat.variable} ${inter.variable} ${rajdhani.variable}`}
+    >
       <body>
         <AuthProvider>
-        <ProductSearchBar />
-        <Navbar />
-        {children}
+          <ProductSearchBar />
+          <Navbar />
+          {children}
         </AuthProvider>
-        </body>
+      </body>
     </html>
   );
 };
