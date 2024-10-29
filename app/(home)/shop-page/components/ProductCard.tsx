@@ -43,7 +43,7 @@ const ProductCard: React.FC<Game> = ({
         </div>
       )}
 
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center bg-[#456]">
         <img
           src={cardImage}
           alt="Game Card"
@@ -51,8 +51,8 @@ const ProductCard: React.FC<Game> = ({
         />
       </div>
 
-      <div className="flex items-center mb-1">
-        <h3 className="text-[18px] font-bold uppercase font-primaryFont line-clamp-2">
+      <div className="flex items-center mb-1 bg-[#e9e927]">
+        <h3 className="text-[18px] font-bold uppercase font-primaryFont line-clamp-2 h-[60px]">
           {title}
         </h3>
       </div>
@@ -64,8 +64,8 @@ const ProductCard: React.FC<Game> = ({
         ))}
       </div>
 
-      <div className="flex items-center gap-6">
-        <p className=" text-[#75F94C] text-[45px] font-bold uppercase !font-rajdhani">
+      <div className="flex items-center gap-6 bg-[#900]">
+        <p className=" text-[#75F94C] text-[45px] font-semibold uppercase font-rajdhaniFont">
           ${sellingPrice}
         </p>
         <p className="line-through text-[#fff] text-[16px] font-normal uppercase font-rajdhani">
