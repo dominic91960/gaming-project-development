@@ -24,7 +24,7 @@ const VerticalCarouselCard: React.FC<VerticalCarouselCardProps> = ({
   return (
     <article
       className={`vertical-carousel-box vertical-carousel-box-${i} ${
-        i === 3 ? "hidden min-[550px]:block" : i === 4 ? "hidden sm:block" : ""
+        i === 3 ? "hidden min-[550px]:block" : i === 4 ? "hidden xl:block" : ""
       }`}
       style={{ backgroundImage: `url(${poster})` }}
     >
