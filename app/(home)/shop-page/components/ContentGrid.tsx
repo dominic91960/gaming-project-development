@@ -256,10 +256,10 @@ const ContentGrid: React.FC<ContentGridProps> = ({
 
           <div className="bg-[#666666]">
             <Select onValueChange={setSortTerm}>
-              <SelectTrigger className="w-[180px] rounded-none border-none">
+              <SelectTrigger className="w-[180px] rounded-none border-none text-white">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-[#666666] text-white">
                 <SelectGroup>
                   <SelectLabel>Default Sorting</SelectLabel>
                   <SelectItem value="popularity">Popularity</SelectItem>
@@ -293,7 +293,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       )}
 
       {/* Pagination Controls */}
-      <div className="flex justify-center items-center mt-8">
+      <div className="flex justify-center items-center mt-16 mb-16">
         <button
           onClick={() => changePage(currentPage - 1)}
           disabled={currentPage === 1}
