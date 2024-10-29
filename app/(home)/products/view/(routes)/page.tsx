@@ -38,6 +38,7 @@ import skrill from "@/public/images/product/skrill.png";
 import samplePic from "@/public/images/sample-pic.png";
 import "../_components/product.css";
 import { useCartContext } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 
 export default function ProductPage() {
   const searchParams = useSearchParams();
@@ -47,6 +48,7 @@ export default function ProductPage() {
   const [rate, setRate] = useState<number>(1);
   const [comment, setComment] = useState<string>("");
   const [reviews, setReviews] = useState<any[]>([]);
+  const router = useRouter();
 
   const { addItem } = useCartContext();
 
@@ -81,6 +83,7 @@ export default function ProductPage() {
     console.log(newCardItem);
   };
   interface GameData {
+    stockStatus: string;
     image: string;
     title: string;
     fullTitle: string;
@@ -128,6 +131,7 @@ export default function ProductPage() {
         console.log(res.data);
 
         const mappedGameData = {
+          stockStatus: res.data.stockStatus,
           image: res.data.coverImage,
           title: res.data.displayName,
           fullTitle: `${res.data.displayName} (PC) ${res.data.Platform.name} Key Global`,
@@ -212,6 +216,11 @@ export default function ProductPage() {
   if (!gameData) {
     return <Spinner loading={true} />;
   }
+
+  const addToCartAndRedirect = async (id: string | null) => {
+    await addToCardItem(id);
+    router.push("/cart");
+  };
 
   const addReview = async () => {
     const user = JSON.parse(localStorage.getItem("user") as string);
@@ -426,7 +435,11 @@ export default function ProductPage() {
                     {/* Buy, wishlist and add to cart */}
                     <div className="flex gap-x-[3%]">
                       <Button
+                        disabled={gameData.stockStatus === "OUT_OF_STOCK"}
                         variant="gaming"
+                        onClick={() => {
+                          addToCartAndRedirect(id);
+                        }}
                         className="h-[2em] text-[0.9em] px-[1em] py-0 font-semibold flex-grow"
                       >
                         Buy now
@@ -435,6 +448,7 @@ export default function ProductPage() {
                         <IoMdHeartEmpty className="text-[1em]" />
                       </button>
                       <button
+                        disabled={gameData.stockStatus === "OUT_OF_STOCK"}
                         className="size-[1.8em] hover:opacity-80 border flex items-center justify-center"
                         onClick={() => {
                           addToCardItem(id);
@@ -506,7 +520,11 @@ export default function ProductPage() {
                 {/* Buy, wishlist and add to cart */}
                 <div className="flex gap-x-[3%]">
                   <Button
+                    disabled={gameData.stockStatus === "OUT_OF_STOCK"}
                     variant="gaming"
+                    onClick={() => {
+                      addToCartAndRedirect(id);
+                    }}
                     className="h-[2em] text-[1em] px-[1em] py-0 font-semibold flex-grow"
                   >
                     Buy now

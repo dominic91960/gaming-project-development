@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { AllOrdersNew } from "./columns";
+import { AllOrdersNew1 } from "./columns";
 
 interface AddOrdersProps {
-  onAddOrder: (newOrder: AllOrdersNew) => void;
+  onAddOrder: (newOrder: AllOrdersNew1) => void;
 }
 
 export default function AddOrders({ onAddOrder }: AddOrdersProps) {
@@ -15,7 +15,7 @@ export default function AddOrders({ onAddOrder }: AddOrdersProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newOrder: AllOrdersNew = {
+    const newOrder: any = {
       id: Math.random().toString(36).substr(2, 9),
       order_id,
       username,

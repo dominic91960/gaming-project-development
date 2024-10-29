@@ -34,6 +34,7 @@ import { useRouter } from "next/navigation";
 import NavBarSpinner from "../Spinner/NavBarSpinner";
 import { set } from "date-fns";
 import axios from "axios";
+import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
 
 const categories = [
   {
@@ -143,7 +144,16 @@ export default function Navbar() {
   useEffect(() => {
     const verifySession = async () => {
       setLoading(true);
+      setLoading(true);
       try {
+        const res = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
         const res = await axios.get(
           process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
           {
@@ -157,15 +167,25 @@ export default function Navbar() {
           return res.data;
         } else {
           setVerifySession(false);
+          setVerifySession(true);
+          return res.data;
+        } else {
+          setVerifySession(false);
         }
+        setLoading(false);
         setLoading(false);
       } catch (error) {
         console.log(error);
       } finally {
         setLoading(false);
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
+    };
     // setLoading(true)
+    verifySession();
     verifySession();
     if (user) {
       // setIsMobileNavToggled(false);
@@ -244,17 +264,16 @@ export default function Navbar() {
               >
                 <IoMdHeartEmpty />
               </Link>
-
-              <Link href="/cart" className="relative hover:scale-110">
-                {cart.length > 0 && (
-                  <span className="absolute  bottom-[16px] right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
-                    {cart.length}
-                  </span>
-                )}
-                <div className="relative text-[1.5em]">
-                  <MdShoppingCart />
-                </div>
-              </Link>
+              <CartSidebar>
+                 {/*  {cart.length > 0 && (
+                    <span className="absolute  bottom-[16px] right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
+                      {cart.length}
+                    </span>
+                  )} */}
+                  <div className="">
+                    <IoIosCart className="text-2xl" />
+                  </div>
+              </CartSidebar>
 
               {loading ? (
                 <NavBarSpinner loading={loading} />

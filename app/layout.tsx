@@ -1,6 +1,6 @@
 import "./globals.css";
 
-import { Montserrat, Inter } from "@next/font/google";
+import { Montserrat, Inter, Rajdhani } from "@next/font/google";
 import Providers from "../providers";
 import { CartProvider } from "@/context/CartContext";
 
@@ -18,9 +18,18 @@ const inter = Inter({
   variable: "--font-secondaryFont",
 });
 
+const rajdhani = Rajdhani({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-rajdhaniFont",
+});
+
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`${montserrat.variable} ${inter.variable} ${rajdhani.variable}`}
+    >
       <Providers>
         <CartProvider>
           <body>{children}</body>

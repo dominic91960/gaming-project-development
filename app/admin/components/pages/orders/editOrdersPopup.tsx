@@ -1,11 +1,11 @@
 import React, { ChangeEvent } from "react";
-import { AllOrdersNew } from "./columns";
+import { AllOrdersNew1 } from "./columns";
 
 interface EditAllOrdersPopupProps {
-  order: AllOrdersNew | null;
+  order: any | null;
   isOpen: boolean;
   onClose: () => void;
-  onSave: (updatedorder: AllOrdersNew) => void;
+  onSave: (updatedorder: any) => void;
 }
 
 const EditAllOrdersPopup: React.FC<EditAllOrdersPopupProps> = ({
@@ -14,7 +14,7 @@ const EditAllOrdersPopup: React.FC<EditAllOrdersPopupProps> = ({
   onClose,
   onSave,
 }) => {
-  const [editedorder, setEditedorder] = React.useState<AllOrdersNew | null>(
+  const [editedorder, setEditedorder] = React.useState<any | null>(
     order
   );
 
