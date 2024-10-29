@@ -1,133 +1,3 @@
-// "use client";
-// import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
-// import { Label } from "@/components/ui/label";
-// import {
-//   Sheet,
-//   SheetClose,
-//   SheetContent,
-//   SheetDescription,
-//   SheetFooter,
-//   SheetHeader,
-//   SheetTitle,
-//   SheetTrigger,
-// } from "@/components/ui/sheet";
-// import { CiHeart } from "react-icons/ci";
-// import { MdDeleteForever } from "react-icons/md";
-// import { useState } from "react";
-// import Image from "next/image";
-// import cartImage from "../../../public/images/shopping-cart/cart-image-01.png";
-// export function ShoppingCartSidebar() {
-//   const [count1, setCount1] = useState<number>(0);
-//   const [count2, setCount2] = useState<number>(0);
-
-//   const handleIncrement1 = () => {
-//     setCount1(count1 + 1);
-//   };
-
-//   const handleDecrement1 = () => {
-//     if (count1 > 0) {
-//       setCount1(count1 - 1);
-//     }
-//   };
-
-//   const handleIncrement2 = () => {
-//     setCount2(count2 + 1);
-//   };
-
-//   const handleDecrement2 = () => {
-//     if (count1 > 0) {
-//       setCount2(count2 - 1);
-//     }
-//   };
-//   return (
-//     <Sheet>
-//       <SheetTrigger asChild>
-//         <Button variant="outline">Open</Button>
-//       </SheetTrigger>
-//       <SheetContent className="w-[600px]">
-//         <SheetHeader>
-//           <SheetTitle className="font-primaryFont text-[17px] font-medium text-white">
-//             Shopping Cart
-//           </SheetTitle>
-//         </SheetHeader>
-//         <div className="grid grid-cols-12 gap-4 w-full bg-[#988] p-3">
-//           <div className="bg-[#ebeb27] w-full col-span-3">
-//             <Image src={cartImage} alt="cart-image" width={200} height={198} />
-//           </div>
-
-//           <div className="col-span-9 flex items-center w-full h-full">
-//             <div className="w-full">
-//               <div className="mb-2">
-//                 <div className="flex items-center justify-end gap-2">
-//                   <CiHeart className="text-[20px] text-white cursor-pointer" />
-//                   <MdDeleteForever className="text-[20px] text-white cursor-pointer" />
-//                 </div>
-//                 <div className="flex items-center justify-between">
-//                   <p className="font-primaryFont text-[10px] font-normal text-white border-b-2 border-[#676866] w-max mb-2">
-//                     Ultimate Choice
-//                   </p>
-//                 </div>
-
-//                 <p className="font-primaryFont text-[12px] font-bold text-white">
-//                   Six-Sided Oracles (PC) Steam Key GLOBAL
-//                 </p>
-//               </div>
-
-//               <div className="grid grid-cols-2">
-//                 <div>
-//                   <div className="border-r-2 border-[#676866]">
-//                     <div className="flex items-center space-x-4 mb-3">
-//                       <button
-//                         onClick={handleDecrement1}
-//                         className="text-white font-bold text-[12px]"
-//                       >
-//                         -
-//                       </button>
-//                       <p className="text-[12px] text-white font-bold font-primaryFont">
-//                         {count1}
-//                       </p>
-//                       <button
-//                         onClick={handleIncrement1}
-//                         className="text-white font-bold text-[12px]"
-//                       >
-//                         +
-//                       </button>
-//                     </div>
-//                     <p className="font-primaryFont text-[20px] font-bold text-[#75F94C] leading-none">
-//                       $ 299
-//                     </p>
-//                   </div>
-//                 </div>
-
-//                 <div className="flex justify-end">
-//                   <div className="flex items-center gap-2 self-end">
-//                     <div className="h-4 w-4 rounded-full flex items-center justify-center border border-white">
-//                       <p className="font-primaryFont text-[8px] font-medium text-white">
-//                         ?
-//                       </p>
-//                     </div>
-//                     <p className="font-primaryFont text-[10px] font-medium text-white">
-//                       Digital Product
-//                     </p>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//         <SheetFooter>
-//           <SheetClose asChild>
-//             {/* <Button type="submit">Save changes</Button> */}
-//           </SheetClose>
-//         </SheetFooter>
-//       </SheetContent>
-//     </Sheet>
-//   );
-// }
-
-// export default ShoppingCartSidebar;
-
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
@@ -135,6 +5,7 @@ import { CiHeart } from "react-icons/ci";
 import { MdDeleteForever } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useCartContext } from "@/context/CartContext";
 import {
   Sheet,
   SheetClose,
@@ -143,6 +14,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import toast from "react-hot-toast";
+import axiosInstance from "@/axios/axiosInstance";
 
 type CartItem = {
   id: number;
@@ -154,7 +27,7 @@ type CartItem = {
   productType: string;
 };
 
-const initialCartItems: CartItem[] = [
+/* const initialCartItems: CartItem[] = [
   {
     id: 1,
     image: "/images/cart/itemImage1.png",
@@ -173,7 +46,7 @@ const initialCartItems: CartItem[] = [
     price: 155,
     productType: "DVD Product",
   },
-];
+]; */
 
 const SERVICE_FEE = 12;
 const discountCodes: { [key: string]: number } = {
@@ -182,46 +55,97 @@ const discountCodes: { [key: string]: number } = {
   "44444": 40,
 };
 
-const CartSidebar: React.FC = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
+type CartSidebarProps = {
+  children: React.ReactNode;
+};
+
+const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
+  // const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
+  /* const [discountCode, setDiscountCode] = useState<string>("");
+  const [discountApplied, setDiscountApplied] = useState<number>(0);
+  const [discountMessage, setDiscountMessage] = useState<string>(""); */
+
+  const {
+    cart,
+    removeItem,
+    increaseQuantity,
+    decreaseQuantity,
+    createOrder,
+    totalPrice,
+    totalItems,
+    setDiscount,
+    totalDiscount,
+    discountData,
+  } = useCartContext(); // Access cart data from context
+
   const [discountCode, setDiscountCode] = useState<string>("");
   const [discountApplied, setDiscountApplied] = useState<number>(0);
   const [discountMessage, setDiscountMessage] = useState<string>("");
+  const [tempDiscount, setTempDiscount] = useState<string>("");
 
-  const handleQuantityChange = (id: number, newQuantity: number) => {
+  /* const handleQuantityChange = (id: number, newQuantity: number) => {
     const updatedItems = cartItems.map((item) =>
       item.id === id ? { ...item, quantity: newQuantity } : item
     );
     setCartItems(updatedItems);
-  };
+  }; */
 
   const handleRemoveItem = (id: number) => {
-    const updatedItems = cartItems.filter((item) => item.id !== id);
-    setCartItems(updatedItems);
+    removeItem(id);
   };
 
-  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  /* const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
-  );
+  ); */
 
-  const lastPrice = totalPrice + SERVICE_FEE - discountApplied;
+  const lastPrice = totalPrice;
 
-  const handleApplyDiscount = () => {
-    if (discountCodes[discountCode]) {
-      setDiscountApplied(discountCodes[discountCode]);
-      setDiscountMessage("Discount added successfully");
-    } else {
-      setDiscountApplied(0);
+  const handleApplyDiscount = async () => {
+    try {
+      const response = await axiosInstance.post("/coupons/validateCoupon", {
+        code: discountCode,
+      });
+
+      if (response.data && response.data.discount) {
+        setDiscountMessage("Discount added successfully");
+        // Clear the previous discount
+        setDiscountApplied(0);
+        setTempDiscount(response.data.code);
+        setDiscount({
+          code: response.data.code,
+          discount: response.data.discount,
+          id: response.data.id,
+          type: response.data.type,
+        });
+
+        // Update applied discount
+        setDiscountApplied(response.data.discount);
+        toast.success("Discount applied successfully");
+      } else {
+        setDiscountMessage("Your discount code is invalid");
+        toast.error("Invalid discount code");
+      }
+    } catch (error) {
       setDiscountMessage("Your discount code is incorrect");
+      toast.error("Your discount code is incorrect");
     }
+  };
+
+  const removeCoupon = () => {
+    setDiscount({
+      code: "",
+      discount: 0,
+      id: "",
+      type: "",
+    });
   };
 
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Open Cart</Button>
+        <Button>{children}</Button>
       </SheetTrigger>
       <SheetContent className="w-[550px] backdrop-blur-md bg-black/30">
         <SheetHeader>
@@ -231,7 +155,7 @@ const CartSidebar: React.FC = () => {
         </SheetHeader>
 
         <div className="p-4">
-          {cartItems.map((item) => (
+          {cart.map((item) => (
             <div key={item.id} className="mb-4 flex border border-white p-2">
               <Image
                 src={item.image}
@@ -259,9 +183,7 @@ const CartSidebar: React.FC = () => {
                 <div className="">
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() =>
-                        handleQuantityChange(item.id, item.quantity - 1)
-                      }
+                      onClick={() => decreaseQuantity(item.id)}
                       disabled={item.quantity <= 1}
                       className="text-white text-lg"
                     >
@@ -269,9 +191,7 @@ const CartSidebar: React.FC = () => {
                     </button>
                     <span className="text-white">{item.quantity}</span>
                     <button
-                      onClick={() =>
-                        handleQuantityChange(item.id, item.quantity + 1)
-                      }
+                      onClick={() => increaseQuantity(item.id)}
                       className="text-white text-lg"
                     >
                       +
@@ -291,29 +211,41 @@ const CartSidebar: React.FC = () => {
               <span>{totalItems} Items</span>
               <span>${totalPrice}</span>
             </div>
-            <div className="flex justify-between text-white">
+            {/* <div className="flex justify-between text-white">
               <span>Service Fee</span>
               <span>${SERVICE_FEE}</span>
-            </div>
+            </div> */}
             <div className="flex justify-between mt-2 text-white">
               <span>Discount</span>
               <span>${discountApplied}</span>
             </div>
             <div className="flex justify-between text-lg font-bold mt-4 text-[#75F94C]">
               <span>Total</span>
-              <span>${lastPrice}</span>
+              <span>${Math.max((lastPrice - totalDiscount), 0)}</span>
             </div>
           </div>
+          {!(totalDiscount > 0) ? (
+            <div className="mt-4 flex">
+              <Input
+                type="text"
+                value={discountCode}
+                onChange={(e) => setDiscountCode(e.target.value)}
+                className="mr-2 border-white text-white"
+              />
+              <Button onClick={handleApplyDiscount}>Apply</Button>
+            </div>
+          ) : (
+            <div className=" mt-2 bg-red-400 rounded-3xl px-2 flex justify-between items-center h-6 w-24  mb-2">
+              <span className="text-white pt-1">{discountData.code}</span>
+              <span
+                className="text-white cursor-pointer"
+                onClick={removeCoupon}
+              >
+                x
+              </span>
+            </div>
+          )}
 
-          <div className="mt-4 flex">
-            <Input
-              placeholder="Discount Code"
-              value={discountCode}
-              onChange={(e) => setDiscountCode(e.target.value)}
-              className="mr-2"
-            />
-            <Button onClick={handleApplyDiscount}>Apply</Button>
-          </div>
           <p className="text-white mt-2">{discountMessage}</p>
         </div>
 
