@@ -11,8 +11,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Transaction, columns } from "./components/transaction-columns";
 import { DataTable } from "./components/transaction-data-table";
 import { Button } from "@/components/ui/button";
-import { FaEye, FaPencilAlt, FaCheck } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
+import { FaEye, FaPencilAlt } from "react-icons/fa";
 
 import Spinner from "@/components/Spinner/Spinner";
 import AccountInfo from "./components/account-info";
@@ -26,6 +25,7 @@ import TransactionAction from "./components/transaction-action";
 import EmailVerification from "./components/email-verfiication";
 import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
+import ChangeImage from "./components/change-image";
 
 const recentActivity = [
   {
@@ -649,6 +649,7 @@ export default function ProfilePage() {
 
   // Image upload state
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   // Account info state
   const [isEditAccountInfoPopupOpen, setIsEditAccountInfoPopupOpen] =
@@ -715,12 +716,43 @@ export default function ProfilePage() {
         if (response.status === 201) {
           const url = response.data.fileUrl;
           setImageUrl(url);
+          setIsImageModalOpen(true);
         } else {
           throw new Error(response.data.fileUrl);
         }
       } catch (error) {
         toast.error("Error uploading file: " + (error as Error).message);
       }
+    }
+  };
+
+  const onImageSave = async () => {
+    setProfile((prev) => (prev ? { ...prev, avatar: imageUrl } : prev));
+    setImageUrl(null);
+    try {
+      const res = await axiosInstance.patch(
+        `/user/${profile?.id}/profile-image`,
+        { profile_image: imageUrl }
+      );
+      console.log(res);
+      if (res.status === 200) {
+        toast.success("Profile picture updated successfully");
+        const user = localStorage.getItem("user");
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            ...JSON.parse(user || "{}"),
+            profile_image: imageUrl,
+          })
+        );
+        setIsImageModalOpen(false);
+      } else {
+        // toast.error('Error updating profile picture');
+        throw new Error("Error updating profile picture");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error updating profile picture");
     }
   };
 
@@ -776,67 +808,33 @@ export default function ProfilePage() {
               <div className="relative size-[46px] sm:size-[70px] md:size-[94px] lg:size-[118px] xl:size-[135px] 2xl:size-[152px]">
                 <Image
                   src={profile?.avatar || samplePic.src}
-                  alt={profile?.id || "default-alt-text"}
+                  alt={profile?.id || "Empty profile"}
                   className="w-full rounded-full"
                   fill
                 />
-                {imageUrl ? (
-                  <div className="absolute bottom-0 right-0 flex flex-col items-end">
-                    <button
-                      className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] mb-[0.2em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                      onClick={async () => {
-                        setProfile((prev) =>
-                          prev ? { ...prev, avatar: imageUrl } : prev
-                        );
-                        setImageUrl(null);
-                        try {
-                          const res = await axiosInstance.patch(
-                            `/user/${profile?.id}/profile-image`,
-                            { profile_image: imageUrl }
-                          );
-                          console.log(res);
-                          if (res.status === 200) {
-                            toast.success(
-                              "Profile picture updated successfully"
-                            );
-                            const user = localStorage.getItem("user");
-                            localStorage.setItem(
-                              "user",
-                              JSON.stringify({
-                                ...JSON.parse(user || "{}"),
-                                profile_image: imageUrl,
-                              })
-                            );
-                          } else {
-                            // toast.error('Error updating profile picture');
-                            throw new Error("Error updating profile picture");
-                          }
-                        } catch (error) {
-                          console.log(error);
-                          toast.error("Error updating profile picture");
-                        }
-                      }}
-                    >
-                      Save&nbsp;&nbsp;
-                      <FaCheck />
-                    </button>
-                    <button
-                      className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                      onClick={() => setImageUrl(null)}
-                    >
-                      Cancel&nbsp;&nbsp;
-                      <IoMdClose />
-                    </button>
-                  </div>
-                ) : (
-                  <label
-                    htmlFor="profile-image"
-                    className="absolute bottom-[5%] right-0 bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                {/* <div className="absolute bottom-0 right-0 flex flex-col items-end">
+                  <button
+                    className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] mb-[0.2em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                    onClick={onImageSave}
                   >
-                    Edit&nbsp;&nbsp;
-                    <FaPencilAlt />
-                  </label>
-                )}
+                    Save&nbsp;&nbsp;
+                    <FaCheck />
+                  </button>
+                  <button
+                    className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                    onClick={() => setImageUrl(null)}
+                  >
+                    Cancel&nbsp;&nbsp;
+                    <IoMdClose />
+                  </button>
+                </div> */}
+                <label
+                  htmlFor="profile-image"
+                  className="absolute bottom-[5%] right-0 bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                >
+                  Edit&nbsp;&nbsp;
+                  <FaPencilAlt />
+                </label>
 
                 <input
                   type="file"
@@ -939,6 +937,16 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
+
+        <ChangeImage
+          open={isImageModalOpen}
+          setIsOpen={setIsImageModalOpen}
+          avatar={profile?.avatar}
+          id={profile?.id}
+          onImageChange={handleImageChange}
+          onSave={onImageSave}
+          onCancel={() => setImageUrl(null)}
+        />
 
         {isEditAccountInfoPopupOpen && (
           <EditAccountInfo
