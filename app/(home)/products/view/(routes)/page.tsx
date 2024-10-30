@@ -177,6 +177,7 @@ export default function ProductPage() {
     };
     getData();
     getReviewsByGameId(id);
+    window.scrollTo(0, 0);
   }, [id]);
 
   const getReviewsByGameId = async (id: any) => {

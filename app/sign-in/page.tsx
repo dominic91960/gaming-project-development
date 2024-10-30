@@ -17,7 +17,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaApple } from "react-icons/fa";
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
-import Logo from "../../public/images/sign-in/logo.png";
+import Logo from "../../public/images/logo.png";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import AuthNavbar from "@/components/navbar/AuthNavbar";
@@ -44,29 +44,32 @@ const SignIn = () => {
 
   useEffect(() => {
     const verifySession = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
-        const res = await axios.get(process.env.NEXT_PUBLIC_BASE_URL+"/auth/verify-session", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
+        const res = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
         if (res.status === 200) {
-          console.log(res.data)
+          console.log(res.data);
           if (res.data.role.name === "ADMIN") {
             router.push("/admin");
           } else {
             router.push("/");
           }
-        }else {
+        } else {
           throw new Error("Session expired");
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
         setLoading(false);
       }
-    }
-    verifySession()
+    };
+    verifySession();
   }, []);
 
   const {
@@ -163,9 +166,7 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   if (loading) {
-    return (
-     <Spinner loading={loading} />
-    );
+    return <Spinner loading={loading} />;
   }
 
   return (
@@ -176,7 +177,7 @@ const SignIn = () => {
       <div className="bg-[#0B0E13] flex-grow flex items-center justify-center font-primaryFont text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] text-white px-[36px] p-[50px]">
         <div className="w-full border px-[2em] py-[1em] sm:px-[8em] sm:py-[3.3em] sm:w-fit">
           <div className="flex items-center justify-center">
-            <Image src={Logo} alt="logo" />
+            <Image src={Logo} alt="logo" className="w-[4em] my-[1em]" />
           </div>
           <p className="font-primaryFont text-[1.6em] font-medium text-white text-center mb-[2em]">
             Sign In To Your Account

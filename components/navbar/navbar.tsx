@@ -4,10 +4,10 @@ import { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-import logo from "@/public/images/navbar/logo.png";
-import { useCartContext } from "@/context/CartContext";
-
+import axios from "axios";
+import axiosInstance from "@/axios/axiosInstance";
 import {
   IoIosArrowForward,
   IoIosArrowBack,
@@ -17,11 +17,7 @@ import {
 } from "react-icons/io";
 import { FaUserCog } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
-
-import { AuthContext } from "@/context/AuthContext";
-import axiosInstance from "@/axios/axiosInstance";
-
-import "./navbar.css";
+import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,12 +27,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { useRouter } from "next/navigation";
-import NavBarSpinner from "../Spinner/NavBarSpinner";
-import { set } from "date-fns";
-import axios from "axios";
+import { AuthContext } from "@/context/AuthContext";
+import { useCartContext } from "@/context/CartContext";
 import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
-import { Button } from "../ui/button";
+import NavBarSpinner from "../Spinner/NavBarSpinner";
+import logo from "@/public/images/logo.png";
+import "./navbar.css";
 
 const categories = [
   {
@@ -334,7 +330,7 @@ export default function Navbar() {
             className="sm:hidden"
             onClick={() => setIsMobileNavToggled(false)}
           >
-            <Image src={logo} alt="Logo" className="size-[3em]" />
+            <Image src={logo} alt="Logo" className="size-[2em]" />
           </Link>
 
           {/* Mobile navbar toggle  */}

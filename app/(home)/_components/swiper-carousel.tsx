@@ -19,14 +19,12 @@ import SwiperCarouselCard from "./swiper-carousel-card";
 const data = [
   {
     id: "670f554d92cae82274f98b54",
-    background: cardBgOne,
-    poster: gamePoster,
+    background: cardBgOne.src,
+    poster: gamePoster.src,
     title: "Warhammer 40,000: Space Marine 2",
     rating: 0,
-    description: [
+    description:
       "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ahead, to uncover the obscured truth beneath the veil of a glorious legend from the past. ",
-      " Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ",
-    ],
     price: 40.0,
     wishlistedBy: 9452399,
     releaseDate: "20 Aug, 2024",
@@ -34,14 +32,12 @@ const data = [
   },
   {
     id: "670f5ce892cae82274f98b5b",
-    background: cardBgTwo,
-    poster: gamePoster,
+    background: cardBgTwo.src,
+    poster: gamePoster.src,
     title: "Black Myth: Wukong",
     rating: 5,
-    description: [
-      "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ahead, to uncover the obscured truth beneath the veil of a glorious legend from the past. ",
-      " Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ",
-    ],
+    description:
+      "Embark on an epic journey through Ancient Greece and shape your destiny as a legendary Spartan hero.",
     price: 40.0,
     wishlistedBy: 539999,
     releaseDate: "20 Aug, 2024",
@@ -49,14 +45,12 @@ const data = [
   },
   {
     id: "670fbcca0a1092877a48494c",
-    background: cardBgThree,
-    poster: gamePoster,
+    background: cardBgThree.src,
+    poster: gamePoster.src,
     title: "Black Myth: Wukong",
     rating: 5,
-    description: [
-      "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ahead, to uncover the obscured truth beneath the veil of a glorious legend from the past. ",
-      " Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ",
-    ],
+    description:
+      "Red Dead Redemption 2 is an epic tale of life in America at the dawn of the modern age. Set in 1899, you play as Arthur Morgan, an outlaw and a member of the Van der Linde gang, who must deal with the decline of the Wild West while surviving against government forces, rival gangs, and other adversaries in an open world setting.",
     price: 40.0,
     wishlistedBy: 24364,
     releaseDate: "20 Aug, 2024",
@@ -64,14 +58,12 @@ const data = [
   },
   {
     id: "67160d8b0342881a0be83757",
-    background: cardBgFour,
-    poster: gamePoster,
+    background: cardBgFour.src,
+    poster: gamePoster.src,
     title: "Black Myth: Wukong",
     rating: 5,
-    description: [
-      "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ahead, to uncover the obscured truth beneath the veil of a glorious legend from the past. ",
-      " Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ",
-    ],
+    description:
+      "The Last of Us is an action/adventure game set in a post-apocalyptic world. You play as Joel, a smuggler tasked with escorting a teenage girl, Ellie, across the United States, while battling hostile humans and zombie-like creatures infected by a mutated fungus. The game focuses on stealth and combat in an emotionally driven narrative.",
     price: 4000.0,
     wishlistedBy: 1200,
     releaseDate: "20 Aug, 2024",
@@ -84,7 +76,7 @@ const SwiperCarousel = () => {
 
   const handleSlideChange = (swiper: { realIndex: number }) => {
     const realIndex = swiper.realIndex;
-    setBg(data[realIndex].background.src);
+    setBg(data[realIndex].background);
   };
 
   return (
@@ -115,7 +107,7 @@ const SwiperCarousel = () => {
             slideShadows: false,
           }}
           pagination={{ clickable: true }}
-          autoplay={{ disableOnInteraction: false, pauseOnMouseEnter: true }}
+          // autoplay={{ disableOnInteraction: false, pauseOnMouseEnter: true }}
           onSlideChange={handleSlideChange}
           className="mySwiper"
         >

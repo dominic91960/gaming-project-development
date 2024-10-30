@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import React, { useState } from "react";
 
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
@@ -9,14 +8,13 @@ import Link from "next/link";
 
 import { useAuthContext } from "@/context/AuthContext";
 import RedirectSignInPopup from "./RedirectSignInPopup";
-import { useRouter } from "next/navigation";
 
 interface SwiperCarouselCardProps {
   id: string;
-  poster: StaticImageData;
+  poster: string;
   title: string;
   rating: number;
-  description: string[];
+  description: string;
   price: number;
   wishlistedBy: number;
   releaseDate: string;
@@ -38,7 +36,6 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
 
   const { isUserLoggedIn } = useAuthContext();
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const router = useRouter();
 
   /* useEffect(() => {
     if (!isUserLoggedIn()) {
@@ -48,12 +45,11 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
     }
   }, []); */
 
-
   const addToWishList = () => {
     if (isUserLoggedIn()) {
-      setPopupOpen(false)
+      setPopupOpen(false);
     } else {
-      setPopupOpen(true)
+      setPopupOpen(true);
     }
   };
 
@@ -80,17 +76,23 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
     >
       {/* Poster */}
       <div className="relative w-[92%] h-[300px] mx-auto -translate-y-[7em] shadow-[0px_0px_9px_rgba(0,0,0,0.5)] md:w-full md:h-full md:-translate-y-0">
-        <Image
+        {/* <Image
           src={poster.src}
           alt="Poster"
           className="absolute bottom-0"
           width={382.2}
           height={512.72}
-        />
+        /> */}
+        <div
+          className="absolute left-0 bottom-0 w-full h-[318px] flex items-center justify-center bg-cover text-center md:h-[328px] md:items-start lg:h-[340px] xl:h-[427px] 2xl:h-[513px]"
+          style={{ backgroundImage: `url(${poster})` }}
+        ></div>
         {soldOut && (
-          <h3 className="absolute left-0 right-0 w-fit mx-auto font-rajdhaniFont">
-            SOLD OUT
-          </h3>
+          <div className="absolute left-0 bottom-0 w-full h-[318px] flex items-center justify-center bg-black/60 text-center md:h-[328px] md:items-start lg:h-[340px] xl:h-[427px] 2xl:h-[513px]">
+            <h3 className="font-rajdhaniFont font-bold text-[26px] text-[#FF374E] sm:text-[28px] md:text-[30px] md:mt-[1em] lg:text-[32px] xl:text-[34px] 2xl:text-[36px]">
+              SOLD OUT
+            </h3>
+          </div>
         )}
       </div>
 
@@ -113,18 +115,13 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
         <hr className="w-2/5" />
 
         {/* Description */}
-        <div className="pt-[2em] text-justify font-normal">
-          {description.map((paragraph, index) => (
-            <p key={index} className="pb-[1em]">
-              {paragraph}
-            </p>
-          ))}
+        <div className="h-[15em] pt-[1.5em] text-justify font-normal">
+          <p className="line-clamp-6">{description}</p>
         </div>
 
         {/* Price and release date */}
         <div className="flex justify-between pt-[1.5em]">
           <h4>
-            {/* <span className="text-[2.25em]">$ {price.toFixed(2)}</span> */}
             <span className="text-[2em]">${price.toFixed(2)}</span>
             <span className="text-[1.1em]"> USD</span>
           </h4>
@@ -152,7 +149,7 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
               variant="gaming"
               className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] border border-[#0BDB45] h-fit"
             >
-              Buy now
+              {!soldOut ? "Buy now" : "View Item"}
             </Button>
           </Link>
           <Button
@@ -160,7 +157,7 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
             variant={"outline"}
             className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] rounded-none h-fit"
           >
-            Add wishlist
+            Add to cart
           </Button>
           <RedirectSignInPopup
             isOpen={isPopupOpen}
