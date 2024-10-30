@@ -75,16 +75,16 @@ const ShopPage = () => {
       </div>
 
       <div className="container mx-auto">
-        <div className="flex items-center justify-center">
-          <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-2">
+        <div className="flex items-center justify-center 2xl:px-0 xl:px-4">
+          <div className="grid grid-cols-12 2xl:gap-4 xl:gap-4">
+            <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-3 2xl:pr-0 xl:pr-6 hidden lg:block 2xl:mr-0 xl:mr-8">
               <Sidebar
                 setFilters={setFilterParams}
                 setClearFilters={setClearFilters}
               />
             </div>
 
-            <div className="col-span-10 flex mx-auto">
+            <div className="2xl:col-span-10 xl:col-span-9 lg:col-span-9 md:col-span-12 justify-self-end">
               <ContentGrid
                 filterParams={filterParams}
                 clearFilters={clearFilters}
