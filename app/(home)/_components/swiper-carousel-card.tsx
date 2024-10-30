@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
@@ -6,6 +6,10 @@ import { Button } from "@/components/ui/button";
 
 import StarRating from "./star-rating";
 import Link from "next/link";
+
+import { useAuthContext } from "@/context/AuthContext";
+import RedirectSignInPopup from "./RedirectSignInPopup";
+import { useRouter } from "next/navigation";
 
 interface SwiperCarouselCardProps {
   id: string;
@@ -31,6 +35,27 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
   soldOut,
 }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
+
+  const { isUserLoggedIn } = useAuthContext();
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const router = useRouter();
+
+  /* useEffect(() => {
+    if (!isUserLoggedIn()) {
+      console.log("not login")
+    }else{
+      console.log("login")
+    }
+  }, []); */
+
+
+  const addToWishList = () => {
+    if (isUserLoggedIn()) {
+      setPopupOpen(false)
+    } else {
+      setPopupOpen(true)
+    }
+  };
 
   const formatWishlistedBy = (total: number) => {
     if (total < 1000) {
@@ -131,11 +156,16 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
             </Button>
           </Link>
           <Button
+            onClick={() => addToWishList()}
             variant={"outline"}
             className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] rounded-none h-fit"
           >
             Add wishlist
           </Button>
+          <RedirectSignInPopup
+            isOpen={isPopupOpen}
+            onClose={() => setPopupOpen(false)}
+          />
         </div>
       </div>
     </article>

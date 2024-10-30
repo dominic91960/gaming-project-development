@@ -238,7 +238,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
             </h2>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="mb-2 mt-2">
+            <div className="mb-2 mt-3">
               <Slider
                 value={value}
                 onValueChange={(newValue) => {
@@ -251,6 +251,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
                 max={maxPrice}
                 step={1}
               />
+
               <div className="flex items-center mt-3 gap-2">
                 <p className="text-[15px] font-normal font-primaryFont">
                   Price :
@@ -447,12 +448,12 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
       </Accordion>
 
       <Button
-        className="bg-[#BD0202] rounded-none px-6 mb-6 mr-2"
+        className="bg-[#BD0202] rounded-none h-[30px] mt-3 text-[12px] mb-8"
         onClick={handleClearAll}
       >
         Clear all
       </Button>
-      <Button
+      {/* <Button
         onClick={() => {
           setFilters(filterParams);
           console.log(filterParams);
@@ -460,7 +461,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
         className="bg-[#BD0202] rounded-none px-6 mb-6"
       >
         Filter
-      </Button>
+      </Button> */}
     </aside>
   );
 };

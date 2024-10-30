@@ -6,6 +6,8 @@ import { MdDeleteForever } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCartContext } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
+
 import {
   Sheet,
   SheetClose,
@@ -72,6 +74,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
   const [discountApplied, setDiscountApplied] = useState<number>(0);
   const [discountMessage, setDiscountMessage] = useState<string>("");
   const [tempDiscount, setTempDiscount] = useState<string>("");
+  const router = useRouter();
   const handleRemoveItem = (id: number) => {
     removeItem(id);
   };
@@ -174,7 +177,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                     </button>
                   </div>
                   <p className="text-[#75F94C] font-bold">
-                    ${item.price * item.quantity}
+                    ${Math.max(item.price * item.quantity, 0).toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -193,11 +196,11 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
             </div> */}
             <div className="flex justify-between mt-2 text-white">
               <span>Discount</span>
-              <span>${discountApplied}</span>
+              <span>- ${discountApplied}</span>
             </div>
             <div className="flex justify-between text-lg font-bold mt-4 text-[#75F94C]">
               <span>Total</span>
-              <span>${Math.max(lastPrice - totalDiscount, 0)}</span>
+              <span>${Math.max(lastPrice - totalDiscount, 0).toFixed(2)}</span>
             </div>
           </div>
           {!(totalDiscount > 0) ? (
@@ -243,6 +246,14 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
             Proceed to Checkout
           </Button>
         </SheetClose>
+        <Button
+          className="mt-4"
+          onClick={() => {
+            router.push('/cart')
+          }}
+        >
+          View Cart
+        </Button>
       </SheetContent>
     </Sheet>
   );

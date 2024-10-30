@@ -36,6 +36,7 @@ import mastercard from "@/public/images/product/mastercard.png";
 import skrill from "@/public/images/product/skrill.png";
 import samplePic from "@/public/images/sample-pic.png";
 import "../_components/product.css";
+import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
 
 export default function ProductPage() {
   const searchParams = useSearchParams();
@@ -76,8 +77,6 @@ export default function ProductPage() {
     };
 
     addItem(newCardItem);
-
-    console.log(newCardItem);
   };
   interface GameData {
     stockStatus: string;
@@ -448,15 +447,18 @@ export default function ProductPage() {
                       <button className="size-[1.8em] hover:opacity-80 border flex items-center justify-center">
                         <IoMdHeartEmpty className="text-[1em]" />
                       </button>
-                      <button
-                        disabled={gameData.stockStatus === "OUT_OF_STOCK"}
-                        className="size-[1.8em] hover:opacity-80 border flex items-center justify-center"
-                        onClick={() => {
-                          addToCardItem(id);
-                        }}
-                      >
-                        <IoIosCart className="text-[1em]" />
-                      </button>
+
+                      <CartSidebar>
+                        <button
+                          disabled={gameData.stockStatus === "OUT_OF_STOCK"}
+                          className="size-[1.8em] hover:opacity-80 border flex items-center justify-center"
+                          onClick={() => {
+                            addToCardItem(id);
+                          }}
+                        >
+                          <IoIosCart className="text-[1em]" />
+                        </button>
+                      </CartSidebar>
                     </div>
                   </div>
                 </div>
@@ -533,14 +535,16 @@ export default function ProductPage() {
                   <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
                     <IoMdHeartEmpty className="text-[1em]" />
                   </button>
-                  <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
-                    <IoIosCart
-                      className="text-[1em]"
-                      onClick={() => {
-                        addToCardItem(id);
-                      }}
-                    />
-                  </button>
+                  <CartSidebar>
+                    <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
+                      <IoIosCart
+                        className="text-[1em]"
+                        onClick={() => {
+                          addToCardItem(id);
+                        }}
+                      />
+                    </button>
+                  </CartSidebar>
                 </div>
               </div>
 
