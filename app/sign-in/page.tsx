@@ -168,7 +168,7 @@ const SignIn = () => {
   }
 
   return (
-    <section className="flex flex-col bg-[#0B0E13] overflow-hidden">
+    <section className="h-full flex flex-col bg-[#0B0E13]">
       <ProductSearchBar />
       {/* <Navbar /> */}
       <AuthNavbar />

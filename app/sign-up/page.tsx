@@ -114,7 +114,7 @@ const SignUp = () => {
   }
 
   return (
-    <section className="flex flex-col min-h-svh bg-[#0B0E13]">
+    <section className="h-full flex flex-col bg-[#0B0E13]">
       <ProductSearchBar />
       {/* <Navbar /> */}
       <AuthNavbar />
