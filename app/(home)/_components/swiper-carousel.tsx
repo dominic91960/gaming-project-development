@@ -107,7 +107,7 @@ const SwiperCarousel = () => {
             slideShadows: false,
           }}
           pagination={{ clickable: true }}
-          // autoplay={{ disableOnInteraction: false, pauseOnMouseEnter: true }}
+          autoplay={{ disableOnInteraction: false, pauseOnMouseEnter: true }}
           onSlideChange={handleSlideChange}
           className="mySwiper"
         >
@@ -123,7 +123,7 @@ const SwiperCarousel = () => {
               releaseDate,
               soldOut,
             }) => (
-              <SwiperSlide key={title}>
+              <SwiperSlide key={id}>
                 <SwiperCarouselCard
                   id={id}
                   poster={poster}

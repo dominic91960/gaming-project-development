@@ -9,14 +9,17 @@ import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import cartIcon from "../../../../public/images/cart/cart-icon.png";
 import CartSidebar from "../../_components/shopping-cart-sidebar";
 import { useCartContext } from "@/context/CartContext";
+import { useWishlistContext } from "@/context/WishListContext";
+import { set } from "date-fns";
 interface Game {
-  id: number;
+  id: string;
   title: string;
   price: number;
   sellingPrice: number;
   rating: number;
   soldOut: boolean;
   cardImage: string;
+  wishList: boolean;
 }
 
 type CartItem = {
@@ -37,10 +40,12 @@ const ProductCard: React.FC<Game> = ({
   rating,
   soldOut,
   cardImage,
+  wishList
 }) => {
   const router = useRouter();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const { addItem } = useCartContext();
+  const {addToWishlist, setReloadWishlist, updateWishListIds, removeFromWishlist} = useWishlistContext();
 
   const crateCart = (gameId: any) => {
     const newCardItem: CartItem = {
@@ -56,20 +61,43 @@ const ProductCard: React.FC<Game> = ({
     addItem(newCardItem);
   };
 
+  const handleWishlist = async (gameId: any): Promise<boolean> => {
+    // const newWishlistItem = {
+    //   id: gameId,
+    //   image: cardImage,
+    //   choiceType: "aaaaaa",
+    //   title,
+    //   price: sellingPrice,
+    //   productType: "bbbbbb",
+    // };
+
+    return await addToWishlist(id);
+  }
+
   return (
     <div className="relative bg-[#10160e] w-min">
       {/* Wishlist Icon */}
-      <div className="absolute top-[1em] left-[1em] z-40">
+      <div 
+      // onClick={() => handleWishlist(id)}
+      className="absolute top-[1em] left-[1em] z-40">
         <div>
-          {isWishlisted ? (
+          {wishList ? (
             <IoHeartSharp
               className="text-[1.5em] cursor-pointer hover:scale-105 text-white"
-              onClick={() => setIsWishlisted(false)}
+              onClick={async () => {
+                await removeFromWishlist(id);
+                setIsWishlisted(false)
+              }}
             />
           ) : (
             <IoHeartOutline
               className="text-[1.5em] cursor-pointer hover:scale-105 text-white"
-              onClick={() => setIsWishlisted(true)}
+              onClick={async () => {
+                const res = await handleWishlist(id);
+                setIsWishlisted(res);
+                // await updateWishListIds();
+                // setReloadWishlist(prev => !prev); 
+              }}
             />
           )}
         </div>

@@ -19,6 +19,8 @@ import { PiWarningCircleLight } from "react-icons/pi";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { IoMdHeartEmpty, IoIosCart } from "react-icons/io";
 import { MdOutlineSpeakerNotesOff } from "react-icons/md";
+import { RiEmotionSadLine } from "react-icons/ri";
+import { FaBell } from "react-icons/fa";
 
 import { useCartContext } from "@/context/CartContext";
 import StarRating from "@/app/(home)/_components/star-rating";
@@ -26,7 +28,7 @@ import ImageCarousel from "../_components/image-carousel";
 import RequirementsCard from "../_components/requirements-card";
 import ReviewCard from "../_components/review-card";
 import Footer from "@/components/footer/footer";
-import paypalLogo from "@/public/images/product/paypal-logo.png";
+// import paypalLogo from "@/public/images/product/paypal-logo.png";
 import availability from "@/public/images/product/worldwide.png";
 import digitalKey from "@/public/images/product/digital-key.png";
 import lock from "@/public/images/product/lock.png";
@@ -380,48 +382,49 @@ export default function ProductPage() {
                 {/* Container for desktop price card */}
                 <div className="hidden sm:block">
                   {/* Desktop price card */}
-                  <div
-                    className="absolute bottom-0 right-0 bg-black/50 px-[1.6em] py-[2.7em] backdrop-blur-[2px] z-10"
-                    style={{
-                      borderImage:
-                        "linear-gradient(to bottom, transparent, #999999) 1",
-                      borderWidth: "1px",
-                      borderStyle: "solid",
-                    }}
-                  >
-                    {/* Game title */}
-                    <h3 className="uppercase font-bold text-[1.2em] border-b">
-                      {gameData.title}
-                    </h3>
+                  {gameData.stockStatus !== "OUT_OF_STOCK" ? (
+                    <div
+                      className="absolute bottom-0 right-0 bg-black/50 px-[1.6em] py-[2.7em] backdrop-blur-md z-10"
+                      style={{
+                        borderImage:
+                          "linear-gradient(to bottom, transparent, #999999) 1",
+                        borderWidth: "1px",
+                        borderStyle: "solid",
+                      }}
+                    >
+                      {/* Game title */}
+                      <h3 className="uppercase font-bold text-[1.2em] border-b">
+                        {gameData.title}
+                      </h3>
 
-                    {/* Price */}
-                    <div className="flex text-[1.8em] font-bold mt-[0.3em]">
-                      <p className="">
-                        ${" "}
-                        {gameData.discountPrice.toFixed(2) ||
-                          gameData.originalPrice.toFixed(2)}
-                      </p>
-                      <div className="flex items-center text-[0.33em] font-medium ps-[0.7em] gap-x-[0.2em]">
-                        <PiWarningCircleLight className="size-[1.22em]" />
-                        <p className="opacity-70">Price is not final</p>
+                      {/* Price */}
+                      <div className="flex text-[1.8em] font-bold mt-[0.3em]">
+                        <p className="">
+                          ${" "}
+                          {gameData.discountPrice.toFixed(2) ||
+                            gameData.originalPrice.toFixed(2)}
+                        </p>
+                        <div className="flex items-center text-[0.33em] font-medium ps-[0.7em] gap-x-[0.2em]">
+                          <PiWarningCircleLight className="size-[1.22em]" />
+                          <p className="opacity-70">Price is not final</p>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Discount percentage (if any) */}
-                    {gameData.discountPrice && (
-                      <p className="font-semibold flex items-center">
-                        <span className="line-through opacity-70">
-                          $ {gameData.originalPrice.toFixed(2)}
-                        </span>
-                        <span className="font-medium text-[0.7em] text-[#0BDB45] ">
-                          &nbsp;Save&nbsp;
-                          {calDiscountPercentage()}%
-                        </span>
-                      </p>
-                    )}
+                      {/* Discount percentage (if any) */}
+                      {gameData.discountPrice && (
+                        <p className="font-semibold flex items-center">
+                          <span className="line-through opacity-70">
+                            $ {gameData.originalPrice.toFixed(2)}
+                          </span>
+                          <span className="font-medium text-[0.7em] text-[#0BDB45] ">
+                            &nbsp;Save&nbsp;
+                            {calDiscountPercentage()}%
+                          </span>
+                        </p>
+                      )}
 
-                    {/* Paypal button */}
-                    <Button
+                      {/* Paypal button */}
+                      {/* <Button
                       variant="secondary"
                       className="w-full h-[2em] rounded-none text-[0.9em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
                     >
@@ -430,37 +433,74 @@ export default function ProductPage() {
                         alt="Paypal logo"
                         className="w-auto h-[70%]"
                       />
-                    </Button>
+                    </Button> */}
 
-                    {/* Buy, wishlist and add to cart */}
-                    <div className="flex gap-x-[3%]">
-                      <Button
-                        disabled={gameData.stockStatus === "OUT_OF_STOCK"}
-                        variant="gaming"
-                        onClick={() => {
-                          addToCartAndRedirect(id);
-                        }}
-                        className="h-[2em] text-[0.9em] px-[1em] py-0 font-semibold flex-grow"
-                      >
-                        Buy now
-                      </Button>
-                      <button className="size-[1.8em] hover:opacity-80 border flex items-center justify-center">
-                        <IoMdHeartEmpty className="text-[1em]" />
-                      </button>
-
-                      <CartSidebar>
-                        <button
+                      {/* Buy, wishlist and add to cart */}
+                      <div className="flex gap-x-[3%] mt-[0.5em]">
+                        <Button
                           disabled={gameData.stockStatus === "OUT_OF_STOCK"}
-                          className="size-[1.8em] hover:opacity-80 border flex items-center justify-center"
+                          variant="gaming"
                           onClick={() => {
-                            addToCardItem(id);
+                            addToCartAndRedirect(id);
                           }}
+                          className="h-[2em] text-[0.9em] px-[1em] py-0 font-semibold flex-grow"
                         >
-                          <IoIosCart className="text-[1em]" />
+                          Buy now
+                        </Button>
+                        <button className="size-[1.8em] hover:opacity-80 border flex items-center justify-center">
+                          <IoMdHeartEmpty className="text-[1em]" />
                         </button>
-                      </CartSidebar>
+
+                        <CartSidebar>
+                          <button
+                            disabled={gameData.stockStatus === "OUT_OF_STOCK"}
+                            className="size-[1.8em] hover:opacity-80 border flex items-center justify-center"
+                            onClick={() => {
+                              addToCardItem(id);
+                            }}
+                          >
+                            <IoIosCart className="text-[1em]" />
+                          </button>
+                        </CartSidebar>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div
+                      className="absolute bottom-0 right-0 bg-black/50 px-[1.6em] py-[1.6em] backdrop-blur-md z-10"
+                      style={{
+                        borderImage:
+                          "linear-gradient(to bottom, transparent, #999999) 1",
+                        borderWidth: "1px",
+                        borderStyle: "solid",
+                      }}
+                    >
+                      {/* Game title */}
+                      <h3 className="uppercase font-bold text-[1.2em] border-b">
+                        {gameData.title}
+                      </h3>
+
+                      <div className="flex flex-col items-center justify-center text-center">
+                        <RiEmotionSadLine className="text-[1.5em] text-[#75F94C] mt-[0.3em] md:text-[2em] lg:text-[2.6em] 2xl:text-[3.6em] 2xl:mt-[0.1em]" />
+
+                        <h4 className="font-bold text-[0.83em] text-[#75F94C] my-[0.4em] uppercase">
+                          Sorry, sold out &#58;&#40;
+                        </h4>
+
+                        <p className="text-[0.75em] mb-[1em]">
+                          Want this game? We can notify you via email <br />
+                          when the product becomes available again.
+                        </p>
+
+                        <Button
+                          variant="gaming"
+                          className="w-[70%] h-[2em] text-[0.9em] px-[1em] py-0 font-semibold"
+                        >
+                          <FaBell className="me-[0.3em]" />
+                          Notification
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -468,85 +508,125 @@ export default function ProductPage() {
               <ImageCarousel video={gameData.video} images={gameData.images} />
 
               {/* Mobile price card */}
-              <div
-                className=" bg-white/5 px-[1.6em] py-[2.7em] mt-[0.6em] mb-[1.6em] backdrop-blur-[2px] text-[15px] sm:hidden"
-                style={{
-                  borderImage:
-                    "linear-gradient(to bottom, transparent, #999999) 1",
-                  borderWidth: "1px",
-                  borderStyle: "solid",
-                }}
-              >
-                {/* Game title */}
-                <h3 className="uppercase font-bold text-[1.3em] border-b">
-                  {gameData.title}
-                </h3>
+              {gameData.stockStatus !== "OUT_OF_STOCK" ? (
+                <div
+                  className=" bg-white/5 px-[1.6em] py-[2.7em] mt-[0.6em] mb-[1.6em] backdrop-blur-[2px] text-[15px] sm:hidden"
+                  style={{
+                    borderImage:
+                      "linear-gradient(to bottom, transparent, #999999) 1",
+                    borderWidth: "1px",
+                    borderStyle: "solid",
+                  }}
+                >
+                  {/* Game title */}
+                  <h3 className="uppercase font-bold text-[1.3em] border-b">
+                    {gameData.title}
+                  </h3>
 
-                {/* Price */}
-                <div className="flex text-[2em] font-bold mt-[0.3em]">
-                  <p className="">
-                    ${" "}
-                    {gameData.discountPrice.toFixed(2) ||
-                      gameData.originalPrice.toFixed(2)}
-                  </p>
-                  <div className="flex items-center text-[0.35em] font-medium ps-[0.7em] gap-x-[0.2em]">
-                    <PiWarningCircleLight className="size-[1.25em]" />
-                    <p className="opacity-70">Price is not final</p>
+                  {/* Price */}
+                  <div className="flex text-[2em] font-bold mt-[0.3em]">
+                    <p className="">
+                      ${" "}
+                      {gameData.discountPrice.toFixed(2) ||
+                        gameData.originalPrice.toFixed(2)}
+                    </p>
+                    <div className="flex items-center text-[0.35em] font-medium ps-[0.7em] gap-x-[0.2em]">
+                      <PiWarningCircleLight className="size-[1.25em]" />
+                      <p className="opacity-70">Price is not final</p>
+                    </div>
+                  </div>
+
+                  {/* Discount percentage (if any) */}
+                  {gameData.discountPrice && (
+                    <p className="font-semibold flex items-center">
+                      <span className="line-through opacity-70">
+                        $ {gameData.originalPrice.toFixed(2)}
+                      </span>
+                      <span className="font-medium text-[0.8em] text-[#0BDB45] ">
+                        &nbsp;Save&nbsp;
+                        {calDiscountPercentage()}%
+                      </span>
+                    </p>
+                  )}
+
+                  {/* Paypal button */}
+                  {/* <Button
+                    variant="secondary"
+                    className="w-full h-[2em] rounded-none text-[1em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
+                  >
+                    <Image
+                      src={paypalLogo}
+                      alt="Paypal logo"
+                      className="w-auto h-[70%]"
+                    />
+                  </Button> */}
+
+                  {/* Buy, wishlist and add to cart */}
+                  <div className="flex gap-x-[3%] mt-[0.5em]">
+                    <Button
+                      disabled={gameData.stockStatus === "OUT_OF_STOCK"}
+                      variant="gaming"
+                      onClick={() => {
+                        addToCartAndRedirect(id);
+                      }}
+                      className="h-[2em] text-[1em] px-[1em] py-0 font-semibold flex-grow"
+                    >
+                      Buy now
+                    </Button>
+                    <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
+                      <IoMdHeartEmpty className="text-[1em]" />
+                    </button>
+                    <CartSidebar>
+                      <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
+                        <IoIosCart
+                          className="text-[1em]"
+                          onClick={() => {
+                            addToCardItem(id);
+                          }}
+                        />
+                      </button>
+                    </CartSidebar>
                   </div>
                 </div>
-
-                {/* Discount percentage (if any) */}
-                {gameData.discountPrice && (
-                  <p className="font-semibold flex items-center">
-                    <span className="line-through opacity-70">
-                      $ {gameData.originalPrice.toFixed(2)}
-                    </span>
-                    <span className="font-medium text-[0.8em] text-[#0BDB45] ">
-                      &nbsp;Save&nbsp;
-                      {calDiscountPercentage()}%
-                    </span>
-                  </p>
-                )}
-
-                {/* Paypal button */}
-                <Button
-                  variant="secondary"
-                  className="w-full h-[2em] rounded-none text-[1em] px-[1em] py-0 mt-[0.5em] mb-[1em]"
+              ) : (
+                <div
+                  className=" bg-white/5 px-[1.6em] py-[1.6em] mt-[0.6em] mb-[1.6em] backdrop-blur-[2px] text-[15px] text-center sm:hidden"
+                  style={{
+                    borderImage:
+                      "linear-gradient(to bottom, transparent, #999999) 1",
+                    borderWidth: "1px",
+                    borderStyle: "solid",
+                  }}
                 >
-                  <Image
-                    src={paypalLogo}
-                    alt="Paypal logo"
-                    className="w-auto h-[70%]"
-                  />
-                </Button>
+                  {/* Game title */}
+                  <h3 className="uppercase font-bold text-[1.2em]">
+                    {gameData.title}
+                  </h3>
 
-                {/* Buy, wishlist and add to cart */}
-                <div className="flex gap-x-[3%]">
-                  <Button
-                    disabled={gameData.stockStatus === "OUT_OF_STOCK"}
-                    variant="gaming"
-                    onClick={() => {
-                      addToCartAndRedirect(id);
-                    }}
-                    className="h-[2em] text-[1em] px-[1em] py-0 font-semibold flex-grow"
-                  >
-                    Buy now
-                  </Button>
-                  <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
-                    <IoMdHeartEmpty className="text-[1em]" />
-                  </button>
-                  <CartSidebar>
-                    <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
-                      <IoIosCart
-                        className="text-[1em]"
-                        onClick={() => {
-                          addToCardItem(id);
-                        }}
-                      />
-                    </button>
-                  </CartSidebar>
+                  <hr className="max-w-[360px] mx-auto" />
+
+                  <div className="flex flex-col items-center justify-center text-center">
+                    <RiEmotionSadLine className="text-[3em] text-[#75F94C] mt-[0.15em]" />
+
+                    <h4 className="font-bold text-[0.83em] text-[#75F94C] my-[0.4em] uppercase">
+                      Sorry, sold out &#58;&#40;
+                    </h4>
+
+                    <p className="text-[0.75em] mb-[1em]">
+                      Want this game? We can notify you via email when the
+                      product becomes available again.
+                    </p>
+
+                    <Button
+                      variant="gaming"
+                      className="w-[70%] h-[2em] text-[0.9em] px-[1em] py-0 font-semibold"
+                    >
+                      <FaBell className="me-[0.3em]" />
+                      Notification
+                    </Button>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Card Area */}
               <div className="flex justify-around gap-[2em] border-t border-t-[#999999] capitalize font-normal text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] text-center pt-[4em] mt-[4em] lg:text-left">
