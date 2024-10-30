@@ -123,7 +123,7 @@ const SwiperCarousel = () => {
               releaseDate,
               soldOut,
             }) => (
-              <SwiperSlide key={title}>
+              <SwiperSlide key={id}>
                 <SwiperCarouselCard
                   id={id}
                   poster={poster}

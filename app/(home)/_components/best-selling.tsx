@@ -46,6 +46,7 @@ const BestSelling = () => {
     };
     getData();
   }, []);
+
   return (
     <section
       className="relative bg-black bg-cover font-primaryFont text-white"
@@ -85,7 +86,7 @@ const BestSelling = () => {
               stockStatus,
             }) => (
               <article
-                key={title}
+                key={id}
                 className="relative w-[150px] cursor-pointer sm:w-[200px] md:w-[240px] lg:w-[280px] xl:w-[300px] 2xl:w-[320px] z-10 group"
                 onClick={() => {
                   console.log("clicked");
