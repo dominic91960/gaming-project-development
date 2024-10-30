@@ -300,11 +300,13 @@ const Cart: React.FC = () => {
                     {discountMessage}
                   </p> */}
 
-                  <p
-                    className={`font-primaryFont text-[16px] font-medium mt-0 mb-2 ${messageColor}`}
-                  >
-                    {discountMessage}
-                  </p>
+                  {totalDiscount > 0 && (
+                    <p
+                      className={`font-primaryFont text-[16px] font-medium mt-0 mb-2 ${messageColor}`}
+                    >
+                      {discountMessage}
+                    </p>
+                  )}
                 </div>
 
                 {totalDiscount > 0 && (
