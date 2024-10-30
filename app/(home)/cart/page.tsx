@@ -202,7 +202,7 @@ const Cart: React.FC = () => {
                                 </div>
 
                                 <p className=" text-[#75F94C] 2xl:text-[45px] xl:text-[35px] lg:text-[25px] font-semibold uppercase font-rajdhaniFont leading-none w-[180px]">
-                                  $ {item.price * item.quantity}
+                                  ${Math.max(item.price * item.quantity, 0).toFixed(2)}
                                 </p>
                               </div>
                             </div>

@@ -115,7 +115,6 @@ export default function Navbar() {
   const [isContentChanged, setIsContentChanged] = useState(false);
   const [loading, setLoading] = useState(true);
   const [verifySession, setVerifySession] = useState(false);
-  // const { user } = useContext(AuthContext);
   const { user } = useContext(AuthContext) || {};
 
   const router = useRouter();
@@ -241,14 +240,17 @@ export default function Navbar() {
               >
                 <IoMdHeartEmpty />
               </Link>
-              <CartSidebar>
-                {/*  {cart.length > 0 && (
-                    <span className="absolute  bottom-[16px] right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
-                      {cart.length}
-                    </span>
-                  )} */}
-                <IoMdCart />
-              </CartSidebar>
+
+              <div className="relative">
+                {cart.length > 0 && (
+                  <span className="absolute  bottom-[16px] right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
+                    {cart.length}
+                  </span>
+                )}
+                <CartSidebar>
+                  <IoMdCart />
+                </CartSidebar>
+              </div>
 
               {loading ? (
                 <NavBarSpinner loading={loading} />
@@ -265,7 +267,7 @@ export default function Navbar() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="hidden bg-[#111111] font-primaryFont text-[0.8em] text-white rounded-none border-none sm:block">
                     <DropdownMenuLabel className="font-semibold text-center text-[1.3em]">
-                      WUKONG
+                      {user.firstName}
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
                     <DropdownMenuItem
@@ -423,7 +425,7 @@ export default function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-[#111111] font-primaryFont text-[0.7em] text-white rounded-none border-none sm:hidden">
                 <DropdownMenuLabel className="font-semibold text-center text-[1.3em]">
-                  WUKONG
+                  {user.firstName}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
                 <DropdownMenuItem
