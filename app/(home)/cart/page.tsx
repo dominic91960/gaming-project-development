@@ -85,6 +85,10 @@ const Cart: React.FC = () => {
     });
   };
 
+  const messageColor = discountMessage.includes("successfully")
+    ? "text-[#3edf6e]"
+    : "text-[#ff4d4d]";
+
   return (
     <div>
       {/* <ProductSearchBar /> */}
@@ -252,7 +256,7 @@ const Cart: React.FC = () => {
                 </div> */}
 
                 <div className="border-b-[1px] border-[#676866]">
-                  <div className="flex items-center justify-between  pb-4">
+                  <div className="flex items-center justify-between pb-4">
                     <p className="self-start font-primaryFont text-[20px] font-normal text-white mb-2">
                       Discount code :
                     </p>
@@ -264,7 +268,7 @@ const Cart: React.FC = () => {
                             value={discountCode}
                             onChange={(e) => setDiscountCode(e.target.value)}
                             placeholder="Discount Code"
-                            className="bg-transparent border border-[#666666] text-white rounded-none h-[30px] mb-3"
+                            className="bg-transparent border border-[#676866] text-white rounded-none h-[30px] mb-3"
                           />
 
                           <div className="flex items-center justify-end">
@@ -292,23 +296,29 @@ const Cart: React.FC = () => {
                     </div>
                   </div>
 
-                  <p className="font-primaryFont text-[16px] font-bold text-[#df3e4b] mt-0 mb-2">
+                  {/* <p className="font-primaryFont text-[16px] font-bold text-[#3edf6e] mt-0 mb-2">
+                    {discountMessage}
+                  </p> */}
+
+                  <p
+                    className={`font-primaryFont text-[16px] font-medium mt-0 mb-2 ${messageColor}`}
+                  >
                     {discountMessage}
                   </p>
                 </div>
 
                 {totalDiscount > 0 && (
-                  <div className="flex items-center justify-between border-b-2 border-[#676866]">
-                    <p className="font-primaryFont text-[20px] font-normal text-white mb-2">
+                  <div className="flex items-center justify-between border-b-[1px] border-[#676866] py-2">
+                    <p className="font-primaryFont text-[20px] font-normal text-white">
                       Discount
                     </p>
-                    <p className="font-primaryFont text-[20px] font-bold text-white mb-2">
+                    <p className="font-primaryFont text-[20px] font-bold text-white">
                       - ${Math.max(totalDiscount, 0).toFixed(2)}
                     </p>
                   </div>
                 )}
 
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-5 mt-2">
                   <p className="font-primaryFont text-[24px] font-normal text-white">
                     Total
                   </p>
@@ -319,7 +329,7 @@ const Cart: React.FC = () => {
 
                 <div className="w-full flex justify-center">
                   <Button
-                    className=" text-white text-[22px] font-bold font-primaryFont rounded-none px-8 w-full"
+                    className=" text-black text-[22px] font-bold font-primaryFont rounded-none px-8 w-full"
                     variant="gaming"
                     onClick={() => {
                       // Ensure discountCode is defined before creating the order
