@@ -330,7 +330,7 @@ export default function Navbar() {
             className="sm:hidden"
             onClick={() => setIsMobileNavToggled(false)}
           >
-            <Image src={logo} alt="Logo" className="size-[2em]" />
+            <Image src={logo} alt="Logo" className="w-[2em]" />
           </Link>
 
           {/* Mobile navbar toggle  */}

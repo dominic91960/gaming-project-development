@@ -28,6 +28,7 @@ import { set } from "date-fns";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Spinner from "@/components/Spinner/Spinner";
+import EmailVerification from "./components/email-verfiication";
 
 const recentActivity = [
   {
@@ -593,24 +594,22 @@ interface Profile {
 export default function ProfilePage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  const [profile, setProfile] = useState<Profile>(
-    {
-      avatar: null,
-      id: '',
-      username: '',
-      email: '',
-      firstName: '',
-      lastName: '',
-      address: '',
-      city: '',
-      state: '',
-      country: '',
-      postalCode: '',
-      password: '',
-      tel: '',
-      trustedDevices: 0,
-    }
-  );
+  const [profile, setProfile] = useState<Profile>({
+    avatar: null,
+    id: "",
+    username: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    state: "",
+    country: "",
+    postalCode: "",
+    password: "",
+    tel: "",
+    trustedDevices: 0,
+  });
   const [loading, setLoading] = useState(true);
 
   const [reloadProfile, setReloadProfile] = useState(false);
@@ -636,7 +635,7 @@ export default function ProfilePage() {
         trustedDevices: res.data.trustedDevices,
         avatar: res.data.profile_image,
       });
-    }
+    };
     if (id) {
       getUserData();
       setLoading(false);
@@ -710,21 +709,21 @@ export default function ProfilePage() {
       const file = e.target.files[0];
       const reader = new FileReader();
       const formData = new FormData();
-      formData.append('image', file);
+      formData.append("image", file);
 
       try {
-          const response = await axios('https://store.thevingame.com/upload', {
-              method: 'POST',
-              data: formData,
-          });
-          if (response.status === 201) {
-              const url = response.data.fileUrl;
-                  setImageUrl(url);
-          } else {
-              throw new Error(response.data.fileUrl);
-          }
+        const response = await axios("https://store.thevingame.com/upload", {
+          method: "POST",
+          data: formData,
+        });
+        if (response.status === 201) {
+          const url = response.data.fileUrl;
+          setImageUrl(url);
+        } else {
+          throw new Error(response.data.fileUrl);
+        }
       } catch (error) {
-          toast.error('Error uploading file: ' + (error as Error).message);
+        toast.error("Error uploading file: " + (error as Error).message);
       }
     }
   };
@@ -763,8 +762,7 @@ export default function ProfilePage() {
   };
   const updatedColumns: ColumnDef<Transaction>[] = [...columns, viewColumn];
 
-  if(loading) return <Spinner loading={loading} />
-
+  if (loading) return <Spinner loading={loading} />;
 
   return (
     <>
@@ -790,24 +788,36 @@ export default function ProfilePage() {
                   <div className="absolute bottom-0 right-0 flex flex-col items-end">
                     <button
                       className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] mb-[0.2em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                      onClick={async() => {
-                        setProfile((prev) => prev ? { ...prev, avatar: imageUrl } : prev);
+                      onClick={async () => {
+                        setProfile((prev) =>
+                          prev ? { ...prev, avatar: imageUrl } : prev
+                        );
                         setImageUrl(null);
-                        try{
-                          const res = await axiosInstance.patch(`/user/${profile?.id}/profile-image`, 
-                          { profile_image: imageUrl });
+                        try {
+                          const res = await axiosInstance.patch(
+                            `/user/${profile?.id}/profile-image`,
+                            { profile_image: imageUrl }
+                          );
                           console.log(res);
-                          if(res.status === 200) {
-                            toast.success('Profile picture updated successfully');
-                            const user = localStorage.getItem('user');
-                            localStorage.setItem('user', JSON.stringify({ ...JSON.parse(user || '{}'), profile_image: imageUrl }));
-                          }else{
+                          if (res.status === 200) {
+                            toast.success(
+                              "Profile picture updated successfully"
+                            );
+                            const user = localStorage.getItem("user");
+                            localStorage.setItem(
+                              "user",
+                              JSON.stringify({
+                                ...JSON.parse(user || "{}"),
+                                profile_image: imageUrl,
+                              })
+                            );
+                          } else {
                             // toast.error('Error updating profile picture');
-                            throw new Error('Error updating profile picture');
+                            throw new Error("Error updating profile picture");
                           }
                         } catch (error) {
                           console.log(error);
-                          toast.error('Error updating profile picture');
+                          toast.error("Error updating profile picture");
                         }
                       }}
                     >
@@ -868,7 +878,7 @@ export default function ProfilePage() {
           <div className="w-full h-1/2 absolute bottom-0 bg-gradient-to-t from-black to-transparent"></div>
         </div>
 
-        <div className="bg-gradient-to-b from-black to-transparent">
+        <div className="bg-gradient-to-b from-black via-transparent via-20% to-black to-100%">
           {/* Container for the rest of the content */}
           <div className="container mx-auto px-[36px] pb-[20px] 2xl:pb-[80px]">
             {/* Container for account details and security details */}
@@ -891,13 +901,19 @@ export default function ProfilePage() {
               />
 
               {/* Security details */}
-              <SecurityInfo
-                password={profile.password}
-                tel={profile.tel}
-                trustedDevices={profile.trustedDevices}
-                handlePasswordEditClick={() => setIsEditPasswordPopupOpen(true)}
-                handleTelEditClick={() => setIsEditTelPopupOpen(true)}
-              />
+              <div className="md:col-span-5">
+                <SecurityInfo
+                  password={profile.password}
+                  tel={profile.tel}
+                  trustedDevices={profile.trustedDevices}
+                  handlePasswordEditClick={() =>
+                    setIsEditPasswordPopupOpen(true)
+                  }
+                  handleTelEditClick={() => setIsEditTelPopupOpen(true)}
+                />
+
+                <EmailVerification />
+              </div>
             </div>
 
             {/* Recent activity */}

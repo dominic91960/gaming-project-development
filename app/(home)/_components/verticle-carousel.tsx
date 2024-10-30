@@ -8,34 +8,44 @@ import "./verticle-carousel.css";
 
 const data = [
   {
+    id: "670f554d92cae82274f98b54",
     poster: one.src,
     name: "Worshippers of Cthulu",
     price: 2992,
     rating: 0,
+    soldOut: true,
   },
   {
+    id: "670f5ce892cae82274f98b5b",
     poster: two.src,
     name: "Warhammer 40,000: Space Marine 2",
     price: 2992,
     rating: 5,
+    soldOut: false,
   },
   {
+    id: "670fbcca0a1092877a48494c",
     poster: three.src,
     name: "Assassin's Creed Shadows",
     price: 2991,
     rating: 5,
+    soldOut: false,
   },
   {
+    id: "67160d8b0342881a0be83757",
     poster: four.src,
     name: "Star Wars Outlaws",
     price: 2993,
     rating: 5,
+    soldOut: false,
   },
   {
+    id: "670f554d92cae82274f98b54",
     poster: five.src,
     name: "Skull and Bones",
     price: 2994,
     rating: 5,
+    soldOut: false,
   },
 ];
 
@@ -62,13 +72,15 @@ const VerticalCarousel = () => {
 
         {/* Carousel */}
         <div className="vertical-carousel-container">
-          {data.map(({ poster, name, price, rating }, i) => (
+          {data.map(({ id, poster, name, price, rating, soldOut }, i) => (
             <VerticalCarouselCard
               key={i}
+              id={id}
               poster={poster}
               name={name}
               price={price}
               rating={rating}
+              soldOut={soldOut}
               i={i}
             />
           ))}
