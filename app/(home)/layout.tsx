@@ -41,7 +41,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       }
     } else {
       setIsAuthorized(true);
-      router.push("/");
+      // router.push("/");
     }
   }, [router]);
   if (!isAuthorized) {
