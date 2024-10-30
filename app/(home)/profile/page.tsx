@@ -2,7 +2,11 @@
 
 import React, { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
+import toast from "react-hot-toast";
+import axios from "axios";
+import axiosInstance from "@/axios/axiosInstance";
 import { ColumnDef } from "@tanstack/react-table";
 import { Transaction, columns } from "./components/transaction-columns";
 import { DataTable } from "./components/transaction-data-table";
@@ -10,10 +14,7 @@ import { Button } from "@/components/ui/button";
 import { FaEye, FaPencilAlt, FaCheck } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 
-import bg from "@/public/images/products/bg.png";
-import samplePic from "@/public/images/sample-pic.png";
-import ProductSearchBar from "@/components/product-search/product-search";
-import Navbar from "@/components/navbar/navbar";
+import Spinner from "@/components/Spinner/Spinner";
 import AccountInfo from "./components/account-info";
 import SecurityInfo from "./components/security-info";
 import RecentActivities from "./components/recent-activities";
@@ -22,13 +23,9 @@ import EditAccountInfo from "./components/edit-account-info";
 import EditPassword from "./components/edit-password";
 import EditTel from "./components/edit-tel";
 import TransactionAction from "./components/transaction-action";
-import { useSearchParams } from "next/navigation";
-import axiosInstance from "@/axios/axiosInstance";
-import { set } from "date-fns";
-import toast from "react-hot-toast";
-import axios from "axios";
-import Spinner from "@/components/Spinner/Spinner";
 import EmailVerification from "./components/email-verfiication";
+import bg from "@/public/images/products/bg.png";
+import samplePic from "@/public/images/sample-pic.png";
 
 const recentActivity = [
   {
@@ -707,7 +704,6 @@ export default function ProfilePage() {
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      const reader = new FileReader();
       const formData = new FormData();
       formData.append("image", file);
 
