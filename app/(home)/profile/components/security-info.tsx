@@ -1,9 +1,10 @@
 import React from "react";
 
 import { Button } from "@/components/ui/button";
-import { FaMobileAlt, FaPencilAlt } from "react-icons/fa";
-import { FaCircleCheck } from "react-icons/fa6";
-import { LuMonitor } from "react-icons/lu";
+import { FaPencilAlt } from "react-icons/fa";
+// import { FaMobileAlt, FaPencilAlt } from "react-icons/fa";
+// import { FaCircleCheck } from "react-icons/fa6";
+// import { LuMonitor } from "react-icons/lu";
 
 interface SecurityInfoProps {
   password: string;
@@ -15,10 +16,10 @@ interface SecurityInfoProps {
 
 const SecurityInfo: React.FC<SecurityInfoProps> = ({
   password,
-  tel,
-  trustedDevices,
+  // tel,
+  // trustedDevices,
   handlePasswordEditClick,
-  handleTelEditClick,
+  // handleTelEditClick,
 }) => {
   return (
     <menu

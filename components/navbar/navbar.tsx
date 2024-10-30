@@ -15,8 +15,9 @@ import {
   IoMdCart,
   IoMdPerson,
 } from "react-icons/io";
-import { FaUserCog } from "react-icons/fa";
-import { IoIosLogOut } from "react-icons/io";
+import { FaUser } from "react-icons/fa";
+import { IoLogOut } from "react-icons/io5";
+
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -253,7 +254,7 @@ export default function Navbar() {
                 <NavBarSpinner loading={loading} />
               ) : verifySession ? (
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="cursor-pointer">
+                  <DropdownMenuTrigger className="hidden cursor-pointer rounded-full sm:block">
                     <Image
                       src={user?.profile_image}
                       width={20}
@@ -262,41 +263,37 @@ export default function Navbar() {
                       className="size-[1em] rounded-full"
                     />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-black/60 font-primaryFont text-white rounded-none border border-white/40 backdrop-blur-sm">
-                    <DropdownMenuLabel className="text-center">
-                      Apex47
+                  <DropdownMenuContent className="hidden bg-[#111111] font-primaryFont text-[0.8em] text-white rounded-none border-none sm:block">
+                    <DropdownMenuLabel className="font-semibold text-center text-[1.3em]">
+                      WUKONG
                     </DropdownMenuLabel>
-                    <DropdownMenuSeparator className="bg-white/40" />
+                    <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
                     <DropdownMenuItem
-                      className="bg-transparent text-[1em] focus:bg-transparent"
+                      className="bg-transparent text-[1em] focus:bg-transparent focus:text-white"
                       onClick={() => {
                         router.push("/profile?id=" + user.id);
                       }}
                     >
-                      <Button
-                        variant="secondary"
-                        className="w-full h-fit flex items-center gap-[0.5em] text-[0.8em] px-[1em] py-[0.3em] rounded-none font-primaryFont"
-                      >
-                        <FaUserCog className="text-[1.3em]" />
+                      <button className="w-full h-fit flex items-center gap-[0.5em] px-[1em] py-[0.3em] rounded-none font-primaryFont uppercase hover:opacity-80">
+                        <FaUser className="text-[1.3em] text-[#0BDB45]" />
                         Profile
-                      </Button>
+                      </button>
                     </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
                     <DropdownMenuItem
-                      className="bg-transparent text-[1em] focus:bg-transparent"
+                      className="bg-transparent text-[1em] focus:bg-transparent focus:text-white"
                       onClick={() => {
                         axiosInstance.patch("/auth/logout");
                         localStorage.clear();
                         window.location.href = "/sign-in";
                       }}
                     >
-                      <Button
-                        variant="secondary"
-                        className="w-full h-fit flex items-center gap-[0.5em] text-[0.8em] px-[1em] py-[0.3em] rounded-none font-primaryFont"
-                      >
-                        <IoIosLogOut className="text-[1.3em]" />
+                      <button className="w-full h-fit flex items-center gap-[0.5em] px-[1em] py-[0.3em] rounded-none font-primaryFont uppercase hover:opacity-80">
+                        <IoLogOut className="text-[1.6em] text-[#0BDB45]" />
                         Logout
-                      </Button>
+                      </button>
                     </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
@@ -319,7 +316,7 @@ export default function Navbar() {
                 }}
                 className="cursor-pointer hover:scale-110"
               >
-                <IoIosLogOut />
+                <IoLogOut />
               </div> */}
             </div>
           </div>
@@ -415,7 +412,7 @@ export default function Navbar() {
             <NavBarSpinner loading={loading} />
           ) : verifySession ? (
             <DropdownMenu>
-              <DropdownMenuTrigger className="cursor-pointer">
+              <DropdownMenuTrigger className="cursor-pointer rounded-full sm:hidden">
                 <Image
                   src={user?.profile_image}
                   width={20}
@@ -424,43 +421,37 @@ export default function Navbar() {
                   className="size-[1em] rounded-full"
                 />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-black/40 font-primaryFont text-white rounded-none border border-white/40 backdrop-blur-md">
-                <DropdownMenuLabel className="text-center">
-                  Apex47
+              <DropdownMenuContent className="bg-[#111111] font-primaryFont text-[0.7em] text-white rounded-none border-none sm:hidden">
+                <DropdownMenuLabel className="font-semibold text-center text-[1.3em]">
+                  WUKONG
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-white/40" />
+                <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
                 <DropdownMenuItem
-                  className="bg-transparent text-[1em] focus:bg-transparent"
+                  className="bg-transparent text-[1em] focus:bg-transparent focus:text-white"
                   onClick={() => {
                     router.push("/profile?id=" + user.id);
                   }}
                 >
-                  <Button
-                    variant="secondary"
-                    className="w-full h-fit flex items-center gap-[0.5em] text-[0.8em] px-[1em] py-[0.3em] rounded-none font-primaryFont"
-                    onClick={() => setIsMobileNavToggled(false)}
-                  >
-                    <FaUserCog className="text-[1.3em]" />
+                  <button className="w-full h-fit flex items-center gap-[0.5em] px-[1em] py-[0.3em] rounded-none font-primaryFont uppercase hover:opacity-80">
+                    <FaUser className="text-[1.3em] text-[#0BDB45]" />
                     Profile
-                  </Button>
+                  </button>
                 </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
                 <DropdownMenuItem
-                  className="bg-transparent text-[1em] focus:bg-transparent"
+                  className="bg-transparent text-[1em] focus:bg-transparent focus:text-white"
                   onClick={() => {
                     axiosInstance.patch("/auth/logout");
                     localStorage.clear();
                     window.location.href = "/sign-in";
                   }}
                 >
-                  <Button
-                    variant="secondary"
-                    className="w-full h-fit flex items-center gap-[0.5em] text-[0.8em] px-[1em] py-[0.3em] rounded-none font-primaryFont"
-                    onClick={() => setIsMobileNavToggled(false)}
-                  >
-                    <IoIosLogOut className="text-[1.3em]" />
+                  <button className="w-full h-fit flex items-center gap-[0.5em] px-[1em] py-[0.3em] rounded-none font-primaryFont uppercase hover:opacity-80">
+                    <IoLogOut className="text-[1.6em] text-[#0BDB45]" />
                     Logout
-                  </Button>
+                  </button>
                 </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
