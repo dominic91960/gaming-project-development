@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - feat/popularitySorting
+      - fix/buildFailFixed
   workflow_dispatch:
 
 jobs:

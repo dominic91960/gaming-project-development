@@ -16,6 +16,8 @@ import axiosInstance from "@/axios/axiosInstance";
 import { set } from "date-fns";
 import Spinner from "@/components/Spinner/Spinner";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useContext } from "react";
+import { useWishlistContext } from "@/context/WishListContext";
 
 type FilterParams = {
   rating: number;
@@ -39,14 +41,17 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     setCurrentPage(page);
   };
 
+  const {addToWishlist} = useWishlistContext();
+
   interface Game {
-    id: number;
+    id: string;
     title: string;
     price: number;
     sellingPrice: number;
     rating: number;
     soldOut: boolean;
     cardImage: string;
+    wishList: boolean;
   }
 
   const [games, setGames] = useState<Game[]>([]);
@@ -60,6 +65,8 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   const [sortTerm, setSortTerm] = useState("latest");
   const debouncedSortTerm = useDebounce(sortTerm, 500);
   const [loading, setLoading] = useState(true);
+
+  const {wishListGameIds} = useWishlistContext();
 
   useEffect(() => {
     const getData = async () => {
@@ -76,6 +83,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
           rating: Math.round(game.averageRating),
           soldOut: game.stockStatus === "OUT_OF_STOCK",
           cardImage: game.cardImage,
+          wishList: wishListGameIds.includes(game.id)
         };
       });
 
@@ -90,8 +98,12 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       setGames(games);
       setLoading(false);
     };
+
+    if(wishListGameIds){
+      console.log("Wishlist Game Ids current", wishListGameIds);
+    }
     getData();
-  }, [currentPage, clearFilters]);
+  }, [currentPage, clearFilters, wishListGameIds]);
 
   useEffect(() => {
     console.log("Filter Params", filterParams);
@@ -134,6 +146,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
           rating: Math.round(game.averageRating),
           soldOut: game.stockStatus === "OUT_OF_STOCK",
           cardImage: game.cardImage,
+          wishList: wishListGameIds.includes(game.id)
         };
       });
 
@@ -182,6 +195,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         rating: Math.round(game.averageRating),
         soldOut: game.stockStatus === "OUT_OF_STOCK",
         cardImage: game.cardImage,
+        wishList: wishListGameIds.includes(game.id)
       };
     });
 
@@ -213,6 +227,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         rating: Math.round(game.averageRating),
         soldOut: game.stockStatus === "OUT_OF_STOCK",
         cardImage: game.cardImage,
+        wishList: wishListGameIds.includes(game.id)
       };
     });
 
@@ -234,7 +249,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
 
   return (
     <div className="min-w-full px-4 pb-4">
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex items-start justify-between mb-6 2xl:w-[1125px] xl:w-[935px]">
         <p className="text-[15px] font-normal font-primaryFont text-white leading-none">
           {total} result found:
         </p>
@@ -259,7 +274,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
               <SelectTrigger className="w-[180px] rounded-none border-none text-white">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
-              <SelectContent className="bg-[#666666] text-white">
+              <SelectContent className=" text-white bg-[#666666] rounded-none">
                 <SelectGroup>
                   <SelectLabel>Default Sorting</SelectLabel>
                   <SelectItem value="popularity">Popularity</SelectItem>
@@ -276,7 +291,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       {loading ? (
         <Spinner loading={loading} />
       ) : (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 2xl:gap-4 xl:gap-16 lg:gap-12 md:gap-4">
           {games.map((game, index) => (
             <ProductCard
               key={index}
@@ -287,6 +302,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
               rating={game.rating}
               soldOut={game.soldOut}
               cardImage={game.cardImage}
+              wishList={game.wishList}
             />
           ))}
         </div>

@@ -6,6 +6,7 @@ import { Montserrat, Inter, Rajdhani } from "@next/font/google";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/Spinner/Spinner";
+import { WishlistProvider } from "@/context/WishListContext";
 
 // Configure Montserrat with all required weights
 const montserrat = Montserrat({
@@ -41,7 +42,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       }
     } else {
       setIsAuthorized(true);
-      router.push("/");
+      // router.push("/");
     }
   }, [router]);
   if (!isAuthorized) {
@@ -56,7 +57,9 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
         <AuthProvider>
           <ProductSearchBar />
           <Navbar />
+          <WishlistProvider>
           {children}
+          </WishlistProvider>
         </AuthProvider>
       </body>
     </html>

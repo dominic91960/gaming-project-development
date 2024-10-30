@@ -3,15 +3,14 @@
 import { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
-import logo from "@/public/images/navbar/logo.png";
+import logo from "@/public/images/logo.png";
 import { useCartContext } from "@/context/CartContext";
 
 import {
   IoIosArrowForward,
   IoIosArrowBack,
-  IoIosLogOut,
   IoMdHeartEmpty,
   IoIosCart,
   IoMdPerson,
@@ -19,25 +18,8 @@ import {
 } from "react-icons/io";
 
 import { AuthContext } from "@/context/AuthContext";
-import axiosInstance from "@/axios/axiosInstance";
 import ProfileDefault from "@/public/images/navbar/profile_default.jpg";
 import "./navbar.css";
-// import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import samplePic from "@/public/images/sample-pic.png";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-import { useRouter } from "next/navigation";
-import { FaUserPlus } from "react-icons/fa6";
-import NavBarSpinner from "../Spinner/NavBarSpinner";
-import { set } from "date-fns";
-import axios from "axios";
 
 const categories = [
   {
@@ -283,7 +265,7 @@ export default function AuthNavbar() {
             className="sm:hidden"
             onClick={() => setIsMobileNavToggled(false)}
           >
-            <Image src={logo} alt="Logo" className="size-[3em]" />
+            <Image src={logo} alt="Logo" className="w-[2em]" />
           </Link>
 
           {/* Mobile navbar toggle  */}
