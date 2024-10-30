@@ -16,6 +16,7 @@ import { useCartContext } from "@/context/CartContext";
 import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 
+import { FaPlus, FaMinus } from "react-icons/fa6";
 const SERVICE_FEE = 12;
 
 const Cart: React.FC = () => {
@@ -36,7 +37,7 @@ const Cart: React.FC = () => {
   const [discountApplied, setDiscountApplied] = useState<number>(0);
   const [discountMessage, setDiscountMessage] = useState<string>("");
 
-  const [tempDiscount, setTempDiscount] =useState<string>("")
+  const [tempDiscount, setTempDiscount] = useState<string>("");
 
   const handleRemoveItem = (id: number) => {
     removeItem(id);
@@ -54,7 +55,7 @@ const Cart: React.FC = () => {
         setDiscountMessage("Discount added successfully");
         // Clear the previous discount
         setDiscountApplied(0);
-        setTempDiscount(response.data.code)
+        setTempDiscount(response.data.code);
         setDiscount({
           code: response.data.code,
           discount: response.data.discount,
@@ -63,7 +64,7 @@ const Cart: React.FC = () => {
         });
 
         // Update applied discount
-        setDiscountApplied(response.data.discount);      
+        setDiscountApplied(response.data.discount);
         toast.success("Discount applied successfully");
       } else {
         setDiscountMessage("Your discount code is invalid");
@@ -134,30 +135,31 @@ const Cart: React.FC = () => {
               {cart.map((item) => (
                 <div key={item.id} className="mb-12">
                   <div>
-                    <div className="grid grid-cols-12 gap-6 px-6 py-2 border border-white bg-[#222222]">
-                      <div className="col-span-3 p-2 flex items-center justify-center">
+                    <div className="grid grid-cols-12 gap-6 px-3 py-3 border border-[#666a65] bg-[#222222] relative">
+                      <div className="col-span-3 bg-[#dd34aa]">
                         <img
                           src={item.image}
                           alt={item.title}
-                          className="w-full rounded"
+                          className="w-[244px] h-[220px] rounded"
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-end gap-1 absolute top-3 right-3">
+                        <CiHeart className="text-[30px] text-white cursor-pointer" />
+                        <MdDeleteForever
+                          className="text-[30px] text-white cursor-pointer"
+                          onClick={() => handleRemoveItem(item.id)}
                         />
                       </div>
 
                       <div className="col-span-9 flex items-center w-full h-full">
                         <div className="w-full">
-                          <div className="mb-4">
+                          <div className="mb-6">
                             <div className="flex items-center justify-between">
                               <p className="font-primaryFont text-[16px] font-normal text-white border-b-2 border-[#676866] w-max mb-2">
-                                {item.choiceType}
+                                {/* {item.choiceType} */}
+                                Ultimate Choice
                               </p>
-
-                              <div className="flex items-center justify-end gap-1">
-                                <CiHeart className="text-[30px] text-white cursor-pointer" />
-                                <MdDeleteForever
-                                  className="text-[30px] text-white cursor-pointer"
-                                  onClick={() => handleRemoveItem(item.id)}
-                                />
-                              </div>
                             </div>
 
                             <p className="font-primaryFont text-[20px] font-bold text-white">
@@ -167,29 +169,36 @@ const Cart: React.FC = () => {
 
                           <div className="grid grid-cols-2">
                             <div>
-                              <div className="border-r-2 border-white">
-                                <div className="flex items-center gap-2 mt-2 mb-5">
-                                  <div className="flex items-center space-x-4">
+                              <div className="border-r-2 border-[#666a65]">
+                                <div className="flex items-center gap-2 mb-6">
+                                  <div className="flex items-center space-x-8">
                                     <button
                                       onClick={() => decreaseQuantity(item.id)}
-                                      className="text-white font-bold text-[18px] rounded"
+                                      className="font-primaryFont text-white font-bold text-[18px] rounded"
                                       disabled={item.quantity <= 1}
                                     >
-                                      -
+                                      <p className="font-primaryFont text-white font-bold text-[18px]">
+                                        <FaMinus />
+                                      </p>
                                     </button>
-                                    <span className="text-xl text-white font-bold font-primaryFont">
+
+                                    <p className="text-xl text-white font-bold font-primaryFont">
                                       {item.quantity}
-                                    </span>
+                                    </p>
+
                                     <button
                                       onClick={() => increaseQuantity(item.id)}
-                                      className="text-white font-bold text-[18px] rounded"
+                                      className="font-primaryFont text-white font-bold text-[18px] rounded"
                                     >
-                                      +
+                                      <p className="font-primaryFont text-white font-black text-[18px]">
+                                        <FaPlus />
+                                      </p>
                                     </button>
                                   </div>
                                 </div>
-                                <p className="font-primaryFont text-[35px] font-bold text-[#75F94C] leading-none">
-                                  ${item.price * item.quantity}
+
+                                <p className=" text-[#75F94C] text-[45px] font-semibold uppercase font-rajdhaniFont leading-none w-[180px]">
+                                  $ {item.price * item.quantity}
                                 </p>
                               </div>
                             </div>
@@ -202,7 +211,8 @@ const Cart: React.FC = () => {
                                   </p>
                                 </div>
                                 <p className="font-primaryFont text-[16px] font-medium text-white">
-                                  {item.productType}
+                                  {/* {item.productType} */}
+                                  Digital Product
                                 </p>
                               </div>
                             </div>
@@ -218,7 +228,7 @@ const Cart: React.FC = () => {
             {/* ----------Summary Section--------------- */}
 
             <div className="col-span-4">
-              <div className="bg-[#222222] border border-white p-6">
+              <div className="bg-[#222222] border border-[#666a65] p-6">
                 <p className="font-primaryFont text-[36px] font-semibold text-white mb-2">
                   Summary
                 </p>
@@ -298,7 +308,7 @@ const Cart: React.FC = () => {
                     Total
                   </p>
                   <p className="font-primaryFont text-[30px] font-bold text-[#75F94C] mb-2">
-                    ${Math.max((lastPrice - totalDiscount), 0).toFixed(2)}
+                    ${Math.max(lastPrice - totalDiscount, 0).toFixed(2)}
                   </p>
                 </div>
 
