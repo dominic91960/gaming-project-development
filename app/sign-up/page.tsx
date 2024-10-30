@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FcGoogle } from "react-icons/fc";
-import { FaFacebook, FaApple } from "react-icons/fa";
 
 import ProductSearchBar from "@/components/product-search/product-search";
 import Navbar from "@/components/navbar/navbar";
@@ -127,21 +126,20 @@ const SignUp = () => {
           <p className="font-primaryFont text-[1.6em] font-medium text-white text-center">
             Sign Up To Your Account
           </p>
-          <p className="font-primaryFont text-[0.86em] font-medium text-white text-center mb-[4em]">
+          <p className="font-primaryFont text-[0.86em] font-medium text-white text-center mb-[1.5em]">
             Start from the beginning.
           </p>
 
           {/* Social Sign-In Buttons */}
-          <div className="flex items-center justify-center gap-6 mb-[1.6em]">
-            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] hover:-translate-y-[1px] cursor-pointer">
-              <FcGoogle />
-            </div>
-            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] text-[#1877F2] hover:-translate-y-[1px] cursor-pointer">
-              <FaFacebook />
-            </div>
-            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] text-black hover:-translate-y-[1px] cursor-pointer">
-              <FaApple />
-            </div>
+          <div className="flex items-center justify-center gap-6">
+            <Button
+              type="submit"
+              variant="secondary"
+              className="w-full h-fit mb-[1.3em] font-primaryFont font-medium text-[1.1em] px-[1em] py-[0.5em] rounded-none"
+            >
+              <FcGoogle className="text-[1.2em] me-[0.5em]" /> Sign In With
+              Google
+            </Button>
           </div>
 
           <div className="flex items-center justify-center mb-[1em]">
