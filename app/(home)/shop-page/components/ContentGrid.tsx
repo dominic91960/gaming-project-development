@@ -16,6 +16,8 @@ import axiosInstance from "@/axios/axiosInstance";
 import { set } from "date-fns";
 import Spinner from "@/components/Spinner/Spinner";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useContext } from "react";
+import { useWishlistContext } from "@/context/WishListContext";
 
 type FilterParams = {
   rating: number;
@@ -39,14 +41,17 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     setCurrentPage(page);
   };
 
+  const {addToWishlist} = useWishlistContext();
+
   interface Game {
-    id: number;
+    id: string;
     title: string;
     price: number;
     sellingPrice: number;
     rating: number;
     soldOut: boolean;
     cardImage: string;
+    wishList: boolean;
   }
 
   const [games, setGames] = useState<Game[]>([]);
@@ -60,6 +65,8 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   const [sortTerm, setSortTerm] = useState("latest");
   const debouncedSortTerm = useDebounce(sortTerm, 500);
   const [loading, setLoading] = useState(true);
+
+  const {wishListGameIds} = useWishlistContext();
 
   useEffect(() => {
     const getData = async () => {
@@ -76,6 +83,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
           rating: 5,
           soldOut: game.stockStatus === "OUT_OF_STOCK",
           cardImage: game.cardImage,
+          wishList: wishListGameIds.includes(game.id)
         };
       });
 
@@ -90,8 +98,12 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       setGames(games);
       setLoading(false);
     };
+
+    if(wishListGameIds){
+      console.log("Wishlist Game Ids current", wishListGameIds);
+    }
     getData();
-  }, [currentPage, clearFilters]);
+  }, [currentPage, clearFilters, wishListGameIds]);
 
   useEffect(() => {
     console.log("Filter Params", filterParams);
@@ -134,6 +146,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
           rating: 5,
           soldOut: game.stockStatus === "OUT_OF_STOCK",
           cardImage: game.cardImage,
+          wishList: wishListGameIds.includes(game.id)
         };
       });
 
@@ -182,6 +195,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         rating: 5,
         soldOut: game.stockStatus === "OUT_OF_STOCK",
         cardImage: game.cardImage,
+        wishList: wishListGameIds.includes(game.id)
       };
     });
 
@@ -213,6 +227,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         rating: 5,
         soldOut: game.stockStatus === "OUT_OF_STOCK",
         cardImage: game.cardImage,
+        wishList: wishListGameIds.includes(game.id)
       };
     });
 
@@ -287,6 +302,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
               rating={5}
               soldOut={game.soldOut}
               cardImage={game.cardImage}
+              wishList={game.wishList}
             />
           ))}
         </div>
