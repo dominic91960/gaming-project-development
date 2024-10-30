@@ -228,12 +228,12 @@ const Cart: React.FC = () => {
             {/* ----------Summary Section--------------- */}
 
             <div className="col-span-4">
-              <div className="bg-[#222222] border border-[#666a65] p-6">
+              <div className="bg-[#222222] border border-[#676866] p-6">
                 <p className="font-primaryFont text-[36px] font-semibold text-white mb-2">
                   Summary
                 </p>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between  border-b-[1px] border-[#676866] mb-4 pb-4">
                   <p className="font-primaryFont text-[20px] font-normal text-white mb-2">
                     {totalItems} Products
                   </p>
@@ -251,46 +251,51 @@ const Cart: React.FC = () => {
                   </p>
                 </div> */}
 
-                <div className="flex items-center justify-between border-b-2 border-[#676866] py-3">
-                  <p className="self-start font-primaryFont text-[20px] font-normal text-white mb-2">
-                    Discount code :
-                  </p>
+                <div className="border-b-[1px] border-[#676866]">
+                  <div className="flex items-center justify-between  pb-4">
+                    <p className="self-start font-primaryFont text-[20px] font-normal text-white mb-2">
+                      Discount code :
+                    </p>
+                    <div>
+                      {!(totalDiscount > 0) ? (
+                        <div>
+                          <Input
+                            type="text"
+                            value={discountCode}
+                            onChange={(e) => setDiscountCode(e.target.value)}
+                            placeholder="Discount Code"
+                            className="bg-transparent border border-[#666666] text-white rounded-none h-[30px] mb-3"
+                          />
 
-                  <div>
-                    {!(totalDiscount > 0) ? (
-                      <div>
-                        <Input
-                          type="text"
-                          value={discountCode}
-                          onChange={(e) => setDiscountCode(e.target.value)}
-                          className="bg-transparent border border-white text-white"
-                        />
-                        <Button
-                          onClick={handleApplyDiscount}
-                          className="bg-transparent text-white"
-                        >
-                          Apply
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="bg-red-400 rounded-3xl px-2 flex justify-between items-center h-6 w-24  mb-2">
-                        <span className="text-white pt-1">
-                          {discountData.code}
-                        </span>
-                        <span
-                          className="text-white cursor-pointer"
-                          onClick={removeCoupon}
-                        >
-                          x
-                        </span>
-                      </div>
-                    )}
+                          <div className="flex items-center justify-end">
+                            <Button
+                              onClick={handleApplyDiscount}
+                              className="bg-[#0BDB45] hover:bg-[#0BDB45] rounded-none h-[25px] text-black font-primaryFont font-medium"
+                            >
+                              Add
+                            </Button>{" "}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="bg-white rounded-none px-2 flex justify-between items-center h-[30px] w-[150px] mb-2">
+                          <span className="text-black pt-1 font-primaryFont font-semibold">
+                            {discountData.code}
+                          </span>
+                          <span
+                            className="text-black cursor-pointer"
+                            onClick={removeCoupon}
+                          >
+                            x
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                <p className="font-primaryFont text-[16px] font-normal text-white mb-4">
-                  {discountMessage}
-                </p>
+                  <p className="font-primaryFont text-[16px] font-bold text-[#df3e4b] mt-0 mb-2">
+                    {discountMessage}
+                  </p>
+                </div>
 
                 {totalDiscount > 0 && (
                   <div className="flex items-center justify-between border-b-2 border-[#676866]">
@@ -303,18 +308,19 @@ const Cart: React.FC = () => {
                   </div>
                 )}
 
-                <div className="flex items-center justify-between">
-                  <p className="font-primaryFont text-[24px] font-bold text-white mb-2">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="font-primaryFont text-[24px] font-normal text-white">
                     Total
                   </p>
-                  <p className="font-primaryFont text-[30px] font-bold text-[#75F94C] mb-2">
+                  <p className="font-primaryFont text-[30px] font-bold text-white">
                     ${Math.max(lastPrice - totalDiscount, 0).toFixed(2)}
                   </p>
                 </div>
 
                 <div className="w-full flex justify-center">
                   <Button
-                    className="bg-[#75F94C] text-white text-[22px] font-bold font-primaryFont rounded-none px-8"
+                    className=" text-white text-[22px] font-bold font-primaryFont rounded-none px-8 w-full"
+                    variant="gaming"
                     onClick={() => {
                       // Ensure discountCode is defined before creating the order
                       proceedCheckout();
@@ -327,7 +333,7 @@ const Cart: React.FC = () => {
                       } */
                     }}
                   >
-                    Proceed to checkout
+                    Proceed To Checkout
                   </Button>
                 </div>
               </div>
