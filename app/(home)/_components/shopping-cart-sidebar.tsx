@@ -6,6 +6,8 @@ import { MdDeleteForever } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCartContext } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
+
 import {
   Sheet,
   SheetClose,
@@ -49,22 +51,11 @@ type CartItem = {
 ]; */
 
 const SERVICE_FEE = 12;
-const discountCodes: { [key: string]: number } = {
-  "12345": 15,
-  "11111": 30,
-  "44444": 40,
-};
-
 type CartSidebarProps = {
   children: React.ReactNode;
 };
 
 const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
-  // const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
-  /* const [discountCode, setDiscountCode] = useState<string>("");
-  const [discountApplied, setDiscountApplied] = useState<number>(0);
-  const [discountMessage, setDiscountMessage] = useState<string>(""); */
-
   const {
     cart,
     removeItem,
@@ -76,29 +67,17 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
     setDiscount,
     totalDiscount,
     discountData,
+    proceedCheckout,
   } = useCartContext(); // Access cart data from context
 
   const [discountCode, setDiscountCode] = useState<string>("");
   const [discountApplied, setDiscountApplied] = useState<number>(0);
   const [discountMessage, setDiscountMessage] = useState<string>("");
   const [tempDiscount, setTempDiscount] = useState<string>("");
-
-  /* const handleQuantityChange = (id: number, newQuantity: number) => {
-    const updatedItems = cartItems.map((item) =>
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    );
-    setCartItems(updatedItems);
-  }; */
-
+  const router = useRouter();
   const handleRemoveItem = (id: number) => {
     removeItem(id);
   };
-
-  /* const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  ); */
 
   const lastPrice = totalPrice;
 
@@ -144,8 +123,8 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
 
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <Button>{children}</Button>
+      <SheetTrigger asChild className="hover:scale-110">
+        {children}
       </SheetTrigger>
       <SheetContent className="w-[550px] backdrop-blur-md bg-black/30">
         <SheetHeader>
@@ -198,7 +177,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                     </button>
                   </div>
                   <p className="text-[#75F94C] font-bold">
-                    ${item.price * item.quantity}
+                    ${Math.max(item.price * item.quantity, 0).toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -217,11 +196,11 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
             </div> */}
             <div className="flex justify-between mt-2 text-white">
               <span>Discount</span>
-              <span>${discountApplied}</span>
+              <span>- ${discountApplied}</span>
             </div>
             <div className="flex justify-between text-lg font-bold mt-4 text-[#75F94C]">
               <span>Total</span>
-              <span>${Math.max((lastPrice - totalDiscount), 0)}</span>
+              <span>${Math.max(lastPrice - totalDiscount, 0).toFixed(2)}</span>
             </div>
           </div>
           {!(totalDiscount > 0) ? (
@@ -250,8 +229,31 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
         </div>
 
         <SheetClose asChild>
-          <Button className="mt-4">Proceed to Checkout</Button>
+          <Button
+            className="mt-4"
+            onClick={() => {
+              proceedCheckout();
+              // Ensure discountCode is defined before creating the order
+              /* if (discountCode) {
+                proceedCheckout(discountCode);
+              } else {
+                toast.error(
+                  "Please enter a valid discount code before proceeding."
+                );
+              } */
+            }}
+          >
+            Proceed to Checkout
+          </Button>
         </SheetClose>
+        <Button
+          className="mt-4"
+          onClick={() => {
+            router.push('/cart')
+          }}
+        >
+          View Cart
+        </Button>
       </SheetContent>
     </Sheet>
   );

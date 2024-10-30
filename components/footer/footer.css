@@ -19,11 +19,11 @@
   }
 }
 
-@media (min-width: 440px) {
+/* @media (min-width: 440px) {
   .newsletter-div {
     padding: 2em 2em;
   }
-}
+} */
 
 @media (min-width: 640px) {
   .newsletter-div {

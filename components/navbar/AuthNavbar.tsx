@@ -15,6 +15,7 @@ import {
   IoMdHeartEmpty,
   IoIosCart,
   IoMdPerson,
+  IoMdCart,
 } from "react-icons/io";
 
 import { AuthContext } from "@/context/AuthContext";
@@ -168,11 +169,8 @@ export default function AuthNavbar() {
     //   // setIsMobileNavToggled(false);
     //   console.log("User:", user);
     // }
-  },[]);
-
-  // useEffect(() => {
-  //   setTimeout(() => setIsContentChanged(true), 3000);
-  // }, [isContentChanged]);
+    setTimeout(() => setIsContentChanged(true), 3000);
+  }, []);
 
   return (
     <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white] z-50">
@@ -236,7 +234,12 @@ export default function AuthNavbar() {
 
             {/* Desktop navigation icons */}
             <div className="flex text-[1.5em] gap-x-[0.7em] lg:gap-x-[1em] justify-around">
-              <Link href="/wishlist" className="hover:scale-110">
+              <Link
+                href="/wishlist"
+                className={`hover:scale-110 ${
+                  path.startsWith("/wishlist") ? "text-[#0BDB45]" : ""
+                }`}
+              >
                 <IoMdHeartEmpty />
               </Link>
 
@@ -247,19 +250,19 @@ export default function AuthNavbar() {
                   </span>
                 )}
                 <div className="relative">
-                  <IoIosCart className="text-2xl" />
+                  <IoMdCart />
                 </div>
               </Link>
 
-                            <Link
-                              href="/sign-in"
-                              className={`hover:scale-110 ${
-                                path.startsWith("/sign") ? "text-[#0BDB45]" : ""
-                              }`}
-                            >
-                              {/* <IoMdPerson /> */}
-                              <FaUserPlus />
-                            </Link>
+              <Link
+                href="/sign-in"
+                className={`hover:scale-110 ${
+                  path.startsWith("/sign") ? "text-[#0BDB45]" : ""
+                }`}
+              >
+                <IoMdPerson />
+                {/* <FaUserPlus /> */}
+              </Link>
 
               {/* <div
                 onClick={() => {
@@ -275,7 +278,11 @@ export default function AuthNavbar() {
           </div>
 
           {/* Mobile logo  */}
-          <Link href="/" className="sm:hidden">
+          <Link
+            href="/"
+            className="sm:hidden"
+            onClick={() => setIsMobileNavToggled(false)}
+          >
             <Image src={logo} alt="Logo" className="size-[3em]" />
           </Link>
 
@@ -310,6 +317,7 @@ export default function AuthNavbar() {
           className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
             path === "/" ? "text-[#0BDB45]" : ""
           }`}
+          onClick={() => setIsMobileNavToggled(false)}
         >
           Home
         </Link>
@@ -318,6 +326,7 @@ export default function AuthNavbar() {
           className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
             path.startsWith("/shop-page") ? "text-[#0BDB45]" : ""
           }`}
+          onClick={() => setIsMobileNavToggled(false)}
         >
           Store
         </Link>
@@ -326,20 +335,28 @@ export default function AuthNavbar() {
           className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
             path.startsWith("/about") ? "text-[#0BDB45]" : ""
           }`}
+          onClick={() => setIsMobileNavToggled(false)}
         >
           About
         </Link>
         <Link
-          href="/contact"
+          href="/contact-us"
           className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
             path.startsWith("/contact-us") ? "text-[#0BDB45]" : ""
           }`}
+          onClick={() => setIsMobileNavToggled(false)}
         >
           Contact
         </Link>
         {/* Mobile navigation icons */}
         <div className="flex text-[1.5em] justify-around mt-[1.6em]">
-          <Link href="/wishlist" className="hover:scale-110">
+          <Link
+            href="/wishlist"
+            className={`hover:opacity-110 ${
+              path.startsWith("/wishlist") ? "text-[#0BDB45]" : ""
+            }`}
+            onClick={() => setIsMobileNavToggled(false)}
+          >
             <IoMdHeartEmpty />
           </Link>
 
@@ -352,25 +369,16 @@ export default function AuthNavbar() {
               <Image
                 src={user?.profile_image ? user?.profile_image : ProfileDefault}
                 alt="Profile"
-                className="rounded-full w-[25px] h-[25px] ring-1 ring-white"
+                className="size-[1em] rounded-full"
                 width={25}
                 height={25}
               />
             ) : (
-              <IoMdPerson />
+              <IoMdPerson
+                className={path.startsWith("/sign") ? "text-[#0BDB45]" : ""}
+              />
             )}
           </Link>
-
-          <div
-            onClick={() => {
-              axiosInstance.patch("/auth/logout");
-              localStorage.clear();
-              window.location.href = "/sign-in";
-            }}
-            className="cursor-pointer hover:scale-110"
-          >
-            <IoIosLogOut />
-          </div>
         </div>
       </nav>
 
