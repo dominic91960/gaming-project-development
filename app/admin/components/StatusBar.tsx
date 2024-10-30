@@ -4,8 +4,7 @@ import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import { IoMdNotificationsOutline } from "react-icons/io";
 
-import logo from "@/public/images/home/logo.png";
-import samplePic from "@/public/images/sample-pic.png";
+import logo from "@/public/images/logo.png";
 import "./admin.css";
 import {
   DropdownMenu,
@@ -29,28 +28,29 @@ interface StatusBarProps {
 const StatusBar: React.FC<StatusBarProps> = ({
   isMobileNavToggled,
   setIsMobileNavToggled,
-  
 }) => {
-
   const { user } = useAuthContext();
   const [loading, setLoading] = React.useState<boolean>(true);
 
   useEffect(() => {
     setLoading(true);
-    if(user){
+    if (user) {
       setLoading(false);
     }
-  }
-  , [user]);
+  }, [user]);
   return (
     <section className="bg-black font-secondaryFont font-medium text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px] border-b border-b-[#0D6D49]">
       <div className="container mx-auto px-[36px] py-[1.2em] xl:py-[0.4em] flex items-center justify-between">
         <div>
           {/* Logo */}
           <div className="hidden xl:flex xl:items-center">
-            <Image src={logo} alt="Logo" className="size-[4.6em]" />
+            <Image
+              src={logo}
+              alt="Logo"
+              className="w-[3em] me-[0.7em] py-[0.5em]"
+            />
             <h2 className="font-primaryFont font-semibold text-[1.6em] uppercase text-white">
-              Logo
+              VINGAME
             </h2>
           </div>
 
@@ -77,7 +77,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
           </div>
           <div className="flex items-center gap-x-[0.8em]">
             <div>
-             {/*  <p className="text-white">{`${user.firstName} ${user.lastName}`}</p> */}
+              {/*  <p className="text-white">{`${user.firstName} ${user.lastName}`}</p> */}
               {/* <p className="hidden lg:block text-[0.8em] text-[#A1A1AA]">
                 {user.role?.name}
               </p> */}
@@ -85,24 +85,30 @@ const StatusBar: React.FC<StatusBarProps> = ({
 
             <DropdownMenu>
               <DropdownMenuTrigger className="cursor-pointer">
-                {loading? <NavBarSpinner loading={loading}/> :<Image
-                  src={user?.profile_image}
-                  width={30}
-                  height={30}
-                  alt="Avatar"
-                  className="size-[2em] rounded-full lg:size-[2.5em]"
-                />}
+                {loading ? (
+                  <NavBarSpinner loading={loading} />
+                ) : (
+                  <Image
+                    src={user?.profile_image}
+                    width={30}
+                    height={30}
+                    alt="Avatar"
+                    className="size-[2em] rounded-full lg:size-[2.5em]"
+                  />
+                )}
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                                                  onClick={() => {
-                                                    axiosInstance.patch("/auth/logout");
-                                                    localStorage.clear();
-                                                    window.location.href = "/sign-in";
-                                                  }}
-                >Logout</DropdownMenuItem>
+                  onClick={() => {
+                    axiosInstance.patch("/auth/logout");
+                    localStorage.clear();
+                    window.location.href = "/sign-in";
+                  }}
+                >
+                  Logout
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

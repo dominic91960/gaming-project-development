@@ -12,7 +12,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { IoLogoInstagram } from "react-icons/io5";
 import { RiCopyrightFill } from "react-icons/ri";
 
-import logo from "@/public/images/footer/logo.png";
+import logo from "@/public/images/logo.png";
 import paypal from "@/public/images/footer/paypal.png";
 import visa from "@/public/images/footer/visa.png";
 import mastercard from "@/public/images/footer/mastercard.png";
@@ -61,8 +61,8 @@ export default function Footer() {
           {/* Logo and desc*/}
           <div className="mb-[2.86em] xl:mb-0">
             <div className="flex items-center justify-center gap-x-[1em] mb-[1.1em]">
-              <Image src={logo} alt="Logo" className="size-[4.45em]" />
-              <h3 className="font-semibold text-[1.7em]">LOGO</h3>
+              <Image src={logo} alt="Logo" className="size-[3.8em]" />
+              <h3 className="font-semibold text-[1.7em]">VINGAME</h3>
             </div>
             <p className="text-center px-[2.86em] opacity-70 xl:w-[47ch] xl:text-left xl:px-0">
               Your one-stop destination for unlocking the ultimate gaming
