@@ -100,7 +100,21 @@ const SignUp = () => {
         role: "USER",
       });
       toast.success(response.data.message);
-      router.push("/emailVerify");
+      if (response.status === 201) {
+        const { accessToken, refreshToken, user, message } = response.data;
+
+        // Store tokens and user data in localStorage
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("user", JSON.stringify(user));
+        toast.success(message);
+
+        // Redirect to profile page
+        router.push("/profile?id=" + user.id);
+      } else {
+        console.error("Register failed");
+      }
+      // router.push("/emailVerify");
     } catch (error:any) {
       toast.error(error.response.data.message);
     }
