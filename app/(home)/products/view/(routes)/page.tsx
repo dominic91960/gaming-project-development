@@ -28,7 +28,7 @@ import ImageCarousel from "../_components/image-carousel";
 import RequirementsCard from "../_components/requirements-card";
 import ReviewCard from "../_components/review-card";
 import Footer from "@/components/footer/footer";
-import paypalLogo from "@/public/images/product/paypal-logo.png";
+// import paypalLogo from "@/public/images/product/paypal-logo.png";
 import availability from "@/public/images/product/worldwide.png";
 import digitalKey from "@/public/images/product/digital-key.png";
 import lock from "@/public/images/product/lock.png";
