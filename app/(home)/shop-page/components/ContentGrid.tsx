@@ -73,7 +73,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
           title: game.productName,
           price: game.regularPrice,
           sellingPrice: game.sellingPrice,
-          rating: 5,
+          rating: Math.round(game.averageRating),
           soldOut: game.stockStatus === "OUT_OF_STOCK",
           cardImage: game.cardImage,
         };
@@ -131,7 +131,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
           title: game.productName,
           price: game.regularPrice,
           sellingPrice: game.sellingPrice,
-          rating: 5,
+          rating: Math.round(game.averageRating),
           soldOut: game.stockStatus === "OUT_OF_STOCK",
           cardImage: game.cardImage,
         };
@@ -179,7 +179,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         title: game.productName,
         price: game.regularPrice,
         sellingPrice: game.sellingPrice,
-        rating: 5,
+        rating: Math.round(game.averageRating),
         soldOut: game.stockStatus === "OUT_OF_STOCK",
         cardImage: game.cardImage,
       };
@@ -210,7 +210,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         title: game.productName,
         price: game.regularPrice,
         sellingPrice: game.sellingPrice,
-        rating: 5,
+        rating: Math.round(game.averageRating),
         soldOut: game.stockStatus === "OUT_OF_STOCK",
         cardImage: game.cardImage,
       };
@@ -284,7 +284,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
               title={game.title}
               sellingPrice={game.sellingPrice}
               price={game.price}
-              rating={5}
+              rating={game.rating}
               soldOut={game.soldOut}
               cardImage={game.cardImage}
             />
