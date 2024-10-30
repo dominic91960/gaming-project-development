@@ -3,9 +3,11 @@ import React from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 import ProductCard from "@/components/product-card/product-card";
+import { useWishlistContext } from "@/context/WishListContext";
 
 interface WishlistedGamesProps {
   displayedProducts: {
+    id: string;
     poster: string;
     name: string;
     desc: string;
@@ -26,6 +28,8 @@ const WishlistedGames: React.FC<WishlistedGamesProps> = ({
   setCurrentPage,
   currentPage,
 }) => {
+  const {wishListGameIds} = useWishlistContext();
+  console.log("deeeeeeeeeeeeeeeeee",wishListGameIds, displayedProducts);
   return (
     <>
       <div
@@ -37,10 +41,12 @@ const WishlistedGames: React.FC<WishlistedGamesProps> = ({
       >
         {displayedProducts.map(
           (
-            { poster, name, desc, rating, originalPrice, discountPrice },
+            { id, poster, name, desc, rating, originalPrice, discountPrice },
             index
           ) => (
             <ProductCard
+              id={id}
+              wishList={wishListGameIds.includes(id)}
               key={index}
               poster={poster}
               name={name}

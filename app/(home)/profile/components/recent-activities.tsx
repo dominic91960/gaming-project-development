@@ -41,6 +41,8 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({
             index
           ) => (
             <ProductCard
+              id="1" 
+              wishList={false}
               key={index}
               poster={poster}
               name={name}

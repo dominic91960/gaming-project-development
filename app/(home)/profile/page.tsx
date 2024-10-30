@@ -2,18 +2,18 @@
 
 import React, { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
+import toast from "react-hot-toast";
+import axios from "axios";
+import axiosInstance from "@/axios/axiosInstance";
 import { ColumnDef } from "@tanstack/react-table";
 import { Transaction, columns } from "./components/transaction-columns";
 import { DataTable } from "./components/transaction-data-table";
 import { Button } from "@/components/ui/button";
-import { FaEye, FaPencilAlt, FaCheck } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
+import { FaEye, FaPencilAlt } from "react-icons/fa";
 
-import bg from "@/public/images/products/bg.png";
-import samplePic from "@/public/images/sample-pic.png";
-import ProductSearchBar from "@/components/product-search/product-search";
-import Navbar from "@/components/navbar/navbar";
+import Spinner from "@/components/Spinner/Spinner";
 import AccountInfo from "./components/account-info";
 import SecurityInfo from "./components/security-info";
 import RecentActivities from "./components/recent-activities";
@@ -22,12 +22,10 @@ import EditAccountInfo from "./components/edit-account-info";
 import EditPassword from "./components/edit-password";
 import EditTel from "./components/edit-tel";
 import TransactionAction from "./components/transaction-action";
-import { useSearchParams } from "next/navigation";
-import axiosInstance from "@/axios/axiosInstance";
-import { set } from "date-fns";
-import toast from "react-hot-toast";
-import axios from "axios";
-import Spinner from "@/components/Spinner/Spinner";
+import EmailVerification from "./components/email-verfiication";
+import bg from "@/public/images/products/bg.png";
+import samplePic from "@/public/images/sample-pic.png";
+import ChangeImage from "./components/change-image";
 
 const recentActivity = [
   {
@@ -593,24 +591,22 @@ interface Profile {
 export default function ProfilePage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  const [profile, setProfile] = useState<Profile>(
-    {
-      avatar: null,
-      id: '',
-      username: '',
-      email: '',
-      firstName: '',
-      lastName: '',
-      address: '',
-      city: '',
-      state: '',
-      country: '',
-      postalCode: '',
-      password: '',
-      tel: '',
-      trustedDevices: 0,
-    }
-  );
+  const [profile, setProfile] = useState<Profile>({
+    avatar: null,
+    id: "",
+    username: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    state: "",
+    country: "",
+    postalCode: "",
+    password: "",
+    tel: "",
+    trustedDevices: 0,
+  });
   const [loading, setLoading] = useState(true);
 
   const [reloadProfile, setReloadProfile] = useState(false);
@@ -636,7 +632,7 @@ export default function ProfilePage() {
         trustedDevices: res.data.trustedDevices,
         avatar: res.data.profile_image,
       });
-    }
+    };
     if (id) {
       getUserData();
       setLoading(false);
@@ -653,6 +649,7 @@ export default function ProfilePage() {
 
   // Image upload state
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   // Account info state
   const [isEditAccountInfoPopupOpen, setIsEditAccountInfoPopupOpen] =
@@ -708,24 +705,54 @@ export default function ProfilePage() {
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      const reader = new FileReader();
       const formData = new FormData();
-      formData.append('image', file);
+      formData.append("image", file);
 
       try {
-          const response = await axios('https://store.thevingame.com/upload', {
-              method: 'POST',
-              data: formData,
-          });
-          if (response.status === 201) {
-              const url = response.data.fileUrl;
-                  setImageUrl(url);
-          } else {
-              throw new Error(response.data.fileUrl);
-          }
+        const response = await axios("https://store.thevingame.com/upload", {
+          method: "POST",
+          data: formData,
+        });
+        if (response.status === 201) {
+          const url = response.data.fileUrl;
+          setImageUrl(url);
+          setIsImageModalOpen(true);
+        } else {
+          throw new Error(response.data.fileUrl);
+        }
       } catch (error) {
-          toast.error('Error uploading file: ' + (error as Error).message);
+        toast.error("Error uploading file: " + (error as Error).message);
       }
+    }
+  };
+
+  const onImageSave = async () => {
+    setProfile((prev) => (prev ? { ...prev, avatar: imageUrl } : prev));
+    setImageUrl(null);
+    try {
+      const res = await axiosInstance.patch(
+        `/user/${profile?.id}/profile-image`,
+        { profile_image: imageUrl }
+      );
+      console.log(res);
+      if (res.status === 200) {
+        toast.success("Profile picture updated successfully");
+        const user = localStorage.getItem("user");
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            ...JSON.parse(user || "{}"),
+            profile_image: imageUrl,
+          })
+        );
+        setIsImageModalOpen(false);
+      } else {
+        // toast.error('Error updating profile picture');
+        throw new Error("Error updating profile picture");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error updating profile picture");
     }
   };
 
@@ -763,8 +790,7 @@ export default function ProfilePage() {
   };
   const updatedColumns: ColumnDef<Transaction>[] = [...columns, viewColumn];
 
-  if(loading) return <Spinner loading={loading} />
-
+  if (loading) return <Spinner loading={loading} />;
 
   return (
     <>
@@ -782,55 +808,33 @@ export default function ProfilePage() {
               <div className="relative size-[46px] sm:size-[70px] md:size-[94px] lg:size-[118px] xl:size-[135px] 2xl:size-[152px]">
                 <Image
                   src={profile?.avatar || samplePic.src}
-                  alt={profile?.id || "default-alt-text"}
+                  alt={profile?.id || "Empty profile"}
                   className="w-full rounded-full"
                   fill
                 />
-                {imageUrl ? (
-                  <div className="absolute bottom-0 right-0 flex flex-col items-end">
-                    <button
-                      className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] mb-[0.2em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                      onClick={async() => {
-                        setProfile((prev) => prev ? { ...prev, avatar: imageUrl } : prev);
-                        setImageUrl(null);
-                        try{
-                          const res = await axiosInstance.patch(`/user/${profile?.id}/profile-image`, 
-                          { profile_image: imageUrl });
-                          console.log(res);
-                          if(res.status === 200) {
-                            toast.success('Profile picture updated successfully');
-                            const user = localStorage.getItem('user');
-                            localStorage.setItem('user', JSON.stringify({ ...JSON.parse(user || '{}'), profile_image: imageUrl }));
-                          }else{
-                            // toast.error('Error updating profile picture');
-                            throw new Error('Error updating profile picture');
-                          }
-                        } catch (error) {
-                          console.log(error);
-                          toast.error('Error updating profile picture');
-                        }
-                      }}
-                    >
-                      Save&nbsp;&nbsp;
-                      <FaCheck />
-                    </button>
-                    <button
-                      className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                      onClick={() => setImageUrl(null)}
-                    >
-                      Cancel&nbsp;&nbsp;
-                      <IoMdClose />
-                    </button>
-                  </div>
-                ) : (
-                  <label
-                    htmlFor="profile-image"
-                    className="absolute bottom-[5%] right-0 bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                {/* <div className="absolute bottom-0 right-0 flex flex-col items-end">
+                  <button
+                    className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] mb-[0.2em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                    onClick={onImageSave}
                   >
-                    Edit&nbsp;&nbsp;
-                    <FaPencilAlt />
-                  </label>
-                )}
+                    Save&nbsp;&nbsp;
+                    <FaCheck />
+                  </button>
+                  <button
+                    className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                    onClick={() => setImageUrl(null)}
+                  >
+                    Cancel&nbsp;&nbsp;
+                    <IoMdClose />
+                  </button>
+                </div> */}
+                <label
+                  htmlFor="profile-image"
+                  className="absolute bottom-[5%] right-0 bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                >
+                  Edit&nbsp;&nbsp;
+                  <FaPencilAlt />
+                </label>
 
                 <input
                   type="file"
@@ -868,7 +872,7 @@ export default function ProfilePage() {
           <div className="w-full h-1/2 absolute bottom-0 bg-gradient-to-t from-black to-transparent"></div>
         </div>
 
-        <div className="bg-gradient-to-b from-black to-transparent">
+        <div className="bg-gradient-to-b from-black via-transparent via-20% to-black to-100%">
           {/* Container for the rest of the content */}
           <div className="container mx-auto px-[36px] pb-[20px] 2xl:pb-[80px]">
             {/* Container for account details and security details */}
@@ -891,13 +895,19 @@ export default function ProfilePage() {
               />
 
               {/* Security details */}
-              <SecurityInfo
-                password={profile.password}
-                tel={profile.tel}
-                trustedDevices={profile.trustedDevices}
-                handlePasswordEditClick={() => setIsEditPasswordPopupOpen(true)}
-                handleTelEditClick={() => setIsEditTelPopupOpen(true)}
-              />
+              <div className="md:col-span-5">
+                <SecurityInfo
+                  password={profile.password}
+                  tel={profile.tel}
+                  trustedDevices={profile.trustedDevices}
+                  handlePasswordEditClick={() =>
+                    setIsEditPasswordPopupOpen(true)
+                  }
+                  handleTelEditClick={() => setIsEditTelPopupOpen(true)}
+                />
+
+                <EmailVerification />
+              </div>
             </div>
 
             {/* Recent activity */}
@@ -927,6 +937,16 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
+
+        <ChangeImage
+          open={isImageModalOpen}
+          setIsOpen={setIsImageModalOpen}
+          avatar={profile?.avatar}
+          id={profile?.id}
+          onImageChange={handleImageChange}
+          onSave={onImageSave}
+          onCancel={() => setImageUrl(null)}
+        />
 
         {isEditAccountInfoPopupOpen && (
           <EditAccountInfo
