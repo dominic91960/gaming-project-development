@@ -6,21 +6,25 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import StarRating from "@/app/(home)/_components/star-rating";
 
 interface ProductCardProps {
+  id: string;
   poster: string;
   name: string;
   desc: string;
   rating: number;
   discountPrice: number;
   originalPrice: number;
+  wishList: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
+  id,
   poster,
   name,
   desc,
   rating,
   discountPrice,
   originalPrice,
+  wishList,
 }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
 
@@ -30,7 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         className="relative w-[86px] h-[96px] bg-cover bg-center mb-[0.5em] sm:w-[120px] md:w-[150px] lg:w-[180px] xl:w-[210px] 2xl:w-[246px] sm:h-[130px] md:h-[160px] lg:h-[200px] xl:h-[240px] 2xl:h-[270px]"
         style={{ backgroundImage: `url(${poster})` }}
       >
-        {isWishlisted ? (
+        {wishList ? (
           <IoHeartSharp
             className="absolute top-[0.2em] left-[0.2em] text-[1.5em] cursor-pointer hover:scale-105"
             onClick={() => setIsWishlisted(false)}

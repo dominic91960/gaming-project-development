@@ -130,58 +130,63 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
   const openPopup = () => setPopupOpen(true);
   const closePopup = () => setPopupOpen(false);
 
-  const addToWishlist = async (itemId : string) => {
+  const addToWishlist = async (itemId: string) => {
     console.log("Add to wishlist: ", itemId);
-    if (! await isUserLoggedIn()) {
-      // openPopup(); // Trigger popup if the user is not logged in
+    if (!await isUserLoggedIn()) {
       console.log("User is not logged in");
       toast.error("Please login to add to wishlist");
       return false;
-    }else{
+    } else {
       console.log("User is logged in");
 
-      if(await isUserHaveWishlist()){
-        console.log("User have a wishlist");
-          const existingItems = await getWishlistIds();
-          console.log("Existing items: ", existingItems);
-          const resUpdate = await axiosInstance.patch(`/wishlists/${user.id}`, {
-            items: [...existingItems, itemId]
-          });
+      if (await isUserHaveWishlist()) {
+        console.log("User has a wishlist");
+        const existingItems = await getWishlistIds();
+        console.log("Existing items: ", existingItems);
 
-          if(resUpdate.status === 200){
-            console.log("Added to wishlist: ", resUpdate.data);
-            toast.success("Added to wishlist");
-            setReloadWishlist(prev => !prev);
-            return true;
-          }else{
-            throw new Error("Error adding to wishlist");
-          }
+        // Check for duplicates
+        if (existingItems.includes(itemId)) {
+          // toast.error("Item is already in the wishlist");
+          return true;
+        }
 
-      }else{
-        console.log("User Not have a wishlist");
+        const resUpdate = await axiosInstance.patch(`/wishlists/${user.id}`, {
+          items: [...existingItems, itemId]
+        });
 
-        try{
+        if (resUpdate.status === 200) {
+          console.log("Added to wishlist: ", resUpdate.data);
+          toast.success("Added to wishlist");
+          setReloadWishlist(prev => !prev);
+          return true;
+        } else {
+          throw new Error("Error adding to wishlist");
+        }
+
+      } else {
+        console.log("User does not have a wishlist");
+
+        try {
           const res = await axiosInstance.post(`/wishlists`, {
             userId: user.id,
             items: [itemId]
           });
 
-          if(res.status === 201){
+          if (res.status === 201) {
             console.log("Added to wishlist: ", res.data);
             toast.success("Added to wishlist");
             setReloadWishlist(prev => !prev);
             return true;
-          }else{
+          } else {
             throw new Error("Error adding to wishlist");
           }
-      }catch(error){
-        console.log("Error adding to wishlist: ", error);
-        toast.error("Error adding to wishlist");
-        return false;
-      }
+        } catch (error) {
+          console.log("Error adding to wishlist: ", error);
+          toast.error("Error adding to wishlist");
+          return false;
+        }
       }
     }
-    
   };
 
   const updateWishListIds = async() => {
