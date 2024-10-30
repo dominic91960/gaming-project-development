@@ -17,6 +17,7 @@ interface Game {
   originalPrice: number;
   poster: string;
   rating: number;
+  stockStatus: string;
 }
 
 const BestSelling = () => {
@@ -37,6 +38,7 @@ const BestSelling = () => {
           originalPrice: game.regularPrice,
           poster: game.cardImage,
           rating: game.averageRating,
+          stockStatus: game.stockStatus,
         };
       });
       console.log(resGames);
@@ -80,6 +82,7 @@ const BestSelling = () => {
               originalPrice,
               poster,
               rating,
+              stockStatus,
             }) => (
               <article
                 key={title}
@@ -165,12 +168,22 @@ const BestSelling = () => {
 
                     {/* Inset box shadow */}
                     <div
-                      className="w-full h-full absolute top-0 left-0 shadow-[0px_10px_30px_black_inset]"
+                      className={`w-full h-full absolute top-0 left-0 flex items-center justify-center ${
+                        stockStatus === "OUT_OF_STOCK"
+                          ? "bg-black/60"
+                          : "shadow-[0px_10px_30px_black_inset]"
+                      }`}
                       style={{
                         clipPath:
                           "polygon(5% 14%, 41% 14%, 45.6% 0%, 77.5% 0%, 82% 14%, 98% 14%, 98% 74%, 90% 90%, 47% 90%, 42% 100%, 1% 100%, 1% 50%, 5% 42%)",
                       }}
-                    ></div>
+                    >
+                      {stockStatus === "OUT_OF_STOCK" && (
+                        <h3 className="font-rajdhaniFont font-bold text-[16px] text-[#FF374E] -translate-y-[0.3em] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px]">
+                          SOLD OUT
+                        </h3>
+                      )}
+                    </div>
                   </div>
                 </div>
 
