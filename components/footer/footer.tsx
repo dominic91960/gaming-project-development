@@ -61,7 +61,7 @@ export default function Footer() {
           {/* Logo and desc*/}
           <div className="mb-[2.86em] xl:mb-0">
             <div className="flex items-center justify-center gap-x-[1em] mb-[1.1em]">
-              <Image src={logo} alt="Logo" className="size-[3.8em]" />
+              <Image src={logo} alt="Logo" className="w-[3.8em]" />
               <h3 className="font-semibold text-[1.7em]">VINGAME</h3>
             </div>
             <p className="text-center px-[2.86em] opacity-70 xl:w-[47ch] xl:text-left xl:px-0">
