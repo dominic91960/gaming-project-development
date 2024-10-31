@@ -1,4 +1,5 @@
 "use client";
+"use strict";
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { CiSearch } from "react-icons/ci";
@@ -71,7 +72,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
-      const res = await axiosInstance.get(`/games?page=${currentPage}`);
+      const res = await axiosInstance.get(`/games?page=${currentPage}&sort=latest`);
       console.log(res.data.data);
 
       const games = res.data.data.map((game: any) => {
@@ -134,7 +135,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     console.log("Query Params", buildQueryParams());
 
     const getData = async () => {
-      const res = await axiosInstance.get(`/games?${buildQueryParams()}`);
+      const res = await axiosInstance.get(`/games?${buildQueryParams()}&sort=latest`);
       console.log(res.data.data);
 
       const games = res.data.data.map((game: any) => {
@@ -182,7 +183,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   const handleSearch = async () => {
     setLoading(true);
     const res = await axiosInstance.get(
-      `/games?productName=${search}&page=${currentPage}`
+      `/games?productName=${search}&page=${currentPage}&sort=latest`
     );
     console.log(res.data.data);
 

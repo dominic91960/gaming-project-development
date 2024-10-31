@@ -29,7 +29,7 @@ const WishlistedGames: React.FC<WishlistedGamesProps> = ({
   currentPage,
 }) => {
   const {wishListGameIds} = useWishlistContext();
-  console.log("deeeeeeeeeeeeeeeeee",wishListGameIds, displayedProducts);
+  // console.log("deeeeeeeeeeeeeeeeee",wishListGameIds, displayedProducts);
   return (
     <>
       <div
