@@ -1,4 +1,4 @@
-import React, { SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,64 +7,63 @@ import { AiOutlineClose } from "react-icons/ai";
 
 import logo from "@/public/images/logo.png";
 
+interface CategoryMenuState {
+  isCategoryMenuOpen: boolean | undefined;
+  isSubCategoryMenuOpen: boolean | undefined;
+  isSuperSubCategoryMenuOpen: boolean | undefined;
+}
+
 interface CategoryMenuHeaderProps {
-  isSuperSubCategoryMenuToggled: boolean | undefined;
-  setIsSuperSubCategoryMenuToggled: (
-    value: SetStateAction<boolean | undefined>
-  ) => void;
-
-  isSubCategoryMenuToggled: boolean | undefined;
-  setIsSubCategoryMenuToggled: (
-    value: SetStateAction<boolean | undefined>
-  ) => void;
-
-  isCategoryMenuToggled: boolean | undefined;
-  setIsCategoryMenuToggled: (
-    value: SetStateAction<boolean | undefined>
-  ) => void;
-
+  categoryMenuStates: CategoryMenuState;
+  setCategoryMenuStates: Dispatch<SetStateAction<CategoryMenuState>>;
   setIsMobileNavToggled: (value: SetStateAction<boolean>) => void;
 }
 
 const CategoryMenuHeader: React.FC<CategoryMenuHeaderProps> = ({
-  isSuperSubCategoryMenuToggled,
-  setIsSuperSubCategoryMenuToggled,
-  isSubCategoryMenuToggled,
-  setIsSubCategoryMenuToggled,
-  isCategoryMenuToggled,
-  setIsCategoryMenuToggled,
+  categoryMenuStates,
+  setCategoryMenuStates,
   setIsMobileNavToggled,
 }) => {
   return (
     <div className="w-full h-[70px] flex items-center justify-between text-[24px]">
-      {isSuperSubCategoryMenuToggled ? (
+      {categoryMenuStates.isSuperSubCategoryMenuOpen ? (
         <button
           className="flex items-center gap-[0.2em] text-[0.8em]"
-          onClick={() => setIsSuperSubCategoryMenuToggled(false)}
+          onClick={() =>
+            setCategoryMenuStates((prev) => ({
+              ...prev,
+              isSuperSubCategoryMenuOpen: false,
+            }))
+          }
         >
           <IoIosArrowBack />
           <h4>Platforms</h4>
         </button>
-      ) : isSubCategoryMenuToggled ? (
+      ) : categoryMenuStates.isSubCategoryMenuOpen ? (
         <button
           className="flex items-center gap-[0.2em] text-[0.8em]"
-          onClick={() => {
-            setIsSubCategoryMenuToggled(false);
-            setIsSuperSubCategoryMenuToggled(undefined);
-          }}
+          onClick={() =>
+            setCategoryMenuStates((prev) => ({
+              ...prev,
+              isSubCategoryMenuOpen: false,
+              isSuperSubCategoryMenuOpen: undefined,
+            }))
+          }
         >
           <IoIosArrowBack />
           <h4>PC Games</h4>
         </button>
-      ) : isCategoryMenuToggled ? (
+      ) : categoryMenuStates.isCategoryMenuOpen ? (
         <Link
           href="/"
           className="flex items-center gap-[0.5em]"
-          onClick={() => {
-            setIsCategoryMenuToggled(false);
-            setIsSubCategoryMenuToggled(undefined);
-            setIsSuperSubCategoryMenuToggled(undefined);
-          }}
+          onClick={() =>
+            setCategoryMenuStates({
+              isCategoryMenuOpen: false,
+              isSubCategoryMenuOpen: undefined,
+              isSuperSubCategoryMenuOpen: undefined,
+            })
+          }
         >
           <Link href="/" onClick={() => setIsMobileNavToggled(false)}>
             <Image src={logo} alt="VINGAME" className="w-[30px]" />
@@ -77,10 +76,17 @@ const CategoryMenuHeader: React.FC<CategoryMenuHeaderProps> = ({
       <button
         className="hover:opacity-80 text-[#75F94C]"
         onClick={() => {
-          setIsCategoryMenuToggled(false);
+          setCategoryMenuStates((prev) => ({
+            ...prev,
+            isCategoryMenuOpen: false,
+          }));
+
           setTimeout(() => {
-            setIsSubCategoryMenuToggled(undefined);
-            setIsSuperSubCategoryMenuToggled(undefined);
+            setCategoryMenuStates((prev) => ({
+              ...prev,
+              isSubCategoryMenuOpen: undefined,
+              isSuperSubCategoryMenuOpen: undefined,
+            }));
           }, 300);
         }}
       >

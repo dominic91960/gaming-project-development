@@ -88,16 +88,21 @@ const categories = [
   },
 ];
 
+interface CategoryMenuState {
+  isCategoryMenuOpen: boolean | undefined;
+  isSubCategoryMenuOpen: boolean | undefined;
+  isSuperSubCategoryMenuOpen: boolean | undefined;
+}
+
 export default function Navbar() {
   const { cart } = useCartContext();
-  const [isCategoryMenuToggled, setIsCategoryMenuToggled] = useState<
-    boolean | undefined
-  >(undefined);
-  const [isSubCategoryMenuToggled, setIsSubCategoryMenuToggled] = useState<
-    boolean | undefined
-  >(undefined);
-  const [isSuperSubCategoryMenuToggled, setIsSuperSubCategoryMenuToggled] =
-    useState<boolean | undefined>(undefined);
+
+  const [categoryMenuStates, setCategoryMenuStates] =
+    useState<CategoryMenuState>({
+      isCategoryMenuOpen: undefined,
+      isSubCategoryMenuOpen: undefined,
+      isSuperSubCategoryMenuOpen: undefined,
+    });
   const [isMobileNavToggled, setIsMobileNavToggled] = useState(false);
 
   const [isContentChanged, setIsContentChanged] = useState(false);
@@ -167,8 +172,8 @@ export default function Navbar() {
           <div className="container mx-auto h-[68px] flex justify-between items-center py-[0.2em] sm:h-[55px] sm:py-[1.2em] px-[36px] md:h-[47px] md:py-[0.5em] xl:h-[50px]">
             {/* Desktop categories toggle*/}
             <DesktopCategoryToggle
-              isCategoryMenuToggled={isCategoryMenuToggled}
-              setIsCategoryMenuToggled={setIsCategoryMenuToggled}
+              categoryMenuStates={categoryMenuStates}
+              setCategoryMenuStates={setCategoryMenuStates}
             />
 
             {/* Desktop navigation links & icons*/}
@@ -190,8 +195,8 @@ export default function Navbar() {
             {/* Mobile navbar toggle  */}
             <MobileNavToggle
               isMobileNavToggled={isMobileNavToggled}
-              isCategoryMenuToggled={isCategoryMenuToggled}
-              setIsCategoryMenuToggled={setIsCategoryMenuToggled}
+              categoryMenuStates={categoryMenuStates}
+              setCategoryMenuStates={setCategoryMenuStates}
               setIsMobileNavToggled={setIsMobileNavToggled}
             />
           </div>
@@ -219,108 +224,57 @@ export default function Navbar() {
           isContentChanged={isContentChanged}
           isMobileNavToggled={isMobileNavToggled}
           setIsMobileNavToggled={setIsMobileNavToggled}
-          isCategoryMenuToggled={isCategoryMenuToggled}
-          setIsCategoryMenuToggled={setIsCategoryMenuToggled}
+          categoryMenuStates={categoryMenuStates}
+          setCategoryMenuStates={setCategoryMenuStates}
         />
       </section>
 
       {/* Categories menu */}
       <nav
         className={`${
-          isCategoryMenuToggled
+          categoryMenuStates.isCategoryMenuOpen
             ? "animate-category-menu"
-            : isCategoryMenuToggled === false
+            : categoryMenuStates.isCategoryMenuOpen === false
             ? "reverse-animate-category-menu"
             : "hidden"
         } origin-left fixed top-0 w-full h-full bg-[#0D0F10] font-primaryFont px-[1em] overflow-x-hidden z-[51] sm:w-[400px]`}
       >
-        {/* <div className="w-full h-[70px] flex items-center justify-between text-[24px]">
-          {isSuperSubCategoryMenuToggled ? (
-            <button
-              className="flex items-center gap-[0.2em] text-[0.8em]"
-              onClick={() => setIsSuperSubCategoryMenuToggled(false)}
-            >
-              <IoIosArrowBack />
-              <h4>Platforms</h4>
-            </button>
-          ) : isSubCategoryMenuToggled ? (
-            <button
-              className="flex items-center gap-[0.2em] text-[0.8em]"
-              onClick={() => {
-                setIsSubCategoryMenuToggled(false);
-                setIsSuperSubCategoryMenuToggled(undefined);
-              }}
-            >
-              <IoIosArrowBack />
-              <h4>PC Games</h4>
-            </button>
-          ) : isCategoryMenuToggled ? (
-            <Link
-              href="/"
-              className="flex items-center gap-[0.5em]"
-              onClick={() => {
-                setIsCategoryMenuToggled(false);
-                setIsSubCategoryMenuToggled(undefined);
-                setIsSuperSubCategoryMenuToggled(undefined);
-              }}
-            >
-              <Link href="/" onClick={() => setIsMobileNavToggled(false)}>
-                <Image src={logo} alt="VINGAME" className="w-[30px]" />
-              </Link>
-              <h4 className="font-semibold">VINGAME</h4>
-            </Link>
-          ) : (
-            ""
-          )}
-          <button
-            className="hover:opacity-80 text-[#75F94C]"
-            onClick={() => {
-              setIsCategoryMenuToggled(false);
-              setTimeout(() => {
-                setIsSubCategoryMenuToggled(undefined);
-                setIsSuperSubCategoryMenuToggled(undefined);
-              }, 300);
-            }}
-          >
-            <AiOutlineClose />
-          </button>
-        </div> */}
         <CategoryMenuHeader
-          isSuperSubCategoryMenuToggled={isSuperSubCategoryMenuToggled}
-          setIsSuperSubCategoryMenuToggled={setIsSuperSubCategoryMenuToggled}
-          isSubCategoryMenuToggled={isSubCategoryMenuToggled}
-          setIsSubCategoryMenuToggled={setIsSubCategoryMenuToggled}
-          isCategoryMenuToggled={isCategoryMenuToggled}
-          setIsCategoryMenuToggled={setIsCategoryMenuToggled}
+          categoryMenuStates={categoryMenuStates}
+          setCategoryMenuStates={setCategoryMenuStates}
           setIsMobileNavToggled={setIsMobileNavToggled}
         />
 
         <CategoryMenu
           categories={categories}
-          isSubCategoryMenuToggled={isSubCategoryMenuToggled}
-          setIsSubCategoryMenuToggled={setIsSubCategoryMenuToggled}
+          categoryMenuStates={categoryMenuStates}
+          setCategoryMenuStates={setCategoryMenuStates}
         >
           <SubCategoryMenu
-            isSubCategoryMenuToggled={isSubCategoryMenuToggled}
-            isSuperSubCategoryMenuToggled={isSuperSubCategoryMenuToggled}
-            setIsSuperSubCategoryMenuToggled={setIsSuperSubCategoryMenuToggled}
+            categoryMenuStates={categoryMenuStates}
+            setCategoryMenuStates={setCategoryMenuStates}
           >
-            <SuperSubCategoryMenu
-              isSuperSubCategoryMenuToggled={isSuperSubCategoryMenuToggled}
-            />
+            <SuperSubCategoryMenu categoryMenuStates={categoryMenuStates} />
           </SubCategoryMenu>
         </CategoryMenu>
       </nav>
 
       <div
         className={`${
-          isCategoryMenuToggled ? "block" : "hidden"
+          categoryMenuStates.isCategoryMenuOpen ? "block" : "hidden"
         } fixed top-0 left-0 z-50 w-full h-full bg-black/30`}
         onClick={() => {
-          setIsCategoryMenuToggled(false);
+          setCategoryMenuStates((prev) => ({
+            ...prev,
+            isCategoryMenuOpen: false,
+          }));
+
           setTimeout(() => {
-            setIsSubCategoryMenuToggled(undefined);
-            setIsSuperSubCategoryMenuToggled(undefined);
+            setCategoryMenuStates((prev) => ({
+              ...prev,
+              isSubCategoryMenuOpen: undefined,
+              isSuperSubCategoryMenuOpen: undefined,
+            }));
           }, 300);
         }}
       ></div>

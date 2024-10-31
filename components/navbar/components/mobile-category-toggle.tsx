@@ -1,35 +1,51 @@
-import React, { SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
+
+interface CategoryMenuState {
+  isCategoryMenuOpen: boolean | undefined;
+  isSubCategoryMenuOpen: boolean | undefined;
+  isSuperSubCategoryMenuOpen: boolean | undefined;
+}
 
 interface MobileCategoryToggleProps {
   isContentChanged: boolean;
   isMobileNavToggled: boolean;
   setIsMobileNavToggled: (value: SetStateAction<boolean>) => void;
-  isCategoryMenuToggled: boolean | undefined;
-  setIsCategoryMenuToggled: (
-    value: SetStateAction<boolean | undefined>
-  ) => void;
+  categoryMenuStates: CategoryMenuState;
+  setCategoryMenuStates: Dispatch<SetStateAction<CategoryMenuState>>;
 }
 
 const MobileCategoryToggle: React.FC<MobileCategoryToggleProps> = ({
   isContentChanged,
   isMobileNavToggled,
   setIsMobileNavToggled,
-  isCategoryMenuToggled,
-  setIsCategoryMenuToggled,
+  categoryMenuStates,
+  setCategoryMenuStates,
 }) => {
   const handleClick = () => {
     if (isMobileNavToggled) {
       setIsMobileNavToggled(false);
       setTimeout(() => {
-        isCategoryMenuToggled === undefined
-          ? setIsCategoryMenuToggled(true)
-          : setIsCategoryMenuToggled((prev) => !prev);
+        categoryMenuStates.isCategoryMenuOpen === undefined
+          ? setCategoryMenuStates((prev) => ({
+              ...prev,
+              isCategoryMenuOpen: true,
+            }))
+          : setCategoryMenuStates((prev) => ({
+              ...prev,
+              isCategoryMenuOpen: !prev.isCategoryMenuOpen,
+            }));
       }, 500);
       return;
     }
-    isCategoryMenuToggled === undefined
-      ? setIsCategoryMenuToggled(true)
-      : setIsCategoryMenuToggled((prev) => !prev);
+    categoryMenuStates.isCategoryMenuOpen === undefined
+      ? setCategoryMenuStates((prev) => ({
+          ...prev,
+          isCategoryMenuOpen: true,
+        }))
+      : setCategoryMenuStates((prev) => ({
+          ...prev,
+          isCategoryMenuOpen: !prev.isCategoryMenuOpen,
+        }));
   };
 
   return (

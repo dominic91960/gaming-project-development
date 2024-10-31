@@ -1,6 +1,12 @@
-import React, { ReactNode, SetStateAction } from "react";
+import React, { Dispatch, ReactNode, SetStateAction } from "react";
 
 import { IoIosArrowForward } from "react-icons/io";
+
+interface CategoryMenuState {
+  isCategoryMenuOpen: boolean | undefined;
+  isSubCategoryMenuOpen: boolean | undefined;
+  isSuperSubCategoryMenuOpen: boolean | undefined;
+}
 
 interface CategoryMenuProps {
   categories: {
@@ -8,17 +14,16 @@ interface CategoryMenuProps {
     platforms: string[];
     genres: string[];
   }[];
-  isSubCategoryMenuToggled: boolean | undefined;
-  setIsSubCategoryMenuToggled: (
-    value: SetStateAction<boolean | undefined>
-  ) => void;
+
+  categoryMenuStates: CategoryMenuState;
+  setCategoryMenuStates: Dispatch<SetStateAction<CategoryMenuState>>;
   children: ReactNode;
 }
 
 const CategoryMenu: React.FC<CategoryMenuProps> = ({
   categories,
-  isSubCategoryMenuToggled,
-  setIsSubCategoryMenuToggled,
+  categoryMenuStates,
+  setCategoryMenuStates,
   children,
 }) => {
   return (
@@ -28,9 +33,15 @@ const CategoryMenu: React.FC<CategoryMenuProps> = ({
           key={i}
           className="w-full flex items-center justify-between gap-[0.2em]"
           onClick={() => {
-            isSubCategoryMenuToggled === undefined
-              ? setIsSubCategoryMenuToggled(true)
-              : setIsSubCategoryMenuToggled((prev) => !prev);
+            categoryMenuStates.isSubCategoryMenuOpen === undefined
+              ? setCategoryMenuStates((prev) => ({
+                  ...prev,
+                  isSubCategoryMenuOpen: true,
+                }))
+              : setCategoryMenuStates((prev) => ({
+                  ...prev,
+                  isSubCategoryMenuOpen: !prev.isSubCategoryMenuOpen,
+                }));
           }}
         >
           <h4>{categoryName}</h4>

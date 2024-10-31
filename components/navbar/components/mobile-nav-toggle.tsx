@@ -1,18 +1,22 @@
-import React, { SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
+
+interface CategoryMenuState {
+  isCategoryMenuOpen: boolean | undefined;
+  isSubCategoryMenuOpen: boolean | undefined;
+  isSuperSubCategoryMenuOpen: boolean | undefined;
+}
 
 interface MobileNavToggleProps {
   isMobileNavToggled: boolean;
-  isCategoryMenuToggled: boolean | undefined;
-  setIsCategoryMenuToggled: (
-    value: SetStateAction<boolean | undefined>
-  ) => void;
+  categoryMenuStates: CategoryMenuState;
+  setCategoryMenuStates: Dispatch<SetStateAction<CategoryMenuState>>;
   setIsMobileNavToggled: (value: SetStateAction<boolean>) => void;
 }
 
 const MobileNavToggle: React.FC<MobileNavToggleProps> = ({
   isMobileNavToggled,
-  isCategoryMenuToggled,
-  setIsCategoryMenuToggled,
+  categoryMenuStates,
+  setCategoryMenuStates,
   setIsMobileNavToggled,
 }) => {
   return (
@@ -21,8 +25,11 @@ const MobileNavToggle: React.FC<MobileNavToggleProps> = ({
         isMobileNavToggled ? "animate-toggle-button" : ""
       } relative h-4 w-6 transition-opacity duration-300 sm:hidden`}
       onClick={() => {
-        if (isCategoryMenuToggled) {
-          setIsCategoryMenuToggled(false);
+        if (categoryMenuStates.isCategoryMenuOpen) {
+          setCategoryMenuStates((prev) => ({
+            ...prev,
+            isCategoryMenuOpen: false,
+          }));
           setTimeout(() => setIsMobileNavToggled((prev) => !prev), 600);
           return;
         }

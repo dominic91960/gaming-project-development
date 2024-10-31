@@ -1,18 +1,24 @@
 import React from "react";
 
+interface CategoryMenuState {
+  isCategoryMenuOpen: boolean | undefined;
+  isSubCategoryMenuOpen: boolean | undefined;
+  isSuperSubCategoryMenuOpen: boolean | undefined;
+}
+
 interface SuperSubCategoryMenuProps {
-  isSuperSubCategoryMenuToggled: boolean | undefined;
+  categoryMenuStates: CategoryMenuState;
 }
 
 const SuperSubCategoryMenu: React.FC<SuperSubCategoryMenuProps> = ({
-  isSuperSubCategoryMenuToggled,
+  categoryMenuStates,
 }) => {
   return (
     <ul
       className={`${
-        isSuperSubCategoryMenuToggled
+        categoryMenuStates.isSuperSubCategoryMenuOpen
           ? "animate-super-sub-category-menu"
-          : isSuperSubCategoryMenuToggled === false
+          : categoryMenuStates.isSuperSubCategoryMenuOpen === false
           ? "reverse-animate-super-sub-category-menu"
           : "hidden"
       } absolute top-0 right-0 w-full h-full bg-blue-500`}
