@@ -20,6 +20,7 @@ import toast from "react-hot-toast";
 import axiosInstance from "@/axios/axiosInstance";
 
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import "./shopping-cart-sidebar.css";
 
 type CartItem = {
   id: number;
@@ -132,7 +133,8 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
       <SheetTrigger asChild className="hover:scale-110">
         {children}
       </SheetTrigger>
-      <SheetContent className="w-[550px] backdrop-blur-lg backdrop-opacity-70 bg-[#05130166]">
+      {/* <SheetContent className="w-[550px] backdrop-blur-lg backdrop-opacity-70 bg-[#05130166]"> */}
+      <SheetContent className="w-[550px]  shopping-cart-sidebar-main-div">
         <SheetHeader className="border-b-[1px] border-white pb-4 mb-12">
           <div className="flex items-center gap-2">
             <SheetTitle className="font-primaryFont text-white text-[17px] font-medium">
@@ -155,14 +157,22 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
           {cart.map((item) => (
             <div
               key={item.id}
-              className="mb-4 flex border border-white p-3 backdrop-blur-sm bg-white/30"
+              className="mb-4 flex border border-white p-3 shopping-cart-sidebar-card-item"
             >
-              <Image
+              {/* <Image
                 src={item.image}
                 alt={item.title}
-                width={104}
-                height={112}
-              />
+                className="w-[100px] h-[100px]"
+              /> */}
+
+              <div className="relative w-[130px] h-[100px]">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
 
               <div className="flex gap-2 items-center absolute top-3 right-3">
                 <CiHeart className="text-white text-lg cursor-pointer" />
@@ -235,7 +245,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
             </div>
           ))}
 
-          <div className="mt-6 p-4 bg-[#333333] rounded-lg">
+          <div className="mt-6 p-4 rounded-lg">
             {/* <p className="text-white text-lg font-semibold">Summary</p> */}
             <div className="flex justify-between mt-2 text-white mb-3">
               {/* <span>{totalItems} Items</span> */}
@@ -266,7 +276,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                   <div className="flex items-center justify-end">
                     <Button
                       onClick={handleApplyDiscount}
-                      className="bg-[#0BDB45] font-primaryFont text-[12px] rounded-none text-black font-semibold h-6"
+                      className="bg-[#0BDB45] font-primaryFont text-[12px] hover:bg-[#0BDB45]  rounded-none text-black font-semibold h-6"
                     >
                       Add
                     </Button>
