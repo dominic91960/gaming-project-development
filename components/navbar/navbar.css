@@ -31,28 +31,28 @@
 
 .animate-sub-category-menu {
   animation-name: animate-sub-category-menu;
-  animation-duration: 0.3s;
+  animation-duration: 150ms;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
 }
 
 .reverse-animate-sub-category-menu {
   animation-name: reverse-animate-sub-category-menu;
-  animation-duration: 0.3s;
+  animation-duration: 150ms;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
 }
 
 .animate-super-sub-category-menu {
   animation-name: animate-super-sub-category-menu;
-  animation-duration: 0.3s;
+  animation-duration: 150ms;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
 }
 
 .reverse-animate-super-sub-category-menu {
   animation-name: reverse-animate-super-sub-category-menu;
-  animation-duration: 0.3s;
+  animation-duration: 150ms;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
 }
@@ -95,14 +95,14 @@
   }
   to {
     transform: translateX(0);
-    display: block;
+    display: flex;
   }
 }
 
 @keyframes reverse-animate-sub-category-menu {
   from {
     transform: translateX(0);
-    display: block;
+    display: flex;
   }
   to {
     transform: translateX(100%);
@@ -117,14 +117,14 @@
   }
   to {
     transform: translateX(0);
-    display: block;
+    display: flex;
   }
 }
 
 @keyframes reverse-animate-super-sub-category-menu {
   from {
     transform: translateX(0);
-    display: block;
+    display: flex;
   }
   to {
     transform: translateX(100%);

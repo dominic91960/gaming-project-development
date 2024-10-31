@@ -14,84 +14,113 @@ interface CategoryMenuState {
 }
 
 interface CategoryMenuHeaderProps {
+  selectedContent: {
+    selectedSubCategory: string;
+    selectedSuperSubCategory: string;
+  };
   categoryMenuStates: CategoryMenuState;
   setCategoryMenuStates: Dispatch<SetStateAction<CategoryMenuState>>;
-  setIsMobileNavToggled: (value: SetStateAction<boolean>) => void;
 }
 
 const CategoryMenuHeader: React.FC<CategoryMenuHeaderProps> = ({
+  selectedContent,
   categoryMenuStates,
   setCategoryMenuStates,
-  setIsMobileNavToggled,
 }) => {
-  return (
-    <div className="w-full h-[70px] flex items-center justify-between text-[24px]">
-      {categoryMenuStates.isSuperSubCategoryMenuOpen ? (
-        <button
-          className="flex items-center gap-[0.2em] text-[0.8em]"
-          onClick={() =>
-            setCategoryMenuStates((prev) => ({
-              ...prev,
-              isSuperSubCategoryMenuOpen: false,
-            }))
-          }
-        >
-          <IoIosArrowBack />
-          <h4>Platforms</h4>
-        </button>
-      ) : categoryMenuStates.isSubCategoryMenuOpen ? (
-        <button
-          className="flex items-center gap-[0.2em] text-[0.8em]"
-          onClick={() =>
-            setCategoryMenuStates((prev) => ({
-              ...prev,
-              isSubCategoryMenuOpen: false,
-              isSuperSubCategoryMenuOpen: undefined,
-            }))
-          }
-        >
-          <IoIosArrowBack />
-          <h4>PC Games</h4>
-        </button>
-      ) : categoryMenuStates.isCategoryMenuOpen ? (
-        <Link
-          href="/"
-          className="flex items-center gap-[0.5em]"
-          onClick={() =>
-            setCategoryMenuStates({
-              isCategoryMenuOpen: false,
-              isSubCategoryMenuOpen: undefined,
-              isSuperSubCategoryMenuOpen: undefined,
-            })
-          }
-        >
-          <Link href="/" onClick={() => setIsMobileNavToggled(false)}>
-            <Image src={logo} alt="VINGAME" className="w-[30px]" />
-          </Link>
-          <h4 className="font-semibold">VINGAME</h4>
-        </Link>
-      ) : (
-        ""
-      )}
-      <button
-        className="hover:opacity-80 text-[#75F94C]"
-        onClick={() => {
-          setCategoryMenuStates((prev) => ({
-            ...prev,
-            isCategoryMenuOpen: false,
-          }));
+  const handleLogoClick = () => {
+    setCategoryMenuStates({
+      isCategoryMenuOpen: false,
+      isSubCategoryMenuOpen: undefined,
+      isSuperSubCategoryMenuOpen: undefined,
+    });
+  };
 
-          setTimeout(() => {
-            setCategoryMenuStates((prev) => ({
-              ...prev,
-              isSubCategoryMenuOpen: undefined,
-              isSuperSubCategoryMenuOpen: undefined,
-            }));
-          }, 300);
-        }}
+  const closeSubCategoryMenu = () => {
+    setCategoryMenuStates((prev) => ({
+      ...prev,
+      isSubCategoryMenuOpen: false,
+      isSuperSubCategoryMenuOpen: undefined,
+    }));
+  };
+
+  const closeSuperSubCategoryMenu = () => {
+    setCategoryMenuStates((prev) => ({
+      ...prev,
+      isSuperSubCategoryMenuOpen: false,
+    }));
+  };
+
+  const onClose = () => {
+    setCategoryMenuStates((prev) => ({
+      ...prev,
+      isCategoryMenuOpen: false,
+    }));
+
+    setTimeout(() => {
+      setCategoryMenuStates((prev) => ({
+        ...prev,
+        isSubCategoryMenuOpen: undefined,
+        isSuperSubCategoryMenuOpen: undefined,
+      }));
+    }, 300);
+  };
+
+  let content = (
+    <div className="w-full h-full flex items-center justify-center">
+      <Link
+        href="/"
+        className="flex items-center gap-[0.8em] translate-y-[0.2em]"
+        onClick={handleLogoClick}
       >
-        <AiOutlineClose />
-      </button>
+        <Image src={logo} alt="VINGAME" className="w-auto h-[70px]" />
+        <h4 className="font-semibold">VINGAME</h4>
+      </Link>
+    </div>
+  );
+
+  if (categoryMenuStates.isSubCategoryMenuOpen)
+    content = (
+      <div className="w-full h-full flex flex-col justify-between font-bold capitalize">
+        <div className="flex justify-between text-[0.8em] pt-[1em]">
+          <button
+            className="flex items-center gap-[0.2em]  capitalize hover:text-[#75F94C]"
+            onClick={closeSubCategoryMenu}
+          >
+            <IoIosArrowBack />
+          </button>
+
+          <button className="hover:text-[#75F94C]" onClick={onClose}>
+            <AiOutlineClose />
+          </button>
+        </div>
+
+        <h4>{selectedContent.selectedSubCategory}</h4>
+      </div>
+    );
+
+  if (categoryMenuStates.isSuperSubCategoryMenuOpen)
+    content = (
+      <div className="w-full h-full flex flex-col justify-between font-bold capitalize">
+        <div className="flex justify-between text-[0.8em] pt-[1em]">
+          <button
+            className="flex items-center gap-[0.2em]  capitalize hover:text-[#75F94C]"
+            onClick={closeSuperSubCategoryMenu}
+          >
+            <IoIosArrowBack />
+          </button>
+
+          <button className="hover:text-[#75F94C]" onClick={onClose}>
+            <AiOutlineClose />
+          </button>
+        </div>
+
+        <h4>{selectedContent.selectedSuperSubCategory}</h4>
+      </div>
+    );
+
+  return (
+    <div className="w-full h-[120px] text-[28px] border-b border-b-white/50">
+      {content}
     </div>
   );
 };

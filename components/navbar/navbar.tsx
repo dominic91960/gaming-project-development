@@ -24,6 +24,7 @@ import CategoryMenuHeader from "./components/category-menu-header";
 import CategoryMenu from "./components/category-menu";
 import SubCategoryMenu from "./components/sub-category-menu";
 import SuperSubCategoryMenu from "./components/super-sub-category-menu";
+import CategoryMenuBg from "./components/category-menu-bg";
 
 const categories = [
   {
@@ -103,9 +104,13 @@ export default function Navbar() {
       isSubCategoryMenuOpen: undefined,
       isSuperSubCategoryMenuOpen: undefined,
     });
+  const [selectedContent, setSelectedContent] = useState({
+    selectedSubCategory: "",
+    selectedSuperSubCategory: "",
+  });
+  const [isContentChanged, setIsContentChanged] = useState(false);
   const [isMobileNavToggled, setIsMobileNavToggled] = useState(false);
 
-  const [isContentChanged, setIsContentChanged] = useState(false);
   const [loading, setLoading] = useState(true);
   const [verifySession, setVerifySession] = useState(false);
   const { user } = useContext(AuthContext) || {};
@@ -237,47 +242,38 @@ export default function Navbar() {
             : categoryMenuStates.isCategoryMenuOpen === false
             ? "reverse-animate-category-menu"
             : "hidden"
-        } origin-left fixed top-0 w-full h-full bg-[#0D0F10] font-primaryFont px-[1em] overflow-x-hidden z-[51] sm:w-[400px]`}
+        } origin-left fixed top-0 w-full h-full bg-[#0D0F10] font-primaryFont px-[1.5em] overflow-hidden z-[51] sm:w-[350px]`}
       >
         <CategoryMenuHeader
+          selectedContent={selectedContent}
           categoryMenuStates={categoryMenuStates}
           setCategoryMenuStates={setCategoryMenuStates}
-          setIsMobileNavToggled={setIsMobileNavToggled}
         />
 
         <CategoryMenu
           categories={categories}
           categoryMenuStates={categoryMenuStates}
           setCategoryMenuStates={setCategoryMenuStates}
+          setSelectedContent={setSelectedContent}
         >
           <SubCategoryMenu
             categoryMenuStates={categoryMenuStates}
             setCategoryMenuStates={setCategoryMenuStates}
+            setSelectedContent={setSelectedContent}
           >
-            <SuperSubCategoryMenu categoryMenuStates={categoryMenuStates} />
+            <SuperSubCategoryMenu
+              categories={categories}
+              selectedContent={selectedContent}
+              categoryMenuStates={categoryMenuStates}
+            />
           </SubCategoryMenu>
         </CategoryMenu>
       </nav>
 
-      <div
-        className={`${
-          categoryMenuStates.isCategoryMenuOpen ? "block" : "hidden"
-        } fixed top-0 left-0 z-50 w-full h-full bg-black/30`}
-        onClick={() => {
-          setCategoryMenuStates((prev) => ({
-            ...prev,
-            isCategoryMenuOpen: false,
-          }));
-
-          setTimeout(() => {
-            setCategoryMenuStates((prev) => ({
-              ...prev,
-              isSubCategoryMenuOpen: undefined,
-              isSuperSubCategoryMenuOpen: undefined,
-            }));
-          }, 300);
-        }}
-      ></div>
+      <CategoryMenuBg
+        categoryMenuStates={categoryMenuStates}
+        setCategoryMenuStates={setCategoryMenuStates}
+      />
     </>
   );
 }
