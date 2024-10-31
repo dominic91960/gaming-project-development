@@ -273,7 +273,7 @@ const SignIn = () => {
             <Button
               type="submit"
               variant="gaming"
-              className="w-full h-fit mb-[1.3em] text-[1.1em] px-[1em] py-[0.5em]"
+              className="w-full h-fit mb-[1.3em] font-semibold text-[1.1em] px-[1em] py-[0.5em]"
             >
               SIGN IN
             </Button>
@@ -287,7 +287,7 @@ const SignIn = () => {
             variant="outline"
             className="w-full h-fit text-[1.1em] px-[1em] py-[0.5em] mb-[1.3em] rounded-none group"
           >
-            <p className="text-[1.1em] text-white font-bold group-hover:text-black">
+            <p className="text-[1.1em] text-white font-semibold group-hover:text-black">
               CREATE ACCOUNT
             </p>
           </Button>

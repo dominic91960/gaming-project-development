@@ -272,19 +272,16 @@ const SignUp = () => {
             <div className="mb-[calc(1em+1px)]">
               <div className="flex items-center gap-[0.5em]">
                 <Checkbox
-                  className="bg-[#45F882] rounded-none size-[1.0em] flex items-center justify-center mb-1"
+                  className="bg-[#45F882] rounded-none size-[0.86em] flex items-center justify-center"
                   checked={isTermsAccepted}
                   onCheckedChange={(checked) => {
                     setIsTermsAccepted(checked);
                     setCheckboxError(""); // Clear error when checked
                   }}
                 />
-                <p className="text-white font-medium text-[1.0em] flex items-center">
+                <p className="text-white font-medium text-[0.8em] flex items-center ">
                   I agree to all
-                  <Link
-                    href="/"
-                    className="text-[#45F882] hover:opacity-80 text-[1.0em]"
-                  >
+                  <Link href="/" className="text-[#45F882] hover:opacity-80">
                     &nbsp;terms and conditions
                   </Link>
                 </p>
@@ -297,7 +294,7 @@ const SignUp = () => {
             {/* Submit Button */}
             <Button
               variant="gaming"
-              className="w-full h-fit mb-[1.3em] text-[1.1em] px-[1em] py-[0.5em]"
+              className="w-full h-fit mb-[1.3em] font-semibold text-[1.1em] px-[1em] py-[0.5em]"
             >
               CREATE ACCOUNT
             </Button>
@@ -311,7 +308,7 @@ const SignUp = () => {
               variant="outline"
               className="w-full h-fit text-[1.1em] px-[1em] py-[0.5em] mb-[1.3em] rounded-none group"
             >
-              <p className="text-[1.1em] text-white font-bold group-hover:text-black">
+              <p className="text-[1.1em] text-white font-semibold group-hover:text-black">
                 SIGN IN
               </p>
             </Button>
