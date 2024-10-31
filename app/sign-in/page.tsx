@@ -9,14 +9,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import axios from "axios";
-import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FcGoogle } from "react-icons/fc";
 import ProductSearchBar from "@/components/product-search/product-search";
 import Logo from "../../public/images/logo.png";
-
+import { useToast } from "@/hooks/use-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import AuthNavbar from "@/components/navbar/AuthNavbar";
 import Spinner from "@/components/Spinner/Spinner";
@@ -38,6 +37,9 @@ interface SignInFormInputs {
 const SignIn = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
+  const [error, setError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     const verifySession = async () => {
@@ -89,7 +91,10 @@ const SignIn = () => {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("user", JSON.stringify(user));
-        toast.success(message);
+        toast({
+          variant: "success",
+          title: message,
+        });
 
         // Redirect to home page
         // router.push("/admin");
@@ -102,7 +107,12 @@ const SignIn = () => {
         console.error("Login failed");
       }
     } catch (error: any) {
-      toast.error(error.response.data.message);
+      setErrorMessage(error.response.data.message);
+      setError(true);
+      toast({
+        variant: "error",
+        title: error.response.data.message,
+      });
     }
   };
   // const handleGoogleLogin = () => {
@@ -278,6 +288,7 @@ const SignIn = () => {
               SIGN IN
             </Button>
           </form>
+          {error && <p className="text-red-500 mt-[0.2em]">{errorMessage}</p>}
 
           <p className="text-white font-normal text-[0.86em] mb-2">
             Do not have an account?

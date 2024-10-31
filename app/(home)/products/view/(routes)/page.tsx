@@ -3,8 +3,8 @@
 import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
-
-import toast from "react-hot-toast";
+import { useAuthContext } from "@/context/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 import axiosInstance from "@/axios/axiosInstance";
 import Spinner from "@/components/Spinner/Spinner";
 import { Button } from "@/components/ui/button";
@@ -39,16 +39,54 @@ import skrill from "@/public/images/product/skrill.png";
 import samplePic from "@/public/images/sample-pic.png";
 import "../_components/product.css";
 import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
+import AccessDeniedModal from "@/components/access-denied-modal/AccessDeniedModal";
+import axios from "axios";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function ProductPage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [isReviewFormVisible, setIsReviewFormVisible] = useState(false);
   const [isLanguageTooltipOpen, setIsLanguageTooltipOpen] = useState(false);
+  const [accessDeniedPopupOpen, setAccessDeniedPopupOpen] = useState(false);
+
   const [rate, setRate] = useState<number>(1);
   const [comment, setComment] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const [reviews, setReviews] = useState<any[]>([]);
   const router = useRouter();
+  const { user } = useAuthContext();
+  const [verifySession, setVerifySession] = useState<boolean>(false);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const verifySession = async () => {
+      // setLoading(true);
+      try {
+        const res = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        if (res.status === 200) {
+          setVerifySession(true);
+          return res.data;
+        } else {
+          setVerifySession(false);
+        }
+        // setLoading(false);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    verifySession();
+  }, []);
 
   const { addItem } = useCartContext();
 
@@ -126,7 +164,6 @@ export default function ProductPage() {
     const getData = async () => {
       try {
         const res = await axiosInstance.get(`/games/${id}`);
-        console.log(res.data);
 
         const mappedGameData = {
           stockStatus: res.data.stockStatus,
@@ -189,14 +226,16 @@ export default function ProductPage() {
       );
       setReviews(response.data);
     } catch (error: any) {
-      toast.error(error.response.data.message);
+      toast({
+        variant: "error",
+        title: error.response.data.message,
+      });
     } finally {
       // setLoading(false);
     }
   };
 
   const calculateOverallRating = (reviews: any) => {
-    console.log(reviews, "rateing");
     let total = 0;
     reviews.forEach((review: any) => {
       total = total + review.rating;
@@ -225,18 +264,26 @@ export default function ProductPage() {
   };
 
   const addReview = async () => {
-    const user = JSON.parse(localStorage.getItem("user") as string);
     const newReview = {
       rating: rate,
       comment,
+      title,
       userId: user?.id,
       gameId: id,
     };
     try {
-      await axiosInstance.post(`/reviews`, newReview);
+      const response = await axiosInstance.post(`/reviews`, newReview);
+      const { message } = response.data;
+      console.log(response.data, "review data");
+      toast({
+        variant: "success",
+        title: message,
+      });
     } catch (error: any) {
-      // toast.error(error.response.data.message);
-      toast.error("You already reviewed the game");
+      toast({
+        variant: "error",
+        title: error.response.data.message,
+      });
     } finally {
       setComment("");
       setRate(0);
@@ -248,8 +295,7 @@ export default function ProductPage() {
   return (
     <Suspense fallback={<Spinner loading={true} />}>
       <>
-        {/* <ProductSearchBar />
-        <Navbar /> */}
+        <Toaster />
         <section className="bg-[#051301] font-primaryFont text-white">
           {/* Image area with gradient */}
           <div
@@ -767,10 +813,22 @@ export default function ProductPage() {
                     <Button
                       variant="outline"
                       className="h-fit text-white text-[1em] py-[0.5em] px-[1em] mt-[0.8em] rounded-none"
-                      onClick={() => setIsReviewFormVisible(true)}
+                      onClick={() => {
+                        if (verifySession) {
+                          setIsReviewFormVisible(true);
+                        } else {
+                          setAccessDeniedPopupOpen(true); // Set to true to open the modal
+                        }
+                      }}
                     >
                       &#43; Add your review
                     </Button>
+                    {accessDeniedPopupOpen && (
+                      <AccessDeniedModal
+                        open={accessDeniedPopupOpen}
+                        setIsOpen={setAccessDeniedPopupOpen}
+                      />
+                    )}
                   </div>
                   {calculateOverallRating(reviews) < 0 && (
                     <div>
@@ -829,6 +887,7 @@ export default function ProductPage() {
                     <input
                       type="text"
                       className="w-full md:w-[50ch] px-[1em] py-[0.5em] outline-none text-white bg-white/10 text-[1.3em] sm:text-[1em]"
+                      onChange={(e) => setTitle(e.target.value)}
                     />
 
                     <p className="text-[1.4em] mt-[1em] mb-[0.3em]">
