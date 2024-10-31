@@ -20,6 +20,7 @@ import toast from "react-hot-toast";
 import axiosInstance from "@/axios/axiosInstance";
 
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import "./shopping-cart-sidebar.css";
 
 type CartItem = {
   id: number;
@@ -123,12 +124,17 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
     });
   };
 
+  const messageColor = discountMessage.includes("successfully")
+    ? "text-[#67ca47]"
+    : "text-[#ff4d4d]";
+
   return (
     <Sheet>
       <SheetTrigger asChild className="hover:scale-110">
         {children}
       </SheetTrigger>
-      <SheetContent className="w-[550px] backdrop-blur-lg backdrop-opacity-70 bg-[#05130166]">
+      {/* <SheetContent className="w-[550px] backdrop-blur-lg backdrop-opacity-70 bg-[#05130166]"> */}
+      <SheetContent className="w-[550px]  shopping-cart-sidebar-main-div">
         <SheetHeader className="border-b-[1px] border-white pb-4 mb-12">
           <div className="flex items-center gap-2">
             <SheetTitle className="font-primaryFont text-white text-[17px] font-medium">
@@ -151,14 +157,22 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
           {cart.map((item) => (
             <div
               key={item.id}
-              className="mb-4 flex border border-white p-3 backdrop-blur-sm bg-white/30"
+              className="mb-4 flex border border-white p-3 shopping-cart-sidebar-card-item"
             >
-              <Image
+              {/* <Image
                 src={item.image}
                 alt={item.title}
-                width={104}
-                height={112}
-              />
+                className="w-[100px] h-[100px]"
+              /> */}
+
+              <div className="relative w-[130px] h-[100px]">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
 
               <div className="flex gap-2 items-center absolute top-3 right-3">
                 <CiHeart className="text-white text-lg cursor-pointer" />
@@ -231,26 +245,92 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
             </div>
           ))}
 
-          <div className="mt-6 p-4 bg-[#333333] rounded-lg">
-            <p className="text-white text-lg font-semibold">Summary</p>
-            <div className="flex justify-between mt-2 text-white">
-              <span>{totalItems} Items</span>
-              <span>${totalPrice}</span>
+          <div className="mt-6 p-4 rounded-lg">
+            {/* <p className="text-white text-lg font-semibold">Summary</p> */}
+            <div className="flex justify-between mt-2 text-white mb-3">
+              {/* <span>{totalItems} Items</span> */}
+              <p className="font-primaryFont text-[17px] font-normal text-white">
+                Subtotal
+              </p>
+              <p className="font-primaryFont text-[17px] font-normal text-white">
+                ${totalPrice}
+              </p>
             </div>
+
+            <div className="flex items-center justify-between ">
+              <div className="self-start">
+                <p className="font-primaryFont text-[17px] font-normal text-white">
+                  Discount Code
+                </p>
+              </div>
+
+              {!(totalDiscount > 0) ? (
+                <div className="">
+                  <Input
+                    type="text"
+                    value={discountCode}
+                    onChange={(e) => setDiscountCode(e.target.value)}
+                    className="border-white text-white rounded-none h-[25px] mb-2"
+                  />
+
+                  <div className="flex items-center justify-end">
+                    <Button
+                      onClick={handleApplyDiscount}
+                      className="bg-[#0BDB45] font-primaryFont text-[12px] hover:bg-[#0BDB45]  rounded-none text-black font-semibold h-6"
+                    >
+                      Add
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  {" "}
+                  <div className=" bg-[#fff] rounded-none px-2 flex justify-between items-center h-[30px] w-24  mb-2">
+                    <p className="font-primaryFont text-black font-semibold">
+                      {discountData.code}
+                    </p>
+                    <span
+                      className="text-black cursor-pointer"
+                      onClick={removeCoupon}
+                    >
+                      x
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {totalDiscount > 0 && (
+              <p
+                className={`font-primaryFont text-[16px] font-medium mt-0 mb-2 ${messageColor}`}
+              >
+                {discountMessage}
+              </p>
+            )}
+
             {/* <div className="flex justify-between text-white">
               <span>Service Fee</span>
               <span>${SERVICE_FEE}</span>
             </div> */}
             <div className="flex justify-between mt-2 text-white">
-              <span>Discount</span>
-              <span>- ${discountApplied}</span>
+              <p className="font-primaryFont text-[17px] font-normal text-white">
+                Discount Price
+              </p>
+              <p className="font-primaryFont text-[17px] font-normal text-white">
+                - ${discountApplied}
+              </p>
             </div>
-            <div className="flex justify-between text-lg font-bold mt-4 text-[#75F94C]">
-              <span>Total</span>
-              <span>${Math.max(lastPrice - totalDiscount, 0).toFixed(2)}</span>
+            <div className="flex justify-between text-lg font-bold mt-4 text-[#75F94C] border-t-[2px] border-dotted border-white pt-2">
+              <p className="font-primaryFont text-[17px] font-normal text-white">
+                Total
+              </p>
+              <p className="font-primaryFont text-[17px] font-normal text-white">
+                ${Math.max(lastPrice - totalDiscount, 0).toFixed(2)}
+              </p>
             </div>
           </div>
-          {!(totalDiscount > 0) ? (
+
+          {/* {!(totalDiscount > 0) ? (
             <div className="mt-4 flex">
               <Input
                 type="text"
@@ -270,37 +350,46 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                 x
               </span>
             </div>
-          )}
+          )} */}
 
-          <p className="text-white mt-2">{discountMessage}</p>
+          {/* <p className="text-white mt-2">{discountMessage}</p> */}
         </div>
 
-        <SheetClose asChild>
-          <Button
-            className="mt-4"
-            onClick={() => {
-              proceedCheckout();
-              // Ensure discountCode is defined before creating the order
-              /* if (discountCode) {
+        <div className="flex flex-col items-center gap-4">
+          {" "}
+          <SheetClose asChild>
+            <Button
+              variant="gaming"
+              className="mt-4 w-[200px]"
+              onClick={() => {
+                proceedCheckout();
+                // Ensure discountCode is defined before creating the order
+                /* if (discountCode) {
                 proceedCheckout(discountCode);
               } else {
                 toast.error(
                   "Please enter a valid discount code before proceeding."
                 );
               } */
+              }}
+            >
+              <p className="font-primaryFont text-[15px] font-semibold text-black">
+                Proceed to Checkout
+              </p>
+            </Button>
+          </SheetClose>
+          <Button
+            variant={"outline"}
+            className="rounded-none bg-white w-[200px]"
+            onClick={() => {
+              router.push("/cart");
             }}
           >
-            Proceed to Checkout
+            <p className="font-primaryFont text-[15px] font-semibold text-black">
+              View Cart
+            </p>
           </Button>
-        </SheetClose>
-        <Button
-          className="mt-4"
-          onClick={() => {
-            router.push("/cart");
-          }}
-        >
-          View Cart
-        </Button>
+        </div>
       </SheetContent>
     </Sheet>
   );

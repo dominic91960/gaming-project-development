@@ -55,11 +55,13 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
     >
       <body>
         <AuthProvider>
-          <ProductSearchBar />
-          <Navbar />
-          <WishlistProvider>
-          {children}
-          </WishlistProvider>
+          <div className="relative z-10">
+            <ProductSearchBar />
+          </div>
+          <div className="relative z-0">
+            <Navbar />
+          </div>
+          <WishlistProvider>{children}</WishlistProvider>
         </AuthProvider>
       </body>
     </html>

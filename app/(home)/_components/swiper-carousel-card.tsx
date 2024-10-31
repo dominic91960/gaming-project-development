@@ -16,7 +16,7 @@ interface SwiperCarouselCardProps {
   rating: number;
   description: string;
   price: number;
-  wishlistedBy: number;
+  /* wishlistedBy: number; */
   releaseDate: string;
   soldOut: boolean;
 }
@@ -28,7 +28,7 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
   rating,
   description,
   price,
-  wishlistedBy,
+  /* wishlistedBy, */
   releaseDate,
   soldOut,
 }) => {
@@ -136,7 +136,7 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
                 <IoHeartSharp className="text-[1.4em] me-[0.2em]" />
               )}
 
-              {formatWishlistedBy(wishlistedBy)}
+              {/* {formatWishlistedBy(wishlistedBy)} */}
             </p>
             <p>Release Date: {releaseDate}</p>
           </div>

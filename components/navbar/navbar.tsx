@@ -4,6 +4,13 @@ import { useState, useContext, useEffect } from "react";
 
 import axios from "axios";
 import axiosInstance from "@/axios/axiosInstance";
+import {
+  IoIosArrowForward,
+  IoIosArrowBack,
+  IoMdHeartEmpty,
+  IoMdCart,
+  IoMdPerson,
+} from "react-icons/io";
 
 import { AuthContext } from "@/context/AuthContext";
 import { useCartContext } from "@/context/CartContext";
@@ -20,6 +27,20 @@ import MobileLogo from "./components/mobile-logo";
 import MobileNavToggle from "./components/mobile-nav-toggle";
 import MobileNavLinks from "./components/mobile-nav-links";
 import MobileCategoryToggle from "./components/mobile-category-toggle";
+import AccessDeniedModal from "../access-denied-modal/AccessDeniedModal";
+import { useRouter } from "next/navigation";
+import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { FaUser } from "react-icons/fa";
+import { IoLogOut } from "react-icons/io5";
+import Image from "next/image";
 import CategoryMenuHeader from "./components/category-menu-header";
 import CategoryMenu from "./components/category-menu";
 import SubCategoryMenu from "./components/sub-category-menu";
@@ -96,7 +117,7 @@ interface CategoryMenuState {
 }
 
 export default function Navbar() {
-  const { cart } = useCartContext();
+  const { cart, totalItems } = useCartContext();
 
   const [categoryMenuStates, setCategoryMenuStates] =
     useState<CategoryMenuState>({
@@ -114,6 +135,34 @@ export default function Navbar() {
   const [loading, setLoading] = useState(true);
   const [verifySession, setVerifySession] = useState(false);
   const { user } = useContext(AuthContext) || {};
+
+  const router = useRouter();
+
+  // const verifySession = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await axios.get(
+  //       process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //         },
+  //       }
+  //     );
+  //     if (res.status === 200) {
+  //       setVerifySession(true);
+  //       return res.data;
+  //     } else {
+  //       setVerifySession(false);
+  //     }
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  const [accessDenidedPopupOpen, setAccessDeniedPopupOpen] = useState(false);
 
   useEffect(() => {
     const verifySession = async () => {
@@ -188,9 +237,106 @@ export default function Navbar() {
 
               {/* Desktop navigation icons */}
               <div className="flex text-[1.8em] gap-x-[0.7em] lg:gap-x-[1em] justify-around items-center">
-                <WishlistIcon handleClick={() => {}} />
-                <CartIcon length={cart.length} handleClick={() => {}} />
-                {authIcon}
+                {/* <Link
+                href="/wishlist"
+                className={`hover:scale-110 ${
+                  path.startsWith("/wishlist") ? "text-[#0BDB45]" : ""
+                }`}
+              >
+                <IoMdHeartEmpty />
+              </Link> */}
+                <div
+                  className={`hover:scale-110 ${
+                    path.startsWith("/wishlist") ? "text-[#0BDB45]" : ""
+                  }`}
+                  onClick={() =>
+                    verifySession
+                      ? router.push("/wishlist")
+                      : setAccessDeniedPopupOpen(true)
+                  }
+                >
+                  <IoMdHeartEmpty />
+                </div>
+
+                <div className="relative">
+                  {cart.length > 0 && (
+                    <span className="absolute  bottom-[16px] right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
+                      {cart.length}
+                    </span>
+                  )}
+                  <CartSidebar>
+                    <IoMdCart />
+                  </CartSidebar>
+                </div>
+
+                {loading ? (
+                  <NavBarSpinner loading={loading} />
+                ) : verifySession ? (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="hidden cursor-pointer rounded-full sm:block">
+                      <Image
+                        src={user?.profile_image}
+                        width={20}
+                        height={20}
+                        alt="Avatar"
+                        className="size-[1em] rounded-full"
+                      />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="hidden bg-[#111111] font-primaryFont text-[0.8em] text-white rounded-none border-none sm:block">
+                      <DropdownMenuLabel className="font-semibold text-center text-[1.3em]">
+                        {user.firstName}
+                      </DropdownMenuLabel>
+                      <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
+                      <DropdownMenuItem
+                        className="bg-transparent text-[1em] focus:bg-transparent focus:text-white"
+                        onClick={() => {
+                          router.push("/profile?id=" + user.id);
+                        }}
+                      >
+                        <button className="w-full h-fit flex items-center gap-[0.5em] px-[1em] py-[0.3em] rounded-none font-primaryFont uppercase hover:opacity-80">
+                          <FaUser className="text-[1.3em] text-[#0BDB45]" />
+                          Profile
+                        </button>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
+                      <DropdownMenuItem
+                        className="bg-transparent text-[1em] focus:bg-transparent focus:text-white"
+                        onClick={() => {
+                          axiosInstance.patch("/auth/logout");
+                          localStorage.clear();
+                          window.location.href = "/sign-in";
+                        }}
+                      >
+                        <button className="w-full h-fit flex items-center gap-[0.5em] px-[1em] py-[0.3em] rounded-none font-primaryFont uppercase hover:opacity-80">
+                          <IoLogOut className="text-[1.6em] text-[#0BDB45]" />
+                          Logout
+                        </button>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                ) : (
+                  <Link
+                    href="/sign-in"
+                    className={`hover:scale-110 ${
+                      path.startsWith("/sign") ? "text-[#0BDB45]" : ""
+                    }`}
+                  >
+                    <IoMdPerson />
+                    {/* <FaUserPlus /> */}
+                  </Link>
+                )}
+
+                {/* <div
+                onClick={() => {
+                  axiosInstance.patch("/auth/logout");
+                  localStorage.clear();
+                  window.location.href = "/sign-in";
+                }}
+                className="cursor-pointer hover:scale-110"
+              >
+                <IoLogOut />
+              </div> */}
               </div>
             </div>
 
@@ -219,7 +365,7 @@ export default function Navbar() {
           {/* Mobile navigation icons */}
           <div className="flex text-[1.5em] justify-around mt-[1.6em]">
             <WishlistIcon handleClick={closeMobileNav} />
-            <CartIcon length={cart.length} handleClick={closeMobileNav} />
+            <CartIcon length={totalItems} handleClick={closeMobileNav} />
             {authIcon}
           </div>
         </nav>
@@ -274,6 +420,13 @@ export default function Navbar() {
         categoryMenuStates={categoryMenuStates}
         setCategoryMenuStates={setCategoryMenuStates}
       />
+
+      {accessDenidedPopupOpen && (
+        <AccessDeniedModal
+          open={accessDenidedPopupOpen}
+          setIsOpen={setAccessDeniedPopupOpen}
+        />
+      )}
     </>
   );
 }
