@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCartContext } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 import cartIcon from "../../../public/images/cart-sidebar/Favorite Cart.png";
 import {
   Sheet,
@@ -16,7 +17,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import toast from "react-hot-toast";
 import axiosInstance from "@/axios/axiosInstance";
 
 import { FaPlus, FaMinus } from "react-icons/fa6";
@@ -32,39 +32,18 @@ type CartItem = {
   productType: string;
 };
 
-/* const initialCartItems: CartItem[] = [
-  {
-    id: 1,
-    image: "/images/cart/itemImage1.png",
-    choiceType: "Ultimate Choice",
-    title: "Six-Sided Oracles (PC) Steam Key GLOBAL",
-    quantity: 2,
-    price: 299,
-    productType: "Digital product",
-  },
-  {
-    id: 2,
-    image: "/images/cart/itemImage2.png",
-    choiceType: "Best Choice",
-    title: "Call of duty - Modern warfare",
-    quantity: 5,
-    price: 155,
-    productType: "DVD Product",
-  },
-]; */
-
 const SERVICE_FEE = 12;
 type CartSidebarProps = {
   children: React.ReactNode;
 };
 
 const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
+  const { toast } = useToast();
   const {
     cart,
     removeItem,
     increaseQuantity,
     decreaseQuantity,
-    createOrder,
     totalPrice,
     totalItems,
     setDiscount,
@@ -104,14 +83,23 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
 
         // Update applied discount
         setDiscountApplied(response.data.discount);
-        toast.success("Discount applied successfully");
+        toast({
+          variant: "success",
+          title: "Discount applied successfully",
+        });
       } else {
         setDiscountMessage("Your discount code is invalid");
-        toast.error("Invalid discount code");
+        toast({
+          variant: "error",
+          title: "Your discount code is invalid",
+        });
       }
     } catch (error) {
       setDiscountMessage("Your discount code is incorrect");
-      toast.error("Your discount code is incorrect");
+      toast({
+        variant: "error",
+        title: "Your discount code is incorrect",
+      });
     }
   };
 

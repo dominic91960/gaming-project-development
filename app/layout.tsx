@@ -3,6 +3,7 @@ import "./globals.css";
 import { Montserrat, Inter, Rajdhani } from "@next/font/google";
 import Providers from "../providers";
 import { CartProvider } from "@/context/CartContext";
+import { Toaster } from "@/components/ui/toaster";
 
 // Configure Montserrat with all required weights
 const montserrat = Montserrat({
@@ -33,6 +34,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       <Providers>
         <CartProvider>
           <body>{children}</body>
+          <Toaster />
         </CartProvider>
       </Providers>
     </html>
