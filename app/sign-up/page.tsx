@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FcGoogle } from "react-icons/fc";
-import { FaFacebook, FaApple, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import ProductSearchBar from "@/components/product-search/product-search";
 import AuthNavbar from "@/components/navbar/AuthNavbar";
@@ -54,11 +54,14 @@ const SignUp = () => {
     const verifySession = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
+        const res = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
         if (res.status === 200) {
           if (res.data.role.name === "ADMIN") {
             router.push("/admin");
@@ -73,7 +76,7 @@ const SignUp = () => {
       }
     };
     verifySession();
-  }, []);
+  }, [router]);
 
   const {
     register,
@@ -83,7 +86,7 @@ const SignUp = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = async (data:any) => {
+  const onSubmit = async (data: any) => {
     if (!isTermsAccepted) {
       setCheckboxError("Please agree to the terms and conditions");
       return;
@@ -115,7 +118,7 @@ const SignUp = () => {
         console.error("Register failed");
       }
       // router.push("/emailVerify");
-    } catch (error:any) {
+    } catch (error: any) {
       toast.error(error.response.data.message);
     }
   };
@@ -125,7 +128,7 @@ const SignUp = () => {
   }
 
   return (
-    <section className="flex flex-col min-h-svh bg-[#0B0E13]">
+    <section className="h-full flex flex-col bg-[#0B0E13] text-white">
       <ProductSearchBar />
       <AuthNavbar />
       <div className="bg-[#0B0E13] flex-grow flex items-center justify-center font-primaryFont text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] text-white px-[36px] p-[50px]">
@@ -133,36 +136,35 @@ const SignUp = () => {
           <div className="flex items-center justify-center">
             <Image src={Logo} alt="logo" />
           </div>
-          <p className="font-primaryFont text-[1.6em] font-medium text-white text-center">
+          <p className="text-[1.6em] font-medium text-white text-center">
             Sign Up To Your Account
           </p>
-          <p className="font-primaryFont text-[0.86em] font-medium text-white text-center mb-[4em]">
+          <p className="text-[0.86em] font-medium text-white text-center mb-[1em]">
             Start from the beginning.
           </p>
 
           {/* Social Sign-In Buttons */}
-          <div className="flex items-center justify-center gap-6 mb-[1.6em]">
-            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] hover:-translate-y-[1px] cursor-pointer">
-              <FcGoogle />
-            </div>
-            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] text-[#1877F2] hover:-translate-y-[1px] cursor-pointer">
-              <FaFacebook />
-            </div>
-            <div className="bg-white p-[0.4em] rounded-sm text-[1.5em] text-black hover:-translate-y-[1px] cursor-pointer">
-              <FaApple />
-            </div>
+          <div className="flex items-center justify-center gap-6">
+            <Button
+              type="submit"
+              variant="secondary"
+              className="w-full h-fit mb-[1.3em] font-medium text-[1.1em] px-[1em] py-[0.5em] rounded-none"
+            >
+              <FcGoogle className="text-[1.2em] me-[0.5em]" /> Sign In With
+              Google
+            </Button>
           </div>
 
           <div className="flex items-center justify-center mb-[1em]">
             <div className="w-full h-[1px] bg-white"></div>
-            <p className="text-white font-primaryFont font-medium px-2">or</p>
+            <p className="text-white font-medium px-2">or</p>
             <div className="w-full h-[1px] bg-white"></div>
           </div>
 
           {/* Sign-Up Form */}
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* First/Last name grid */}
-            <div className="grid text-white font-primaryFont font-medium gap-x-[1em] sm:grid-cols-2">
+            <div className="grid text-white font-medium gap-x-[1em] sm:grid-cols-2">
               <div className="mb-[2.1em]">
                 <p className="mb-[0.2em]">FIRST NAME</p>
                 <Input
@@ -173,7 +175,9 @@ const SignUp = () => {
                   {...register("firstName")}
                 />
                 {errors.firstName && (
-                  <p className="text-red-500 mt-[0.2em]">{errors.firstName.message}</p>
+                  <p className="text-red-500 mt-[0.2em]">
+                    {errors.firstName.message}
+                  </p>
                 )}
               </div>
               <div className="mb-[2.1em]">
@@ -185,12 +189,14 @@ const SignUp = () => {
                   {...register("lastName")}
                 />
                 {errors.lastName && (
-                  <p className="text-red-500 mt-[0.2em]">{errors.lastName.message}</p>
+                  <p className="text-red-500 mt-[0.2em]">
+                    {errors.lastName.message}
+                  </p>
                 )}
               </div>
             </div>
 
-            <div className="mb-[2.1em] text-white font-primaryFont font-medium">
+            <div className="mb-[2.1em] text-white font-medium">
               <p className="mb-[0.2em]">EMAIL</p>
               <Input
                 type="email"
@@ -199,11 +205,13 @@ const SignUp = () => {
                 {...register("email")}
               />
               {errors.email && (
-                <p className="text-red-500 mt-[0.2em]">{errors.email.message}</p>
+                <p className="text-red-500 mt-[0.2em]">
+                  {errors.email.message}
+                </p>
               )}
             </div>
 
-            <div className="grid text-white font-primaryFont font-medium gap-x-[1em] sm:grid-cols-2">
+            <div className="grid text-white font-medium gap-x-[1em] sm:grid-cols-2">
               <div className="mb-[2.1em]">
                 <p className="mb-[0.2em]">PASSWORD</p>
                 <div className="relative w-full">
@@ -226,7 +234,9 @@ const SignUp = () => {
                   </button>
                 </div>
                 {errors.password && (
-                  <p className="text-red-500 mt-[0.2em]">{errors.password.message}</p>
+                  <p className="text-red-500 mt-[0.2em]">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
               <div className="mb-[2.1em]">
@@ -251,7 +261,9 @@ const SignUp = () => {
                   </button>
                 </div>
                 {errors.confirmPassword && (
-                  <p className="text-red-500 mt-[0.2em]">{errors.confirmPassword.message}</p>
+                  <p className="text-red-500 mt-[0.2em]">
+                    {errors.confirmPassword.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -267,9 +279,12 @@ const SignUp = () => {
                     setCheckboxError(""); // Clear error when checked
                   }}
                 />
-                <p className="text-white font-primaryFont font-medium text-[1.0em] flex items-center">
+                <p className="text-white font-medium text-[1.0em] flex items-center">
                   I agree to all
-                  <Link href="/" className="text-[#45F882] hover:opacity-80 text-[1.0em]">
+                  <Link
+                    href="/"
+                    className="text-[#45F882] hover:opacity-80 text-[1.0em]"
+                  >
                     &nbsp;terms and conditions
                   </Link>
                 </p>
@@ -282,18 +297,25 @@ const SignUp = () => {
             {/* Submit Button */}
             <Button
               variant="gaming"
-              className="w-full h-fit mb-[1.3em] font-primaryFont text-[1.1em] px-[1em] py-[0.5em]"
+              className="w-full h-fit mb-[1.3em] text-[1.1em] px-[1em] py-[0.5em]"
             >
               CREATE ACCOUNT
             </Button>
           </form>
 
-          <div className="flex items-center justify-center gap-[0.5em] text-white font-primaryFont text-[1.0em] font-medium">
-            <p>Already have an account?</p>
-            <Link href="/sign-in" className="text-[#45F882] hover:opacity-80">
-              Sign In
-            </Link>
-          </div>
+          <p className="text-white font-normal text-[0.86em] mb-2">
+            Already have an account?
+          </p>
+          <Link href="/sign-in">
+            <Button
+              variant="outline"
+              className="w-full h-fit text-[1.1em] px-[1em] py-[0.5em] mb-[1.3em] rounded-none group"
+            >
+              <p className="text-[1.1em] text-white font-bold group-hover:text-black">
+                SIGN IN
+              </p>
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
