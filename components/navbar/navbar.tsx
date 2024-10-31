@@ -1,12 +1,9 @@
 "use client";
 
 import { useState, useContext, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import axios from "axios";
 import axiosInstance from "@/axios/axiosInstance";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 import { AuthContext } from "@/context/AuthContext";
 import { useCartContext } from "@/context/CartContext";
@@ -23,6 +20,10 @@ import MobileLogo from "./components/mobile-logo";
 import MobileNavToggle from "./components/mobile-nav-toggle";
 import MobileNavLinks from "./components/mobile-nav-links";
 import MobileCategoryToggle from "./components/mobile-category-toggle";
+import CategoryMenuHeader from "./components/category-menu-header";
+import CategoryMenu from "./components/category-menu";
+import SubCategoryMenu from "./components/sub-category-menu";
+import SuperSubCategoryMenu from "./components/super-sub-category-menu";
 
 const categories = [
   {
@@ -89,39 +90,20 @@ const categories = [
 
 export default function Navbar() {
   const { cart } = useCartContext();
-  const path = usePathname();
   const [isCategoryMenuToggled, setIsCategoryMenuToggled] = useState<
     boolean | undefined
   >(undefined);
+  const [isSubCategoryMenuToggled, setIsSubCategoryMenuToggled] = useState<
+    boolean | undefined
+  >(undefined);
+  const [isSuperSubCategoryMenuToggled, setIsSuperSubCategoryMenuToggled] =
+    useState<boolean | undefined>(undefined);
   const [isMobileNavToggled, setIsMobileNavToggled] = useState(false);
 
-  const [isMenuOneVisible, setIsMenuOneVisible] = useState(true);
-  const [isMenuTwoVisible, setIsMenuTwoVisible] = useState(false);
-  const [isMenuThreeVisible, setIsMenuThreeVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubMenu, setSelectedSubMenu] = useState("");
-  const [subMenuData, setSubMenuData] = useState<string[]>([]);
   const [isContentChanged, setIsContentChanged] = useState(false);
   const [loading, setLoading] = useState(true);
   const [verifySession, setVerifySession] = useState(false);
   const { user } = useContext(AuthContext) || {};
-
-  const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
-    setIsMenuOneVisible(false);
-    setIsMenuTwoVisible(true);
-  };
-  const handleCategorySubMenuSelect = (category: string, subMenu: string) => {
-    setSelectedSubMenu(subMenu);
-    setIsMenuTwoVisible(false);
-    setIsMenuThreeVisible(true);
-    const categoryData = categories.find((c) => c.categoryName === category);
-    if (categoryData && subMenu in categoryData) {
-      setSubMenuData(
-        categoryData[subMenu as keyof typeof categoryData] as string[]
-      );
-    }
-  };
 
   useEffect(() => {
     const verifySession = async () => {
@@ -177,66 +159,70 @@ export default function Navbar() {
     );
 
   return (
-    <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white] z-50">
-      <div className="border-b border-b-[#8C8C8C]">
-        <div className="container mx-auto h-[68px] flex justify-between items-center py-[0.2em] sm:h-[55px] sm:py-[1.2em] px-[36px] md:h-[47px] md:py-[0.5em] xl:h-[50px]">
-          {/* Desktop categories toggle*/}
-          <DesktopCategoryToggle
-            isCategoryMenuToggled={isCategoryMenuToggled}
-            setIsCategoryMenuToggled={setIsCategoryMenuToggled}
-          />
+    <>
+      <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white] z-50">
+        {/* Main navbar div wrapper */}
+        <div className="border-b border-b-[#8C8C8C]">
+          {/* Main navbar div */}
+          <div className="container mx-auto h-[68px] flex justify-between items-center py-[0.2em] sm:h-[55px] sm:py-[1.2em] px-[36px] md:h-[47px] md:py-[0.5em] xl:h-[50px]">
+            {/* Desktop categories toggle*/}
+            <DesktopCategoryToggle
+              isCategoryMenuToggled={isCategoryMenuToggled}
+              setIsCategoryMenuToggled={setIsCategoryMenuToggled}
+            />
 
-          {/* Desktop navigation links & icons*/}
-          <div className="hidden sm:flex sm:items-center sm:justify-between sm:w-full md:justify-end md:gap-x-[11.5%]">
-            {/* Desktop navigation links */}
-            <DesktopNavLinks />
+            {/* Desktop navigation links & icons*/}
+            <div className="hidden sm:flex sm:items-center sm:justify-between sm:w-full md:justify-end md:gap-x-[11.5%]">
+              {/* Desktop navigation links */}
+              <DesktopNavLinks />
 
-            {/* Desktop navigation icons */}
-            <div className="flex text-[1.8em] gap-x-[0.7em] lg:gap-x-[1em] justify-around items-center">
-              <WishlistIcon handleClick={() => {}} />
-              <CartIcon length={cart.length} handleClick={() => {}} />
-              {authIcon}
+              {/* Desktop navigation icons */}
+              <div className="flex text-[1.8em] gap-x-[0.7em] lg:gap-x-[1em] justify-around items-center">
+                <WishlistIcon handleClick={() => {}} />
+                <CartIcon length={cart.length} handleClick={() => {}} />
+                {authIcon}
+              </div>
             </div>
+
+            {/* Mobile logo  */}
+            <MobileLogo setIsMobileNavToggled={setIsMobileNavToggled} />
+
+            {/* Mobile navbar toggle  */}
+            <MobileNavToggle
+              isMobileNavToggled={isMobileNavToggled}
+              isCategoryMenuToggled={isCategoryMenuToggled}
+              setIsCategoryMenuToggled={setIsCategoryMenuToggled}
+              setIsMobileNavToggled={setIsMobileNavToggled}
+            />
           </div>
-
-          {/* Mobile logo  */}
-          <MobileLogo setIsMobileNavToggled={setIsMobileNavToggled} />
-
-          {/* Mobile navbar toggle  */}
-          <MobileNavToggle
-            isMobileNavToggled={isMobileNavToggled}
-            isCategoryMenuToggled={isCategoryMenuToggled}
-            setIsCategoryMenuToggled={setIsCategoryMenuToggled}
-            setIsMobileNavToggled={setIsMobileNavToggled}
-          />
         </div>
-      </div>
 
-      {/* Mobile navigation links & icons */}
-      <nav
-        className={`${
-          isMobileNavToggled ? "flex flex-col sm:hidden" : "hidden"
-        } container mx-auto bg-[#0D0F10] absolute origin-top animate-open-menu px-[1.8em] font-semibold text-center uppercase pt-[1.5em] pb-[2.4em]`}
-      >
-        {/* Mobile navigation links */}
-        <MobileNavLinks setIsMobileNavToggled={setIsMobileNavToggled} />
+        {/* Mobile navigation links & icons */}
+        <nav
+          className={`${
+            isMobileNavToggled ? "flex flex-col sm:hidden" : "hidden"
+          } container mx-auto bg-[#0D0F10] absolute origin-top animate-open-menu px-[1.8em] font-semibold text-center uppercase pt-[1.5em] pb-[2.4em]`}
+        >
+          {/* Mobile navigation links */}
+          <MobileNavLinks setIsMobileNavToggled={setIsMobileNavToggled} />
 
-        {/* Mobile navigation icons */}
-        <div className="flex text-[1.5em] justify-around mt-[1.6em]">
-          <WishlistIcon handleClick={closeMobileNav} />
-          <CartIcon length={cart.length} handleClick={closeMobileNav} />
-          {authIcon}
-        </div>
-      </nav>
+          {/* Mobile navigation icons */}
+          <div className="flex text-[1.5em] justify-around mt-[1.6em]">
+            <WishlistIcon handleClick={closeMobileNav} />
+            <CartIcon length={cart.length} handleClick={closeMobileNav} />
+            {authIcon}
+          </div>
+        </nav>
 
-      {/* Mobile categories toggle */}
-      <MobileCategoryToggle
-        isContentChanged={isContentChanged}
-        isMobileNavToggled={isMobileNavToggled}
-        setIsMobileNavToggled={setIsMobileNavToggled}
-        isCategoryMenuToggled={isCategoryMenuToggled}
-        setIsCategoryMenuToggled={setIsCategoryMenuToggled}
-      />
+        {/* Mobile categories toggle */}
+        <MobileCategoryToggle
+          isContentChanged={isContentChanged}
+          isMobileNavToggled={isMobileNavToggled}
+          setIsMobileNavToggled={setIsMobileNavToggled}
+          isCategoryMenuToggled={isCategoryMenuToggled}
+          setIsCategoryMenuToggled={setIsCategoryMenuToggled}
+        />
+      </section>
 
       {/* Categories menu */}
       <nav
@@ -246,168 +232,98 @@ export default function Navbar() {
             : isCategoryMenuToggled === false
             ? "reverse-animate-category-menu"
             : "hidden"
-        } origin-left absolute top-[calc(100%-1px)] w-full sm:w-[400px] sm:min-h-[80vh] bg-[#0D0F10] border border-[#75F94C] p-[2em] z-50`}
+        } origin-left fixed top-0 w-full h-full bg-[#0D0F10] font-primaryFont px-[1em] overflow-x-hidden z-[51] sm:w-[400px]`}
       >
-        {/* Main category menu */}
-        <div className={isMenuOneVisible ? "block" : "hidden"}>
-          {/* Main category menu title */}
-          <div className="flex justify-between items-center mb-[2em]">
-            <h3 className="font-medium">Gamespire</h3>
+        {/* <div className="w-full h-[70px] flex items-center justify-between text-[24px]">
+          {isSuperSubCategoryMenuToggled ? (
             <button
-              className="text-[#0BDB45] hover:scale-105"
-              onClick={() => setIsCategoryMenuToggled((prev) => !prev)}
+              className="flex items-center gap-[0.2em] text-[0.8em]"
+              onClick={() => setIsSuperSubCategoryMenuToggled(false)}
             >
-              &#10006;
+              <IoIosArrowBack />
+              <h4>Platforms</h4>
             </button>
-          </div>
-
-          {/* Main category menu links */}
-          <div className="flex flex-col gap-y-[1em]">
-            <Link
-              href="/products"
-              className={`hover:opacity-80 ${
-                path.startsWith("/products") ? "text-[#0BDB45]" : ""
-              }`}
-            >
-              All offers
-            </Link>
-            <Link
-              href="/about"
-              className={`hover:opacity-80 ${
-                path.startsWith("/products") ? "text-[#0BDB45]" : ""
-              }`}
-            >
-              Popular games
-            </Link>
-            <Link
-              href="/contact"
-              className={`hover:opacity-80 ${
-                path.startsWith("/products") ? "text-[#0BDB45]" : ""
-              }`}
-            >
-              Latest games
-            </Link>
-            {categories.map(({ categoryName }) => (
-              <button
-                key={categoryName}
-                className="flex items-center justify-between hover:opacity-80"
-                onClick={() => handleCategorySelect(categoryName)}
-              >
-                <p>{categoryName}</p>
-                <IoIosArrowForward className="text-[22px]" />
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Sub category menu */}
-        <div className={isMenuTwoVisible ? "block" : "hidden"}>
-          <div className="flex justify-between items-center mb-[2em]">
-            {/* Sub category menu title */}
+          ) : isSubCategoryMenuToggled ? (
             <button
-              className="flex items-center -translate-x-2 hover:opacity-80"
+              className="flex items-center gap-[0.2em] text-[0.8em]"
               onClick={() => {
-                setIsMenuOneVisible(true);
-                setIsMenuTwoVisible(false);
+                setIsSubCategoryMenuToggled(false);
+                setIsSuperSubCategoryMenuToggled(undefined);
               }}
             >
-              <IoIosArrowBack className="text-[1.1em]" />
-              <h3 className="font-medium">{selectedCategory}</h3>
+              <IoIosArrowBack />
+              <h4>PC Games</h4>
             </button>
-            <button
-              className="text-[#0BDB45] hover:scale-105"
-              onClick={() => setIsCategoryMenuToggled((prev) => !prev)}
-            >
-              &#10006;
-            </button>
-          </div>
-
-          {/* Sub category menu links */}
-          <div className="flex flex-col gap-y-[1em]">
+          ) : isCategoryMenuToggled ? (
             <Link
-              href="/products"
-              className={`hover:opacity-80 ${
-                path.startsWith("/products") ? "text-[#0BDB45]" : ""
-              }`}
-            >
-              All offers
-            </Link>
-            <Link
-              href="/about"
-              className={`hover:opacity-80 ${
-                path.startsWith("/products") ? "text-[#0BDB45]" : ""
-              }`}
-            >
-              Popular games
-            </Link>
-            <Link
-              href="/contact"
-              className={`hover:opacity-80 ${
-                path.startsWith("/products") ? "text-[#0BDB45]" : ""
-              }`}
-            >
-              Latest games
-            </Link>
-            <button
-              className="flex items-center justify-between hover:opacity-80"
-              onClick={() =>
-                handleCategorySubMenuSelect(selectedCategory, "platforms")
-              }
-            >
-              <p>Platforms</p>
-              <IoIosArrowForward className="text-[22px]" />
-            </button>
-            <button
-              className="flex items-center justify-between hover:opacity-80"
-              onClick={() =>
-                handleCategorySubMenuSelect(selectedCategory, "genres")
-              }
-            >
-              <p>Genres</p>
-              <IoIosArrowForward className="text-[22px]" />
-            </button>
-          </div>
-        </div>
-
-        {/* Platform/Genre Menu */}
-        <div className={isMenuThreeVisible ? "block" : "hidden"}>
-          <div className="flex justify-between items-center mb-[2em]">
-            {/* Platform/Genre menu title */}
-            <button
-              className="flex items-center -translate-x-2 hover:opacity-80"
+              href="/"
+              className="flex items-center gap-[0.5em]"
               onClick={() => {
-                setIsMenuTwoVisible(true);
-                setIsMenuThreeVisible(false);
+                setIsCategoryMenuToggled(false);
+                setIsSubCategoryMenuToggled(undefined);
+                setIsSuperSubCategoryMenuToggled(undefined);
               }}
             >
-              <IoIosArrowBack className="text-[24px]" />
-              <h3 className="font-medium capitalize">{selectedSubMenu}</h3>
-            </button>
-            <button
-              className="text-[#0BDB45] hover:scale-105"
-              onClick={() => setIsCategoryMenuToggled((prev) => !prev)}
-            >
-              &#10006;
-            </button>
-          </div>
+              <Link href="/" onClick={() => setIsMobileNavToggled(false)}>
+                <Image src={logo} alt="VINGAME" className="w-[30px]" />
+              </Link>
+              <h4 className="font-semibold">VINGAME</h4>
+            </Link>
+          ) : (
+            ""
+          )}
+          <button
+            className="hover:opacity-80 text-[#75F94C]"
+            onClick={() => {
+              setIsCategoryMenuToggled(false);
+              setTimeout(() => {
+                setIsSubCategoryMenuToggled(undefined);
+                setIsSuperSubCategoryMenuToggled(undefined);
+              }, 300);
+            }}
+          >
+            <AiOutlineClose />
+          </button>
+        </div> */}
+        <CategoryMenuHeader
+          isSuperSubCategoryMenuToggled={isSuperSubCategoryMenuToggled}
+          setIsSuperSubCategoryMenuToggled={setIsSuperSubCategoryMenuToggled}
+          isSubCategoryMenuToggled={isSubCategoryMenuToggled}
+          setIsSubCategoryMenuToggled={setIsSubCategoryMenuToggled}
+          isCategoryMenuToggled={isCategoryMenuToggled}
+          setIsCategoryMenuToggled={setIsCategoryMenuToggled}
+          setIsMobileNavToggled={setIsMobileNavToggled}
+        />
 
-          {/* Platform/Genre menu links */}
-          <div className="flex flex-col gap-y-[1em]">
-            {subMenuData &&
-              subMenuData.map((item) => (
-                <Link
-                  key={item}
-                  href="/products"
-                  className={`hover:opacity-80 ${
-                    path.startsWith("/products") ? "text-[#0BDB45]" : ""
-                  }`}
-                >
-                  {item}
-                </Link>
-              ))}
-          </div>
-        </div>
+        <CategoryMenu
+          categories={categories}
+          isSubCategoryMenuToggled={isSubCategoryMenuToggled}
+          setIsSubCategoryMenuToggled={setIsSubCategoryMenuToggled}
+        >
+          <SubCategoryMenu
+            isSubCategoryMenuToggled={isSubCategoryMenuToggled}
+            isSuperSubCategoryMenuToggled={isSuperSubCategoryMenuToggled}
+            setIsSuperSubCategoryMenuToggled={setIsSuperSubCategoryMenuToggled}
+          >
+            <SuperSubCategoryMenu
+              isSuperSubCategoryMenuToggled={isSuperSubCategoryMenuToggled}
+            />
+          </SubCategoryMenu>
+        </CategoryMenu>
       </nav>
-    </section>
+
+      <div
+        className={`${
+          isCategoryMenuToggled ? "block" : "hidden"
+        } fixed top-0 left-0 z-50 w-full h-full bg-black/30`}
+        onClick={() => {
+          setIsCategoryMenuToggled(false);
+          setTimeout(() => {
+            setIsSubCategoryMenuToggled(undefined);
+            setIsSuperSubCategoryMenuToggled(undefined);
+          }, 300);
+        }}
+      ></div>
+    </>
   );
 }
