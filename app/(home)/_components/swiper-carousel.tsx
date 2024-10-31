@@ -121,6 +121,10 @@ const SwiperCarousel = () => {
     setBg(data[realIndex].background);
   };
 
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
   return (
     <section
       className={`relative min-h-svh bg-cover bg-center flex items-center justify-center font-primaryFont font-semibold text-[8px] lg:text-[9px] xl:text-[11px] 2xl:text-[13px] text-white transition-all duration-1000 ease-in-out`}
@@ -172,7 +176,7 @@ const SwiperCarousel = () => {
                   <SwiperSlide key={id}>
                     <SwiperCarouselCard
                       id={gameData[i]?.id ||id}
-                      poster={gameData[i]?.screenshots[1] || gameData[i]?.coverImage ||poster}
+                      poster={gameData[i]?.screenshots[i] || gameData[i]?.coverImage ||poster}
                       title={gameData[i]?.displayName || title}
                       rating={Math.round(gameData[i]?.averageRating ||rating)}
                       description={gameData[i]?.displayName ||description}
@@ -240,3 +244,7 @@ const SwiperCarousel = () => {
 };
 
 export default SwiperCarousel;
+
+
+
+
