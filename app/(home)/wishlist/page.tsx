@@ -115,7 +115,7 @@ export default function WishlistPage() {
         poster: item.cardImage,
         name: item.name,
         desc: item.cardDescription,
-        rating: item.rating,
+        rating: item.averageRating,
         originalPrice: item.regularPrice,
         discountPrice: item.sellingPrice,
         releaseDate: item.releaseDate
@@ -368,18 +368,19 @@ export default function WishlistPage() {
             <div className="flex justify-between">
               {recommendedGames.map(
                 (
-                  { poster, name, desc, rating, discountPrice, originalPrice },
+                  { id, poster, name, desc, rating, discountPrice, originalPrice },
                   index
                 ) =>
                   index < productsPerPage && (
                     <ProductCard
+                    id={id}
                       key={index}
                       poster={poster}
                       name={name}
                       desc={desc}
                       rating={rating}
                       discountPrice={discountPrice}
-                      originalPrice={originalPrice} id={""} 
+                      originalPrice={originalPrice} 
                       wishList={false}                    />
                   )
               )}
