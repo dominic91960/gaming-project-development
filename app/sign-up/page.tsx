@@ -18,7 +18,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import ProductSearchBar from "@/components/product-search/product-search";
 import AuthNavbar from "@/components/navbar/AuthNavbar";
 import Spinner from "@/components/Spinner/Spinner";
-import Logo from "../../public/images/sign-in/logo.png";
+import Logo from "../../public/images/logo.png";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -134,7 +134,7 @@ const SignUp = () => {
       <div className="bg-[#0B0E13] flex-grow flex items-center justify-center font-primaryFont text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] text-white px-[36px] p-[50px]">
         <div className="w-full border px-[2em] py-[1em] sm:px-[8em] sm:py-[3.3em] sm:w-fit">
           <div className="flex items-center justify-center">
-            <Image src={Logo} alt="logo" />
+            <Image src={Logo} alt="logo" className="w-[4em] my-[1em]" />
           </div>
           <p className="text-[1.6em] font-medium text-white text-center">
             Sign Up To Your Account
