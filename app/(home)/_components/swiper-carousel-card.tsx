@@ -8,6 +8,8 @@ import Link from "next/link";
 
 import { useAuthContext } from "@/context/AuthContext";
 import RedirectSignInPopup from "./RedirectSignInPopup";
+import CartSidebar from "./shopping-cart-sidebar";
+import { useCartContext } from "@/context/CartContext";
 
 interface SwiperCarouselCardProps {
   id: string;
@@ -21,6 +23,16 @@ interface SwiperCarouselCardProps {
   soldOut: boolean;
 }
 
+type CartItem = {
+  id: number;
+  image: string;
+  choiceType: string;
+  title: string;
+  quantity: number;
+  price: number;
+  productType: string;
+};
+
 const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
   id,
   poster,
@@ -33,6 +45,8 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
   soldOut,
 }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
+
+  const { addItem } = useCartContext();
 
   const { isUserLoggedIn } = useAuthContext();
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -51,6 +65,20 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
     } else {
       setPopupOpen(true);
     }
+  };
+
+  const crateCart = (gameId: any) => {
+    const newCardItem: CartItem = {
+      id: gameId,
+      image: poster,
+      choiceType: "aaaaaa",
+      title,
+      quantity: 1,
+      price: price,
+      productType: "bbbbbb",
+    };
+
+    addItem(newCardItem);
   };
 
   const formatWishlistedBy = (total: number) => {
@@ -138,7 +166,9 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
 
               {/* {formatWishlistedBy(wishlistedBy)} */}
             </p>
-            <p>Release Date: {releaseDate}</p>
+            <p>
+              Release Date: {new Date(releaseDate).toISOString().split("T")[0]}
+            </p>
           </div>
         </div>
 
@@ -152,13 +182,23 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
               {!soldOut ? "Buy now" : "View Item"}
             </Button>
           </Link>
-          <Button
+          <CartSidebar>
+            <Button
+              disabled={soldOut}
+              onClick={() => crateCart(id)}
+              variant={"outline"}
+              className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] rounded-none h-fit"
+            >
+              Add to cart
+            </Button>
+          </CartSidebar>
+          {/* <Button
             onClick={() => addToWishList()}
             variant={"outline"}
             className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] rounded-none h-fit"
           >
             Add to cart
-          </Button>
+          </Button> */}
           <RedirectSignInPopup
             isOpen={isPopupOpen}
             onClose={() => setPopupOpen(false)}
