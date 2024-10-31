@@ -104,9 +104,10 @@ const SignUp = () => {
         password: data.password,
         role: "USER",
       });
+      const { message } = response.data;
       toast({
         variant: "success",
-        title: response.data.message,
+        title: message,
       });
       if (response.status === 201) {
         const { accessToken, refreshToken, user, message } = response.data;

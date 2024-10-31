@@ -2,10 +2,12 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "@/context/AuthContext";
-import toast from "react-hot-toast";
 import axiosInstance from "@/axios/axiosInstance";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/hooks/use-toast";
 
 const EmailVerification = () => {
+  const { toast } = useToast();
   const { user } = useAuthContext();
   const [timer, setTimer] = useState<number>(60);
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(false);
@@ -30,11 +32,16 @@ const EmailVerification = () => {
       await axiosInstance.post(url, { email: user?.email });
       setIsResendDisabled(true); // Disable resend button and start timer
       setTimer(60); // Reset timer
-      toast.success("Verification email sent successfully");
+      toast({
+        variant: "success",
+        title: "Verification email sent successfully",
+      });
     } catch (error: any) {
-      toast.error(
-        error.response?.data?.message || "Error sending verification email"
-      );
+      toast({
+        variant: "error",
+        title: error.response?.data?.message || "Error sending verification email",
+      });
+      
     }
   };
 
