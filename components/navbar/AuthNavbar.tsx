@@ -20,6 +20,7 @@ import {
 import { AuthContext } from "@/context/AuthContext";
 import ProfileDefault from "@/public/images/navbar/profile_default.jpg";
 import "./navbar.css";
+import AccessDeniedModal from "../access-denied-modal/AccessDeniedModal";
 
 const categories = [
   {
@@ -101,6 +102,7 @@ export default function AuthNavbar() {
   const [isContentChanged, setIsContentChanged] = useState(false);
   const [loading, setLoading] = useState(true);
   const [verifySession, setVerifySession] = useState(false);
+  const [accessDenidedPopupOpen, setAccessDeniedPopupOpen] = useState(false);
   // const { user } = useContext(AuthContext);
   const { user } = useContext(AuthContext) || {};
 
@@ -216,14 +218,24 @@ export default function AuthNavbar() {
 
             {/* Desktop navigation icons */}
             <div className="flex text-[1.5em] gap-x-[0.7em] lg:gap-x-[1em] justify-around">
-              <Link
+              {/* <Link
                 href="/wishlist"
                 className={`hover:scale-110 ${
                   path.startsWith("/wishlist") ? "text-[#0BDB45]" : ""
                 }`}
               >
                 <IoMdHeartEmpty />
-              </Link>
+              </Link> */}
+
+<div                 className={`hover:scale-110 ${
+                  path.startsWith("/wishlist") ? "text-[#0BDB45]" : ""
+                }`}
+                onClick={() => setAccessDeniedPopupOpen(true)}
+                >
+
+                  <IoMdHeartEmpty />
+        
+              </div>
 
               <Link href="/cart" className="relative hover:scale-110">
                 {totalItems > 0 && (
@@ -558,6 +570,10 @@ export default function AuthNavbar() {
           </div>
         </div>
       </nav>
+      { accessDenidedPopupOpen && (
+        <AccessDeniedModal open={accessDenidedPopupOpen} setIsOpen={setAccessDeniedPopupOpen}/>
+      )
+      }
     </section>
   );
 }

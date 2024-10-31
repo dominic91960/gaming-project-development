@@ -1,6 +1,6 @@
 "use client";
 "use strict";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { CiSearch } from "react-icons/ci";
 import { GrNext, GrPrevious } from "react-icons/gr";
@@ -19,6 +19,7 @@ import Spinner from "@/components/Spinner/Spinner";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useContext } from "react";
 import { useWishlistContext } from "@/context/WishListContext";
+import axios from "axios";
 
 type FilterParams = {
   rating: number;
@@ -66,6 +67,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   const [sortTerm, setSortTerm] = useState("latest");
   const debouncedSortTerm = useDebounce(sortTerm, 500);
   const [loading, setLoading] = useState(true);
+  const [verifySession, setVerifySession] = useState<boolean>(false);
 
   const {wishListGameIds} = useWishlistContext();
 
@@ -179,6 +181,35 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     handleSort();
     // }
   }, [debouncedSortTerm]);
+
+  useEffect(() => {
+    const verifySession = async () => {
+      // setLoading(true);
+      try {
+        const res = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        if (res.status === 200) {
+          setVerifySession(true);
+          return res.data;
+        } else {
+          setVerifySession(false);
+        }
+        // setLoading(false);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    verifySession();
+  }, []);
 
   const handleSearch = async () => {
     setLoading(true);
@@ -304,6 +335,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
               soldOut={game.soldOut}
               cardImage={game.cardImage}
               wishList={game.wishList}
+              verifySession={verifySession}
             />
           ))}
         </div>
