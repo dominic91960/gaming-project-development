@@ -14,12 +14,14 @@ import { GoDotFill } from "react-icons/go";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { useCartContext } from "@/context/CartContext";
 import axiosInstance from "@/axios/axiosInstance";
-import toast from "react-hot-toast";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/hooks/use-toast";
 
 import { FaPlus, FaMinus } from "react-icons/fa6";
 const SERVICE_FEE = 12;
 
 const Cart: React.FC = () => {
+  const { toast } = useToast();
   const {
     cart,
     removeItem,
@@ -65,14 +67,23 @@ const Cart: React.FC = () => {
 
         // Update applied discount
         setDiscountApplied(response.data.discount);
-        toast.success("Discount applied successfully");
+        toast({
+          variant: "success",
+          title: "Discount applied successfully",
+        });
       } else {
         setDiscountMessage("Your discount code is invalid");
-        toast.error("Invalid discount code");
+        toast({
+          variant: "error",
+          title: "Your discount code is invalid",
+        });
       }
     } catch (error) {
       setDiscountMessage("Your discount code is incorrect");
-      toast.error("Your discount code is incorrect");
+      toast({
+        variant: "error",
+        title: "Your discount code is incorrect",
+      });
     }
   };
 
@@ -93,6 +104,7 @@ const Cart: React.FC = () => {
     <div>
       {/* <ProductSearchBar /> */}
       {/* <Navbar /> */}
+      <Toaster />
       <div className="bg-[#000000] h-full">
         <div className="relative">
           <Image

@@ -8,7 +8,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -19,6 +18,8 @@ import ProductSearchBar from "@/components/product-search/product-search";
 import AuthNavbar from "@/components/navbar/AuthNavbar";
 import Spinner from "@/components/Spinner/Spinner";
 import Logo from "../../public/images/logo.png";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/hooks/use-toast";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -43,6 +44,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUp = () => {
+  const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [isTermsAccepted, setIsTermsAccepted] = useState<any>(false);
@@ -102,7 +104,10 @@ const SignUp = () => {
         password: data.password,
         role: "USER",
       });
-      toast.success(response.data.message);
+      toast({
+        variant: "success",
+        title: response.data.message,
+      });
       if (response.status === 201) {
         const { accessToken, refreshToken, user, message } = response.data;
 
@@ -110,7 +115,10 @@ const SignUp = () => {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("user", JSON.stringify(user));
-        toast.success(message);
+        toast({
+          variant: "success",
+          title: message,
+        });
 
         // Redirect to profile page
         router.push("/profile?id=" + user.id);
@@ -119,7 +127,10 @@ const SignUp = () => {
       }
       // router.push("/emailVerify");
     } catch (error: any) {
-      toast.error(error.response.data.message);
+      toast({
+        variant: "error",
+        title: error.response.data.message,
+      });
     }
   };
 
@@ -129,6 +140,7 @@ const SignUp = () => {
 
   return (
     <section className="h-full flex flex-col bg-[#0B0E13] text-white">
+      <Toaster />
       <ProductSearchBar />
       <AuthNavbar />
       <div className="bg-[#0B0E13] flex-grow flex items-center justify-center font-primaryFont text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] text-white px-[36px] p-[50px]">

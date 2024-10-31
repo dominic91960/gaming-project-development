@@ -15,10 +15,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { FcGoogle } from "react-icons/fc";
 import ProductSearchBar from "@/components/product-search/product-search";
 import Logo from "../../public/images/logo.png";
-import { useToast } from "@/hooks/use-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import AuthNavbar from "@/components/navbar/AuthNavbar";
 import Spinner from "@/components/Spinner/Spinner";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/hooks/use-toast";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -35,9 +36,9 @@ interface SignInFormInputs {
 }
 
 const SignIn = () => {
+  const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
   const [error, setError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -178,6 +179,7 @@ const SignIn = () => {
 
   return (
     <section className="h-full flex flex-col bg-[#0B0E13] text-white">
+      <Toaster />
       <ProductSearchBar />
       {/* <Navbar /> */}
       <AuthNavbar />
