@@ -185,7 +185,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
   }, [debouncedFilterParams]);
 
   return (
-    <aside className="w-full text-white px-4 font-semibold border border-[#fff]">
+    <aside className="w-full text-white px-4 font-semibold border border-[#666a65]">
       {/* Genres starts here */}
       <Accordion type="single" collapsible defaultValue="item-1">
         <AccordionItem value="item-1">

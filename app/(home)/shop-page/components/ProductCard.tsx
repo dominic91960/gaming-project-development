@@ -153,10 +153,21 @@ const ProductCard: React.FC<Game> = ({
         </div>
 
         <div className="h-[1px] bg-[#666a65] mb-2"></div>
-        <div className="flex gap-1 text-[#f29d38] mb-2">
-          {Array.from({ length: rating }, (_, index) => (
-            <IoIosStar key={index} className="text-[23px]" />
-          ))}
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex gap-1 text-[#f29d38]">
+            {Array.from({ length: rating }, (_, index) => (
+              <IoIosStar key={index} className="text-[23px]" />
+            ))}
+          </div>
+
+          <CartSidebar>
+            <Image
+              src={cartIcon}
+              alt="Not found background"
+              className="w-[20px] h-[20px]"
+              onClick={() => crateCart(id)}
+            />
+          </CartSidebar>
         </div>
 
         <div className="flex items-end justify-between">
@@ -166,31 +177,20 @@ const ProductCard: React.FC<Game> = ({
             </p>
           </div>
 
-          <div className="w-full flex justify-end">
-            <div className="">
-              <div className="flex justify-end mb-2">
-                <CartSidebar>
-                  <Image
-                    src={cartIcon}
-                    alt="Not found background"
-                    className="w-[20px] h-[20px]"
-                    onClick={() => crateCart(id)}
-                  />
-                </CartSidebar>
-              </div>
-
-              <p className="line-through text-[#fff] text-[17px] font-normal uppercase font-rajdhani">
-                ${price}
-              </p>
-            </div>
+          <div className="">
+            <p className="line-through text-[#fff] text-[17px] font-normal uppercase font-rajdhani leading-none mb-2">
+              ${price}
+            </p>
           </div>
         </div>
       </div>
 
-      { accessDenidedPopupOpen && (
-        <AccessDeniedModal open={accessDenidedPopupOpen} setIsOpen={setAccessDeniedPopupOpen}/>
-      )
-      }
+      {accessDenidedPopupOpen && (
+        <AccessDeniedModal
+          open={accessDenidedPopupOpen}
+          setIsOpen={setAccessDeniedPopupOpen}
+        />
+      )}
     </div>
   );
 };
