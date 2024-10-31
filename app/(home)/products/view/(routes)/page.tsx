@@ -4,7 +4,6 @@ import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
-import { useToast } from "@/hooks/use-toast";
 import axiosInstance from "@/axios/axiosInstance";
 import Spinner from "@/components/Spinner/Spinner";
 import { Button } from "@/components/ui/button";
@@ -42,6 +41,7 @@ import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
 import AccessDeniedModal from "@/components/access-denied-modal/AccessDeniedModal";
 import axios from "axios";
 import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/hooks/use-toast";
 
 export default function ProductPage() {
   const searchParams = useSearchParams();
