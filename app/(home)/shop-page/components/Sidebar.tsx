@@ -190,7 +190,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
       <Accordion type="single" collapsible defaultValue="item-1">
         <AccordionItem value="item-1">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
+            <h2 className="text-[19px] font-semibold font-primaryFont">
               Genres
             </h2>
           </AccordionTrigger>
@@ -205,7 +205,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
                     <div className="flex items-center space-x-2 mb-2">
                       <Checkbox
                         id={`genre-${genre.id}`}
-                        className="border-white rounded-none"
+                        className="border-[#D9D9D9] rounded-none"
                         checked={checkedGenres[genre.id] || false}
                         onCheckedChange={(isChecked: boolean) =>
                           handleGenreChange(genre.id, isChecked)
@@ -233,7 +233,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
       <Accordion type="single" collapsible defaultValue="item-2">
         <AccordionItem value="item-2">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
+            <h2 className="text-[19px] font-semibold font-primaryFont">
               Pricing
             </h2>
           </AccordionTrigger>
@@ -269,7 +269,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
       <Accordion type="single" collapsible defaultValue="item-3">
         <AccordionItem value="item-3">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
+            <h2 className="text-[19px] font-semibold font-primaryFont">
               Rating
             </h2>
           </AccordionTrigger>
@@ -285,7 +285,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
       <Accordion type="single" collapsible defaultValue="item-4">
         <AccordionItem value="item-4">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
+            <h2 className="text-[19px] font-semibold font-primaryFont mr-2">
               Operating System
             </h2>
           </AccordionTrigger>
@@ -296,7 +296,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
                   <div className="flex items-center space-x-2 mb-2">
                     <Checkbox
                       id="os-xbox"
-                      className="border-white rounded-none"
+                      className="border-[#D9D9D9] rounded-none"
                       checked={checkedOs["Xbox"] || false}
                       onCheckedChange={(isChecked: boolean) =>
                         handleOsChange("Xbox", isChecked)
@@ -365,7 +365,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
       <Accordion type="single" collapsible defaultValue="item-5">
         <AccordionItem value="item-5">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
+            <h2 className="text-[19px] font-semibold font-primaryFont">
               Platforms
             </h2>
           </AccordionTrigger>
@@ -380,7 +380,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
                     <div className="flex items-center space-x-2 mb-2">
                       <Checkbox
                         id={`platform-${platform.id}`}
-                        className="border-white rounded-none"
+                        className="border-[#D9D9D9] rounded-none"
                         checked={checkedPlatforms[platform.id] || false}
                         onCheckedChange={(isChecked: boolean) =>
                           handlePlatformChange(platform.id, isChecked)
@@ -408,7 +408,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
       <Accordion type="single" collapsible defaultValue="item-6">
         <AccordionItem value="item-6">
           <AccordionTrigger>
-            <h2 className="text-[20px] font-semibold font-primaryFont">
+            <h2 className="text-[19px] font-semibold font-primaryFont">
               Brands
             </h2>
           </AccordionTrigger>
@@ -423,7 +423,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
                     <div className="flex items-center space-x-2 mb-2">
                       <Checkbox
                         id={`brand-${brand.id}`}
-                        className="border-white rounded-none"
+                        className="border-[#D9D9D9] rounded-none"
                         checked={checkedBrands[brand.id] || false}
                         onCheckedChange={(isChecked: boolean) =>
                           handleBrandChange(brand.id, isChecked)

@@ -43,7 +43,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     setCurrentPage(page);
   };
 
-  const {addToWishlist} = useWishlistContext();
+  const { addToWishlist } = useWishlistContext();
 
   interface Game {
     id: string;
@@ -69,12 +69,14 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   const [loading, setLoading] = useState(true);
   const [verifySession, setVerifySession] = useState<boolean>(false);
 
-  const {wishListGameIds} = useWishlistContext();
+  const { wishListGameIds } = useWishlistContext();
 
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
-      const res = await axiosInstance.get(`/games?page=${currentPage}&sort=latest`);
+      const res = await axiosInstance.get(
+        `/games?page=${currentPage}&sort=latest`
+      );
       console.log(res.data.data);
 
       const games = res.data.data.map((game: any) => {
@@ -86,7 +88,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
           rating: Math.round(game.averageRating),
           soldOut: game.stockStatus === "OUT_OF_STOCK",
           cardImage: game.cardImage,
-          wishList: wishListGameIds.includes(game.id)
+          wishList: wishListGameIds.includes(game.id),
         };
       });
 
@@ -102,7 +104,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       setLoading(false);
     };
 
-    if(wishListGameIds){
+    if (wishListGameIds) {
       console.log("Wishlist Game Ids current", wishListGameIds);
     }
     getData();
@@ -137,7 +139,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     console.log("Query Params", buildQueryParams());
 
     const getData = async () => {
-      const res = await axiosInstance.get(`/games?${buildQueryParams()}&sort=latest`);
+      const res = await axiosInstance.get(
+        `/games?${buildQueryParams()}&sort=latest`
+      );
       console.log(res.data.data);
 
       const games = res.data.data.map((game: any) => {
@@ -149,7 +153,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
           rating: Math.round(game.averageRating),
           soldOut: game.stockStatus === "OUT_OF_STOCK",
           cardImage: game.cardImage,
-          wishList: wishListGameIds.includes(game.id)
+          wishList: wishListGameIds.includes(game.id),
         };
       });
 
@@ -227,7 +231,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         rating: Math.round(game.averageRating),
         soldOut: game.stockStatus === "OUT_OF_STOCK",
         cardImage: game.cardImage,
-        wishList: wishListGameIds.includes(game.id)
+        wishList: wishListGameIds.includes(game.id),
       };
     });
 
@@ -259,7 +263,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         rating: Math.round(game.averageRating),
         soldOut: game.stockStatus === "OUT_OF_STOCK",
         cardImage: game.cardImage,
-        wishList: wishListGameIds.includes(game.id)
+        wishList: wishListGameIds.includes(game.id),
       };
     });
 
@@ -287,7 +291,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         </p>
 
         <div className="flex items-center gap-4">
-          <div className="border p-2 rounded-none flex items-center gap-x-[0.75em] w-full">
+          <div className="border border-[#666a65] p-2 rounded-none flex items-center gap-x-[0.75em] w-full">
             <CiSearch
               onClick={handleSearch}
               className="text-[20px] text-white cursor-pointer"
@@ -301,7 +305,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             />
           </div>
 
-          <div className="bg-[#666666]">
+          <div className="bg-[#474747]">
             <Select onValueChange={setSortTerm}>
               <SelectTrigger className="w-[180px] rounded-none border-none text-white">
                 <SelectValue placeholder="Sort by" />
