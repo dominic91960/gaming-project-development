@@ -121,6 +121,10 @@ const SwiperCarousel = () => {
     setBg(data[realIndex].background);
   };
 
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
   return (
     <section
       className={`relative min-h-svh bg-cover bg-center flex items-center justify-center font-primaryFont font-semibold text-[8px] lg:text-[9px] xl:text-[11px] 2xl:text-[13px] text-white transition-all duration-1000 ease-in-out`}
@@ -240,3 +244,7 @@ const SwiperCarousel = () => {
 };
 
 export default SwiperCarousel;
+
+
+
+
