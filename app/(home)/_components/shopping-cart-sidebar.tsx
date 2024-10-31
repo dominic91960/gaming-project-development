@@ -253,7 +253,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                 Subtotal
               </p>
               <p className="font-primaryFont text-[17px] font-normal text-white">
-                ${totalPrice}
+                ${Math.max(totalPrice, 0).toFixed(2)}
               </p>
             </div>
 

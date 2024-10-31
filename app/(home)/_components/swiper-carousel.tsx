@@ -77,7 +77,7 @@ interface GameData {
   displayName: string;
   productName: string;
   averageRating: number;
-  cardDescription: string;
+  aboutThisGame: string;
   sellingPrice: number;
   /* wishlistedBy: string[]; */
   releaseDate: string;
@@ -179,7 +179,7 @@ const SwiperCarousel = () => {
                       poster={gameData[i]?.screenshots[i] || gameData[i]?.coverImage ||poster}
                       title={gameData[i]?.displayName || title}
                       rating={Math.round(gameData[i]?.averageRating ||rating)}
-                      description={gameData[i]?.displayName ||description}
+                      description={gameData[i]?.aboutThisGame ||description}
                       price={gameData[i]?.sellingPrice ||price}
                       /* wishlistedBy={wishlistedBy} */
                       releaseDate={gameData[i]?.releaseDate ||releaseDate}
