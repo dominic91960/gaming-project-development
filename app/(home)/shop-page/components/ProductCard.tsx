@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Image from "next/image";
 import gameCard from "@/public/images/shop/game-card.png";
 import { IoIosStar } from "react-icons/io";
@@ -11,6 +11,8 @@ import CartSidebar from "../../_components/shopping-cart-sidebar";
 import { useCartContext } from "@/context/CartContext";
 import { useWishlistContext } from "@/context/WishListContext";
 import { set } from "date-fns";
+import axios from "axios";
+import AccessDeniedModal from "@/components/access-denied-modal/AccessDeniedModal";
 interface Game {
   id: string;
   title: string;
@@ -20,6 +22,7 @@ interface Game {
   soldOut: boolean;
   cardImage: string;
   wishList: boolean;
+  verifySession: boolean;
 }
 
 type CartItem = {
@@ -41,9 +44,12 @@ const ProductCard: React.FC<Game> = ({
   soldOut,
   cardImage,
   wishList,
+  verifySession,
 }) => {
   const router = useRouter();
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [accessDenidedPopupOpen, setAccessDeniedPopupOpen] = useState(false);
+  // const [verifySession, setVerifySession] = useState<boolean>(false);
   const { addItem } = useCartContext();
   const {
     addToWishlist,
@@ -99,6 +105,10 @@ const ProductCard: React.FC<Game> = ({
             <IoHeartOutline
               className="text-[1.5em] cursor-pointer hover:scale-105 text-white"
               onClick={async () => {
+                if (!verifySession) {
+                  setAccessDeniedPopupOpen(true);
+                  return;
+                }
                 const res = await handleWishlist(id);
                 setIsWishlisted(res);
                 // await updateWishListIds();
@@ -176,6 +186,11 @@ const ProductCard: React.FC<Game> = ({
           </div>
         </div>
       </div>
+
+      { accessDenidedPopupOpen && (
+        <AccessDeniedModal open={accessDenidedPopupOpen} setIsOpen={setAccessDeniedPopupOpen}/>
+      )
+      }
     </div>
   );
 };

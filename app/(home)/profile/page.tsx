@@ -846,7 +846,7 @@ export default function ProfilePage() {
               </div>
               <div>
                 <h3 className="font-bold text-[16px] mb-[0.1em] sm:text-[22px] md:text-[28px] lg:text-[34px] xl:text-[37px] 2xl:text-[40px]">
-                  {profile?.firstName} {profile?.lastName}
+                    {profile?.firstName.charAt(0).toUpperCase() + profile?.firstName.slice(1)} {profile?.lastName.charAt(0).toUpperCase() + profile?.lastName.slice(1)}
                 </h3>
                 <p>
                   {profile?.email}
@@ -941,7 +941,7 @@ export default function ProfilePage() {
         <ChangeImage
           open={isImageModalOpen}
           setIsOpen={setIsImageModalOpen}
-          avatar={profile?.avatar}
+          avatar={imageUrl}
           id={profile?.id}
           onImageChange={handleImageChange}
           onSave={onImageSave}
