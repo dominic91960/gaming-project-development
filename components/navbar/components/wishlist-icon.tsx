@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { IoMdHeartEmpty } from "react-icons/io";
@@ -12,15 +11,12 @@ const WishlistIcon: React.FC<WishlistIconProps> = ({ handleClick }) => {
   const path = usePathname();
 
   return (
-    <Link
-      href="/wishlist"
-      className={`hover:scale-110 ${
+    <IoMdHeartEmpty
+      className={`hover:scale-110 cursor-pointer ${
         path.startsWith("/wishlist") ? "text-[#0BDB45]" : ""
       }`}
       onClick={handleClick}
-    >
-      <IoMdHeartEmpty />
-    </Link>
+    />
   );
 };
 
