@@ -281,7 +281,7 @@ const Cart: React.FC = () => {
                           </div>
                         </div>
                       ) : (
-                        <div className="bg-white rounded-none px-2 flex justify-between items-center h-[30px] w-[150px] mb-2">
+                        <div className="bg-white rounded-none px-2 flex justify-between items-center 2xl:h-[30px] 2xl:w-[150px] xl:h-[30px] xl:w-[130px] lg:h-[25px] lg:w-[100px] mb-2">
                           <span className="text-black pt-1 font-primaryFont font-semibold">
                             {discountData.code}
                           </span>
@@ -300,19 +300,21 @@ const Cart: React.FC = () => {
                     {discountMessage}
                   </p> */}
 
-                  <p
-                    className={`font-primaryFont text-[16px] font-medium mt-0 mb-2 ${messageColor}`}
-                  >
-                    {discountMessage}
-                  </p>
+                  {totalDiscount > 0 && (
+                    <p
+                      className={`font-primaryFont text-[16px] font-medium mt-0 mb-2 ${messageColor}`}
+                    >
+                      {discountMessage}
+                    </p>
+                  )}
                 </div>
 
                 {totalDiscount > 0 && (
                   <div className="flex items-center justify-between border-b-[1px] border-[#676866] py-2">
-                    <p className="font-primaryFont text-[20px] font-normal text-white">
+                    <p className="font-primaryFont 2xl:text-[20px] xl:text-[18px] lg:text-[18px] font-normal text-white">
                       Discount
                     </p>
-                    <p className="font-primaryFont text-[20px] font-bold text-white">
+                    <p className="font-primaryFont 2xl:text-[20px] xl:text-[18px] lg:text-[18px] font-bold text-white">
                       - ${Math.max(totalDiscount, 0).toFixed(2)}
                     </p>
                   </div>
@@ -322,14 +324,14 @@ const Cart: React.FC = () => {
                   <p className="font-primaryFont 2xl:text-[24px] xl:text-[22px] lg:text-[18px] font-normal text-white">
                     Total
                   </p>
-                  <p className="font-primaryFont 2xl:text-[30px] xl:text-[28px] lg:text-[22px] font-bold text-white">
+                  <p className="font-primaryFont 2xl:text-[30px] xl:text-[28px] lg:text-[20px] font-bold text-white">
                     ${Math.max(lastPrice - totalDiscount, 0).toFixed(2)}
                   </p>
                 </div>
 
                 <div className="w-full flex justify-center">
                   <Button
-                    className=" text-black 2xl:text-[24px] xl:text-[22px] font-semibold font-primaryFont rounded-none px-8 w-full"
+                    className=" text-black 2xl:text-[24px] xl:text-[22px] lg:text-[18px] font-semibold font-primaryFont rounded-none px-8 w-full"
                     variant="gaming"
                     onClick={() => {
                       // Ensure discountCode is defined before creating the order
