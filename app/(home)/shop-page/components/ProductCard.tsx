@@ -40,12 +40,17 @@ const ProductCard: React.FC<Game> = ({
   rating,
   soldOut,
   cardImage,
-  wishList
+  wishList,
 }) => {
   const router = useRouter();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const { addItem } = useCartContext();
-  const {addToWishlist, setReloadWishlist, updateWishListIds, removeFromWishlist} = useWishlistContext();
+  const {
+    addToWishlist,
+    setReloadWishlist,
+    updateWishListIds,
+    removeFromWishlist,
+  } = useWishlistContext();
 
   const crateCart = (gameId: any) => {
     const newCardItem: CartItem = {
@@ -72,21 +77,22 @@ const ProductCard: React.FC<Game> = ({
     // };
 
     return await addToWishlist(id);
-  }
+  };
 
   return (
     <div className="relative bg-[#10160e] w-min">
       {/* Wishlist Icon */}
-      <div 
-      // onClick={() => handleWishlist(id)}
-      className="absolute top-[1em] left-[1em] z-40">
+      <div
+        // onClick={() => handleWishlist(id)}
+        className="absolute top-[1em] left-[1em] z-40"
+      >
         <div>
           {wishList ? (
             <IoHeartSharp
               className="text-[1.5em] cursor-pointer hover:scale-105 text-white"
               onClick={async () => {
                 await removeFromWishlist(id);
-                setIsWishlisted(false)
+                setIsWishlisted(false);
               }}
             />
           ) : (
@@ -96,7 +102,7 @@ const ProductCard: React.FC<Game> = ({
                 const res = await handleWishlist(id);
                 setIsWishlisted(res);
                 // await updateWishListIds();
-                // setReloadWishlist(prev => !prev); 
+                // setReloadWishlist(prev => !prev);
               }}
             />
           )}
@@ -118,7 +124,6 @@ const ProductCard: React.FC<Game> = ({
           <img
             src={cardImage}
             onClick={() => {
-              console.log("clicked");
               router.push(`/products/view/?id=${id}`);
             }}
             alt="Game Card"
@@ -126,7 +131,12 @@ const ProductCard: React.FC<Game> = ({
           />
         </div>
 
-        <div className="mb-1 w-[244px]">
+        <div
+          className="mb-1 w-[244px]"
+          onClick={() => {
+            router.push(`/products/view/?id=${id}`);
+          }}
+        >
           <h3 className="text-[18px] font-bold uppercase font-primaryFont line-clamp-2 h-[60px]">
             {title}
           </h3>

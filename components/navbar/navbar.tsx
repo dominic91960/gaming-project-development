@@ -2,38 +2,27 @@
 
 import { useState, useContext, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
 
 import axios from "axios";
 import axiosInstance from "@/axios/axiosInstance";
-import {
-  IoIosArrowForward,
-  IoIosArrowBack,
-  IoMdHeartEmpty,
-  IoMdCart,
-  IoMdPerson,
-} from "react-icons/io";
-import { FaUser } from "react-icons/fa";
-import { IoLogOut } from "react-icons/io5";
-
-import { Button } from "../ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 import { AuthContext } from "@/context/AuthContext";
 import { useCartContext } from "@/context/CartContext";
-import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
 import NavBarSpinner from "../Spinner/NavBarSpinner";
-import logo from "@/public/images/logo.png";
+
 import "./navbar.css";
+import DesktopCategoryToggle from "./components/desktop-category-toggle";
+import DesktopNavLinks from "./components/desktop-nav-links";
+import ProfileDropdown from "./components/profile-dropdown";
+import WishlistIcon from "./components/wishlist-icon";
+import CartIcon from "./components/cart-icon";
+import ProfileIcon from "./components/profile-icon";
+import MobileLogo from "./components/mobile-logo";
+import MobileNavToggle from "./components/mobile-nav-toggle";
+import MobileNavLinks from "./components/mobile-nav-links";
+import MobileCategoryToggle from "./components/mobile-category-toggle";
 
 const categories = [
   {
@@ -115,10 +104,7 @@ export default function Navbar() {
   const [isContentChanged, setIsContentChanged] = useState(false);
   const [loading, setLoading] = useState(true);
   const [verifySession, setVerifySession] = useState(false);
-  // const { user } = useContext(AuthContext);
   const { user } = useContext(AuthContext) || {};
-
-  const router = useRouter();
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
@@ -169,183 +155,60 @@ export default function Navbar() {
       console.log("User:", user);
     }
     setTimeout(() => setIsContentChanged(true), 3000);
-  }, []);
+  }, [user]);
+
+  const closeMobileNav = () => {
+    if (isMobileNavToggled) setIsMobileNavToggled(false);
+  };
+
+  let authIcon = <ProfileIcon />;
+  if (loading && !verifySession) authIcon = <NavBarSpinner loading={loading} />;
+  if (verifySession)
+    authIcon = (
+      <ProfileDropdown
+        user={user}
+        handleClick={closeMobileNav}
+        handleLogout={() => {
+          axiosInstance.patch("/auth/logout");
+          localStorage.clear();
+          window.location.href = "/sign-in";
+        }}
+      />
+    );
 
   return (
     <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white] z-50">
       <div className="border-b border-b-[#8C8C8C]">
         <div className="container mx-auto h-[68px] flex justify-between items-center py-[0.2em] sm:h-[55px] sm:py-[1.2em] px-[36px] md:h-[47px] md:py-[0.5em] xl:h-[50px]">
           {/* Desktop categories toggle*/}
-          <button
-            className="font-semibold capitalize bg-[#23262B] hidden flex-shrink-0 md:flex md:items-center md:gap-[0.4em] px-[0.8em] py-[0.4em] hover:scale-[102%]"
-            onClick={() => {
-              if (isCategoryMenuToggled === undefined) {
-                return setIsCategoryMenuToggled(true);
-              }
-              setIsCategoryMenuToggled((prev) => !prev);
-            }}
-          >
-            <div className="space-y-[0.2em] pe-[0.1em]">
-              <div className="w-[1.2em] h-0.5 bg-white"></div>
-              <div className="w-[0.8em] h-0.5 bg-white"></div>
-              <div className="w-[1.2em] h-0.5 bg-white"></div>
-            </div>
-            <h4>All categories</h4>
-          </button>
+          <DesktopCategoryToggle
+            isCategoryMenuToggled={isCategoryMenuToggled}
+            setIsCategoryMenuToggled={setIsCategoryMenuToggled}
+          />
 
           {/* Desktop navigation links & icons*/}
           <div className="hidden sm:flex sm:items-center sm:justify-between sm:w-full md:justify-end md:gap-x-[11.5%]">
             {/* Desktop navigation links */}
-            <nav className="hidden sm:flex sm:gap-x-[1.5em] lg:gap-x-[2.5em] xl:gap-x-[3.5em] font-semibold uppercase">
-              <Link
-                href="/"
-                className={`hover:opacity-80 ${
-                  path === "/" ? "text-[#0BDB45]" : ""
-                }`}
-              >
-                Home
-              </Link>
-              <Link
-                href="/shop-page"
-                className={`hover:opacity-80 ${
-                  path.startsWith("/shop-page") ? "text-[#0BDB45]" : ""
-                }`}
-              >
-                Store
-              </Link>
-              <Link
-                href="/about"
-                className={`hover:opacity-80 ${
-                  path.startsWith("/about") ? "text-[#0BDB45]" : ""
-                }`}
-              >
-                About
-              </Link>
-              <Link
-                href="/contact-us"
-                className={`hover:opacity-80 ${
-                  path.startsWith("/contact-us") ? "text-[#0BDB45]" : ""
-                }`}
-              >
-                Contact
-              </Link>
-            </nav>
+            <DesktopNavLinks />
 
             {/* Desktop navigation icons */}
             <div className="flex text-[1.8em] gap-x-[0.7em] lg:gap-x-[1em] justify-around items-center">
-              <Link
-                href="/wishlist"
-                className={`hover:scale-110 ${
-                  path.startsWith("/wishlist") ? "text-[#0BDB45]" : ""
-                }`}
-              >
-                <IoMdHeartEmpty />
-              </Link>
-              <CartSidebar>
-                {/*  {cart.length > 0 && (
-                    <span className="absolute  bottom-[16px] right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
-                      {cart.length}
-                    </span>
-                  )} */}
-                <IoMdCart />
-              </CartSidebar>
-
-              {loading ? (
-                <NavBarSpinner loading={loading} />
-              ) : verifySession ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="hidden cursor-pointer rounded-full sm:block">
-                    <Image
-                      src={user?.profile_image}
-                      width={20}
-                      height={20}
-                      alt="Avatar"
-                      className="size-[1em] rounded-full"
-                    />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="hidden bg-[#111111] font-primaryFont text-[0.8em] text-white rounded-none border-none sm:block">
-                    <DropdownMenuLabel className="font-semibold text-center text-[1.3em]">
-                      WUKONG
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
-                    <DropdownMenuItem
-                      className="bg-transparent text-[1em] focus:bg-transparent focus:text-white"
-                      onClick={() => {
-                        router.push("/profile?id=" + user.id);
-                      }}
-                    >
-                      <button className="w-full h-fit flex items-center gap-[0.5em] px-[1em] py-[0.3em] rounded-none font-primaryFont uppercase hover:opacity-80">
-                        <FaUser className="text-[1.3em] text-[#0BDB45]" />
-                        Profile
-                      </button>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
-                    <DropdownMenuItem
-                      className="bg-transparent text-[1em] focus:bg-transparent focus:text-white"
-                      onClick={() => {
-                        axiosInstance.patch("/auth/logout");
-                        localStorage.clear();
-                        window.location.href = "/sign-in";
-                      }}
-                    >
-                      <button className="w-full h-fit flex items-center gap-[0.5em] px-[1em] py-[0.3em] rounded-none font-primaryFont uppercase hover:opacity-80">
-                        <IoLogOut className="text-[1.6em] text-[#0BDB45]" />
-                        Logout
-                      </button>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Link
-                  href="/sign-in"
-                  className={`hover:scale-110 ${
-                    path.startsWith("/sign") ? "text-[#0BDB45]" : ""
-                  }`}
-                >
-                  <IoMdPerson />
-                  {/* <FaUserPlus /> */}
-                </Link>
-              )}
-
-              {/* <div
-                onClick={() => {
-                  axiosInstance.patch("/auth/logout");
-                  localStorage.clear();
-                  window.location.href = "/sign-in";
-                }}
-                className="cursor-pointer hover:scale-110"
-              >
-                <IoLogOut />
-              </div> */}
+              <WishlistIcon handleClick={() => {}} />
+              <CartIcon length={cart.length} handleClick={() => {}} />
+              {authIcon}
             </div>
           </div>
 
           {/* Mobile logo  */}
-          <Link
-            href="/"
-            className="sm:hidden"
-            onClick={() => setIsMobileNavToggled(false)}
-          >
-            <Image src={logo} alt="Logo" className="w-[2em]" />
-          </Link>
+          <MobileLogo setIsMobileNavToggled={setIsMobileNavToggled} />
 
           {/* Mobile navbar toggle  */}
-          <button
-            className={`${
-              isMobileNavToggled ? "animate-toggle-button" : ""
-            } relative h-4 w-6 transition-opacity duration-300 sm:hidden`}
-            onClick={() => {
-              if (isCategoryMenuToggled) {
-                setIsCategoryMenuToggled(false);
-                setTimeout(() => setIsMobileNavToggled((prev) => !prev), 1100);
-                return;
-              }
-              setIsMobileNavToggled((prev) => !prev);
-            }}
-          >
-            <div className="absolute -mt-[0.5px] h-[1px] w-full rounded bg-white drop-shadow-[1px_1px_1px_rgba(0,0,0,0.5)] transition-all duration-700 ease-in-out before:absolute before:left-0 before:h-[1px] before:w-full before:-translate-y-[6px] before:rounded before:bg-white before:transition-transform before:duration-700 before:ease-in-out after:absolute after:left-0 after:h-[1px] after:w-full after:translate-y-[6px] after:rounded after:bg-white after:transition-transform after:duration-700 after:ease-in-out"></div>
-          </button>
+          <MobileNavToggle
+            isMobileNavToggled={isMobileNavToggled}
+            isCategoryMenuToggled={isCategoryMenuToggled}
+            setIsCategoryMenuToggled={setIsCategoryMenuToggled}
+            setIsMobileNavToggled={setIsMobileNavToggled}
+          />
         </div>
       </div>
 
@@ -356,141 +219,24 @@ export default function Navbar() {
         } container mx-auto bg-[#0D0F10] absolute origin-top animate-open-menu px-[1.8em] font-semibold text-center uppercase pt-[1.5em] pb-[2.4em]`}
       >
         {/* Mobile navigation links */}
-        <Link
-          href="/"
-          className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
-            path === "/" ? "text-[#0BDB45]" : ""
-          }`}
-          onClick={() => setIsMobileNavToggled(false)}
-        >
-          Home
-        </Link>
-        <Link
-          href="/shop-page"
-          className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
-            path.startsWith("/shop-page") ? "text-[#0BDB45]" : ""
-          }`}
-          onClick={() => setIsMobileNavToggled(false)}
-        >
-          Store
-        </Link>
-        <Link
-          href="/about"
-          className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
-            path.startsWith("/about") ? "text-[#0BDB45]" : ""
-          }`}
-          onClick={() => setIsMobileNavToggled(false)}
-        >
-          About
-        </Link>
-        <Link
-          href="/contact-us"
-          className={`hover:opacity-80 py-[1.1em] border-b border-b-[#8C8C8C] ${
-            path.startsWith("/contact-us") ? "text-[#0BDB45]" : ""
-          }`}
-          onClick={() => setIsMobileNavToggled(false)}
-        >
-          Contact
-        </Link>
+        <MobileNavLinks setIsMobileNavToggled={setIsMobileNavToggled} />
+
         {/* Mobile navigation icons */}
         <div className="flex text-[1.5em] justify-around mt-[1.6em]">
-          <Link
-            href="/wishlist"
-            className={`hover:opacity-110 ${
-              path.startsWith("/wishlist") ? "text-[#0BDB45]" : ""
-            }`}
-            onClick={() => setIsMobileNavToggled(false)}
-          >
-            <IoMdHeartEmpty />
-          </Link>
-
-          <CartSidebar>
-            <IoMdCart onClick={() => setIsMobileNavToggled(false)} />
-          </CartSidebar>
-
-          {loading ? (
-            <NavBarSpinner loading={loading} />
-          ) : verifySession ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger className="cursor-pointer rounded-full sm:hidden">
-                <Image
-                  src={user?.profile_image}
-                  width={20}
-                  height={20}
-                  alt="Avatar"
-                  className="size-[1em] rounded-full"
-                />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-[#111111] font-primaryFont text-[0.7em] text-white rounded-none border-none sm:hidden">
-                <DropdownMenuLabel className="font-semibold text-center text-[1.3em]">
-                  WUKONG
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
-                <DropdownMenuItem
-                  className="bg-transparent text-[1em] focus:bg-transparent focus:text-white"
-                  onClick={() => {
-                    router.push("/profile?id=" + user.id);
-                  }}
-                >
-                  <button className="w-full h-fit flex items-center gap-[0.5em] px-[1em] py-[0.3em] rounded-none font-primaryFont uppercase hover:opacity-80">
-                    <FaUser className="text-[1.3em] text-[#0BDB45]" />
-                    Profile
-                  </button>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
-                <DropdownMenuItem
-                  className="bg-transparent text-[1em] focus:bg-transparent focus:text-white"
-                  onClick={() => {
-                    axiosInstance.patch("/auth/logout");
-                    localStorage.clear();
-                    window.location.href = "/sign-in";
-                  }}
-                >
-                  <button className="w-full h-fit flex items-center gap-[0.5em] px-[1em] py-[0.3em] rounded-none font-primaryFont uppercase hover:opacity-80">
-                    <IoLogOut className="text-[1.6em] text-[#0BDB45]" />
-                    Logout
-                  </button>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-white/40 mx-[0.2em]" />
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Link
-              href="/sign-in"
-              className={`hover:opacity-110 ${
-                path.startsWith("/sign") ? "text-[#0BDB45]" : ""
-              }`}
-              onClick={() => setIsMobileNavToggled(false)}
-            >
-              <IoMdPerson />
-            </Link>
-          )}
+          <WishlistIcon handleClick={closeMobileNav} />
+          <CartIcon length={cart.length} handleClick={closeMobileNav} />
+          {authIcon}
         </div>
       </nav>
 
       {/* Mobile categories toggle */}
-      <button
-        className={`md:hidden absolute bottom-0 left-0 translate-y-[130%] bg-[#0BDB45] flex items-center justify-center transition-all duration-700 text-[0.8em] sm:text-[0.9em] ease-in-out capitalize px-[1em] py-[0.5em] z-40 ${
-          isContentChanged ? "w-[1ch]" : "w-[14ch]"
-        }`}
-        onClick={() => {
-          if (isMobileNavToggled) {
-            setIsMobileNavToggled(false);
-            setTimeout(() => {
-              isCategoryMenuToggled === undefined
-                ? setIsCategoryMenuToggled(true)
-                : setIsCategoryMenuToggled((prev) => !prev);
-            }, 500);
-            return;
-          }
-          isCategoryMenuToggled === undefined
-            ? setIsCategoryMenuToggled(true)
-            : setIsCategoryMenuToggled((prev) => !prev);
-        }}
-      >
-        <p className={isContentChanged ? "hidden" : "block"}>All categories</p>
-        <p className={!isContentChanged ? "hidden" : "block"}>&#8942;</p>
-      </button>
+      <MobileCategoryToggle
+        isContentChanged={isContentChanged}
+        isMobileNavToggled={isMobileNavToggled}
+        setIsMobileNavToggled={setIsMobileNavToggled}
+        isCategoryMenuToggled={isCategoryMenuToggled}
+        setIsCategoryMenuToggled={setIsCategoryMenuToggled}
+      />
 
       {/* Categories menu */}
       <nav
