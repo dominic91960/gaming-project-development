@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
@@ -15,6 +15,7 @@ import cardBgThree from "@/public/images/home/swiper-carousel/card-bg-three.png"
 import cardBgFour from "@/public/images/home/swiper-carousel/card-bg-four.png";
 import gamePoster from "@/public/images/home/swiper-carousel/poster.png";
 import SwiperCarouselCard from "./swiper-carousel-card";
+import axiosInstance from "@/axios/axiosInstance";
 
 const data = [
   {
@@ -71,8 +72,49 @@ const data = [
   },
 ];
 
+interface GameData {
+  id: string;
+  displayName: string;
+  productName: string;
+  averageRating: number;
+  cardDescription: string;
+  sellingPrice: number;
+  /* wishlistedBy: string[]; */
+  releaseDate: string;
+  stockStatus: string;
+  background: string;
+  coverImage: string;
+  screenshots: [],
+}
+
 const SwiperCarousel = () => {
+ 
+
+  const getTopRatedGames = async () => {
+    try {
+      const response = await axiosInstance.get("/games/top-rated");
+      /* const formattedData = response.data.map((game: any) => ({
+          id: game.id,
+          poster: game.cardImage,
+          title: game.displayName,
+          rating: game.averageRating,
+          description: game.cardDescription,
+          price: game.sellingPrice,
+          wishlistedBy: 10, // update if needed
+          releaseDate: game.releaseDate,
+          soldOut: game.stockStatus !== "IN_STOCK",
+        })); */
+      setGameData(response.data.products);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getTopRatedGames();
+  }, []);
+
   const [bg, setBg] = useState("");
+  const [gameData, setGameData] = useState<GameData[]>([]);
 
   const handleSlideChange = (swiper: { realIndex: number }) => {
     const realIndex = swiper.realIndex;
@@ -111,33 +153,38 @@ const SwiperCarousel = () => {
           onSlideChange={handleSlideChange}
           className="mySwiper"
         >
-          {data.map(
-            ({
-              id,
-              poster,
-              title,
-              rating,
-              description,
-              price,
-              wishlistedBy,
-              releaseDate,
-              soldOut,
-            }) => (
-              <SwiperSlide key={id}>
-                <SwiperCarouselCard
-                  id={id}
-                  poster={poster}
-                  title={title}
-                  rating={rating}
-                  description={description}
-                  price={price}
-                  wishlistedBy={wishlistedBy}
-                  releaseDate={releaseDate}
-                  soldOut={soldOut}
-                />
-              </SwiperSlide>
-            )
-          )}
+          {data.length > 0
+            ? data.map(
+                (
+                  {
+                    id,
+                    poster,
+                    title,
+                    rating,
+                    description,
+                    price,
+                    wishlistedBy,
+                    releaseDate,
+                    soldOut,
+                  },
+                  i
+                ) => (
+                  <SwiperSlide key={id}>
+                    <SwiperCarouselCard
+                      id={gameData[i]?.id ||id}
+                      poster={gameData[i]?.coverImage ||poster}
+                      title={gameData[i]?.displayName || title}
+                      rating={Math.round(gameData[i]?.averageRating ||rating)}
+                      description={gameData[i]?.displayName ||description}
+                      price={gameData[i]?.sellingPrice ||price}
+                      /* wishlistedBy={wishlistedBy} */
+                      releaseDate={gameData[i]?.releaseDate ||releaseDate}
+                      soldOut={(gameData[i]?.stockStatus === "IN_STOCK" ? false:true) ||soldOut}
+                    />
+                  </SwiperSlide>
+                )
+              )
+            : ""}
         </Swiper>
         <style>{`
             .swiper {
