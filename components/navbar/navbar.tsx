@@ -88,7 +88,7 @@ const categories = [
 ];
 
 export default function Navbar() {
-  const { cart } = useCartContext();
+  const { cart, totalItems } = useCartContext();
   const path = usePathname();
   const [isCategoryMenuToggled, setIsCategoryMenuToggled] = useState<
     boolean | undefined
@@ -194,7 +194,7 @@ export default function Navbar() {
             {/* Desktop navigation icons */}
             <div className="flex text-[1.8em] gap-x-[0.7em] lg:gap-x-[1em] justify-around items-center">
               <WishlistIcon handleClick={() => {}} />
-              <CartIcon length={cart.length} handleClick={() => {}} />
+              <CartIcon length={totalItems} handleClick={() => {}} />
               {authIcon}
             </div>
           </div>
@@ -224,7 +224,7 @@ export default function Navbar() {
         {/* Mobile navigation icons */}
         <div className="flex text-[1.5em] justify-around mt-[1.6em]">
           <WishlistIcon handleClick={closeMobileNav} />
-          <CartIcon length={cart.length} handleClick={closeMobileNav} />
+          <CartIcon length={totalItems} handleClick={closeMobileNav} />
           {authIcon}
         </div>
       </nav>
