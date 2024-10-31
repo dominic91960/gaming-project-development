@@ -99,7 +99,7 @@ interface CategoryMenuState {
 }
 
 export default function Navbar() {
-  const { cart, totalItems } = useCartContext();
+  const { totalItems } = useCartContext();
 
   const [categoryMenuStates, setCategoryMenuStates] =
     useState<CategoryMenuState>({
@@ -176,86 +176,84 @@ export default function Navbar() {
     );
 
   return (
-    <>
-      <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white] z-50">
-        {/* Main navbar div wrapper */}
-        <div className="border-b border-b-[#8C8C8C]">
-          {/* Main navbar div */}
-          <div className="container mx-auto h-[68px] flex justify-between items-center py-[0.2em] sm:h-[55px] sm:py-[1.2em] px-[36px] md:h-[47px] md:py-[0.5em] xl:h-[50px]">
-            {/* Desktop categories toggle*/}
-            <DesktopCategoryToggle
-              categoryMenuStates={categoryMenuStates}
-              setCategoryMenuStates={setCategoryMenuStates}
-            />
+    <section className="relative bg-[#0B0E13] font-primaryFont text-[20px] sm:text-[14px] xl:text-[15px] text-[white] z-50">
+      {/* Main navbar div wrapper */}
+      <div className="border-b border-b-[#8C8C8C]">
+        {/* Main navbar div */}
+        <div className="container mx-auto h-[68px] flex justify-between items-center py-[0.2em] sm:h-[55px] sm:py-[1.2em] px-[36px] md:h-[47px] md:py-[0.5em] xl:h-[50px]">
+          {/* Desktop categories toggle*/}
+          <DesktopCategoryToggle
+            categoryMenuStates={categoryMenuStates}
+            setCategoryMenuStates={setCategoryMenuStates}
+          />
 
-            {/* Desktop navigation links & icons*/}
-            <div className="hidden sm:flex sm:items-center sm:justify-between sm:w-full md:justify-end md:gap-x-[11.5%]">
-              {/* Desktop navigation links */}
-              <DesktopNavLinks />
+          {/* Desktop navigation links & icons*/}
+          <div className="hidden sm:flex sm:items-center sm:justify-between sm:w-full md:justify-end md:gap-x-[11.5%]">
+            {/* Desktop navigation links */}
+            <DesktopNavLinks />
 
-              {/* Desktop navigation icons */}
-              <div className="flex text-[1.8em] gap-x-[0.7em] lg:gap-x-[1em] justify-around items-center">
-                <WishlistIcon
-                  handleClick={() =>
-                    verifySession
-                      ? router.push("/wishlist")
-                      : setAccessDeniedPopupOpen(true)
-                  }
-                />
-                <CartIcon length={totalItems} handleClick={() => {}} />
-                {authIcon}
-              </div>
-            </div>
-
-            {/* Mobile logo  */}
-            <MobileLogo setIsMobileNavToggled={setIsMobileNavToggled} />
-
-            {/* Mobile navbar toggle  */}
-            <MobileNavToggle
-              isMobileNavToggled={isMobileNavToggled}
-              categoryMenuStates={categoryMenuStates}
-              setCategoryMenuStates={setCategoryMenuStates}
-              setIsMobileNavToggled={setIsMobileNavToggled}
-            />
-          </div>
-        </div>
-
-        {/* Mobile navigation links & icons */}
-        <nav
-          className={`${
-            isMobileNavToggled ? "flex flex-col sm:hidden" : "hidden"
-          } container mx-auto bg-[#0D0F10] absolute origin-top animate-open-menu px-[1.8em] font-semibold text-center uppercase pt-[1.5em] pb-[2.4em]`}
-        >
-          {/* Mobile navigation links */}
-          <MobileNavLinks setIsMobileNavToggled={setIsMobileNavToggled} />
-
-          {/* Mobile navigation icons */}
-          <div className="flex text-[1.5em] justify-around mt-[1.6em]">
-            <WishlistIcon
-              handleClick={() => {
-                if (!verifySession) {
-                  setAccessDeniedPopupOpen(true);
-                  closeMobileNav();
-                  return;
+            {/* Desktop navigation icons */}
+            <div className="flex text-[1.8em] gap-x-[0.7em] lg:gap-x-[1em] justify-around items-center">
+              <WishlistIcon
+                handleClick={() =>
+                  verifySession
+                    ? router.push("/wishlist")
+                    : setAccessDeniedPopupOpen(true)
                 }
-                closeMobileNav();
-                router.push("/wishlist");
-              }}
-            />
-            <CartIcon length={totalItems} handleClick={closeMobileNav} />
-            {authIcon}
+              />
+              <CartIcon length={totalItems} handleClick={() => {}} />
+              {authIcon}
+            </div>
           </div>
-        </nav>
 
-        {/* Mobile categories toggle */}
-        <MobileCategoryToggle
-          isContentChanged={isContentChanged}
-          isMobileNavToggled={isMobileNavToggled}
-          setIsMobileNavToggled={setIsMobileNavToggled}
-          categoryMenuStates={categoryMenuStates}
-          setCategoryMenuStates={setCategoryMenuStates}
-        />
-      </section>
+          {/* Mobile logo  */}
+          <MobileLogo setIsMobileNavToggled={setIsMobileNavToggled} />
+
+          {/* Mobile navbar toggle  */}
+          <MobileNavToggle
+            isMobileNavToggled={isMobileNavToggled}
+            categoryMenuStates={categoryMenuStates}
+            setCategoryMenuStates={setCategoryMenuStates}
+            setIsMobileNavToggled={setIsMobileNavToggled}
+          />
+        </div>
+      </div>
+
+      {/* Mobile navigation links & icons */}
+      <nav
+        className={`${
+          isMobileNavToggled ? "flex flex-col sm:hidden" : "hidden"
+        } container mx-auto bg-[#0D0F10] absolute origin-top animate-open-menu px-[1.8em] font-semibold text-center uppercase pt-[1.5em] pb-[2.4em]`}
+      >
+        {/* Mobile navigation links */}
+        <MobileNavLinks setIsMobileNavToggled={setIsMobileNavToggled} />
+
+        {/* Mobile navigation icons */}
+        <div className="flex text-[1.5em] justify-around mt-[1.6em]">
+          <WishlistIcon
+            handleClick={() => {
+              if (!verifySession) {
+                setAccessDeniedPopupOpen(true);
+                closeMobileNav();
+                return;
+              }
+              closeMobileNav();
+              router.push("/wishlist");
+            }}
+          />
+          <CartIcon length={totalItems} handleClick={closeMobileNav} />
+          {authIcon}
+        </div>
+      </nav>
+
+      {/* Mobile categories toggle */}
+      <MobileCategoryToggle
+        isContentChanged={isContentChanged}
+        isMobileNavToggled={isMobileNavToggled}
+        setIsMobileNavToggled={setIsMobileNavToggled}
+        categoryMenuStates={categoryMenuStates}
+        setCategoryMenuStates={setCategoryMenuStates}
+      />
 
       {/* Categories menu */}
       <nav
@@ -265,7 +263,7 @@ export default function Navbar() {
             : categoryMenuStates.isCategoryMenuOpen === false
             ? "reverse-animate-category-menu"
             : "hidden"
-        } origin-left fixed top-0 w-full h-full bg-[#0D0F10] font-primaryFont px-[1.5em] overflow-hidden z-[51] sm:w-[350px]`}
+        } origin-left absolute top-0 left-0 w-full h-[calc(100vh-73px)] bg-[#0D0F10] font-primaryFont px-[1.5em] overflow-hidden z-[51] sm:w-[350px]`}
       >
         <CategoryMenuHeader
           selectedContent={selectedContent}
@@ -304,6 +302,6 @@ export default function Navbar() {
           setIsOpen={setAccessDeniedPopupOpen}
         />
       )}
-    </>
+    </section>
   );
 }
