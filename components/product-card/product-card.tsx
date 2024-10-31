@@ -36,7 +36,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <article
-    className={`w-fit bg-white/5 text-[7px] p-[0.6em] cursor-pointer border border-white/20 select-none sm:text-[9px] md:text-[11px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] ${hide ? 'hidden' : ''}`}>
+    
+    className={`w-fit bg-white/5 text-[7px] p-[0.6em] border border-white/20 select-none sm:text-[9px] md:text-[11px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] ${hide ? 'hidden' : ''}`}>
       <div
       className="relative w-[86px] h-[96px] bg-cover bg-center mb-[0.5em] sm:w-[120px] md:w-[150px] lg:w-[180px] xl:w-[210px] 2xl:w-[246px] sm:h-[130px] md:h-[160px] lg:h-[200px] xl:h-[240px] 2xl:h-[270px]"
       style={{ backgroundImage: `url(${poster})` }}
@@ -59,7 +60,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
       )}
       </div>
 
-      <h5 className="w-[12ch] font-bold text-[9px] uppercase overflow-hidden text-nowrap text-ellipsis sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">
+      <h5 
+      onClick={
+        () => router.push(`/products/view/?id=${id}`)
+      }
+      className="w-[12ch] cursor-pointer font-bold text-[9px] uppercase overflow-hidden text-nowrap text-ellipsis sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">
       {name}
       </h5>
       <p className="w-[14ch] font-medium uppercase overflow-hidden text-nowrap text-ellipsis">
