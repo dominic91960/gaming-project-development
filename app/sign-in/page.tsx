@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,7 +19,6 @@ import Logo from "../../public/images/logo.png";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import AuthNavbar from "@/components/navbar/AuthNavbar";
-import { set } from "date-fns";
 import Spinner from "@/components/Spinner/Spinner";
 
 const validationSchema = Yup.object().shape({
@@ -68,7 +67,7 @@ const SignIn = () => {
       }
     };
     verifySession();
-  }, []);
+  }, [router]);
 
   const {
     register,
@@ -106,25 +105,25 @@ const SignIn = () => {
       toast.error(error.response.data.message);
     }
   };
-  const handleGoogleLogin = () => {
-    const width = 500;
-    const height = 600;
-    const left = window.screen.width / 2 - width / 2;
-    const top = window.screen.height / 2 - height / 2;
+  // const handleGoogleLogin = () => {
+  //   const width = 500;
+  //   const height = 600;
+  //   const left = window.screen.width / 2 - width / 2;
+  //   const top = window.screen.height / 2 - height / 2;
 
-    const popup = window.open(
-      process.env.NEXT_PUBLIC_BASE_URL + "/auth/google",
-      "GoogleAuth",
-      `width=${width},height=${height},top=${top},left=${left}`
-    );
+  //   const popup = window.open(
+  //     process.env.NEXT_PUBLIC_BASE_URL + "/auth/google",
+  //     "GoogleAuth",
+  //     `width=${width},height=${height},top=${top},left=${left}`
+  //   );
 
-    const popupCheckInterval = setInterval(() => {
-      if (!popup || popup.closed || popup.closed === undefined) {
-        clearInterval(popupCheckInterval);
-        console.log("Popup closed");
-      }
-    }, 1000);
-  };
+  //   const popupCheckInterval = setInterval(() => {
+  //     if (!popup || popup.closed || popup.closed === undefined) {
+  //       clearInterval(popupCheckInterval);
+  //       console.log("Popup closed");
+  //     }
+  //   }, 1000);
+  // };
 
   useEffect(() => {
     const handleAuthMessage = (event: {
@@ -168,7 +167,7 @@ const SignIn = () => {
   }
 
   return (
-    <section className="h-full flex flex-col bg-[#0B0E13]">
+    <section className="h-full flex flex-col bg-[#0B0E13] text-white">
       <ProductSearchBar />
       {/* <Navbar /> */}
       <AuthNavbar />
@@ -177,7 +176,7 @@ const SignIn = () => {
           <div className="flex items-center justify-center">
             <Image src={Logo} alt="logo" className="w-[4em] my-[1em]" />
           </div>
-          <p className="font-primaryFont text-[1.6em] font-medium text-white text-center mb-[1em]">
+          <p className=" text-[1.6em] font-medium text-white text-center mb-[1em]">
             Sign In To Your Account
           </p>
 
@@ -186,7 +185,7 @@ const SignIn = () => {
             <Button
               type="submit"
               variant="secondary"
-              className="w-full h-fit mb-[1.3em] font-primaryFont font-medium text-[1.1em] px-[1em] py-[0.5em] rounded-none"
+              className="w-full h-fit mb-[1.3em] font-medium text-[1.1em] px-[1em] py-[0.5em] rounded-none"
             >
               <FcGoogle className="text-[1.2em] me-[0.5em]" /> Sign In With
               Google
@@ -195,12 +194,12 @@ const SignIn = () => {
 
           <div className="flex items-center justify-center mb-[1em]">
             <div className="w-full h-[1px] bg-white"></div>
-            <p className="text-white font-primaryFont font-medium px-2">or</p>
+            <p className="text-white  font-medium px-2">or</p>
             <div className="w-full h-[1px] bg-white"></div>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-[2.1em] text-white font-primaryFont font-medium">
+            <div className="mb-[2.1em] text-white  font-medium">
               <p className="mb-[0.2em]">EMAIL</p>
               <Input
                 type="email"
@@ -217,7 +216,7 @@ const SignIn = () => {
               )}
             </div>
 
-            <div className="mb-[calc(1em+1px)] text-white font-primaryFont font-medium">
+            <div className="mb-[calc(1em+1px)] text-white font-medium">
               <p className="mb-[0.2em]">PASSWORD</p>
 
               <div className="relative w-full">
@@ -257,7 +256,7 @@ const SignIn = () => {
                 />
                 <label
                   htmlFor="remember-me"
-                  className="text-white font-primaryFont font-medium text-[0.8em] cursor-pointer"
+                  className="text-white font-medium text-[0.8em] cursor-pointer"
                 >
                   Remember me
                 </label>
@@ -265,7 +264,7 @@ const SignIn = () => {
 
               <Link
                 href="/forgot-password"
-                className="text-[#45F882] font-primaryFont font-normal text-[0.8em] hover:opacity-80"
+                className="text-[#45F882] font-normal text-[0.8em] hover:opacity-80"
               >
                 Forgot your password ?
               </Link>
@@ -274,13 +273,13 @@ const SignIn = () => {
             <Button
               type="submit"
               variant="gaming"
-              className="w-full h-fit mb-[1.3em] font-primaryFont text-[1.1em] px-[1em] py-[0.5em]"
+              className="w-full h-fit mb-[1.3em] font-semibold text-[1.1em] px-[1em] py-[0.5em]"
             >
               SIGN IN
             </Button>
           </form>
 
-          <p className="text-white font-primaryFont font-normal text-[0.86em] mb-2">
+          <p className="text-white font-normal text-[0.86em] mb-2">
             Do not have an account?
           </p>
           <Button
@@ -288,7 +287,7 @@ const SignIn = () => {
             variant="outline"
             className="w-full h-fit text-[1.1em] px-[1em] py-[0.5em] mb-[1.3em] rounded-none group"
           >
-            <p className="font-primaryFont text-[1.1em] text-white font-bold group-hover:text-black">
+            <p className="text-[1.1em] text-white font-semibold group-hover:text-black">
               CREATE ACCOUNT
             </p>
           </Button>
