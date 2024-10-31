@@ -85,7 +85,7 @@ const categories = [
 ];
 
 export default function AuthNavbar() {
-  const { cart } = useCartContext();
+  const { cart, totalItems } = useCartContext();
   const path = usePathname();
   const [isCategoryMenuToggled, setIsCategoryMenuToggled] = useState<
     boolean | undefined
@@ -226,9 +226,9 @@ export default function AuthNavbar() {
               </Link>
 
               <Link href="/cart" className="relative hover:scale-110">
-                {cart.length > 0 && (
+                {totalItems > 0 && (
                   <span className="absolute  bottom-[16px] right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
-                    {cart.length}
+                    {totalItems}
                   </span>
                 )}
                 <div className="relative">

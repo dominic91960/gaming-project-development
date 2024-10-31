@@ -235,7 +235,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
             <p className="text-white text-lg font-semibold">Summary</p>
             <div className="flex justify-between mt-2 text-white">
               <span>{totalItems} Items</span>
-              <span>${totalPrice}</span>
+              <span>${Math.max(totalPrice, 0).toFixed(2)}</span>
             </div>
             {/* <div className="flex justify-between text-white">
               <span>Service Fee</span>
