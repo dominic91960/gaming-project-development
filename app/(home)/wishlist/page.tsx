@@ -28,6 +28,7 @@ import axiosInstance from "@/axios/axiosInstance";
 import { AuthContext } from "@/context/AuthContext";
 import { useWishlistContext } from "@/context/WishListContext";
 import { useRouter } from "next/navigation";
+import { set } from "date-fns";
 
 const profile = {
   profileImage: samplePic.src,
@@ -94,8 +95,8 @@ export default function WishlistPage() {
     const getData = async () => {
       if(user){
         const res = await axiosInstance.get("/wishlists/"+user.id);
-        res.data.items.map((item: any) => {
-          setWishlist((prev) => [...prev, {
+        const wishlistData = res.data.items.map((item: any) => {
+           return {
             id: item.game.id,
             poster: item.game.cardImage,
             name: item.game.name,
@@ -104,9 +105,12 @@ export default function WishlistPage() {
             originalPrice: item.game.regularPrice,
             discountPrice: item.game.sellingPrice,
             releaseDate: item.game.releaseDate
-          }])
-      }
-    );
+          }
+        }
+        );
+
+        // setWishlistedGames(wishlistData);
+        setWishlist(wishlistData);
 
     const resREcommended = await axiosInstance.get("/games?sort=popularity&limit=5");
     resREcommended.data.data.map((item: any) => {
