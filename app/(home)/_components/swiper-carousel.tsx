@@ -176,7 +176,7 @@ const SwiperCarousel = () => {
                   <SwiperSlide key={id}>
                     <SwiperCarouselCard
                       id={gameData[i]?.id ||id}
-                      poster={gameData[i]?.screenshots[1] || gameData[i]?.coverImage ||poster}
+                      poster={gameData[i]?.screenshots[i] || gameData[i]?.coverImage ||poster}
                       title={gameData[i]?.displayName || title}
                       rating={Math.round(gameData[i]?.averageRating ||rating)}
                       description={gameData[i]?.displayName ||description}
