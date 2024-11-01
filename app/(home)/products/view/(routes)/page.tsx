@@ -350,7 +350,7 @@ export default function ProductPage() {
                             asChild
                           >
                             <button className="select-none flex gap-x-[0.5ch]">
-                              <p className="max-w-[8ch] overflow-hidden text-ellipsis">
+                              <p className="max-w-[8ch] text-nowrap overflow-hidden text-ellipsis">
                                 {gameData?.languages[0].split(",")[0]}
                               </p>
                               {gameData.languages[0].split(",").length > 1 && (
@@ -482,18 +482,19 @@ export default function ProductPage() {
                     </Button> */}
 
                       {/* Buy, wishlist and add to cart */}
-                      <div className="flex gap-x-[3%] mt-[0.5em]">
+                      <div className="flex mt-[0.5em]">
                         <Button
                           disabled={gameData.stockStatus === "OUT_OF_STOCK"}
                           variant="gaming"
                           onClick={() => {
                             addToCartAndRedirect(id);
                           }}
-                          className="h-[2em] text-[0.9em] px-[1em] py-0 font-semibold flex-grow"
+                          className="h-[2em] text-[0.9em] me-[0.3em] px-[1em] py-0 font-semibold flex-grow"
                         >
                           Buy now
                         </Button>
-                        <button className="size-[1.8em] hover:opacity-80 border flex items-center justify-center">
+
+                        <button className="size-[1.8em] hover:opacity-80 border flex items-center justify-center me-[0.3em]">
                           <IoMdHeartEmpty className="text-[1em]" />
                         </button>
 
@@ -608,18 +609,18 @@ export default function ProductPage() {
                   </Button> */}
 
                   {/* Buy, wishlist and add to cart */}
-                  <div className="flex gap-x-[3%] mt-[0.5em]">
+                  <div className="flex mt-[0.5em]">
                     <Button
                       disabled={gameData.stockStatus === "OUT_OF_STOCK"}
                       variant="gaming"
                       onClick={() => {
                         addToCartAndRedirect(id);
                       }}
-                      className="h-[2em] text-[1em] px-[1em] py-0 font-semibold flex-grow"
+                      className="h-[2em] text-[1em] me-[0.3em] px-[1em] py-0 font-semibold flex-grow"
                     >
                       Buy now
                     </Button>
-                    <button className="size-[2em] hover:opacity-80 border flex items-center justify-center">
+                    <button className="size-[2em] hover:opacity-80 border flex items-center justify-center me-[0.3em]">
                       <IoMdHeartEmpty className="text-[1em]" />
                     </button>
                     <CartSidebar>
