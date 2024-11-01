@@ -1,24 +1,24 @@
 import Image from "next/image";
 import IconBarBackground from "../../../public/images/home/icon-bar/icon-bar-background.png";
 
-import Games from "../../../public/images/home/icon-bar/PSController.png";
-import GiftCards from "../../../public/images/home/icon-bar/GiftCard.png";
-import EMoney from "../../../public/images/home/icon-bar/E-commerce.png";
-import PreOrders from "../../../public/images/home/icon-bar/OrderCompleted.png";
+import Games from "../../../public/images/home/icon-bar/controller.png";
+import XBox from "../../../public/images/home/icon-bar/xbox.png";
+import Windows from "../../../public/images/home/icon-bar/windows.png";
 import Steam from "../../../public/images/home/icon-bar/Steam.png";
+import Ubisoft from "../../../public/images/home/icon-bar/ubisoft.png";
 import "./icon-bar.css";
 
 const cards = [
-  { title: "Games", icon: Games },
-  { title: "Gift cards", icon: GiftCards },
-  { title: "E-money", icon: EMoney },
-  { title: "Pre-orders", icon: PreOrders },
+  { title: "Playstation", icon: Games },
+  { title: "X Box", icon: XBox },
+  { title: "Windows", icon: Windows },
   { title: "Steam", icon: Steam },
+  { title: "Ubisoft", icon: Ubisoft },
 ];
 
 const IconBar = () => {
   return (
-    <div className="relative container mx-auto px-[36px] z-10">
+    <div className="relative container mx-auto font-primaryFont px-[36px] z-10">
       <div className="relative">
         {/* Icon bar background */}
         <Image
@@ -36,7 +36,7 @@ const IconBar = () => {
                   alt={title}
                   className="size-[14px] min-[530px]:size-[19px] sm:size-[24px] md:size-[36px] lg:size-[48px] xl:size-[54px] 2xl:size-[60px] group-hover:-translate-y-[2px] transition-transform duration-200"
                 />
-                <p className="animate-text-bg text-[7px] sm:font-medium min-[530px]:text-[8px] sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] group-hover:scale-110 transition-transform duration-200">
+                <p className="animate-text-bg text-[7px] capitalize min-[530px]:text-[8px] sm:font-medium sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] group-hover:scale-110 transition-transform duration-200">
                   {title}
                 </p>
               </article>
