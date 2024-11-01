@@ -805,7 +805,7 @@ export default function ProfilePage() {
     <>
       {/* <ProductSearchBar />
       <Navbar /> */}
-      <Toaster />
+      <Toaster title={""} description={""} variant={""}  />
       <section className="bg-[#051301] font-primaryFont text-white">
         {/* Header */}
         <div
