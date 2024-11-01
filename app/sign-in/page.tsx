@@ -18,8 +18,6 @@ import Logo from "../../public/images/logo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import AuthNavbar from "@/components/navbar/AuthNavbar";
 import Spinner from "@/components/Spinner/Spinner";
-import { Toaster } from "@/components/ui/toaster";
-import { useToast } from "@/hooks/use-toast";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -36,7 +34,6 @@ interface SignInFormInputs {
 }
 
 const SignIn = () => {
-  const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<boolean>(false);
@@ -92,10 +89,6 @@ const SignIn = () => {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("user", JSON.stringify(user));
-        toast({
-          variant: "success",
-          title: message,
-        });
 
         // Redirect to home page
         // router.push("/admin");
@@ -110,10 +103,6 @@ const SignIn = () => {
     } catch (error: any) {
       setErrorMessage(error.response.data.message);
       setError(true);
-      toast({
-        variant: "error",
-        title: error.response.data.message,
-      });
     }
   };
   // const handleGoogleLogin = () => {
@@ -179,10 +168,9 @@ const SignIn = () => {
 
   return (
     <section className="h-full flex flex-col bg-[#0B0E13] text-white">
-      <Toaster />
       <ProductSearchBar />
       {/* <Navbar /> */}
-      <AuthNavbar />
+      {/* <AuthNavbar /> */}
       <div className="bg-[#0B0E13] flex-grow flex items-center justify-center font-primaryFont text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] text-white px-[36px] p-[50px]">
         <div className="w-full border px-[2em] py-[1em] sm:px-[8em] sm:py-[3.3em] sm:w-fit">
           <div className="flex items-center justify-center">

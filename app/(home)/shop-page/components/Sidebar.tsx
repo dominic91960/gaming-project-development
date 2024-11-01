@@ -58,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
     operatingSystems: [],
   };
 
-  const [value, setValue] = useState([33]);
+  const [value, setValue] = useState([0]);
   const [genres, setGenres] = useState<Genres[]>([]);
   const [platforms, setPlatforms] = useState<Platforms[]>([]);
   const [brands, setBrands] = useState<Brands[]>([]);
@@ -238,7 +238,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
             </h2>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="mb-2 mt-3">
+            <div className="mb-2 mt-3 px-2">
               <Slider
                 value={value}
                 onValueChange={(newValue) => {

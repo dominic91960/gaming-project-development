@@ -40,8 +40,6 @@ import "../_components/product.css";
 import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
 import AccessDeniedModal from "@/components/access-denied-modal/AccessDeniedModal";
 import axios from "axios";
-import { Toaster } from "@/components/ui/toaster";
-import { useToast } from "@/hooks/use-toast";
 
 export default function ProductPage() {
   const searchParams = useSearchParams();
@@ -57,7 +55,6 @@ export default function ProductPage() {
   const router = useRouter();
   const { user } = useAuthContext();
   const [verifySession, setVerifySession] = useState<boolean>(false);
-  const { toast } = useToast();
 
   useEffect(() => {
     const verifySession = async () => {
@@ -226,10 +223,10 @@ export default function ProductPage() {
       );
       setReviews(response.data);
     } catch (error: any) {
-      toast({
+      /* toast({
         variant: "error",
         title: error.response.data.message,
-      });
+      }); */
     } finally {
       // setLoading(false);
     }
@@ -274,16 +271,8 @@ export default function ProductPage() {
     try {
       const response = await axiosInstance.post(`/reviews`, newReview);
       const { message } = response.data;
-      console.log(response.data, "review data");
-      toast({
-        variant: "success",
-        title: message,
-      });
+      getReviewsByGameId(id);
     } catch (error: any) {
-      toast({
-        variant: "error",
-        title: error.response.data.message,
-      });
     } finally {
       setComment("");
       setRate(0);
@@ -295,7 +284,6 @@ export default function ProductPage() {
   return (
     <Suspense fallback={<Spinner loading={true} />}>
       <>
-        <Toaster />
         <section className="bg-[#051301] font-primaryFont text-white">
           {/* Image area with gradient */}
           <div
@@ -856,15 +844,21 @@ export default function ProductPage() {
                   <div>
                     <div className="flex items-center gap-x-[1.5em]">
                       <div>
-                        <Image
-                          src={samplePic}
-                          alt="username"
-                          className="size-[4.5em] rounded-full"
-                        />
+                        {user && (
+                         <Image
+                         src={user?.profile_image || samplePic}
+                         alt="username"
+                         width={72}
+                         height={72}
+                         className="rounded-full"
+                       />
+                        )}
                       </div>
                       <div>
-                        <h4 className="text-[1.25em] font-bold">The Gamer</h4>
-                        <p className="text-[0.9em]">By John Doe</p>
+                        <h4 className="text-[1.25em] font-bold">
+                          {user?.firstName}
+                        </h4>
+                        <p className="text-[0.9em]">{user?.email}</p>
                       </div>
                     </div>
                     <hr className="my-[1em]" />
