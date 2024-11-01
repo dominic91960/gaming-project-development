@@ -12,8 +12,6 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import ProductSearchBar from "@/components/product-search/product-search";
-import Navbar from "@/components/navbar/navbar";
 import FeedbackCard from "./_components/feedback-card";
 import Footer from "@/components/footer/footer";
 
