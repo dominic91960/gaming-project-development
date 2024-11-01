@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { IoClose } from "react-icons/io5";
 import axiosInstance from "@/axios/axiosInstance";
-import { useToast } from "@/hooks/use-toast";
 // import toast from "react-hot-toast";
 
 
@@ -42,8 +41,6 @@ const EditPassword: React.FC<EditPasswordProps> = ({
   const [isCurrentPasswordWrong, setIsCurrentPasswordWrong] = useState(false);
   const [isConfirmPasswordWrong, setIsConfirmPasswordWrong] = useState(false);
 
-  const { toast } = useToast();
-
   const hanldeSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -66,11 +63,6 @@ const EditPassword: React.FC<EditPasswordProps> = ({
       console.log(res);
       if (res.status === 200) {
         console.log('Password updated successfully');
-        // toast.success('Password updated successfully');
-        toast({
-          variant: "success",
-          title: "Password updated successfully",
-        });
         axiosInstance.patch("/auth/logout");
         localStorage.clear();
         window.location.href = "/sign-in";
