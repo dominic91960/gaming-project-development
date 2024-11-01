@@ -92,6 +92,16 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
     return `${formattedValueString}K`;
   };
 
+  const formatReleaseDate = (date: string) => {
+    const formattedValue = new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    return formattedValue;
+  };
+
   return (
     <article
       className="w-full h-fit backdrop-blur-[10px] p-[5em] pt-0 mt-[8em] mb-[3em] md:p-[2em] md:mt-[4em] md:mb-[0.5em] md:grid md:grid-cols-2 md:place-items-end md:gap-x-[2em]"
@@ -112,7 +122,7 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
           height={512.72}
         /> */}
         <div
-          className="absolute left-0 bottom-0 w-full h-[318px] flex items-center justify-center bg-cover text-center md:h-[328px] md:items-start lg:h-[340px] xl:h-[427px] 2xl:h-[513px]"
+          className="absolute left-0 bottom-0 w-full h-[318px] flex items-center justify-center bg-cover bg-center text-center md:h-[328px] md:items-start lg:h-[340px] xl:h-[427px] 2xl:h-[513px]"
           style={{ backgroundImage: `url(${poster})` }}
         ></div>
         {soldOut && (
@@ -166,9 +176,7 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
 
               {/* {formatWishlistedBy(wishlistedBy)} */}
             </p>
-            <p>
-              Release Date: {new Date(releaseDate).toISOString().split("T")[0]}
-            </p>
+            Release Date: {formatReleaseDate(releaseDate)}
           </div>
         </div>
 

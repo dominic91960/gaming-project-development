@@ -120,10 +120,10 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
   return (
     <>
       <Sheet>
-        <div className="relative z-[999]"><Toaster /></div>
-        <SheetTrigger asChild className="hover:scale-110">
-          {children}
-        </SheetTrigger>
+        <div className="relative z-[999]">
+          <Toaster />
+        </div>
+        <SheetTrigger asChild>{children}</SheetTrigger>
         {/* <SheetContent className="w-[550px] backdrop-blur-lg backdrop-opacity-70 bg-[#05130166]"> */}
         <SheetContent className="w-[550px]  shopping-cart-sidebar-main-div">
           <SheetHeader className="border-b-[1px] border-white pb-4 mb-12">

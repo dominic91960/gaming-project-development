@@ -12,7 +12,7 @@ interface CartIconProps {
 const CartIcon: React.FC<CartIconProps> = ({ length, handleClick }) => {
   return (
     <div
-      className="relative cursor-pointer hover:scale-105"
+      className="relative cursor-pointer hover:scale-[108%]"
       onClick={() => setTimeout(() => handleClick(), 300)}
     >
       {length > 0 && (
