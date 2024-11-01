@@ -24,8 +24,6 @@ import EmailVerification from "./components/email-verfiication";
 import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
 import ChangeImage from "./components/change-image";
-import { Toaster } from "@/components/ui/toaster";
-import { useToast } from "@/hooks/use-toast";
 
 const recentActivity = [
   {
@@ -589,7 +587,6 @@ interface Profile {
 }
 
 export default function ProfilePage() {
-  const { toast } = useToast();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [profile, setProfile] = useState<Profile>({
@@ -722,10 +719,6 @@ export default function ProfilePage() {
           throw new Error(response.data.fileUrl);
         }
       } catch (error) {
-        toast({
-          variant: "error",
-          title: "Error uploading file: " + (error as Error).message,
-        });
       }
     }
   };
@@ -740,10 +733,6 @@ export default function ProfilePage() {
       );
       console.log(res);
       if (res.status === 200) {
-        toast({
-          variant: "error",
-          title: "Profile picture updated successfully",
-        });
         const user = localStorage.getItem("user");
         localStorage.setItem(
           "user",
@@ -758,10 +747,6 @@ export default function ProfilePage() {
         throw new Error("Error updating profile picture");
       }
     } catch (error) {
-      toast({
-        variant: "error",
-        title: "Error updating profile picture",
-      });
     }
   };
 
@@ -805,7 +790,6 @@ export default function ProfilePage() {
     <>
       {/* <ProductSearchBar />
       <Navbar /> */}
-      <Toaster />
       <section className="bg-[#051301] font-primaryFont text-white">
         {/* Header */}
         <div
