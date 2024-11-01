@@ -16,7 +16,15 @@ import FeedbackCard from "./_components/feedback-card";
 import Footer from "@/components/footer/footer";
 
 import bg from "@/public/images/products/bg.png";
-import samplePic from "@/public/images/sample-pic.png";
+
+import chloeA from "@/public/images/about/chloe-a.png";
+import danielR from "@/public/images/about/daniel-r.png";
+import samanthaV from "@/public/images/about/samantha-v.png";
+import liamK from "@/public/images/about/liam-k.png";
+import victorT from "@/public/images/about/victor-t.png";
+import ethanW from "@/public/images/about/ethan-w.png";
+import oliviaP from "@/public/images/about/olivia-p.png";
+import LucasB from "@/public/images/about/lucas-b.png";
 
 const cardTrioData = [
   {
@@ -66,57 +74,67 @@ const whatWeDoData = [
 
 const reviews = [
   {
-    avatar: samplePic,
-    username: "The Gamer",
-    fullname: "John Doe",
+    avatar: chloeA,
+    fullname: "Chloe A.",
     content:
-      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
-    date: "March 29, 2024",
+      "I was impressed by the speedy delivery and the easy purchase process. Great site for anyone looking for instant game keys at great prices.y",
+    date: "May 11,2024",
     rating: 5,
   },
   {
-    avatar: samplePic,
-    username: "The Gamer 2",
-    fullname: "John Doe",
+    avatar: danielR,
+    fullname: "Daniel R.",
     content:
-      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
-    date: "March 29, 2024",
+      "It’s a relief to have a site I can rely on. The prices are unbeatable, and I never have to worry about waiting for my keys. Love it!",
+    date: "Feb 14,2024",
     rating: 4,
   },
   {
-    avatar: samplePic,
-    username: "The Gamer 3",
-    fullname: "John Doe",
+    avatar: samanthaV,
+    fullname: "Samantha V.",
     content:
-      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
-    date: "March 29, 2024",
+      "The site is super easy to navigate, and my key arrived immediately after purchase. I’ve already recommended it to my friends!",
+    date: "Aug 20,2024",
     rating: 5,
   },
   {
-    avatar: samplePic,
-    username: "The Gamer",
-    fullname: "John Doe",
+    avatar: liamK,
+    fullname: "Liam K.",
     content:
-      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
-    date: "March 29, 2024",
+      "Fast, affordable, and dependable. This site always has what I need, and I’ve never had an issue with any purchase. Truly the best!",
+    date: "Sep 01,2024",
     rating: 5,
   },
   {
-    avatar: samplePic,
-    username: "The Gamer 2",
-    fullname: "John Doe",
+    avatar: victorT,
+    fullname: "Victor T.",
     content:
-      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
-    date: "March 29, 2024",
+      "Absolutely love this site! The deals are fantastic, and the keys always arrive within seconds. It’s now my go-to for all gaming needs.",
+    date: "Apr 22,2024",
     rating: 4,
   },
   {
-    avatar: samplePic,
-    username: "The Gamer 3",
-    fullname: "John Doe",
+    avatar: ethanW,
+    fullname: "Ethan W.",
     content:
-      "It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play It's beautiful, frantic, challenging, and a delight to play",
-    date: "March 29, 2024",
+      "Fast, reliable, and secure. I got my key right away, and it worked perfectly. I couldn’t be happier with my experience here!",
+    date: "Jun 09,2024",
+    rating: 5,
+  },
+  {
+    avatar: oliviaP,
+    fullname: "Olivia P.",
+    content:
+      "I’ve bought several keys from this site, and it’s flawless every time. Easy checkout, great prices, and instant delivery can’t ask for more!",
+    date: "Jun 10,2024",
+    rating: 5,
+  },
+  {
+    avatar: LucasB,
+    fullname: "Lucas B.",
+    content:
+      "The process couldn’t be simpler! I received my key in seconds, and everything worked smoothly. Highly recommended for any gamer.",
+    date: "Jun 17,2024",
     rating: 5,
   },
 ];
@@ -266,11 +284,10 @@ function AboutPage() {
                 className="mySwiper"
               >
                 {reviews.map(
-                  ({ avatar, username, fullname, content, date, rating }) => (
-                    <SwiperSlide key={username}>
+                  ({ avatar, fullname, content, date, rating }, i) => (
+                    <SwiperSlide key={i}>
                       <FeedbackCard
                         avatar={avatar}
-                        username={username}
                         fullname={fullname}
                         content={content}
                         date={date}

@@ -5,7 +5,6 @@ import StarRating from "@/app/(home)/_components/star-rating";
 
 interface FeedbackCardProps {
   avatar: StaticImageData;
-  username: string;
   fullname: string;
   content: string;
   date: string;
@@ -14,7 +13,6 @@ interface FeedbackCardProps {
 
 const FeedbackCard: React.FC<FeedbackCardProps> = ({
   avatar,
-  username,
   fullname,
   content,
   date,
@@ -22,23 +20,22 @@ const FeedbackCard: React.FC<FeedbackCardProps> = ({
 }) => {
   return (
     <article className="w-full bg-black border mx-auto p-[3em] text-[8px] mb-[2em] sm:w-[25em] sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[13px]">
-      {/* Avatar, username and name */}
+      {/* Avatar and name */}
       <div className="flex items-center gap-x-[1.5em] pb-[1.25em] border-b">
         <div>
           <Image
             src={avatar}
-            alt={username}
+            alt={fullname}
             className="size-[4.5em] rounded-full"
           />
         </div>
         <div>
-          <h4 className="text-[1.25em] font-bold">{username}</h4>
-          <p className="text-[0.9em] opacity-70">By {fullname}</p>
+          <h4 className="text-[1.25em] font-bold">{fullname}</h4>
         </div>
       </div>
 
       {/* Review content */}
-      <p className="my-[1.25em] text-justify opacity-70">
+      <p className="h-[8em] my-[1.25em] line-clamp-6 text-justify opacity-70">
         &#8220;{content}&#8221;
       </p>
 
