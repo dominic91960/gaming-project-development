@@ -45,7 +45,7 @@ const SecurityInfo: React.FC<SecurityInfoProps> = ({
             <span className="font-bold text">Password: </span>
             <input
               type="password"
-              value={password}
+              value={"xxxxxxxxxxxxx"}
               className="bg-transparent outline-none"
               readOnly
             />
