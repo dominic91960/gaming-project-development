@@ -34,7 +34,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       <Providers>
         <CartProvider>
           <body>{children}</body>
-          <Toaster />
+          <Toaster title={""} description={""} variant={""}  />
         </CartProvider>
       </Providers>
     </html>

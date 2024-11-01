@@ -104,7 +104,7 @@ const Cart: React.FC = () => {
     <div>
       {/* <ProductSearchBar /> */}
       {/* <Navbar /> */}
-      <Toaster />
+      <Toaster title={""} description={""} variant={""}  />
       <div className="bg-[#000000] h-full">
         <div className="relative">
           <Image
