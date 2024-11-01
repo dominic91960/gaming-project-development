@@ -183,7 +183,7 @@ const SwiperCarousel = () => {
                       price={gameData[i]?.sellingPrice ||price}
                       /* wishlistedBy={wishlistedBy} */
                       releaseDate={gameData[i]?.releaseDate ||releaseDate}
-                      soldOut={(gameData[i]?.stockStatus === "IN_STOCK" ? false:true) ||soldOut}
+                      soldOut={(gameData[i]?.stockStatus === "IN_STOCK" ? false:true) || soldOut}
                     />
                   </SwiperSlide>
                 )
@@ -244,7 +244,3 @@ const SwiperCarousel = () => {
 };
 
 export default SwiperCarousel;
-
-
-
-

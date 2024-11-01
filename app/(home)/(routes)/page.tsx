@@ -38,7 +38,7 @@ export default function Home() {
       {/* <ProductSearchBar />
       <Navbar /> */}
       <Hero />
-      {/* <SwiperCarousel /> */}
+      <SwiperCarousel />
       <BestSelling />
       <Catalog />
       <VerticalCarousel />
