@@ -179,7 +179,7 @@ const SignIn = () => {
 
   return (
     <section className="h-full flex flex-col bg-[#0B0E13] text-white">
-      {/* <Toaster /> */}
+      <Toaster />
       <ProductSearchBar />
       {/* <Navbar /> */}
       {/* <AuthNavbar /> */}
