@@ -28,7 +28,6 @@ import axiosInstance from "@/axios/axiosInstance";
 import { AuthContext } from "@/context/AuthContext";
 import { useWishlistContext } from "@/context/WishListContext";
 import { useRouter } from "next/navigation";
-import { set } from "date-fns";
 
 const profile = {
   profileImage: samplePic.src,
@@ -71,6 +70,7 @@ interface WishlistedGame {
   originalPrice: number;
   discountPrice: number;
   releaseDate: string;
+  stockStatus: string;
 }
 
 export default function WishlistPage() {
@@ -83,20 +83,21 @@ export default function WishlistPage() {
   );
   const [loading, setLoading] = useState(false);
   const [wishlist, setWishlist] = useState<WishlistedGame[]>([]);
-  const [recommendedGames, setRecommendedGames] = useState<WishlistedGame[]>([]);
+  const [recommendedGames, setRecommendedGames] = useState<WishlistedGame[]>(
+    []
+  );
   const totalPages = Math.ceil(wishlistedGames.length / productsPerPage);
-  const {user} = useContext(AuthContext) || {}
-  const {wishListGameIds} = useWishlistContext();
+  const { user } = useContext(AuthContext) || {};
+  const { wishListGameIds } = useWishlistContext();
   // const {user} = useContext(AuthContext) || {};
   const router = useRouter();
 
-
   useEffect(() => {
     const getData = async () => {
-      if(user){
-        const res = await axiosInstance.get("/wishlists/"+user.id);
+      if (user) {
+        const res = await axiosInstance.get("/wishlists/" + user.id);
         const wishlistData = res.data.items.map((item: any) => {
-           return {
+          return {
             id: item.game.id,
             poster: item.game.cardImage,
             name: item.game.name,
@@ -104,36 +105,39 @@ export default function WishlistPage() {
             rating: item.game.rating,
             originalPrice: item.game.regularPrice,
             discountPrice: item.game.sellingPrice,
-            releaseDate: item.game.releaseDate
-          }
-        }
-        );
+            releaseDate: item.game.releaseDate,
+            stockStatus: item.game.stockStatus,
+          };
+        });
 
         // setWishlistedGames(wishlistData);
         setWishlist(wishlistData);
 
-    const resREcommended = await axiosInstance.get("/games?sort=popularity&limit=5");
-    resREcommended.data.data.map((item: any) => {
-      setRecommendedGames((prev) => [...prev, {
-        id: item.id,
-        poster: item.cardImage,
-        name: item.name,
-        desc: item.cardDescription,
-        rating: item.averageRating,
-        originalPrice: item.regularPrice,
-        discountPrice: item.sellingPrice,
-        releaseDate: item.releaseDate
+        const resREcommended = await axiosInstance.get(
+          "/games?sort=popularity&limit=5"
+        );
+        console.log(resREcommended.data);
+
+        resREcommended.data.data.map((item: any) => {
+          setRecommendedGames((prev) => [
+            ...prev,
+            {
+              id: item.id,
+              poster: item.cardImage,
+              name: item.displayName,
+              desc: item.cardDescription,
+              rating: item.averageRating,
+              originalPrice: item.regularPrice,
+              discountPrice: item.sellingPrice,
+              releaseDate: item.releaseDate,
+              stockStatus: item.stockStatus,
+            },
+          ]);
+        });
       }
-      ])
-    }
-  );
-
-
-  } 
-  }
+    };
     getData();
-  }
-  , [user]);
+  }, [user]);
 
   // Set wishlist data
   useEffect(() => {
@@ -145,14 +149,14 @@ export default function WishlistPage() {
     const removeDuplicates = (games: WishlistedGame[]) => {
       const uniqueGames: WishlistedGame[] = [];
       const gameIds = new Set();
-  
+
       games.forEach((game) => {
         if (!gameIds.has(game.id)) {
           uniqueGames.push(game);
           gameIds.add(game.id);
         }
       });
-  
+
       return uniqueGames;
     };
 
@@ -160,9 +164,9 @@ export default function WishlistPage() {
 
     const uniqueWishlistedGames = removeDuplicates(wishlistedGames);
 
-  setDisplayedProducts(
-    uniqueWishlistedGames.slice(startIndex, startIndex + productsPerPage)
-  );
+    setDisplayedProducts(
+      uniqueWishlistedGames.slice(startIndex, startIndex + productsPerPage)
+    );
   }, [currentPage, productsPerPage, wishlistedGames]);
 
   // Calculates productsPerPage according to screen size
@@ -294,9 +298,13 @@ export default function WishlistPage() {
                   fill
                 />
               </div>
-                <h4 className="font-bold">
-                {user?.firstName.charAt(0).toUpperCase() + user?.firstName.slice(1) + " " + user?.lastName.charAt(0).toUpperCase() + user?.lastName.slice(1)}
-                </h4>
+              <h4 className="font-bold">
+                {user?.firstName.charAt(0).toUpperCase() +
+                  user?.firstName.slice(1) +
+                  " " +
+                  user?.lastName.charAt(0).toUpperCase() +
+                  user?.lastName.slice(1)}
+              </h4>
               <MdVerified className="text-[#0BDB45]" />
             </div>
 
@@ -372,20 +380,31 @@ export default function WishlistPage() {
             <div className="flex justify-between">
               {recommendedGames.map(
                 (
-                  { id, poster, name, desc, rating, discountPrice, originalPrice },
+                  {
+                    id,
+                    poster,
+                    name,
+                    desc,
+                    rating,
+                    discountPrice,
+                    originalPrice,
+                    stockStatus,
+                  },
                   index
                 ) =>
                   index < productsPerPage && (
                     <ProductCard
-                    id={id}
+                      id={id}
                       key={index}
                       poster={poster}
                       name={name}
                       desc={desc}
                       rating={rating}
                       discountPrice={discountPrice}
-                      originalPrice={originalPrice} 
-                      wishList={false}                    />
+                      originalPrice={originalPrice}
+                      stockStatus={stockStatus}
+                      wishList={false}
+                    />
                   )
               )}
             </div>

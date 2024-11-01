@@ -14,6 +14,7 @@ interface WishlistedGamesProps {
     rating: number;
     originalPrice: number;
     discountPrice: number;
+    stockStatus: string;
   }[];
   productsPerPage: number;
   totalPages: number;
@@ -28,7 +29,7 @@ const WishlistedGames: React.FC<WishlistedGamesProps> = ({
   setCurrentPage,
   currentPage,
 }) => {
-  const {wishListGameIds} = useWishlistContext();
+  const { wishListGameIds } = useWishlistContext();
   // console.log("deeeeeeeeeeeeeeeeee",wishListGameIds, displayedProducts);
   return (
     <>
@@ -41,7 +42,16 @@ const WishlistedGames: React.FC<WishlistedGamesProps> = ({
       >
         {displayedProducts.map(
           (
-            { id, poster, name, desc, rating, originalPrice, discountPrice },
+            {
+              id,
+              poster,
+              name,
+              desc,
+              rating,
+              originalPrice,
+              discountPrice,
+              stockStatus,
+            },
             index
           ) => (
             <ProductCard
@@ -54,6 +64,7 @@ const WishlistedGames: React.FC<WishlistedGamesProps> = ({
               rating={rating}
               originalPrice={originalPrice}
               discountPrice={discountPrice}
+              stockStatus={stockStatus}
             />
           )
         )}
