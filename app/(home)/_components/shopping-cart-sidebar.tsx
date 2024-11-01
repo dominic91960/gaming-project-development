@@ -121,7 +121,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
     <>
       <Sheet>
         <div className="relative z-[999]">
-          <Toaster title={""} description={""} variant={""}  />
+          <Toaster  />
         </div>
         <SheetTrigger asChild>{children}</SheetTrigger>
         {/* <SheetContent className="w-[550px] backdrop-blur-lg backdrop-opacity-70 bg-[#05130166]"> */}
