@@ -6,6 +6,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import "./toast.css";
 
 const ToastProvider = ToastPrimitives.Provider;
 
@@ -29,11 +30,12 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: "border bg-background text-foreground",
+        default:
+          "default-icon w-fit max-w-[40ch] h-fit flex flex-col items-center justify-center gap-[0.6em] bg-[#111111] font-primaryFont text-center text-[9px] p-[1em] border border-white/30 rounded-none sm:max-w-none sm:flex-row sm:gap-[0.8em] sm:text-left sm:text-[10px] sm:px-[5em] sm:py-[1.5em] md:text-[11px] lg:text-[12px] xl:text-[12.5px] 2xl:text-[13px]",
         success:
-          "w-fit h-fit bg-[#111111] p-0 border border-[#0D6D49]/50 rounded-none",
+          "success-icon w-fit max-w-[40ch] h-fit flex flex-col items-center justify-center gap-[0.6em] bg-[#111111] font-primaryFont text-center text-[9px] p-[1em] border border-[#0D6D49]/50 rounded-none sm:max-w-none sm:flex-row sm:gap-[0.8em] sm:text-left sm:text-[10px] sm:px-[5em] sm:py-[1.5em] md:text-[11px] lg:text-[12px] xl:text-[12.5px] 2xl:text-[13px]",
         error:
-          "w-fit h-fit bg-[#111111] p-0 border border-[#FF374E]/50 rounded-none",
+          "error-icon w-fit max-w-[40ch] h-fit flex flex-col items-center justify-center gap-[0.6em] bg-[#111111] font-primaryFont text-center text-[9px] p-[1em] border border-[#FF374E]/50 rounded-none sm:max-w-none sm:flex-row sm:gap-[0.8em] sm:text-left sm:text-[10px] sm:px-[5em] sm:py-[1.5em] md:text-[11px] lg:text-[12px] xl:text-[12.5px] 2xl:text-[13px]",
         destructive:
           "destructive group border-destructive bg-destructive text-destructive-foreground",
       },
@@ -98,7 +100,7 @@ const ToastTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ToastPrimitives.Title
     ref={ref}
-    className={cn("text-sm font-semibold", className)}
+    className={cn("font-medium", className)}
     {...props}
   />
 ));

@@ -1,0 +1,39 @@
+.default-icon::before {
+  content: "\0021";
+  width: 1.5em;
+  height: 1.5em;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #111111;
+  font-size: 1.5em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+}
+
+.success-icon::before {
+  content: "\2714";
+  width: 1.5em;
+  height: 1.5em;
+  background-color: #0bdb45;
+  color: #111111;
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+}
+
+.error-icon::before {
+  content: "\2716";
+  width: 1.5em;
+  height: 1.5em;
+  background-color: #ff374e;
+  color: #111111;
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+}
