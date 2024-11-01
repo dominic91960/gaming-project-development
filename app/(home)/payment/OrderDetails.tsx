@@ -1,9 +1,36 @@
+"use client";
+import React from "react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
-function OrderDetails() {
+type CartItem = {
+  id: number;
+  image: string;
+  choiceType: string;
+  title: string;
+  quantity: number;
+  price: number;
+  productType: string;
+};
+
+type OrderDetailsProps = {
+  cart: CartItem[];
+  totalDiscount: number;
+  totalPrice: number;
+};
+
+const OrderDetails: React.FC<OrderDetailsProps> = ({
+  cart,
+  totalDiscount,
+  totalPrice,
+}) => {
+  const subtotal = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
   return (
     <div className="flex flex-col flex-1 bg-white bg-opacity-20 border-[0.25px] md:border-[0.5px] border-white z-20 p-[2em]">
       <h1 className="text-[13px] md:text-[18px] lg:text-[22px] xl:text-[25px] font-semibold mb-[1em] text-white">
@@ -16,31 +43,36 @@ function OrderDetails() {
         </div>
         <div className="border-t-[0.5px] border-white w-full border-opacity-70"></div>
 
-        <div className="flex w-full justify-between text-white mx-auto text-opacity-70 text-[8px] md:text-[12px] lg:text-[14px]">
-          <h3 className="font-normal">
-            Six-sided oracles (pc) steam key GLOBAL
-          </h3>
-          <h3 className="font-normal">$65.00</h3>
-        </div>
-        <div className="border-t-[0.5px] border-white w-full border-opacity-70"></div>
+        {cart.map((item) => (
+          <div
+            key={item.id}
+            className="flex w-full justify-between text-white mx-auto text-opacity-70 text-[8px] md:text-[12px] lg:text-[14px]"
+          >
+            <h3 className="font-normal">{item.title}</h3>
+            <h3 className="font-normal">
+              ${Math.max(item.price * item.quantity, 0).toFixed(2)}
+            </h3>
+          </div>
+        ))}
 
-        <div className="flex w-full justify-between text-white mx-auto text-opacity-70 text-[8px] md:text-[12px] lg:text-[14px]">
-          <h3 className="font-normal">
-            Six-sided oracles (pc) steam key GLOBAL
-          </h3>
-          <h3 className="font-normal">$65.00</h3>
-        </div>
         <div className="border-t-[0.5px] border-white w-full border-opacity-70"></div>
-
         <div className="flex w-full justify-between text-white mx-auto text-opacity-70 text-[8px] md:text-[12px] lg:text-[14px]">
           <h3 className="font-normal">Subtotal</h3>
-          <h3 className="font-normal">$135.00</h3>
+          <h3 className="font-normal">${Math.max(subtotal, 0).toFixed(2)}</h3>
         </div>
         <div className="border-t-[0.5px] border-white w-full border-opacity-70"></div>
-
+        <div className="flex w-full justify-between text-white mx-auto text-opacity-70 text-[8px] md:text-[12px] lg:text-[14px]">
+          <h3 className="font-normal">Discount</h3>
+          <h3 className="font-normal">
+            - ${Math.max(totalDiscount, 0).toFixed(2)}
+          </h3>
+        </div>
+        <div className="border-t-[0.5px] border-white w-full border-opacity-70"></div>
         <div className="flex w-full justify-between text-white mx-auto text-opacity-70 text-[8px] md:text-[12px] lg:text-[14px]">
           <h3 className="font-normal">Total</h3>
-          <h3 className="font-normal">$135.00</h3>
+          <h3 className="font-normal">
+            ${Math.max(totalPrice - totalDiscount, 0).toFixed(2)}
+          </h3>
         </div>
         <div className="border-t-[0.5px] border-white w-full border-opacity-70"></div>
       </div>
@@ -101,6 +133,6 @@ function OrderDetails() {
       </Button>
     </div>
   );
-}
+};
 
 export default OrderDetails;
