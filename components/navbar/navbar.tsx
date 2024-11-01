@@ -171,7 +171,10 @@ export default function Navbar() {
         handleClick={closeMobileNav}
         handleLogout={() => {
           axiosInstance.patch("/auth/logout");
-          localStorage.clear();
+          // localStorage.clear();
+          localStorage.removeItem("refreshToken");
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("user");
           window.location.href = "/sign-in";
         }}
       />

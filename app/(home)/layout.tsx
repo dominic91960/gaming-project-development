@@ -1,5 +1,5 @@
 "use client";
-'use strict';
+"use strict";
 import Navbar from "@/components/navbar/navbar";
 import ProductSearchBar from "@/components/product-search/product-search";
 import { AuthProvider } from "@/context/AuthContext";
@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/Spinner/Spinner";
 import { WishlistProvider } from "@/context/WishListContext";
-import {verifySession} from "@/hooks/useVerifySession";
+import { verifySession } from "@/hooks/useVerifySession";
 import axios from "axios";
 import { set } from "date-fns";
 
@@ -39,58 +39,67 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   console.log("HomeLayout............");
 
   useEffect(() => {
-    const verification = async () =>{
-      console.log("Verifying session...2222", localStorage.getItem("accessToken"));
+    const verification = async () => {
+      console.log(
+        "Verifying session...2222",
+        localStorage.getItem("accessToken")
+      );
       const user = localStorage.getItem("user");
       if (user && localStorage.getItem("accessToken")) {
         try {
-          console.log("Verifying session...", localStorage.getItem("accessToken"));
+          console.log(
+            "Verifying session...",
+            localStorage.getItem("accessToken")
+          );
           const res = await axios.get(
-              process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
-              {
-                  headers: {
-                      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-                  },
-              }
+            process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              },
+            }
           );
 
           console.log("res....................", res);
           if (res.status === 200) {
             console.log("Authorized");
-              // return true;
-              const parsedUser = JSON.parse(user);
+            // return true;
+            const parsedUser = JSON.parse(user);
+            setIsAuthorized(true);
+            if (parsedUser.role.name === "ADMIN") {
+              router.push("/admin");
+            } else {
               setIsAuthorized(true);
-              if (parsedUser.role.name === "ADMIN") {
-                router.push("/admin");
-              }else{
-                setIsAuthorized(true);
-              }
-              return;
+            }
+            return;
           } else {
             console.log("Unauthorized.....................");
             setIsAuthorized(true);
             // router.push("/");
             throw new Error("Unauthorized");
           }
-      } catch (error) {
+        } catch (error) {
           // console.log(error);
-          localStorage.clear();
+          // localStorage.clear();
+          localStorage.removeItem("refreshToken");
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("user");
           setIsAuthorized(true);
           // router.push("/");
           return;
-      }
+        }
       } else {
-        localStorage.clear();
+        // localStorage.clear();
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
         // router.push("/");
         setIsAuthorized(true);
       }
-
-    }
+    };
 
     verification();
   }, [router]);
-
-
 
   if (!isAuthorized) {
     return <Spinner loading={!isAuthorized} />;
