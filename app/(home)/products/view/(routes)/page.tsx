@@ -226,10 +226,10 @@ export default function ProductPage() {
       );
       setReviews(response.data);
     } catch (error: any) {
-      toast({
+      /* toast({
         variant: "error",
         title: error.response.data.message,
-      });
+      }); */
     } finally {
       // setLoading(false);
     }
@@ -279,6 +279,7 @@ export default function ProductPage() {
         variant: "success",
         title: message,
       });
+      getReviewsByGameId(id);
     } catch (error: any) {
       toast({
         variant: "error",
@@ -856,15 +857,21 @@ export default function ProductPage() {
                   <div>
                     <div className="flex items-center gap-x-[1.5em]">
                       <div>
-                        <Image
-                          src={samplePic}
-                          alt="username"
-                          className="size-[4.5em] rounded-full"
-                        />
+                        {user && (
+                         <Image
+                         src={user?.profile_image || samplePic}
+                         alt="username"
+                         width={72}
+                         height={72}
+                         className="rounded-full"
+                       />
+                        )}
                       </div>
                       <div>
-                        <h4 className="text-[1.25em] font-bold">The Gamer</h4>
-                        <p className="text-[0.9em]">By John Doe</p>
+                        <h4 className="text-[1.25em] font-bold">
+                          {user?.firstName}
+                        </h4>
+                        <p className="text-[0.9em]">{user?.email}</p>
                       </div>
                     </div>
                     <hr className="my-[1em]" />
