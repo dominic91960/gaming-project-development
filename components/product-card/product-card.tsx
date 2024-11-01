@@ -37,24 +37,29 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <article
-      className={`w-fit bg-white bg-opacity-5 text-[7px] p-[0.6em] border border-white/20 select-none sm:text-[9px] md:text-[11px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] hover:bg-opacity-[8%] transition-all duration-500 group ${
+      className={`w-fit bg-white bg-opacity-5 text-[7px] p-[0.6em] border border-white/20 select-none sm:text-[9px] md:text-[11px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] hover:bg-opacity-[8%] transition-all duration-500 ${
         hide ? "hidden" : ""
       }`}
     >
       <div className="relative w-[86px] h-[96px] bg-cover bg-center mb-[0.5em] sm:w-[120px] md:w-[150px] lg:w-[180px] xl:w-[210px] 2xl:w-[246px] sm:h-[130px] md:h-[160px] lg:h-[200px] xl:h-[240px] 2xl:h-[270px] overflow-hidden cursor-pointer">
-        {stockStatus === "OUT_OF_STOCK" && (
-          <div className="absolute inset-0 w-full h-full bg-black/60 flex items-center justify-center">
-            <h3 className="font-rajdhaniFont font-bold text-[16px] text-[#FF374E] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px]">
-              SOLD OUT
-            </h3>
-          </div>
-        )}
-
         <div
-          className="w-full h-full bg-cover bg-center"
+          className="w-full h-full bg-cover bg-center hover:scale-105 transition-transform duration-500"
           style={{ backgroundImage: `url(${poster})` }}
           onClick={() => router.push(`/products/view/?id=${id}`)}
         ></div>
+
+        <div
+          className={`absolute inset-0 w-full h-full bg-black/60 ${
+            stockStatus === "OUT_OF_STOCK"
+              ? "flex items-center justify-center"
+              : "hidden"
+          }`}
+          onClick={() => router.push(`/products/view/?id=${id}`)}
+        >
+          <h3 className="font-rajdhaniFont font-bold text-[16px] text-[#FF374E] -translate-y-[0.3em] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px]">
+            SOLD OUT
+          </h3>
+        </div>
 
         {wishList ? (
           <IoHeartSharp
