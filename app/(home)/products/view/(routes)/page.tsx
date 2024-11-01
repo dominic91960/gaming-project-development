@@ -296,7 +296,7 @@ export default function ProductPage() {
   return (
     <Suspense fallback={<Spinner loading={true} />}>
       <>
-        <Toaster title={""} description={""} variant={""}  />
+        <Toaster  />
         <section className="bg-[#051301] font-primaryFont text-white">
           {/* Image area with gradient */}
           <div
