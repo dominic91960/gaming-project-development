@@ -27,6 +27,7 @@ import Spinner from "@/components/Spinner/Spinner";
 import { AuthProvider } from "@/context/AuthContext";
 import { OrderProvider } from "@/context/OrderContext";
 import { WishlistProvider } from "@/context/WishListContext";
+import axios from "axios";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
@@ -36,21 +37,92 @@ const AdminPanel: React.FC = () => {
   >(undefined);
 
   const router = useRouter();
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user");
+  //   if (user) {
+  //     const parsedUser = JSON.parse(user);
+  //     if (parsedUser.role.name === "ADMIN") {
+  //       setIsAuthorized(true);
+  //     } else {
+  //       // toast.error("You Are Not Admin");
+  //       router.push("/"); // Redirect if not admin
+  //     }
+  //   } else {
+  //     // toast.error("You Are Not Admin");
+  //     router.push("/sign-in"); // Redirect if no user found
+  //   }
+  // }, [router]);
+
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      if (parsedUser.role.name === "ADMIN") {
-        setIsAuthorized(true);
-      } else {
-        // toast.error("You Are Not Admin");
-        router.push("/"); // Redirect if not admin
+    const verification = async () =>{
+      const user = localStorage.getItem("user");
+      if (user && localStorage.getItem("accessToken")) {
+        try {
+          console.log("Verifying session...", localStorage.getItem("accessToken"));
+          const res = await axios.get(
+              process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
+              {
+                  headers: {
+                      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                  },
+              }
+          );
+
+          console.log("res....................", res);
+          if (res.status === 200) {
+            console.log("Authorized");
+              // return true;
+              const parsedUser = JSON.parse(user);
+              setIsAuthorized(true);
+              if (parsedUser.role.name === "ADMIN") {
+                router.push("/admin");
+              }else{
+                setIsAuthorized(true);
+              }
+              return;
+          } else {
+            console.log("Unauthorized.....................");
+            router.push("/");
+            throw new Error("Unauthorized");
+          }
+      } catch (error) {
+          // console.log(error);
+          localStorage.clear();
+          // setIsAuthorized(true);
+          router.push("/");
+          return;
       }
-    } else {
-      // toast.error("You Are Not Admin");
-      router.push("/sign-in"); // Redirect if no user found
+      } else {
+        localStorage.clear();
+        router.push("/");
+    
+      }
+
     }
-  }, [router]);
+
+    verification();
+
+//     const user = localStorage.getItem("user");
+
+
+//     if (user) {
+//       if (await verification()) {
+      
+//       const parsedUser = JSON.parse(user);
+//       if (parsedUser.role.name === "ADMIN") {
+//         router.push("/admin");
+//       } else {
+//         setIsAuthorized(true);
+//       }
+//     }else{
+//       localStorage.clear();
+//       router.push("/");
+//     }
+//   }
+//  else {
+//       setIsAuthorized(true);
+//     }
+  }, []);
 
   const handleSelect = (content: string) => {
     setSelectedContent(content);

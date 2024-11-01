@@ -96,8 +96,9 @@ const SignUp = () => {
 
     try {
       const url = process.env.NEXT_PUBLIC_BASE_URL + "/auth/register";
+      const username = data.email.split('@')[0];
       const response = await axios.post(url, {
-        username: data.email,
+        username: username,
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,

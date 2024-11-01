@@ -108,7 +108,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
               console.log("res",res);
               if(res.status === 200){
                 // setProfile((prev) => ({ ...prev, ...updatedProfile }));
-                toast.success("Profile updated successfully");
+                // toast.success("Profile updated successfully");
               }else{
                 throw new Error("Error updating profile");
               }
