@@ -156,7 +156,7 @@ export default function ProductsPage() {
               </AccordionTrigger>
               <AccordionContent className="text-[13px] font-medium py-[0.6em] border-t-[#8C8C8C] border-t">
                 <Slider
-                  defaultValue={[33]}
+                  defaultValue={[0]}
                   max={100}
                   step={1}
                   className="my-[27px] cursor-pointer"
