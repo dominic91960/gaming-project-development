@@ -1,3 +1,4 @@
+"use client";
 import { FaCircle } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import Image from "next/image";
@@ -7,9 +8,22 @@ import ProductSearchBar from "@/components/product-search/product-search";
 import Footer from "@/components/footer/footer";
 import BillingDetailsForm from "./Billing-Details";
 import OrderDetails from "./OrderDetails";
+import { useCartContext } from "@/context/CartContext";
 // import OrderDetails from "@/components/billing/OrderDetails";
 
 function BillingPage() {
+  const {
+    cart,
+    removeItem,
+    increaseQuantity,
+    decreaseQuantity,
+    totalPrice,
+    totalItems,
+    setDiscount,
+    totalDiscount,
+    discountData,
+    proceedCheckout,
+  } = useCartContext();
   return (
     // <div className={montserrat.className}>
     <div>
@@ -98,7 +112,7 @@ function BillingPage() {
         <div className="flex flex-col md:flex-row gap-6 xl:gap-28 lg:px-16 mx-auto container px-[2em] md:px-0 py-[1em]">
           <BillingDetailsForm />
           {/* <OrderDetails /> */}
-          <OrderDetails />
+          <OrderDetails cart={cart} totalDiscount={totalDiscount} totalPrice={totalPrice} />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-100"></div>
       </div>
