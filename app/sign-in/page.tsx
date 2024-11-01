@@ -18,8 +18,6 @@ import Logo from "../../public/images/logo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import AuthNavbar from "@/components/navbar/AuthNavbar";
 import Spinner from "@/components/Spinner/Spinner";
-import { Toaster } from "@/components/ui/toaster";
-import { useToast } from "@/hooks/use-toast";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -36,7 +34,6 @@ interface SignInFormInputs {
 }
 
 const SignIn = () => {
-  const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<boolean>(false);
@@ -92,10 +89,6 @@ const SignIn = () => {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("user", JSON.stringify(user));
-        toast({
-          variant: "success",
-          title: message,
-        });
 
         // Redirect to home page
         // router.push("/admin");
@@ -110,10 +103,6 @@ const SignIn = () => {
     } catch (error: any) {
       setErrorMessage(error.response.data.message);
       setError(true);
-      toast({
-        variant: "error",
-        title: error.response.data.message,
-      });
     }
   };
   // const handleGoogleLogin = () => {
@@ -179,7 +168,6 @@ const SignIn = () => {
 
   return (
     <section className="h-full flex flex-col bg-[#0B0E13] text-white">
-      <Toaster />
       <ProductSearchBar />
       {/* <Navbar /> */}
       {/* <AuthNavbar /> */}

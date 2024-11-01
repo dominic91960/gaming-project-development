@@ -20,8 +20,6 @@ import axiosInstance from "@/axios/axiosInstance";
 
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import "./shopping-cart-sidebar.css";
-import { Toaster } from "@/components/ui/toaster";
-import { useToast } from "@/hooks/use-toast";
 
 type CartItem = {
   id: number;
@@ -39,7 +37,6 @@ type CartSidebarProps = {
 };
 
 const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
-  const { toast } = useToast();
   const {
     cart,
     removeItem,
@@ -84,23 +81,11 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
 
         // Update applied discount
         setDiscountApplied(response.data.discount);
-        toast({
-          variant: "success",
-          title: "Discount applied successfully",
-        });
       } else {
         setDiscountMessage("Your discount code is invalid");
-        toast({
-          variant: "error",
-          title: "Your discount code is invalid",
-        });
       }
     } catch (error) {
       setDiscountMessage("Your discount code is incorrect");
-      toast({
-        variant: "error",
-        title: "Your discount code is incorrect",
-      });
     }
   };
 
@@ -121,7 +106,6 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
     <>
       <Sheet>
         <div className="relative z-[999]">
-          <Toaster  />
         </div>
         <SheetTrigger asChild>{children}</SheetTrigger>
         {/* <SheetContent className="w-[550px] backdrop-blur-lg backdrop-opacity-70 bg-[#05130166]"> */}

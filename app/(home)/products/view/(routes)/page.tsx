@@ -40,8 +40,6 @@ import "../_components/product.css";
 import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
 import AccessDeniedModal from "@/components/access-denied-modal/AccessDeniedModal";
 import axios from "axios";
-import { Toaster } from "@/components/ui/toaster";
-import { useToast } from "@/hooks/use-toast";
 
 export default function ProductPage() {
   const searchParams = useSearchParams();
@@ -57,7 +55,6 @@ export default function ProductPage() {
   const router = useRouter();
   const { user } = useAuthContext();
   const [verifySession, setVerifySession] = useState<boolean>(false);
-  const { toast } = useToast();
 
   useEffect(() => {
     const verifySession = async () => {
@@ -274,17 +271,8 @@ export default function ProductPage() {
     try {
       const response = await axiosInstance.post(`/reviews`, newReview);
       const { message } = response.data;
-      console.log(response.data, "review data");
-      toast({
-        variant: "success",
-        title: message,
-      });
       getReviewsByGameId(id);
     } catch (error: any) {
-      toast({
-        variant: "error",
-        title: error.response.data.message,
-      });
     } finally {
       setComment("");
       setRate(0);
@@ -296,7 +284,6 @@ export default function ProductPage() {
   return (
     <Suspense fallback={<Spinner loading={true} />}>
       <>
-        <Toaster  />
         <section className="bg-[#051301] font-primaryFont text-white">
           {/* Image area with gradient */}
           <div
