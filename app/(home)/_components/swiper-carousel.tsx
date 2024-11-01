@@ -136,60 +136,7 @@ const SwiperCarousel = () => {
       <div className="absolute top-0 w-full h-2/5 bg-gradient-to-b from-black to-transparent"></div>
 
       <div className="relative container mx-auto pb-[2em] z-20">
-        <Swiper
-          modules={[EffectCoverflow, Pagination, Autoplay]}
-          speed={1500}
-          loop={true}
-          effect={"coverflow"}
-          grabCursor={true}
-          centeredSlides={true}
-          slidesPerView={"auto"}
-          coverflowEffect={{
-            rotate: 55,
-            stretch: 40,
-            depth: 400,
-            modifier: 1,
-            scale: 0.6,
-            slideShadows: false,
-          }}
-          pagination={{ clickable: true }}
-          autoplay={{ disableOnInteraction: false, pauseOnMouseEnter: true }}
-          onSlideChange={handleSlideChange}
-          className="mySwiper"
-        >
-          {data.length > 0
-            ? data.map(
-                (
-                  {
-                    id,
-                    poster,
-                    title,
-                    rating,
-                    description,
-                    price,
-                    wishlistedBy,
-                    releaseDate,
-                    soldOut,
-                  },
-                  i
-                ) => (
-                  <SwiperSlide key={id}>
-                    <SwiperCarouselCard
-                      id={gameData[i]?.id ||id}
-                      poster={gameData[i]?.screenshots[i] || gameData[i]?.coverImage ||poster}
-                      title={gameData[i]?.displayName || title}
-                      rating={Math.round(gameData[i]?.averageRating ||rating)}
-                      description={gameData[i]?.aboutThisGame ||description}
-                      price={gameData[i]?.sellingPrice ||price}
-                      /* wishlistedBy={wishlistedBy} */
-                      releaseDate={gameData[i]?.releaseDate ||releaseDate}
-                      soldOut={(gameData[i]?.stockStatus === "IN_STOCK" ? false:true) ||soldOut}
-                    />
-                  </SwiperSlide>
-                )
-              )
-            : ""}
-        </Swiper>
+       
         <style>{`
             .swiper {
               width: 100%;
