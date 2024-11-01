@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { IoClose } from "react-icons/io5";
 import axiosInstance from "@/axios/axiosInstance";
-import toast from "react-hot-toast";
+import { useToast } from "@/hooks/use-toast";
+// import toast from "react-hot-toast";
+
 
 interface EditPasswordProps {
   password: string;
@@ -40,6 +42,8 @@ const EditPassword: React.FC<EditPasswordProps> = ({
   const [isCurrentPasswordWrong, setIsCurrentPasswordWrong] = useState(false);
   const [isConfirmPasswordWrong, setIsConfirmPasswordWrong] = useState(false);
 
+  const { toast } = useToast();
+
   const hanldeSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -62,7 +66,11 @@ const EditPassword: React.FC<EditPasswordProps> = ({
       console.log(res);
       if (res.status === 200) {
         console.log('Password updated successfully');
-        toast.success('Password updated successfully');
+        // toast.success('Password updated successfully');
+        toast({
+          variant: "success",
+          title: "Password updated successfully",
+        });
         axiosInstance.patch("/auth/logout");
         localStorage.clear();
         window.location.href = "/sign-in";
@@ -73,7 +81,8 @@ const EditPassword: React.FC<EditPasswordProps> = ({
       }
     } catch (error) {
       console.error(error);
-      toast.error('Failed to update password');
+      setIsCurrentPasswordWrong(true);
+      // toast.error('Failed to update password');
     }
     // const res = axiosInstance.patch('/auth/update-password', data);
 
@@ -82,9 +91,9 @@ const EditPassword: React.FC<EditPasswordProps> = ({
 
     setProfile((prev) => ({
       ...prev,
-      password: updatedPassword,
+      password: "xxxxxxxx",
     }));
-    onClose();
+    // onClose();
   };
 
   return (
@@ -150,7 +159,7 @@ const EditPassword: React.FC<EditPasswordProps> = ({
             </div>
           </div>
           {isCurrentPasswordWrong && (
-            <p className="mt-[0.5em] text-[0.8em] text-[#8b8b8b]">
+            <p className="mt-[0.5em] text-[0.8em] text-red-500">
               Incorrect password. Please check and try again.
             </p>
           )}
@@ -176,7 +185,7 @@ const EditPassword: React.FC<EditPasswordProps> = ({
             </div>
           </div>
           {isConfirmPasswordWrong && (
-            <p className="mt-[0.5em] text-[0.8em] text-[#8b8b8b]">
+            <p className="mt-[0.5em] text-[0.8em] text-red-500">
               Passwords mismatch. Make sure they are identical.
             </p>
           )}
