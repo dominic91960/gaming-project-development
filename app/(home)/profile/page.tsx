@@ -35,6 +35,7 @@ const recentActivity = [
     rating: 5,
     originalPrice: 299,
     discountPrice: 399,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -43,6 +44,7 @@ const recentActivity = [
     rating: 4.5,
     originalPrice: 199,
     discountPrice: 249,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -51,6 +53,7 @@ const recentActivity = [
     rating: 4.8,
     originalPrice: 329,
     discountPrice: 379,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -59,6 +62,7 @@ const recentActivity = [
     rating: 4.2,
     originalPrice: 249,
     discountPrice: 299,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -67,6 +71,7 @@ const recentActivity = [
     rating: 4.0,
     originalPrice: 199,
     discountPrice: 259,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -75,6 +80,7 @@ const recentActivity = [
     rating: 4.7,
     originalPrice: 299,
     discountPrice: 349,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -83,6 +89,7 @@ const recentActivity = [
     rating: 4.9,
     originalPrice: 399,
     discountPrice: 499,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -91,6 +98,7 @@ const recentActivity = [
     rating: 4.1,
     originalPrice: 279,
     discountPrice: 339,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -99,6 +107,7 @@ const recentActivity = [
     rating: 4.4,
     originalPrice: 259,
     discountPrice: 309,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -107,6 +116,7 @@ const recentActivity = [
     rating: 4.9,
     originalPrice: 349,
     discountPrice: 429,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -115,6 +125,7 @@ const recentActivity = [
     rating: 5,
     originalPrice: 399,
     discountPrice: 499,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -123,6 +134,7 @@ const recentActivity = [
     rating: 4.8,
     originalPrice: 299,
     discountPrice: 379,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -131,6 +143,7 @@ const recentActivity = [
     rating: 4.9,
     originalPrice: 349,
     discountPrice: 449,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -139,6 +152,7 @@ const recentActivity = [
     rating: 4.6,
     originalPrice: 299,
     discountPrice: 349,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -147,6 +161,7 @@ const recentActivity = [
     rating: 4.5,
     originalPrice: 249,
     discountPrice: 299,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -155,6 +170,7 @@ const recentActivity = [
     rating: 4.3,
     originalPrice: 229,
     discountPrice: 279,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -163,6 +179,7 @@ const recentActivity = [
     rating: 4.8,
     originalPrice: 369,
     discountPrice: 449,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -171,6 +188,7 @@ const recentActivity = [
     rating: 4.9,
     originalPrice: 349,
     discountPrice: 429,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -179,6 +197,7 @@ const recentActivity = [
     rating: 4.7,
     originalPrice: 299,
     discountPrice: 369,
+    stockStatus: "OUT_OF_STOCK",
   },
   {
     poster: samplePic.src,
@@ -187,6 +206,7 @@ const recentActivity = [
     rating: 5,
     originalPrice: 399,
     discountPrice: 499,
+    stockStatus: "OUT_OF_STOCK",
   },
 ];
 
@@ -569,6 +589,7 @@ interface RecentActivity {
   rating: number;
   originalPrice: number;
   discountPrice: number;
+  stockStatus: string;
 }
 
 interface Profile {

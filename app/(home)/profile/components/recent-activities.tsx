@@ -12,6 +12,7 @@ interface RecentActivitiesProps {
     rating: number;
     originalPrice: number;
     discountPrice: number;
+    stockStatus: string;
   }[];
   productsPerPage: number;
   totalPages: number;
@@ -37,11 +38,19 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({
       >
         {displayedProducts.map(
           (
-            { poster, name, desc, rating, originalPrice, discountPrice },
+            {
+              poster,
+              name,
+              desc,
+              rating,
+              originalPrice,
+              discountPrice,
+              stockStatus,
+            },
             index
           ) => (
             <ProductCard
-              id="1" 
+              id="1"
               wishList={false}
               key={index}
               poster={poster}
@@ -50,6 +59,7 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({
               rating={rating}
               originalPrice={originalPrice}
               discountPrice={discountPrice}
+              stockStatus={stockStatus}
             />
           )
         )}
