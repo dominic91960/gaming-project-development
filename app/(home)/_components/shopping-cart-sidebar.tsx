@@ -105,8 +105,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
   return (
     <>
       <Sheet>
-        <div className="relative z-[999]">
-        </div>
+        <div className="relative z-[999]"></div>
         <SheetTrigger asChild>{children}</SheetTrigger>
         {/* <SheetContent className="w-[550px] backdrop-blur-lg backdrop-opacity-70 bg-[#05130166]"> */}
         <SheetContent className="w-[550px]  shopping-cart-sidebar-main-div">
@@ -128,7 +127,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
             </div>
           </SheetHeader>
 
-          <div className="relative ">
+          <div className="relative">
             {cart.map((item) => (
               <div
                 key={item.id}
@@ -330,40 +329,41 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
             {/* <p className="text-white mt-2">{discountMessage}</p> */}
           </div>
 
-          <div className="flex flex-col items-center gap-4">
-            {" "}
+          <div>
             <SheetClose asChild>
-              <Button
-                variant="gaming"
-                className="mt-4 w-[200px]"
-                onClick={() => {
-                  proceedCheckout();
-                  // Ensure discountCode is defined before creating the order
-                  /* if (discountCode) {
+              <div className="flex flex-col items-center gap-4">
+                <Button
+                  variant="gaming"
+                  className="mt-4 w-[200px]"
+                  onClick={() => {
+                    proceedCheckout();
+                    // Ensure discountCode is defined before creating the order
+                    /* if (discountCode) {
                 proceedCheckout(discountCode);
               } else {
                 toast.error(
                   "Please enter a valid discount code before proceeding."
                 );
               } */
-                }}
-              >
-                <p className="font-primaryFont text-[15px] font-semibold text-black">
-                  Proceed to Checkout
-                </p>
-              </Button>
+                  }}
+                >
+                  <p className="font-primaryFont text-[15px] font-semibold text-black">
+                    Proceed to Checkout
+                  </p>
+                </Button>
+                <Button
+                  variant={"outline"}
+                  className="rounded-none bg-white w-[200px]"
+                  onClick={() => {
+                    router.push("/cart");
+                  }}
+                >
+                  <p className="font-primaryFont text-[15px] font-semibold text-black">
+                    View Cart
+                  </p>
+                </Button>
+              </div>
             </SheetClose>
-            <Button
-              variant={"outline"}
-              className="rounded-none bg-white w-[200px]"
-              onClick={() => {
-                router.push("/cart");
-              }}
-            >
-              <p className="font-primaryFont text-[15px] font-semibold text-black">
-                View Cart
-              </p>
-            </Button>
           </div>
         </SheetContent>
       </Sheet>

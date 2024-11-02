@@ -1,6 +1,7 @@
 .shopping-cart-sidebar-main-div {
   background-color: rgba(5, 19, 1, 0.1); /* Color #051301 with 40% opacity */
   backdrop-filter: blur(20px); /* Apply a blur effect of 60px */
+  overflow: auto;
 }
 
 .shopping-cart-sidebar-card-item {
