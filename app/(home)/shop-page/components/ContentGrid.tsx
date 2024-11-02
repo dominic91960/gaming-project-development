@@ -327,7 +327,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       {loading ? (
         <Spinner loading={loading} />
       ) : (
-        <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 2xl:gap-4 xl:gap-16 lg:gap-12 md:gap-4">
+        <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 2xl:gap-4 xl:gap-16 lg:gap-12 md:gap-4 sm:gap-2 gap-2 justify-items-center">
           {games.map((game, index) => (
             <ProductCard
               key={index}
