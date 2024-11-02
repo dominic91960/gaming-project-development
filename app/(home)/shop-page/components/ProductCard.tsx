@@ -120,17 +120,7 @@ const ProductCard: React.FC<Game> = ({
       </div>
 
       <div className="border border-[#666a65] p-3  text-white relative w-full  cursor-pointer">
-        {soldOut && (
-          <div className="absolute top-0 right-0  backdrop-blur-sm bg-black/30 text-white p-1 h-full w-full flex items-center justify-center">
-            <div className="flex items-center justify-center">
-              <p className="text-[#FF374E] text-center font-primaryFont font-bold text-[25px]">
-                SOLD OUT
-              </p>
-            </div>
-          </div>
-        )}
-
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center relative">
           <img
             src={cardImage}
             onClick={() => {
@@ -139,6 +129,16 @@ const ProductCard: React.FC<Game> = ({
             alt="Game Card"
             className="mb-4 w-[244px] h-[268px]"
           />
+
+          {soldOut && (
+            <div className="absolute top-0 right-0  backdrop-blur-sm bg-black/30 text-white p-1 h-full w-full flex items-center justify-center">
+              <div className="flex items-center justify-center">
+                <p className="text-[#FF374E] text-center font-primaryFont font-bold text-[25px]">
+                  SOLD OUT
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         <div
