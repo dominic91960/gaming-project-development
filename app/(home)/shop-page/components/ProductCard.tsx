@@ -162,7 +162,7 @@ const ProductCard: React.FC<Game> = ({
           </div> */}
 
           {/* New code - if no rating added empty starts added */}
-          <div className="flex gap-1 text-[#f29d38] bg-slate-600 h-[25px]">
+          <div className="flex gap-1 text-[#f29d38] h-[25px]">
             {rating > 0 ? (
               Array.from({ length: rating }, (_, index) => (
                 <IoIosStar key={index} className="text-[23px]" />
