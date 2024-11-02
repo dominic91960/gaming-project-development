@@ -28,6 +28,18 @@ type Discount = {
   type: string;
 };
 
+type BillingData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  country: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  message: string;
+};
+
 // Define the context properties interface
 interface CartContextProps {
   cart: CartItem[];
@@ -41,7 +53,7 @@ interface CartContextProps {
   totalItems: number;
   totalDiscount: number;
   viewCart: () => CartItem[];
-  createOrder: (discountCode?: string) => Promise<void>;
+  createOrder: (billingData: BillingData) => Promise<void>;
   proceedCheckout: (discountCode?: string) => Promise<void>;
   discountData: Discount; // Expose discount data for other components
 }
@@ -62,7 +74,6 @@ export const useCartContext = () => {
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
-
   const [cart, setCart] = useState<CartItem[]>(() => {
     if (typeof window !== "undefined") {
       const storedCart = localStorage.getItem("cart");
@@ -74,7 +85,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [discountData, setDiscountData] = useState<Discount>(() => {
     if (typeof window !== "undefined") {
       const storedDiscount = localStorage.getItem("discountData");
-      return storedDiscount ? JSON.parse(storedDiscount) : { code: "", discount: 0, id: "", type: "" };
+      return storedDiscount
+        ? JSON.parse(storedDiscount)
+        : { code: "", discount: 0, id: "", type: "" };
     }
     return { code: "", discount: 0, id: "", type: "" };
   });
@@ -88,7 +101,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }, [discountData]);
 
   const addItem = (item: CartItem) => {
-    console.log("add item", item)
+    console.log("add item", item);
     setCart((prevCart) => {
       const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
       if (existingItem) {
@@ -163,42 +176,41 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return cart;
   };
 
-  const createOrder = async (discountCode?: string) => {
+  const createOrder = async (billingData: BillingData) => {
     const user = JSON.parse(localStorage.getItem("user") as string);
-
-    if (!user || !user.id) {
-      console.error("User ID not found");
-      return;
-    }
-
+    
     const products = cart.map((item) => ({
       gameId: item.id,
       quantity: item.quantity,
     }));
-
-    const coupons = discountCode ? [discountCode] : [];
-
+  
+    const couponCode = discountData ? discountData.code : null;
+  
     try {
-      const response = await axiosInstance.post(`orders/${user.id}`, {
-        userId: user.id,
+      const response = await axiosInstance.post(`/orders`, {
+        userId: user?.id || null,
         products: products,
-        coupons: coupons,
+        coupon: couponCode,
+        billingData: billingData,
       });
-
+  
       // Clear the cart and discount data after a successful order
       clearCart();
-      setDiscount({ code: "", discount: 0, id: "", type: "" }); // Reset discount
-      localStorage.removeItem("discountData"); // Clear discount data from localStorage
-
+      setDiscount({ code: "", discount: 0, id: "", type: "" });
+      localStorage.removeItem("discountData");
+  
       console.log("Order created successfully:", response.data);
+      router.push("/");
     } catch (error) {
       console.error("Error creating order:", error);
     }
   };
+  
+  
 
   const proceedCheckout = async () => {
     router.push("/payment");
-  }
+  };
 
   return (
     <CartContext.Provider

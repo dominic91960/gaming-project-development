@@ -2,7 +2,7 @@
 import React, { use, useEffect, useState } from "react";
 import Image from "next/image";
 import gameCard from "@/public/images/shop/game-card.png";
-import { IoIosStar } from "react-icons/io";
+import { IoIosStar, IoIosStarOutline } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 
@@ -155,9 +155,16 @@ const ProductCard: React.FC<Game> = ({
         <div className="h-[1px] bg-[#666a65] mb-2"></div>
         <div className="flex items-center justify-between mb-2">
           <div className="flex gap-1 text-[#f29d38]">
-            {Array.from({ length: rating }, (_, index) => (
-              <IoIosStar key={index} className="text-[23px]" />
-            ))}
+            {rating == 0 ? (
+              <><IoIosStarOutline className="text-[23px]" /><IoIosStarOutline className="text-[23px]" /><IoIosStarOutline className="text-[23px]" /><IoIosStarOutline className="text-[23px]" /><IoIosStarOutline className="text-[23px]" />
+              </>
+            ) : (
+              <>
+                {Array.from({ length: rating }, (_, index) => (
+                  <IoIosStar key={index} className="text-[23px]" />
+                ))}
+              </>
+            )}
           </div>
 
           <CartSidebar>
