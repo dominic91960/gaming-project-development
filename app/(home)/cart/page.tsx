@@ -145,7 +145,7 @@ const Cart: React.FC = () => {
           </div>
         </div>
 
-        <div className="h-full container mx-auto 2xl:px-6 xl:px-8 lg:px-4">
+        <div className="h-full container mx-auto 2xl:px-6 xl:px-8 lg:px-4 mb-16">
           <div className="grid grid-cols-12 gap-16 content-start">
             <div className="col-span-8">
               {cart.map((item) => (
@@ -357,6 +357,8 @@ const Cart: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <Footer />
       </div>
     </div>
   );
