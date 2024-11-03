@@ -29,7 +29,8 @@ interface AllOrdersNew {
 
 interface OrderContextProps {
   allOrders: AllOrdersNew[];
-  loading: boolean; // Expose loading state to manage spinner outside
+  loading: boolean;
+  getAllOrders:() => void;
 }
 
 const OrderContext = createContext<OrderContextProps | undefined>(undefined);
@@ -53,7 +54,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
 
   const getAllOrders = async () => {
     try {
-      const response = await axiosInstance.get("orders");
+      const response = await axiosInstance.get("/orders");
       setAllOrders(response.data)
 
       showToast(true, response.data.message);
@@ -70,7 +71,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <OrderContext.Provider value={{ allOrders, loading }}>
+    <OrderContext.Provider value={{ allOrders, loading, getAllOrders }}>
       {children}
     </OrderContext.Provider>
   );

@@ -23,6 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useOrderContext } from "@/context/OrderContext";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -37,6 +38,9 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+  
+
+  const {getAllOrders} = useOrderContext();
 
   const table = useReactTable({
     data,
@@ -55,7 +59,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 justify-between">
         <Input
           placeholder="Filter Name..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -64,6 +68,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+        <Button onClick={getAllOrders}>Refresh</Button>
       </div>
       <div className="rounded-md border text-white">
         <Table>

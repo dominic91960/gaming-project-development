@@ -128,7 +128,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
             </div>
           </SheetHeader>
 
-          <div className="relative ">
+          <div className="relative">
             {cart.map((item) => (
               <div
                 key={item.id}
