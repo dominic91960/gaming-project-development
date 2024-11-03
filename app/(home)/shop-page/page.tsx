@@ -11,6 +11,8 @@ import { useState } from "react";
 import Spinner from "@/components/Spinner/Spinner";
 import { TbLayoutSidebarLeftExpandFilled } from "react-icons/tb";
 
+import mobileSidebarIcon from "../../../public/images/shop/sidebarToggleIcon.png";
+
 type FilterParams = {
   rating: number;
   price: number;
@@ -86,15 +88,22 @@ const ShopPage = () => {
         {" "}
         <div className="absolute top-0 left-0 z-50 block lg:hidden">
           <button
-            className="z-50 bg-blue-500 text-white px-4 py-2 rounded"
+            // className="z-50 bg-blue-500 text-white px-4 py-2 rounded"
+            className="z-50  px-2 pb-6 text-white rounded"
             onClick={toggleSidebar}
           >
-            <TbLayoutSidebarLeftExpandFilled />
+            {/* <TbLayoutSidebarLeftExpandFilled /> */}
+
+            <Image
+              src={mobileSidebarIcon}
+              alt="mobile sidebar toggle icon"
+              className="w-[26px] h-[26px]"
+            />
           </button>
 
-          {/* Sidebar */}
+          {/* Sidebar for mobile */}
           <div
-            className={`h-full w-64 transform ${
+            className={`h-full w-64 transform bg-[#0D0F10] ${
               isSidebarOpen ? "translate-x-0" : "-translate-x-full"
             } transition-transform duration-300 ease-in-out`}
           >
