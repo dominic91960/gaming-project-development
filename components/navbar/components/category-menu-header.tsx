@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 import { IoIosArrowBack } from "react-icons/io";
 import { AiOutlineClose } from "react-icons/ai";
@@ -67,14 +66,13 @@ const CategoryMenuHeader: React.FC<CategoryMenuHeaderProps> = ({
 
   let content = (
     <div className="w-full h-full flex items-center justify-center">
-      <Link
-        href="/"
+      <button
         className="flex items-center gap-[0.8em] translate-y-[0.2em]"
         onClick={handleLogoClick}
       >
         <Image src={logo} alt="VINGAME" className="w-auto h-[70px]" />
         <h4 className="font-semibold">VINGAME</h4>
-      </Link>
+      </button>
     </div>
   );
 
@@ -119,7 +117,7 @@ const CategoryMenuHeader: React.FC<CategoryMenuHeaderProps> = ({
     );
 
   return (
-    <div className="w-full h-[120px] text-[28px] border-b border-b-white/50">
+    <div className="w-full h-[120px] text-[22px] border-b border-b-white/50 sm:text-[23px] md:text-[24px] lg:text-[25px] xl:text-[26px] 2xl:text-[28px]">
       {content}
     </div>
   );

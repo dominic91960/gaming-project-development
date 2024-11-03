@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import { PiWarningCircleLight } from "react-icons/pi";
 import { LiaAngleRightSolid } from "react-icons/lia";
-import { IoMdHeartEmpty, IoIosCart } from "react-icons/io";
+import { IoMdHeart, IoMdHeartEmpty, IoIosCart } from "react-icons/io";
 import { MdOutlineSpeakerNotesOff } from "react-icons/md";
 import { RiEmotionSadLine } from "react-icons/ri";
 import { FaBell } from "react-icons/fa";
@@ -427,7 +427,7 @@ export default function ProductPage() {
                       }}
                     >
                       {/* Game title */}
-                      <h3 className="uppercase font-bold text-[1.2em] border-b">
+                      <h3 className="max-w-[20ch] uppercase font-bold text-[1.2em] border-b">
                         {gameData.title}
                       </h3>
 
@@ -522,16 +522,16 @@ export default function ProductPage() {
                         </h4>
 
                         <p className="text-[0.75em] mb-[1em]">
-                          Want this game? We can notify you via email <br />
-                          when the product becomes available again.
+                          Want this game? Add it to your wishlist <br /> to keep
+                          track of it while it&apos;s sold out.
                         </p>
 
                         <Button
                           variant="gaming"
                           className="w-[70%] h-[2em] text-[0.9em] px-[1em] py-0 font-semibold"
                         >
-                          <FaBell className="me-[0.3em]" />
-                          Notification
+                          <IoMdHeart className="text-[1.2em] me-[0.1em]" />
+                          Add to Wishlist
                         </Button>
                       </div>
                     </div>
@@ -648,16 +648,16 @@ export default function ProductPage() {
                     </h4>
 
                     <p className="text-[0.75em] mb-[1em]">
-                      Want this game? We can notify you via email when the
-                      product becomes available again.
+                      Want this game? Add it to your wishlist <br /> to keep
+                      track of it while it&apos;s sold out.
                     </p>
 
                     <Button
                       variant="gaming"
                       className="w-[70%] h-[2em] text-[0.9em] px-[1em] py-0 font-semibold"
                     >
-                      <FaBell className="me-[0.3em]" />
-                      Notification
+                      <IoMdHeart className="text-[1.2em] me-[0.1em]" />
+                      Add to Wishlist
                     </Button>
                   </div>
                 </div>
@@ -845,13 +845,13 @@ export default function ProductPage() {
                     <div className="flex items-center gap-x-[1.5em]">
                       <div>
                         {user && (
-                         <Image
-                         src={user?.profile_image || samplePic}
-                         alt="username"
-                         width={72}
-                         height={72}
-                         className="rounded-full"
-                       />
+                          <Image
+                            src={user?.profile_image || samplePic}
+                            alt="username"
+                            width={72}
+                            height={72}
+                            className="rounded-full"
+                          />
                         )}
                       </div>
                       <div>
@@ -914,7 +914,7 @@ export default function ProductPage() {
                 </div>
 
                 {/* Review card */}
-                <div className="flex justify-between flex-wrap">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 justify-between">
                   {/* {reviews.length > 0 ? (
                     reviews.map((review: any) => (
                       <p key={review.id}>
@@ -948,7 +948,7 @@ export default function ProductPage() {
                       )
                     )
                   ) : (
-                    <div className="w-full h-[20em] bg-white/5 flex flex-col items-center justify-center text-[8px] pb-[1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
+                    <div className="w-full h-[20em] col-span-3 bg-white/5 flex flex-col items-center justify-center text-[8px] pb-[1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
                       <MdOutlineSpeakerNotesOff className="text-[4em] opacity-80 animate-pulse" />
                       <p className="mt-[0.5em]">
                         No feedback available. You could be the first to write a

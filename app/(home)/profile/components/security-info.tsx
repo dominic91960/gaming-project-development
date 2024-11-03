@@ -40,7 +40,7 @@ const SecurityInfo: React.FC<SecurityInfoProps> = ({
       {/* Security info */}
       <form>
         {/* Password */}
-        <div className="flex items-center justify-between my-[0.6em] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[21px] 2xl:text-[23px]">
+        <div className="flex items-center justify-between my-[0.6em] text-[10px] leading-none sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[21px] 2xl:text-[23px]">
           <p>
             <span className="font-bold text">Password: </span>
             <input

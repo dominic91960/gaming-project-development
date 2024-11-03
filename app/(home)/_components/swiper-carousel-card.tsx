@@ -93,11 +93,14 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
   };
 
   const formatReleaseDate = (date: string) => {
-    const formattedValue = new Date(date).toLocaleDateString("en-US", {
+    let formattedValue = new Date(date).toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
       day: "numeric",
     });
+    formattedValue = `${formattedValue.split(" ")[0].substring(0, 3)} ${
+      formattedValue.split(" ")[1]
+    } ${formattedValue.split(" ")[2]}`;
 
     return formattedValue;
   };
@@ -158,9 +161,9 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
         </div>
 
         {/* Price and release date */}
-        <div className="flex justify-between pt-[1.5em]">
-          <h4>
-            <span className="text-[2em]">${price.toFixed(2)}</span>
+        <div className="flex items-end justify-between pt-[1.5em]">
+          <h4 className="leading-none">
+            <span className="text-[1.8em]">${price.toFixed(2)}</span>
             <span className="text-[1.1em]"> USD</span>
           </h4>
           <div>
@@ -173,15 +176,16 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
               ) : (
                 <IoHeartSharp className="text-[1.4em] me-[0.2em]" />
               )}
-
               {/* {formatWishlistedBy(wishlistedBy)} */}
             </p>
-            Release Date: {formatReleaseDate(releaseDate)}
+            <p className="leading-none mt-[0.3em] mb-[0.1em]">
+              Release Date: {formatReleaseDate(releaseDate)}
+            </p>
           </div>
         </div>
 
         {/* Actions */}
-        <div className="flex justify-between pt-[2em]">
+        <div className="flex justify-between pt-[2em] gap-x-[1em]">
           <Link href={`/products/view/?id=${id}`}>
             <Button
               variant="gaming"

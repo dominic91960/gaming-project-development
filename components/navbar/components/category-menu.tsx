@@ -37,7 +37,7 @@ const CategoryMenu: React.FC<CategoryMenuProps> = ({
   children,
 }) => {
   return (
-    <ul className="relative w-full h-[calc(100%-150px)] flex flex-col gap-[1.4em] text-[22px] py-[1.4em] bg-[#0D0F10]">
+    <ul className="relative w-full h-[calc(100%-150px)] flex flex-col gap-[1.4em] text-[16px] py-[1.4em] bg-[#0D0F10] sm:text-[17px] md:text-[18px] lg:text-[19px] xl:text-[20px] 2xl:text-[22px]">
       <Link href="/shop-page" className="hover:text-[#75F94C]">
         <li>All offers</li>
       </Link>
