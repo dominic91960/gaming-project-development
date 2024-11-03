@@ -5,34 +5,35 @@ import OrderItemsTable from "./_components/OrderItemsTable"; // Import the new c
 
 interface OrderItem {
   price: number;
+  quantity: number;
   game: {
     cardImage: string;
     displayName: string;
     id: string;
     regularPrice: number;
-    quantity: number;
   };
 }
-
 
 interface OrderDetailPopupProps {
   isOpen: boolean;
   onClose: () => void;
   products: OrderItem[];
+  order: any;
 }
 
 const OrderDetailPopup: React.FC<OrderDetailPopupProps> = ({
   isOpen,
   onClose,
   products,
+  order,
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogTitle className="text-white">{products[0].price}</DialogTitle>
         <div>
-          <OrderItemsTable products={products} />
-          <Button variant="outline" onClick={onClose}>
+          <OrderItemsTable products={products} order={order} />
+          <Button variant="outline" className="text-white" onClick={onClose}>
             Close
           </Button>
         </div>
