@@ -3,6 +3,7 @@ import { useState } from "react";
 import { uploadImage } from "@/components/helper/uploadImage";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CiImageOn } from "react-icons/ci";
+import Image from "next/image";
 
 interface ImageUploadProps {
   label: string;
@@ -11,7 +12,12 @@ interface ImageUploadProps {
   imageUrl?: string;
 }
 
-const ImageUpload = ({ label, aspectRatio, setImageUrl, imageUrl }: ImageUploadProps) => {
+const ImageUpload = ({
+  label,
+  aspectRatio,
+  setImageUrl,
+  imageUrl,
+}: ImageUploadProps) => {
   const [imageSrc, setImageSrc] = useState<string | null>(imageUrl || null);
 
   const handleImageUpload = async (
@@ -41,10 +47,11 @@ const ImageUpload = ({ label, aspectRatio, setImageUrl, imageUrl }: ImageUploadP
         >
           {imageSrc ? (
             <>
-              <img
+              <Image
                 src={imageSrc}
                 alt="Uploaded"
                 className="absolute top-0 left-0 object-cover w-full h-full"
+                fill
               />
               <button
                 className="absolute top-2 right-2 bg-black/40 text-white px-2 py-1 border rounded backdrop-blur-[2px] hover:opacity-85"
@@ -138,12 +145,17 @@ const ProductImages = ({
         />
         <div className="grid grid-cols-2 gap-x-[1em] mt-[1em] sm:grid-cols-3">
           <ImageUpload
-            label="Add video"
+            label="Add Image"
             aspectRatio="1920:1080"
             setImageUrl={setVideoUrl}
             imageUrl={videoUrl}
           />
-          {[galleryImages[0] ?? 1, galleryImages[1] ?? 2, galleryImages[2] ?? 3 , galleryImages[3] ?? 4].map((i, index) => (
+          {[
+            galleryImages[0] ?? 1,
+            galleryImages[1] ?? 2,
+            galleryImages[2] ?? 3,
+            galleryImages[3] ?? 4,
+          ].map((i, index) => (
             <ImageUpload
               key={index}
               label={`Add image`}
@@ -185,7 +197,6 @@ const ProductImages = ({
             className="bg-transparent border-[#606060] rounded-[2px] data-[state=checked]:bg-inherit data-[state=checked]:text-[#00FFA1]"
             checked={addToLatestGame}
             onCheckedChange={(checked: boolean) => setAddToLatestGame(checked)}
-            
           />
           <label
             htmlFor="add-to-latest"
