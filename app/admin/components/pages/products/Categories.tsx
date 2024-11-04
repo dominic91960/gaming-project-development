@@ -9,14 +9,10 @@ import toast from "react-hot-toast";
 import { useCategoryContext } from "../../../../../context/CategoryContext";
 
 export default function DemoPage() {
-  const [data, setData] = useState<Category[]>([]);
-  const [reload, setReload] = useState(false);
+  // const [reload, setReload] = useState(false);
   const [isEitOpen, setIsEditOpen] = useState(false);
-  const { categories } = useCategoryContext();
+  const { categories, deleteCategoriesById, loading } = useCategoryContext();
 
-  useEffect(() => {
-    setData(categories);
-  }, [reload]);
 
   const handleAddCategory = (newCategory: {
     name: string;
@@ -29,27 +25,15 @@ export default function DemoPage() {
     //   ...newCategory,
     // };
     // setData((prevData) => [...prevData, newEntry]);
-    setReload((prev) => !prev);
+    // setReload((prev) => !prev);
   };
 
   const handleDelete = async (id: string) => {
-    console.log("Delete", id);
     try {
-      const res = await axiosInstance.delete(`/categories/${id}`);
-      console.log("res", res);
-      if (res.status === 200) {
-        toast.success("Category deleted successfully");
-      } else if (res.status === 404) {
-        toast.error("Category not found");
-      } else {
-        toast.error("Failed to delete category");
-      }
+      await deleteCategoriesById(id);
     } catch (error) {
-      toast.error("Failed to delete category1");
-      console.log("errrrr", error);
+      console.error("Failed to delete category:", error);
     }
-    setReload((prev) => !prev);
-    // setData((prevData) => prevData.filter((item) => item.id !== id));
   };
 
   const handleEdit = (id: string) => {
@@ -70,7 +54,7 @@ export default function DemoPage() {
       </div>
       <DataTable
         columns={columns}
-        data={data}
+        data={categories}
         onDelete={handleDelete}
         onEdit={handleEdit}
         isEditOpen={isEitOpen}

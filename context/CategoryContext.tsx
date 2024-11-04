@@ -15,10 +15,19 @@ interface Category {
   imageUrl: string;
   level: number;
 }
+interface Category1 {
+  name: string;
+  description: string;
+  image: string;
+  level: any;
+  parentId: string | null;
+}
 
 interface CategoryContextProps {
   categories: Category[];
-  loading: boolean; // Expose loading state to manage spinner outside
+  loading: boolean;
+  deleteCategoriesById: (id: string) => void;
+  addNewcategory: (data: Category1) => void;
 }
 
 const CategoryContext = createContext<CategoryContextProps | undefined>(
@@ -73,15 +82,55 @@ export const CategoryProvider = ({ children }: { children: ReactNode }) => {
       setCategories(processedData);
       // showToast(true, "Categories fetched successfully"); // You can enable this toast if needed
     } catch (error: any) {
-      showToast(false, error.response?.data?.message || "Failed to fetch categories");
+      showToast(
+        false,
+        error.response?.data?.message || "Failed to fetch categories"
+      );
     } finally {
       setLoading(false); // Stop spinner
     }
   };
-  
+
+  const deleteCategoriesById = async (id: string) => {
+    try {
+      const res = await axiosInstance.delete(`/categories/${id}`);
+      if (res.status === 200) {
+        toast.success("Category deleted successfully");
+        // Update the categories state by removing the deleted category
+        setCategories((prevCategories) =>
+          prevCategories.filter((category) => category.id !== id)
+        );
+      } else if (res.status === 404) {
+        toast.error("Category not found");
+      } else {
+        toast.error("Failed to delete category");
+      }
+    } catch (error) {
+      toast.error("Failed to delete category");
+      console.log("Error:", error);
+    }
+  };
+
+  const addNewcategory = async (data: Category1) => {
+    try {
+      const res = await axiosInstance.post("/categories", data);
+      if (res.status === 201) {
+        toast.success("Category added successfully");
+        await getAllCategories();
+      } else {
+        toast.error("Failed to add category");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to add category");
+    } finally {
+    }
+  };
 
   return (
-    <CategoryContext.Provider value={{ categories, loading }}>
+    <CategoryContext.Provider
+      value={{ categories, loading, deleteCategoriesById, addNewcategory }}
+    >
       {children}
     </CategoryContext.Provider>
   );
