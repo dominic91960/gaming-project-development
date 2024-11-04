@@ -71,18 +71,11 @@ const StatusBar: React.FC<StatusBarProps> = ({
 
         {/* Status area */}
         <div className="flex items-center gap-x-[1em]">
-          <div className="flex items-center gap-x-[0.4em]">
+          {/* <div className="flex items-center gap-x-[0.4em]">
             <CiSearch className="size-[1.5em] lg:size-[1.8em] text-white" />
             <IoMdNotificationsOutline className="size-[1.5em] lg:size-[1.8em] text-white" />
-          </div>
+          </div> */}
           <div className="flex items-center gap-x-[0.8em]">
-            <div>
-              {/*  <p className="text-white">{`${user.firstName} ${user.lastName}`}</p> */}
-              {/* <p className="hidden lg:block text-[0.8em] text-[#A1A1AA]">
-                {user.role?.name}
-              </p> */}
-            </div>
-
             <DropdownMenu>
               <DropdownMenuTrigger className="cursor-pointer">
                 {loading ? (

@@ -270,6 +270,10 @@ const Dashboard = () => {
         src={character}
         alt="Dashboard character"
         className="hidden absolute bottom-0 left-0 right-0 mx-auto -translate-x-[40%] md:block md:w-[220px] lg:w-[260px] xl:w-[300px] 2xl:w-[322px]"
+        style={{
+          clipPath:
+            "polygon(0% 0%, 0% 30%, 12% 40%, 12% 93%, 0% 93%, 0% 100%, 100% 100%, 100% 0%)",
+        }}
       />
     </section>
   );
