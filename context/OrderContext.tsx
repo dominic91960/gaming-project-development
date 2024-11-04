@@ -29,7 +29,16 @@ interface AllOrdersNew {
 
 interface OrderContextProps {
   allOrders: AllOrdersNew[];
-  loading: boolean; // Expose loading state to manage spinner outside
+  loading: boolean;
+  getAllOrders: (page: number, search: string) => void;
+  currentPage: number;
+  setCurrentPage: (currentPage: number) => void;
+  totalPages: number;
+  setTotalPages: (totalPages: number) => void;
+  setSearchTerm: (searchTerm: string) => void;
+  searchTerm: string;
+  deleteOrderById: (id: string) => void;
+  updateOrderStatusById: (id: string, status: string) => void;
 }
 
 const OrderContext = createContext<OrderContextProps | undefined>(undefined);
@@ -44,33 +53,65 @@ export const useOrderContext = () => {
 
 export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const [allOrders, setAllOrders] = useState<AllOrdersNew[]>([]);
-  const [loading, setLoading] = useState<boolean>(false); // Track loading state
+  const [loading, setLoading] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState(""); // Search input
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
 
   // show toast
   const showToast = (value: boolean, message: string) => {
     value ? toast.success(message) : toast.error(message);
   };
 
-  const getAllOrders = async () => {
+  const getAllOrders = async (page: number, search?: string) => {
+    setLoading(true); // Start loading spinner
     try {
-      const response = await axiosInstance.get("orders");
-      setAllOrders(response.data)
+      const response = await axiosInstance.get(
+        `orders?page=${page}&search=${search}`
+      );
+      const { orders, totalPages } = response.data;
+      setAllOrders(orders || []);
+      setTotalPages(totalPages);
 
-      showToast(true, response.data.message);
+      showToast(true, "Orders fetched successfully.");
     } catch (error: any) {
-      showToast(false, error.response.data.message);
+      const errorMessage =
+        error.response?.data?.message || "Failed to fetch orders.";
+      showToast(false, errorMessage);
     } finally {
       setLoading(false); // Stop spinner
     }
   };
 
-  // Fetch orders from the backend on mount
-  useEffect(() => {
-    getAllOrders();
-  }, []);
+  const deleteOrderById = async (id: string) => {
+    try {      
+      await axiosInstance.delete(`orders/${id}`);
+      setCurrentPage(1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateOrderStatusById = (id: string, status: string) => {
+    console.log(id, "update order status");
+  };
 
   return (
-    <OrderContext.Provider value={{ allOrders, loading }}>
+    <OrderContext.Provider
+      value={{
+        allOrders,
+        loading,
+        getAllOrders,
+        currentPage,
+        setCurrentPage,
+        setSearchTerm,
+        searchTerm,
+        totalPages,
+        setTotalPages,
+        deleteOrderById,
+        updateOrderStatusById,
+      }}
+    >
       {children}
     </OrderContext.Provider>
   );

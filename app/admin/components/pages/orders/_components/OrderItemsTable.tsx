@@ -11,42 +11,44 @@ import {
 
 interface OrderItem {
   price: number;
+  quantity: number;
   game: {
     cardImage: string;
     displayName: string;
     id: string;
     regularPrice: number;
-    quantity: number;
   };
 }
 
 interface OrderItemsTableProps {
   products: OrderItem[];
+  order: any;
 }
 
-const OrderItemsTable: React.FC<OrderItemsTableProps> = ({ products }) => {
-  const subtotal = products.reduce((acc, product) => acc + product.price, 0);
-
-  // Static coupon value
-  const couponValue = 10;
-
-  // Calculate final price after applying the coupon
-  const finalPrice = subtotal - couponValue;
+const OrderItemsTable: React.FC<OrderItemsTableProps> = ({
+  products,
+  order,
+}) => {
+  console.log(products, "products123");
+  const subtotal = products.reduce((acc, product) => {
+    return acc + product.price;
+  }, 0);
   return (
     <div>
       <Table>
         {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Product</TableHead>
-            <TableHead className="w-[100px]">Name</TableHead>
-            <TableHead className="w-[100px]">Product Code</TableHead>
-            <TableHead className="w-[100px]">Regular Price</TableHead>
-            <TableHead className="w-[100px]">Quantity</TableHead>
-            <TableHead className="w-[100px]">Total</TableHead>
+            <TableHead className="w-[100px] text-white">Product</TableHead>
+            <TableHead className="w-[100px] text-white">Name</TableHead>
+            <TableHead className="w-[100px] text-white">Product Code</TableHead>
+            <TableHead className="w-[100px] text-white">
+              Regular Price
+            </TableHead>
+            <TableHead className="w-[100px] text-white">Quantity</TableHead>
+            <TableHead className="w-[100px] text-white">Total</TableHead>
           </TableRow>
         </TableHeader>
-
         {products.map((product, index) => (
           <TableBody>
             <TableRow>
@@ -61,12 +63,14 @@ const OrderItemsTable: React.FC<OrderItemsTableProps> = ({ products }) => {
                 {product.game.displayName}
               </TableCell>
               <TableCell className="text-white">{product.game.id}</TableCell>
-               <TableCell className="text-white">${product.game.regularPrice.toFixed(2)}</TableCell>
               <TableCell className="text-white">
-                {product.game.quantity}
+                ${product.game.regularPrice.toFixed(2)}
               </TableCell>
               <TableCell className="text-white">
-                ${(product.game.regularPrice * product.game.quantity).toFixed(2)}
+                {product?.quantity}
+              </TableCell>
+              <TableCell className="text-white">
+                ${(product.game.regularPrice * product?.quantity).toFixed(2)}
               </TableCell>
             </TableRow>
           </TableBody>
@@ -74,16 +78,21 @@ const OrderItemsTable: React.FC<OrderItemsTableProps> = ({ products }) => {
       </Table>
 
       {/* Display Subtotal */}
-      <div className="mt-4 text-right">
+      <div className="mt-4 text-right text-white">
         <strong>Subtotal: ${subtotal.toFixed(2)}</strong>
       </div>
       {/* Coupon Section (Static Value) */}
-      <div className="mt-2 text-right">
-        <strong>Coupon Value: -${couponValue.toFixed(2)}</strong>
+      <div className="mt-2 text-right text-white">
+        <strong>
+          Coupon Value: -$
+          {Math.max(subtotal - order?.totalAmount, 0).toFixed(2)}
+        </strong>
       </div>
       {/* Display Final Price */}
-      <div className="mt-2 text-right">
-        <strong>Final Price: ${Math.max(finalPrice, 0).toFixed(2)}</strong>
+      <div className="mt-2 text-right text-white">
+        <strong>
+          Final Price: ${Math.max(order?.totalAmount, 0).toFixed(2)}
+        </strong>
       </div>
     </div>
   );

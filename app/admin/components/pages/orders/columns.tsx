@@ -15,18 +15,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import StatusPopup from "./OrderStatusPopup";
 import OrderDetailPopupCopy from "./OrderDetailPopup copy";
+import { useOrderContext } from "@/context/OrderContext";
 
 interface OrderItem {
   price: number;
+  quantity: number;
   game: {
     cardImage: string;
     displayName: string;
     id: string;
     regularPrice: number;
-    quantity: number;
   };
 }
-
 
 /* export type AllOrdersNew = {
   createdAt: string;
@@ -43,7 +43,7 @@ export type AllOrdersNew1 = {
   id: string;
   order_id: string;
   username: string;
-  totalAmount: string;
+  totalAmount: number;
   status: string;
   products: OrderItem[]; // Include items property
 };
@@ -79,6 +79,13 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
   {
     accessorKey: "totalAmount",
     header: "Order Total",
+    cell: ({ row }) => {
+      return (
+        <div className="flex text-end">
+          {Math.max(row.original.totalAmount, 0).toFixed(2)}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "status",
@@ -125,25 +132,37 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
         setSelectedOrder(order);
         setIsViewModalOpen(true);
       };
+      const {
+        getAllOrders,
+        currentPage,
+        setCurrentPage,
+        searchTerm,
+        setSearchTerm,
+        totalPages,
+        setTotalPages,
+        loading,
+        deleteOrderById,
+      } = useOrderContext();
       return (
         <div className="flex space-x-2">
           <button
             className="bg-red-500 text-white px-2 py-1 rounded"
-            /* onClick={() => handleDeleteOrder(row.original.id)} */
+            onClick={() => deleteOrderById(row.original.id)}
           >
-            Delete1
+            Delete
           </button>
 
           <button
             className="bg-blue-500 text-white px-2 py-1 rounded"
             onClick={() => handleViewOrder(row.original)}
           >
-            View1
+            View
           </button>
           <OrderDetailPopupCopy
             isOpen={isViewModalOpen}
             onClose={() => setIsViewModalOpen(false)}
             products={row.original.products}
+            order={row.original}
           />
         </div>
       );
