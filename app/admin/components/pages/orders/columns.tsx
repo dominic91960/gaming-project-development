@@ -111,6 +111,7 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
           {showPopup && (
             <StatusPopup
               initialStatus={status}
+              id={row.original.id}
               onSave={handleStatusChange}
               onClose={() => setShowPopup(false)}
             />

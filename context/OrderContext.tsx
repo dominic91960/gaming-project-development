@@ -67,7 +67,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true); // Start loading spinner
     try {
       const response = await axiosInstance.get(
-        `orders?page=${page}&search=${search}`
+        `orders?page=${page}&search=${search}&limit=10`
       );
       const { orders, totalPages } = response.data;
       setAllOrders(orders || []);
@@ -84,7 +84,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const deleteOrderById = async (id: string) => {
-    try {      
+    try {
       await axiosInstance.delete(`orders/${id}`);
       setCurrentPage(1);
     } catch (error) {
@@ -92,8 +92,13 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const updateOrderStatusById = (id: string, status: string) => {
-    console.log(id, "update order status");
+  const updateOrderStatusById = async (id: string, status: string) => {
+    try {
+      const response = await axiosInstance.patch(
+        `orders/${id}/${status}`
+      );
+      console.log(id, status, "update");
+    } catch (error) {}
   };
 
   return (
