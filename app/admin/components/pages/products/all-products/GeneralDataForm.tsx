@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
   Select,
@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/select";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { FaWindows, FaXbox, FaPlaystation } from "react-icons/fa";
-import { IoLanguageOutline } from "react-icons/io5";
 
 interface GeneralDataFormProps {
   name: string;
@@ -65,57 +64,51 @@ const iconOptions = [
 ];
 
 const languageOptions = [
-  { value: "English", label: "English", icon: IoLanguageOutline },
+  { value: "English", label: "English" },
   {
     value: "Spanish (Spain)",
     label: "Spanish (Spain)",
-    icon: IoLanguageOutline,
   },
   {
     value: "Spanish (Latin America)",
     label: "Spanish (Latin America)",
-    icon: IoLanguageOutline,
   },
-  { value: "French", label: "French", icon: IoLanguageOutline },
-  { value: "German", label: "German", icon: IoLanguageOutline },
-  { value: "Italian", label: "Italian", icon: IoLanguageOutline },
+  { value: "French", label: "French" },
+  { value: "German", label: "German" },
+  { value: "Italian", label: "Italian" },
   {
     value: "Portuguese (Portugal)",
     label: "Portuguese (Portugal)",
-    icon: IoLanguageOutline,
   },
   {
     value: "Portuguese (Brazilian)",
     label: "Portuguese (Brazilian)",
-    icon: IoLanguageOutline,
   },
-  { value: "Russian", label: "Russian", icon: IoLanguageOutline },
+  { value: "Russian", label: "Russian" },
   {
     value: "Chinese (Simplified)",
     label: "Chinese (Simplified)",
-    icon: IoLanguageOutline,
   },
   {
     value: "Chinese (Traditional)",
     label: "Chinese (Traditional)",
-    icon: IoLanguageOutline,
   },
-  { value: "Japanese", label: "Japanese", icon: IoLanguageOutline },
-  { value: "Korean", label: "Korean", icon: IoLanguageOutline },
-  { value: "Dutch", label: "Dutch", icon: IoLanguageOutline },
-  { value: "Polish", label: "Polish", icon: IoLanguageOutline },
-  { value: "Turkish", label: "Turkish", icon: IoLanguageOutline },
-  { value: "Arabic", label: "Arabic", icon: IoLanguageOutline },
-  { value: "Swedish", label: "Swedish", icon: IoLanguageOutline },
-  { value: "Danish", label: "Danish", icon: IoLanguageOutline },
-  { value: "Finnish", label: "Finnish", icon: IoLanguageOutline },
-  { value: "Norwegian", label: "Norwegian", icon: IoLanguageOutline },
-  { value: "Czech", label: "Czech", icon: IoLanguageOutline },
-  { value: "Hungarian", label: "Hungarian", icon: IoLanguageOutline },
-  { value: "Thai", label: "Thai", icon: IoLanguageOutline },
-  { value: "Indonesian", label: "Indonesian", icon: IoLanguageOutline },
-  { value: "Vietnamese", label: "Vietnamese", icon: IoLanguageOutline },
-  { value: "Greek", label: "Greek", icon: IoLanguageOutline },
+  { value: "Japanese", label: "Japanese" },
+  { value: "Korean", label: "Korean" },
+  { value: "Dutch", label: "Dutch" },
+  { value: "Polish", label: "Polish" },
+  { value: "Turkish", label: "Turkish" },
+  { value: "Arabic", label: "Arabic" },
+  { value: "Swedish", label: "Swedish" },
+  { value: "Danish", label: "Danish" },
+  { value: "Finnish", label: "Finnish" },
+  { value: "Norwegian", label: "Norwegian" },
+  { value: "Czech", label: "Czech" },
+  { value: "Hungarian", label: "Hungarian" },
+  { value: "Thai", label: "Thai" },
+  { value: "Indonesian", label: "Indonesian" },
+  { value: "Vietnamese", label: "Vietnamese" },
+  { value: "Greek", label: "Greek" },
 ];
 
 const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
@@ -192,7 +185,7 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
             <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
               <SelectValue placeholder="Select Icon" />
             </SelectTrigger>
-            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
+            <SelectContent className="bg-black/80 border border-[#606060] text-white backdrop-blur-sm">
               {iconOptions.map(({ icon, label }) => (
                 <SelectItem
                   key={label}
