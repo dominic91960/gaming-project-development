@@ -1,4 +1,5 @@
-import { ChangeEvent, useEffect, useState } from "react";
+'use client'
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { AllOrdersNew1, columns } from "./columns";
 import { DataTable } from "./data-table";
 import Addorders from "./AddOrders";
@@ -25,6 +26,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import axiosInstance from "@/axios/axiosInstance";
+// const fileInputRef = useRef<HTMLInputElement | null>(null);
 
 const COUPON_VALUE = 10; // Static coupon value of $10
 
@@ -63,92 +66,66 @@ export default function AllOrders() {
     null
   );
   const { allOrders, loading } = useOrderContext();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleViewOrder = (order: AllOrdersNew1) => {
     setSelectedOrder(order);
     setIsViewModalOpen(true);
   };
 
-  /* const handleAddOrder = (newOrder: AllOrdersNew1) => {
-    setOrders((prevOrders) => [...prevOrders, newOrder]);
-  };
-
-  const handleDeleteOrder = (id: string) => {
-    setOrders((prevOrders) => prevOrders.filter((order) => order.id !== id));
-  }; */
-
   const handleEditOrder = (order: AllOrdersNew1) => {
     setEditingOrder(order);
     setIsEditModalOpen(true);
   };
 
-  /* const handleSaveOrder = (updatedOrder: AllOrdersNew1) => {
-    setOrders((prevOrders) =>
-      prevOrders.map((order) =>
-        order.id === updatedOrder.id ? updatedOrder : order
-      )
-    );
-    setIsEditModalOpen(false);
-    setEditingOrder(null);
-  }; */
-
-  /*  const actionColumn: ColumnDef<AllOrdersNew> = {
-    header: "Actions",
-    id: "actions",
-    cell: ({ row }) => (
-      <div className="flex space-x-2">
-        <button
-          className="bg-red-500 text-white px-2 py-1 rounded"
-          onClick={() => handleDeleteOrder(row.original.id)}
-        >
-          Delete
-        </button>
-
-        <button
-          className="bg-blue-500 text-white px-2 py-1 rounded"
-          onClick={() => handleViewOrder(row.original)}
-        >
-          View
-        </button>
-      </div>
-    ),
-  }; */
-
-  /* const columnsWithActions: ColumnDef<AllOrdersNew>[] = [
-    ...columns,
-  ]; */
-
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    console.log("File changed", e.target.files);
+    // e.preventDefault();
     if (e.target.files && e.target.files.length > 0) {
       setSelectedFile(e.target.files[0]);
     }
+    // e.preventDefault();
   };
+  const handleUpload = async (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent page reload
+  
+    if (!selectedFile) return;
+  
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+  
+    try {
+      const res = await axiosInstance.post("/manual-orders/upload", formData);
+      console.log("Upload response", res);
+  
+      // Clear selected file and reset the input field
+      setSelectedFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    } catch (error) {
+      console.error("Upload error", error);
+    }finally{
+      setIsDialogOpen(false);
+    }
+
+  };
+  
+  
 
   return (
     <div className="container mx-auto py-10 text-white">
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="gaming" className="w-[200px]">
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogTrigger asChild >
+          <Button variant="gaming" className="w-[200px]" onClick={() => setIsDialogOpen(true)}>
             Click Here
           </Button>
         </DialogTrigger>
 
         <DialogContent className="w-[425px] bg-gradient-to-tr from-black from-15% to-[#0D6D49] p-[3em] rounded-md border border-[#19D38E] sm:w-auto">
-          {/* <DialogHeader>
-            <DialogTitle className="text-white">Upload CSV</DialogTitle>
-          </DialogHeader>
-
-          <div className="">
-            <div className="flex items-center justify-between">
-              <p className="text-white text-[16px]">Product</p>
-              <p className="text-white text-[16px]">Quantity</p>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit">Add</Button>
-          </DialogFooter> */}
 
           <div className="fixed inset-0 bg-black/80 flex justify-center items-center w-full">
             <div className="relative w-max bg-gradient-to-tr from-black from-15% to-[#0D6D49] p-[3em] rounded-md border border-[#19D38E]">
@@ -174,6 +151,7 @@ export default function AllOrders() {
                       Browse
                     </span>
                     <input
+                    ref={fileInputRef}
                       id="file-upload"
                       type="file"
                       accept=".csv"
@@ -203,7 +181,10 @@ export default function AllOrders() {
                     Please review and ensure that all the details you have
                     entered are correct before submitting.
                   </p>
-                  <Button className="bg-[#00FFA1] text-black font-primaryFont text-[13px] font-semibold h-[30px]">
+                  <Button 
+                  type="button"
+                  onClick={handleUpload}
+                  className="bg-[#00FFA1] text-black font-primaryFont text-[13px] font-semibold h-[30px]">
                     UPLOAD
                   </Button>
                 </div>

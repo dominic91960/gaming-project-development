@@ -1,35 +1,51 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import logo from "../../public/images/logo.png";
+import { useDebounce } from "@/hooks/useDebounce";
+import axiosInstance from "@/axios/axiosInstance";
+import { useRouter } from "next/navigation";
 
-const dummyProducts = [
-  {
-    id: 1,
-    name: "Call of Duty Black Ops 2",
-    price: "$69.99",
-    image: "/images/product-search-bar/cod2.png",
-  },
-  {
-    id: 2,
-    name: "Call of Duty Modern Warfare",
-    price: "$59.99",
-    image: "/images/product-search-bar/cod-img.png",
-  },
-  {
-    id: 3,
-    name: "Assassin's Creed Valhalla",
-    price: "$49.99",
-    image: "/images/product-search-bar/assassin.png",
-  },
-];
+
+// const dummyProducts = [
+//   {
+//     id: 1,
+//     name: "Call of Duty Black Ops 2",
+//     price: "$69.99",
+//     image: "/images/product-search-bar/cod2.png",
+//   },
+//   {
+//     id: 2,
+//     name: "Call of Duty Modern Warfare",
+//     price: "$59.99",
+//     image: "/images/product-search-bar/cod-img.png",
+//   },
+//   {
+//     id: 3,
+//     name: "Assassin's Creed Valhalla",
+//     price: "$49.99",
+//     image: "/images/product-search-bar/assassin.png",
+//   },
+// ];
+
+type Product = {
+  id: number;
+  name: string;
+  price: string;
+  image: string;
+};
 
 const ProductSearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [dummyProducts, setDummyProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState(dummyProducts);
+  const [loading, setLoading] = useState(true);
+  
+
+  const debouncedSearch = useDebounce(searchTerm, 500);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -44,6 +60,38 @@ const ProductSearchBar = () => {
       setFilteredProducts(dummyProducts);
     }
   };
+
+  useEffect(() => {
+    // if (debouncedSeatch) {
+    handleSearch();
+    // }
+  }, [debouncedSearch]);
+
+
+  const handleSearch = async () => {
+    setLoading(true);
+    const res = await axiosInstance.get(
+      `/games?productName=${searchTerm}&sort=latest`
+    );
+    // console.log(res.data.data);
+
+    const games = res.data.data.map((game: any) => {
+      return {
+        id: game.id,
+        name: game.productName,
+        price: game.sellingPrice,
+        image: game.cardImage
+      };
+    });
+
+    const meta = res.data.meta;
+
+    setDummyProducts(games);
+    setFilteredProducts(games);
+    setLoading(false);
+  };
+
+  const router = useRouter();
 
   return (
     <div className="relative bg-[#0B0E13] border-b border-[#8C8C8C] font-primaryFont text-[13px] xl:text-[14px] text-white z-50">
@@ -73,7 +121,11 @@ const ProductSearchBar = () => {
                 filteredProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="flex items-center justify-between p-2 border-b border-[#8C8C8C]"
+                    onClick={() => {
+                      router.push(`/products/view/?id=${product.id}`);
+
+                    }} 
+                    className="flex items-center justify-between p-2 border-b border-[#8C8C8C] cursor-pointer"
                   >
                     <Image
                       src={product.image}
@@ -83,7 +135,7 @@ const ProductSearchBar = () => {
                       className="mr-3"
                     />
                     <span>{product.name}</span>
-                    <span>{product.price}</span>
+                    <span>{product.price}$</span>
                   </div>
                 ))
               ) : (

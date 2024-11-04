@@ -84,12 +84,10 @@ interface GameData {
   stockStatus: string;
   background: string;
   coverImage: string;
-  screenshots: [],
+  screenshots: [];
 }
 
 const SwiperCarousel = () => {
- 
-
   const getTopRatedGames = async () => {
     try {
       const response = await axiosInstance.get("/games/top-rated");
@@ -175,15 +173,23 @@ const SwiperCarousel = () => {
                 ) => (
                   <SwiperSlide key={id}>
                     <SwiperCarouselCard
-                      id={gameData[i]?.id ||id}
-                      poster={gameData[i]?.screenshots[i] || gameData[i]?.coverImage ||poster}
+                      id={gameData[i]?.id || id}
+                      poster={
+                        gameData[i]?.screenshots[i] ||
+                        gameData[i]?.coverImage ||
+                        poster
+                      }
                       title={gameData[i]?.displayName || title}
-                      rating={Math.round(gameData[i]?.averageRating ||rating)}
-                      description={gameData[i]?.aboutThisGame ||description}
-                      price={gameData[i]?.sellingPrice ||price}
+                      rating={Math.round(gameData[i]?.averageRating || rating)}
+                      description={gameData[i]?.aboutThisGame || description}
+                      price={gameData[i]?.sellingPrice || price}
                       /* wishlistedBy={wishlistedBy} */
-                      releaseDate={gameData[i]?.releaseDate ||releaseDate}
-                      soldOut={(gameData[i]?.stockStatus === "IN_STOCK" ? false:true) || soldOut}
+                      releaseDate={gameData[i]?.releaseDate || releaseDate}
+                      soldOut={
+                        (gameData[i]?.stockStatus === "IN_STOCK"
+                          ? false
+                          : true) || soldOut
+                      }
                     />
                   </SwiperSlide>
                 )

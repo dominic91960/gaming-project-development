@@ -62,10 +62,10 @@ const EmailVerification = () => {
         <p className="text-[12px] my-[0.5em]">
           Questions? Email us at&nbsp;
           <Link
-            href={`mailto:${user.email}`}
+            href={`mailto:support@sphiria.com`}
             className="text-[#0BDB45] hover:opacity-80"
           >
-            {user.email}
+            support@sphiria.com
           </Link>
         </p>
 

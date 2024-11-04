@@ -154,6 +154,7 @@ const ProductCard: React.FC<Game> = ({
 
         <div className="h-[1px] bg-[#666a65] mb-2"></div>
         <div className="flex items-center justify-between mb-2">
+
           {/* old code */}
           {/* <div className="flex gap-1 text-[#f29d38] bg-slate-600 h-[25px]">
             {Array.from({ length: rating }, (_, index) => (
@@ -178,6 +179,9 @@ const ProductCard: React.FC<Game> = ({
                   ))}
                 </div>
               </span>
+
+         
+
             )}
           </div>
 

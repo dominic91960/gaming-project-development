@@ -3,13 +3,17 @@ import { FaCircle } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import Image from "next/image";
 import cardBgOne from "../../../public/images/payment/bg.png";
-import ProductSearchBar from "@/components/product-search/product-search";
+// import ProductSearchBar from "@/components/product-search/product-search";
 // import { montserrat } from "@/lib/fonts";
 import Footer from "@/components/footer/footer";
 import BillingDetailsForm from "./Billing-Details";
 import OrderDetails from "./OrderDetails";
 import { useCartContext } from "@/context/CartContext";
+import { useRef } from "react";
 // import OrderDetails from "@/components/billing/OrderDetails";
+interface BillingDetailsFormRef {
+  submitForm: () => void;
+}
 
 function BillingPage() {
   const {
@@ -24,10 +28,19 @@ function BillingPage() {
     discountData,
     proceedCheckout,
   } = useCartContext();
+
+  const formRef = useRef<BillingDetailsFormRef>(null);
+
+  const handleSubmit = () => {
+    if (formRef.current) {
+      formRef.current.submitForm(); // Trigger submit in BillingDetailsForm
+    }
+  };
+
   return (
     // <div className={montserrat.className}>
     <div>
-      <ProductSearchBar />
+      {/* <ProductSearchBar /> */}
       {/* <Navbar /> */}
       <div className="relative w-full h-[162px] md:h-80 lg:h-[420px] xl:h-[420px] 2xl:h-[420px] px-8">
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-100 z-10"></div>
@@ -106,13 +119,25 @@ function BillingPage() {
           </div>
         </div>
       </div>
+      {/* <button
+        onClick={handleSubmit}
+        className="mt-4 bg-[#0BDB45] text-black px-4 py-2 rounded"
+      >
+        Submit Form from Parent
+      </button> */}
 
       <div className="relative bg-[#051301]">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent opacity-100"></div>
         <div className="flex flex-col md:flex-row gap-6 xl:gap-28 lg:px-16 mx-auto container px-[2em] md:px-0 py-[1em]">
-          <BillingDetailsForm />
+          <BillingDetailsForm ref={formRef} />
+
           {/* <OrderDetails /> */}
-          <OrderDetails cart={cart} totalDiscount={totalDiscount} totalPrice={totalPrice} />
+          <OrderDetails
+            cart={cart}
+            totalDiscount={totalDiscount}
+            totalPrice={totalPrice}
+            handleSubmit={handleSubmit}
+          />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-100"></div>
       </div>

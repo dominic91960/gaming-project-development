@@ -28,6 +28,18 @@ type Discount = {
   type: string;
 };
 
+type BillingData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  country: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  message: string;
+};
+
 // Define the context properties interface
 interface CartContextProps {
   cart: CartItem[];
@@ -41,7 +53,7 @@ interface CartContextProps {
   totalItems: number;
   totalDiscount: number;
   viewCart: () => CartItem[];
-  createOrder: (discountCode?: string) => Promise<void>;
+  createOrder: (billingData: BillingData) => Promise<void>;
   proceedCheckout: (discountCode?: string) => Promise<void>;
   discountData: Discount; // Expose discount data for other components
 }
@@ -62,7 +74,6 @@ export const useCartContext = () => {
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
-
   const [cart, setCart] = useState<CartItem[]>(() => {
     if (typeof window !== "undefined") {
       const storedCart = localStorage.getItem("cart");
@@ -74,13 +85,23 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [discountData, setDiscountData] = useState<Discount>(() => {
     if (typeof window !== "undefined") {
       const storedDiscount = localStorage.getItem("discountData");
-      return storedDiscount ? JSON.parse(storedDiscount) : { code: "", discount: 0, id: "", type: "" };
+      return storedDiscount
+        ? JSON.parse(storedDiscount)
+        : { code: "", discount: 0, id: "", type: "" };
     }
     return { code: "", discount: 0, id: "", type: "" };
   });
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
+    if (cart.length == 0) {
+      setDiscount({
+        code: "",
+        discount: 0,
+        id: "",
+        type: "",
+      });
+    }
   }, [cart]);
 
   useEffect(() => {
@@ -88,17 +109,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }, [discountData]);
 
   const addItem = (item: CartItem) => {
-    console.log("add item", item)
+    console.log("add item", item);
     setCart((prevCart) => {
       const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
-      if (existingItem) {
-        return prevCart.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
-            : cartItem
-        );
-      }
-      return [...prevCart, item];
+      const updatedCart = existingItem
+        ? prevCart.map((cartItem) =>
+            cartItem.id === item.id
+              ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
+              : cartItem
+          )
+        : [...prevCart, item];
+
+      // Recalculate the discount based on the new cart total
+      setDiscountData((prevDiscount) => ({
+        ...prevDiscount,
+        discount: calculateDiscount(totalPrice(updatedCart)), // Pass updated cart total
+      }));
+
+      return updatedCart;
     });
   };
 
@@ -106,8 +134,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return cart.reduce((acc, item) => acc + item.quantity, 0);
   };
 
-  const totalPrice = () => {
-    const subtotal = cart.reduce(
+  const totalPrice = (cartItems: CartItem[] = cart) => {
+    const subtotal = cartItems.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
     );
@@ -152,45 +180,51 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeItem = (id: number) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+    setCart((prevCart) => {
+      const newCart = prevCart.filter((item) => item.id !== id);
+
+      // Check if the cart is now empty and reset discount if it is
+      if (newCart.length === 0) {
+        setDiscount({ code: "", discount: 0, id: "", type: "" }); // Reset discount
+      }
+
+      return newCart;
+    });
   };
 
   const clearCart = () => {
     setCart([]);
+    setDiscount({ code: "", discount: 0, id: "", type: "" }); // Reset discount when clearing cart
   };
 
   const viewCart = () => {
     return cart;
   };
 
-  const createOrder = async (discountCode?: string) => {
+  const createOrder = async (billingData: BillingData) => {
     const user = JSON.parse(localStorage.getItem("user") as string);
-
-    if (!user || !user.id) {
-      console.error("User ID not found");
-      return;
-    }
 
     const products = cart.map((item) => ({
       gameId: item.id,
       quantity: item.quantity,
     }));
 
-    const coupons = discountCode ? [discountCode] : [];
+    const couponCode = discountData ? discountData.code : null;
 
     try {
-      const response = await axiosInstance.post(`orders/${user.id}`, {
-        userId: user.id,
+      const response = await axiosInstance.post(`/orders`, {
+        userId: user?.id || null,
         products: products,
-        coupons: coupons,
+        coupon: couponCode,
+        billingData: billingData,
       });
 
       // Clear the cart and discount data after a successful order
       clearCart();
-      setDiscount({ code: "", discount: 0, id: "", type: "" }); // Reset discount
-      localStorage.removeItem("discountData"); // Clear discount data from localStorage
+      localStorage.removeItem("discountData");
 
       console.log("Order created successfully:", response.data);
+      router.push("/");
     } catch (error) {
       console.error("Error creating order:", error);
     }
@@ -198,7 +232,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const proceedCheckout = async () => {
     router.push("/payment");
-  }
+  };
 
   return (
     <CartContext.Provider
