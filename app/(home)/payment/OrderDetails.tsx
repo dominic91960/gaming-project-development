@@ -1,12 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
-
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useFormState } from "react-dom";
+
 type CartItem = {
   id: number;
   image: string;
@@ -35,7 +34,6 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
     0
   );
 
-  const [selectedOption, setSelectedOption] = useState("option-one");
   const placedOrder = () => {
     handleSubmit();
   };
@@ -59,7 +57,9 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
             key={item.id}
             className="flex w-full justify-between text-white mx-auto text-opacity-70 text-[8px] md:text-[12px] lg:text-[14px]"
           >
-            <h3 className="font-normal">{item.title}</h3>
+            <h3 className="font-normal">
+              {item.title} &nbsp; x {item.quantity}
+            </h3>
             <h3 className="font-normal">
               ${Math.max(item.price * item.quantity, 0).toFixed(2)}
             </h3>
@@ -116,65 +116,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
           </Label>
         </div>
       </RadioGroup>
-
-      {/* ddddddd */}
-      <div>
-        <RadioGroup
-          defaultValue="option-one"
-          onValueChange={(value) => setSelectedOption(value)}
-        >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="option-one" id="option-one" />
-            <Label htmlFor="option-one" className="text-white text-opacity-70">
-              Paypal
-            </Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="option-two" id="option-two" />
-            <Label htmlFor="option-two" className="text-white text-opacity-70">
-              Credit / Debit Card
-            </Label>
-          </div>
-        </RadioGroup>
-
-        {selectedOption === "option-two" && (
-          <div className="mt-4">
-            <div className="flex gap-2 mb-2">
-              <p className="font-primaryFont text-[#d0d0d0] text-[14px] w-[170px]">
-                Name on the account:
-              </p>
-              <p className="font-primaryFont text-[#fff] text-[14px]">
-                Avishka Rathnayake
-              </p>
-            </div>
-
-            <div className="flex gap-2 mb-2">
-              <p className="font-primaryFont text-[#d0d0d0] text-[14px] w-[170px]">
-                Account Number:
-              </p>
-              <p className="font-primaryFont text-[#fff] text-[14px]">
-                9874758347
-              </p>
-            </div>
-
-            <div className="flex gap-2 mb-2">
-              <p className="font-primaryFont text-[#d0d0d0] text-[14px] w-[170px]">
-                Bank Name:
-              </p>
-              <p className="font-primaryFont text-[#fff] text-[14px]">
-                Sampath Bank
-              </p>
-            </div>
-
-            <div className="flex gap-2 mb-2">
-              <p className="font-primaryFont text-[#d0d0d0] text-[14px] w-[170px]">
-                Branch Name:
-              </p>
-              <p className="font-primaryFont text-[#fff] text-[14px]">Kandy</p>
-            </div>
-          </div>
-        )}
-      </div>
+      <div className="border border-white h-[108px] sm:h-[120px] md:h-[150px] lg:h-[160px] xl:h-[183px] border-opacity-70"></div>
 
       <p className="text-white text-opacity-70 text-[8px] md:text-[12px] lg:text-[14px] py-[1em]">
         We use your personal data to process your order, enhance your experience
@@ -184,6 +126,8 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
       <div className="flex items-center space-x-2">
         <Checkbox
           id="terms"
+          checked={isCheckboxChecked}
+          onCheckedChange={(checked) => setIsCheckboxChecked(checked)}
           className="border-white h-3 w-3 md:h-5 md:w-5 peer text-[#346CD2]"
         />
         <label
@@ -197,6 +141,8 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
       <Button
         variant="gaming"
         className="h-max w-full text-[18px] text-black px-[1em] py-[0.5em] mt-8"
+        disabled={!isCheckboxChecked || totalPrice < 0}
+        onClick={placedOrder}
       >
         Place Order
       </Button>
