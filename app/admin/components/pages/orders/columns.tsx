@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import StatusPopup from "./OrderStatusPopup";
 import OrderDetailPopupCopy from "./OrderDetailPopup copy";
+import { useOrderContext } from "@/context/OrderContext";
 
 interface OrderItem {
   price: number;
@@ -131,11 +132,22 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
         setSelectedOrder(order);
         setIsViewModalOpen(true);
       };
+      const {
+        getAllOrders,
+        currentPage,
+        setCurrentPage,
+        searchTerm,
+        setSearchTerm,
+        totalPages,
+        setTotalPages,
+        loading,
+        deleteOrderById,
+      } = useOrderContext();
       return (
         <div className="flex space-x-2">
           <button
             className="bg-red-500 text-white px-2 py-1 rounded"
-            /* onClick={() => handleDeleteOrder(row.original.id)} */
+            onClick={() => deleteOrderById(row.original.id)}
           >
             Delete
           </button>
