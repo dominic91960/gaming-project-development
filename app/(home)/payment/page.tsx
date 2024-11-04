@@ -3,7 +3,7 @@ import { FaCircle } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import Image from "next/image";
 import cardBgOne from "../../../public/images/payment/bg.png";
-import ProductSearchBar from "@/components/product-search/product-search";
+// import ProductSearchBar from "@/components/product-search/product-search";
 // import { montserrat } from "@/lib/fonts";
 import Footer from "@/components/footer/footer";
 import BillingDetailsForm from "./Billing-Details";
@@ -14,7 +14,6 @@ import { useRef } from "react";
 interface BillingDetailsFormRef {
   submitForm: () => void;
 }
-
 
 function BillingPage() {
   const {
@@ -41,7 +40,7 @@ function BillingPage() {
   return (
     // <div className={montserrat.className}>
     <div>
-      <ProductSearchBar />
+      {/* <ProductSearchBar /> */}
       {/* <Navbar /> */}
       <div className="relative w-full h-[162px] md:h-80 lg:h-[420px] xl:h-[420px] 2xl:h-[420px] px-8">
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-100 z-10"></div>

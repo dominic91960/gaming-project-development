@@ -82,7 +82,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="h-[3em] text-[9px] line-clamp-2 uppercase sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">
         <h5
           onClick={() => router.push(`/products/view/?id=${id}`)}
-          className="w-[12ch] cursor-pointer font-bold"
+          className="max-w-[12ch] cursor-pointer font-bold"
         >
           {name}
         </h5>

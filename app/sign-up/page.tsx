@@ -92,7 +92,7 @@ const SignUp = () => {
 
     try {
       const url = process.env.NEXT_PUBLIC_BASE_URL + "/auth/register";
-      const username = data.email.split('@')[0];
+      const username = data.email.split("@")[0];
       const response = await axios.post(url, {
         username: username,
         firstName: data.firstName,
@@ -116,8 +116,7 @@ const SignUp = () => {
         console.error("Register failed");
       }
       // router.push("/emailVerify");
-    } catch (error: any) {
-    }
+    } catch (error: any) {}
   };
 
   if (loading) {
@@ -172,7 +171,7 @@ const SignUp = () => {
                   {...register("firstName")}
                 />
                 {errors.firstName && (
-                  <p className="text-red-500 mt-[0.2em]">
+                  <p className="max-w-[26ch] text-red-500 mt-[0.2em]">
                     {errors.firstName.message}
                   </p>
                 )}
@@ -186,7 +185,7 @@ const SignUp = () => {
                   {...register("lastName")}
                 />
                 {errors.lastName && (
-                  <p className="text-red-500 mt-[0.2em]">
+                  <p className="max-w-[26ch] text-red-500 mt-[0.2em]">
                     {errors.lastName.message}
                   </p>
                 )}
@@ -231,7 +230,7 @@ const SignUp = () => {
                   </button>
                 </div>
                 {errors.password && (
-                  <p className="text-red-500 mt-[0.2em]">
+                  <p className="max-w-[26ch] text-red-500 mt-[0.2em]">
                     {errors.password.message}
                   </p>
                 )}
@@ -258,7 +257,7 @@ const SignUp = () => {
                   </button>
                 </div>
                 {errors.confirmPassword && (
-                  <p className="text-red-500 mt-[0.2em]">
+                  <p className="max-w-[26ch] text-red-500 mt-[0.2em]">
                     {errors.confirmPassword.message}
                   </p>
                 )}

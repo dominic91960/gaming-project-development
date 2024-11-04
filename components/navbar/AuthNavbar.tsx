@@ -200,7 +200,7 @@ export default function AuthNavbar() {
             : categoryMenuStates.isCategoryMenuOpen === false
             ? "reverse-animate-category-menu"
             : "hidden"
-        } origin-left absolute top-0 left-0 w-full h-[calc(100vh-73px)] bg-[#0D0F10] font-primaryFont px-[1.5em] overflow-hidden z-[51] sm:w-[350px]`}
+        } origin-left fixed top-0 left-0 w-full h-full bg-[#0D0F10] font-primaryFont px-[1.5em] overflow-hidden z-[51] sm:w-[350px]`}
       >
         <CategoryMenuHeader
           selectedContent={selectedContent}

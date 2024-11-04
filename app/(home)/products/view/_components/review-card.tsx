@@ -25,16 +25,16 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   rating,
 }) => {
   return (
-    <article className="w-full bg-black border lg:w-[25em] p-[3em] text-[1.2em] sm:text-[0.8em] lg:text-[0.7em] xl:text-[0.8em] mb-[2em]">
+    <article className="w-full bg-black border sm:w-[25em] p-[3em] text-[1.2em] sm:text-[0.8em] lg:text-[0.7em] xl:text-[0.8em] mb-[2em]">
       {/* Avatar, username and name */}
       <div className="flex items-center gap-x-[1.5em] pb-[1.25em] border-b">
-        <div>
+        <div className="relative size-[5em]">
           <Image
             src={avatar || samplePic}
             alt={username}
             width={72} // 4.5em ~ 72px
             height={72}
-            className="rounded-full"
+            className="size-full rounded-full"
           />
         </div>
         <div>
