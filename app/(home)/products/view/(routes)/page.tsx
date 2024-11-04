@@ -19,9 +19,9 @@ import { LiaAngleRightSolid } from "react-icons/lia";
 import { IoMdHeart, IoMdHeartEmpty, IoIosCart } from "react-icons/io";
 import { MdOutlineSpeakerNotesOff } from "react-icons/md";
 import { RiEmotionSadLine } from "react-icons/ri";
-import { FaBell } from "react-icons/fa";
 
 import { useCartContext } from "@/context/CartContext";
+import { useToast } from "@/context/ToastContext";
 import StarRating from "@/app/(home)/_components/star-rating";
 import ImageCarousel from "../_components/image-carousel";
 import RequirementsCard from "../_components/requirements-card";
@@ -54,6 +54,7 @@ export default function ProductPage() {
   const [reviews, setReviews] = useState<any[]>([]);
   const router = useRouter();
   const { user } = useAuthContext();
+  const addToast = useToast();
   const [verifySession, setVerifySession] = useState<boolean>(false);
 
   useEffect(() => {
@@ -227,6 +228,7 @@ export default function ProductPage() {
         variant: "error",
         title: error.response.data.message,
       }); */
+      addToast(error.response.data.message, "error");
     } finally {
       // setLoading(false);
     }

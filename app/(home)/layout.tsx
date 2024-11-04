@@ -11,6 +11,7 @@ import { WishlistProvider } from "@/context/WishListContext";
 import { verifySession } from "@/hooks/useVerifySession";
 import axios from "axios";
 import { set } from "date-fns";
+import { ToastProvider } from "@/context/ToastContext";
 
 // Configure Montserrat with all required weights
 const montserrat = Montserrat({
@@ -110,18 +111,20 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       className={`${montserrat.variable} ${inter.variable} ${rajdhani.variable}`}
     >
       <body>
-        <AuthProvider>
-          <div className="relative z-40">
-            <ProductSearchBar />
-          </div>
-          <div>
-            <Navbar />
-          </div>
+        <ToastProvider>
+          <AuthProvider>
+            <div className="relative z-40">
+              <ProductSearchBar />
+            </div>
+            <div>
+              <Navbar />
+            </div>
 
-          <div className="relative z-10">
-            <WishlistProvider>{children}</WishlistProvider>
-          </div>
-        </AuthProvider>
+            <div className="relative z-10">
+              <WishlistProvider>{children}</WishlistProvider>
+            </div>
+          </AuthProvider>
+        </ToastProvider>
       </body>
     </html>
   );
