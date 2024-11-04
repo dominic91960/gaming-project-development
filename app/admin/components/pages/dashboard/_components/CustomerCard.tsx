@@ -47,7 +47,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({
           {name}
         </p>
         <p className="bg-white font-bold text-black text-[7px] mt-[1em] px-[1em] py-[0.2em] rounded-[2px] sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[15px] 2xl:text-[16px]">
-          {orders} Orders
+          {orders} Order{+orders > 1 && "s"}
         </p>
       </div>
     </article>

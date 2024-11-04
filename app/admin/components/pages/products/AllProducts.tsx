@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
-import { AllProductsNew, columns } from "./all-products/columns";
-import { DataTable } from "./all-products/data-table";
-import AddProducts from "./all-products/AddProducts";
-import EditAllProductsPopup from "./all-products/EditAllProductsPopup";
+
 import { ColumnDef } from "@tanstack/react-table";
 import axiosInstance from "@/axios/axiosInstance";
-import { useSidebar } from "@/context/SidebarContext";
 import { IoTrash } from "react-icons/io5";
 import { LuPencilLine } from "react-icons/lu";
 import toast from "react-hot-toast";
 
-
+import { AllProductsNew, columns } from "./all-products/columns";
+import { DataTable } from "./all-products/data-table";
+import EditAllProductsPopup from "./all-products/EditAllProductsPopup";
 
 export default function AllProducts() {
   const [products, setProducts] = useState<AllProductsNew[]>([]);
@@ -54,8 +52,7 @@ export default function AllProducts() {
           game.gameCategories?.map(
             (cat: { category: { id: any } }) => cat.category.id
           ) || [],
-        tags:
-          game.tags?.map((tag: { tag: { id: any } }) => tag.tag.id) || [],
+        tags: game.tags?.map((tag: { tag: { id: any } }) => tag.tag.id) || [],
         minimumOS: game.minimumOS || "",
         minimumCPU: game.minimumCPU || "",
         minimumRAM: game.minimumRAM || "",
@@ -85,6 +82,7 @@ export default function AllProducts() {
   };
 
   const handleEditProduct = (product: AllProductsNew) => {
+    window.scrollTo(0, 0);
     setEditingProduct(product);
     setIsEditModalOpen(true);
   };
@@ -95,7 +93,7 @@ export default function AllProducts() {
     //     product.id === updatedProduct.id ? updatedProduct : product
     //   )
     // );
-    console.log("update",updatedProduct);
+    console.log("update", updatedProduct);
     const data = {
       productName: updatedProduct.name,
       displayName: updatedProduct.displayName,
@@ -109,24 +107,29 @@ export default function AllProducts() {
       stock: updatedProduct.saleQuantity,
       SKU: updatedProduct.sku,
       categoryIds: updatedProduct.categories,
-      stockStatus:
-      updatedProduct.stockStatus,
-      minimumOS: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumOS : "",
-      minimumCPU: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumCPU : "",
-      minimumRAM: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumRAM : "",
-      minimumGPU: updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumGPU : "",
+      stockStatus: updatedProduct.stockStatus,
+      minimumOS:
+        updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumOS : "",
+      minimumCPU:
+        updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumCPU : "",
+      minimumRAM:
+        updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumRAM : "",
+      minimumGPU:
+        updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumGPU : "",
       minimumStorage:
-      updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumStorage : "",
+        updatedProduct.icon === "WINDOWS" ? updatedProduct.minimumStorage : "",
       recommendedOS:
-      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedOS : "",
+        updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedOS : "",
       recommendedCPU:
-      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedCPU : "",
+        updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedCPU : "",
       recommendedRAM:
-      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedRAM : "",
+        updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedRAM : "",
       recommendedGPU:
-      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedGPU : "",
+        updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedGPU : "",
       recommendedStorage:
-      updatedProduct.icon === "WINDOWS" ? updatedProduct.recommendedStorage : "",
+        updatedProduct.icon === "WINDOWS"
+          ? updatedProduct.recommendedStorage
+          : "",
       coverImage: updatedProduct.coverImage,
       screenshots: updatedProduct.galleryImages,
       video: updatedProduct.videoUrl,
@@ -140,21 +143,25 @@ export default function AllProducts() {
       brandId: updatedProduct.brand,
       platformId: updatedProduct.platform,
     };
-    try{
-    const res = await axiosInstance.patch(`/games/${updatedProduct.id}`, data);
-    if(res.status === 200){
-      toast.success("Product updated successfully");
-    }else{
-      throw new Error("Failed to update product");
-    }
-    console.log("res",res);
-    }catch(err){
+    try {
+      const res = await axiosInstance.patch(
+        `/games/${updatedProduct.id}`,
+        data
+      );
+      if (res.status === 200) {
+        toast.success("Product updated successfully");
+      } else {
+        throw new Error("Failed to update product");
+      }
+      console.log("res", res);
+    } catch (err) {
       console.log(err);
       toast.error("Failed to update product");
-    }finally{
+    } finally {
       setIsEditModalOpen(false);
       setEditingProduct(null);
-      setReload(prev => !prev);
+      window.scrollTo(0, 0);
+      setReload((prev) => !prev);
     }
   };
 
@@ -202,7 +209,10 @@ export default function AllProducts() {
       <EditAllProductsPopup
         product={editingProduct}
         isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
+        onClose={() => {
+          setIsEditModalOpen(false);
+          window.scrollTo(0, 0);
+        }}
         onSave={handleSaveProduct}
       />
     </div>
