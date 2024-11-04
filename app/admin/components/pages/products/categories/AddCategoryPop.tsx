@@ -41,12 +41,10 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
   const [parentCategoryId, setParentCategoryId] = useState<string | null>(null); // To store selected parent category
   const [data, setData] = useState<any[]>([]);
   const [isImageInputDisabled, setIsImageInputDisabled] = useState(false);
-  const { categories } = useCategoryContext();
+  const { categories, addNewcategory } = useCategoryContext();
 
   const handleSubmit = async () => {
-    console.log(name, description, imageUrl, parentCategoryId);
     const level = data.find((item) => item.id == parentCategoryId)?.level + 1;
-    console.log(level);
 
     const dataToSend = {
       name: name,
@@ -56,7 +54,14 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
       parentId: parentCategoryId,
     };
 
-    try {
+    addNewcategory(dataToSend);
+    setName("");
+    setDescription("");
+    setImageUrl("");
+    setParentCategoryId(null);
+    setIsOpen(false);
+
+    /* try {
       const res = await axiosInstance.post("/categories", dataToSend);
       console.log(res.status);
       if (res.status === 201) {
@@ -83,7 +88,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
       setImageUrl("");
       setParentCategoryId(null);
       setIsOpen(false);
-    }
+    } */
   };
 
   useEffect(() => {
