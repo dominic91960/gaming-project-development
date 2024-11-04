@@ -38,8 +38,10 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
     handleSubmit();
   };
 
-  const [isCheckboxChecked, setIsCheckboxChecked] = useState<boolean | any>(false);
-
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState<boolean | any>(
+    false
+  );
+  const [selectedOption, setSelectedOption] = useState("option-one");
   return (
     <div className="flex flex-col flex-1 bg-white bg-opacity-20 border-[0.25px] md:border-[0.5px] border-white z-20 p-[2em]">
       <h1 className="text-[13px] md:text-[18px] lg:text-[22px] xl:text-[25px] font-semibold mb-[1em] text-white">
@@ -88,35 +90,64 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
         <div className="border-t-[0.5px] border-white w-full border-opacity-70"></div>
       </div>
 
-      <RadioGroup defaultValue="default" className="flex flex-col py-[1em]">
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem
-            value="default"
-            id="r1"
-            className="border-white text-[#346CD2] checked:bg-transparent checked:border-white hover:bg-transparent after:checked:bg-[#346CD2]"
-          />
-          <Label
-            htmlFor="r1"
-            className="text-white mx-auto text-opacity-70 text-[8px] md:text-[12px] lg:text-[14px]"
-          >
-            Paypal
-          </Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem
-            value="card"
-            id="r2"
-            className="border-white text-[#346CD2] checked:bg-transparent checked:border-white hover:bg-transparent after:checked:bg-[#346CD2]"
-          />
-          <Label
-            htmlFor="r2"
-            className="text-white mx-auto text-opacity-70 text-[8px] md:text-[12px] lg:text-[14px]"
-          >
-            Credit / Debit Card
-          </Label>
-        </div>
-      </RadioGroup>
-      <div className="border border-white h-[108px] sm:h-[120px] md:h-[150px] lg:h-[160px] xl:h-[183px] border-opacity-70"></div>
+      {/* ddddddd */}
+      <div className="mt-4">
+        <RadioGroup
+          defaultValue="option-one"
+          onValueChange={(value) => setSelectedOption(value)}
+        >
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="option-one" id="option-one" />
+            <Label htmlFor="option-one" className="text-white text-opacity-70">
+              Cash on delivery
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="option-two" id="option-two" />
+            <Label htmlFor="option-two" className="text-white text-opacity-70">
+              Bank Transfer
+            </Label>
+          </div>
+        </RadioGroup>
+
+        {selectedOption === "option-two" && (
+          <div className="mt-4">
+            <div className="flex gap-2 mb-2">
+              <p className="font-primaryFont text-[#d0d0d0] text-[14px] w-[170px]">
+                Name on the account:
+              </p>
+              <p className="font-primaryFont text-[#fff] text-[14px]">
+                Avishka Rathnayake
+              </p>
+            </div>
+
+            <div className="flex gap-2 mb-2">
+              <p className="font-primaryFont text-[#d0d0d0] text-[14px] w-[170px]">
+                Account Number:
+              </p>
+              <p className="font-primaryFont text-[#fff] text-[14px]">
+                9874758347
+              </p>
+            </div>
+
+            <div className="flex gap-2 mb-2">
+              <p className="font-primaryFont text-[#d0d0d0] text-[14px] w-[170px]">
+                Bank Name:
+              </p>
+              <p className="font-primaryFont text-[#fff] text-[14px]">
+                Sampath Bank
+              </p>
+            </div>
+
+            <div className="flex gap-2 mb-2">
+              <p className="font-primaryFont text-[#d0d0d0] text-[14px] w-[170px]">
+                Branch Name:
+              </p>
+              <p className="font-primaryFont text-[#fff] text-[14px]">Kandy</p>
+            </div>
+          </div>
+        )}
+      </div>
 
       <p className="text-white text-opacity-70 text-[8px] md:text-[12px] lg:text-[14px] py-[1em]">
         We use your personal data to process your order, enhance your experience
