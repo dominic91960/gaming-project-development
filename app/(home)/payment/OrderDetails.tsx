@@ -1,12 +1,12 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-
+import { useFormState } from "react-dom";
 type CartItem = {
   id: number;
   image: string;
@@ -21,12 +21,14 @@ type OrderDetailsProps = {
   cart: CartItem[];
   totalDiscount: number;
   totalPrice: number;
+  handleSubmit: () => void;
 };
 
 const OrderDetails: React.FC<OrderDetailsProps> = ({
   cart,
   totalDiscount,
   totalPrice,
+  handleSubmit,
 }) => {
   const subtotal = cart.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -34,7 +36,12 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
   );
 
   const [selectedOption, setSelectedOption] = useState("option-one");
-
+  const placedOrder = () => {
+    handleSubmit();
+  };
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState<boolean | any>(
+    false
+  );
   return (
     <div className="flex flex-col flex-1 bg-white bg-opacity-20 border-[0.25px] md:border-[0.5px] border-white z-20 p-[2em]">
       <h1 className="text-[13px] md:text-[18px] lg:text-[22px] xl:text-[25px] font-semibold mb-[1em] text-white">
