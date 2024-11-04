@@ -120,17 +120,7 @@ const ProductCard: React.FC<Game> = ({
       </div>
 
       <div className="border border-[#666a65] p-3  text-white relative w-full  cursor-pointer">
-        {soldOut && (
-          <div className="absolute top-0 right-0  backdrop-blur-sm bg-black/30 text-white p-1 h-full w-full flex items-center justify-center">
-            <div className="flex items-center justify-center">
-              <p className="text-[#FF374E] text-center font-primaryFont font-bold text-[25px]">
-                SOLD OUT
-              </p>
-            </div>
-          </div>
-        )}
-
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center relative">
           <img
             src={cardImage}
             onClick={() => {
@@ -139,6 +129,16 @@ const ProductCard: React.FC<Game> = ({
             alt="Game Card"
             className="mb-4 w-[244px] h-[268px]"
           />
+
+          {soldOut && (
+            <div className="absolute top-0 right-0  backdrop-blur-sm bg-black/30 text-white p-1 h-full w-full flex items-center justify-center">
+              <div className="flex items-center justify-center">
+                <p className="text-[#FF374E] text-center font-primaryFont font-bold text-[25px]">
+                  SOLD OUT
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         <div
@@ -154,16 +154,34 @@ const ProductCard: React.FC<Game> = ({
 
         <div className="h-[1px] bg-[#666a65] mb-2"></div>
         <div className="flex items-center justify-between mb-2">
-          <div className="flex gap-1 text-[#f29d38]">
-            {rating == 0 ? (
-              <><IoIosStarOutline className="text-[23px]" /><IoIosStarOutline className="text-[23px]" /><IoIosStarOutline className="text-[23px]" /><IoIosStarOutline className="text-[23px]" /><IoIosStarOutline className="text-[23px]" />
-              </>
+
+          {/* old code */}
+          {/* <div className="flex gap-1 text-[#f29d38] bg-slate-600 h-[25px]">
+            {Array.from({ length: rating }, (_, index) => (
+              <IoIosStar key={index} className="text-[23px]" />
+            ))}
+          </div> */}
+
+          {/* New code - if no rating added empty starts added */}
+          <div className="flex gap-1 text-[#f29d38] h-[25px]">
+            {rating > 0 ? (
+              Array.from({ length: rating }, (_, index) => (
+                <IoIosStar key={index} className="text-[23px]" />
+              ))
             ) : (
-              <>
-                {Array.from({ length: rating }, (_, index) => (
-                  <IoIosStar key={index} className="text-[23px]" />
-                ))}
-              </>
+              <span className="text-white">
+                <div className="flex gap-1 text-[#f29d38]">
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <IoIosStarOutline
+                      key={index}
+                      className="text-[23px] text-[#f29d38]"
+                    />
+                  ))}
+                </div>
+              </span>
+
+         
+
             )}
           </div>
 

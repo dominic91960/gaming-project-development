@@ -285,13 +285,15 @@ const ContentGrid: React.FC<ContentGridProps> = ({
 
   return (
     <div className="min-w-full px-4 pb-4">
-      <div className="flex items-start justify-between mb-6 2xl:w-[1125px] xl:w-[935px]">
-        <p className="text-[15px] font-normal font-primaryFont text-white leading-none">
-          {total} result found:
-        </p>
+      <div className="flex items-start justify-between mb-6 2xl:w-[1125px] xl:w-[935px]  lg:w-full md:w-full sm:w-full w-[270px]">
+        <div className="hidden xl:block">
+          <p className="text-[15px] font-normal font-primaryFont text-white leading-none">
+            {total} result found:
+          </p>
+        </div>
 
-        <div className="flex items-center gap-4">
-          <div className="border border-[#666a65] p-2 rounded-none flex items-center gap-x-[0.75em] w-full">
+        <div className="flex items-center gap-4 w-full xl:w-max">
+          <div className="border border-[#666a65] p-2 rounded-none flex items-center gap-x-[0.75em] w-full ">
             <CiSearch
               onClick={handleSearch}
               className="text-[20px] text-white cursor-pointer"
@@ -307,7 +309,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
 
           <div className="bg-[#474747]">
             <Select onValueChange={setSortTerm}>
-              <SelectTrigger className="w-[180px] rounded-none border-none text-white">
+              <SelectTrigger className="sm:w-[180px] w-[140px]  rounded-none border-none text-white">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent className=" text-white bg-[#666666] rounded-none">
@@ -327,7 +329,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       {loading ? (
         <Spinner loading={loading} />
       ) : (
-        <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 2xl:gap-4 xl:gap-16 lg:gap-12 md:gap-4">
+        <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 2xl:gap-4 xl:gap-16 lg:gap-12 md:gap-4 sm:gap-2 gap-2 justify-items-center">
           {games.map((game, index) => (
             <ProductCard
               key={index}

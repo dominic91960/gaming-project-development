@@ -9,6 +9,9 @@ import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
 import { useState } from "react";
 import Spinner from "@/components/Spinner/Spinner";
+import { TbLayoutSidebarLeftExpandFilled } from "react-icons/tb";
+
+import mobileSidebarIcon from "../../../public/images/shop/sidebarToggleIcon.png";
 
 type FilterParams = {
   rating: number;
@@ -37,6 +40,13 @@ const ShopPage = () => {
   // if (loading) {
   //   return <Spinner loading={loading} />;
   // }
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     // <div className="text-black">
     //   <Image src={bg} alt="shop page cover image" className="" />
@@ -74,7 +84,38 @@ const ShopPage = () => {
         </div>
       </div>
 
-      <div className="container mx-auto">
+      <div className="bg-[#678] relative">
+        {" "}
+        <div className="absolute top-0 left-0 z-50 block lg:hidden">
+          <button
+            // className="z-50 bg-blue-500 text-white px-4 py-2 rounded"
+            className="z-50  px-2 pb-6 text-white rounded"
+            onClick={toggleSidebar}
+          >
+            {/* <TbLayoutSidebarLeftExpandFilled /> */}
+
+            <Image
+              src={mobileSidebarIcon}
+              alt="mobile sidebar toggle icon"
+              className="w-[26px] h-[26px]"
+            />
+          </button>
+
+          {/* Sidebar for mobile */}
+          <div
+            className={`h-full w-64 transform bg-[#0D0F10] ${
+              isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+            } transition-transform duration-300 ease-in-out`}
+          >
+            <Sidebar
+              setFilters={setFilterParams}
+              setClearFilters={setClearFilters}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto relative">
         <div className="flex items-center justify-center 2xl:px-0 xl:px-4">
           <div className="grid grid-cols-12 2xl:gap-4 xl:gap-4">
             <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-3 2xl:pr-0 xl:pr-6 hidden lg:block 2xl:mr-0 xl:mr-8">
@@ -84,7 +125,7 @@ const ShopPage = () => {
               />
             </div>
 
-            <div className="2xl:col-span-10 xl:col-span-9 lg:col-span-9 md:col-span-12 justify-self-end">
+            <div className="2xl:col-span-10 xl:col-span-9 lg:col-span-9 md:col-span-12 sm:col-span-12 col-span-12  justify-self-end">
               <ContentGrid
                 filterParams={filterParams}
                 clearFilters={clearFilters}
