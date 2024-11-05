@@ -17,13 +17,6 @@ import TagsCategories from "../add-product/side-components/TagsCategories";
 import PlatformCategories from "../add-product/side-components/PlatformCategories";
 import ProductImages from "../add-product/side-components/ProductImages";
 import SystemRequirements from "./System-Requirement";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
 
 const iconOptions = [
   { icon: <FaWindows />, label: "WINDOWS" },
@@ -84,6 +77,7 @@ interface EditAllProductsPopupProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (updatedProduct: AllProductsNew) => void;
+  readOnly?: boolean; // New prop to control read-only mode
 }
 
 const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
@@ -91,68 +85,11 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
   isOpen,
   onClose,
   onSave,
+  readOnly = false, // Default is false (editable)
 }) => {
   const [editedProduct, setEditedProduct] = useState<AllProductsNew | null>(
     product
   );
-
-  // const languageOptions = [
-  //   "English",
-  //   "Spanish (Spain)",
-  //   "Spanish (Latin America)",
-  //   "French",
-  //   "German",
-  //   "Italian",
-  //   "Portuguese (Portugal)",
-  //   "Portuguese (Brazilian)",
-  //   "Russian",
-  //   "Chinese (Simplified)",
-  //   "Chinese (Traditional)",
-  //   "Japanese",
-  //   "Korean",
-  //   "Dutch",
-  //   "Polish",
-  //   "Turkish",
-  //   "Arabic",
-  //   "Swedish",
-  //   "Danish",
-  //   "Finnish",
-  //   "Norwegian",
-  //   "Czech",
-  //   "Hungarian",
-  //   "Thai",
-  //   "Indonesian",
-  //   "Vietnamese",
-  //   "Greek",
-  // ];
-
-  // const [platform, setPlatform] = useState(product?.platform || "");
-  // const [brand, setBrand] = useState(product?.brand || "");
-  // const [categories, setCategories] = useState<string[]>(product?.categories || []);
-  // const [tags, setTags] = useState<string[]>(product?.tags || []);
-
-  //image data inputs
-  // const [imageUrl, setImageUrl] = useState("");
-  // const [coverImage, setCoverImage] = useState(product?.coverImage || "");
-  // const [videoUrl, setVideoUrl] = useState(product?.videoUrl || "");
-  // const [galleryImages, setGalleryImages] = useState<string[]>(product?.galleryImages || []);
-  // const [cardImage, setCardImage] = useState(product?.cardImage || "");
-  // const [latestImage, setLatestImage] = useState(product?.latestImage || "");
-  // const [addToLatestGame, setAddToLatestGame] = useState(product?.addToLatestGame || false);
-  // const [carousel, setCarousel] = useState(product?.carousel || false);
-  // const [displayLatestGame, setDisplayLatestGame] = useState(product?.displayLatestGame || false);
-
-  // system requirements
-  // const [minimumOS, setMinimumOS] = useState(product?.minimumOS || "");
-  // const [minimumCPU, setMinimumCPU] = useState(product?.minimumCPU || "");
-  // const [minimumRAM, setMinimumRAM] = useState(product?.minimumRAM || "");
-  // const [minimumStorage, setMinimumStorage] = useState(product?.minimumStorage || "");
-  // const [minimumGPU, setMinimumGPU] = useState(product?.minimumGPU || "");
-  // const [recommendedOS, setRecommendedOS] = useState(product?.recommendedOS || "");
-  // const [recommendedCPU, setRecommendedCPU] = useState(product?.recommendedCPU || "");
-  // const [recommendedRAM, setRecommendedRAM] = useState(product?.recommendedRAM || "");
-  // const [recommendedStorage, setRecommendedStorage] = useState(product?.recommendedStorage || "");
-  // const [recommendedGPU, setRecommendedGPU] = useState(product?.recommendedGPU || "");
 
   React.useEffect(() => {
     console.log("product", product);
@@ -185,20 +122,6 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
     });
   };
 
-  // const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files && e.target.files[0]) {
-  //     const file = e.target.files[0];
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setEditedProduct({
-  //         ...editedProduct,
-  //         imageUrl: reader.result as string,
-  //       });
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
   const handleSave = () => {
     if (editedProduct) {
       onSave(editedProduct);
@@ -224,6 +147,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 value={editedProduct.name}
                 onChange={handleInputChange}
                 placeholder="Product Name"
+                disabled={readOnly} // Makes field read-only if true
                 className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
               />
             </div>
@@ -239,6 +163,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                     displayName: e.target.value,
                   });
                 }}
+                disabled={readOnly} // Makes field read-only if true
                 className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
               />
             </div>
@@ -257,6 +182,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 });
               }}
               rows={4}
+              disabled={readOnly} // Makes field read-only if true
             />
           </div>
 
@@ -272,6 +198,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                   cardDescription: e.target.value,
                 });
               }}
+              disabled={readOnly} // Makes field read-only if true
               className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
             />
           </div>
@@ -289,6 +216,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                   });
                 }}
                 required
+                disabled={readOnly} // Makes field read-only if true
               >
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Icon" />
@@ -317,6 +245,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 name="date"
                 value={editedProduct.date}
                 onChange={handleInputChange}
+                disabled={readOnly} // Makes field read-only if true
                 className="relative w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm z-10 after:content-[''] after:w-[5ch] after:h-full after:bg-[#00FFA1]/20 after:absolute after:top-0 after:right-0 after:-z-10"
               />
             </div>
@@ -333,32 +262,8 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
               variant="ghost"
               animation={1}
               maxCount={1}
+              disabled={readOnly} // Makes field read-only if true
             />
-            {/* <Select
-                value={editedProduct.language}
-                onValueChange={(value: string) => {
-                  setEditedProduct({
-                    ...editedProduct,
-                    language: value,
-                  });
-                }}
-                required
-              >
-                <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
-                  <SelectValue placeholder="Select Language" />
-                </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
-                  {languageOptions.map((option) => (
-                    <SelectItem
-                      key={option}
-                      value={option}
-                      className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
-                    >
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select> */}
           </div>
         </div>
 
@@ -377,6 +282,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 onChange={handleInputChange}
                 className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
                 required
+                disabled={readOnly} // Makes field read-only if true
               />
             </div>
 
@@ -390,6 +296,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 onChange={handleInputChange}
                 className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
                 required
+                disabled={readOnly} // Makes field read-only if true
               />
             </div>
           </div>
@@ -410,6 +317,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 }}
                 className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
                 required
+                disabled={readOnly} // Makes field read-only if true
               />
             </div>
 
@@ -423,6 +331,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 onChange={handleInputChange}
                 className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
                 required
+                disabled={readOnly} // Makes field read-only if true
               />
             </div>
           </div>
@@ -439,6 +348,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 });
               }}
               required
+              disabled={readOnly} // Makes field read-only if true
             >
               <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                 <SelectValue placeholder="Select status" />
@@ -621,18 +531,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
         <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-md">
           <label className="block mb-1">Status</label>
           <hr className="border-t-[#606060] mb-[0.6em]" />
-          {/* <select
-            name="status"
-            value={editedProduct.status}
-            onChange={handleInputChange}
-            className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
-          >
-            {["Public", "Private", "Archived"].map((option) => (
-              <option key={option} value={option} className="bg-black">
-                {option}
-              </option>
-            ))}
-          </select> */}
+
           <Select
             name="status"
             value={editedProduct.status}
@@ -643,6 +542,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
               })
             }
             required
+            disabled={readOnly} // Makes field read-only if true
           >
             <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
               <SelectValue placeholder="Select status" />
@@ -672,6 +572,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 });
               }}
               selectedCategories={editedProduct.categories}
+              readOnly={readOnly} // Pass the readOnly prop
             />
           </div>
 
@@ -684,6 +585,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                   brand,
                 });
               }}
+              disabled={readOnly} // Pass the readOnly state here
             />
           </div>
 
@@ -696,6 +598,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                   tags,
                 });
               }}
+              readOnly={readOnly} // Pass the readOnly prop
             />
           </div>
 
@@ -708,6 +611,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                   platform,
                 });
               }}
+              readOnly={readOnly} // Pass the readOnly prop here
             />
           </div>
         </div>

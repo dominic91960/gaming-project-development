@@ -22,14 +22,16 @@ interface ProductCategoriesProps {
   categories: string[];
   setCategories: (categories: string[]) => void;
   selectedCategories?: string[];
+  readOnly?: boolean; // Add this line
 }
 
 const ProductCategories = ({
   categories,
   setCategories,
-  selectedCategories
+  selectedCategories,
+  readOnly = false, // Default to false
 }: ProductCategoriesProps) => {
-  console.log("cat",categories);
+  console.log("cat", categories);
   const [isOpen, setIsOpen] = useState(true);
   const [data, setData] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -63,6 +65,7 @@ const ProductCategories = ({
   };
 
   const handleCheckboxChange = (categoryId: string) => {
+    if (readOnly) return; // Prevent interaction in read-only mode
     if (categories.includes(categoryId)) {
       setCategories(categories.filter((id) => id !== categoryId));
     } else {
@@ -84,6 +87,7 @@ const ProductCategories = ({
                 className="bg-transparent border-[#606060] rounded-[2px] data-[state=checked]:bg-inherit data-[state=checked]:text-[#00FFA1]"
                 checked={categories.includes(category.id)}
                 onCheckedChange={() => handleCheckboxChange(category.id)}
+                disabled={readOnly} // Disable interaction in read-only mode
               />
               <label
                 htmlFor={category.id}
