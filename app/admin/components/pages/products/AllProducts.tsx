@@ -10,6 +10,7 @@ import { AllProductsNew, columns } from "./all-products/columns";
 import { DataTable } from "./all-products/data-table";
 import EditAllProductsPopup from "./all-products/EditAllProductsPopup";
 
+import { FaEye } from "react-icons/fa";
 export default function AllProducts() {
   const [products, setProducts] = useState<AllProductsNew[]>([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -17,7 +18,7 @@ export default function AllProducts() {
     null
   );
   const [reload, setReload] = useState(false);
-
+  const [isReadOnly, setIsReadOnly] = useState(false);
   useEffect(() => {
     function mapGamesResponse(games: any[]): any[] {
       return games.map((game) => ({
@@ -176,11 +177,24 @@ export default function AllProducts() {
         >
           <LuPencilLine />
         </button>
+
         <button
           className="hover:opacity-80 transition-opacity duration-100"
           onClick={() => handleDeleteProduct(row.original.id)}
         >
           <IoTrash />
+        </button>
+
+        <button
+          className="hover:opacity-80 transition-opacity duration-100"
+          onClick={() => {
+            setEditingProduct(row.original);
+            setIsEditModalOpen(true);
+            setIsReadOnly(true); // Open modal in read-only mode
+            window.scrollTo(0, 0);
+          }}
+        >
+          <FaEye />
         </button>
       </div>
     ),
@@ -211,9 +225,11 @@ export default function AllProducts() {
         isOpen={isEditModalOpen}
         onClose={() => {
           setIsEditModalOpen(false);
+          setIsReadOnly(false);
           window.scrollTo(0, 0);
         }}
         onSave={handleSaveProduct}
+        readOnly={isReadOnly}
       />
     </div>
   );

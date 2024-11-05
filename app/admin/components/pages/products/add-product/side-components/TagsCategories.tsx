@@ -15,9 +15,14 @@ interface Tags {
 interface TagsCategoriesProps {
   tagIds: string[];
   setTagIds: (tags: string[]) => void;
+  readOnly?: boolean; // Add this line
 }
 
-const TagsCategories = ({ tagIds, setTagIds }: TagsCategoriesProps) => {
+const TagsCategories = ({
+  tagIds,
+  setTagIds,
+  readOnly = false,
+}: TagsCategoriesProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState<boolean>(false); // Track loading state
   const [tags, setTags] = useState<Tags[]>([]);
@@ -53,7 +58,7 @@ const TagsCategories = ({ tagIds, setTagIds }: TagsCategoriesProps) => {
 
   const handleCheckboxChange = (tagId: string) => {
     console.log("Tag ID : ", tagId);
-
+    if (readOnly) return; // Prevent interaction in read-only mode
     if (tagIds.includes(tagId)) {
       setTagIds(tagIds.filter((id) => id !== tagId));
     } else {
@@ -93,6 +98,7 @@ const TagsCategories = ({ tagIds, setTagIds }: TagsCategoriesProps) => {
                   className="bg-transparent border-[#606060] rounded-[2px] data-[state=checked]:bg-inherit data-[state=checked]:text-[#00FFA1]"
                   checked={tagIds.includes(tag.id)}
                   onCheckedChange={() => handleCheckboxChange(tag.id)}
+                  disabled={readOnly} // Disable interaction in read-only mode
                 />
                 <label
                   htmlFor={tag.id}

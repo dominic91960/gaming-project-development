@@ -16,9 +16,14 @@ interface Brands {
 interface BrandCategoriesProps {
   brand: string;
   setBrand: (brand: string) => void;
+  disabled?: boolean; // Add this line
 }
 
-const BrandCategories = ({ brand, setBrand }: BrandCategoriesProps) => {
+const BrandCategories = ({
+  brand,
+  setBrand,
+  disabled,
+}: BrandCategoriesProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState<boolean>(false); // Track loading state
   const [brands, setBrands] = useState<Brands[]>([]);
@@ -53,7 +58,9 @@ const BrandCategories = ({ brand, setBrand }: BrandCategoriesProps) => {
   };
 
   const handleBrandSelect = (selectedBrand: string) => {
-    setBrand(selectedBrand);
+    if (!disabled) {
+      setBrand(selectedBrand);
+    }
   };
 
   return (
@@ -86,10 +93,16 @@ const BrandCategories = ({ brand, setBrand }: BrandCategoriesProps) => {
                 key={brandItem.id}
                 className="w-fit flex items-center gap-x-[0.3em] mb-5 hover:opacity-85 lg:text-[12px] xl:mb-[1em]"
               >
-                <RadioGroupItem value={brandItem.id} id={brandItem.id} />
+                <RadioGroupItem
+                  value={brandItem.id}
+                  id={brandItem.id}
+                  disabled={disabled}
+                />
                 <label
                   htmlFor={brandItem.id}
-                  className="cursor-pointer select-none"
+                  className={`cursor-pointer select-none ${
+                    disabled ? "opacity-50" : ""
+                  }`}
                 >
                   {brandItem.name}
                 </label>
