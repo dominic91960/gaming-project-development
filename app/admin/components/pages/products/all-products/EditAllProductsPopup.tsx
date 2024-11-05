@@ -174,7 +174,6 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
 
   const getLanguages = () => {
     const languages = editedProduct.language.split(", ");
-    console.log("Language array: ", languages);
     return languages;
   };
 
@@ -294,7 +293,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                   <SelectValue placeholder="Select Icon" />
                 </SelectTrigger>
-                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                <SelectContent className="bg-black/80 border border-[#606060] text-white backdrop-blur-sm">
                   {iconOptions.map(({ icon, label }) => (
                     <SelectItem
                       key={label}
