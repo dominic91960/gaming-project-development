@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -102,7 +101,7 @@ export function DataTable<TData, TValue>({
                     return (
                       <TableHead
                         key={header.id}
-                        className="hidden md:table-cell h-fit py-[1em]"
+                        className="hidden md:table-cell h-fit ps-0 py-[1em]"
                       >
                         {header.isPlaceholder
                           ? null

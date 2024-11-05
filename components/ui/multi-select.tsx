@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import {
-  CheckIcon,
-  XCircle,
-  ChevronDown,
-  XIcon,
-  WandSparkles,
-} from "lucide-react";
+import { CheckIcon, XCircle, ChevronDown, XIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/seperator";
@@ -35,7 +29,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
  * Uses class-variance-authority (cva) to define different styles based on "variant" prop.
  */
 const multiSelectVariants = cva(
-  "m-1 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300",
+  "m-1 transition ease-in-out delay-150 duration-300",
   {
     variants: {
       variant: {
@@ -136,7 +130,7 @@ export const MultiSelect = React.forwardRef<
       animation = 0,
       maxCount = 3,
       modalPopover = false,
-      asChild = false,
+      // asChild = false,
       className,
       ...props
     },
@@ -145,7 +139,6 @@ export const MultiSelect = React.forwardRef<
     const [selectedValues, setSelectedValues] =
       React.useState<string[]>(defaultValue);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
-    const [isAnimating, setIsAnimating] = React.useState(false);
 
     const handleInputKeyDown = (
       event: React.KeyboardEvent<HTMLInputElement>
@@ -219,7 +212,6 @@ export const MultiSelect = React.forwardRef<
                       <Badge
                         key={value}
                         className={cn(
-                          isAnimating ? "animate-bounce" : "",
                           multiSelectVariants({ variant }),
                           "h-fit px-[0.6em] py-[0.2em]"
                         )}
@@ -243,7 +235,6 @@ export const MultiSelect = React.forwardRef<
                     <Badge
                       className={cn(
                         "bg-transparent text-foreground border-foreground/1 hover:bg-transparent",
-                        isAnimating ? "animate-bounce" : "",
                         multiSelectVariants({ variant }),
                         "h-fit px-[0.6em] py-[0.2em]"
                       )}
@@ -284,15 +275,15 @@ export const MultiSelect = React.forwardRef<
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-auto p-0 bg-transparent border-[#606060] backdrop-blur-md"
+          className="w-auto p-0 bg-transparent border-[#606060] backdrop-blur-sm"
           align="start"
           onEscapeKeyDown={() => setIsPopoverOpen(false)}
         >
-          <Command className="bg-black/40">
+          <Command className="bg-black/80">
             <CommandInput
               placeholder="Search..."
               onKeyDown={handleInputKeyDown}
-              className="h-fit text-white text-[9px] py-[1em] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+              className="h-fit text-white text-[9px] py-[1em] placeholder:text-[#606060] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
             />
             <CommandList className="max-h-none text-white">
               <CommandEmpty>No results found.</CommandEmpty>
@@ -301,7 +292,7 @@ export const MultiSelect = React.forwardRef<
                   <CommandItem
                     key="all"
                     onSelect={toggleAll}
-                    className="cursor-pointer data-[selected='true']:bg-transparent data-[selected='true']:text-white data-[selected='true']:border data-[selected='true']:border-[#606060] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                    className="cursor-pointer data-[selected='true']:bg-transparent data-[selected='true']:text-white text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
                   >
                     <div
                       className={cn(
@@ -321,7 +312,7 @@ export const MultiSelect = React.forwardRef<
                       <CommandItem
                         key={option.value}
                         onSelect={() => toggleOption(option.value)}
-                        className="cursor-pointer data-[selected='true']:bg-transparent data-[selected='true']:text-white data-[selected='true']:border data-[selected='true']:border-[#606060] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                        className="cursor-pointer data-[selected='true']:bg-transparent data-[selected='true']:text-white text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
                       >
                         <div
                           className={cn(
@@ -349,7 +340,7 @@ export const MultiSelect = React.forwardRef<
                     <>
                       <CommandItem
                         onSelect={handleClear}
-                        className="flex-1 justify-center cursor-pointer text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                        className="flex-1 justify-center cursor-pointer text-[9px] data-[selected=true]:text-black sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
                       >
                         Clear
                       </CommandItem>
@@ -361,7 +352,7 @@ export const MultiSelect = React.forwardRef<
                   )}
                   <CommandItem
                     onSelect={() => setIsPopoverOpen(false)}
-                    className="flex-1 justify-center cursor-pointer max-w-full text-[9px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                    className="flex-1 justify-center cursor-pointer max-w-full text-[9px] data-[selected=true]:text-black sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
                   >
                     Close
                   </CommandItem>
@@ -370,15 +361,6 @@ export const MultiSelect = React.forwardRef<
             </CommandList>
           </Command>
         </PopoverContent>
-        {animation > 0 && selectedValues.length > 0 && (
-          <WandSparkles
-            className={cn(
-              "cursor-pointer my-2 text-foreground bg-background w-3 h-3",
-              isAnimating ? "" : "text-muted-foreground"
-            )}
-            onClick={() => setIsAnimating(!isAnimating)}
-          />
-        )}
       </Popover>
     );
   }

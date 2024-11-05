@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/select";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { FaWindows, FaXbox, FaPlaystation } from "react-icons/fa";
-import { IoLanguageOutline } from "react-icons/io5";
 
 import ProductCategories from "../add-product/side-components/ProductCategories";
 import BrandCategories from "../add-product/side-components/BrandCategories";
@@ -18,7 +17,6 @@ import TagsCategories from "../add-product/side-components/TagsCategories";
 import PlatformCategories from "../add-product/side-components/PlatformCategories";
 import ProductImages from "../add-product/side-components/ProductImages";
 import SystemRequirements from "./System-Requirement";
-import { set } from "date-fns";
 // import {
 //   Select,
 //   SelectContent,
@@ -28,63 +26,57 @@ import { set } from "date-fns";
 // } from "@/components/ui/select";
 
 const iconOptions = [
-  { icon: <FaWindows />, label: "Windows" },
-  { icon: <FaXbox />, label: "Xbox" },
-  { icon: <FaPlaystation />, label: "Playstation" },
+  { icon: <FaWindows />, label: "WINDOWS" },
+  { icon: <FaXbox />, label: "XBOX" },
+  { icon: <FaPlaystation />, label: "PLAYSTATION" },
 ];
 
 const languageOptions = [
-  { value: "English", label: "English", icon: IoLanguageOutline },
+  { value: "English", label: "English" },
   {
     value: "Spanish (Spain)",
     label: "Spanish (Spain)",
-    icon: IoLanguageOutline,
   },
   {
     value: "Spanish (Latin America)",
     label: "Spanish (Latin America)",
-    icon: IoLanguageOutline,
   },
-  { value: "French", label: "French", icon: IoLanguageOutline },
-  { value: "German", label: "German", icon: IoLanguageOutline },
-  { value: "Italian", label: "Italian", icon: IoLanguageOutline },
+  { value: "French", label: "French" },
+  { value: "German", label: "German" },
+  { value: "Italian", label: "Italian" },
   {
     value: "Portuguese (Portugal)",
     label: "Portuguese (Portugal)",
-    icon: IoLanguageOutline,
   },
   {
     value: "Portuguese (Brazilian)",
     label: "Portuguese (Brazilian)",
-    icon: IoLanguageOutline,
   },
-  { value: "Russian", label: "Russian", icon: IoLanguageOutline },
+  { value: "Russian", label: "Russian" },
   {
     value: "Chinese (Simplified)",
     label: "Chinese (Simplified)",
-    icon: IoLanguageOutline,
   },
   {
     value: "Chinese (Traditional)",
     label: "Chinese (Traditional)",
-    icon: IoLanguageOutline,
   },
-  { value: "Japanese", label: "Japanese", icon: IoLanguageOutline },
-  { value: "Korean", label: "Korean", icon: IoLanguageOutline },
-  { value: "Dutch", label: "Dutch", icon: IoLanguageOutline },
-  { value: "Polish", label: "Polish", icon: IoLanguageOutline },
-  { value: "Turkish", label: "Turkish", icon: IoLanguageOutline },
-  { value: "Arabic", label: "Arabic", icon: IoLanguageOutline },
-  { value: "Swedish", label: "Swedish", icon: IoLanguageOutline },
-  { value: "Danish", label: "Danish", icon: IoLanguageOutline },
-  { value: "Finnish", label: "Finnish", icon: IoLanguageOutline },
-  { value: "Norwegian", label: "Norwegian", icon: IoLanguageOutline },
-  { value: "Czech", label: "Czech", icon: IoLanguageOutline },
-  { value: "Hungarian", label: "Hungarian", icon: IoLanguageOutline },
-  { value: "Thai", label: "Thai", icon: IoLanguageOutline },
-  { value: "Indonesian", label: "Indonesian", icon: IoLanguageOutline },
-  { value: "Vietnamese", label: "Vietnamese", icon: IoLanguageOutline },
-  { value: "Greek", label: "Greek", icon: IoLanguageOutline },
+  { value: "Japanese", label: "Japanese" },
+  { value: "Korean", label: "Korean" },
+  { value: "Dutch", label: "Dutch" },
+  { value: "Polish", label: "Polish" },
+  { value: "Turkish", label: "Turkish" },
+  { value: "Arabic", label: "Arabic" },
+  { value: "Swedish", label: "Swedish" },
+  { value: "Danish", label: "Danish" },
+  { value: "Finnish", label: "Finnish" },
+  { value: "Norwegian", label: "Norwegian" },
+  { value: "Czech", label: "Czech" },
+  { value: "Hungarian", label: "Hungarian" },
+  { value: "Thai", label: "Thai" },
+  { value: "Indonesian", label: "Indonesian" },
+  { value: "Vietnamese", label: "Vietnamese" },
+  { value: "Greek", label: "Greek" },
 ];
 
 interface EditAllProductsPopupProps {
@@ -100,66 +92,67 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
   onClose,
   onSave,
 }) => {
-  const [editedProduct, setEditedProduct] =
-    React.useState<AllProductsNew | null>(product);
+  const [editedProduct, setEditedProduct] = useState<AllProductsNew | null>(
+    product
+  );
 
-    const languageOptions = [
-      "English",
-      "Spanish (Spain)",
-      "Spanish (Latin America)",
-      "French",
-      "German",
-      "Italian",
-      "Portuguese (Portugal)",
-      "Portuguese (Brazilian)",
-      "Russian",
-      "Chinese (Simplified)",
-      "Chinese (Traditional)",
-      "Japanese",
-      "Korean",
-      "Dutch",
-      "Polish",
-      "Turkish",
-      "Arabic",
-      "Swedish",
-      "Danish",
-      "Finnish",
-      "Norwegian",
-      "Czech",
-      "Hungarian",
-      "Thai",
-      "Indonesian",
-      "Vietnamese",
-      "Greek",
-    ];
+  // const languageOptions = [
+  //   "English",
+  //   "Spanish (Spain)",
+  //   "Spanish (Latin America)",
+  //   "French",
+  //   "German",
+  //   "Italian",
+  //   "Portuguese (Portugal)",
+  //   "Portuguese (Brazilian)",
+  //   "Russian",
+  //   "Chinese (Simplified)",
+  //   "Chinese (Traditional)",
+  //   "Japanese",
+  //   "Korean",
+  //   "Dutch",
+  //   "Polish",
+  //   "Turkish",
+  //   "Arabic",
+  //   "Swedish",
+  //   "Danish",
+  //   "Finnish",
+  //   "Norwegian",
+  //   "Czech",
+  //   "Hungarian",
+  //   "Thai",
+  //   "Indonesian",
+  //   "Vietnamese",
+  //   "Greek",
+  // ];
 
-  const [platform, setPlatform] = useState(product?.platform || "");
-  const [brand, setBrand] = useState(product?.brand || "");
-  const [categories, setCategories] = useState<string[]>(product?.categories || []);
-  const [tags, setTags] = useState<string[]>(product?.tags || []);
+  // const [platform, setPlatform] = useState(product?.platform || "");
+  // const [brand, setBrand] = useState(product?.brand || "");
+  // const [categories, setCategories] = useState<string[]>(product?.categories || []);
+  // const [tags, setTags] = useState<string[]>(product?.tags || []);
 
   //image data inputs
-  const [imageUrl, setImageUrl] = useState("");
-  const [coverImage, setCoverImage] = useState(product?.coverImage || "");
-  const [videoUrl, setVideoUrl] = useState(product?.videoUrl || "");
-  const [galleryImages, setGalleryImages] = useState<string[]>(product?.galleryImages || []);
-  const [cardImage, setCardImage] = useState(product?.cardImage || "");
-  const [latestImage, setLatestImage] = useState(product?.latestImage || "");
-  const [addToLatestGame, setAddToLatestGame] = useState(product?.addToLatestGame || false);
-  const [carousel, setCarousel] = useState(product?.carousel || false);
-  const [displayLatestGame, setDisplayLatestGame] = useState(product?.displayLatestGame || false);
+  // const [imageUrl, setImageUrl] = useState("");
+  // const [coverImage, setCoverImage] = useState(product?.coverImage || "");
+  // const [videoUrl, setVideoUrl] = useState(product?.videoUrl || "");
+  // const [galleryImages, setGalleryImages] = useState<string[]>(product?.galleryImages || []);
+  // const [cardImage, setCardImage] = useState(product?.cardImage || "");
+  // const [latestImage, setLatestImage] = useState(product?.latestImage || "");
+  // const [addToLatestGame, setAddToLatestGame] = useState(product?.addToLatestGame || false);
+  // const [carousel, setCarousel] = useState(product?.carousel || false);
+  // const [displayLatestGame, setDisplayLatestGame] = useState(product?.displayLatestGame || false);
 
   // system requirements
-  const [minimumOS, setMinimumOS] = useState(product?.minimumOS || "");
-  const [minimumCPU, setMinimumCPU] = useState(product?.minimumCPU || "");
-  const [minimumRAM, setMinimumRAM] = useState(product?.minimumRAM || "");
-  const [minimumStorage, setMinimumStorage] = useState(product?.minimumStorage || "");
-  const [minimumGPU, setMinimumGPU] = useState(product?.minimumGPU || "");
-  const [recommendedOS, setRecommendedOS] = useState(product?.recommendedOS || "");
-  const [recommendedCPU, setRecommendedCPU] = useState(product?.recommendedCPU || "");
-  const [recommendedRAM, setRecommendedRAM] = useState(product?.recommendedRAM || "");
-  const [recommendedStorage, setRecommendedStorage] = useState(product?.recommendedStorage || "");
-  const [recommendedGPU, setRecommendedGPU] = useState(product?.recommendedGPU || "");
+  // const [minimumOS, setMinimumOS] = useState(product?.minimumOS || "");
+  // const [minimumCPU, setMinimumCPU] = useState(product?.minimumCPU || "");
+  // const [minimumRAM, setMinimumRAM] = useState(product?.minimumRAM || "");
+  // const [minimumStorage, setMinimumStorage] = useState(product?.minimumStorage || "");
+  // const [minimumGPU, setMinimumGPU] = useState(product?.minimumGPU || "");
+  // const [recommendedOS, setRecommendedOS] = useState(product?.recommendedOS || "");
+  // const [recommendedCPU, setRecommendedCPU] = useState(product?.recommendedCPU || "");
+  // const [recommendedRAM, setRecommendedRAM] = useState(product?.recommendedRAM || "");
+  // const [recommendedStorage, setRecommendedStorage] = useState(product?.recommendedStorage || "");
+  // const [recommendedGPU, setRecommendedGPU] = useState(product?.recommendedGPU || "");
 
   React.useEffect(() => {
     console.log("product", product);
@@ -176,6 +169,19 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
     setEditedProduct({
       ...editedProduct,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const getLanguages = () => {
+    const languages = editedProduct.language.split(", ");
+    return languages;
+  };
+
+  const setLanguages = (languages: string[]) => {
+    const languageString = languages.join(", ");
+    setEditedProduct({
+      ...editedProduct,
+      language: languageString,
     });
   };
 
@@ -244,13 +250,12 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
             <textarea
               className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
               value={editedProduct.about}
-              onChange={(e)=> {
+              onChange={(e) => {
                 setEditedProduct({
                   ...editedProduct,
                   about: e.target.value,
                 });
-              }
-              }
+              }}
               rows={4}
             />
           </div>
@@ -261,7 +266,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
             <input
               type="text"
               value={editedProduct.cardDescription}
-              onChange={(e)=>{
+              onChange={(e) => {
                 setEditedProduct({
                   ...editedProduct,
                   cardDescription: e.target.value,
@@ -272,71 +277,37 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
           </div>
 
           {/* Icon, language and release date */}
-          <div className="grid 2xl:grid-cols-3 gap-[1.5em]">
+          <div className="grid 2xl:grid-cols-3 gap-[1.5em] mb-[1.5em]">
             <div>
-          <label className="block mb-[0.5em]">Select Icon</label>
-          <Select
-            value={editedProduct.icon}
-            onValueChange={
-              (value: string) => {
-                setEditedProduct({
-                  ...editedProduct,
-                  icon: value,
-                });
-            
-            }
-            }
-            required
-          >
-            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
-              <SelectValue placeholder="Select Icon" />
-            </SelectTrigger>
-            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
-              {["WINDOWS", "PLAYSTATION", "XBOX"].map((option) => (
-                <SelectItem
-                  key={option}
-                  value={option}
-                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
-                >
-                  {option}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-            {/* Language */}
-            <div>
-          <label className="block mb-[0.5em]">Select Language</label>
-          <Select
-            value={editedProduct.language}
-            onValueChange={
-              (value: string) => {
-                setEditedProduct({
-                  ...editedProduct,
-                  language: value,
-            })
-            }
-
-            }
-
-            required
-          >
-            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
-              <SelectValue placeholder="Select Language" />
-            </SelectTrigger>
-            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
-              {languageOptions.map((option) => (
-                <SelectItem
-                  key={option}
-                  value={option}
-                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
-                >
-                  {option}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+              <label className="block mb-[0.5em]">Select Icon</label>
+              <Select
+                value={editedProduct.icon}
+                onValueChange={(value: string) => {
+                  setEditedProduct({
+                    ...editedProduct,
+                    icon: value,
+                  });
+                }}
+                required
+              >
+                <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
+                  <SelectValue placeholder="Select Icon" />
+                </SelectTrigger>
+                <SelectContent className="bg-black/80 border border-[#606060] text-white backdrop-blur-sm">
+                  {iconOptions.map(({ icon, label }) => (
+                    <SelectItem
+                      key={label}
+                      value={label}
+                      className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                    >
+                      <div className="flex items-center gap-x-[0.4em] lowercase">
+                        {icon} <p className="capitalize">{label}</p>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
             {/* Release date */}
             <div>
@@ -349,6 +320,45 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 className="relative w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm z-10 after:content-[''] after:w-[5ch] after:h-full after:bg-[#00FFA1]/20 after:absolute after:top-0 after:right-0 after:-z-10"
               />
             </div>
+          </div>
+
+          {/* Language */}
+          <div>
+            <label className="block mb-[0.5em]">Select Language</label>
+            <MultiSelect
+              options={languageOptions}
+              onValueChange={setLanguages}
+              defaultValue={getLanguages()}
+              placeholder="Select Languages"
+              variant="ghost"
+              animation={1}
+              maxCount={1}
+            />
+            {/* <Select
+                value={editedProduct.language}
+                onValueChange={(value: string) => {
+                  setEditedProduct({
+                    ...editedProduct,
+                    language: value,
+                  });
+                }}
+                required
+              >
+                <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
+                  <SelectValue placeholder="Select Language" />
+                </SelectTrigger>
+                <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-[2px]">
+                  {languageOptions.map((option) => (
+                    <SelectItem
+                      key={option}
+                      value={option}
+                      className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                    >
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select> */}
           </div>
         </div>
 
@@ -392,13 +402,12 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
               <input
                 type="text"
                 value={editedProduct.saleQuantity}
-                onChange={(e)=>{
+                onChange={(e) => {
                   setEditedProduct({
                     ...editedProduct,
                     saleQuantity: Number(e.target.value),
                   });
-                }
-                }
+                }}
                 className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm"
                 required
               />
@@ -420,38 +429,38 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
 
           {/* Stock status */}
           <div>
-            <label className="block mb-[0.5em]">Stock status1</label>
+            <label className="block mb-[0.5em]">Stock status</label>
             <Select
               value={editedProduct.stockStatus}
-              onValueChange={
-                (value: string) => {
-                  setEditedProduct({
-                    ...editedProduct,
-                    stockStatus: value,
-                  });
-                }
-              }
+              onValueChange={(value: string) => {
+                setEditedProduct({
+                  ...editedProduct,
+                  stockStatus: value,
+                });
+              }}
               required
             >
               <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
-              <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
-                {["In Stock", "Out Of Stock", "On Backorder"].map((option, index) => (
-                  <SelectItem
-                    key={index}
-                    value={
-                      option === "In Stock"
-                        ? "IN_STOCK"
-                        : option === "Out Of Stock"
-                        ? "OUT_OF_STOCK"
-                        : "ON_BACKORDER"
-                    }
-                    className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
-                  >
-                    {option}
-                  </SelectItem>
-                ))}
+              <SelectContent className="bg-black/80 border border-[#606060] text-white backdrop-blur-sm">
+                {["In Stock", "Out Of Stock", "On Backorder"].map(
+                  (option, index) => (
+                    <SelectItem
+                      key={index}
+                      value={
+                        option === "In Stock"
+                          ? "IN_STOCK"
+                          : option === "Out Of Stock"
+                          ? "OUT_OF_STOCK"
+                          : "ON_BACKORDER"
+                      }
+                      className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                    >
+                      {option}
+                    </SelectItem>
+                  )
+                )}
               </SelectContent>
             </Select>
           </div>
@@ -464,58 +473,63 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
             coverImage={editedProduct.coverImage}
             setCoverImage={(url) => {
               setEditedProduct({
-          ...editedProduct,
-          coverImage: url,
+                ...editedProduct,
+                coverImage: url,
               });
             }}
             videoUrl={editedProduct.videoUrl}
             setVideoUrl={(url) => {
               setEditedProduct({
-          ...editedProduct,
-          videoUrl: url,
+                ...editedProduct,
+                videoUrl: url,
               });
             }}
             galleryImages={editedProduct.galleryImages}
-          setGalleryImages={(images: string[] | ((prevUrls: string[]) => string[])) => {
-            const updatedImages = typeof images === 'function' ? images(editedProduct.galleryImages) : images;
-            setEditedProduct({
-              ...editedProduct,
-              galleryImages: updatedImages,
-            });
-          }}
+            setGalleryImages={(
+              images: string[] | ((prevUrls: string[]) => string[])
+            ) => {
+              const updatedImages =
+                typeof images === "function"
+                  ? images(editedProduct.galleryImages)
+                  : images;
+              setEditedProduct({
+                ...editedProduct,
+                galleryImages: updatedImages,
+              });
+            }}
             latestImage={editedProduct.latestImage}
             setLatestImage={(url) => {
               setEditedProduct({
-          ...editedProduct,
-          latestImage: url,
+                ...editedProduct,
+                latestImage: url,
               });
             }}
             cardImage={editedProduct.cardImage}
             setCardImage={(url) => {
               setEditedProduct({
-          ...editedProduct,
-          cardImage: url,
+                ...editedProduct,
+                cardImage: url,
               });
             }}
             addToLatestGame={editedProduct.addToLatestGame}
             setAddToLatestGame={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          addToLatestGame: value,
+                ...editedProduct,
+                addToLatestGame: value,
               });
             }}
             carousel={editedProduct.carousel}
             setCarousel={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          carousel: value,
+                ...editedProduct,
+                carousel: value,
               });
             }}
             displayLatestGame={editedProduct.displayLatestGame}
             setDisplayLatestGame={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          displayLatestGame: value,
+                ...editedProduct,
+                displayLatestGame: value,
               });
             }}
           />
@@ -530,71 +544,71 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
             minimumOS={editedProduct.minimumOS}
             setMinimumOS={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          minimumOS: value,
+                ...editedProduct,
+                minimumOS: value,
               });
             }}
             minimumCPU={editedProduct.minimumCPU}
             setMinimumCPU={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          minimumCPU: value,
+                ...editedProduct,
+                minimumCPU: value,
               });
             }}
             minimumRAM={editedProduct.minimumRAM}
             setMinimumRAM={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          minimumRAM: value,
+                ...editedProduct,
+                minimumRAM: value,
               });
             }}
             minimumStorage={editedProduct.minimumStorage}
             setMinimumStorage={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          minimumStorage: value,
+                ...editedProduct,
+                minimumStorage: value,
               });
             }}
             minimumGPU={editedProduct.minimumGPU}
             setMinimumGPU={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          minimumGPU: value,
+                ...editedProduct,
+                minimumGPU: value,
               });
             }}
             recommendedOS={editedProduct.recommendedOS}
             setRecommendedOS={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          recommendedOS: value,
+                ...editedProduct,
+                recommendedOS: value,
               });
             }}
             recommendedCPU={editedProduct.recommendedCPU}
             setRecommendedCPU={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          recommendedCPU: value,
+                ...editedProduct,
+                recommendedCPU: value,
               });
             }}
             recommendedRAM={editedProduct.recommendedRAM}
             setRecommendedRAM={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          recommendedRAM: value,
+                ...editedProduct,
+                recommendedRAM: value,
               });
             }}
             recommendedStorage={editedProduct.recommendedStorage}
             setRecommendedStorage={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          recommendedStorage: value,
+                ...editedProduct,
+                recommendedStorage: value,
               });
             }}
             recommendedGPU={editedProduct.recommendedGPU}
             setRecommendedGPU={(value) => {
               setEditedProduct({
-          ...editedProduct,
-          recommendedGPU: value,
+                ...editedProduct,
+                recommendedGPU: value,
               });
             }}
           />
@@ -607,7 +621,7 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
         <div className="bg-black/40 mb-[2.8em] px-[2em] py-[1em] border border-[#0D6D49] rounded-sm backdrop-blur-md">
           <label className="block mb-1">Status</label>
           <hr className="border-t-[#606060] mb-[0.6em]" />
-          <select
+          {/* <select
             name="status"
             value={editedProduct.status}
             onChange={handleInputChange}
@@ -618,7 +632,33 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                 {option}
               </option>
             ))}
-          </select>
+          </select> */}
+          <Select
+            name="status"
+            value={editedProduct.status}
+            onValueChange={(value: string) =>
+              setEditedProduct((prev) => {
+                if (!prev) return null;
+                return { ...prev, status: value };
+              })
+            }
+            required
+          >
+            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
+              <SelectValue placeholder="Select status" />
+            </SelectTrigger>
+            <SelectContent className="bg-black/80 border border-[#606060] text-white backdrop-blur-sm rounded-sm">
+              {["Public", "Private", "Archived"].map((option) => (
+                <SelectItem
+                  key={option}
+                  value={option}
+                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+                >
+                  {option}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
@@ -630,43 +670,45 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
                   ...editedProduct,
                   categories,
                 });
-              }
-              }
+              }}
               selectedCategories={editedProduct.categories}
             />
           </div>
 
           <div className="mb-10">
-            <BrandCategories brand={editedProduct.brand} setBrand={
-              (brand) => {
+            <BrandCategories
+              brand={editedProduct.brand}
+              setBrand={(brand) => {
                 setEditedProduct({
                   ...editedProduct,
                   brand,
                 });
-              }
-            } />
+              }}
+            />
           </div>
 
           <div className="mb-10">
-            <TagsCategories tagIds={editedProduct.tags} setTagIds={
-              (tags) => {
+            <TagsCategories
+              tagIds={editedProduct.tags}
+              setTagIds={(tags) => {
                 setEditedProduct({
                   ...editedProduct,
                   tags,
                 });
-              }
-            } />
+              }}
+            />
           </div>
 
           <div className="mb-10">
-            <PlatformCategories platform={editedProduct.platform} setPlatform={
-              (platform) => {
+            <PlatformCategories
+              platform={editedProduct.platform}
+              setPlatform={(platform) => {
                 setEditedProduct({
                   ...editedProduct,
                   platform,
                 });
-              }
-            } />
+              }}
+            />
           </div>
         </div>
 
@@ -693,4 +735,3 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
 };
 
 export default EditAllProductsPopup;
-

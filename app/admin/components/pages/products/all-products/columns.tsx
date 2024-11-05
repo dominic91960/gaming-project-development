@@ -1,17 +1,10 @@
 "use client";
 
+import Image from "next/image";
+
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
-import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export type AllProductsNew = {
   id: string;
@@ -62,10 +55,12 @@ export const columns: ColumnDef<AllProductsNew>[] = [
       const AllProductsNew = row.original;
       return (
         <div className="flex items-center size-[2em]">
-          <img
+          <Image
             src={AllProductsNew.imageUrl}
             alt={AllProductsNew.name}
             className="w-full h-full rounded-full"
+            width={32}
+            height={32}
           />
         </div>
       );
