@@ -27,7 +27,7 @@ interface CategoryContextProps {
   categories: Category[];
   loading: boolean;
   deleteCategoriesById: (id: string) => void;
-  addNewcategory: (data: Category1) => void;
+  addNewCategory: (data: Category1) => void;
 }
 
 const CategoryContext = createContext<CategoryContextProps | undefined>(
@@ -111,7 +111,7 @@ export const CategoryProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const addNewcategory = async (data: Category1) => {
+  const addNewCategory = async (data: Category1) => {
     try {
       const res = await axiosInstance.post("/categories", data);
       if (res.status === 201) {
@@ -129,7 +129,7 @@ export const CategoryProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <CategoryContext.Provider
-      value={{ categories, loading, deleteCategoriesById, addNewcategory }}
+      value={{ categories, loading, deleteCategoriesById, addNewCategory }}
     >
       {children}
     </CategoryContext.Provider>

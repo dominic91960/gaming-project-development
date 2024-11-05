@@ -1,6 +1,7 @@
 "use client";
 "use stict";
 
+import Image from "next/image";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Edit, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -56,13 +57,19 @@ export const columns = (
       accessorKey: "imageUrl",
       header: "Image",
       cell: ({ row }) => {
-        const payment = row.original;
         return (
           <div className="flex items-center size-[2em]">
-            <img
-              src={payment.imageUrl}
-              alt={payment.name}
+            {/* <img
+              src={row.original.imageUrl}
+              alt="category_img"
               className="w-full h-full rounded-full"
+            /> */}
+            <Image
+              src={row.original.imageUrl}
+              alt="category_img"
+              className="w-full h-full rounded-full"
+              width={10}
+              height={10}
             />
           </div>
         );
