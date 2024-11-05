@@ -91,9 +91,9 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
     } */
   };
 
-  useEffect(() => {
+ /*  useEffect(() => {
     setData(categories);
-  }, []);
+  }, []); */
 
   return (
     <>
@@ -141,7 +141,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
                     <SelectValue placeholder="Select Parent Category" />
                   </SelectTrigger>
                   <SelectContent className="h-[20em] overflow-y-scroll bg-transparent border border-[#606060] text-white backdrop-blur-md">
-                    {data.map((category) => (
+                    {categories.map((category) => (
                       <SelectItem
                         key={category.id}
                         value={category.id.toString()}
