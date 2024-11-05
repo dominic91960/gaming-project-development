@@ -29,12 +29,12 @@ const validationSchema = Yup.object().shape({
     .email("Invalid email format")
     .required("Email is required"),
   password: Yup.string()
-    .required("Password is required")
-    .min(6, "Password must be at least 6 characters")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-      "Password format incorrect"
-    ),
+  .required("Password is required")
+  .min(6, "Password must be at least 6 characters")
+  .matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$/,
+    "Password format incorrect: must contain at least one uppercase letter, one lowercase letter, one number, and one special character(@, $, !, %, *, ?, &,#)."
+  ),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), undefined], "Passwords must match")
     .required("Please confirm your password"),
