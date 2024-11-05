@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import "../../../../admin.css";
+import { useSidebar } from "@/context/SidebarContext";
 
 export type Category = {
   id: string;
@@ -35,6 +36,7 @@ const ProductCategories = ({
   const [isOpen, setIsOpen] = useState(true);
   const [data, setData] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const { setSelectedItem } = useSidebar();
 
   useEffect(() => {
     getAllCategoriesByObject();
@@ -133,10 +135,12 @@ const ProductCategories = ({
           {renderCategories(data)}
         </ScrollArea>
       </div>
-
-      <a href="#" className="text-[#0BDB45] hover:opacity-85">
+      <div
+        className="text-[#0BDB45] hover:opacity-85"
+        onClick={() => setSelectedItem("categories")}
+      >
         Add new category
-      </a>
+      </div>
     </div>
   );
 };

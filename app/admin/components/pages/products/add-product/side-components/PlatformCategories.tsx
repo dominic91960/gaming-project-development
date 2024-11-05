@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { useSidebar } from "@/context/SidebarContext";
 
 interface Platforms {
   id: string;
@@ -27,6 +28,7 @@ const PlatformCategories = ({
   const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState<boolean>(false); // Track loading state
   const [platforms, setPlatforms] = useState<Platforms[]>([]);
+  const { setSelectedItem } = useSidebar();
 
   // show toast
   const showToast = (value: boolean, message: string) => {
@@ -103,10 +105,12 @@ const PlatformCategories = ({
           </RadioGroup>
         </ScrollArea>
       </div>
-
-      <a href="#" className="text-[#0BDB45] hover:opacity-85">
+      <div
+        className="text-[#0BDB45] hover:opacity-85"
+        onClick={() => setSelectedItem("platforms")}
+      >
         Add new platform
-      </a>
+      </div>
     </div>
   );
 };

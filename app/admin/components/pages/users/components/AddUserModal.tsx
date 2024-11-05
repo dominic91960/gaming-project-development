@@ -16,7 +16,7 @@ interface AddUserModalProps {
     firstName: string;
     lastName: string;
     email: string;
-    role: string;
+    roleId: string;
     profile_image: string;
     password: string;
   }) => Promise<void>;
@@ -70,7 +70,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
       firstName,
       lastName,
       email,
-      role,
+      roleId:role,
       profile_image: newImageUrl || image,
       password,
     };
@@ -244,7 +244,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
                   {roles.map((role) => (
                     <option
                       key={role.id}
-                      value={role.name}
+                      value={role.id}
                       className="bg-black text-white"
                     >
                       {role.name}
