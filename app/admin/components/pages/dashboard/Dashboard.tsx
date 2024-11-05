@@ -1,43 +1,23 @@
 import Image from "next/image";
 
-import { FaDollarSign } from "react-icons/fa";
-import { PiListStarFill } from "react-icons/pi";
-import { TbUserFilled } from "react-icons/tb";
-import { RiBox3Fill } from "react-icons/ri";
-
 import Greeting from "./_components/Greeting";
 import Summary from "./_components/Summary";
+import DashboardText from "./_components/DashboardText";
+import MonthlyEarnings from "./_components/MonthlyEarnings";
 import TopCustomers from "./_components/TopCustomers";
 import TopGames from "./_components/TopGames";
 import samplePic from "@/public/images/sample-pic.png";
 import character from "@/public/images/dashboard/character.png";
-import MonthlyEarnings from "./_components/MonthlyEarnings";
 
-const summary = [
-  {
-    icon: <FaDollarSign />,
-    title: "Total Earning",
-    value: 2669.0,
-  },
-  {
-    icon: <PiListStarFill />,
-    title: "Total Orders",
-    value: 20,
-  },
-  {
-    icon: <TbUserFilled />,
-    title: "Total Customers",
-    value: 100,
-  },
-  {
-    icon: <RiBox3Fill />,
-    title: "Total Products",
-    value: 200,
-  },
-];
+const summary = {
+  totalEarning: 1832768,
+  totalOrders: 2450,
+  totalCustomers: 146327,
+  totalProducts: 200,
+};
 
 const chartData = [
-  { month: "January", totalIncome: 186 },
+  { month: "January", totalIncome: 183 },
   { month: "February", totalIncome: 305 },
   { month: "March", totalIncome: 237 },
   { month: "April", totalIncome: 73 },
@@ -95,8 +75,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "Black Myth: Wukong",
-    description:
-      "An action-adventure RPG inspired by the classic Chinese tale, Journey to the West.",
     discountPrice: 299,
     originalPrice: 399,
     rating: 3.7,
@@ -104,8 +82,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "Elden Ring",
-    description:
-      "An expansive fantasy action RPG with an open world filled with dark lore.",
     discountPrice: 249,
     originalPrice: 349,
     rating: 4.8,
@@ -113,8 +89,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "Horizon Forbidden West",
-    description:
-      "A stunning open-world action RPG featuring robotic creatures and lush landscapes.",
     discountPrice: 299,
     originalPrice: 399,
     rating: 4.5,
@@ -122,8 +96,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "God of War Ragnarök",
-    description:
-      "A mythological action-adventure game focusing on the relationship between Kratos and his son, Atreus.",
     discountPrice: 349,
     originalPrice: 449,
     rating: 4.9,
@@ -131,8 +103,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "Ghost of Tsushima",
-    description:
-      "An action-adventure game set in feudal Japan, featuring samurai combat and stealth elements.",
     discountPrice: 199,
     originalPrice: 299,
     rating: 4.7,
@@ -140,8 +110,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "The Last of Us Part II",
-    description:
-      "A gripping story of survival and revenge in a post-apocalyptic world.",
     discountPrice: 279,
     originalPrice: 379,
     rating: 4.6,
@@ -149,8 +117,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "Cyberpunk 2077",
-    description:
-      "An open-world RPG set in a dystopian future, filled with high-tech and cybernetic enhancements.",
     discountPrice: 299,
     originalPrice: 399,
     rating: 3.9,
@@ -158,8 +124,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "Final Fantasy VII Remake",
-    description:
-      "A reimagining of the classic RPG with stunning visuals and a revamped combat system.",
     discountPrice: 349,
     originalPrice: 449,
     rating: 4.8,
@@ -167,8 +131,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "Ratchet & Clank: Rift Apart",
-    description:
-      "An action platformer that showcases the power of the PS5 with interdimensional gameplay.",
     discountPrice: 299,
     originalPrice: 399,
     rating: 4.6,
@@ -176,8 +138,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "Resident Evil Village",
-    description:
-      "A survival horror game continuing the story of Ethan Winters in a mysterious village.",
     discountPrice: 249,
     originalPrice: 349,
     rating: 4.5,
@@ -185,17 +145,13 @@ const games = [
   {
     poster: samplePic.src,
     name: "Assassin's Creed Valhalla",
-    description:
-      "An action RPG set in the Viking era, where players build their own settlements.",
     discountPrice: 299,
     originalPrice: 399,
-    rating: 4.4,
+    rating: 0,
   },
   {
     poster: samplePic.src,
     name: "Demon's Souls",
-    description:
-      "A remake of the classic RPG known for its challenging gameplay and atmospheric world.",
     discountPrice: 349,
     originalPrice: 449,
     rating: 4.7,
@@ -203,17 +159,13 @@ const games = [
   {
     poster: samplePic.src,
     name: "Battlefield 2042",
-    description:
-      "A multiplayer first-person shooter set in a near-future warzone.",
     discountPrice: 199,
     originalPrice: 299,
-    rating: 3.5,
+    rating: 0,
   },
   {
     poster: samplePic.src,
     name: "Forza Horizon 5",
-    description:
-      "An open-world racing game featuring stunning visuals and diverse landscapes.",
     discountPrice: 299,
     originalPrice: 399,
     rating: 4.8,
@@ -221,8 +173,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "Star Wars Jedi: Fallen Order",
-    description:
-      "An action-adventure game set in the Star Wars universe, focusing on lightsaber combat and exploration.",
     discountPrice: 249,
     originalPrice: 349,
     rating: 4.5,
@@ -230,8 +180,6 @@ const games = [
   {
     poster: samplePic.src,
     name: "Mortal Kombat 11",
-    description:
-      "A fighting game featuring iconic characters and brutal combat mechanics.",
     discountPrice: 199,
     originalPrice: 299,
     rating: 4.4,
@@ -242,26 +190,13 @@ const Dashboard = () => {
   return (
     <section className="relative font-primaryFont text-white px-[36px]">
       <Greeting />
-      <div className="md:grid md:grid-cols-2 md:gap-[16px] lg:gap-[18px] xl:gap-[22px] 2xl:gap-[24px]">
-        <div>
+      <div className="md:grid md:grid-cols-2 md:gap-[16px] md:pb-[40px] lg:gap-[18px] lg:pb-[48px] xl:gap-[22px] xl:pb-[56px] 2xl:gap-[24px] 2xl:pb-[60px]">
+        <div className="md:flex md:flex-col md:justify-between">
           <Summary summary={summary} />
-          <div className="mt-[30px]">
-            <h1 className="font-medium leading-none text-[90px] uppercase">
-              Black Myth
-            </h1>
-            <h1 className="font-bold leading-none text-[96px] uppercase">
-              Wukong
-            </h1>
-            <p className="w-[47ch] font-medium">
-              Black Myth: Wukong is an action RPG rooted in Chinese mythology.
-              You shall set out as the Destined One to venture into the
-              challenges and marvels ahead, to uncover the obscured truth
-              beneath the veil of a glorious legend from the past.
-            </p>
-          </div>
+          <DashboardText />
           <MonthlyEarnings chartData={chartData} />
         </div>
-        <div>
+        <div className="md:flex md:flex-col md:justify-between">
           <TopCustomers customers={customers} />
           <TopGames games={games} />
         </div>
@@ -269,7 +204,7 @@ const Dashboard = () => {
       <Image
         src={character}
         alt="Dashboard character"
-        className="hidden absolute bottom-0 left-0 right-0 mx-auto -translate-x-[40%] md:block md:w-[220px] lg:w-[260px] xl:w-[300px] 2xl:w-[322px]"
+        className="hidden absolute bottom-0 left-0 right-0 mx-auto -translate-x-[40%] lg:block lg:w-[24%] xl:w-[270px] 2xl:w-[300px]"
         style={{
           clipPath:
             "polygon(0% 0%, 0% 30%, 12% 40%, 12% 93%, 0% 93%, 0% 100%, 100% 100%, 100% 0%)",

@@ -14,13 +14,12 @@ interface TopGamesInterface {
     discountPrice: number;
     originalPrice: number;
     rating: number;
-    description: string;
   }[];
 }
 
 const TopGames: React.FC<TopGamesInterface> = ({ games }) => {
   return (
-    <div className="w-full bg-black/40 text-[11px] my-[2em] p-[1em] border border-[#0D6D49] rounded-sm sm:text-[14px] md:text-[17px] md:mb-[2em] md:mt-[16px] lg:mt-[18px] xl:mt-[22px] 2xl:mt-[24px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">
+    <div className="w-full bg-black/40 text-[11px] my-[2em] p-[1em] border border-[#0D6D49] rounded-sm sm:text-[14px] md:text-[17px] md:mb-0 md:mt-[16px] lg:mt-[18px] xl:mt-[22px] 2xl:mt-[24px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">
       <h2 className="font-bold mb-[0.8em]">Top Games</h2>
 
       <Swiper
@@ -56,15 +55,11 @@ const TopGames: React.FC<TopGamesInterface> = ({ games }) => {
         className="mySwiper"
       >
         {games.map(
-          (
-            { poster, name, description, discountPrice, originalPrice, rating },
-            index
-          ) => (
+          ({ poster, name, discountPrice, originalPrice, rating }, index) => (
             <SwiperSlide key={index}>
               <GameCard
                 poster={poster}
                 name={name}
-                description={description}
                 discountPrice={discountPrice}
                 originalPrice={originalPrice}
                 rating={rating}

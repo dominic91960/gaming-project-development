@@ -24,24 +24,24 @@ interface MonthlyEarningsProps {
 
 const MonthlyEarnings: React.FC<MonthlyEarningsProps> = ({ chartData }) => {
   return (
-    <div className="w-[570px] bg-black/40 my-[24px] py-[30px] font-secondaryFont border border-[#0D6D49] rounded-sm">
-      <h2 className="font-medium text-[20px] px-[30px]">Overview</h2>
-      <p className="text-[13px] text-[#ACACAC] mb-[1em] px-[30px]">
+    <div className="relative w-full bg-black/80 text-[11px] my-[24px] p-[1em] font-secondaryFont border border-[#0D6D49] rounded-sm z-10 md:mb-0 2xl:w-[570px] 2xl:py-[30px] backdrop-blur-md min-[1920px]:z-0">
+      <h2 className="font-medium text-[20px] 2xl:px-[30px]">Overview</h2>
+      <p className="text-[13px] text-[#ACACAC] mb-[1em] 2xl:px-[30px]">
         Monthly Earning
       </p>
 
       <ChartContainer
         config={chartConfig}
-        className="w-full min-h-[200px] px-[30px]"
+        className="w-full min-h-[200px] 2xl:px-[30px]"
       >
         <BarChart accessibilityLayer data={chartData}>
           <XAxis
             dataKey="month"
             tickLine={false}
-            tickMargin={10}
+            tickMargin={4}
             axisLine={false}
-            tickFormatter={(value) => value.slice(0, 3)}
-            className="text-[9px]"
+            tickFormatter={(value) => value.slice(0, 2)}
+            className="text-[7px] 2xl:text-[10px]"
           />
           <ChartTooltip
             cursor={false}
