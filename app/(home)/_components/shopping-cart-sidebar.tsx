@@ -60,6 +60,8 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
   };
 
   const lastPrice = totalPrice;
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleApplyDiscount = async () => {
     try {
@@ -68,8 +70,8 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
       });
 
       if (response.data && response.data.discount) {
-        setDiscountMessage("Discount added successfully");
-        // Clear the previous discount
+        setSuccessMessage("Discount added successfully");
+        setErrorMessage(""); // Clear any existing error message
         setDiscountApplied(0);
         setTempDiscount(response.data.code);
         setDiscount({
@@ -82,10 +84,12 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
         // Update applied discount
         setDiscountApplied(response.data.discount);
       } else {
-        setDiscountMessage("Your discount code is invalid");
+        setSuccessMessage("");
+        setErrorMessage("Your discount code is invalid");
       }
     } catch (error) {
-      setDiscountMessage("Your discount code is incorrect");
+      setSuccessMessage("");
+      setErrorMessage("Your discount code is incorrect");
     }
   };
 
@@ -247,7 +251,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                       className="border-white text-white rounded-none h-[25px] mb-2"
                     />
 
-                    <div className="flex items-center justify-end">
+                    <div className="flex items-center justify-end ">
                       <Button
                         onClick={handleApplyDiscount}
                         className="bg-[#0BDB45] font-primaryFont text-[12px] hover:bg-[#0BDB45]  rounded-none text-black font-semibold h-6"
@@ -274,26 +278,50 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                 )}
               </div>
 
-              {totalDiscount > 0 && (
+              {/* {totalDiscount > 0 && (
                 <p
                   className={`font-primaryFont text-[16px] font-medium mt-0 mb-2 ${messageColor}`}
                 >
                   {discountMessage}
                 </p>
+              )} */}
+
+              {totalDiscount > 0 && (
+                <div>
+                  {successMessage && (
+                    <p className="font-primaryFont text-[16px] font-medium mt-0 mb-2 text-[#3edf6e]">
+                      {successMessage}
+                    </p>
+                  )}
+                </div>
               )}
+
+              <div>
+                <div className="">
+                  {errorMessage && (
+                    <p className="font-primaryFont text-[16px] font-medium mt-0 mb-2 text-[#ff4d4d]">
+                      {errorMessage}
+                    </p>
+                  )}
+                </div>
+              </div>
 
               {/* <div className="flex justify-between text-white">
               <span>Service Fee</span>
               <span>${SERVICE_FEE}</span>
             </div> */}
-              <div className="flex justify-between mt-2 text-white">
-                <p className="font-primaryFont text-[17px] font-normal text-white">
-                  Discount Price
-                </p>
-                <p className="font-primaryFont text-[17px] font-normal text-white">
-                  - ${discountApplied}
-                </p>
-              </div>
+
+              {totalDiscount > 0 && (
+                <div className="flex justify-between mt-2 text-white">
+                  <p className="font-primaryFont text-[17px] font-normal text-white">
+                    Discount Price
+                  </p>
+                  <p className="font-primaryFont text-[17px] font-normal text-white">
+                    - ${discountApplied}
+                  </p>
+                </div>
+              )}
+
               <div className="flex justify-between text-lg font-bold mt-4 text-[#75F94C] border-t-[2px] border-dotted border-white pt-2">
                 <p className="font-primaryFont text-[17px] font-normal text-white">
                   Total
