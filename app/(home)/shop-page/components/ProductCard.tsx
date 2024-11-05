@@ -154,7 +154,6 @@ const ProductCard: React.FC<Game> = ({
 
         <div className="h-[1px] bg-[#666a65] mb-2"></div>
         <div className="flex items-center justify-between mb-2">
-
           {/* old code */}
           {/* <div className="flex gap-1 text-[#f29d38] bg-slate-600 h-[25px]">
             {Array.from({ length: rating }, (_, index) => (
@@ -165,23 +164,28 @@ const ProductCard: React.FC<Game> = ({
           {/* New code - if no rating added empty starts added */}
           <div className="flex gap-1 text-[#f29d38] h-[25px]">
             {rating > 0 ? (
-              Array.from({ length: rating }, (_, index) => (
-                <IoIosStar key={index} className="text-[23px]" />
-              ))
+              <>
+                {/* Calculate the number of full and half stars */}
+                {Array.from({ length: Math.floor(rating) }, (_, index) => (
+                  <IoIosStar key={index} className="text-[23px]" />
+                ))}
+                {rating % 1 !== 0 && (
+                  <IoIosStar className="text-[23px]" style={{ opacity: 0.5 }} />
+                )}{" "}
+                {/* Half star */}
+                {Array.from({ length: 5 - Math.ceil(rating) }, (_, index) => (
+                  <IoIosStarOutline key={index} className="text-[23px]" />
+                ))}
+              </>
             ) : (
-              <span className="text-white">
-                <div className="flex gap-1 text-[#f29d38]">
-                  {Array.from({ length: 5 }, (_, index) => (
-                    <IoIosStarOutline
-                      key={index}
-                      className="text-[23px] text-[#f29d38]"
-                    />
-                  ))}
-                </div>
-              </span>
-
-         
-
+              <div className="flex gap-1 text-[#f29d38]">
+                {Array.from({ length: 5 }, (_, index) => (
+                  <IoIosStarOutline
+                    key={index}
+                    className="text-[23px] text-[#f29d38]"
+                  />
+                ))}
+              </div>
             )}
           </div>
 
