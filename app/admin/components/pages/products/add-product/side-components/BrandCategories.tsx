@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { useSidebar } from "@/context/SidebarContext";
 
 interface Brands {
   id: string;
@@ -27,6 +28,7 @@ const BrandCategories = ({
   const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState<boolean>(false); // Track loading state
   const [brands, setBrands] = useState<Brands[]>([]);
+  const { setSelectedItem } = useSidebar();
 
   // show toast
   const showToast = (value: boolean, message: string) => {
@@ -112,9 +114,12 @@ const BrandCategories = ({
         </ScrollArea>
       </div>
 
-      <a href="#" className="text-[#0BDB45] hover:opacity-85">
+      <div
+        className="text-[#0BDB45] hover:opacity-85"
+        onClick={() => setSelectedItem("brands")}
+      >
         Add new brand
-      </a>
+      </div>
     </div>
   );
 };

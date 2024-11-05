@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { useSidebar } from "@/context/SidebarContext";
 
 interface Tags {
   id: string;
@@ -26,6 +27,7 @@ const TagsCategories = ({
   const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState<boolean>(false); // Track loading state
   const [tags, setTags] = useState<Tags[]>([]);
+  const { setSelectedItem } = useSidebar();
 
   // show toast
   const showToast = (value: boolean, message: string) => {
@@ -111,10 +113,12 @@ const TagsCategories = ({
           </ul>
         </ScrollArea>
       </div>
-
-      <a href="#" className="text-[#0BDB45] hover:opacity-85">
+      <div
+        className="text-[#0BDB45] hover:opacity-85"
+        onClick={() => setSelectedItem("tags")}
+      >
         Add new tag
-      </a>
+      </div>
     </div>
   );
 };

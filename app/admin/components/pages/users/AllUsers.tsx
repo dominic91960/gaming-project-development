@@ -59,7 +59,7 @@ const UsersPage = () => {
     firstName: string;
     lastName: string;
     email: string;
-    role: string;
+    roleId: string;
     profile_image: string;
   }): Promise<void> => {
     setShowModal(false);
