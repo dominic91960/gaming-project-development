@@ -28,6 +28,8 @@ interface CategoryContextProps {
   loading: boolean;
   deleteCategoriesById: (id: string) => void;
   addNewCategory: (data: Category1) => void;
+  editCategory: any;
+  setEditCategory: (editCategory: any) => void;
 }
 
 const CategoryContext = createContext<CategoryContextProps | undefined>(
@@ -47,6 +49,7 @@ export const useCategoryContext = () => {
 export const CategoryProvider = ({ children }: { children: ReactNode }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(false); // Track loading state
+  const [editCategory, setEditCategory] = useState<any>({});
 
   // show toast
   const showToast = (value: boolean, message: string) => {
@@ -129,7 +132,14 @@ export const CategoryProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <CategoryContext.Provider
-      value={{ categories, loading, deleteCategoriesById, addNewCategory }}
+      value={{
+        categories,
+        loading,
+        deleteCategoriesById,
+        addNewCategory,
+        setEditCategory,
+        editCategory,
+      }}
     >
       {children}
     </CategoryContext.Provider>

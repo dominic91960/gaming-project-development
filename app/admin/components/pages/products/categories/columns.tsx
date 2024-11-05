@@ -17,6 +17,7 @@ import EditCategoryPop from "./EditCategoryPop";
 import { useState } from "react";
 import { set } from "react-hook-form";
 import DeleteCategory from "../DeleteCategoryPopup";
+import { useCategoryContext } from "@/context/CategoryContext";
 
 export type Category = {
   id: string;
@@ -32,6 +33,7 @@ export const columns = (
 ): ColumnDef<Category>[] => {
   const [isOpen, setIsOpen] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const {setEditCategory,editCategory} = useCategoryContext();
 
   const handleDeleteClick = (id: string) => {
     setShowDelete(true);
@@ -108,6 +110,8 @@ export const columns = (
                   onClick={() => {
                     setIsOpen(true);
                     onEdit(payment.id);
+                    setEditCategory(payment);
+                    console.log(payment)
                   }}
                   className="cursor-pointer text-[1em]"
                 >
