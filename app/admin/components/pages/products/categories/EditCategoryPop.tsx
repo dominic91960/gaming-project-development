@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { IoClose } from "react-icons/io5";
+import { useCategoryContext } from "@/context/CategoryContext";
 
 interface AddCategoryPopProps {
   onEditCategory: (id: string) => void;
@@ -30,6 +31,7 @@ const EditCategoryPop: React.FC<AddCategoryPopProps> = ({ onEditCategory, isOpen
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const {setEditCategory,editCategory} = useCategoryContext();
 
   const handleSubmit = () => {
     if (name && description && imageUrl) {
@@ -64,7 +66,7 @@ const EditCategoryPop: React.FC<AddCategoryPopProps> = ({ onEditCategory, isOpen
               <div>
                 <p className="mb-[0.5em]">Name</p>
                 <Input
-                  value={name}
+                  value={editCategory.name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-[35ch] text-[1em] px-[1em] py-[0.6em] h-fit border-[#606060]"
                 />
@@ -87,7 +89,7 @@ const EditCategoryPop: React.FC<AddCategoryPopProps> = ({ onEditCategory, isOpen
                 </Select>
               </div>
             </div>
-            <div className="mt-[1.4em]">
+            {/* <div className="mt-[1.4em]">
               <p className="mb-[0.5em]">Image</p>
               <Input
                 type="file"
@@ -103,12 +105,12 @@ const EditCategoryPop: React.FC<AddCategoryPopProps> = ({ onEditCategory, isOpen
                 }}
                 className="text-[1em] p-0 border-[#606060] h-fit file:bg-[#313131] file:text-[#D9D9D9] file:px-[1em] file:py-[0.6em] file:me-[1em] file:cursor-pointer hover:file:text-white"
               />
-            </div>
+            </div> */}
 
             <div className="mt-[1.4em]">
               <p className="mb-[0.5em]">Description</p>
               <textarea
-                value={description}
+                value={editCategory.description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="w-full bg-transparent border border-[#606060] rounded-sm text-[1em] px-[1em] py-[0.6em]"
                 rows={4}
