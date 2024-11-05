@@ -8,13 +8,11 @@ interface GameCardProps {
   discountPrice: number;
   originalPrice: number;
   rating: number;
-  description: string;
 }
 
 const GameCard: React.FC<GameCardProps> = ({
   poster,
   name,
-  description,
   discountPrice,
   originalPrice,
   rating,
@@ -34,13 +32,9 @@ const GameCard: React.FC<GameCardProps> = ({
         className="size-[60px] sm:size-[80px] md:size-[100px] lg:size-[120px] xl:size-[140px] 2xl:size-[150px]"
       />
 
-      <h3 className="w-[11ch] font-bold text-[8px] mt-[0.5em] overflow-hidden text-nowrap text-ellipsis sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[15px] 2xl:text-[15.2px]">
+      <h3 className="w-[11ch] h-[3em] font-bold text-[8px] mt-[0.5em] line-clamp-2 sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[15px] 2xl:text-[15.2px]">
         {name}
       </h3>
-
-      <div className="hidden h-[4em] text-[4px] md:flex items-center overflow-hidden">
-        <p>{description}</p>
-      </div>
 
       <hr className="opacity-50 mt-[0.2em]" />
 
@@ -52,8 +46,16 @@ const GameCard: React.FC<GameCardProps> = ({
         </p>
       </div>
 
-      <div className="text-[6px] text-[#f29d38] mb-[0.8em] sm:text-[7px] md:text-[8px] lg:text-[9px] xl:text-[10px] 2xl:text-[10px]">
-        <StarRating rating={Math.round(rating)} />
+      <div
+        className={`text-[6px] ${
+          rating > 0 ? "text-[#f29d38]" : "text-white/30"
+        } mb-[0.8em] sm:text-[7px] md:text-[8px] lg:text-[9px] xl:text-[10px] 2xl:text-[10px]`}
+      >
+        {rating > 0 ? (
+          <StarRating rating={Math.round(rating)} />
+        ) : (
+          <StarRating rating={5} />
+        )}
       </div>
     </article>
   );

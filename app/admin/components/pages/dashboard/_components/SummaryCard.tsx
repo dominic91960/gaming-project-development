@@ -6,7 +6,7 @@ import summaryCardBorder from "@/public/images/dashboard/summary-card-border.png
 interface SummaryCardProps {
   icon: JSX.Element;
   title: string;
-  value: number;
+  value: string;
 }
 
 const SummaryCard: React.FC<SummaryCardProps> = ({ icon, title, value }) => {
@@ -22,7 +22,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ icon, title, value }) => {
       </div>
       <div className="leading-none">
         <p className="font-semibold text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[24px] 2xl:text-[26px]">
-          {title === "Total Earning" ? `$${value.toFixed(2)}` : value}
+          {title === "Total Earning" ? `$${value}` : value}
         </p>
         <h2 className="opacity-70 mt-[0.4em]">{title}</h2>
       </div>
