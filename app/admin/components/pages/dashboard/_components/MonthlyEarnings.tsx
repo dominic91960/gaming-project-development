@@ -24,7 +24,7 @@ interface MonthlyEarningsProps {
 
 const MonthlyEarnings: React.FC<MonthlyEarningsProps> = ({ chartData }) => {
   return (
-    <div className="relative w-full bg-black/80 text-[11px] my-[24px] p-[1em] font-secondaryFont border border-[#0D6D49] rounded-sm z-10 md:mb-0 2xl:w-[570px] 2xl:py-[30px] backdrop-blur-md min-[1920px]:z-0">
+    <div className="relative w-full bg-black/80 text-[11px] my-[24px] p-[1em] font-secondaryFont border border-[#0D6D49] rounded-sm z-10 md:mb-0 2xl:w-[570px] 2xl:py-[30px] backdrop-blur-md">
       <h2 className="font-medium text-[20px] 2xl:px-[30px]">Overview</h2>
       <p className="text-[13px] text-[#ACACAC] mb-[1em] 2xl:px-[30px]">
         Monthly Earning

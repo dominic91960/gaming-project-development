@@ -188,7 +188,7 @@ const games = [
 
 const Dashboard = () => {
   return (
-    <section className="relative font-primaryFont text-white px-[36px]">
+    <section className="relative container mx-auto font-primaryFont text-white px-[36px] xl:mx-0">
       <Greeting />
       <div className="md:grid md:grid-cols-2 md:gap-[16px] md:pb-[40px] lg:gap-[18px] lg:pb-[48px] xl:gap-[22px] xl:pb-[56px] 2xl:gap-[24px] 2xl:pb-[60px]">
         <div className="md:flex md:flex-col md:justify-between">
@@ -204,7 +204,7 @@ const Dashboard = () => {
       <Image
         src={character}
         alt="Dashboard character"
-        className="hidden absolute bottom-0 left-0 right-0 mx-auto -translate-x-[40%] lg:block lg:w-[24%] xl:w-[270px] 2xl:w-[300px]"
+        className="hidden absolute bottom-[40px] left-0 right-0 mx-auto -translate-x-[40%] lg:block lg:w-[24%] xl:w-[270px] 2xl:w-[300px]"
         style={{
           clipPath:
             "polygon(0% 0%, 0% 30%, 12% 40%, 12% 93%, 0% 93%, 0% 100%, 100% 100%, 100% 0%)",
