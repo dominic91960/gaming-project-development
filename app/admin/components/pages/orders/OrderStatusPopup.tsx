@@ -1,21 +1,28 @@
 // StatusPopup.tsx
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useOrderContext } from "@/context/OrderContext";
 
 interface StatusPopupProps {
+  id: string;
   initialStatus: string;
   onSave: (newStatus: string) => void;
   onClose: () => void;
 }
 
 const StatusPopup: React.FC<StatusPopupProps> = ({
+  id,
   initialStatus,
   onSave,
   onClose,
 }) => {
+  const {
+    updateOrderStatusById
+  } = useOrderContext();
   const [selectedStatus, setSelectedStatus] = useState<string>(initialStatus);
 
   const handleSave = () => {
+    updateOrderStatusById(id, selectedStatus)
     onSave(selectedStatus);
     onClose();
   };
@@ -50,6 +57,15 @@ const StatusPopup: React.FC<StatusPopupProps> = ({
             onChange={() => setSelectedStatus("CANCELLED")}
           />
           <span>Cancelled</span>
+        </label>
+        <label className="flex items-center space-x-2">
+          <input
+            type="radio"
+            value="HOLD"
+            checked={selectedStatus === "HOLD"}
+            onChange={() => setSelectedStatus("HOLD")}
+          />
+          <span>Hold</span>
         </label>
       </div>
       <div className="flex justify-end mt-4 space-x-2">
