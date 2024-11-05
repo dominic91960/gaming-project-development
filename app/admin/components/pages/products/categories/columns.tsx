@@ -16,6 +16,7 @@ import {
 import EditCategoryPop from "./EditCategoryPop";
 import { useState } from "react";
 import { set } from "react-hook-form";
+import DeleteCategory from "../DeleteCategoryPopup";
 
 export type Category = {
   id: string;
@@ -30,6 +31,11 @@ export const columns = (
   onEdit: (id: string) => void
 ): ColumnDef<Category>[] => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+
+  const handleDeleteClick = (id: string) => {
+    setShowDelete(true);
+  };
 
   return [
     {
@@ -81,39 +87,47 @@ export const columns = (
       cell: ({ row }) => {
         const payment = row.original;
         return (
-          <DropdownMenu>
-            {/* <EditCategoryPop onAddCategory={()=>{}} isOpen={isOpen} setIsOpen={setIsOpen} /> */}
-            <DropdownMenuTrigger asChild className="text-[1em]">
-              <Button variant="ghost" className="size-[2em] p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="size-[1em]" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="bg-black/20 backdrop-blur-md rounded-sm text-white border border-white/10 text-[14px]"
-            >
-              <DropdownMenuLabel className="text-[1em]">
-                Actions
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator className="w-[90%] mx-auto bg-white/10" />
-              <DropdownMenuItem
-                onClick={() => {
-                  setIsOpen(true);
-                  onEdit(payment.id);
-                }}
-                className="cursor-pointer text-[1em]"
+          <>
+            <DropdownMenu>
+              {/* <EditCategoryPop onAddCategory={()=>{}} isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+              <DropdownMenuTrigger asChild className="text-[1em]">
+                <Button variant="ghost" className="size-[2em] p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal className="size-[1em]" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="bg-black/20 backdrop-blur-md rounded-sm text-white border border-white/10 text-[14px]"
               >
-                Edit
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => onDelete(payment.id)}
-                className="cursor-pointer text-[1em]"
-              >
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                <DropdownMenuLabel className="text-[1em]">
+                  Actions
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="w-[90%] mx-auto bg-white/10" />
+                <DropdownMenuItem
+                  onClick={() => {
+                    setIsOpen(true);
+                    onEdit(payment.id);
+                  }}
+                  className="cursor-pointer text-[1em]"
+                >
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleDeleteClick(payment.id)}
+                  className="cursor-pointer text-[1em]"
+                >
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            {showDelete && (
+              <DeleteCategory
+                currentId={payment.id}
+                handleCancel={setShowDelete}
+              />
+            )}
+          </>
         );
       },
     },
