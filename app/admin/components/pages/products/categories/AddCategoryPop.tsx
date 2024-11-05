@@ -41,7 +41,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
   const [parentCategoryId, setParentCategoryId] = useState<string | null>(null); // To store selected parent category
   const [data, setData] = useState<any[]>([]);
   const [isImageInputDisabled, setIsImageInputDisabled] = useState(false);
-  const { categories, addNewcategory } = useCategoryContext();
+  const { categories, addNewCategory } = useCategoryContext();
 
   const handleSubmit = async () => {
     const level = data.find((item) => item.id == parentCategoryId)?.level + 1;
@@ -54,7 +54,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
       parentId: parentCategoryId,
     };
 
-    addNewcategory(dataToSend);
+    addNewCategory(dataToSend);
     setName("");
     setDescription("");
     setImageUrl("");
