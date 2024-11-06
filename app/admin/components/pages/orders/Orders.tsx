@@ -114,7 +114,14 @@ export default function AllOrders() {
   };
 
   return (
-    <div className="container mx-auto py-10 text-white">
+    <div className="container min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
+      <div className="pb-[2em] px-[36px]">
+        <h1 className="font-bold text-[1.5em] leading-none text-white">
+          All Orders
+        </h1>
+        <p className="text-[0.9em] text-white md:text-[0.5em]">Orders</p>
+      </div>
+
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button
@@ -197,7 +204,7 @@ export default function AllOrders() {
           </div>
         </DialogContent>
       </Dialog>
-      <h1 className="text-2xl font-bold mb-4 text-white">All Orders</h1>
+      {/* <h1 className="text-2xl font-bold mb-4 text-white">All Orders</h1> */}
       {/* Add Orders Component */}
       {/* <Addorders onAddOrder={handleAddOrder} /> */}
       {/* Data Table */}
