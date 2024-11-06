@@ -2,12 +2,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { AllCouponsNew } from './columns';
 import axiosInstance from '@/axios/axiosInstance';
+import { useCouponContext } from '@/context/CouponContext';
 
 interface AddCouponsProps {
   onAddCoupon: (newCoupon: AllCouponsNew) => void;
 }
 
 export default function AddCoupons({ onAddCoupon }: AddCouponsProps) {
+  const {addNewCoupon} = useCouponContext();
   const formik = useFormik({
     initialValues: {
       code: '',
@@ -43,11 +45,13 @@ export default function AddCoupons({ onAddCoupon }: AddCouponsProps) {
           endDate: endDate.toISOString(),     // Format to ISO string
         };
 
-        const response = await axiosInstance.post('/coupons', formattedValues);
-        onAddCoupon(response.data);
+        const data = await addNewCoupon(formattedValues, formik.resetForm);
+        if (data) {
+          onAddCoupon(data);
+        }
 
         // Reset form
-        formik.resetForm();
+        
       } catch (error) {
         console.error('Error creating coupon:', error);
       }

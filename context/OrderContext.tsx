@@ -26,6 +26,15 @@ interface AllOrdersNew {
   createdAt: string;
   items: OrderItem[];
 }
+interface AllOrdersNew {
+  id: string;
+  order_id: string;
+  username: string;
+  totalAmount: string;
+  status: string;
+  createdAt: string;
+  items: OrderItem[];
+}
 
 interface OrderContextProps {
   allOrders: AllOrdersNew[];
@@ -90,6 +99,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     try {
       await axiosInstance.delete(`orders/${id}`);
       setCurrentPage(1);
+      setAllOrders(allOrders.filter((order) => order.id != id));
     } catch (error) {
       console.log(error);
     }
@@ -97,9 +107,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
 
   const updateOrderStatusById = async (id: string, status: string) => {
     try {
-      const response = await axiosInstance.patch(
-        `orders/${id}/${status}`
-      );
+      const response = await axiosInstance.patch(`orders/${id}/${status}`);
       console.log(id, status, "update");
     } catch (error) {}
   };
@@ -119,7 +127,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         deleteOrderById,
         updateOrderStatusById,
         reloadOrders,
-        setReloadOrders
+        setReloadOrders,
       }}
     >
       {children}

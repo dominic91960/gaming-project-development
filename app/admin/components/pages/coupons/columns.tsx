@@ -15,17 +15,17 @@ import {
 
 export type AllCouponsNew = {
   id: string;
-  coupon_code: string;
-  coupon_description: string;
-  coupon_discount: string;
-  coupon_type: string;
-  coupon_start_date: string;
-  coupon_end_date: string;
+  code: string;
+  discount: string;
+  type: string;
+  startDate: string;
+  endDate: string;
+  description: string;
 };
 
 export const columns: ColumnDef<AllCouponsNew>[] = [
   {
-    accessorKey: "coupon_code",
+    accessorKey: "code",
     header: ({ column }) => {
       return (
         <Button
@@ -40,27 +40,27 @@ export const columns: ColumnDef<AllCouponsNew>[] = [
   },
 
   {
-    accessorKey: "coupon_description",
+    accessorKey: "description",
     header: "Description",
   },
 
   {
-    accessorKey: "coupon_discount",
+    accessorKey: "discount",
     header: "Discount",
   },
 
   {
-    accessorKey: "coupon_type",
+    accessorKey: "type",
     header: "Type",
   },
 
   {
-    accessorKey: "coupon_start_date",
+    accessorKey: "startDate",
     header: "Start Date",
   },
 
   {
-    accessorKey: "coupon_end_date",
+    accessorKey: "endDate",
     header: "Expiry Date",
   },
 

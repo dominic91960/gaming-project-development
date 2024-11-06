@@ -28,6 +28,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { OrderProvider } from "@/context/OrderContext";
 import { WishlistProvider } from "@/context/WishListContext";
 import axios from "axios";
+import { CouponProvider } from "@/context/CouponContext";
 
 const AdminPanel: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string>("");
@@ -91,7 +92,7 @@ const AdminPanel: React.FC = () => {
         return <Reviews />;
 
       case "coupons":
-        return <Coupons />;
+        return <CouponProvider><Coupons /></CouponProvider>;
 
       default:
         return <Dashboard />;

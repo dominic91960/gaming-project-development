@@ -2,50 +2,50 @@ import { useState } from "react";
 import { AllCouponsNew, columns } from "./columns";
 import { DataTable } from "./data-table";
 import AddCoupons from "./AddCoupons";
-import EditAllcouponsPopup from "./editCouponsPopup";
+import EditAllCouponsPopup from "./editCouponsPopup";
 import { ColumnDef } from "@tanstack/react-table";
+import { useCouponContext } from "@/context/CouponContext";
 
-function getInitialData(): AllCouponsNew[] {
+/* function getInitialData(): AllCouponsNew[] {
   return [
     {
       id: "728ed52f",
-      coupon_code: "254GF45",
-      coupon_description: "It was popularised in the 1960s with...",
-      coupon_discount: "$  05.00",
-      coupon_type: "Fixed product discount",
-      coupon_start_date: "23/05/2024",
-      coupon_end_date: "12/06/2024",
+      code: "254GF45",
+      description: "It was popularised in the 1960s with...",
+      discount: "$  05.00",
+      type: "Fixed product discount",
+      startDate: "23/05/2024",
+      endDate: "12/06/2024",
     },
   ];
-}
+} */
 
 export default function AllCoupons() {
-  const [coupons, setcoupons] = useState<AllCouponsNew[]>(getInitialData());
+  const [coupons, setCoupons] = useState<AllCouponsNew[]>([]);
+  const { allCoupons, deleteCouponById } = useCouponContext();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingCoupon, setEditingCoupon] = useState<AllCouponsNew | null>(
     null
   );
 
-  const handleAddcoupon = (newcoupon: AllCouponsNew) => {
-    setcoupons((prevcoupons) => [...prevcoupons, newcoupon]);
+  const handleAddCoupon = (newCoupon: AllCouponsNew) => {
+    setCoupons((prevCoupons) => [...prevCoupons, newCoupon]);
   };
 
-  const handleDeletecoupon = (id: string) => {
-    setcoupons((prevcoupons) =>
-      prevcoupons.filter((coupon) => coupon.id !== id)
-    );
+  const handleDeleteCoupon = (id: string) => {
+    deleteCouponById(id);
   };
 
-  const handleEditcoupon = (coupon: AllCouponsNew) => {
+  const handleEditCoupon = (coupon: AllCouponsNew) => {
     setEditingCoupon(coupon);
     setIsEditModalOpen(true);
   };
 
-  const handleSavecoupon = (updatedcoupon: AllCouponsNew) => {
-    setcoupons((prevcoupons) =>
-      prevcoupons.map((coupon) =>
-        coupon.id === updatedcoupon.id ? updatedcoupon : coupon
+  const handleSaveCoupon = (updatedCoupon: AllCouponsNew) => {
+    setCoupons((prevCoupons) =>
+      prevCoupons.map((coupon) =>
+        coupon.id === updatedCoupon.id ? updatedCoupon : coupon
       )
     );
     setIsEditModalOpen(false);
@@ -59,14 +59,14 @@ export default function AllCoupons() {
       <div className="flex space-x-2">
         <button
           className="bg-red-500 text-white px-2 py-1 rounded"
-          onClick={() => handleDeletecoupon(row.original.id)}
+          onClick={() => handleDeleteCoupon(row.original.id)}
         >
           Delete
         </button>
 
         <button
           className="bg-blue-500 text-white px-2 py-1 rounded"
-          onClick={() => handleEditcoupon(row.original)}
+          onClick={() => handleEditCoupon(row.original)}
         >
           Edit
         </button>
@@ -83,15 +83,15 @@ export default function AllCoupons() {
     <div className="container mx-auto py-10">
       <h1 className="text-2xl font-bold mb-4 text-white">All coupons</h1>
       {/* Add coupons Component */}
-      <AddCoupons onAddCoupon={handleAddcoupon} />
+      <AddCoupons onAddCoupon={handleAddCoupon} />
       {/* Data Table */}
-      <DataTable columns={columnsWithActions} data={coupons} />
+      <DataTable columns={columnsWithActions} data={allCoupons} />
       {/* Edit coupon Modal */}
-      <EditAllcouponsPopup
+      <EditAllCouponsPopup
         coupon={editingCoupon}
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
-        onSave={handleSavecoupon}
+        onSave={handleSaveCoupon}
       />
     </div>
   );
