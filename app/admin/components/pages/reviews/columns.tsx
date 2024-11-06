@@ -47,9 +47,23 @@ export const columns: ColumnDef<AllReviews>[] = [
     },
   },
 
+  // {
+  //   accessorKey: "user.firstName",
+  //   header: "Author",
+  // },
+
   {
-    accessorKey: "user.firstName",
+    accessorFn: (row) => row.user.firstName,
+    id: "firstName",
     header: "Author",
+    cell: ({ row }) => row.original.user.firstName,
+    filterFn: (row, columnId, filterValue) => {
+      const value = row.getValue(columnId);
+      return (
+        typeof value === "string" &&
+        value.toLowerCase().includes(filterValue.toLowerCase())
+      );
+    },
   },
 
   {
@@ -154,6 +168,23 @@ export const columns: ColumnDef<AllReviews>[] = [
             />
           </PopoverContent>
         </Popover>
+      );
+    },
+  },
+
+  {
+    id: "combinedSearch",
+    header: "Search",
+    filterFn: (row, columnId, filterValue) => {
+      const product = String(row.getValue("productName"));
+      const comment = String(row.getValue("comment"));
+      const author = String(row.getValue("firstName"));
+
+      // Return true if any column matches the search term
+      return (
+        product.toLowerCase().includes(filterValue.toLowerCase()) ||
+        comment.toLowerCase().includes(filterValue.toLowerCase()) ||
+        author.toLowerCase().includes(filterValue.toLowerCase())
       );
     },
   },

@@ -76,17 +76,33 @@ export function DataTable<TData, TValue>({
                 type="text"
                 value={
                   (table
-                    .getColumn("productName")
+                    .getColumn("combinedSearch")
                     ?.getFilterValue() as string) ?? ""
                 }
                 onChange={(event) =>
                   table
-                    .getColumn("productName")
+                    .getColumn("combinedSearch")
                     ?.setFilterValue(event.target.value)
                 }
-                placeholder="Search by product"
+                placeholder="Search by Product, Comment, or Author..."
                 className="bg-transparent outline-none border-s px-[1em] w-[50ch] text-white"
               />
+
+              {/* <CiSearch className="text-[1.6em] text-white" />
+              <Input
+                placeholder="Search by Product, Comment, or Author..."
+                value={
+                  (table
+                    .getColumn("combinedSearch")
+                    ?.getFilterValue() as string) ?? ""
+                }
+                onChange={(event) =>
+                  table
+                    .getColumn("combinedSearch")
+                    ?.setFilterValue(event.target.value)
+                }
+                className="bg-transparent outline-none border-s px-[1em] w-[50ch] text-white"
+              /> */}
             </div>
           </div>
         </div>
