@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { FaEye, FaPencilAlt } from "react-icons/fa";
 
 import Spinner from "@/components/Spinner/Spinner";
+import ChangeImage from "./components/change-image";
 import AccountInfo from "./components/account-info";
 import SecurityInfo from "./components/security-info";
 import RecentActivities from "./components/recent-activities";
@@ -23,7 +24,6 @@ import TransactionAction from "./components/transaction-action";
 import EmailVerification from "./components/email-verfiication";
 import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
-import ChangeImage from "./components/change-image";
 
 const recentActivity = [
   {
@@ -739,8 +739,7 @@ export default function ProfilePage() {
         } else {
           throw new Error(response.data.fileUrl);
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     }
   };
 
@@ -767,8 +766,7 @@ export default function ProfilePage() {
         // toast.error('Error updating profile picture');
         throw new Error("Error updating profile picture");
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   // Helper function to find selected transaction id
@@ -809,8 +807,6 @@ export default function ProfilePage() {
 
   return (
     <>
-      {/* <ProductSearchBar />
-      <Navbar /> */}
       <section className="bg-[#051301] font-primaryFont text-white">
         {/* Header */}
         <div
@@ -827,22 +823,6 @@ export default function ProfilePage() {
                   className="w-full rounded-full"
                   fill
                 />
-                {/* <div className="absolute bottom-0 right-0 flex flex-col items-end">
-                  <button
-                    className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] mb-[0.2em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                    onClick={onImageSave}
-                  >
-                    Save&nbsp;&nbsp;
-                    <FaCheck />
-                  </button>
-                  <button
-                    className="bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
-                    onClick={() => setImageUrl(null)}
-                  >
-                    Cancel&nbsp;&nbsp;
-                    <IoMdClose />
-                  </button>
-                </div> */}
                 <label
                   htmlFor="profile-image"
                   className="absolute bottom-[5%] right-0 bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
@@ -913,7 +893,7 @@ export default function ProfilePage() {
               />
 
               {/* Security details */}
-              <div className="md:col-span-5">
+              <div className="md:col-span-5 flex flex-col justify-between">
                 <SecurityInfo
                   password={profile.password}
                   tel={profile.tel}

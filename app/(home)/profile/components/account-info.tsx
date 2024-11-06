@@ -87,13 +87,13 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* First name */}
         <p>
           <span className="font-bold">First Name: </span>
-            {firstName.charAt(0).toUpperCase() + firstName.slice(1)}
+          {firstName.charAt(0).toUpperCase() + firstName.slice(1)}
         </p>
 
         {/* Last name */}
         <p>
           <span className="font-bold">Last Name: </span>
-            {lastName.charAt(0).toUpperCase() + lastName.slice(1)}
+          {lastName.charAt(0).toUpperCase() + lastName.slice(1)}
         </p>
 
         {/* DOB
@@ -109,9 +109,11 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* Address */}
         <p>
           <span className="font-bold">Address: </span>
-          {address?.trim() ?address : (
+          {address?.trim() ? (
+            address
+          ) : (
             <span className="opacity-70 italic text-[0.8em]">
-              Please provide a address
+              Please provide an address
             </span>
           )}
         </p>
@@ -119,7 +121,9 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* City */}
         <p>
           <span className="font-bold">City: </span>
-          {city?.trim() ? city : (
+          {city?.trim() ? (
+            city
+          ) : (
             <span className="opacity-70 italic text-[0.8em]">
               Please provide a city
             </span>
@@ -129,7 +133,9 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* State */}
         <p>
           <span className="font-bold">State: </span>
-          {state?.trim() ? state : (
+          {state?.trim() ? (
+            state
+          ) : (
             <span className="opacity-70 italic text-[0.8em]">
               Please provide a state
             </span>
@@ -139,7 +145,9 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* Country */}
         <p>
           <span className="font-bold">Country: </span>
-          {country?.trim() ? country : (
+          {country?.trim() ? (
+            country
+          ) : (
             <span className="opacity-70 italic text-[0.8em]">
               Please provide a country
             </span>
@@ -149,7 +157,9 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* Postal code */}
         <p>
           <span className="font-bold">Postal Code: </span>
-          {postalCode?.trim() ? postalCode : (
+          {postalCode?.trim() ? (
+            postalCode
+          ) : (
             <span className="opacity-70 italic text-[0.8em]">
               Please provide a postal code
             </span>
