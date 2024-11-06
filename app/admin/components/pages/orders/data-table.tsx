@@ -72,6 +72,7 @@ export function DataTable<TData, TValue>({
     totalPages,
     setTotalPages,
     loading,
+    reloadOrders,
   } = useOrderContext();
 
   const table = useReactTable({
@@ -107,7 +108,7 @@ export function DataTable<TData, TValue>({
 
   useEffect(() => {
     getAllOrders(currentPage, searchTerm);
-  }, [currentPage, searchTerm]);
+  }, [currentPage, searchTerm, reloadOrders]);
 
   const renderPagination = () => {
     const buttons = [];
