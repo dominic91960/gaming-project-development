@@ -53,76 +53,6 @@ const AdminPanel: React.FC = () => {
   //   }
   // }, [router]);
 
-  useEffect(() => {
-    const verification = async () =>{
-      const user = localStorage.getItem("user");
-      if (user && localStorage.getItem("accessToken")) {
-        try {
-          console.log("Verifying session...", localStorage.getItem("accessToken"));
-          const res = await axios.get(
-              process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
-              {
-                  headers: {
-                      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-                  },
-              }
-          );
-
-          console.log("res....................", res);
-          if (res.status === 200) {
-            console.log("Authorized");
-              // return true;
-              const parsedUser = JSON.parse(user);
-              setIsAuthorized(true);
-              if (parsedUser.role.name === "ADMIN") {
-                router.push("/admin");
-              }else{
-                setIsAuthorized(true);
-              }
-              return;
-          } else {
-            console.log("Unauthorized.....................");
-            router.push("/");
-            throw new Error("Unauthorized");
-          }
-      } catch (error) {
-          // console.log(error);
-          localStorage.clear();
-          // setIsAuthorized(true);
-          router.push("/");
-          return;
-      }
-      } else {
-        localStorage.clear();
-        router.push("/");
-    
-      }
-
-    }
-
-    verification();
-
-//     const user = localStorage.getItem("user");
-
-
-//     if (user) {
-//       if (await verification()) {
-      
-//       const parsedUser = JSON.parse(user);
-//       if (parsedUser.role.name === "ADMIN") {
-//         router.push("/admin");
-//       } else {
-//         setIsAuthorized(true);
-//       }
-//     }else{
-//       localStorage.clear();
-//       router.push("/");
-//     }
-//   }
-//  else {
-//       setIsAuthorized(true);
-//     }
-  }, []);
 
   const handleSelect = (content: string) => {
     setSelectedContent(content);
@@ -168,17 +98,12 @@ const AdminPanel: React.FC = () => {
     }
   };
 
-  if (!isAuthorized) {
-    return <Spinner loading={!isAuthorized} />;
-  }
+  // if (!isAuthorized) {
+  //   return <Spinner loading={!isAuthorized} />;
+  // }
 
   return (
-    <AuthProvider>
-      <CategoryProvider>
-        <RoleProvider>
-          <OrderProvider>
-            <WishlistProvider>
-              <SidebarProvider>
+    <>
                 <StatusBar
                   isMobileNavToggled={isMobileNavToggled}
                   setIsMobileNavToggled={setIsMobileNavToggled}
@@ -193,12 +118,7 @@ const AdminPanel: React.FC = () => {
                     {renderContent()}
                   </div>
                 </div>
-              </SidebarProvider>
-            </WishlistProvider>
-          </OrderProvider>
-        </RoleProvider>
-      </CategoryProvider>
-    </AuthProvider>
+</>
   );
 };
 

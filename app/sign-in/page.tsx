@@ -98,9 +98,13 @@ const SignIn = () => {
         // Redirect to home page
         // router.push("/admin");
         if (user.role.name === "ADMIN") {
-          router.push("/admin");
+          // router.push("/admin");
+          window.location.href = "/admin";
+          return;
         } else {
-          router.push("/");
+          // router.push("/");
+          window.location.href = "/";
+          return;
         }
       } else {
         addToast("Login failed, please try again later.", "error");
@@ -149,9 +153,13 @@ const SignIn = () => {
         localStorage.setItem("user", JSON.stringify(user));
 
         if (user.role === "ADMIN") {
-          router.push("/admin");
+          // router.push("/admin");
+          window.location.href = "/admin";
+          return;
         } else {
-          router.push("/");
+          // router.push("/");
+          window.location.href = "/";
+          return;
         }
 
         // router.push("/admin");
