@@ -30,7 +30,7 @@ const OrderDetailPopup: React.FC<OrderDetailPopupProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
-        <DialogTitle className="text-white">{products[0].price}</DialogTitle>
+        <DialogTitle className="text-white">{products[0]?.price}</DialogTitle>
         <div>
           <OrderItemsTable products={products} order={order} />
           <Button variant="outline" className="text-white" onClick={onClose}>
