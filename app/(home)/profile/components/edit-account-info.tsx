@@ -61,7 +61,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
   profile,
   setProfile,
   onClose,
-  setReloadProfile
+  setReloadProfile,
 }) => {
   const [updatedProfile, setUpdatedProfile] = useState<EditProfile>({
     firstName: profile.firstName,
@@ -98,25 +98,28 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
           </div>
 
           <form
-            onSubmit={async(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
               // setProfile((prev) => ({ ...prev, ...updatedProfile }));
-              console.log("profile",profile);
-              console.log("updated profile",updatedProfile);
-              try{
-              const res = await axiosInstance.patch(`/user/${profile.id}`, updatedProfile);
-              console.log("res",res);
-              if(res.status === 200){
-                // setProfile((prev) => ({ ...prev, ...updatedProfile }));
-                // toast.success("Profile updated successfully");
-              }else{
-                throw new Error("Error updating profile");
-              }
-              }catch(err){
-                console.log("err",err);
+              console.log("profile", profile);
+              console.log("updated profile", updatedProfile);
+              try {
+                const res = await axiosInstance.patch(
+                  `/user/${profile.id}`,
+                  updatedProfile
+                );
+                console.log("res", res);
+                if (res.status === 200) {
+                  // setProfile((prev) => ({ ...prev, ...updatedProfile }));
+                  // toast.success("Profile updated successfully");
+                } else {
+                  throw new Error("Error updating profile");
+                }
+              } catch (err) {
+                console.log("err", err);
                 toast.error("Error updating profile");
-              }finally{
-                setReloadProfile(prev => !prev);
+              } finally {
+                setReloadProfile((prev) => !prev);
                 onClose();
               }
               // onClose();
@@ -129,9 +132,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                 <label htmlFor="username" className="block mb-[0.5em]">
                   User Name
                 </label>
-<label
-                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 cursor-not-allowed outline-none"
-                >
+                <label className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 cursor-not-allowed outline-none">
                   {profile.username ?? ""}
                 </label>
               </div>

@@ -8,19 +8,22 @@ import { RiBox3Fill } from "react-icons/ri";
 import SummaryCard from "./SummaryCard";
 
 interface SummaryProps {
-  summary: {
-    totalEarning: number;
-    totalOrders: number;
-    totalCustomers: number;
-    totalProducts: number;
-  };
+  totalEarning: number;
+  totalOrders: number;
+  totalCustomers: number;
+  totalProducts: number;
 }
 
-const Summary: React.FC<SummaryProps> = ({ summary }) => {
-  const { totalEarning, totalOrders, totalCustomers, totalProducts } = {
+const Summary: React.FC<SummaryProps> = ({
+  totalEarning,
+  totalOrders,
+  totalCustomers,
+  totalProducts,
+}) => {
+  /* const { totalEarning, totalOrders, totalCustomers, totalProducts } = {
     ...summary,
   };
-
+ */
   function formatValue(value: number, isFixed: boolean) {
     let formattedValue = isFixed ? value.toFixed(2) : value.toString();
 
