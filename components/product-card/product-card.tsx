@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
-import { MdOutlineShoppingCart } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
-import StarRating from "@/app/(home)/_components/star-rating";
 import { useWishlistContext } from "@/context/WishListContext";
+import StarRating from "@/app/(home)/_components/star-rating";
+import cartIcon from "@/public/images/cart.png";
 
 interface ProductCardProps {
   id: string;
@@ -106,7 +107,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         <button className="text-[9px] hover:opacity-70 sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">
-          <MdOutlineShoppingCart />
+          <Image
+            src={cartIcon}
+            alt="Add to cart button"
+            className="size-[0.9em]"
+          />
         </button>
       </div>
 

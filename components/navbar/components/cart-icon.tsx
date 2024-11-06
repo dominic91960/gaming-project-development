@@ -1,8 +1,8 @@
 import React from "react";
-
-import { IoMdCart } from "react-icons/io";
+import Image from "next/image";
 
 import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
+import cartIcon from "@/public/images/cart.png";
 
 interface CartIconProps {
   length: number;
@@ -21,7 +21,7 @@ const CartIcon: React.FC<CartIconProps> = ({ length, handleClick }) => {
         </span>
       )}
       <CartSidebar>
-        <IoMdCart />
+        <Image src={cartIcon} alt="Your cart" className="size-[0.9em]" />
       </CartSidebar>
     </div>
   );
