@@ -87,9 +87,23 @@ export const columns: ColumnDef<AllReviews>[] = [
     header: "Review",
   },
 
+  // {
+  //   accessorKey: "game.productName",
+  //   header: "Product",
+  // },
+
   {
-    accessorKey: "game.productName",
+    accessorFn: (row) => row.game.productName,
+    id: "productName", // Unique identifier for the column
     header: "Product",
+    cell: ({ row }) => row.original.game.productName,
+    filterFn: (row, columnId, filterValue) => {
+      const value = row.getValue(columnId);
+      return (
+        typeof value === "string" &&
+        value.toLowerCase().includes(filterValue.toLowerCase())
+      );
+    },
   },
 
   {

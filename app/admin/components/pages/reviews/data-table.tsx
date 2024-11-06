@@ -39,12 +39,14 @@ export function DataTable<TData, TValue>({
   setSearchTerm,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
 
   // Handle search input change
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
+  // const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchTerm(e.target.value);
+  // };
 
   const table = useReactTable({
     data,
@@ -72,9 +74,17 @@ export function DataTable<TData, TValue>({
               <CiSearch className="text-[1.6em] text-white" />
               <input
                 type="text"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                placeholder="Search by email"
+                value={
+                  (table
+                    .getColumn("productName")
+                    ?.getFilterValue() as string) ?? ""
+                }
+                onChange={(event) =>
+                  table
+                    .getColumn("productName")
+                    ?.setFilterValue(event.target.value)
+                }
+                placeholder="Search by product"
                 className="bg-transparent outline-none border-s px-[1em] w-[50ch] text-white"
               />
             </div>
@@ -85,12 +95,21 @@ export function DataTable<TData, TValue>({
           <Table className="border-separate border-spacing-y-[2em] px-[0.4em] text-[0.65em] md:border-spacing-y-[1em]">
             <TableHeader className="text-[1.1em]">
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id} className="hover:bg-inherit border-none">
+                <TableRow
+                  key={headerGroup.id}
+                  className="hover:bg-inherit border-none"
+                >
                   {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id} className="hidden md:table-cell h-fit py-[1em]">
+                    <TableHead
+                      key={header.id}
+                      className="hidden md:table-cell h-fit py-[1em]"
+                    >
                       {header.isPlaceholder
                         ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   ))}
                 </TableRow>
@@ -120,7 +139,10 @@ export function DataTable<TData, TValue>({
                         {index === 0 && (
                           <div className="w-[0.3em] h-full bg-[#00FFA1] absolute top-0 left-0 rounded-full"></div>
                         )}
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
                       </TableCell>
                     ))}
                   </TableRow>
