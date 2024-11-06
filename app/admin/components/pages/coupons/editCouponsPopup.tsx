@@ -19,7 +19,13 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
   );
 
   React.useEffect(() => {
-    setEditedcoupon(coupon);
+    if (coupon) {
+      setEditedcoupon({
+        ...coupon,
+        startDate: coupon.startDate ? new Date(coupon.startDate).toISOString().split("T")[0] : "",
+        endDate: coupon.endDate ? new Date(coupon.endDate).toISOString().split("T")[0] : "",
+      });
+    }
   }, [coupon]);
 
   if (!isOpen || !editedcoupon) {
@@ -29,15 +35,23 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
+    const { name, value } = e.target;
     setEditedcoupon({
       ...editedcoupon,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   const handleSave = () => {
     if (editedcoupon) {
-      onSave(editedcoupon);
+      // Ensure the startDate and endDate are in the correct format before passing to onSave
+      const updatedCoupon = {
+        ...editedcoupon,
+        startDate: editedcoupon.startDate ? new Date(editedcoupon.startDate).toISOString() : null,
+        endDate: editedcoupon.endDate ? new Date(editedcoupon.endDate).toISOString() : null,
+      };
+      // onSave(updatedCoupon);
+      console.log(updatedCoupon, 'updatedCoupon')
     }
   };
 
@@ -48,55 +62,53 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
         <form>
           <input
             type="text"
-            name="coupon_code"
-            value={editedcoupon.coupon_code}
+            name="code"
+            value={editedcoupon.code}
             onChange={handleInputChange}
-            placeholder="coupon Name"
+            placeholder="Coupon Name"
             className="w-full mb-2 p-2 border rounded"
           />
 
           <input
             type="text"
-            name="coupon_description"
-            value={editedcoupon.coupon_description}
+            name="description"
+            value={editedcoupon.description}
             onChange={handleInputChange}
-            placeholder="coupon_id"
+            placeholder="Coupon Description"
             className="w-full mb-2 p-2 border rounded"
           />
 
           <input
             type="text"
-            name="coupon_discount"
-            value={editedcoupon.coupon_discount}
+            name="discount"
+            value={editedcoupon.discount}
             onChange={handleInputChange}
-            placeholder="coupon_username"
+            placeholder="Coupon Discount"
             className="w-full mb-2 p-2 border rounded"
           />
 
           <select
-            name="coupon_type" // Updated name to match the state property
-            value={editedcoupon.coupon_type}
+            name="type"
+            value={editedcoupon.type}
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
           >
-            <option value="Fixed_product_discount">
-              Fixed product discount
-            </option>
+            <option value="Fixed_product_discount">Fixed product discount</option>
             <option value="Percentage_discount">Percentage discount</option>
           </select>
 
           <input
             type="date"
-            name="coupon_start_date"
-            value={editedcoupon.coupon_start_date}
+            name="startDate"
+            value={editedcoupon.startDate}
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
           />
 
           <input
             type="date"
-            name="coupon_end_date"
-            value={editedcoupon.coupon_end_date}
+            name="endDate"
+            value={editedcoupon.endDate}
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
           />
@@ -114,7 +126,7 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
               className="bg-green-500 text-white px-4 py-2 rounded"
               onClick={handleSave}
             >
-              OK
+              Save
             </button>
           </div>
         </form>

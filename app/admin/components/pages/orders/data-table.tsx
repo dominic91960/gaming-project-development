@@ -56,8 +56,6 @@ export function DataTable<TData, TValue>({
   selectedFile,
   handleUpload,
 }: DataTableProps<TData, TValue>) {
-  console.log("columns", columns);
-  console.log("data", data);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [localSearchTerm, setLocalSearchTerm] = useState(""); // Track input value

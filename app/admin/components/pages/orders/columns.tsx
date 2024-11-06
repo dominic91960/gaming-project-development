@@ -205,7 +205,7 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
             className="hover:opacity-80 transition-opacity duration-100"
             onClick={() => {
               deleteOrderById(row.original.id);
-              setReloadOrders((prev) => !prev);
+              // setReloadOrders((prev) => !prev);
             }}
           >
             <IoTrash />

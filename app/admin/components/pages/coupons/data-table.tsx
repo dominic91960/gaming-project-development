@@ -1,6 +1,14 @@
 "use client";
 
-import * as React from "react";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  MutableRefObject,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -23,6 +31,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useCouponContext } from "@/context/CouponContext";
+import Spinner from "@/components/Spinner/Spinner";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -33,10 +43,60 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const {
+    loading,
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    setSearchTerm,
+    totalPages,
+    getAllCoupons,
+    reloadCoupons,
+  } = useCouponContext();
+  const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+  const [localSearchTerm, setLocalSearchTerm] = useState(""); // Track input value
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(""); // Debounced value
+
+  // Debounce effect for search input
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(localSearchTerm);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [localSearchTerm]);
+
+  useEffect(() => {
+    setSearchTerm(debouncedSearchTerm);
+    setCurrentPage(1);
+  }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    getAllCoupons(currentPage, searchTerm);
+  }, [currentPage, searchTerm, reloadCoupons]);
+
+  const renderPagination = () => {
+    const buttons = [];
+    for (let i = 1; i <= totalPages; i++) {
+      buttons.push(
+        <div
+          key={i}
+          className={`cursor-pointer font-medium px-[1em] py-[0.5em] rounded-sm ${
+            i === currentPage ? "bg-[#00FFA1]" : "bg-white"
+          }`}
+          onClick={() => setCurrentPage(i)}
+        >
+          {i}
+        </div>
+      );
+    }
+    return buttons;
+  };
 
   const table = useReactTable({
     data,
@@ -53,16 +113,18 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  if (loading) {
+    return <Spinner loading={loading} />;
+  }
+
   return (
     <div>
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter Name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
+          value={localSearchTerm}
+          onChange={(event) => setLocalSearchTerm(event.target.value)}
+          className="bg-transparent outline-none border-s px-[1em] w-[40ch] text-white"
         />
       </div>
       <div className="rounded-md border text-white">
@@ -115,23 +177,8 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
+      <div className="px-[4em] mt-[2em] flex items-center justify-between md:text-[0.65em]">
+        <div className="flex text-black gap-x-[1em]">{renderPagination()}</div>
       </div>
     </div>
   );

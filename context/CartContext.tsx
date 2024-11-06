@@ -224,7 +224,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       localStorage.removeItem("discountData");
 
       console.log("Order created successfully:", response.data);
-      router.push("/");
+      router.push("/success");
     } catch (error) {
       console.error("Error creating order:", error);
     }
