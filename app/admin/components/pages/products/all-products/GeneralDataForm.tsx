@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import {
   Select,
@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { FaWindows, FaXbox, FaPlaystation } from "react-icons/fa";
+import { IoIosCalendar } from "react-icons/io";
 
 interface GeneralDataFormProps {
   name: string;
@@ -127,6 +128,8 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
   date,
   setDate,
 }) => {
+  const datePicker = useRef<HTMLInputElement | null>(null);
+
   return (
     <>
       <div className="grid grid-cols-2 gap-x-[2em] mb-[1.5em]">
@@ -200,49 +203,42 @@ const GeneralDataForm: React.FC<GeneralDataFormProps> = ({
             </SelectContent>
           </Select>
         </div>
-
-        {/* <div>
-          <label className="block mb-[0.5em]">Select Language</label>
-          <MultiSelect
-            options={languageOptions}
-            onValueChange={setLanguage}
-            defaultValue={language}
-            placeholder="Select Languages"
-            variant="ghost"
-            animation={1}
-            maxCount={3}
-          />
-          <Select
-            value={language}
-            onValueChange={(value: string) => setLanguage(value)}
-            required
-          >
-            <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#606060] rounded-sm sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
-              <SelectValue placeholder="Select Language" />
-            </SelectTrigger>
-            <SelectContent className="bg-transparent border border-[#606060] text-white backdrop-blur-md">
-              {languageOptions.map((option) => (
-                <SelectItem
-                  key={option}
-                  value={option}
-                  className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
-                >
-                  {option}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div> */}
-
         <div>
           <label className="block mb-[0.5em]">Release Date</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="relative w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm z-10 after:content-[''] after:w-[5ch] after:h-full after:bg-[#00FFA1]/20 after:absolute after:top-0 after:right-0 after:-z-10"
-            required
-          />
+          <style>{`
+            input[type="date"]::-webkit-calendar-picker-indicator {
+              display: none;
+            }
+
+            @supports (-moz-appearance: none) {
+              #date-picker {
+                display: none;
+              }
+            }
+          `}</style>
+          <div className="relative">
+            <input
+              type="date"
+              ref={datePicker}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full bg-transparent px-[1em] py-[0.5em] text-white border border-[#606060] rounded-sm z-10"
+              style={{
+                appearance: "none",
+                WebkitAppearance: "none",
+                MozAppearance: "textfield",
+              }}
+              required
+            />
+            <button
+              type="button"
+              id="date-picker"
+              className="absolute top-0 bottom-0 right-[0.2em] my-auto size-fit text-[1.5em] px-[0.2em] py-[0.2em] hover:opacity-80"
+              onClick={() => datePicker.current?.showPicker()}
+            >
+              <IoIosCalendar />
+            </button>
+          </div>
         </div>
       </div>
 
