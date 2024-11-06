@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { AllOrdersNew1, columns } from "./columns";
 import { DataTable } from "./data-table";
@@ -91,16 +91,16 @@ export default function AllOrders() {
   };
   const handleUpload = async (e: React.MouseEvent) => {
     e.preventDefault(); // Prevent page reload
-  
+
     if (!selectedFile) return;
-  
+
     const formData = new FormData();
     formData.append("file", selectedFile);
-  
+
     try {
       const res = await axiosInstance.post("/manual-orders/upload", formData);
       console.log("Upload response", res);
-  
+
       // Clear selected file and reset the input field
       setSelectedFile(null);
       if (fileInputRef.current) {
@@ -108,28 +108,31 @@ export default function AllOrders() {
       }
     } catch (error) {
       console.error("Upload error", error);
-    }finally{
+    } finally {
       setIsDialogOpen(false);
     }
-
   };
-  
-  
 
   return (
     <div className="container mx-auto py-10 text-white">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild >
-          <Button variant="gaming" className="w-[200px]" onClick={() => setIsDialogOpen(true)}>
+        <DialogTrigger asChild>
+          <Button
+            variant="gaming"
+            className="w-[200px]"
+            onClick={() => setIsDialogOpen(true)}
+          >
             Click Here
           </Button>
         </DialogTrigger>
 
         <DialogContent className="w-[425px] bg-gradient-to-tr from-black from-15% to-[#0D6D49] p-[3em] rounded-md border border-[#19D38E] sm:w-auto">
-
           <div className="fixed inset-0 bg-black/80 flex justify-center items-center w-full">
             <div className="relative w-max bg-gradient-to-tr from-black from-15% to-[#0D6D49] p-[3em] rounded-md border border-[#19D38E]">
-              <button className="absolute top-[1em] right-[1em] text-[#00FFA1] text-[1.4em] hover:opacity-80 transition-opacity duration-100">
+              <button
+                className="absolute top-[1em] right-[1em] text-[#00FFA1] text-[1.4em] hover:opacity-80 transition-opacity duration-100"
+                onClick={() => setIsDialogOpen(false)}
+              >
                 <IoClose />
               </button>
 
@@ -151,7 +154,7 @@ export default function AllOrders() {
                       Browse
                     </span>
                     <input
-                    ref={fileInputRef}
+                      ref={fileInputRef}
                       id="file-upload"
                       type="file"
                       accept=".csv"
@@ -181,10 +184,11 @@ export default function AllOrders() {
                     Please review and ensure that all the details you have
                     entered are correct before submitting.
                   </p>
-                  <Button 
-                  type="button"
-                  onClick={handleUpload}
-                  className="bg-[#00FFA1] text-black font-primaryFont text-[13px] font-semibold h-[30px]">
+                  <Button
+                    type="button"
+                    onClick={handleUpload}
+                    className="bg-[#00FFA1] text-black font-primaryFont text-[13px] font-semibold h-[30px]"
+                  >
                     UPLOAD
                   </Button>
                 </div>
