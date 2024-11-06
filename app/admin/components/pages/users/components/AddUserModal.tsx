@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
@@ -51,6 +51,8 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
 
   const { roles } = useRoleContext();
 
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   useEffect(() => {
     if (editingUser) {
       setUsername(editingUser.username);
@@ -70,7 +72,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
       firstName,
       lastName,
       email,
-      roleId:role,
+      roleId: role,
       profile_image: newImageUrl || image,
       password,
     };
@@ -270,13 +272,30 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
             {!editingUser && (
               <div className=" mt-[1.4em]">
                 <p className="capitalize">Password</p>
-                <Input
+                {/* <Input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm xl:w-[65ch] 2xl:w-[72ch]"
                   required={!editingUser}
-                />
+                /> */}
+
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="bg-transparent w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm xl:w-[65ch] 2xl:w-[72ch] border-[1px] border-white"
+                    required={!editingUser}
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               </div>
             )}
 
@@ -290,7 +309,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
             />
 
             {/* Submit */}
-            <div className="flex justify-between items-center mt-[18em]">
+            <div className="flex justify-between items-center mt-[2em]">
               <p className="text-[0.76em] max-w-[40ch] md:max-w-[44ch] xl:max-w-[50ch] 2xl:max-w-[65ch]">
                 Please review and ensure that all the details you have entered
                 are correct before submitting.
