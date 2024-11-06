@@ -65,7 +65,7 @@ export default function AllOrders() {
   const [selectedOrder, setSelectedOrder] = useState<AllOrdersNew1 | null>(
     null
   );
-  const { allOrders, loading } = useOrderContext();
+  const { allOrders, loading, setReloadOrders } = useOrderContext();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -109,6 +109,7 @@ export default function AllOrders() {
     } catch (error) {
       console.error("Upload error", error);
     } finally {
+    setReloadOrders(prev => !prev);
       setIsDialogOpen(false);
     }
   };
