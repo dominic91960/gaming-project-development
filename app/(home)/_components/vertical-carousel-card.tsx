@@ -66,11 +66,7 @@ const VerticalCarouselCard: React.FC<VerticalCarouselCardProps> = ({
             ${price.toFixed(2)}
           </p>
           <p className="text-[0.5em]">
-            <Rating
-              rating={Math.round(rating)}
-              activeColor="[#f29d38]"
-              inactiveColor="white/25"
-            />
+            <Rating rating={Math.round(rating)} />
           </p>
           <p className="font-medium text-[7px] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]">
             {rating > 0 ? "Rating" : "Unrated"}

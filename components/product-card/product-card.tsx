@@ -95,11 +95,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       <div className="flex items-center justify-between">
         <div className="text-[6px] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px]">
-          <Rating
-            rating={Math.round(rating)}
-            activeColor="[#f29d38]"
-            inactiveColor="white/20"
-          />
+          <Rating rating={Math.round(rating)} />
         </div>
 
         <button className="text-[9px] hover:opacity-70 sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">

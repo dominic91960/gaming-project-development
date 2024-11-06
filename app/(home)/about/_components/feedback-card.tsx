@@ -44,11 +44,7 @@ const FeedbackCard: React.FC<FeedbackCardProps> = ({
 
       {/* Rating */}
       <p className="mb-[1.25em] text-white/20">
-        <Rating
-          rating={rating}
-          activeColor="[#f29d38]"
-          inactiveColor="transparent"
-        />
+        <Rating rating={rating} />
       </p>
     </article>
   );

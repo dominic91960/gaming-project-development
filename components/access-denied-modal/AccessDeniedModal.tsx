@@ -45,30 +45,30 @@ const AccessDeniedModal: React.FC<AccessDeniedModalProps> = ({
     <AlertDialog open={open}>
       <AlertDialogContent
         ref={dialogRef}
-        className="bg-gradient-to-tr from-black/40 from-20%  to-[#00935D]/40 font-primaryFont text-[16px] text-white py-[3.5em] border rounded-none backdrop-blur-[8px]"
+        className="w-4/5 bg-gradient-to-tr from-black/40 from-20%  to-[#00935D]/40 font-primaryFont text-[9px] text-white py-[3.5em] border rounded-none backdrop-blur-[8px] sm:text-[11px] md:text-[13px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]"
         style={{
           borderImage: `linear-gradient(to bottom, #0D6D49 0%, #19D38E 100%) 1`,
         }}
       >
         <button
-          className="absolute top-[1em] right-[1em] text-[16px] hover:opacity-70"
+          className="absolute top-[1em] right-[1em] hover:opacity-70"
           onClick={() => setIsOpen(false)}
         >
           <IoMdClose className="text-[#00FFA1] text-[1.5em]" />
         </button>
 
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-center">
-            <h4 className="font-bold text-[24px] uppercase">
+          <AlertDialogTitle className="text-center text-[9px] sm:text-[11px] md:text-[13px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
+            <h4 className="font-bold text-[1.5em] uppercase">
               You do not have access
             </h4>
-            <p className="font-normal text-[16px]">
+            <p className="font-normal text-[1em]">
               Please Login or Create Account
             </p>
             <hr className="w-4/5 mx-auto opacity-70" />
           </AlertDialogTitle>
         </AlertDialogHeader>
-        <AlertDialogFooter className="items-center justify-center text-[17px]">
+        <AlertDialogFooter className="items-center justify-center text-[calc(1em+1px)]">
           <Link href="/sign-in" className="w-[70%]">
             <Button
               variant="gaming"
@@ -78,7 +78,7 @@ const AccessDeniedModal: React.FC<AccessDeniedModalProps> = ({
             </Button>
           </Link>
 
-          <p className="font-light text-[13px] my-[0.5em]">
+          <p className="font-light text-[0.8125em] my-[0.5em]">
             Do not have an account?
           </p>
 

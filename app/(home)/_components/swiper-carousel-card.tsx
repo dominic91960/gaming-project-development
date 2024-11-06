@@ -143,11 +143,7 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
 
         {/* Rating */}
         <div className="text-[1.25em] pb-[0.7em]">
-          <Rating
-            rating={rating}
-            activeColor="[#f29d38]"
-            inactiveColor="black/20"
-          />
+          <Rating rating={rating} />
         </div>
         <hr className="w-2/5" />
 

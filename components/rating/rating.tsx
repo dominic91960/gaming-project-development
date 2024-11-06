@@ -4,14 +4,8 @@ import { IoStar } from "react-icons/io5";
 
 interface RatingProps {
   rating: number;
-  activeColor: string;
-  inactiveColor: string;
 }
-const Rating: React.FC<RatingProps> = ({
-  rating,
-  activeColor,
-  inactiveColor,
-}) => {
+const Rating: React.FC<RatingProps> = ({ rating }) => {
   return (
     <span className="flex items-center gap-x-[0.2em]">
       {Array(5)
@@ -19,9 +13,7 @@ const Rating: React.FC<RatingProps> = ({
         .map((_, index) => (
           <IoStar
             key={index}
-            className={
-              rating > index ? `text-${activeColor}` : `text-${inactiveColor}`
-            }
+            className={rating > index ? "text-[#f29d38]" : "text-white/20"}
           />
         ))}
     </span>

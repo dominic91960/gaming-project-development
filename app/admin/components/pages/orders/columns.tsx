@@ -14,8 +14,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import StatusPopup from "./OrderStatusPopup";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import OrderDetailPopupCopy from "./OrderDetailPopup copy";
 import { useOrderContext } from "@/context/OrderContext";
+import { IoIosArrowForward } from "react-icons/io";
+import { FaEye } from "react-icons/fa";
+import { IoTrash } from "react-icons/io5";
 
 interface OrderItem {
   price: number;
@@ -69,7 +77,11 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
     accessorKey: "user.username",
     header: "Username",
     cell: ({ row }) => {
-      return <div className="flex">{row.original.firstName + " " + row.original.lastName}</div>;
+      return (
+        <div className="flex">
+          {row.original.firstName + " " + row.original.lastName}
+        </div>
+      );
     },
   },
   {
@@ -107,22 +119,42 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
         row.original.status = newStatus; // Update the row's status value
       };
       return (
-        <div className="relative">
-          <button
-            onClick={handleStatusClick}
-            className="text-blue-500 underline"
+        // <div className="relative">
+        //   <button
+        //     onClick={handleStatusClick}
+        //     className="text-blue-500 underline"
+        //   >
+        //     {status}
+        //   </button>
+        //   {showPopup && (
+        //     <StatusPopup
+        //       initialStatus={status}
+        //       id={row.original.id}
+        //       onSave={handleStatusChange}
+        //       onClose={() => setShowPopup(false)}
+        //     />
+        //   )}
+        // </div>
+
+        <Popover open={showPopup}>
+          <PopoverTrigger
+            onClick={() => setShowPopup(true)}
+            className="w-[12ch] capitalize hover:opacity-85"
           >
-            {status}
-          </button>
-          {showPopup && (
+            <div className="flex items-center justify-between">
+              <p>{status}</p>
+              <IoIosArrowForward className="text-[#00FFA1]" />
+            </div>
+          </PopoverTrigger>
+          <PopoverContent className="w-[14em] bg-black/40 border-[#0D6D49] text-white backdrop-blur-md font-primaryFont">
             <StatusPopup
               initialStatus={status}
               id={row.original.id}
               onSave={handleStatusChange}
               onClose={() => setShowPopup(false)}
             />
-          )}
-        </div>
+          </PopoverContent>
+        </Popover>
       );
     },
   },
@@ -153,18 +185,18 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
       return (
         <div className="flex space-x-2">
           <button
-            className="bg-red-500 text-white px-2 py-1 rounded"
-            onClick={() => deleteOrderById(row.original.id)}
-          >
-            Delete
-          </button>
-
-          <button
-            className="bg-blue-500 text-white px-2 py-1 rounded"
+            className="hover:opacity-80 transition-opacity duration-100"
             onClick={() => handleViewOrder(row.original)}
           >
-            View
+            <FaEye />
           </button>
+          <button
+            className="hover:opacity-80 transition-opacity duration-100"
+            onClick={() => deleteOrderById(row.original.id)}
+          >
+            <IoTrash />
+          </button>
+
           <OrderDetailPopupCopy
             isOpen={isViewModalOpen}
             onClose={() => setIsViewModalOpen(false)}

@@ -114,16 +114,22 @@ export default function AllOrders() {
   };
 
   return (
-    <div className="container mx-auto py-10 text-white">
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+    <div className="container min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
+      <div className="pb-[2em] px-[36px]">
+        <h1 className="font-bold text-[1.5em] leading-none text-white">
+          All Orders
+        </h1>
+        <p className="text-[0.9em] text-white md:text-[0.5em]">Orders</p>
+      </div>
+
+      {/* <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
-          <Button
-            variant="gaming"
-            className="w-[200px]"
+          <button
+            className="bg-[#00FFA1] font-bold text-black text-[0.95em] px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100 flex-shrink-0"
             onClick={() => setIsDialogOpen(true)}
           >
             Click Here
-          </Button>
+          </button>
         </DialogTrigger>
 
         <DialogContent className="w-[425px] bg-gradient-to-tr from-black from-15% to-[#0D6D49] p-[3em] rounded-md border border-[#19D38E] sm:w-auto">
@@ -196,12 +202,21 @@ export default function AllOrders() {
             </div>
           </div>
         </DialogContent>
-      </Dialog>
-      <h1 className="text-2xl font-bold mb-4 text-white">All Orders</h1>
+      </Dialog> */}
+      {/* <h1 className="text-2xl font-bold mb-4 text-white">All Orders</h1> */}
       {/* Add Orders Component */}
       {/* <Addorders onAddOrder={handleAddOrder} /> */}
       {/* Data Table */}
-      <DataTable columns={columns} data={allOrders} />
+      <DataTable
+        columns={columns}
+        data={allOrders}
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+        fileInputRef={fileInputRef}
+        handleFileChange={handleFileChange}
+        selectedFile={selectedFile}
+        handleUpload={handleUpload}
+      />
       {/* Edit order Modal */}
       {/* <EditAllOrdersPopup
         order={editingOrder}
