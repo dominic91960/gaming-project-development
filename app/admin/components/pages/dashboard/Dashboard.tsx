@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 import Greeting from "./_components/Greeting";
 import Summary from "./_components/Summary";
 import DashboardText from "./_components/DashboardText";
@@ -8,13 +7,10 @@ import TopCustomers from "./_components/TopCustomers";
 import TopGames from "./_components/TopGames";
 import samplePic from "@/public/images/sample-pic.png";
 import character from "@/public/images/dashboard/character.png";
+import { useEffect, useState } from "react";
+import axiosInstance from "@/axios/axiosInstance";
 
-const summary = {
-  totalEarning: 1832768,
-  totalOrders: 2450,
-  totalCustomers: 146327,
-  totalProducts: 200,
-};
+const totalEarning = 1832768;
 
 const chartData = [
   { month: "January", totalIncome: 183 },
@@ -27,172 +23,76 @@ const chartData = [
   { month: "August", totalIncome: 314 },
   { month: "September", totalIncome: 223 },
   { month: "October", totalIncome: 269 },
-  { month: "September", totalIncome: 134 },
   { month: "November", totalIncome: 176 },
   { month: "December", totalIncome: 265 },
 ];
 
-const customers = [
-  {
-    profilePic: samplePic.src,
-    username: "Apex67",
-    name: "Dominic Brian",
-    orders: "3",
-  },
-  {
-    profilePic: samplePic.src,
-    username: "PixelPirate",
-    name: "Samantha Chen",
-    orders: "5",
-  },
-  {
-    profilePic: samplePic.src,
-    username: "RetroRider",
-    name: "Carlos Rivera",
-    orders: "2",
-  },
-  {
-    profilePic: samplePic.src,
-    username: "CyberKnight",
-    name: "Elena Gomez",
-    orders: "8",
-  },
-  {
-    profilePic: samplePic.src,
-    username: "LootLord",
-    name: "Michael Jordan",
-    orders: "1",
-  },
-  {
-    profilePic: samplePic.src,
-    username: "QuestMaster",
-    name: "Natalie Brooks",
-    orders: "4",
-  },
-];
+interface Customers {
+  profilePic: string;
+  username: string;
+  name: string;
+  orders: number;
+}
 
-const games = [
-  {
-    poster: samplePic.src,
-    name: "Black Myth: Wukong",
-    discountPrice: 299,
-    originalPrice: 399,
-    rating: 3.7,
-  },
-  {
-    poster: samplePic.src,
-    name: "Elden Ring",
-    discountPrice: 249,
-    originalPrice: 349,
-    rating: 4.8,
-  },
-  {
-    poster: samplePic.src,
-    name: "Horizon Forbidden West",
-    discountPrice: 299,
-    originalPrice: 399,
-    rating: 4.5,
-  },
-  {
-    poster: samplePic.src,
-    name: "God of War Ragnarök",
-    discountPrice: 349,
-    originalPrice: 449,
-    rating: 4.9,
-  },
-  {
-    poster: samplePic.src,
-    name: "Ghost of Tsushima",
-    discountPrice: 199,
-    originalPrice: 299,
-    rating: 4.7,
-  },
-  {
-    poster: samplePic.src,
-    name: "The Last of Us Part II",
-    discountPrice: 279,
-    originalPrice: 379,
-    rating: 4.6,
-  },
-  {
-    poster: samplePic.src,
-    name: "Cyberpunk 2077",
-    discountPrice: 299,
-    originalPrice: 399,
-    rating: 3.9,
-  },
-  {
-    poster: samplePic.src,
-    name: "Final Fantasy VII Remake",
-    discountPrice: 349,
-    originalPrice: 449,
-    rating: 4.8,
-  },
-  {
-    poster: samplePic.src,
-    name: "Ratchet & Clank: Rift Apart",
-    discountPrice: 299,
-    originalPrice: 399,
-    rating: 4.6,
-  },
-  {
-    poster: samplePic.src,
-    name: "Resident Evil Village",
-    discountPrice: 249,
-    originalPrice: 349,
-    rating: 4.5,
-  },
-  {
-    poster: samplePic.src,
-    name: "Assassin's Creed Valhalla",
-    discountPrice: 299,
-    originalPrice: 399,
-    rating: 0,
-  },
-  {
-    poster: samplePic.src,
-    name: "Demon's Souls",
-    discountPrice: 349,
-    originalPrice: 449,
-    rating: 4.7,
-  },
-  {
-    poster: samplePic.src,
-    name: "Battlefield 2042",
-    discountPrice: 199,
-    originalPrice: 299,
-    rating: 0,
-  },
-  {
-    poster: samplePic.src,
-    name: "Forza Horizon 5",
-    discountPrice: 299,
-    originalPrice: 399,
-    rating: 4.8,
-  },
-  {
-    poster: samplePic.src,
-    name: "Star Wars Jedi: Fallen Order",
-    discountPrice: 249,
-    originalPrice: 349,
-    rating: 4.5,
-  },
-  {
-    poster: samplePic.src,
-    name: "Mortal Kombat 11",
-    discountPrice: 199,
-    originalPrice: 299,
-    rating: 4.4,
-  },
-];
+interface Games {
+  poster: string;
+  name: string;
+  discountPrice: number;
+  originalPrice: number;
+  rating: number;
+}
 
 const Dashboard = () => {
+  const [customers, setCustomers] = useState<Customers[] | null>(null);
+  const [games, setGames] = useState<Games[] | null>(null);
+
+  const [totalOrder, setTotalOrder] = useState<number>(0);
+  const [totalCustomer, setTotalCustomer] = useState<number>(0);
+  const [totalProduct, setTotalProduct] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true); // Added loading state
+
+  useEffect(() => {
+    getTopData();
+  }, []);
+
+  const getTopData = async () => {
+    try {
+      const response = await axiosInstance.get("/orders/top-users?limit=6");
+      const { topUsers, topGames, totalOrders, totalCustomers, totalProducts } =
+        response.data;
+
+      // Set state based on the API response
+      setCustomers(topUsers);
+      setGames(topGames);
+      setTotalOrder(totalOrders);
+      setTotalCustomer(totalCustomers);
+      setTotalProduct(totalProducts);
+      setLoading(false); // Set loading to false when data is fetched
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false); // Set loading to false even if there's an error
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className="relative container mx-auto font-primaryFont text-white px-[36px] xl:mx-0">
+        <div>Loading...</div> {/* Add a loading state UI */}
+      </section>
+    );
+  }
+
   return (
     <section className="relative container mx-auto font-primaryFont text-white px-[36px] xl:mx-0">
       <Greeting />
       <div className="md:grid md:grid-cols-2 md:gap-[16px] md:pb-[40px] lg:gap-[18px] lg:pb-[48px] xl:gap-[22px] xl:pb-[56px] 2xl:gap-[24px] 2xl:pb-[60px]">
         <div className="md:flex md:flex-col md:justify-between">
-          <Summary summary={summary} />
+          <Summary
+            totalEarning={totalEarning}
+            totalOrders={totalOrder}
+            totalCustomers={totalCustomer}
+            totalProducts={totalProduct}
+          />
           <DashboardText />
           <MonthlyEarnings chartData={chartData} />
         </div>

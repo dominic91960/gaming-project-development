@@ -5,7 +5,7 @@ interface CustomerCardProps {
   profilePic: string;
   username: string;
   name: string;
-  orders: string;
+  orders: number;
 }
 
 const CustomerCard: React.FC<CustomerCardProps> = ({
