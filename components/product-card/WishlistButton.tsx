@@ -1,10 +1,12 @@
 // WishlistButton.tsx
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import AccessDeniedModal from "@/components/access-denied-modal/AccessDeniedModal";
 import { useWishlistContext } from "@/context/WishListContext";
 import NavBarSpinner from "../Spinner/NavBarSpinner";
 import { set } from "date-fns";
+import { useVerifySession } from "@/hooks/useVerifySession";
+import { verify } from "crypto";
 
 interface WishlistButtonProps {
   gameId: string;
@@ -21,10 +23,12 @@ const WishlistButton: React.FC<WishlistButtonProps> = ({
   const [accessDeniedPopupOpen, setAccessDeniedPopupOpen] = useState(false);
   const { addToWishlist, removeFromWishlist, wishListGameIds } = useWishlistContext();
   const [loading, setLoading] = useState(false);
+//   const verify = useVerifySession();
 
   const handleWishlist = async () => {
+    console.log("handleWishlist", await useVerifySession());
     // setLoading(true);
-    if (!verifySession) {
+    if (! await useVerifySession()) {
       setAccessDeniedPopupOpen(true);
       return;
     }
