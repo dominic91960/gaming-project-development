@@ -172,8 +172,6 @@ export function DataTable<TData, TValue>({
                         className={`py-[1.3em] px-[0.2em] ${
                           index === 0
                             ? "relative rounded-s-sm ps-[1.2em]"
-                            : index === 1
-                            ? "max-w-[16ch] text-nowrap overflow-hidden text-ellipsis pe-[1em]"
                             : index === 3
                             ? "rounded-e-sm"
                             : ""
