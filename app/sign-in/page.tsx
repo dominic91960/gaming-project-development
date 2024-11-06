@@ -1,23 +1,26 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 
+import axios from "axios";
+import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FcGoogle } from "react-icons/fc";
-import ProductSearchBar from "@/components/product-search/product-search";
-import Logo from "../../public/images/logo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+import { useToast } from "@/context/ToastContext";
+import ProductSearchBar from "@/components/product-search/product-search";
 import AuthNavbar from "@/components/navbar/AuthNavbar";
 import Spinner from "@/components/Spinner/Spinner";
+import Logo from "../../public/images/logo.png";
+import "./sign-in.css";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -34,6 +37,7 @@ interface SignInFormInputs {
 }
 
 const SignIn = () => {
+  const addToast = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<boolean>(false);
@@ -84,6 +88,7 @@ const SignIn = () => {
 
       if (response.status === 201) {
         const { accessToken, refreshToken, user, message } = response.data;
+        addToast(message, "success");
 
         // Store tokens and user data in localStorage
         localStorage.setItem("accessToken", accessToken);
@@ -98,7 +103,7 @@ const SignIn = () => {
           router.push("/");
         }
       } else {
-        console.error("Login failed");
+        addToast("Login failed, please try again later.", "error");
       }
     } catch (error: any) {
       setErrorMessage(error.response.data.message);
@@ -205,7 +210,7 @@ const SignIn = () => {
                 type="email"
                 autoFocus
                 placeholder="Enter your email"
-                className="text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit sm:w-[44ch]"
+                className="abby text-white rounded-none text-[1em] px-[1em] py-[0.5em] h-fit sm:w-[44ch]"
                 {...register("email")}
               />
 
