@@ -37,21 +37,12 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
 
-  console.log("HomeLayout............");
-
   useEffect(() => {
     const verification = async () => {
-      console.log(
-        "Verifying session...2222",
-        localStorage.getItem("accessToken")
-      );
+      setIsAuthorized(false);
       const user = localStorage.getItem("user");
       if (user && localStorage.getItem("accessToken")) {
         try {
-          console.log(
-            "Verifying session...",
-            localStorage.getItem("accessToken")
-          );
           const res = await axios.get(
             process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-session",
             {
@@ -61,57 +52,46 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
             }
           );
 
-          console.log("res....................", res);
           if (res.status === 200) {
-            console.log("Authorized");
-            // return true;
             const parsedUser = JSON.parse(user);
             setIsAuthorized(true);
             if (parsedUser.role.name === "ADMIN") {
-              router.push("/admin");
+              setIsAuthorized(false);
+              window.location.href='/admin'
+              return;
             } else {
               setIsAuthorized(true);
+              return;
             }
-            return;
           } else {
-            console.log("Unauthorized.....................");
-            setIsAuthorized(true);
-            // router.push("/");
             throw new Error("Unauthorized");
           }
         } catch (error) {
-          // console.log(error);
-          // localStorage.clear();
           localStorage.removeItem("refreshToken");
           localStorage.removeItem("accessToken");
           localStorage.removeItem("user");
           setIsAuthorized(true);
-          // router.push("/");
           return;
         }
       } else {
-        // localStorage.clear();
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("accessToken");
         localStorage.removeItem("user");
-        // router.push("/");
         setIsAuthorized(true);
+        return;
       }
     };
 
     verification();
   }, [router]);
 
-  if (!isAuthorized) {
-    return <Spinner loading={!isAuthorized} />;
-  }
   return (
     <html
       lang="en"
       className={`${montserrat.variable} ${inter.variable} ${rajdhani.variable}`}
     >
       <body>
-        <ToastProvider>
+        {isAuthorized? <ToastProvider>
           <AuthProvider>
             <div className="relative z-40">
               <ProductSearchBar />
@@ -119,12 +99,11 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
             <div>
               <Navbar />
             </div>
-
             <div className="relative z-10">
               <WishlistProvider>{children}</WishlistProvider>
             </div>
           </AuthProvider>
-        </ToastProvider>
+        </ToastProvider>: <Spinner loading={!isAuthorized} />}
       </body>
     </html>
   );
