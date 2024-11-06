@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/Spinner/Spinner";
 import { WishlistProvider } from "@/context/WishListContext";
-import { verifySession } from "@/hooks/useVerifySession";
 import axios from "axios";
 import { set } from "date-fns";
 import { ToastProvider } from "@/context/ToastContext";

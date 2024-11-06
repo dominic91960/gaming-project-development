@@ -302,6 +302,7 @@ export default function ProductPage() {
                 <div className="hidden sm:block">
                   {gameData.stockStatus !== "OUT_OF_STOCK" ? (
                     <DesktopPriceCard
+                      id={id || ""}
                       title={gameData.title}
                       discountPrice={gameData.discountPrice}
                       originalPrice={gameData.originalPrice}
