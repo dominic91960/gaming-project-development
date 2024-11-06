@@ -31,7 +31,7 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({
 }) => {
   return (
     <div
-      className={`md:w-fit bg-white/10 md:text-[0.8em] p-[4em] mt-[3em] mb-[3.5em] origin-top ${
+      className={`md:w-fit bg-white/5 md:text-[0.8em] p-[4em] mt-[3em] mb-[3.5em] origin-top ${
         isReviewFormVisible
           ? "flex flex-col md:flex-row justify-around gap-x-[5em] animate-slide-down"
           : "hidden"
@@ -71,13 +71,13 @@ const AddReviewForm: React.FC<AddReviewFormProps> = ({
         <p className="text-[1.4em] mt-[1em] mb-[0.3em]">Review Title</p>
         <input
           type="text"
-          className="w-full md:w-[50ch] px-[1em] py-[0.5em] outline-none text-white bg-white/10 text-[1.3em] sm:text-[1em]"
+          className="w-full md:w-[50ch] px-[1em] py-[0.5em] outline-none text-white bg-transparent text-[1.3em] border border-[#45F882]/40 sm:text-[1em]"
           onChange={(e) => setTitle(e.target.value)}
         />
 
         <p className="text-[1.4em] mt-[1em] mb-[0.3em]">Review Text</p>
         <textarea
-          className="w-full md:w-[50ch] px-[1em] py-[0.5em] outline-none text-white bg-white/10 text-[1.3em] sm:text-[1em]"
+          className="w-full md:w-[50ch] px-[1em] py-[0.5em] outline-none text-white bg-transparent text-[1.3em] border border-[#45F882]/40 sm:text-[1em]"
           rows={5}
           onChange={(e) => setComment(e.target.value)}
         ></textarea>
