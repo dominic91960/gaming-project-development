@@ -118,8 +118,8 @@ const ProductCard: React.FC<Game> = ({
         </div> */}
         <WishlistButton
           gameId={id}
-          wishList={wishList}
-          verifySession={verifySession}
+          // wishList={wishList}
+          // verifySession={verifySession}
         />
       </div>
 

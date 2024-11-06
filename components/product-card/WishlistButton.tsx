@@ -10,19 +10,18 @@ import { verify } from "crypto";
 
 interface WishlistButtonProps {
   gameId: string;
-  wishList: boolean;
-  verifySession: boolean;
 }
 
 const WishlistButton: React.FC<WishlistButtonProps> = ({
   gameId,
-  wishList,
-  verifySession,
 }) => {
+    const { addToWishlist, removeFromWishlist, wishListGameIds } = useWishlistContext();
+    const wishList = wishListGameIds.includes(gameId);
   const [isWishlisted, setIsWishlisted] = useState(wishList);
   const [accessDeniedPopupOpen, setAccessDeniedPopupOpen] = useState(false);
-  const { addToWishlist, removeFromWishlist, wishListGameIds } = useWishlistContext();
+ 
   const [loading, setLoading] = useState(false);
+  
 //   const verify = useVerifySession();
 
   const handleWishlist = async () => {
