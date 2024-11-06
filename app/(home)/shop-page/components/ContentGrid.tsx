@@ -108,7 +108,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       console.log("Wishlist Game Ids current", wishListGameIds);
     }
     getData();
-  }, [currentPage, clearFilters, wishListGameIds]);
+  }, [currentPage, clearFilters]);
 
   useEffect(() => {
     console.log("Filter Params", filterParams);

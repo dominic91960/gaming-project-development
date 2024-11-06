@@ -13,6 +13,7 @@ import { useWishlistContext } from "@/context/WishListContext";
 import { set } from "date-fns";
 import axios from "axios";
 import AccessDeniedModal from "@/components/access-denied-modal/AccessDeniedModal";
+import WishlistButton from "@/components/product-card/WishlistButton";
 interface Game {
   id: string;
   title: string;
@@ -51,12 +52,12 @@ const ProductCard: React.FC<Game> = ({
   const [accessDenidedPopupOpen, setAccessDeniedPopupOpen] = useState(false);
   // const [verifySession, setVerifySession] = useState<boolean>(false);
   const { addItem } = useCartContext();
-  const {
-    addToWishlist,
-    setReloadWishlist,
-    updateWishListIds,
-    removeFromWishlist,
-  } = useWishlistContext();
+  // const {
+  //   addToWishlist,
+  //   setReloadWishlist,
+  //   updateWishListIds,
+  //   removeFromWishlist,
+  // } = useWishlistContext();
 
   const crateCart = (gameId: any) => {
     const newCardItem: CartItem = {
@@ -72,18 +73,18 @@ const ProductCard: React.FC<Game> = ({
     addItem(newCardItem);
   };
 
-  const handleWishlist = async (gameId: any): Promise<boolean> => {
-    // const newWishlistItem = {
-    //   id: gameId,
-    //   image: cardImage,
-    //   choiceType: "aaaaaa",
-    //   title,
-    //   price: sellingPrice,
-    //   productType: "bbbbbb",
-    // };
+  // const handleWishlist = async (gameId: any): Promise<boolean> => {
+  //   // const newWishlistItem = {
+  //   //   id: gameId,
+  //   //   image: cardImage,
+  //   //   choiceType: "aaaaaa",
+  //   //   title,
+  //   //   price: sellingPrice,
+  //   //   productType: "bbbbbb",
+  //   // };
 
-    return await addToWishlist(id);
-  };
+  //   return await addToWishlist(id);
+  // };
 
   return (
     <div className="relative bg-[#10160e] w-min">
@@ -92,7 +93,7 @@ const ProductCard: React.FC<Game> = ({
         // onClick={() => handleWishlist(id)}
         className="absolute top-[1em] left-[1em] z-40"
       >
-        <div>
+        {/* <div>
           {wishList ? (
             <IoHeartSharp
               className="text-[1.5em] cursor-pointer hover:scale-105 text-white"
@@ -111,12 +112,15 @@ const ProductCard: React.FC<Game> = ({
                 }
                 const res = await handleWishlist(id);
                 setIsWishlisted(res);
-                // await updateWishListIds();
-                // setReloadWishlist(prev => !prev);
               }}
             />
           )}
-        </div>
+        </div> */}
+        <WishlistButton
+          gameId={id}
+          wishList={wishList}
+          verifySession={verifySession}
+        />
       </div>
 
       <div className="border border-[#666a65] p-3  text-white relative w-full  cursor-pointer">
