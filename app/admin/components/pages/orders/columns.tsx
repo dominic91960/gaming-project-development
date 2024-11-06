@@ -43,24 +43,33 @@ export type AllOrdersNew1 = {
   id: string;
   order_id: string;
   username: string;
+  firstName: string;
+  lastName: string;
   totalAmount: number;
   status: string;
   products: OrderItem[]; // Include items property
 };
 
 export const columns: ColumnDef<AllOrdersNew1>[] = [
+  // {
+  //   accessorKey: "id",
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       >
+  //         Order ID
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     );
+  //   },
+  // },
   {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Order ID
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    accessorKey: "user.username",
+    header: "Username",
+    cell: ({ row }) => {
+      return <div className="flex">{row.original.firstName + " " + row.original.lastName}</div>;
     },
   },
   {
@@ -72,10 +81,7 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
       );
     },
   },
-  {
-    accessorKey: "user.username",
-    header: "Username",
-  },
+
   {
     accessorKey: "totalAmount",
     header: "Order Total",
