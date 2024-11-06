@@ -181,11 +181,19 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
         setTotalPages,
         loading,
         deleteOrderById,
+        setReloadOrders
       } = useOrderContext();
       return (
         <div className="flex space-x-2">
           <button
             className="hover:opacity-80 transition-opacity duration-100"
+            onClick={() => {deleteOrderById(row.original.id); setReloadOrders(prev => !prev)}}
+          >
+            Delete
+          </button>
+
+          <button
+            className="bg-blue-500 text-white px-2 py-1 rounded"
             onClick={() => handleViewOrder(row.original)}
           >
             <FaEye />

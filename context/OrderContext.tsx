@@ -39,6 +39,8 @@ interface OrderContextProps {
   searchTerm: string;
   deleteOrderById: (id: string) => void;
   updateOrderStatusById: (id: string, status: string) => void;
+  reloadOrders: boolean;
+  setReloadOrders: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const OrderContext = createContext<OrderContextProps | undefined>(undefined);
@@ -57,6 +59,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const [searchTerm, setSearchTerm] = useState(""); // Search input
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [reloadOrders, setReloadOrders] = useState<boolean>(false);
 
   // show toast
   const showToast = (value: boolean, message: string) => {
@@ -115,6 +118,8 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         setTotalPages,
         deleteOrderById,
         updateOrderStatusById,
+        reloadOrders,
+        setReloadOrders
       }}
     >
       {children}
