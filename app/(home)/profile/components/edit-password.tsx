@@ -5,7 +5,6 @@ import { IoClose } from "react-icons/io5";
 import axiosInstance from "@/axios/axiosInstance";
 // import toast from "react-hot-toast";
 
-
 interface EditPasswordProps {
   password: string;
   setProfile: React.Dispatch<
@@ -54,22 +53,22 @@ const EditPassword: React.FC<EditPasswordProps> = ({
     }
 
     const data = {
-      "oldPassword": currentPassword,
-      "newPassword": updatedPassword,
-    }
+      oldPassword: currentPassword,
+      newPassword: updatedPassword,
+    };
 
     try {
-      const res = await axiosInstance.patch('/auth/update-password', data);
+      const res = await axiosInstance.patch("/auth/update-password", data);
       console.log(res);
       if (res.status === 200) {
-        console.log('Password updated successfully');
+        console.log("Password updated successfully");
         axiosInstance.patch("/auth/logout");
         localStorage.clear();
         window.location.href = "/sign-in";
-      }else {
-        console.log('Failed to update password');
+      } else {
+        console.log("Failed to update password");
         // toast.error('Failed to update password');
-        throw new Error('Failed to update password');
+        throw new Error("Failed to update password");
       }
     } catch (error) {
       console.error(error);
@@ -79,7 +78,6 @@ const EditPassword: React.FC<EditPasswordProps> = ({
     // const res = axiosInstance.patch('/auth/update-password', data);
 
     console.log(data);
-    
 
     setProfile((prev) => ({
       ...prev,
@@ -130,7 +128,15 @@ const EditPassword: React.FC<EditPasswordProps> = ({
                 required
               />
             </div>
+          </div>
+          {isCurrentPasswordWrong && (
+            <p className="mt-[0.5em] text-[0.8em] text-red-500">
+              Incorrect password. Please check and try again.
+            </p>
+          )}
 
+          {/* New password and Confirm password */}
+          <div className="grid grid-cols-2 gap-[5em] mt-[1em]">
             {/* New password */}
             <div>
               <label htmlFor="new-password" className="block mb-[0.5em]">
@@ -149,15 +155,8 @@ const EditPassword: React.FC<EditPasswordProps> = ({
                 required
               />
             </div>
-          </div>
-          {isCurrentPasswordWrong && (
-            <p className="mt-[0.5em] text-[0.8em] text-red-500">
-              Incorrect password. Please check and try again.
-            </p>
-          )}
 
-          {/* Confirm password */}
-          <div className="grid grid-cols-2 gap-[5em] mt-[1em]">
+            {/* Confirm password */}
             <div>
               <label htmlFor="confirm-password" className="block mb-[0.5em]">
                 Confirm Password
