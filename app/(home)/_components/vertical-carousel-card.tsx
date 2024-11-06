@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import StarRating from "./star-rating";
 import Link from "next/link";
+
+import Rating from "@/components/rating/rating";
 
 interface VerticalCarouselCardProps {
   id: string;
@@ -64,16 +65,12 @@ const VerticalCarouselCard: React.FC<VerticalCarouselCardProps> = ({
           <p className="font-semibold text-[2em] uppercase leading-none font-rajdhaniFont">
             ${price.toFixed(2)}
           </p>
-          <p
-            className={`text-[0.5em]  ${
-              rating > 0 ? "text-[#f29d38]" : "text-white/25"
-            }`}
-          >
-            {rating > 0 ? (
-              <StarRating rating={rating} />
-            ) : (
-              <StarRating rating={5} />
-            )}
+          <p className="text-[0.5em]">
+            <Rating
+              rating={Math.round(rating)}
+              activeColor="[#f29d38]"
+              inactiveColor="white/25"
+            />
           </p>
           <p className="font-medium text-[7px] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]">
             {rating > 0 ? "Rating" : "Unrated"}

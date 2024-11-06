@@ -36,7 +36,7 @@ const data = [
     poster: four.src,
     name: "Star Wars Outlaws",
     price: 2993,
-    rating: 5,
+    rating: 4,
     soldOut: false,
   },
   {

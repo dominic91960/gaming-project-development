@@ -159,7 +159,7 @@ export default function ProductPage() {
           originalPrice: res.data.regularPrice,
           discountPrice: res.data.sellingPrice,
           releaseDate: res.data.releaseDate.split("T")[0],
-          rating: 4,
+          rating: res.data.averageRating,
           languages: res.data.languages,
           os: res.data.system.toLowerCase(),
           developedBy: "ubisoft",
@@ -261,6 +261,8 @@ export default function ProductPage() {
     try {
       const response = await axiosInstance.post(`/reviews`, newReview);
       const { message } = response.data;
+      addToast(message, "success");
+
       getReviewsByGameId(id);
     } catch (error: any) {
     } finally {

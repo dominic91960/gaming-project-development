@@ -1,23 +1,27 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+import axios from "axios";
+import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
+import { useToast } from "@/context/ToastContext";
 import ProductSearchBar from "@/components/product-search/product-search";
 import AuthNavbar from "@/components/navbar/AuthNavbar";
 import Spinner from "@/components/Spinner/Spinner";
 import Logo from "../../public/images/logo.png";
+import "./sign-up.css";
+
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
     .required("First name is required")
@@ -29,18 +33,19 @@ const validationSchema = Yup.object().shape({
     .email("Invalid email format")
     .required("Email is required"),
   password: Yup.string()
-  .required("Password is required")
-  .min(6, "Password must be at least 6 characters")
-  .matches(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$/,
-    "Password format incorrect: must contain at least one uppercase letter, one lowercase letter, one number, and one special character(@, $, !, %, *, ?, &,#)."
-  ),
+    .required("Password is required")
+    .min(6, "Password must be at least 6 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$/,
+      "Password format incorrect: must contain at least one uppercase letter, one lowercase letter, one number, and one special character(@, $, !, %, *, ?, &,#)."
+    ),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), undefined], "Passwords must match")
     .required("Please confirm your password"),
 });
 
 const SignUp = () => {
+  const addToast = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [isTermsAccepted, setIsTermsAccepted] = useState<any>(false);
@@ -101,9 +106,10 @@ const SignUp = () => {
         password: data.password,
         role: "USER",
       });
-      const { message } = response.data;
+      // const { message } = response.data;
       if (response.status === 201) {
         const { accessToken, refreshToken, user, message } = response.data;
+        addToast(message, "success");
 
         // Store tokens and user data in localStorage
         localStorage.setItem("accessToken", accessToken);
@@ -113,6 +119,7 @@ const SignUp = () => {
         // Redirect to profile page
         router.push("/profile?id=" + user.id);
       } else {
+        addToast("Registration failed, please try again later", "error");
         console.error("Register failed");
       }
       // router.push("/emailVerify");

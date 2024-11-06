@@ -6,7 +6,7 @@ import axiosInstance from "@/axios/axiosInstance";
 import { Button } from "@/components/ui/button";
 import { LiaAngleRightSolid } from "react-icons/lia";
 
-import StarRating from "./star-rating";
+import Rating from "@/components/rating/rating";
 import bg from "@/public/images/home/best-selling/bg.png";
 
 interface Game {
@@ -115,16 +115,12 @@ const BestSelling = () => {
                   <hr className="my-[0.2em]" />
 
                   {/* Stars */}
-                  <div
-                    className={`${
-                      rating > 0 ? "text-[#f29d38]" : "text-[#171717]"
-                    } text-[8px] mt-[0.1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]`}
-                  >
-                    {rating > 0 ? (
-                      <StarRating rating={Math.round(rating)} />
-                    ) : (
-                      <StarRating rating={5} />
-                    )}
+                  <div className="text-[8px] mt-[0.1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+                    <Rating
+                      rating={Math.round(rating)}
+                      activeColor="[#f29d38]"
+                      inactiveColor="[#171717]"
+                    />
                   </div>
 
                   {/* Rating text */}
