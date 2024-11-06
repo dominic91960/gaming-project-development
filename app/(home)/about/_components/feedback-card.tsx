@@ -1,7 +1,7 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 
-import StarRating from "@/app/(home)/_components/star-rating";
+import Rating from "@/components/rating/rating";
 
 interface FeedbackCardProps {
   avatar: StaticImageData;
@@ -43,8 +43,12 @@ const FeedbackCard: React.FC<FeedbackCardProps> = ({
       <p className="mb-[1.25em]">{date}</p>
 
       {/* Rating */}
-      <p className="text-[#f29d38] mb-[1.25em]">
-        <StarRating rating={rating} />
+      <p className="mb-[1.25em] text-white/20">
+        <Rating
+          rating={rating}
+          activeColor="[#f29d38]"
+          inactiveColor="transparent"
+        />
       </p>
     </article>
   );

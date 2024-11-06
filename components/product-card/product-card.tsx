@@ -5,8 +5,8 @@ import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 
 import { useWishlistContext } from "@/context/WishListContext";
-import StarRating from "@/app/(home)/_components/star-rating";
 import cartIcon from "@/public/images/cart.png";
+import Rating from "../rating/rating";
 
 interface ProductCardProps {
   id: string;
@@ -94,16 +94,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <hr className="border-t-white/20 my-[0.5em]" />
 
       <div className="flex items-center justify-between">
-        <div
-          className={`${
-            rating > 0 ? "text-[#f29d38]" : "text-white/20"
-          } text-[6px] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px]`}
-        >
-          {rating > 0 ? (
-            <StarRating rating={Math.round(rating)} />
-          ) : (
-            <StarRating rating={5} />
-          )}
+        <div className="text-[6px] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px]">
+          <Rating
+            rating={Math.round(rating)}
+            activeColor="[#f29d38]"
+            inactiveColor="white/20"
+          />
         </div>
 
         <button className="text-[9px] hover:opacity-70 sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">

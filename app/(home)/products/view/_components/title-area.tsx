@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
 import {
   Tooltip,
@@ -7,9 +8,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import StarRating from "@/app/(home)/_components/star-rating";
 import { FaPlaystation, FaWindows, FaXbox } from "react-icons/fa";
-import Image from "next/image";
+import Rating from "@/components/rating/rating";
 
 interface TitleAreaProps {
   fullTitle: string;
@@ -44,8 +44,12 @@ const TitleArea: React.FC<TitleAreaProps> = ({
       {/* Product info */}
       <div className="flex items-center text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] gap-x-[0.8em] leading-normal mt-[0.2em] mb-[0.6em]">
         {/* Rating */}
-        <div className="text-[#f29d38] -translate-y-[10%]">
-          <StarRating rating={rating} />
+        <div className="-translate-y-[10%]">
+          <Rating
+            rating={Math.round(rating)}
+            activeColor="[#f29d38]"
+            inactiveColor="white/25"
+          />
         </div>
         <p>{rating}/5</p>
         <div className="w-[1px] self-stretch bg-white"></div>

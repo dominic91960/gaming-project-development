@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 
-import StarRating from "./star-rating";
 import Link from "next/link";
 
+import { useCartContext } from "@/context/CartContext";
 import { useAuthContext } from "@/context/AuthContext";
 import RedirectSignInPopup from "./RedirectSignInPopup";
 import CartSidebar from "./shopping-cart-sidebar";
-import { useCartContext } from "@/context/CartContext";
+import Rating from "@/components/rating/rating";
 
 interface SwiperCarouselCardProps {
   id: string;
@@ -142,16 +142,12 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
         <h3 className="font-bold text-[2em] line-clamp-1">{title}</h3>
 
         {/* Rating */}
-        <div
-          className={`${
-            rating > 0 ? "text-[#f29d38]" : "text-black/20"
-          } text-[1.25em] pb-[0.7em]`}
-        >
-          {rating > 0 ? (
-            <StarRating rating={rating} />
-          ) : (
-            <StarRating rating={5} />
-          )}
+        <div className="text-[1.25em] pb-[0.7em]">
+          <Rating
+            rating={rating}
+            activeColor="[#f29d38]"
+            inactiveColor="black/20"
+          />
         </div>
         <hr className="w-2/5" />
 
