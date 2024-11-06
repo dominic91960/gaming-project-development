@@ -116,11 +116,7 @@ const BestSelling = () => {
 
                   {/* Stars */}
                   <div className="text-[8px] mt-[0.1em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
-                    <Rating
-                      rating={Math.round(rating)}
-                      activeColor="[#f29d38]"
-                      inactiveColor="[#171717]"
-                    />
+                    <Rating rating={Math.round(rating)} />
                   </div>
 
                   {/* Rating text */}

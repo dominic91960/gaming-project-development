@@ -45,11 +45,7 @@ const TitleArea: React.FC<TitleAreaProps> = ({
       <div className="flex items-center text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] gap-x-[0.8em] leading-normal mt-[0.2em] mb-[0.6em]">
         {/* Rating */}
         <div className="-translate-y-[10%]">
-          <Rating
-            rating={Math.round(rating)}
-            activeColor="[#f29d38]"
-            inactiveColor="white/25"
-          />
+          <Rating rating={Math.round(rating)} />
         </div>
         <p>{rating}/5</p>
         <div className="w-[1px] self-stretch bg-white"></div>
