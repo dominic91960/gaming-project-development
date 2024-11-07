@@ -159,13 +159,17 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                   to check if there’s something in it already!
                 </p>
 
-                <div className="flex items-center justify-center mt-8">
-                  <Button className=" bg-[#0BDB45] hover:bg-[#0BDB45] rounded-none w-[200px] h-[35px]">
-                    <p className="font-primaryFont text-[15px] font-semibold text-black">
-                      Browse Deals
-                    </p>
-                  </Button>
-                </div>
+                <SheetClose asChild>
+                  <Link href="/shop-page">
+                    <div className="flex items-center justify-center mt-8">
+                      <Button className=" bg-[#0BDB45] hover:bg-[#0BDB45] rounded-none w-[200px] h-[35px]">
+                        <p className="font-primaryFont text-[15px] font-semibold text-black">
+                          Browse Deals
+                        </p>
+                      </Button>
+                    </div>
+                  </Link>
+                </SheetClose>
               </div>
             ) : (
               <div>
