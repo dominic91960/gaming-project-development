@@ -1,13 +1,12 @@
 "use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
-import { CiHeart } from "react-icons/ci";
-import { MdDeleteForever } from "react-icons/md";
+import { useRouter } from "next/navigation";
+
+import axiosInstance from "@/axios/axiosInstance";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useCartContext } from "@/context/CartContext";
-import { useRouter } from "next/navigation";
-import cartIcon from "../../../public/images/cart-sidebar/Favorite Cart.png";
 import {
   Sheet,
   SheetClose,
@@ -16,27 +15,31 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import axiosInstance from "@/axios/axiosInstance";
-
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import { MdDeleteForever } from "react-icons/md";
+import { CiHeart } from "react-icons/ci";
+
+import { useToast } from "@/context/ToastContext";
+import { useCartContext } from "@/context/CartContext";
+import cartIcon from "../../../public/images/cart-sidebar/Favorite Cart.png";
 import "./shopping-cart-sidebar.css";
 
-type CartItem = {
-  id: number;
-  image: string;
-  choiceType: string;
-  title: string;
-  quantity: number;
-  price: number;
-  productType: string;
-};
+// type CartItem = {
+//   id: number;
+//   image: string;
+//   choiceType: string;
+//   title: string;
+//   quantity: number;
+//   price: number;
+//   productType: string;
+// };
 
-const SERVICE_FEE = 12;
 type CartSidebarProps = {
   children: React.ReactNode;
 };
 
 const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
+  const addToast = useToast();
   const {
     cart,
     removeItem,
@@ -52,8 +55,8 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
 
   const [discountCode, setDiscountCode] = useState<string>("");
   const [discountApplied, setDiscountApplied] = useState<number>(0);
-  const [discountMessage, setDiscountMessage] = useState<string>("");
-  const [tempDiscount, setTempDiscount] = useState<string>("");
+  // const [tempDiscount, setTempDiscount] = useState<string>("");
+  const [, setTempDiscount] = useState<string>("");
   const router = useRouter();
   const handleRemoveItem = (id: number) => {
     removeItem(id);
@@ -71,7 +74,9 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
 
       if (response.data && response.data.discount) {
         setSuccessMessage("Discount added successfully");
-        setErrorMessage(""); // Clear any existing error message
+        addToast("Discount added successfully", "success");
+        setErrorMessage("");
+
         setDiscountApplied(0);
         setTempDiscount(response.data.code);
         setDiscount({
@@ -86,10 +91,12 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
       } else {
         setSuccessMessage("");
         setErrorMessage("Your discount code is invalid");
+        addToast("Your discount code is invalid", "error");
       }
     } catch (error) {
       setSuccessMessage("");
       setErrorMessage("Your discount code is incorrect");
+      addToast("Your discount code is incorrect", "error");
     }
   };
 
@@ -101,10 +108,6 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
       type: "",
     });
   };
-
-  const messageColor = discountMessage.includes("successfully")
-    ? "text-[#67ca47]"
-    : "text-[#ff4d4d]";
 
   return (
     <>

@@ -1,30 +1,29 @@
 "use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
-import { CiHeart } from "react-icons/ci";
-import { MdDeleteForever } from "react-icons/md";
+
+import axiosInstance from "@/axios/axiosInstance";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import RecommendedGames from "./components/Recommended-games";
-import Footer from "@/components/footer/footer";
-import Navbar from "@/components/navbar/navbar";
-import ProductSearchBar from "@/components/product-search/product-search";
-import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
+import { CiHeart } from "react-icons/ci";
 import { GoDotFill } from "react-icons/go";
-import { MdOutlineNavigateNext } from "react-icons/md";
-import { useCartContext } from "@/context/CartContext";
-import axiosInstance from "@/axios/axiosInstance";
-
+import { MdDeleteForever } from "react-icons/md";
 import { FaPlus, FaMinus } from "react-icons/fa6";
-const SERVICE_FEE = 12;
+
+import { useToast } from "@/context/ToastContext";
+import { useCartContext } from "@/context/CartContext";
+import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
+import Footer from "@/components/footer/footer";
 
 const Cart: React.FC = () => {
+  const addToast = useToast();
   const {
     cart,
     removeItem,
     increaseQuantity,
     decreaseQuantity,
-    createOrder,
+    // createOrder,
     totalPrice,
     totalItems,
     setDiscount,
@@ -33,10 +32,10 @@ const Cart: React.FC = () => {
     proceedCheckout,
   } = useCartContext(); // Access cart data from context
   const [discountCode, setDiscountCode] = useState<string>("");
-  const [discountApplied, setDiscountApplied] = useState<number>(0);
-  const [discountMessage, setDiscountMessage] = useState<string>("");
-
-  const [tempDiscount, setTempDiscount] = useState<string>("");
+  // const [discountApplied, setDiscountApplied] = useState<number>(0);
+  // const [tempDiscount, setTempDiscount] = useState<string>("");
+  const [, setDiscountApplied] = useState<number>(0);
+  const [, setTempDiscount] = useState<string>("");
 
   const handleRemoveItem = (id: number) => {
     removeItem(id);
@@ -66,7 +65,9 @@ const Cart: React.FC = () => {
       //   });
       if (response.data && response.data.discount) {
         setSuccessMessage("Discount added successfully");
-        setErrorMessage(""); // Clear any existing error message
+        addToast("Discount added successfully", "success");
+        setErrorMessage("");
+
         setDiscountApplied(0);
         setTempDiscount(response.data.code);
         setDiscount({
@@ -81,10 +82,12 @@ const Cart: React.FC = () => {
       } else {
         setSuccessMessage("");
         setErrorMessage("Your discount code is invalid");
+        addToast("Your discount code is invalid", "error");
       }
     } catch (error) {
       setSuccessMessage("");
       setErrorMessage("Your discount code is incorrect");
+      addToast("Your discount code is incorrect", "error");
     }
   };
 
@@ -96,10 +99,6 @@ const Cart: React.FC = () => {
       type: "",
     });
   };
-
-  const messageColor = discountMessage.includes("successfully")
-    ? "text-[#3edf6e]"
-    : "text-[#ff4d4d]";
 
   return (
     <div>
@@ -153,10 +152,12 @@ const Cart: React.FC = () => {
                   <div>
                     <div className="grid grid-cols-12 gap-6 px-3 py-3 border border-[#666a65] bg-[#222222] relative">
                       <div className="col-span-3">
-                        <img
+                        <Image
                           src={item.image}
                           alt={item.title}
                           className="2xl:w-[220px] 2xl:h-[220px] xl:w-[175px] xl:h-[175px] lg:w-[135px] lg:h-[135px] md:w-[35px] md:h-[135px] rounded-none"
+                          width={220}
+                          height={220}
                         />
                       </div>
 
