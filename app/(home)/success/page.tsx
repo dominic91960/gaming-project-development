@@ -5,91 +5,52 @@ import { IoIosArrowForward } from "react-icons/io";
 import { CiCircleCheck } from "react-icons/ci";
 import { FaCircle } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-
+import { GoDotFill } from "react-icons/go";
 import Footer from "@/components/footer/footer";
 import bgImage from "@/public/images/404/bg.png";
-
+import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
 function SuccessPage() {
   return (
     <section className="font-primaryFont text-white">
-      <div className="relative w-full h-[162px] md:h-80 lg:h-[420px] xl:h-[420px] 2xl:h-[420px] px-8">
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-100 z-10"></div>
-
+      <div className="relative">
         <Image
-          src={bgImage}
-          alt="Background"
-          layout="fill"
-          objectFit="cover"
-          className="w-full h-full z-0"
+          src={coverPhoto}
+          alt="shop page cover image"
+          className="w-full h-full object-cover"
         />
 
-        {/* Title */}
-        <div className="mx-auto absolute items-center justify-center inset-0 pt-[75px] md:pt-52 lg:pt-72 z-20">
-          <div className="flex justify-between items-center px-px">
-            {/* For large and extra large screens */}
-            <div className="hidden mx-auto md:flex container items-center justify-around text-white px-16 md:px-8 lg:px-16 py-6 gap-x-5 xl:gap-x-10">
-              {/* Cart */}
-              <div className="flex items-center flex-1 gap-x-2">
-                <div className="flex items-center">
-                  <FaCircle className="text-white lg:w-4 lg:h-4 xl:w-5 xl:h-5 2xl:w-5 2xl:h-5" />
-                  <p className="ml-2 lg:text-base xl:text-xl 2xl:text-xl">
-                    Cart
-                  </p>
-                </div>
-                <div className="border-t-[3px] border-white w-full ml-2"></div>
+        <div className="">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="container mx-auto flex items-center w-full space-x-4 py-2 px-8">
+              <div className="flex items-center gap-1">
+                <GoDotFill className="text-[35px] text-[#fff]" />
+                <p className="font-primaryFont text-white text-[24px] font-medium">
+                  Cart
+                </p>
               </div>
 
-              {/* Payment */}
-              <div className="flex items-center flex-1 gap-x-2">
-                <div className="flex items-center">
-                  <FaCircle className="text-white lg:w-4 lg:h-4 xl:w-5 xl:h-5 2xl:w-5 2xl:h-5" />
-                  <p className="ml-2 text-white lg:text-base xl:text-xl 2xl:text-xl">
-                    Payment
-                  </p>
-                </div>
-                <div className="border-t-[3px] border-white w-full ml-2"></div>
+              <div className="h-1 w-full bg-white"></div>
+
+              <div className="flex items-center gap-1">
+                <GoDotFill className="text-[35px] text-[#fff]" />
+                <p className="font-primaryFont text-[#fff] text-[24px] font-medium">
+                  Payment
+                </p>
               </div>
 
-              {/* Get Your Product */}
-              <div className="flex items-center flex-1 gap-x-2">
-                <div className="flex items-center">
-                  <FaCircle className="text-[#0BDB45] lg:w-4 lg:h-4 xl:w-5 xl:h-5 2xl:w-5 2xl:h-5" />
-                  <p className="ml-2 text-[#0BDB45] lg:text-base xl:text-xl 2xl:text-xl whitespace-nowrap">
-                    Get Product
-                  </p>
-                </div>
-                <div className="border-t-[3px] border-[#0BDB45] w-full ml-2"></div>
-              </div>
-            </div>
+              <div className="h-1 w-full bg-[#fff]"></div>
 
-            {/* For mobile and medium screens */}
-            <div className="md:hidden flex w-60 sm:w-96 pt-8 mx-auto items-center justify-around text-white">
-              <div className="flex items-center">
-                <div className="flex flex-col items-center gap-y-2">
-                  <FaCircle className="text-white w-3 h-3" />
-                  <p className="ml-1 text-xs md:text-sm">Cart</p>
-                </div>
-              </div>
-
-              <IoIosArrowForward className="ml-1 w-5 h-5" />
-
-              <div className="flex flex-col items-center gap-y-2">
-                <FaCircle className="text-white w-3 h-3" />
-                <p className="ml-1 text-white text-xs md:text-sm">Payment</p>
-              </div>
-
-              <IoIosArrowForward className="ml-1 w-5 h-5" />
-
-              <div className="flex flex-col items-center gap-y-2">
-                <FaCircle className="text-[#0BDB45] w-3 h-3" />
-                <p className="ml-1 text-[#0BDB45] text-xs md:text-sm whitespace-nowrap">
-                  Get Product
+              <div className="flex items-center gap-1">
+                <GoDotFill className="text-[35px] text-[#0BDB45]" />
+                <p className="font-primaryFont text-[#0BDB45] text-[24px] font-medium whitespace-nowrap">
+                  Get Your Product
                 </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div className="relative bg-[#051301]">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent opacity-100 z-0"></div>
 
