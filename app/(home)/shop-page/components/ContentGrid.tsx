@@ -77,7 +77,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       const res = await axiosInstance.get(
         `/games?page=${currentPage}&sort=latest`
       );
-      console.log(res.data.data);
+      (res.data.data);
 
       const games = res.data.data.map((game: any) => {
         return {
@@ -105,13 +105,12 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     };
 
     if (wishListGameIds) {
-      console.log("Wishlist Game Ids current", wishListGameIds);
     }
     getData();
   }, [currentPage, clearFilters]);
 
   useEffect(() => {
-    console.log("Filter Params", filterParams);
+
     setLoading(true);
 
     const buildQueryParams = () => {
@@ -136,13 +135,11 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       return params.toString();
     };
 
-    console.log("Query Params", buildQueryParams());
-
     const getData = async () => {
       const res = await axiosInstance.get(
         `/games?${buildQueryParams()}&sort=latest`
       );
-      console.log(res.data.data);
+      (res.data.data);
 
       const games = res.data.data.map((game: any) => {
         return {
@@ -156,8 +153,6 @@ const ContentGrid: React.FC<ContentGridProps> = ({
           wishList: wishListGameIds.includes(game.id),
         };
       });
-
-      console.log("Games", games);
 
       const meta = res.data.meta;
 
@@ -206,7 +201,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         }
         // setLoading(false);
       } catch (error) {
-        console.log(error);
+        (error);
       } finally {
         // setLoading(false);
       }
@@ -220,7 +215,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     const res = await axiosInstance.get(
       `/games?productName=${search}&page=${currentPage}&sort=latest`
     );
-    console.log(res.data.data);
+    (res.data.data);
 
     const games = res.data.data.map((game: any) => {
       return {
@@ -252,7 +247,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     const res = await axiosInstance.get(
       `/games?sort=${sortTerm}&page=${currentPage}`
     );
-    console.log(res.data.data);
+    (res.data.data);
 
     const games = res.data.data.map((game: any) => {
       return {

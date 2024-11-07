@@ -79,7 +79,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
         throw new Error("Session expired");
       }
     } catch (error) {
-      console.log("Error verifying session: ", error);
       return false;
     }
   }
@@ -88,13 +87,11 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
     try {
       const res = await axiosInstance.get(`/wishlists/${user.id}`);
       if (res.status === 200) {
-        // console.log("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii", res.data.items.map((item: { gameId: string }) => item.gameId))
         return res.data.items.map((item: { gameId: string }) => item.gameId);
       } else{
         throw new Error("User not have a wishlist");
       }
     } catch (error) {
-      // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
       return [];
     }
   }
@@ -103,7 +100,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
     const getData = async () => {
       if (await isUserLoggedIn()) {
         const res = await getWishlistIds();
-        console.log("Wishlist game idssssssssssssssssssssssssssssssss: ", res);
         setWishListGameIds(res);
       }else{
         setWishListGameIds([]);
@@ -131,18 +127,13 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
   const closePopup = () => setPopupOpen(false);
 
   const addToWishlist = async (itemId: string) => {
-    console.log("Add to wishlist: ", itemId);
     if (!await isUserLoggedIn()) {
-      console.log("User is not logged in");
       toast.error("Please login to add to wishlist");
       return false;
     } else {
-      console.log("User is logged in");
 
       if (await isUserHaveWishlist()) {
-        console.log("User has a wishlist");
         const existingItems = await getWishlistIds();
-        console.log("Existing items: ", existingItems);
 
         // Check for duplicates
         if (existingItems.includes(itemId)) {
@@ -155,7 +146,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
         });
 
         if (resUpdate.status === 200) {
-          console.log("Added to wishlist: ", resUpdate.data);
           toast.success("Added to wishlist");
           setReloadWishlist(prev => !prev);
           return true;
@@ -164,7 +154,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
         }
 
       } else {
-        console.log("User does not have a wishlist");
 
         try {
           const res = await axiosInstance.post(`/wishlists`, {
@@ -173,7 +162,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
           });
 
           if (res.status === 201) {
-            console.log("Added to wishlist: ", res.data);
             toast.success("Added to wishlist");
             setReloadWishlist(prev => !prev);
             return true;
@@ -181,7 +169,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
             throw new Error("Error adding to wishlist");
           }
         } catch (error) {
-          console.log("Error adding to wishlist: ", error);
           toast.error("Error adding to wishlist");
           return false;
         }
@@ -192,7 +179,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
   const updateWishListIds = async() => {
       if (await isUserLoggedIn()) {
         const res = await getWishlistIds();
-        console.log("Wishlist game idssssssssssssssssssssssssssssssss: ", res);
         setWishListGameIds(res);
       }else{
         setWishListGameIds([]);

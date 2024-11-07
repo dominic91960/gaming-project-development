@@ -60,8 +60,6 @@ export default function TagsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    // setData((prevData) => prevData.filter((item) => item.id !== id));
-    console.log("Delete tag with id: ", id);
     try {
       await axiosInstance.delete(`/tags/${id}`);
       // setData((prevData) => prevData.filter((item) => item.id !== id));
@@ -74,8 +72,6 @@ export default function TagsPage() {
   };
 
   const handleEdit = (tag: Tags) => {
-    // setEditingTag(tag);
-    console.log("Edit tag with id: ", tag);
     setEditingTag(tag);
     setEditPopupOpen(true);
   };
@@ -86,8 +82,6 @@ export default function TagsPage() {
     description: string;
     imageUrl: string;
   }) => {
-    //
-    console.log("Save tag with data: ", tagData);
     try {
       const data = {
         name: tagData.name,

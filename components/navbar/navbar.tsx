@@ -144,7 +144,6 @@ export default function Navbar() {
         }
         setLoading(false);
       } catch (error) {
-        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -152,8 +151,6 @@ export default function Navbar() {
     // setLoading(true)
     verifySession();
     if (user) {
-      // setIsMobileNavToggled(false);
-      console.log("User:", user);
     }
     setTimeout(() => setIsContentChanged(true), 3000);
   }, [user]);

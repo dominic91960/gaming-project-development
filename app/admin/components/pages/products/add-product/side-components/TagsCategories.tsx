@@ -59,7 +59,6 @@ const TagsCategories = ({
   };
 
   const handleCheckboxChange = (tagId: string) => {
-    console.log("Tag ID : ", tagId);
     if (readOnly) return; // Prevent interaction in read-only mode
     if (tagIds.includes(tagId)) {
       setTagIds(tagIds.filter((id) => id !== tagId));

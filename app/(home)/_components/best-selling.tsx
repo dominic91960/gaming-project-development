@@ -28,7 +28,6 @@ const BestSelling = () => {
   useEffect(() => {
     const getData = async () => {
       const res = await axiosInstance.get("/games?sort=popularity&limit=8");
-      console.log(res);
       const resGames: Game[] = res.data.data.map((game: any) => {
         return {
           id: game.id,
@@ -41,7 +40,6 @@ const BestSelling = () => {
           stockStatus: game.stockStatus,
         };
       });
-      console.log(resGames);
       setBestSellingGames(resGames);
     };
     getData();
@@ -89,7 +87,6 @@ const BestSelling = () => {
                 key={id}
                 className="relative w-[150px] cursor-pointer sm:w-[200px] md:w-[240px] lg:w-[280px] xl:w-[300px] 2xl:w-[320px] z-10 group"
                 onClick={() => {
-                  console.log("clicked");
                   router.push(`/products/view/?id=${id}`);
                 }}
               >

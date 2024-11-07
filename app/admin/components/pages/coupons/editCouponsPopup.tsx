@@ -50,8 +50,6 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
         startDate: editedcoupon.startDate ? new Date(editedcoupon.startDate).toISOString() : null,
         endDate: editedcoupon.endDate ? new Date(editedcoupon.endDate).toISOString() : null,
       };
-      // onSave(updatedCoupon);
-      console.log(updatedCoupon, 'updatedCoupon')
     }
   };
 

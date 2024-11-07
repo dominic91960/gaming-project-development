@@ -73,7 +73,6 @@ const ProductSearchBar = () => {
     const res = await axiosInstance.get(
       `/games?productName=${searchTerm}&sort=latest`
     );
-    // console.log(res.data.data);
 
     const games = res.data.data.map((game: any) => {
       return {

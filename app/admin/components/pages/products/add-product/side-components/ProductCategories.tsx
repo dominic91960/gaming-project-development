@@ -32,7 +32,6 @@ const ProductCategories = ({
   selectedCategories,
   readOnly = false, // Default to false
 }: ProductCategoriesProps) => {
-  console.log("cat", categories);
   const [isOpen, setIsOpen] = useState(true);
   const [data, setData] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(false);

@@ -109,7 +109,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }, [discountData]);
 
   const addItem = (item: CartItem) => {
-    console.log("add item", item);
     setCart((prevCart) => {
       const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
       const updatedCart = existingItem
@@ -158,7 +157,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const increaseQuantity = (id: number) => {
-    console.log("increaseQuantity");
     setCart((prevCart) =>
       prevCart.map((cartItem) =>
         cartItem.id === id
@@ -169,7 +167,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const decreaseQuantity = (id: number) => {
-    console.log("decreaseQuantity");
     setCart((prevCart) =>
       prevCart.map((cartItem) =>
         cartItem.id === id && cartItem.quantity > 1
@@ -222,8 +219,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       // Clear the cart and discount data after a successful order
       clearCart();
       localStorage.removeItem("discountData");
-
-      console.log("Order created successfully:", response.data);
       router.push("/success");
     } catch (error) {
       console.error("Error creating order:", error);

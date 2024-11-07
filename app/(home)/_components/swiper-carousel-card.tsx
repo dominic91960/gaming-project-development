@@ -51,14 +51,6 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
   const { isUserLoggedIn } = useAuthContext();
   const [isPopupOpen, setPopupOpen] = useState(false);
 
-  /* useEffect(() => {
-    if (!isUserLoggedIn()) {
-      console.log("not login")
-    }else{
-      console.log("login")
-    }
-  }, []); */
-
   const addToWishList = () => {
     if (isUserLoggedIn()) {
       setPopupOpen(false);

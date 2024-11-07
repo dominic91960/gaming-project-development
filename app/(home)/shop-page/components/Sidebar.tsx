@@ -453,15 +453,6 @@ const Sidebar: React.FC<SidebarProps> = ({ setFilters, setClearFilters }) => {
       >
         Clear all
       </Button>
-      {/* <Button
-        onClick={() => {
-          setFilters(filterParams);
-          console.log(filterParams);
-        }}
-        className="bg-[#BD0202] rounded-none px-6 mb-6"
-      >
-        Filter
-      </Button> */}
     </aside>
   );
 };

@@ -60,7 +60,6 @@ const AddNew = () => {
     try {
       const res = await axiosInstance.post("/games", data);
       if (res.status === 201) {
-        console.log("Product added successfully");
         toast.success("Product added successfully");
         setSelectedItem("all-products");
       } else {

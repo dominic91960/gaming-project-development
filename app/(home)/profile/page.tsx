@@ -638,7 +638,6 @@ export default function ProfilePage() {
     const getUserData = async () => {
       setLoading(true);
       const res = await axiosInstance.get(`/user/profile/`);
-      console.log(res.data);
       setProfile({
         id: res.data.id,
         username: res.data.username,

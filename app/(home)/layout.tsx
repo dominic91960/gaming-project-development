@@ -38,7 +38,6 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const verification = async () => {
-      console.log("verifying customer..", isAuthorized);
       setIsAuthorized(false);
       const user = localStorage.getItem("user");
       if (user && localStorage.getItem("accessToken")) {
