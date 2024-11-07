@@ -2,31 +2,9 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { AllOrdersNew1, columns } from "./columns";
 import { DataTable } from "./data-table";
-import Addorders from "./AddOrders";
-import EditAllOrdersPopup from "./editOrdersPopup";
-import OrderDetailPopup from "./OrderDetailPopup";
-import { ColumnDef } from "@tanstack/react-table";
 import { useOrderContext } from "@/context/OrderContext";
-import { IoClose } from "react-icons/io5";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import axiosInstance from "@/axios/axiosInstance";
+import { useToast } from "@/context/ToastContext";
 // const fileInputRef = useRef<HTMLInputElement | null>(null);
 
 const COUPON_VALUE = 10; // Static coupon value of $10
@@ -69,6 +47,8 @@ export default function AllOrders() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const addToast = useToast();
+
   const handleViewOrder = (order: AllOrdersNew1) => {
     setSelectedOrder(order);
     setIsViewModalOpen(true);
@@ -101,13 +81,23 @@ export default function AllOrders() {
       const res = await axiosInstance.post("/manual-orders/upload", formData);
       console.log("Upload response", res);
 
-      // Clear selected file and reset the input field
+      if (res.status === 201) {
+        addToast("File uploaded successfully", "success");
+      }else{
+        console.log("Upload failed", res.data.message);
+        console.log("Upload failed", res.data.error);
+        // addToast("File upload failed", "error");
+        throw new Error("Upload failed");
+      }
       setSelectedFile(null);
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message || error.response?.data?.error || "File upload failed";
       console.error("Upload error", error);
+      addToast(errorMessage, "error");
     } finally {
     setReloadOrders(prev => !prev);
       setIsDialogOpen(false);
@@ -122,92 +112,6 @@ export default function AllOrders() {
         </h1>
         <p className="text-[0.9em] text-white md:text-[0.5em]">Orders</p>
       </div>
-
-      {/* <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <button
-            className="bg-[#00FFA1] font-bold text-black text-[0.95em] px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100 flex-shrink-0"
-            onClick={() => setIsDialogOpen(true)}
-          >
-            Click Here
-          </button>
-        </DialogTrigger>
-
-        <DialogContent className="w-[425px] bg-gradient-to-tr from-black from-15% to-[#0D6D49] p-[3em] rounded-md border border-[#19D38E] sm:w-auto">
-          <div className="fixed inset-0 bg-black/80 flex justify-center items-center w-full">
-            <div className="relative w-max bg-gradient-to-tr from-black from-15% to-[#0D6D49] p-[3em] rounded-md border border-[#19D38E]">
-              <button
-                className="absolute top-[1em] right-[1em] text-[#00FFA1] text-[1.4em] hover:opacity-80 transition-opacity duration-100"
-                onClick={() => setIsDialogOpen(false)}
-              >
-                <IoClose />
-              </button>
-
-              <h2 className="font-bold text-[1.5em] pb-[0.6em] border-b border-b-[#0D6D49] text-white mb-6">
-                Upload CSV File
-              </h2>
-
-              <form className="border border-[#0D6D49] rounded-md p-6">
-                <p className="font-primaryFont text-white text-[13px] font-medium mb-2">
-                  Upload CSV
-                </p>
-
-                <div className="flex flex-col items-start justify-start border border-gray-500 rounded-md mb-4 w-full">
-                  <label
-                    htmlFor="file-upload"
-                    className="flex items-center cursor-pointer"
-                  >
-                    <span className="bg-gray-800 text-white py-2 px-4 rounded-l-md">
-                      Browse
-                    </span>
-                    <input
-                      ref={fileInputRef}
-                      id="file-upload"
-                      type="file"
-                      accept=".csv"
-                      className="hidden"
-                      onChange={handleFileChange}
-                    />
-                    <div className="border-l border-gray-700  text-gray-400 py-2 px-4 rounded-r-md">
-                      {selectedFile
-                        ? selectedFile.name
-                        : "Select a CSV file to upload"}
-                    </div>
-                  </label>
-                </div>
-
-                <div className="mb-8">
-                  <p className="font-primaryFont text-white text-[13px] font-medium mb-2">
-                    Or upload from URL
-                  </p>
-                  <Input
-                    placeholder="Add file URL"
-                    className="border border-gray-500"
-                  />
-                </div>
-
-                <div className="flex gap-6 items-center justify-between">
-                  <p className="font-primaryFont text-white text-[13px] font-medium mb-2 w-max">
-                    Please review and ensure that all the details you have
-                    entered are correct before submitting.
-                  </p>
-                  <Button
-                    type="button"
-                    onClick={handleUpload}
-                    className="bg-[#00FFA1] text-black font-primaryFont text-[13px] font-semibold h-[30px]"
-                  >
-                    UPLOAD
-                  </Button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog> */}
-      {/* <h1 className="text-2xl font-bold mb-4 text-white">All Orders</h1> */}
-      {/* Add Orders Component */}
-      {/* <Addorders onAddOrder={handleAddOrder} /> */}
-      {/* Data Table */}
       <DataTable
         columns={columns}
         data={allOrders}
@@ -218,30 +122,6 @@ export default function AllOrders() {
         selectedFile={selectedFile}
         handleUpload={handleUpload}
       />
-      {/* Edit order Modal */}
-      {/* <EditAllOrdersPopup
-        order={editingOrder}
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        onSave={handleSaveOrder}
-      /> */}
-
-      {/* Order Details Popup */}
-      {/* {selectedOrder && (
-       <OrderDetailPopup
-          isOpen={isViewModalOpen}
-          onClose={() => setIsViewModalOpen(false)}
-          customerName={selectedOrder.username}
-          customerEmail={
-            selectedOrder.username === "SteveSmith"
-              ? "Steve@gmail.com"
-              : "Ricky@gmail.com"
-          }
-          date={selectedOrder.createdAt}
-          items={selectedOrder.items}
-          order_id= {selectedOrder.order_id}
-        />
-      )} */}
     </div>
   );
 }
