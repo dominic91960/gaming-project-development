@@ -23,6 +23,7 @@ import axiosInstance from "@/axios/axiosInstance";
 
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import "./shopping-cart-sidebar.css";
+import { useToast } from "@/context/ToastContext";
 
 type CartItem = {
   id: number;
@@ -40,6 +41,7 @@ type CartSidebarProps = {
 };
 
 const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
+  const addToast = useToast();
   const {
     cart,
     removeItem,
@@ -74,6 +76,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
 
       if (response.data && response.data.discount) {
         setSuccessMessage("Discount added successfully");
+        addToast("Discount added successfully", "success");
         setErrorMessage(""); // Clear any existing error message
         setDiscountApplied(0);
         setTempDiscount(response.data.code);
@@ -89,10 +92,12 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
       } else {
         setSuccessMessage("");
         setErrorMessage("Your discount code is invalid");
+        addToast("Your discount code is invalid", "error");
       }
     } catch (error) {
       setSuccessMessage("");
       setErrorMessage("Your discount code is incorrect");
+      addToast("Your discount code is incorrect", "error");
     }
   };
 

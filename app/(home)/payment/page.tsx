@@ -1,18 +1,16 @@
 "use client";
-import { FaCircle } from "react-icons/fa";
-import { IoIosArrowForward } from "react-icons/io";
+
+import { useRef } from "react";
 import Image from "next/image";
-import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
-import cardBgOne from "../../../public/images/payment/bg.png";
-// import ProductSearchBar from "@/components/product-search/product-search";
-// import { montserrat } from "@/lib/fonts";
-import Footer from "@/components/footer/footer";
+
+import { GoDotFill } from "react-icons/go";
+
+import { useCartContext } from "@/context/CartContext";
 import BillingDetailsForm from "./Billing-Details";
 import OrderDetails from "./OrderDetails";
-import { useCartContext } from "@/context/CartContext";
-import { useRef } from "react";
-import { GoDotFill } from "react-icons/go";
-// import OrderDetails from "@/components/billing/OrderDetails";
+import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
+import Footer from "@/components/footer/footer";
+
 interface BillingDetailsFormRef {
   submitForm: () => void;
 }
@@ -20,15 +18,15 @@ interface BillingDetailsFormRef {
 function BillingPage() {
   const {
     cart,
-    removeItem,
-    increaseQuantity,
-    decreaseQuantity,
+    // removeItem,
+    // increaseQuantity,
+    // decreaseQuantity,
     totalPrice,
-    totalItems,
-    setDiscount,
+    // totalItems,
+    // setDiscount,
     totalDiscount,
-    discountData,
-    proceedCheckout,
+    // discountData,
+    // proceedCheckout,
   } = useCartContext();
 
   const formRef = useRef<BillingDetailsFormRef>(null);
@@ -40,10 +38,7 @@ function BillingPage() {
   };
 
   return (
-    // <div className={montserrat.className}>
     <div>
-      {/* <ProductSearchBar /> */}
-      {/* <Navbar /> */}
       <div className="relative">
         <Image
           src={coverPhoto}
@@ -88,7 +83,7 @@ function BillingPage() {
       >
         Submit Form from Parent
       </button> */}
-      <div className="relative bg-[#051301]">
+      <div className="relative bg-[#051301] pb-[10%]">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent opacity-100"></div>
         <div className="flex flex-col md:flex-row gap-6 xl:gap-28 lg:px-16 mx-auto container px-[2em] md:px-0 py-[1em]">
           <BillingDetailsForm ref={formRef} />
