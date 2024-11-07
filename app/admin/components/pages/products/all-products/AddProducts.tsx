@@ -41,7 +41,7 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
   const [imageUrl, setImageUrl] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
-  const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [galleryImages, setGalleryImages] = useState<string[]>(["","","","",""]);
   const [cardImage, setCardImage] = useState("");
   const [latestImage, setLatestImage] = useState("");
   const [addToLatestGame, setAddToLatestGame] = useState(false);
