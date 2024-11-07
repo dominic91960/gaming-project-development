@@ -5,8 +5,10 @@ import axiosInstance from "@/axios/axiosInstance";
 import { Button } from "@/components/ui/button";
 
 import { useAuthContext } from "@/context/AuthContext";
+import { useToast } from "@/context/ToastContext";
 
 const EmailVerification = () => {
+  const addToast = useToast();
   const { user } = useAuthContext();
   const [timer, setTimer] = useState<number>(60);
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(false);
@@ -29,9 +31,15 @@ const EmailVerification = () => {
     try {
       const url = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/verify-otp-again`;
       await axiosInstance.post(url, { email: user?.email });
-      setIsResendDisabled(true); // Disable resend button and start timer
-      setTimer(60); // Reset timer
-    } catch (error: any) {}
+      addToast("Verification email sent. Check you inbox.", "default");
+      setIsResendDisabled(true);
+      setTimer(60);
+    } catch (error: any) {
+      addToast(
+        "Sorry, we couldn't resend the verification email. Please try again later.",
+        "error"
+      );
+    }
   };
 
   let message = (
