@@ -2,7 +2,7 @@ import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { PiWarningCircleLight } from "react-icons/pi";
-import { IoIosCart, IoMdHeartEmpty } from "react-icons/io";
+import { IoIosCart } from "react-icons/io";
 
 import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
 import WishlistButton from "@/components/product-card/WishlistButton";
@@ -77,9 +77,7 @@ const DesktopPriceCard: React.FC<DesktopPriceCardProps> = ({
         </Button>
 
         <button className="size-[1.8em] hover:opacity-80 border flex items-center justify-center me-[0.3em]">
-          {/* <IoMdHeartEmpty className="text-[1em]" />
-           */}
-           <WishlistButton gameId={id} />
+          <WishlistButton gameId={id} />
         </button>
 
         <CartSidebar>
