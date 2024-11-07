@@ -8,6 +8,7 @@ import { OrderProvider } from "@/context/OrderContext";
 import { WishlistProvider } from "@/context/WishListContext";
 import { RoleProvider } from '@/context/RoleContext';
 import axios from 'axios';
+import { ToastProvider } from '@/context/ToastContext';
 
 const Layout = ({ children }) => {
     const [isAuthorized, setIsAuthorized] = useState(false);
@@ -58,7 +59,9 @@ const Layout = ({ children }) => {
                             <OrderProvider>
                                 <WishlistProvider>
                                     <SidebarProvider>
+                                        <ToastProvider>
                                         <div>{children}</div>
+                                        </ToastProvider>
                                     </SidebarProvider>
                                 </WishlistProvider>
                             </OrderProvider>
