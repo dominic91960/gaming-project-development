@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { CiHeart } from "react-icons/ci";
 import { MdDeleteForever } from "react-icons/md";
 import { Input } from "@/components/ui/input";
@@ -151,12 +152,15 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                 </p>
 
                 <p className="font-primaryFont text-[14px] font-normal text-white text-center">
-                  Or <span className="text-[#45F882]">sign in</span> to check if
-                  there’s something in it already!
+                  Or
+                  <Link href="/sign-in">
+                    <span className="text-[#45F882] mx-1">sign in</span>
+                  </Link>
+                  to check if there’s something in it already!
                 </p>
 
                 <div className="flex items-center justify-center mt-8">
-                  <Button className=" bg-[#0BDB45] rounded-none w-[200px] h-[35px]">
+                  <Button className=" bg-[#0BDB45] hover:bg-[#0BDB45] rounded-none w-[200px] h-[35px]">
                     <p className="font-primaryFont text-[15px] font-semibold text-black">
                       Browse Deals
                     </p>
