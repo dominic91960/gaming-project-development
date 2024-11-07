@@ -31,7 +31,6 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editedUser) {
-      console.log("Submitting:", editedUser);
       editUser(editedUser);
       setShowModal(false);
     }
@@ -58,7 +57,6 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
             type="text"
             value={editedUser.username}
             onChange={(e) => {
-              console.log("Username changed:", e.target.value);
               setEditedUser({ ...editedUser, username: e.target.value });
             }}
           />

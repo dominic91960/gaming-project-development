@@ -76,7 +76,6 @@ axiosInstance.interceptors.response.use(
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
         return axiosInstance(originalRequest);
       } catch (err) {
-        console.log("noooo");
         localStorage.clear();
         // Router.push("/sign-in");
         return Promise.reject(err);

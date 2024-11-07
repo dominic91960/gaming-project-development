@@ -110,8 +110,6 @@ export default function AddProducts({ onAddProduct }: AddProductsProps) {
       recommendedGPU,
       stockStatus: "",
     };
-
-    console.log(newProduct, "newProduct");
     onAddProduct(newProduct);
 
     // Clear form fields if needed

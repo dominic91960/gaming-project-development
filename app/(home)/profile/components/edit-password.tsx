@@ -59,14 +59,11 @@ const EditPassword: React.FC<EditPasswordProps> = ({
 
     try {
       const res = await axiosInstance.patch("/auth/update-password", data);
-      console.log(res);
       if (res.status === 200) {
-        console.log("Password updated successfully");
         axiosInstance.patch("/auth/logout");
         localStorage.clear();
         window.location.href = "/sign-in";
       } else {
-        console.log("Failed to update password");
         // toast.error('Failed to update password');
         throw new Error("Failed to update password");
       }
@@ -76,8 +73,6 @@ const EditPassword: React.FC<EditPasswordProps> = ({
       // toast.error('Failed to update password');
     }
     // const res = axiosInstance.patch('/auth/update-password', data);
-
-    console.log(data);
 
     setProfile((prev) => ({
       ...prev,

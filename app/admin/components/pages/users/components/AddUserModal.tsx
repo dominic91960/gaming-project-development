@@ -123,7 +123,6 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
         });
 
         if (response.ok) {
-          console.log("File uploaded successfully", downloadUrl);
           setNewImageUrl(downloadUrl);
           setImage(downloadUrl);
         } else {

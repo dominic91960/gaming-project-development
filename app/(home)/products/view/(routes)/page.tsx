@@ -114,7 +114,7 @@ export default function ProductPage() {
         }
         // setLoading(false);
       } catch (error) {
-        console.log(error);
+    
       } finally {
         // setLoading(false);
       }
@@ -197,7 +197,7 @@ export default function ProductPage() {
 
         setGameData(mappedGameData);
       } catch (error) {
-        console.log(error);
+
       }
     };
     getData();

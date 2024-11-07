@@ -60,40 +60,7 @@ const AddCategoryPop: React.FC<AddCategoryPopProps> = ({ onAddCategory }) => {
     setImageUrl("");
     setParentCategoryId(null);
     setIsOpen(false);
-
-    /* try {
-      const res = await axiosInstance.post("/categories", dataToSend);
-      console.log(res.status);
-      if (res.status === 201) {
-        toast.success("Category added successfully");
-        onAddCategory({
-          name,
-          description,
-          imageUrl,
-          level,
-          parentCategoryId: parentCategoryId
-            ? parseInt(parentCategoryId)
-            : null,
-        });
-        setIsOpen(false);
-      } else {
-        toast.error("Failed to add category");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to add category");
-    } finally {
-      setName("");
-      setDescription("");
-      setImageUrl("");
-      setParentCategoryId(null);
-      setIsOpen(false);
-    } */
   };
-
- /*  useEffect(() => {
-    setData(categories);
-  }, []); */
 
   return (
     <>

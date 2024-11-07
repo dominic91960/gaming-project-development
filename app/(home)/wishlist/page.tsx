@@ -116,7 +116,6 @@ export default function WishlistPage() {
         const resREcommended = await axiosInstance.get(
           "/games?sort=popularity&limit=5"
         );
-        console.log(resREcommended.data);
 
         resREcommended.data.data.map((item: any) => {
           setRecommendedGames((prev) => [

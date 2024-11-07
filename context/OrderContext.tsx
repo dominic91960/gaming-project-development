@@ -101,14 +101,13 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       setCurrentPage(1);
       setAllOrders(allOrders.filter((order) => order.id != id));
     } catch (error) {
-      console.log(error);
     }
   };
 
   const updateOrderStatusById = async (id: string, status: string) => {
     try {
       const response = await axiosInstance.patch(`orders/${id}/${status}`);
-      console.log(id, status, "update");
+
     } catch (error) {}
   };
 

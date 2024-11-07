@@ -25,7 +25,6 @@ const WishlistButton: React.FC<WishlistButtonProps> = ({
 //   const verify = useVerifySession();
 
   const handleWishlist = async () => {
-    console.log("handleWishlist", await useVerifySession());
     // setLoading(true);
     if (! await useVerifySession()) {
       setAccessDeniedPopupOpen(true);

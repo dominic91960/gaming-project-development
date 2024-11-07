@@ -31,7 +31,6 @@ export default function PlatformsPage() {
           console.error(error);
         });
     };
-    console.log("BrandsPage reloaded");
     getData();
   }, [reload]);
 
@@ -40,7 +39,6 @@ export default function PlatformsPage() {
     description: string;
     imageUrl: string;
   }) => {
-    console.log(newPlatforms);
     try {
       const data = {
         name: newPlatforms.name,
@@ -62,7 +60,6 @@ export default function PlatformsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    console.log("Delete platform with id: ", id);
     try {
       const res = await axiosInstance.delete(`/platforms/${id}`);
       if (res.status === 200) {

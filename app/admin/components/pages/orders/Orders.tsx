@@ -62,7 +62,6 @@ export default function AllOrders() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("File changed", e.target.files);
     // e.preventDefault();
     if (e.target.files && e.target.files.length > 0) {
       setSelectedFile(e.target.files[0]);
@@ -79,13 +78,10 @@ export default function AllOrders() {
 
     try {
       const res = await axiosInstance.post("/manual-orders/upload", formData);
-      console.log("Upload response", res);
 
       if (res.status === 201) {
         addToast("File uploaded successfully", "success");
       }else{
-        console.log("Upload failed", res.data.message);
-        console.log("Upload failed", res.data.error);
         // addToast("File upload failed", "error");
         throw new Error("Upload failed");
       }

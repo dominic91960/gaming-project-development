@@ -133,7 +133,6 @@ const ProductImages = ({
   displayLatestGame,
   setDisplayLatestGame,
 }: ProductImagesProps) => {
-  console.log("ImageData", ImageData);
   return (
     <div>
       <div className="grid mb-[1.5em]">

@@ -18,7 +18,6 @@ export const uploadImage = async (file: File, fileType: string) => {
         });
 
         if (response.ok) {
-          console.log("File uploaded successfully", downloadUrl);
             return downloadUrl;
 
         } else {

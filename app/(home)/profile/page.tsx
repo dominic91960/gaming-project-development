@@ -634,7 +634,6 @@ export default function ProfilePage() {
     const getUserData = async () => {
       setLoading(true);
       const res = await axiosInstance.get(`/user/profile/`);
-      console.log(res.data);
       setProfile({
         id: res.data.id,
         username: res.data.username,
@@ -751,7 +750,6 @@ export default function ProfilePage() {
         `/user/${profile?.id}/profile-image`,
         { profile_image: imageUrl }
       );
-      console.log(res);
       if (res.status === 200) {
         const user = localStorage.getItem("user");
         localStorage.setItem(

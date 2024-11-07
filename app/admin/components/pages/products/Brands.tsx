@@ -30,7 +30,6 @@ export default function BrandsPage() {
           console.error(error);
         });
     };
-    console.log("BrandsPage reloaded");
     getData();
   }, [reload]);
 
@@ -39,7 +38,6 @@ export default function BrandsPage() {
     description: string;
     imageUrl: string;
   }) => {
-    console.log(newBrands);
     try {
       const data = {
         name: newBrands.name,
@@ -62,7 +60,6 @@ export default function BrandsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    console.log("Delete brand with id: ", id);
     try {
       const res = await axiosInstance.delete(`/brands/${id}`);
       if (res.status === 200) {
