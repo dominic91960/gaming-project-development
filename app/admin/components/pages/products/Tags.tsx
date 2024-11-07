@@ -24,7 +24,7 @@ const getData = (): Tags[] => {
 };
 
 export default function TagsPage() {
-  const [data, setData] = useState<Tags[]>(getData());
+  const [data, setData] = useState<Tags[]>([]);
   const [isEditPopupOpen, setEditPopupOpen] = useState(false);
   const [editingTag, setEditingTag] = useState<Tags | null>(null);
   const [reload, setReload] = useState(false);
