@@ -15,6 +15,7 @@ import { X } from "lucide-react";
 import { IoIosAddCircle } from "react-icons/io";
 
 import sampleUser from "@/public/images/sample-user.png";
+import EditPasswordDialog from "./EditPasswordDialog";
 
 const EditProfileDialog = () => {
   return (
@@ -119,12 +120,13 @@ const EditProfileDialog = () => {
                 />
               </div>
 
-              <button
+              {/* <button
                 type="button"
                 className="bg-[#00FFA1] font-semibold text-black uppercase px-[1em] py-[0.5em] rounded-sm mt-[1.5em] hover:opacity-80"
               >
                 Change password
-              </button>
+              </button> */}
+              <EditPasswordDialog />
 
               {/* Footer text and submit button */}
               <div className="flex items-center justify-between leading-none mt-[2.5em] md:mt-[12em]">
