@@ -35,10 +35,10 @@ const Toast: React.FC<ToastProps> = ({
 
   return (
     <div
-      className={`toast fixed top-[155px] left-0 right-0 w-fit mx-auto px-[1em] py-[0.5em] flex items-center justify-center gap-[1.5em] bg-[#111111] font-primaryFont text-white text-[9px] border ${border} z-[100] sm:top-[148px] sm:px-[5em] sm:py-[1.5em] sm:text-[10px] md:top-[140px] md:text-[11px] lg:text-[12px] xl:top-[148px] xl:text-[12.5px] 2xl:text-[13px]`}
+      className={`toast fixed top-[155px] left-0 right-0 w-fit max-w-4/5 mx-auto px-[1em] py-[0.5em] flex items-center justify-center gap-[1.5em] bg-[#111111] font-primaryFont text-white text-[9px] border ${border} z-[100] sm:top-[148px] sm:px-[5em] sm:py-[1.5em] sm:text-[10px] md:top-[140px] md:text-[11px] lg:text-[12px] xl:top-[148px] xl:text-[12.5px] 2xl:text-[13px]`}
     >
       {icon}
-      <p className="w-fit max-w-[30ch]">{message}</p>
+      <p>{message}</p>
     </div>
   );
 };

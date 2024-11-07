@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
 import axios from "axios";
@@ -146,6 +146,23 @@ export default function ProductPage() {
 
   const [gameData, setGameData] = useState<GameData | null>(null);
 
+  const getReviewsByGameId = useCallback(async (id: any) => {
+    try {
+      const response = await axiosInstance.get(
+        `/reviews/reviewByFlat?gameId=${id}`
+      );
+      setReviews(response.data);
+    } catch (error: any) {
+      /* toast({
+        variant: "error",
+        title: error.response.data.message,
+      }); */
+      // addToast(error.response.data.message, "error");
+    } finally {
+      // setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -203,24 +220,7 @@ export default function ProductPage() {
     getData();
     getReviewsByGameId(id);
     window.scrollTo(0, 0);
-  }, [id]);
-
-  const getReviewsByGameId = async (id: any) => {
-    try {
-      const response = await axiosInstance.get(
-        `/reviews/reviewByFlat?gameId=${id}`
-      );
-      setReviews(response.data);
-    } catch (error: any) {
-      /* toast({
-        variant: "error",
-        title: error.response.data.message,
-      }); */
-      addToast(error.response.data.message, "error");
-    } finally {
-      // setLoading(false);
-    }
-  };
+  }, [getReviewsByGameId, id]);
 
   const calculateOverallRating = (reviews: any) => {
     let total = 0;
@@ -259,12 +259,14 @@ export default function ProductPage() {
       gameId: id,
     };
     try {
+      // throw new Error("Case case");
       const response = await axiosInstance.post(`/reviews`, newReview);
       const { message } = response.data;
       addToast(message, "success");
 
       getReviewsByGameId(id);
     } catch (error: any) {
+      addToast(error.response.data.message, "error");
     } finally {
       setComment("");
       setRate(0);

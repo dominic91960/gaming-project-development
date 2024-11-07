@@ -12,28 +12,26 @@ interface WishlistButtonProps {
   gameId: string;
 }
 
-const WishlistButton: React.FC<WishlistButtonProps> = ({
-  gameId,
-}) => {
-    const { addToWishlist, removeFromWishlist, wishListGameIds } = useWishlistContext();
-    const wishList = wishListGameIds.includes(gameId);
+const WishlistButton: React.FC<WishlistButtonProps> = ({ gameId }) => {
+  const { addToWishlist, removeFromWishlist, wishListGameIds } =
+    useWishlistContext();
+  const wishList = wishListGameIds.includes(gameId);
   const [isWishlisted, setIsWishlisted] = useState(wishList);
   const [accessDeniedPopupOpen, setAccessDeniedPopupOpen] = useState(false);
- 
+
   const [loading, setLoading] = useState(false);
-  
-//   const verify = useVerifySession();
+
+  //   const verify = useVerifySession();
 
   const handleWishlist = async () => {
     console.log("handleWishlist", await useVerifySession());
     // setLoading(true);
-    if (! await useVerifySession()) {
+    if (!(await useVerifySession())) {
       setAccessDeniedPopupOpen(true);
       return;
     }
-setLoading(true);
+    setLoading(true);
     if (isWishlisted) {
-
       await removeFromWishlist(gameId);
       setIsWishlisted(false);
     } else {
@@ -45,19 +43,19 @@ setLoading(true);
   useEffect(() => {
     setIsWishlisted(wishListGameIds.includes(gameId));
     setLoading(false);
-  },[wishListGameIds]);
+  }, [wishListGameIds]);
 
   if (loading) {
     return <NavBarSpinner loading={loading} />;
-    }
+  }
 
   return (
     <>
       <div onClick={handleWishlist} className="cursor-pointer">
         {isWishlisted ? (
-          <IoHeartSharp className="text-[1.5em] text-white hover:scale-105" />
+          <IoHeartSharp className="text-[1em] text-white hover:scale-105" />
         ) : (
-          <IoHeartOutline className="text-[1.5em] text-white hover:scale-105" />
+          <IoHeartOutline className="text-[1em] text-white hover:scale-105" />
         )}
       </div>
 
