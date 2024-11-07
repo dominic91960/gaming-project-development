@@ -77,7 +77,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
           <div className="flex items-center gap-x-[0.8em]">
             <DropdownMenu open={isDropdownOpen}>
               <DropdownMenuTrigger
-                className="cursor-pointer rounded-full hover:shadow-[0_0_8px_#00FFA1] transition-all duration-200"
+                className="font-primaryFont cursor-pointer rounded-full hover:shadow-[0_0_8px_#00FFA1] transition-all duration-200"
                 onClick={() => setIsDropdownOpen(true)}
               >
                 {loading ? (
@@ -93,7 +93,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
                 )}
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="bg-black font-primaryFont text-[0.8em] text-white rounded-none border-none"
+                className="bg-black font-primaryFont text-[10px] text-white rounded-none border-none sm:text-[11px] md:text-[12px] lg:text-[12.5px] xl:text-[12.8px] 2xl:text-[13px]"
                 onInteractOutside={() => setIsDropdownOpen(false)}
               >
                 <DropdownMenuLabel className="font-semibold text-center text-[1.3em]">
