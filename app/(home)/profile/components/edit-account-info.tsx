@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 
+import axiosInstance from "@/axios/axiosInstance";
 import { Button } from "@/components/ui/button";
 import { IoClose } from "react-icons/io5";
-import { FaPencilAlt } from "react-icons/fa";
-import axiosInstance from "@/axios/axiosInstance";
-import toast from "react-hot-toast";
+
+import { useToast } from "@/context/ToastContext";
 
 interface EditAccountInfoProps {
   profile: {
@@ -24,25 +24,6 @@ interface EditAccountInfoProps {
     tel: string;
     trustedDevices: number;
   };
-  setProfile: React.Dispatch<
-    React.SetStateAction<{
-      avatar: string | null;
-      id: string;
-      username: string | null;
-      email: string;
-      firstName: string;
-      lastName: string;
-      // DOB: string | null;
-      address: string | null;
-      city: string | null;
-      state: string | null;
-      country: string | null;
-      postalCode: string | null;
-      password: string;
-      tel: string;
-      trustedDevices: number;
-    }>
-  >;
   onClose: () => void;
   setReloadProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -59,10 +40,10 @@ type EditProfile = {
 
 const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
   profile,
-  setProfile,
   onClose,
   setReloadProfile,
 }) => {
+  const addToast = useToast();
   const [updatedProfile, setUpdatedProfile] = useState<EditProfile>({
     firstName: profile.firstName,
     lastName: profile.lastName,
@@ -73,6 +54,29 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
     postalCode: profile.postalCode,
   });
   const [isEditingEmail, setIsEditingEmail] = useState(false);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await axiosInstance.patch(
+        `/user/${profile.id}`,
+        updatedProfile
+      );
+      if (res.status === 200) {
+        addToast("Profile updated successfully!", "success");
+      } else {
+        throw new Error("Error updating profile");
+      }
+    } catch (err) {
+      addToast(
+        "Sorry, we couldn't update your profile. Please try again later.",
+        "error"
+      );
+    } finally {
+      setReloadProfile((prev) => !prev);
+      onClose();
+    }
+  };
 
   return (
     <aside
@@ -97,65 +101,20 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
             />
           </div>
 
-          <form
-            onSubmit={async (e) => {
-              e.preventDefault();
-              // setProfile((prev) => ({ ...prev, ...updatedProfile }));
-              console.log("profile", profile);
-              console.log("updated profile", updatedProfile);
-              try {
-                const res = await axiosInstance.patch(
-                  `/user/${profile.id}`,
-                  updatedProfile
-                );
-                console.log("res", res);
-                if (res.status === 200) {
-                  // setProfile((prev) => ({ ...prev, ...updatedProfile }));
-                  // toast.success("Profile updated successfully");
-                } else {
-                  throw new Error("Error updating profile");
-                }
-              } catch (err) {
-                console.log("err", err);
-                toast.error("Error updating profile");
-              } finally {
-                setReloadProfile((prev) => !prev);
-                onClose();
-              }
-              // onClose();
-            }}
-          >
-            {/* Username and DOB */}
+          <form onSubmit={handleSubmit}>
+            {/* Username  */}
             <div className="grid grid-cols-2 gap-[5em] mt-[1em]">
               {/* Username */}
               <div>
                 <label htmlFor="username" className="block mb-[0.5em]">
                   User Name
                 </label>
-                <label className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 cursor-not-allowed outline-none">
-                  {profile.username ?? ""}
-                </label>
-              </div>
-
-              {/* DOB */}
-              {/* <div>
-                <label htmlFor="dob" className="block mb-[0.5em]">
-                  Date Of Birth
-                </label>
                 <input
-                  type="date"
-                  id="dob"
-                  value={updatedProfile.DOB ?? ""}
-                  onChange={(e) =>
-                    setUpdatedProfile((prev) => ({
-                      ...prev,
-                      DOB: e.target.value,
-                    }))
-                  }
-                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
-                  required
+                  value={profile.username ?? ""}
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none cursor-not-allowed"
+                  readOnly
                 />
-              </div> */}
+              </div>
             </div>
 
             {/* Email */}
@@ -165,24 +124,9 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
               </label>
 
               <div className="flex items-center mt-[1em]">
-                <label
-                  // type="email"
-                  // id="email"
-                  // value={updatedProfile.email}
-                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 cursor-not-allowed outline-none"
-                  // readOnly
-                >
+                <label className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 cursor-not-allowed outline-none">
                   {profile.email}
                 </label>
-
-                {/* <button
-                  type="button"
-                  className="flex items-center text-[0.8em] uppercase px-[1em] py-[0.6em] hover:opacity-80"
-                  onClick={() => setIsEditingEmail(true)}
-                >
-                  Edit&nbsp;&nbsp;
-                  <FaPencilAlt />
-                </button> */}
               </div>
             </div>
 

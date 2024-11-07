@@ -11,6 +11,7 @@ import { DataTable } from "./components/transaction-data-table";
 import { Button } from "@/components/ui/button";
 import { FaEye, FaPencilAlt } from "react-icons/fa";
 
+import { useToast } from "@/context/ToastContext";
 import Spinner from "@/components/Spinner/Spinner";
 import ChangeImage from "./components/change-image";
 import AccountInfo from "./components/account-info";
@@ -24,6 +25,8 @@ import TransactionAction from "./components/transaction-action";
 import EmailVerification from "./components/email-verfiication";
 import bg from "@/public/images/products/bg.png";
 import samplePic from "@/public/images/sample-pic.png";
+import sampleUser from "@/public/images/sample-user.png";
+import "./components/profile.css";
 
 const recentActivity = [
   {
@@ -608,6 +611,7 @@ interface Profile {
 }
 
 export default function ProfilePage() {
+  const addToast = useToast();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [profile, setProfile] = useState<Profile>({
@@ -739,19 +743,23 @@ export default function ProfilePage() {
         } else {
           throw new Error(response.data.fileUrl);
         }
-      } catch (error) {}
+      } catch (error) {
+        addToast(
+          "Sorry, we couldn't change your profile picture. Please try again later.",
+          "error"
+        );
+      }
     }
   };
 
   const onImageSave = async () => {
     setProfile((prev) => (prev ? { ...prev, avatar: imageUrl } : prev));
-    setImageUrl(null);
+
     try {
       const res = await axiosInstance.patch(
         `/user/${profile?.id}/profile-image`,
         { profile_image: imageUrl }
       );
-      console.log(res);
       if (res.status === 200) {
         const user = localStorage.getItem("user");
         localStorage.setItem(
@@ -761,12 +769,20 @@ export default function ProfilePage() {
             profile_image: imageUrl,
           })
         );
+        setImageUrl(null);
         setIsImageModalOpen(false);
+        addToast("Profile picture was saved successfully!", "success");
       } else {
-        // toast.error('Error updating profile picture');
         throw new Error("Error updating profile picture");
       }
-    } catch (error) {}
+    } catch (error) {
+      setImageUrl(null);
+      setIsImageModalOpen(false);
+      addToast(
+        "Sorry, we couldn't change your profile picture. Please try again later.",
+        "error"
+      );
+    }
   };
 
   // Helper function to find selected transaction id
@@ -818,7 +834,7 @@ export default function ProfilePage() {
             <div className="flex items-center gap-x-[15px] pt-[64px] sm:gap-x-[25px] md:gap-x-[35px] lg:gap-x-[45px] xl:gap-x-[50px] 2xl:gap-x-[56px] pb-[55px] sm:pt-[74px] md:pt-[86px] lg:pt-[98px] xl:pt-[107px] 2xl:pt-[116px]">
               <div className="relative size-[46px] sm:size-[70px] md:size-[94px] lg:size-[118px] xl:size-[135px] 2xl:size-[152px]">
                 <Image
-                  src={profile?.avatar || samplePic.src}
+                  src={profile?.avatar || sampleUser.src}
                   alt={profile?.id || "Empty profile"}
                   className="w-full rounded-full"
                   fill
@@ -939,7 +955,7 @@ export default function ProfilePage() {
         <ChangeImage
           open={isImageModalOpen}
           setIsOpen={setIsImageModalOpen}
-          avatar={imageUrl}
+          avatar={imageUrl || sampleUser.src}
           id={profile?.id}
           onImageChange={handleImageChange}
           onSave={onImageSave}
@@ -949,7 +965,6 @@ export default function ProfilePage() {
         {isEditAccountInfoPopupOpen && (
           <EditAccountInfo
             profile={profile}
-            setProfile={setProfile}
             setReloadProfile={setReloadProfile}
             onClose={() => setIsEditAccountInfoPopupOpen(false)}
           />
@@ -957,7 +972,6 @@ export default function ProfilePage() {
 
         {isEditPasswordPopupOpen && (
           <EditPassword
-            password={profile.password}
             setProfile={setProfile}
             onClose={() => setIsEditPasswordPopupOpen(false)}
           />
