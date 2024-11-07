@@ -37,6 +37,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
       setLoading(false);
     }
   }, [user]);
+
   return (
     <section className="bg-black font-secondaryFont font-medium text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px] border-b border-b-[#0D6D49]">
       <div className="container mx-auto px-[36px] py-[1.2em] xl:py-[0.4em] flex items-center justify-between">
@@ -102,7 +103,15 @@ const StatusBar: React.FC<StatusBarProps> = ({
 
                 <DropdownMenuSeparator className="bg-[#0D6D49] mx-[0.2em]" />
                 <DropdownMenuItem className="bg-transparent text-[1em] focus:bg-transparent focus:text-white">
-                  <EditProfileDialog />
+                  <EditProfileDialog
+                    user={{
+                      profileImage: user ? user.profile_image : "",
+                      username: user ? user.username : "",
+                      firstName: user ? user.firstName : "",
+                      lastName: user ? user.lastName : "",
+                      email: user ? user.email : "",
+                    }}
+                  />
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-[#0D6D49] mx-[0.2em]" />
 

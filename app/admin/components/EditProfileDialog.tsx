@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent, useRef } from "react";
 import Image from "next/image";
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
@@ -17,7 +17,25 @@ import { IoIosAddCircle } from "react-icons/io";
 import sampleUser from "@/public/images/sample-user.png";
 import EditPasswordDialog from "./EditPasswordDialog";
 
-const EditProfileDialog = () => {
+interface EditPasswordDialogProps {
+  user: {
+    profileImage: string;
+    username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
+}
+
+const EditProfileDialog: React.FC<EditPasswordDialogProps> = ({ user }) => {
+  const { profileImage, username, firstName, lastName, email } = { ...user };
+  const firstNameRef = useRef<HTMLInputElement | null>(null);
+  const lastNameRef = useRef<HTMLInputElement | null>(null);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <Dialog>
       <DialogTrigger className="font-primaryFont text-white">
@@ -41,7 +59,7 @@ const EditProfileDialog = () => {
           <div className="flex items-center gap-[0.9em] px-[1.5em] leading-none rounded-sm md:col-span-4 md:h-4/5 md:flex-col md:text-center md:bg-black/40 md:py-[1.5em] md:border md:border-[#0D6D49] lg:col-span-3">
             <div className="relative size-[47px] rounded-full sm:size-[61px] md:size-[75px] lg:size-[89px] xl:size-[97px] 2xl:size-[105px]">
               <Image
-                src={sampleUser.src}
+                src={profileImage ?? sampleUser.src}
                 alt="username"
                 fill
                 className="rounded-full"
@@ -59,10 +77,12 @@ const EditProfileDialog = () => {
                 accept="image/*"
               />
             </div>
-            <div className="flex-grow">
-              <h4 className="font-bold">Avishka Rathnayke</h4>
+            <div className="flex-grow md:w-full">
+              <h4 className="font-bold">
+                {firstName && lastName ? `${firstName} ${lastName}` : "User"}
+              </h4>
               <p className="text-[8px] mt-[0.4em] mb-[0.8em] opacity-70 sm:text-[8.5px] md:text-[9px] lg:text-[9.2px] xl:text-[9.5px] 2xl:text-[10px]">
-                kavindakmanohara@gmail.com
+                {email ?? "sample@domain.com"}
               </p>
               <hr className="border-t-[#0D6D49]" />
             </div>
@@ -73,7 +93,7 @@ const EditProfileDialog = () => {
             <h3 className="font-bold text-[12px] uppercase sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] 2xl:text-[18px]">
               Personal details
             </h3>
-            <form>
+            <form onSubmit={handleSubmit}>
               {/* Grid for username */}
               <div className="grid grid-cols-2 gap-[1em] mt-[1em]">
                 {/* Username */}
@@ -81,8 +101,10 @@ const EditProfileDialog = () => {
                   <label htmlFor="username">Username</label>
                   <input
                     type="text"
+                    defaultValue={username}
                     id="username"
-                    className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.4em]"
+                    className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm cursor-not-allowed sm:py-[0.4em]"
+                    readOnly
                   />
                 </div>
               </div>
@@ -94,8 +116,11 @@ const EditProfileDialog = () => {
                   <label htmlFor="first-name">First Name</label>
                   <input
                     type="text"
+                    ref={firstNameRef}
+                    defaultValue={firstName}
                     id="first-name"
                     className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.4em]"
+                    required
                   />
                 </div>
 
@@ -104,8 +129,11 @@ const EditProfileDialog = () => {
                   <label htmlFor="last-name">Last Name</label>
                   <input
                     type="text"
+                    ref={lastNameRef}
+                    defaultValue={lastName}
                     id="last-name"
                     className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.4em]"
+                    required
                   />
                 </div>
               </div>
@@ -115,17 +143,13 @@ const EditProfileDialog = () => {
                 <label htmlFor="email">Email</label>
                 <input
                   type="email"
+                  defaultValue={email}
                   id="email"
-                  className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.4em]"
+                  className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm cursor-not-allowed sm:py-[0.4em]"
+                  readOnly
                 />
               </div>
 
-              {/* <button
-                type="button"
-                className="bg-[#00FFA1] font-semibold text-black uppercase px-[1em] py-[0.5em] rounded-sm mt-[1.5em] hover:opacity-80"
-              >
-                Change password
-              </button> */}
               <EditPasswordDialog />
 
               {/* Footer text and submit button */}

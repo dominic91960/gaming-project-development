@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import {
@@ -13,9 +13,32 @@ import { X } from "lucide-react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 const EditPasswordDialog = () => {
+  const currentPasswordRef = useRef<HTMLInputElement | null>(null);
+  const newPasswordRef = useRef<HTMLInputElement | null>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement | null>(null);
+
   const [isCurrentPasswordHidden, setIsCurrentPasswordHidden] = useState(true);
   const [isNewPasswordHidden, setIsNewPasswordHidden] = useState(true);
   const [isConfirmPasswordHidden, setIsConfirmPasswordHidden] = useState(true);
+
+  const [isCurrentPasswordWrong, setIsCurrentPasswordWrong] = useState(false);
+  const [doPasswordsMismatch, setDoPasswordsMismatch] = useState(false);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const password = currentPasswordRef.current?.value;
+    const newPassword = newPasswordRef.current?.value;
+    const confirmPassword = confirmPasswordRef.current?.value;
+
+    if (newPassword !== confirmPassword) setDoPasswordsMismatch(true);
+    if (password !== "1234") setIsCurrentPasswordWrong(true);
+  };
+
+  const hideErrors = () => {
+    isCurrentPasswordWrong && setIsCurrentPasswordWrong(false);
+    doPasswordsMismatch && setDoPasswordsMismatch(false);
+  };
 
   return (
     <Dialog>
@@ -39,8 +62,7 @@ const EditPasswordDialog = () => {
 
         <DialogDescription className="text-white text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]">
           {/* Form section */}
-
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* Current password */}
             <div className="mt-[1em]">
               <label htmlFor="current-password">Current Password</label>
@@ -48,8 +70,11 @@ const EditPasswordDialog = () => {
               <div className="w-full flex items-center border border-[#D9D9D9]/50 rounded-sm">
                 <input
                   type={isCurrentPasswordHidden ? "password" : "text"}
+                  ref={currentPasswordRef}
                   id="current-password"
                   className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 outline-none rounded-sm sm:py-[0.4em]"
+                  onFocus={hideErrors}
+                  required
                 />
                 <button
                   type="button"
@@ -59,6 +84,12 @@ const EditPasswordDialog = () => {
                   {isCurrentPasswordHidden ? <BsEye /> : <BsEyeSlash />}
                 </button>
               </div>
+
+              {isCurrentPasswordWrong && (
+                <p className="text-[0.9em] mt-[0.3em] text-[#FF374E]">
+                  Current password incorrect.
+                </p>
+              )}
             </div>
             <hr className="border-t-[#0D6D49] mt-[2em]" />
 
@@ -69,8 +100,11 @@ const EditPasswordDialog = () => {
               <div className="w-full flex items-center border border-[#D9D9D9]/50 rounded-sm">
                 <input
                   type={isNewPasswordHidden ? "password" : "text"}
+                  ref={newPasswordRef}
                   id="new-password"
                   className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 outline-none rounded-sm sm:py-[0.4em]"
+                  onFocus={hideErrors}
+                  required
                 />
                 <button
                   type="button"
@@ -89,8 +123,11 @@ const EditPasswordDialog = () => {
               <div className="w-full flex items-center border border-[#D9D9D9]/50 rounded-sm">
                 <input
                   type={isConfirmPasswordHidden ? "password" : "text"}
+                  ref={confirmPasswordRef}
                   id="confirm-password"
                   className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 outline-none rounded-sm sm:py-[0.4em]"
+                  onFocus={hideErrors}
+                  required
                 />
                 <button
                   type="button"
@@ -100,6 +137,12 @@ const EditPasswordDialog = () => {
                   {isConfirmPasswordHidden ? <BsEye /> : <BsEyeSlash />}
                 </button>
               </div>
+
+              {doPasswordsMismatch && (
+                <p className="text-[0.9em] mt-[0.3em] text-[#FF374E]">
+                  Passwords do not match.
+                </p>
+              )}
             </div>
 
             {/* Footer text and submit button */}
