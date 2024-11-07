@@ -1,11 +1,7 @@
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 
-import { CiSearch } from "react-icons/ci";
-import { IoMdNotificationsOutline } from "react-icons/io";
-
-import logo from "@/public/images/logo.png";
-import "./admin.css";
+import axiosInstance from "@/axios/axiosInstance";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,11 +10,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import axiosInstance from "@/axios/axiosInstance";
-import { useContext } from "react";
-import { AuthContext, useAuthContext } from "@/context/AuthContext";
-import { set } from "date-fns";
+import { IoLogOut } from "react-icons/io5";
+
+import { useAuthContext } from "@/context/AuthContext";
 import NavBarSpinner from "@/components/Spinner/NavBarSpinner";
+import logo from "@/public/images/logo.png";
+import "./admin.css";
+import EditProfileDialog from "./EditProfileDialog";
 
 interface StatusBarProps {
   isMobileNavToggled: boolean | undefined;
@@ -30,7 +28,8 @@ const StatusBar: React.FC<StatusBarProps> = ({
   setIsMobileNavToggled,
 }) => {
   const { user } = useAuthContext();
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -76,8 +75,11 @@ const StatusBar: React.FC<StatusBarProps> = ({
             <IoMdNotificationsOutline className="size-[1.5em] lg:size-[1.8em] text-white" />
           </div> */}
           <div className="flex items-center gap-x-[0.8em]">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="cursor-pointer">
+            <DropdownMenu open={isDropdownOpen}>
+              <DropdownMenuTrigger
+                className="cursor-pointer rounded-full hover:shadow-[0_0_8px_#00FFA1] transition-all duration-200"
+                onClick={() => setIsDropdownOpen(true)}
+              >
                 {loading ? (
                   <NavBarSpinner loading={loading} />
                 ) : (
@@ -90,17 +92,33 @@ const StatusBar: React.FC<StatusBarProps> = ({
                   />
                 )}
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
+              <DropdownMenuContent
+                className="bg-black font-primaryFont text-[0.8em] text-white rounded-none border-none"
+                onInteractOutside={() => setIsDropdownOpen(false)}
+              >
+                <DropdownMenuLabel className="font-semibold text-center text-[1.3em]">
+                  {user?.firstName}
+                </DropdownMenuLabel>
+
+                <DropdownMenuSeparator className="bg-[#0D6D49] mx-[0.2em]" />
+                <DropdownMenuItem className="bg-transparent text-[1em] focus:bg-transparent focus:text-white">
+                  <EditProfileDialog />
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-[#0D6D49] mx-[0.2em]" />
+
                 <DropdownMenuItem
                   onClick={() => {
+                    setIsDropdownOpen(false);
                     axiosInstance.patch("/auth/logout");
                     localStorage.clear();
                     window.location.href = "/sign-in";
                   }}
+                  className="bg-transparent text-[1em] focus:bg-transparent focus:text-white"
                 >
-                  Logout
+                  <button className="w-full h-fit flex items-center gap-[0.5em] px-[1em] py-[0.3em] rounded-none font-primaryFont uppercase hover:opacity-80">
+                    <IoLogOut className="text-[1.6em] text-[#00FFA1]" />
+                    Logout
+                  </button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

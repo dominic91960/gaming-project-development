@@ -10,12 +10,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { IoMdClose } from "react-icons/io";
 import { Button } from "@/components/ui/button";
-import samplePic from "@/public/images/sample-pic.png";
 
 interface ChangeImageProps {
   open: boolean;
   setIsOpen: (value: React.SetStateAction<boolean>) => void;
-  avatar: string | null;
+  avatar: string;
   id: string | null;
   onImageChange: (e: ChangeEvent<HTMLInputElement>) => Promise<void>;
   onSave: () => Promise<void>;
@@ -82,7 +81,7 @@ const ChangeImage: React.FC<ChangeImageProps> = ({
 
             <div className="relative size-[46px] border-[6px] border-[#75F94C] my-[16px] rounded-full sm:size-[70px] md:size-[94px] lg:size-[118px] xl:size-[135px] 2xl:size-[152px]">
               <Image
-                src={avatar || samplePic.src}
+                src={avatar}
                 alt={id || "Empty image"}
                 className="w-full rounded-full"
                 fill
