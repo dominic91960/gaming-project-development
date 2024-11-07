@@ -21,7 +21,6 @@ const AuthChecker = ({ children }) => {
           throw new Error('Session verification failed')
         }
       } catch (error) {
-        console.log(error)
         router.push('/')
       }
     }

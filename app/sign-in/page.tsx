@@ -56,7 +56,6 @@ const SignIn = () => {
           }
         );
         if (res.status === 200) {
-          console.log(res.data);
           if (res.data.role.name === "ADMIN") {
             router.push("/admin");
           } else {
@@ -66,7 +65,6 @@ const SignIn = () => {
           throw new Error("Session expired");
         }
       } catch (error) {
-        console.log(error);
         setLoading(false);
       }
     };
@@ -114,25 +112,6 @@ const SignIn = () => {
       setError(true);
     }
   };
-  // const handleGoogleLogin = () => {
-  //   const width = 500;
-  //   const height = 600;
-  //   const left = window.screen.width / 2 - width / 2;
-  //   const top = window.screen.height / 2 - height / 2;
-
-  //   const popup = window.open(
-  //     process.env.NEXT_PUBLIC_BASE_URL + "/auth/google",
-  //     "GoogleAuth",
-  //     `width=${width},height=${height},top=${top},left=${left}`
-  //   );
-
-  //   const popupCheckInterval = setInterval(() => {
-  //     if (!popup || popup.closed || popup.closed === undefined) {
-  //       clearInterval(popupCheckInterval);
-  //       console.log("Popup closed");
-  //     }
-  //   }, 1000);
-  // };
 
   useEffect(() => {
     const handleAuthMessage = (event: {
@@ -143,8 +122,6 @@ const SignIn = () => {
       if (event.origin !== url) return;
 
       const { user, accessToken, refreshToken } = event.data;
-
-      console.log("User:", user);
 
       if (accessToken && refreshToken && user) {
         localStorage.setItem("accessToken", accessToken);

@@ -101,14 +101,11 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
             onSubmit={async (e) => {
               e.preventDefault();
               // setProfile((prev) => ({ ...prev, ...updatedProfile }));
-              console.log("profile", profile);
-              console.log("updated profile", updatedProfile);
               try {
                 const res = await axiosInstance.patch(
                   `/user/${profile.id}`,
                   updatedProfile
                 );
-                console.log("res", res);
                 if (res.status === 200) {
                   // setProfile((prev) => ({ ...prev, ...updatedProfile }));
                   // toast.success("Profile updated successfully");
@@ -116,7 +113,6 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                   throw new Error("Error updating profile");
                 }
               } catch (err) {
-                console.log("err", err);
                 toast.error("Error updating profile");
               } finally {
                 setReloadProfile((prev) => !prev);

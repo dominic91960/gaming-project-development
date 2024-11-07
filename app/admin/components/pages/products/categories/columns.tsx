@@ -111,7 +111,6 @@ export const columns = (
                     setIsOpen(true);
                     onEdit(payment.id);
                     setEditCategory(payment);
-                    console.log(payment)
                   }}
                   className="cursor-pointer text-[1em]"
                 >

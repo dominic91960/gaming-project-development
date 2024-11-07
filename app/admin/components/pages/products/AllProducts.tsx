@@ -89,12 +89,7 @@ export default function AllProducts() {
   };
 
   const handleSaveProduct = async (updatedProduct: AllProductsNew) => {
-    // setProducts((prevProducts) =>
-    //   prevProducts.map((product) =>
-    //     product.id === updatedProduct.id ? updatedProduct : product
-    //   )
-    // );
-    console.log("update", updatedProduct);
+
     const data = {
       productName: updatedProduct.name,
       displayName: updatedProduct.displayName,
@@ -154,9 +149,7 @@ export default function AllProducts() {
       } else {
         throw new Error("Failed to update product");
       }
-      console.log("res", res);
     } catch (err) {
-      console.log(err);
       toast.error("Failed to update product");
     } finally {
       setIsEditModalOpen(false);

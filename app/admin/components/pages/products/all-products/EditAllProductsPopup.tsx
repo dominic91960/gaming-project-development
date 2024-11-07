@@ -92,7 +92,6 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
   );
 
   React.useEffect(() => {
-    console.log("product", product);
     setEditedProduct(product);
   }, [product]);
 
@@ -125,7 +124,6 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
   const handleSave = () => {
     if (editedProduct) {
       onSave(editedProduct);
-      console.log("editedProduct", editedProduct);
     }
   };
 

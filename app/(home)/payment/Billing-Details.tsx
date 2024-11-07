@@ -52,7 +52,6 @@ const BillingDetailsForm = forwardRef<BillingDetailsFormRef>((props, ref) => {
   });
 
   const onSubmit = (data: any) => {
-    console.log("Form submitted:", data);
     createOrder(data);
   };
 

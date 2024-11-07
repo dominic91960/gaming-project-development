@@ -141,7 +141,6 @@ export default function ProductsPage() {
                   <button
                     key={categoryName}
                     className="flex justify-between mb-[0.6em] w-full"
-                    onClick={() => console.log(categoryName)}
                   >
                     <span>{categoryName}</span>
                     <span>{totalProducts}</span>
@@ -197,7 +196,7 @@ export default function ProductsPage() {
               <AccordionContent className="text-[13px] font-medium py-[0.6em] border-t-[#8C8C8C] border-t">
                 <Select
                   defaultValue={countries[0].iso3Value}
-                  onValueChange={(value: string) => console.log(value)}
+                  onValueChange={(value: string) => {}}
                 >
                   <SelectTrigger className="bg-[#1D201C] border-[#666666] text-white/50">
                     <SelectValue placeholder="Select a country" />
@@ -228,7 +227,7 @@ export default function ProductsPage() {
                         id={value}
                         className="border-[#D9D9D9] rounded-none"
                         onCheckedChange={(checked: boolean | "indeterminate") =>
-                          console.log(value, checked)
+                        {}
                         }
                       />
                       <label
@@ -259,7 +258,7 @@ export default function ProductsPage() {
                         id={value}
                         className="border-[#D9D9D9] rounded-none"
                         onCheckedChange={(checked: boolean | "indeterminate") =>
-                          console.log(value, checked)
+                        {}
                         }
                       />
                       <label
@@ -290,7 +289,7 @@ export default function ProductsPage() {
                         id={value}
                         className="border-[#D9D9D9] rounded-none"
                         onCheckedChange={(checked: boolean | "indeterminate") =>
-                          console.log(value, checked)
+                        {}
                         }
                       />
                       <label
@@ -321,7 +320,7 @@ export default function ProductsPage() {
                         id={value}
                         className="border-[#D9D9D9] rounded-none"
                         onCheckedChange={(checked: boolean | "indeterminate") =>
-                          console.log(value, checked)
+                        {}
                         }
                       />
                       <label

@@ -110,7 +110,6 @@ export const CategoryProvider = ({ children }: { children: ReactNode }) => {
       }
     } catch (error) {
       toast.error("Failed to delete category");
-      console.log("Error:", error);
     }
   };
 

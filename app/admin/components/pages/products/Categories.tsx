@@ -37,7 +37,6 @@ export default function DemoPage() {
   };
 
   const handleEdit = (id: string) => {
-    console.log("Edit", id);
     setIsEditOpen(true);
     // setReload(prev => !prev);
   };

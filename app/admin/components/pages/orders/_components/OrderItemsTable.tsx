@@ -29,7 +29,6 @@ const OrderItemsTable: React.FC<OrderItemsTableProps> = ({
   products,
   order,
 }) => {
-  console.log(products, "products123");
   const subtotal = products.reduce((acc, product) => {
     return acc + product.price;
   }, 0);

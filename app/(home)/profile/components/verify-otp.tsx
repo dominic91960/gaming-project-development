@@ -74,7 +74,6 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
   const handleSubmit = () => {
     const currentTime = new Date();
     const remainingTime = expirationTime.getTime() - currentTime.getTime();
-    console.log(inputOTP.length);
 
     if (inputOTP === "" || inputOTP.length !== 6) {
       setErrorMessage("Please enter the OTP to continue.");
