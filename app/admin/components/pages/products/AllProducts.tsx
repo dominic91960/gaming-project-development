@@ -89,7 +89,6 @@ export default function AllProducts() {
   };
 
   const handleSaveProduct = async (updatedProduct: AllProductsNew) => {
-
     const data = {
       productName: updatedProduct.name,
       displayName: updatedProduct.displayName,
@@ -166,6 +165,18 @@ export default function AllProducts() {
       <div className="flex space-x-2">
         <button
           className="hover:opacity-80 transition-opacity duration-100"
+          onClick={() => {
+            setEditingProduct(row.original);
+            setIsEditModalOpen(true);
+            setIsReadOnly(true); // Open modal in read-only mode
+            window.scrollTo(0, 0);
+          }}
+        >
+          <FaEye />
+        </button>
+
+        <button
+          className="hover:opacity-80 transition-opacity duration-100"
           onClick={() => handleEditProduct(row.original)}
         >
           <LuPencilLine />
@@ -176,18 +187,6 @@ export default function AllProducts() {
           onClick={() => handleDeleteProduct(row.original.id)}
         >
           <IoTrash />
-        </button>
-
-        <button
-          className="hover:opacity-80 transition-opacity duration-100"
-          onClick={() => {
-            setEditingProduct(row.original);
-            setIsEditModalOpen(true);
-            setIsReadOnly(true); // Open modal in read-only mode
-            window.scrollTo(0, 0);
-          }}
-        >
-          <FaEye />
         </button>
       </div>
     ),
@@ -202,7 +201,11 @@ export default function AllProducts() {
     <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
       <div className="pb-[2em] px-[36px]">
         <h1 className="font-bold text-[1.5em] leading-none text-white">
-          {isEditModalOpen ? "Edit Product" : "All Products"}
+          {!isEditModalOpen
+            ? "All Products"
+            : isReadOnly
+            ? "View Product"
+            : "Edit Product"}
         </h1>
         <p className="text-[0.9em] text-white md:text-[0.5em]">
           Products / All Products
