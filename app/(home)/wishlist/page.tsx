@@ -304,7 +304,7 @@ export default function WishlistPage() {
                   user?.lastName.charAt(0).toUpperCase() +
                   user?.lastName.slice(1)}
               </h4>
-              <MdVerified className="text-[#0BDB45]" />
+              {/* <MdVerified className="text-[#0BDB45]" /> */}
             </div>
 
             <div className="flex items-center gap-[0.3em] font-medium text-[12px] mb-[0.8em] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px]">
