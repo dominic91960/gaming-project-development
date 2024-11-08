@@ -77,7 +77,7 @@ const DesktopPriceCard: React.FC<DesktopPriceCardProps> = ({
         </Button>
 
         <button className="size-[1.8em] hover:opacity-80 border flex items-center justify-center me-[0.3em]">
-          <WishlistButton gameId={id} />
+          <WishlistButton gameId={id} showText={false} />
         </button>
 
         <CartSidebar>

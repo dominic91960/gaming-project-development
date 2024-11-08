@@ -1,18 +1,23 @@
 // WishlistButton.tsx
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import { useVerifySession } from "@/hooks/useVerifySession";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
-import AccessDeniedModal from "@/components/access-denied-modal/AccessDeniedModal";
+import { Button } from "../ui/button";
+
 import { useWishlistContext } from "@/context/WishListContext";
 import NavBarSpinner from "../Spinner/NavBarSpinner";
-import { set } from "date-fns";
-import { useVerifySession } from "@/hooks/useVerifySession";
-import { verify } from "crypto";
+import AccessDeniedModal from "@/components/access-denied-modal/AccessDeniedModal";
 
 interface WishlistButtonProps {
   gameId: string;
+  showText: boolean;
 }
 
-const WishlistButton: React.FC<WishlistButtonProps> = ({ gameId }) => {
+const WishlistButton: React.FC<WishlistButtonProps> = ({
+  gameId,
+  showText,
+}) => {
   const { addToWishlist, removeFromWishlist, wishListGameIds } =
     useWishlistContext();
   const wishList = wishListGameIds.includes(gameId);
@@ -50,13 +55,33 @@ const WishlistButton: React.FC<WishlistButtonProps> = ({ gameId }) => {
 
   return (
     <>
-      <div onClick={handleWishlist} className="cursor-pointer">
-        {isWishlisted ? (
-          <IoHeartSharp className="text-[1em] text-white hover:scale-105" />
-        ) : (
-          <IoHeartOutline className="text-[1em] text-white hover:scale-105" />
-        )}
-      </div>
+      {showText ? (
+        <Button
+          variant="outline"
+          className="w-[70%] h-[2em] text-[0.9em] px-[1em] py-0 font-medium border-[#0BDB45] rounded-none hover:bg-[#0BDB45]"
+          onClick={handleWishlist}
+        >
+          {isWishlisted ? (
+            <>
+              <IoHeartSharp className="text-[1.2em] me-[0.1em]" />
+              Wishlisted!
+            </>
+          ) : (
+            <>
+              <IoHeartOutline className="text-[1.2em] me-[0.1em]" />
+              Add to Wishlist
+            </>
+          )}
+        </Button>
+      ) : (
+        <div onClick={handleWishlist} className="cursor-pointer">
+          {isWishlisted ? (
+            <IoHeartSharp className="text-[1em] text-white hover:scale-105" />
+          ) : (
+            <IoHeartOutline className="text-[1em] text-white hover:scale-105" />
+          )}
+        </div>
+      )}
 
       {accessDeniedPopupOpen && (
         <AccessDeniedModal

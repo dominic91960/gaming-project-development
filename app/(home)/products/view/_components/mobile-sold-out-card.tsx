@@ -1,10 +1,12 @@
 import React from "react";
 
-import { Button } from "@/components/ui/button";
-import { IoMdHeart } from "react-icons/io";
 import { RiEmotionSadLine } from "react-icons/ri";
+import WishlistButton from "@/components/product-card/WishlistButton";
 
-const MobileSoldOutCard: React.FC<{ title: string }> = ({ title }) => {
+const MobileSoldOutCard: React.FC<{ id: string; title: string }> = ({
+  id,
+  title,
+}) => {
   return (
     <div
       className=" bg-white/5 px-[1.6em] py-[1.6em] mt-[0.6em] mb-[1.6em] backdrop-blur-[2px] text-[15px] text-center sm:hidden"
@@ -31,13 +33,7 @@ const MobileSoldOutCard: React.FC<{ title: string }> = ({ title }) => {
           while it&apos;s sold out.
         </p>
 
-        <Button
-          variant="gaming"
-          className="w-[70%] h-[2em] text-[0.9em] px-[1em] py-0 font-semibold"
-        >
-          <IoMdHeart className="text-[1.2em] me-[0.1em]" />
-          Add to Wishlist
-        </Button>
+        <WishlistButton gameId={id} showText />
       </div>
     </div>
   );
