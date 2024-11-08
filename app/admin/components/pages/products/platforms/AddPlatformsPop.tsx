@@ -18,6 +18,7 @@ import {
 
 import { IoClose } from "react-icons/io5";
 import { uploadImage } from "@/components/helper/uploadImage";
+import { uploadImageToObjectStore } from "@/components/helper/uploadImageToObjectStore";
 
 interface AddPlatformsPopProps {
   onAddPlatforms: (newPlatforms: {
@@ -91,7 +92,8 @@ const AddPlatformsPop: React.FC<AddPlatformsPopProps> = ({
                   const file = e.target.files?.[0];
                   if (file) {
                     const fileType = file.type;
-                    const url = await uploadImage(file, fileType);
+                    // const url = await uploadImage(file, fileType);
+                    const url = await uploadImageToObjectStore(file);
                     setImageUrl(url);
                   }
                 }}
