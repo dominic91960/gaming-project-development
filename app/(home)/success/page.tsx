@@ -23,8 +23,9 @@ function SuccessPage() {
     gameId: string;
     price: number;
     quantity: number;
-    game: any;
+    game: { displayName: string };
   }
+
   interface OrderDetails {
     subtotal: number;
     discount: number;
@@ -46,16 +47,8 @@ function SuccessPage() {
       if (orderId) {
         try {
           const response = await axiosInstance.get(`/orders/${orderId}`);
-          const { subtotal, discount, totalAmount, createdAt, products } =
-            response.data;
-
-          setOrderDetails({
-            subtotal,
-            discount,
-            totalAmount,
-            createdAt,
-            products,
-          });
+          const { subtotal, discount, totalAmount, createdAt, products } = response.data;
+          setOrderDetails({ subtotal, discount, totalAmount, createdAt, products });
         } catch (error) {
           console.error("Failed to fetch order details:", error);
         }
@@ -66,23 +59,36 @@ function SuccessPage() {
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
+
+    // Title and header information
     doc.text("Invoice", 14, 20);
     doc.setFontSize(12);
-    doc.text("Order Summary", 14, 30);
+    doc.text(`Order ID: ${orderId}`, 14, 30);
+    doc.text(`Date: ${new Date(orderDetails.createdAt).toLocaleDateString()}`, 14, 40);
+    doc.text("Order Summary", 14, 50);
 
-    /*  doc.autoTable({
-      startY: 35,
-      head: [["Item", "Price"]],
-      body: [
-        ...orderDetails.products.map(product => [product.name, `$${product.price}`]),
-        ["Subtotal", `$${orderDetails.subtotal.toFixed(2)}`],
-        ["Discount", `-$${orderDetails.discount.toFixed(2)}`],
-        ["Total", `$${orderDetails.totalAmount.toFixed(2)}`],
-        ["Date", new Date(orderDetails.createdAt).toLocaleDateString()],
-      ],
-    }); */
+    // Table for products
+    doc.autoTable({
+      startY: 60,
+      head: [["Product", "Quantity", "Unit Price", "Total"]],
+      body: orderDetails.products.map((product) => [
+        product.game.displayName,
+        product.quantity,
+        `$${product.price.toFixed(2)}`,
+        `$${(product.price * product.quantity).toFixed(2)}`,
+      ]),
+    });
 
-    const pdfName = `Invoice_${new Date().toISOString().split("T")[0]}.pdf`;
+    // Summary of subtotal, discount, and total amount
+    let finalY = doc.previousAutoTable.finalY || 60;
+    doc.text(`Subtotal: $${(orderDetails.totalAmount + orderDetails.discount).toFixed(2)}`, 14, finalY + 10);
+    if (orderDetails.discount > 0) {
+      doc.text(`Discount: -$${orderDetails.discount.toFixed(2)}`, 14, finalY + 20);
+    }
+    doc.text(`Total: $${orderDetails.totalAmount.toFixed(2)}`, 14, finalY + 30);
+
+    // Save the PDF
+    const pdfName = `Invoice_${orderId}_${new Date().toISOString().split("T")[0]}.pdf`;
     doc.save(pdfName);
   };
 
@@ -163,10 +169,7 @@ function SuccessPage() {
               <div className="subtotal flex justify-between py-2">
                 <p className="text-left">Subtotal</p>
                 <p className="text-right">
-                  $
-                  {(orderDetails.totalAmount + orderDetails.discount).toFixed(
-                    2
-                  )}
+                  ${(orderDetails.totalAmount + orderDetails.discount).toFixed(2)}
                 </p>
               </div>
 
@@ -215,8 +218,6 @@ function SuccessPage() {
             </div>
           </div>
         </div>
-
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-100 z-0"></div>
       </div>
       <Footer />
     </section>
