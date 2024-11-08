@@ -367,7 +367,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                           Discount Price
                         </p>
                         <p className="font-primaryFont text-[17px] font-normal text-white">
-                          - ${discountApplied}
+                          - ${Math.max(totalDiscount, 0).toFixed(2)}
                         </p>
                       </div>
                     )}
