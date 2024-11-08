@@ -213,13 +213,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         userId: user?.id || null,
         products: products,
         coupon: couponCode,
+        discount: calculateDiscount(totalPrice()) || 0,
         billingData: billingData,
       });
 
+      // Assuming `orderId` is returned in the response data
+      const orderId = response.data.id;
+
       // Clear the cart and discount data after a successful order
-      clearCart();
-      localStorage.removeItem("discountData");
-      router.push("/success");
+      // clearCart();
+      // localStorage.removeItem("discountData");
+
+
+      // Redirect to success page with the orderId
+      router.push(`/success?orderId=${orderId}`);
     } catch (error) {
       console.error("Error creating order:", error);
     }

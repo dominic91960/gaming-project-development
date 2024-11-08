@@ -606,7 +606,7 @@ interface Profile {
   country: string | null;
   postalCode: string | null;
   password: string;
-  tel: string;
+  tel: any | null;
   trustedDevices: number;
 }
 
@@ -650,7 +650,7 @@ export default function ProfilePage() {
         country: res.data.country,
         postalCode: res.data.postalCode,
         password: res.data.password,
-        tel: res.data.tel,
+        tel: res.data.phone,
         trustedDevices: res.data.trustedDevices,
         avatar: res.data.profile_image,
       });
@@ -903,6 +903,7 @@ export default function ProfilePage() {
                 state={profile.state}
                 country={profile.country}
                 postalCode={profile.postalCode}
+                tel={profile.tel}
                 handleClick={() => setIsEditAccountInfoPopupOpen(true)}
                 setReloadProfile={setReloadProfile}
               />
