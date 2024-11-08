@@ -85,7 +85,7 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
 
       // Show success toast
       showToast(true, "Coupon added successfully.");
-      // callback();
+      callback();
 
       return createdCoupon;
     } catch (error: any) {

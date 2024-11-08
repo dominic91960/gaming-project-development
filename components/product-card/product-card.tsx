@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { useWishlistContext } from "@/context/WishListContext";
 import cartIcon from "@/public/images/cart.png";
 import Rating from "../rating/rating";
+import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
+import { useCartContext } from "@/context/CartContext";
 
 interface ProductCardProps {
   id: string;
@@ -35,6 +37,31 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const router = useRouter();
   const { addToWishlist, removeFromWishlist } = useWishlistContext();
   const [hide, setHide] = useState(false);
+  const { addItem } = useCartContext();
+
+  type CartItem = {
+    id: number;
+    image: string;
+    choiceType: string;
+    title: string;
+    quantity: number;
+    price: number;
+    productType: string;
+  };
+
+  const crateCart = (gameId: any) => {
+    const newCardItem: CartItem = {
+      id: gameId,
+      image: poster,
+      choiceType: "aaaaaa",
+      title: name,
+      quantity: 1,
+      price: discountPrice || originalPrice,
+      productType: "bbbbbb",
+    };
+
+    addItem(newCardItem);
+  };
 
   return (
     <article
@@ -99,11 +126,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         <button className="text-[9px] hover:opacity-70 sm:text-[12px] md:text-[15px] lg:text-[18px] xl:text-[22px] 2xl:text-[25px]">
-          <Image
-            src={cartIcon}
-            alt="Add to cart button"
-            className="size-[0.9em]"
-          />
+          <CartSidebar>
+            <Image
+              src={cartIcon}
+              alt="Not found background"
+              className="w-[20px] h-[20px]"
+              onClick={() => crateCart(id)}
+            />
+          </CartSidebar>
         </button>
       </div>
 
