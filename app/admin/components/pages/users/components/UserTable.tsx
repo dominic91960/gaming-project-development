@@ -29,8 +29,8 @@ const UserTable: React.FC<UserTableProps> = ({
   return (
     <table className="min-w-full border-separate border-spacing-y-[0.8em] text-[1.2em] sm:text-[0.65em]">
       <thead>
-        <tr className="font-primaryFont *:font-medium *:pt-[2em] *:pb-[1.2em]">
-          <th></th>
+        <tr className="font-primaryFont *:font-medium *:text-[#64748B] *:ps-[0em] *:pt-[2em] *:pb-[1.2em] *:text-left">
+          <th>Image</th>
           <th>Username</th>
           <th>First Name</th>
           <th>Last Name</th>
@@ -43,7 +43,7 @@ const UserTable: React.FC<UserTableProps> = ({
         {users.map((user) => (
           <tr
             key={user.username}
-            className="text-center *:py-[1.5em] *:px-[1ch] *:bg-white/5 mt-4 cursor-pointer hover:shadow-[0px_0px_5px_#00FFA1] rounded-sm"
+            className="text-left *:py-[1.5em] *:px-[1ch] *:bg-white/5 mt-4 cursor-pointer hover:shadow-[0px_0px_5px_#00FFA1] rounded-sm"
           >
             <td className="relative">
               <div className="w-[3em]">
