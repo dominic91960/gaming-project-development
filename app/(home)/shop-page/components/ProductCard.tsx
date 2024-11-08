@@ -193,15 +193,16 @@ const ProductCard: React.FC<Game> = ({
               </div>
             )}
           </div>
-
-          <CartSidebar>
-            <Image
-              src={cartIcon}
-              alt="Not found background"
-              className="w-[20px] h-[20px]"
-              onClick={() => crateCart(id)}
-            />
-          </CartSidebar>
+          {!soldOut && (
+            <CartSidebar>
+              <Image
+                src={cartIcon}
+                alt="Not found background"
+                className="w-[20px] h-[20px]"
+                onClick={() => crateCart(id)}
+              />
+            </CartSidebar>
+          )}
         </div>
 
         <div className="flex items-end justify-between">

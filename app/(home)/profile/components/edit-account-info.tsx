@@ -21,7 +21,7 @@ interface EditAccountInfoProps {
     country: string | null;
     postalCode: string | null;
     password: string;
-    tel: string;
+    tel: any;
     trustedDevices: number;
   };
   onClose: () => void;
@@ -36,6 +36,7 @@ type EditProfile = {
   state: string | null;
   country: string | null;
   postalCode: string | null;
+  phone: any | null;
 };
 
 const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
@@ -52,6 +53,7 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
     state: profile.state,
     country: profile.country,
     postalCode: profile.postalCode,
+    phone: profile.tel,
   });
   const [isEditingEmail, setIsEditingEmail] = useState(false);
 
@@ -165,6 +167,25 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
                     setUpdatedProfile((prev) => ({
                       ...prev,
                       lastName: e.target.value,
+                    }))
+                  }
+                  className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"
+                  required
+                />
+              </div>
+              {/* Mobile */}
+              <div>
+                <label htmlFor="mobile" className="block mb-[0.5em]">
+                  Mobile
+                </label>
+                <input
+                  type="text"
+                  id="mobile"
+                  value={updatedProfile.phone}
+                  onChange={(e) =>
+                    setUpdatedProfile((prev) => ({
+                      ...prev,
+                      phone: e.target.value,
                     }))
                   }
                   className="w-full bg-transparent px-[0.6em] py-[0.3em] border border-[#0BDB45]/50 outline-none"

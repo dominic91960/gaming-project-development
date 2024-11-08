@@ -15,6 +15,7 @@ interface AccountInfoProps {
   state: string | null;
   country: string | null;
   postalCode: string | null;
+  tel: any | null;
   handleClick: () => void;
   setReloadProfile: (state: boolean) => void;
 }
@@ -31,6 +32,7 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
   state,
   country,
   postalCode,
+  tel,
   handleClick,
   setReloadProfile,
 }) => {
@@ -94,6 +96,10 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         <p>
           <span className="font-bold">Last Name: </span>
           {lastName.charAt(0).toUpperCase() + lastName.slice(1)}
+        </p>
+        {/* Mobile */}
+        <p>
+          <span className="font-bold">Mobile: </span> {tel}
         </p>
 
         {/* DOB
