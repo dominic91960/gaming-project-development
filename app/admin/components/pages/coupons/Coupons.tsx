@@ -5,6 +5,9 @@ import AddCoupons from "./AddCoupons";
 import EditAllCouponsPopup from "./editCouponsPopup";
 import { ColumnDef } from "@tanstack/react-table";
 import { useCouponContext } from "@/context/CouponContext";
+import { FaEye } from "react-icons/fa";
+import { LuPencilLine } from "react-icons/lu";
+import { IoTrash } from "react-icons/io5";
 
 /* function getInitialData(): AllCouponsNew[] {
   return [
@@ -21,10 +24,12 @@ import { useCouponContext } from "@/context/CouponContext";
 } */
 
 export default function AllCoupons() {
-  const [coupons, setCoupons] = useState<AllCouponsNew[]>([]);
+  // const [coupons, setCoupons] = useState<AllCouponsNew[]>([]);
+  const [, setCoupons] = useState<AllCouponsNew[]>([]);
   const { allCoupons, deleteCouponById } = useCouponContext();
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditable, setIsEditable] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingCoupon, setEditingCoupon] = useState<AllCouponsNew | null>(
     null
@@ -32,13 +37,17 @@ export default function AllCoupons() {
 
   const handleAddCoupon = (newCoupon: AllCouponsNew) => {
     setCoupons((prevCoupons) => [...prevCoupons, newCoupon]);
+    setIsAddModalOpen(false);
   };
 
-  const handleDeleteCoupon = (id: string) => {
-    deleteCouponById(id);
+  const handleViewCoupon = (coupon: AllCouponsNew) => {
+    setIsEditable(false);
+    setEditingCoupon(coupon);
+    setIsEditModalOpen(true);
   };
 
   const handleEditCoupon = (coupon: AllCouponsNew) => {
+    setIsEditable(true);
     setEditingCoupon(coupon);
     setIsEditModalOpen(true);
   };
@@ -53,23 +62,34 @@ export default function AllCoupons() {
     setEditingCoupon(null);
   };
 
+  const handleDeleteCoupon = (id: string) => {
+    deleteCouponById(id);
+  };
+
   const actionColumn: ColumnDef<AllCouponsNew> = {
     header: "Actions",
     id: "actions",
     cell: ({ row }) => (
       <div className="flex space-x-2">
         <button
-          className="bg-red-500 text-white px-2 py-1 rounded"
-          onClick={() => handleDeleteCoupon(row.original.id)}
+          className="hover:opacity-80 transition-opacity duration-100"
+          onClick={() => handleViewCoupon(row.original)}
         >
-          Delete
+          <FaEye />
         </button>
 
         <button
-          className="bg-blue-500 text-white px-2 py-1 rounded"
+          className="hover:opacity-80 transition-opacity duration-100"
           onClick={() => handleEditCoupon(row.original)}
         >
-          Edit
+          <LuPencilLine />
+        </button>
+
+        <button
+          className="hover:opacity-80 transition-opacity duration-100"
+          onClick={() => handleDeleteCoupon(row.original.id)}
+        >
+          <IoTrash />
         </button>
       </div>
     ),
@@ -81,24 +101,33 @@ export default function AllCoupons() {
   ];
 
   return (
-    <div className="container mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-4 text-white">All coupons</h1>
+    <div className="container mx-auto min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
+      <div className="pb-[2em] px-[36px]">
+        <h1 className="font-bold text-[1.5em] leading-none text-white">
+          All Coupons
+        </h1>
+        <p className="text-[0.9em] text-white md:text-[0.5em]">Coupons</p>
+      </div>
+
       {/* Add coupons Component */}
       <AddCoupons
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         onAddCoupon={handleAddCoupon}
       />
+
       {/* Data Table */}
       <DataTable
         columns={columnsWithActions}
         data={allCoupons}
         handleClick={() => setIsAddModalOpen(true)}
       />
+
       {/* Edit coupon Modal */}
       <EditAllCouponsPopup
         coupon={editingCoupon}
         isOpen={isEditModalOpen}
+        readOnly={!isEditable}
         onClose={() => setIsEditModalOpen(false)}
         onSave={handleSaveCoupon}
       />

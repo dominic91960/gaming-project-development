@@ -4,6 +4,7 @@ import { AllCouponsNew } from "./columns";
 interface EditAllCouponsPopupProps {
   coupon: AllCouponsNew | null;
   isOpen: boolean;
+  readOnly: boolean;
   onClose: () => void;
   onSave: (updatedcoupon: AllCouponsNew) => void;
 }
@@ -11,6 +12,7 @@ interface EditAllCouponsPopupProps {
 const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
   coupon,
   isOpen,
+  readOnly,
   onClose,
   onSave,
 }) => {
@@ -22,8 +24,12 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
     if (coupon) {
       setEditedcoupon({
         ...coupon,
-        startDate: coupon.startDate ? new Date(coupon.startDate).toISOString().split("T")[0] : "",
-        endDate: coupon.endDate ? new Date(coupon.endDate).toISOString().split("T")[0] : "",
+        startDate: coupon.startDate
+          ? new Date(coupon.startDate).toISOString().split("T")[0]
+          : "",
+        endDate: coupon.endDate
+          ? new Date(coupon.endDate).toISOString().split("T")[0]
+          : "",
       });
     }
   }, [coupon]);
@@ -44,17 +50,22 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
 
   const handleSave = () => {
     if (editedcoupon) {
+      if (readOnly) return;
       // Ensure the startDate and endDate are in the correct format before passing to onSave
       const updatedCoupon = {
         ...editedcoupon,
-        startDate: editedcoupon.startDate ? new Date(editedcoupon.startDate).toISOString() : null,
-        endDate: editedcoupon.endDate ? new Date(editedcoupon.endDate).toISOString() : null,
+        startDate: editedcoupon.startDate
+          ? new Date(editedcoupon.startDate).toISOString()
+          : null,
+        endDate: editedcoupon.endDate
+          ? new Date(editedcoupon.endDate).toISOString()
+          : null,
       };
     }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 text-black">
       <div className="bg-white p-6 rounded shadow-md w-96">
         <h2 className="text-xl font-bold mb-4">Edit coupon</h2>
         <form>
@@ -65,6 +76,7 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
             onChange={handleInputChange}
             placeholder="Coupon Name"
             className="w-full mb-2 p-2 border rounded"
+            readOnly={readOnly}
           />
 
           <input
@@ -74,6 +86,7 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
             onChange={handleInputChange}
             placeholder="Coupon Description"
             className="w-full mb-2 p-2 border rounded"
+            readOnly={readOnly}
           />
 
           <input
@@ -83,6 +96,7 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
             onChange={handleInputChange}
             placeholder="Coupon Discount"
             className="w-full mb-2 p-2 border rounded"
+            readOnly={readOnly}
           />
 
           <select
@@ -90,8 +104,11 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
             value={editedcoupon.type}
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
+            disabled={readOnly}
           >
-            <option value="Fixed_product_discount">Fixed product discount</option>
+            <option value="Fixed_product_discount">
+              Fixed product discount
+            </option>
             <option value="Percentage_discount">Percentage discount</option>
           </select>
 
@@ -101,6 +118,7 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
             value={editedcoupon.startDate}
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
+            readOnly={readOnly}
           />
 
           <input
@@ -109,6 +127,7 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
             value={editedcoupon.endDate}
             onChange={handleInputChange}
             className="w-full mb-2 p-2 border rounded"
+            readOnly={readOnly}
           />
 
           <div className="flex justify-end space-x-2">
@@ -117,15 +136,17 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
               className="bg-gray-500 text-white px-4 py-2 rounded"
               onClick={onClose}
             >
-              Cancel
+              {readOnly ? "Close" : "Cancel"}
             </button>
-            <button
-              type="button"
-              className="bg-green-500 text-white px-4 py-2 rounded"
-              onClick={handleSave}
-            >
-              Save
-            </button>
+            {!readOnly && (
+              <button
+                type="button"
+                className="bg-green-500 text-white px-4 py-2 rounded"
+                onClick={handleSave}
+              >
+                Save
+              </button>
+            )}
           </div>
         </form>
       </div>
