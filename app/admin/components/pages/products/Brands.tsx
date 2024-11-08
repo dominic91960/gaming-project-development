@@ -5,6 +5,7 @@ import { EditBrandPopup } from "./brands/EditBrandPopup";
 import axiosInstance from "@/axios/axiosInstance";
 import toast from "react-hot-toast";
 import { uploadImage } from "@/components/helper/uploadImage";
+import { uploadImageToObjectStore } from "@/components/helper/uploadImageToObjectStore";
 
 export default function BrandsPage() {
   const [data, setData] = useState<Brands[]>([]);
