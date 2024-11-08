@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { IoClose } from "react-icons/io5";
 import { uploadImage } from "@/components/helper/uploadImage";
+import { uploadImageToObjectStore } from "@/components/helper/uploadImageToObjectStore";
 
 interface EditBrandPopupProps {
   isOpen: boolean;
@@ -82,7 +83,8 @@ export const EditBrandPopup = ({
                 const file = e.target.files?.[0];
                 if (file) {
                   const fileType = file.type;
-                  const url = await uploadImage(file, fileType);
+                  // const url = await uploadImage(file, fileType);
+                  const url = await uploadImageToObjectStore(file);
                   setImageUrl(url);
                 }
               }}

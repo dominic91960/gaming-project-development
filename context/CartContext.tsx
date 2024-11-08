@@ -119,12 +119,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           )
         : [...prevCart, item];
 
-      // Recalculate the discount based on the new cart total
-      setDiscountData((prevDiscount) => ({
-        ...prevDiscount,
-        discount: calculateDiscount(totalPrice(updatedCart)), // Pass updated cart total
-      }));
-
       return updatedCart;
     });
   };
@@ -138,6 +132,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       (acc, item) => acc + item.price * item.quantity,
       0
     );
+    calculateDiscount(subtotal);
     return Math.max(subtotal, 0);
   };
 
