@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { LuPencilLine } from "react-icons/lu";
 import { IoTrash } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-} from "@/components/ui/pagination";
+// import {
+//   Pagination,
+//   PaginationContent,
+//   PaginationItem,
+//   PaginationLink,
+// } from "@/components/ui/pagination";
 
-// import AddRoleModal from "./components/AddRoleModal";
 import AddRoleModal from "../users/components/AddRoleModal";
-// import EditRoleModal from "./components/EditRoleModal";
 import EditRoleModal from "../users/components/EditRoleModal";
 import { useRoleContext } from "../../../../../context/RoleContext";
-// import DeleteRole from "./components/DeleteRole";
 import DeleteRole from "../users/components/DeleteRole";
-import axios from "axios";
 import Spinner from "@/components/Spinner/Spinner";
 
 interface Role {
@@ -26,7 +22,7 @@ interface Role {
 }
 
 const RolesPage = () => {
-  const { roles, addRole, deleteRole, loading } = useRoleContext();
+  const { roles, loading } = useRoleContext();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -99,7 +95,7 @@ const RolesPage = () => {
         </div>
 
         {/* Roles list */}
-        <ul className="my-[1.5em] text-[1.6em] sm:text-[1.2em] md:text-[1em]">
+        <ul className="my-[1.5em] font-primaryFont text-[1.6em] sm:text-[1.2em] md:text-[0.8em] lg:text-[0.7em] 2xl:text-[0.6em]">
           {roles.map((role, index) => (
             <li
               key={index}
@@ -127,7 +123,7 @@ const RolesPage = () => {
       </div>
 
       {/* Pagination */}
-      <Pagination className="flex justify-start text-[1em] md:text-[0.8em] lg:text-[0.6em] px-[4em] mt-[2em]">
+      {/* <Pagination className="flex justify-start text-[1em] md:text-[0.8em] lg:text-[0.6em] px-[4em] mt-[2em]">
         <PaginationContent>
           {["Prev", "1", "2", "3", "Next"].map((link) => (
             <PaginationItem key={link}>
@@ -137,7 +133,7 @@ const RolesPage = () => {
             </PaginationItem>
           ))}
         </PaginationContent>
-      </Pagination>
+      </Pagination> */}
 
       {showAddModal && <AddRoleModal setShowModal={setShowAddModal} />}
       {showEditModal && (
