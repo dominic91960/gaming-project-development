@@ -5,8 +5,8 @@ import toast from "react-hot-toast";
 import Spinner from "@/components/Spinner/Spinner";
 import { CiSearch } from "react-icons/ci";
 
-import AddUserModal from "../users/components/AddUserModal";
 import UserTable from "../users/components/UserTable";
+import AddCustomerModal from "./AddCustomerModal";
 
 const UsersPage = () => {
   const [users, setUsers] = useState([]); // Store all users
@@ -41,7 +41,6 @@ const UsersPage = () => {
   ) => {
     setLoading(true);
     try {
-      // const roleFilter = role ? `&roleName=${"USER"}` : ""; // Add role filter if selected
       const response = await axiosInstance.get(
         `/user?page=${page}&search=${search}&roleName=USER`
       );
@@ -118,7 +117,7 @@ const UsersPage = () => {
       {/* Title */}
       <div className="pb-[2em] px-[36px]">
         <h1 className="font-bold text-[1.5em] leading-none text-white">
-        All Customers
+          All Users
         </h1>
         <p className="text-[0.9em] text-white md:text-[0.5em]">
           Users / All Users
@@ -141,25 +140,6 @@ const UsersPage = () => {
 
         {/* Select and add button */}
         <div className="flex items-center gap-x-[0.75em]">
-          {/* Select */}
-          {/* <select
-            value={selectedRole}
-            onChange={handleRoleChange}
-            className="w-full px-[1.6em] py-[0.8em] bg-transparent border rounded-sm"
-          >
-            <option value="" className="bg-white text-black">
-              All Roles
-            </option>
-            <option value="ADMIN" className="bg-white text-black">
-              Admin
-            </option>
-            <option value="USER" className="bg-white text-black">
-              User
-            </option>
-            <option value="SUPER_ADMIN" className="bg-white text-black">
-              Super Admin
-            </option>
-          </select> */}
 
           {/* Add button */}
           <button
@@ -169,7 +149,7 @@ const UsersPage = () => {
               setShowModal(true);
             }}
           >
-            Add User
+            Add Customer
           </button>
         </div>
       </div>
@@ -191,25 +171,6 @@ const UsersPage = () => {
 
           {/* Select and add button */}
           <div className="flex items-center gap-x-[0.75em]">
-            {/* Select */}
-            {/* <select
-              value={selectedRole}
-              onChange={handleRoleChange}
-              className="flex-grow px-[1.6em] py-[0.9em] bg-transparent border rounded-sm"
-            >
-              <option value="" className="bg-white text-black">
-                All Roles
-              </option>
-              <option value="ADMIN" className="bg-white text-black">
-                Admin
-              </option>
-              <option value="USER" className="bg-white text-black">
-                User
-              </option>
-              <option value="SUPER_ADMIN" className="bg-white text-black">
-                Super Admin
-              </option>
-            </select> */}
 
             {/* Add button */}
             <button
@@ -219,7 +180,7 @@ const UsersPage = () => {
                 setShowModal(true);
               }}
             >
-              Add user
+              Add Customer
             </button>
           </div>
         </div>
@@ -234,7 +195,7 @@ const UsersPage = () => {
       </div>
 
       {showModal && (
-        <AddUserModal
+        <AddCustomerModal
           addUser={addUser}
           setShowModal={setShowModal}
           editingUser={editingUser}
@@ -245,25 +206,6 @@ const UsersPage = () => {
       {/* Pagination */}
       <div className="px-[4em] mt-[2em] flex items-center justify-between md:text-[0.65em]">
         <div className="flex text-black gap-x-[1em]">{renderPagination()}</div>
-
-        {/* Group select */}
-        {/* <div className="flex gap-x-[1em]">
-          <p className="font-medium px-[1em] py-[0.5em] bg-white text-black rounded-sm min-w-[12ch] flex items-center justify-center h-fit">
-            Selected: 0
-          </p>
-          <Button
-            variant="secondary"
-            className="font-medium w-[12ch] text-[1em] px-[1em] py-[0.5em] h-fit rounded-sm"
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="destructive"
-            className="font-medium w-[12ch] text-[1em] px-[1em] py-[0.5em] h-fit rounded-sm"
-          >
-            Delete
-          </Button>
-        </div> */}
       </div>
     </div>
   );
