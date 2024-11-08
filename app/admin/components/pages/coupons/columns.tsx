@@ -25,7 +25,7 @@ export const columns: ColumnDef<AllCouponsNew>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Coupon Code
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ml-[0.5em] size-[1em]" />
         </Button>
       );
     },

@@ -3,13 +3,6 @@ import { useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AllCouponsNew } from "./columns";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { X } from "lucide-react";
 import { IoIosCalendar } from "react-icons/io";
 
@@ -147,22 +140,6 @@ export default function AddCoupons({
                 </option>
               </select>
 
-              {/* <Select>
-                <SelectTrigger className="h-fit px-[1em] py-[0.5em] text-[9px] border-[#D9D9D9]/50 rounded-sm sm:text-[10px] md:text-[11px] lg:text-[12px] xl:text-[12.5px] 2xl:text-[13px]">
-                  <SelectValue placeholder="Select Type" />
-                </SelectTrigger>
-                <SelectContent className="bg-black/80 border border-[#D9D9D9]/50 text-white backdrop-blur-sm">
-                  {["FIXED", "PERCENTAGE"].map((option) => (
-                    <SelectItem
-                      key={option}
-                      value={option}
-                      className="h-fit ps-[4.5ch] px-[1em] py-[0.5em] my-[0.5em] text-[9px] sm:text-[10px] md:text-[11px] lg:ps-[3.5ch] lg:text-[12px] xl:text-[12.5px] 2xl:text-[13px]"
-                    >
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select> */}
               {formik.touched.type && formik.errors.type ? (
                 <p className="text-[0.9em] mt-[0.3em] text-[#FF374E]">
                   {formik.errors.type}

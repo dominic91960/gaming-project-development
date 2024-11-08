@@ -118,11 +118,9 @@ export function DataTable<TData, TValue>({
         <div className="border p-[0.75em] rounded-sm flex items-center gap-x-[0.75em] w-full">
           <CiSearch className="text-[1.6em] text-white" />
           <input
-            placeholder="Filter names..."
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("name")?.setFilterValue(event.target.value)
-            }
+            placeholder="Filter Name..."
+            value={localSearchTerm}
+            onChange={(event) => setLocalSearchTerm(event.target.value)}
             className="bg-transparent outline-none border-y-0 border-e-0 border-s rounded-none px-[1em] w-full text-white md:w-[38ch]"
           />
         </div>
@@ -162,7 +160,7 @@ export function DataTable<TData, TValue>({
 
         <div className="text-white md:mt-[1.5em]">
           <Table className="border-separate border-spacing-y-[2em] px-[0.4em] text-[0.65em] md:border-spacing-y-[1em]">
-            <TableHeader className="text-[1.1em]">
+            <TableHeader className="text-[2.2em] sm:text-[1.5em] md:text-[1.1em]">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow
                   key={headerGroup.id}
@@ -172,7 +170,7 @@ export function DataTable<TData, TValue>({
                     return (
                       <TableHead
                         key={header.id}
-                        className="hidden md:table-cell h-fit ps-0 py-[1em]"
+                        className="h-fit ps-0 py-[1em]"
                       >
                         {header.isPlaceholder
                           ? null
@@ -197,11 +195,9 @@ export function DataTable<TData, TValue>({
                     {row.getVisibleCells().map((cell, index) => (
                       <TableCell
                         key={cell.id}
-                        className={`py-[1.3em] px-[0.2em] ${
+                        className={`max-w-[16ch] text-nowrap overflow-hidden text-ellipsis pe-[1em] py-[1.3em] px-[0.2em] ${
                           index === 0
                             ? "relative rounded-s-sm ps-[1.2em]"
-                            : index === 1
-                            ? "max-w-[16ch] text-nowrap overflow-hidden text-ellipsis pe-[1em]"
                             : index === 3
                             ? "rounded-e-sm"
                             : ""
