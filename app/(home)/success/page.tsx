@@ -12,8 +12,15 @@ import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
 import { useRouter, useSearchParams } from "next/navigation";
 import axiosInstance from "@/axios/axiosInstance";
 import jsPDF from "jspdf";
-import "jspdf-autotable";
 
+declare module "jspdf" {
+  interface jsPDF {
+    autoTable: any;
+    previousAutoTable: {
+      finalY: number;
+    };
+  }
+}
 function SuccessPage() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
