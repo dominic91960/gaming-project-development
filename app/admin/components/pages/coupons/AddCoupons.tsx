@@ -3,7 +3,6 @@ import { useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AllCouponsNew } from "./columns";
-import { X } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -11,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { X } from "lucide-react";
 import { IoIosCalendar } from "react-icons/io";
 
 import { useCouponContext } from "@/context/CouponContext";
@@ -81,7 +81,7 @@ export default function AddCoupons({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-10">
-      <div className="w-[320px] bg-gradient-to-tr from-black/40 to-[#00945E]/40 font-primaryFont text-[9px] text-white p-[3em] border border-[#0D6D49] rounded-sm backdrop-blur-md sm:w-[500px] sm:text-[10px] md:w-[680px] md:text-[11px] lg:w-[860px] lg:text-[12px] xl:w-[970px] xl:text-[12.5px] 2xl:w-[1070px] 2xl:text-[13px]">
+      <div className="w-[340px] bg-gradient-to-tr from-black/40 to-[#00945E]/40 font-primaryFont text-[9px] text-white p-[3em] border border-[#0D6D49] rounded-sm backdrop-blur-md sm:w-[459px] sm:text-[10px] md:w-[578px] md:text-[11px] lg:w-[697px] lg:text-[12px] xl:w-[757px] xl:text-[12.5px] 2xl:w-[817px] 2xl:text-[13px]">
         <div className="flex flex-row items-center justify-between space-y-0 text-[13px] mb-[0.7em] sm:text-[15px] md:text-[17px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px]">
           <h4 className="font-bold text-[1em]">Add Coupon</h4>
           <button onClick={onClose}>
@@ -93,7 +93,7 @@ export default function AddCoupons({
 
         <form
           onSubmit={formik.handleSubmit}
-          className="mt-[2.5em] py-[1.5em] rounded-sm md:col-span-8 md:bg-black/40 md:p-[1.5em] md:border md:border-[#0D6D49] lg:col-span-9"
+          className="mt-[2.5em] py-[1.5em] rounded-sm md:bg-black/40 md:p-[1.5em] md:border md:border-[#0D6D49]"
         >
           {/* Grid for coupon code */}
           <div className="grid grid-cols-2 gap-[1em] mt-[1em]">
@@ -133,7 +133,7 @@ export default function AddCoupons({
 
             {/* Discount type */}
             <div>
-              <label>Discount Type</label>
+              <label htmlFor="discount-type">Discount Type</label>
               <select
                 id="discount-type"
                 {...formik.getFieldProps("type")}
@@ -260,6 +260,7 @@ export default function AddCoupons({
             </div>
           </div>
 
+          {/* Coupon description */}
           <div className="mt-[1em]">
             <label htmlFor="description">Description</label>
             <input
