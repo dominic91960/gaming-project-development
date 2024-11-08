@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { IoClose } from "react-icons/io5";
 import { uploadImage } from "@/components/helper/uploadImage";
+import { uploadImageToObjectStore } from "@/components/helper/uploadImageToObjectStore";
 
 interface AddBrandsPopProps {
   onAddBrands: (newBrands: {
@@ -80,7 +81,7 @@ const AddBrandsPop: React.FC<AddBrandsPopProps> = ({ onAddBrands }) => {
                   const file = e.target.files?.[0];
                   if (file) {
                     const fileType = file.type;
-                    const url = await uploadImage(file, fileType);
+                    const url = await uploadImageToObjectStore(file);
                     setImageUrl(url);
                   }
                 }}

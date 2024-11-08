@@ -4,6 +4,7 @@ import { uploadImage } from "@/components/helper/uploadImage";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CiImageOn } from "react-icons/ci";
 import Image from "next/image";
+import { uploadImageToObjectStore } from "@/components/helper/uploadImageToObjectStore";
 
 interface ImageUploadProps {
   label: string;
@@ -28,8 +29,10 @@ const ImageUpload = ({
       const reader = new FileReader();
       reader.onload = () => setImageSrc(reader.result as string);
       reader.readAsDataURL(file);
-      const fileType = file.type;
-      const url = await uploadImage(file, fileType);
+      // const fileType = file.type;
+      // const url = await uploadImage(file, fileType);
+      const url = await uploadImageToObjectStore(file);
+      console.log("url...............",url);
       setImageUrl(url);
     }
   };
