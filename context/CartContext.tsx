@@ -221,8 +221,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       const orderId = response.data.id;
 
       // Clear the cart and discount data after a successful order
-      // clearCart();
-      // localStorage.removeItem("discountData");
+      clearCart();
+      localStorage.removeItem("discountData");
 
 
       // Redirect to success page with the orderId
