@@ -24,6 +24,7 @@ export default function AllCoupons() {
   const [coupons, setCoupons] = useState<AllCouponsNew[]>([]);
   const { allCoupons, deleteCouponById } = useCouponContext();
 
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingCoupon, setEditingCoupon] = useState<AllCouponsNew | null>(
     null
@@ -83,9 +84,17 @@ export default function AllCoupons() {
     <div className="container mx-auto py-10">
       <h1 className="text-2xl font-bold mb-4 text-white">All coupons</h1>
       {/* Add coupons Component */}
-      <AddCoupons onAddCoupon={handleAddCoupon} />
+      <AddCoupons
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onAddCoupon={handleAddCoupon}
+      />
       {/* Data Table */}
-      <DataTable columns={columnsWithActions} data={allCoupons} />
+      <DataTable
+        columns={columnsWithActions}
+        data={allCoupons}
+        handleClick={() => setIsAddModalOpen(true)}
+      />
       {/* Edit coupon Modal */}
       <EditAllCouponsPopup
         coupon={editingCoupon}

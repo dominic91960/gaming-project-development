@@ -37,11 +37,13 @@ import Spinner from "@/components/Spinner/Spinner";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  handleClick: () => void;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  handleClick,
 }: DataTableProps<TData, TValue>) {
   const {
     loading,
@@ -120,6 +122,7 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center py-4">
+        <button onClick={handleClick}>ADd</button>
         <Input
           placeholder="Filter Name..."
           value={localSearchTerm}
