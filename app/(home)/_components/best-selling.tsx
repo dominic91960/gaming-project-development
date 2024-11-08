@@ -73,19 +73,30 @@ const BestSelling = () => {
         <div className="grid grid-cols-2 gap-y-[10px] place-items-center lg:grid-cols-3 2xl:grid-cols-4 sm:gap-y-[15px] md:gap-y-[20px] lg:gap-y-[25px] xl:gap-y-[30px] 2xl:gap-y-[33px]">
           {/* Products */}
           {bestSellingGames.map(
-            ({
-              id,
-              title,
-              desc,
-              discountPrice,
-              originalPrice,
-              poster,
-              rating,
-              stockStatus,
-            }) => (
+            (
+              {
+                id,
+                title,
+                desc,
+                discountPrice,
+                originalPrice,
+                poster,
+                rating,
+                stockStatus,
+              },
+              i
+            ) => (
               <article
                 key={id}
-                className="relative w-[150px] cursor-pointer sm:w-[200px] md:w-[240px] lg:w-[280px] xl:w-[300px] 2xl:w-[320px] z-10 group"
+                className={`${
+                  i > 11
+                    ? "hidden"
+                    : i > 8
+                    ? "hidden 2xl:block"
+                    : i > 5
+                    ? "hidden lg:block"
+                    : ""
+                } relative w-[150px] cursor-pointer sm:w-[200px] md:w-[240px] lg:w-[280px] xl:w-[300px] 2xl:w-[320px] z-10 group`}
                 onClick={() => {
                   router.push(`/products/view/?id=${id}`);
                 }}
