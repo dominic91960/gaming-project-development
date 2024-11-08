@@ -3,8 +3,8 @@ import {
   Dispatch,
   SetStateAction,
   useState,
-  useContext,
   useEffect,
+  useCallback,
 } from "react";
 
 import { BsFillGrid1X2Fill } from "react-icons/bs";
@@ -20,6 +20,7 @@ import { IoPricetagsSharp, IoPricetagSharp } from "react-icons/io5";
 import { FaLaptop, FaShoppingBag } from "react-icons/fa";
 import { TiSpanner } from "react-icons/ti";
 import { RiShieldStarFill } from "react-icons/ri";
+import { RiCoupon3Fill } from "react-icons/ri";
 
 import SidebarLink from "./SidebarLink";
 import SidebarButton from "./SidebarButton";
@@ -42,17 +43,20 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const { selectedItem, setSelectedItem } = useSidebar();
 
-  const handleItemClick = (item: string) => {
-    setSelectedItem(item);
-    onSelect(item);
-    setIsMobileNavToggled(false);
-  };
+  const handleItemClick = useCallback(
+    (item: string) => {
+      setSelectedItem(item);
+      onSelect(item);
+      setIsMobileNavToggled(false);
+    },
+    [onSelect, setIsMobileNavToggled, setSelectedItem]
+  );
 
   useEffect(() => {
     if (selectedItem) {
       handleItemClick(selectedItem);
     }
-  }, [selectedItem]);
+  }, [handleItemClick, selectedItem]);
 
   return (
     <div
@@ -238,7 +242,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           onClick={() => handleItemClick("coupons")}
         >
           <div className="flex items-center gap-x-[0.7em]">
-            <RiShieldStarFill />
+            <RiCoupon3Fill />
             <span>Coupons</span>
           </div>
         </button>

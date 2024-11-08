@@ -376,7 +376,10 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
 
         {/* Product images form */}
         <h2 className="font-bold text-[1.3em] mb-[1.15em]">Product Images</h2>
-        <div className="bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-md">
+        <div className="relative bg-black/40 px-[2.2em] py-[3.3em] mb-[3.2em] border border-[#0D6D49] rounded-sm backdrop-blur-md">
+          {readOnly && (
+            <div className="absolute top-0 left-0 size-full z-10"></div>
+          )}
           <ProductImages
             coverImage={editedProduct.coverImage}
             setCoverImage={(url) => {
@@ -616,19 +619,21 @@ const EditAllProductsPopup: React.FC<EditAllProductsPopupProps> = ({
 
         {/* Submit button */}
         <div className="flex flex-col gap-[1em]">
+          {!readOnly && (
+            <button
+              type="button"
+              className="w-full bg-[#00FFA1] font-semibold text-black text-[calc(1em+1px)] uppercase px-[2.4em] py-[0.5em] rounded-sm hover:opacity-90 transition-opacity duration-100"
+              onClick={handleSave}
+            >
+              OK
+            </button>
+          )}
           <button
             type="button"
-            className="w-full bg-[#00FFA1] font-semibold text-black text-[calc(1em+1px)] uppercase px-[2.4em] py-[0.5em] rounded-sm hover:opacity-90 transition-opacity duration-100"
-            onClick={handleSave}
-          >
-            OK
-          </button>
-          <button
-            type="button"
-            className="w-full bg-[#EF4444] font-semibold text-white text-[calc(1em+1px)] uppercase px-[2.4em] py-[0.5em] rounded-sm hover:opacity-90 transition-opacity duration-100"
+            className="w-full bg-[#FF001D] font-semibold text-white text-[calc(1em+1px)] uppercase px-[2.4em] py-[0.5em] rounded-sm hover:opacity-90 transition-opacity duration-100"
             onClick={onClose}
           >
-            Cancel
+            {readOnly ? "Close" : "Cancel"}
           </button>
         </div>
       </div>

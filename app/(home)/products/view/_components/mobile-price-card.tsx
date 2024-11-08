@@ -2,11 +2,13 @@ import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { PiWarningCircleLight } from "react-icons/pi";
-import { IoIosCart, IoMdHeartEmpty } from "react-icons/io";
+import { IoIosCart } from "react-icons/io";
 
 import CartSidebar from "@/app/(home)/_components/shopping-cart-sidebar";
+import WishlistButton from "@/components/product-card/WishlistButton";
 
 interface MobilePriceCardProps {
+  id: string;
   title: string;
   discountPrice: number;
   originalPrice: number;
@@ -16,6 +18,7 @@ interface MobilePriceCardProps {
 }
 
 const MobilePriceCard: React.FC<MobilePriceCardProps> = ({
+  id,
   title,
   discountPrice,
   originalPrice,
@@ -71,7 +74,7 @@ const MobilePriceCard: React.FC<MobilePriceCardProps> = ({
           Buy now
         </Button>
         <button className="size-[2em] hover:opacity-80 border flex items-center justify-center me-[0.3em]">
-          <IoMdHeartEmpty className="text-[1em]" />
+          <WishlistButton gameId={id} showText={false} />
         </button>
 
         <CartSidebar>

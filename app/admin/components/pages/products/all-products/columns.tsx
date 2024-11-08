@@ -73,7 +73,7 @@ export const columns: ColumnDef<AllProductsNew>[] = [
       return (
         <Button
           variant="ghost"
-          className="text-[1em] px-[1em] py-[0.5em] h-fit"
+          className="text-[1em] px-[1em] py-[0.5em] h-fit rounded-sm"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Name

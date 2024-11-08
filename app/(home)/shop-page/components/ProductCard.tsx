@@ -91,7 +91,7 @@ const ProductCard: React.FC<Game> = ({
       {/* Wishlist Icon */}
       <div
         // onClick={() => handleWishlist(id)}
-        className="absolute top-[1em] left-[1em] z-40"
+        className="absolute top-[0.8em] left-[0.8em] text-[24px] z-40"
       >
         {/* <div>
           {wishList ? (
@@ -118,6 +118,7 @@ const ProductCard: React.FC<Game> = ({
         </div> */}
         <WishlistButton
           gameId={id}
+          showText={false}
           // wishList={wishList}
           // verifySession={verifySession}
         />

@@ -113,7 +113,7 @@ const StatusPopup: React.FC<StatusPopupProps> = ({
         <Button
           variant="secondary"
           onClick={handleSave}
-          className="h-fit text=[1em] px-[1em] py-[0.5em] rounded-sm"
+          className="h-fit text=[1em] px-[1em] py-[0.5em] border rounded-sm"
         >
           Save
         </Button>

@@ -147,16 +147,16 @@ const UsersPage = () => {
             onChange={handleRoleChange}
             className="w-full px-[1.6em] py-[0.8em] bg-transparent border rounded-sm"
           >
-            <option value="" className="bg-white text-black">
+            <option value="" className="bg-black">
               All Roles
             </option>
-            <option value="ADMIN" className="bg-white text-black">
+            <option value="ADMIN" className="bg-black">
               Admin
             </option>
-            <option value="USER" className="bg-white text-black">
+            <option value="USER" className="bg-black">
               User
             </option>
-            <option value="SUPER_ADMIN" className="bg-white text-black">
+            <option value="SUPER_ADMIN" className="bg-black">
               Super Admin
             </option>
           </select>
@@ -197,16 +197,16 @@ const UsersPage = () => {
               onChange={handleRoleChange}
               className="flex-grow px-[1.6em] py-[0.9em] bg-transparent border rounded-sm"
             >
-              <option value="" className="bg-white text-black">
+              <option value="" className="bg-black">
                 All Roles
               </option>
-              <option value="ADMIN" className="bg-white text-black">
+              <option value="ADMIN" className="bg-black">
                 Admin
               </option>
-              <option value="USER" className="bg-white text-black">
+              <option value="USER" className="bg-black">
                 User
               </option>
-              <option value="SUPER_ADMIN" className="bg-white text-black">
+              <option value="SUPER_ADMIN" className="bg-black">
                 Super Admin
               </option>
             </select>

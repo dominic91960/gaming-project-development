@@ -37,6 +37,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
       setLoading(false);
     }
   }, [user]);
+
   return (
     <section className="bg-black font-secondaryFont font-medium text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[17px] 2xl:text-[18px] border-b border-b-[#0D6D49]">
       <div className="container mx-auto px-[36px] py-[1.2em] xl:py-[0.4em] flex items-center justify-between">
@@ -77,7 +78,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
           <div className="flex items-center gap-x-[0.8em]">
             <DropdownMenu open={isDropdownOpen}>
               <DropdownMenuTrigger
-                className="cursor-pointer rounded-full hover:shadow-[0_0_8px_#00FFA1] transition-all duration-200"
+                className="font-primaryFont cursor-pointer rounded-full hover:shadow-[0_0_8px_#00FFA1] transition-all duration-200"
                 onClick={() => setIsDropdownOpen(true)}
               >
                 {loading ? (
@@ -93,7 +94,7 @@ const StatusBar: React.FC<StatusBarProps> = ({
                 )}
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="bg-black font-primaryFont text-[0.8em] text-white rounded-none border-none"
+                className="bg-black font-primaryFont text-[10px] text-white rounded-none border-none sm:text-[11px] md:text-[12px] lg:text-[12.5px] xl:text-[12.8px] 2xl:text-[13px]"
                 onInteractOutside={() => setIsDropdownOpen(false)}
               >
                 <DropdownMenuLabel className="font-semibold text-center text-[1.3em]">
@@ -102,7 +103,15 @@ const StatusBar: React.FC<StatusBarProps> = ({
 
                 <DropdownMenuSeparator className="bg-[#0D6D49] mx-[0.2em]" />
                 <DropdownMenuItem className="bg-transparent text-[1em] focus:bg-transparent focus:text-white">
-                  <EditProfileDialog />
+                  <EditProfileDialog
+                    user={{
+                      profileImage: user ? user.profile_image : "",
+                      username: user ? user.username : "",
+                      firstName: user ? user.firstName : "",
+                      lastName: user ? user.lastName : "",
+                      email: user ? user.email : "",
+                    }}
+                  />
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-[#0D6D49] mx-[0.2em]" />
 

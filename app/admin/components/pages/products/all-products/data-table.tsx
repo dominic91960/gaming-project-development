@@ -55,17 +55,22 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex-grow bg-black/40 border border-[#0D6D49] px-[2em] py-[1.2em] rounded-3xl md:rounded-md text-white">
-        {/* <div className="flex items-center py-4">
-          <Input
-            placeholder="Filter Name..."
+      {/* Mobile search bar and add menu */}
+      <div className="flex items-center justify-center px-[36px] mb-[2em] gap-x-[1em] md:hidden">
+        <div className="border p-[0.75em] rounded-sm flex items-center gap-x-[0.75em] w-full">
+          <CiSearch className="text-[1.6em] text-white" />
+          <input
+            placeholder="Filter Names..."
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
               table.getColumn("name")?.setFilterValue(event.target.value)
             }
-            className="max-w-sm"
+            className="bg-transparent outline-none border-y-0 border-e-0 border-s rounded-none px-[1em] w-full text-white md:w-[38ch]"
           />
-        </div> */}
+        </div>
+      </div>
+
+      <div className="flex-grow bg-black/40 border border-[#0D6D49] px-[2em] py-[1.2em] rounded-3xl md:rounded-md text-white">
         <div className="hidden pb-[1.2em] border-b border-b-[#0D6D49] md:flex md:justify-between md:items-center">
           {/* Title */}
           <h2 className="font-semibold text-white">Products</h2>
@@ -91,7 +96,7 @@ export function DataTable<TData, TValue>({
         {/* Table */}
         <div className="text-white md:mt-[1.5em]">
           <Table className="border-separate border-spacing-y-[2em] px-[0.4em] text-[0.65em] md:border-spacing-y-[1em]">
-            <TableHeader className="text-[1.1em]">
+            <TableHeader className="text-[2.2em] sm:text-[1.5em] md:text-[1.1em]">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow
                   key={headerGroup.id}
@@ -101,7 +106,7 @@ export function DataTable<TData, TValue>({
                     return (
                       <TableHead
                         key={header.id}
-                        className="hidden md:table-cell h-fit ps-0 py-[1em]"
+                        className="h-fit ps-0 py-[1em]"
                       >
                         {header.isPlaceholder
                           ? null
@@ -126,11 +131,9 @@ export function DataTable<TData, TValue>({
                     {row.getVisibleCells().map((cell, index) => (
                       <TableCell
                         key={cell.id}
-                        className={`py-[1.3em] px-[0.2em] ${
+                        className={`max-w-[16ch] text-nowrap overflow-hidden text-ellipsis pe-[1em] py-[1.3em] px-[0.2em] ${
                           index === 0
                             ? "relative rounded-s-sm ps-[1.2em]"
-                            : index === 1
-                            ? "max-w-[16ch] text-nowrap overflow-hidden text-ellipsis pe-[1em]"
                             : index === 3
                             ? "rounded-e-sm"
                             : ""
@@ -160,7 +163,7 @@ export function DataTable<TData, TValue>({
       </div>
 
       {/* Pagination */}
-      <div className="text-[0.65em] px-[4em] mt-[2em] hidden md:flex md:items-center md:justify-between">
+      <div className="text-[1.2em] px-[4em] mt-[2em] flex items-center justify-between sm:text-[0.9em] md:text-[0.65em]">
         <div className="flex gap-x-[1em]">
           <Button
             variant="secondary"

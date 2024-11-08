@@ -114,7 +114,6 @@ export default function ProductPage() {
         }
         // setLoading(false);
       } catch (error) {
-    
       } finally {
         // setLoading(false);
       }
@@ -213,9 +212,7 @@ export default function ProductPage() {
         };
 
         setGameData(mappedGameData);
-      } catch (error) {
-
-      }
+      } catch (error) {}
     };
     getData();
     getReviewsByGameId(id);
@@ -319,7 +316,7 @@ export default function ProductPage() {
                       }}
                     />
                   ) : (
-                    <DesktopSoldOutCard title={gameData.title} />
+                    <DesktopSoldOutCard id={id || ""} title={gameData.title} />
                   )}
                 </div>
               </div>
@@ -330,6 +327,7 @@ export default function ProductPage() {
               {/* Mobile price card */}
               {gameData.stockStatus !== "OUT_OF_STOCK" ? (
                 <MobilePriceCard
+                  id={id || ""}
                   title={gameData.title}
                   discountPrice={gameData.discountPrice}
                   originalPrice={gameData.originalPrice}
@@ -342,7 +340,7 @@ export default function ProductPage() {
                   }}
                 />
               ) : (
-                <MobileSoldOutCard title={gameData.title} />
+                <MobileSoldOutCard id={id || ""} title={gameData.title} />
               )}
 
               {/* Card Area */}

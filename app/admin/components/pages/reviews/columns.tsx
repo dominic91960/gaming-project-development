@@ -12,6 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { IoIosArrowForward } from "react-icons/io";
+import Image from "next/image";
 
 export type AllReviews = {
   user: {
@@ -36,11 +37,12 @@ export const columns: ColumnDef<AllReviews>[] = [
     cell: ({ row }) => {
       const AllReviews = row.original;
       return (
-        <div className="flex items-center size-[2em]">
-          <img
+        <div className="relative flex items-center size-[2em]">
+          <Image
             src={AllReviews.user.profile_image}
             alt={AllReviews.rating}
             className="w-full h-full rounded-full"
+            fill
           />
         </div>
       );
@@ -72,7 +74,7 @@ export const columns: ColumnDef<AllReviews>[] = [
       return (
         <Button
           variant="ghost"
-          className="text-[1em] px-[1em] py-[0.5em] h-fit"
+          className="text-[1em] px-[1em] py-[0.5em] h-fit rounded-sm"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Rating
@@ -87,9 +89,7 @@ export const columns: ColumnDef<AllReviews>[] = [
           {Array.from({ length: 5 }, (_, index) => (
             <IoStar
               key={index}
-              className={`w-4 h-4 ${
-                index < rating ? "text-[#f29d38]" : "text-gray-300"
-              }`}
+              className={index < rating ? "text-[#f29d38]" : "text-gray-300"}
             />
           ))}
         </div>
