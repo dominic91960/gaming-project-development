@@ -65,6 +65,27 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
+      {/* Mobile search bar and add menu */}
+      <div className="flex items-center justify-center px-[36px] mb-[2em] gap-x-[1em] md:hidden">
+        <div className="border p-[0.75em] rounded-sm flex items-center gap-x-[0.75em] w-full">
+          <CiSearch className="text-[1.6em] text-white" />
+          <input
+            type="text"
+            placeholder="Search by Product, Comment, or Author..."
+            value={
+              (table.getColumn("combinedSearch")?.getFilterValue() as string) ??
+              ""
+            }
+            onChange={(event) =>
+              table
+                .getColumn("combinedSearch")
+                ?.setFilterValue(event.target.value)
+            }
+            className="bg-transparent outline-none border-y-0 border-e-0 border-s rounded-none px-[1em] w-full text-white md:w-[38ch]"
+          />
+        </div>
+      </div>
+
       <div className="flex-grow bg-black/40 border border-[#0D6D49] px-[2em] py-[1.2em] rounded-3xl md:rounded-md text-white">
         <div className="hidden pb-[1.2em] border-b border-b-[#0D6D49] md:flex md:justify-between md:items-center">
           <h2 className="font-semibold text-white">Reviews</h2>
@@ -87,39 +108,20 @@ export function DataTable<TData, TValue>({
                 placeholder="Search by Product, Comment, or Author..."
                 className="bg-transparent outline-none border-s px-[1em] w-[50ch] text-white"
               />
-
-              {/* <CiSearch className="text-[1.6em] text-white" />
-              <Input
-                placeholder="Search by Product, Comment, or Author..."
-                value={
-                  (table
-                    .getColumn("combinedSearch")
-                    ?.getFilterValue() as string) ?? ""
-                }
-                onChange={(event) =>
-                  table
-                    .getColumn("combinedSearch")
-                    ?.setFilterValue(event.target.value)
-                }
-                className="bg-transparent outline-none border-s px-[1em] w-[50ch] text-white"
-              /> */}
             </div>
           </div>
         </div>
 
         <div className="text-white md:mt-[1.5em]">
           <Table className="border-separate border-spacing-y-[2em] px-[0.4em] text-[0.65em] md:border-spacing-y-[1em]">
-            <TableHeader className="text-[1.1em]">
+            <TableHeader className="text-[2.2em] sm:text-[1.5em] md:text-[1.1em]">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow
                   key={headerGroup.id}
                   className="hover:bg-inherit border-none"
                 >
                   {headerGroup.headers.map((header) => (
-                    <TableHead
-                      key={header.id}
-                      className="hidden md:table-cell h-fit py-[1em]"
-                    >
+                    <TableHead key={header.id} className="h-fit ps-0 py-[1em]">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -142,11 +144,9 @@ export function DataTable<TData, TValue>({
                     {row.getVisibleCells().map((cell, index) => (
                       <TableCell
                         key={cell.id}
-                        className={`py-[1.3em] px-[0.2em] ${
+                        className={`max-w-[16ch] text-nowrap overflow-hidden text-ellipsis pe-[1em] py-[1.3em] px-[0.2em] ${
                           index === 0
                             ? "relative rounded-s-sm ps-[1.2em]"
-                            : index === 1
-                            ? "max-w-[16ch] text-nowrap overflow-hidden text-ellipsis pe-[1em]"
                             : index === 3
                             ? "rounded-e-sm"
                             : ""

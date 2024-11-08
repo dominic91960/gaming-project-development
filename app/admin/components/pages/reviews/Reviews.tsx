@@ -45,7 +45,9 @@ export default function AllCustomerReviews() {
   };
 
   const handleDeleteCustomer = (id: string) => {
-    setReviews((prevReviews) => prevReviews.filter((review) => review.id !== id));
+    setReviews((prevReviews) =>
+      prevReviews.filter((review) => review.id !== id)
+    );
   };
 
   const deleteReview = async (id: string) => {
@@ -63,7 +65,7 @@ export default function AllCustomerReviews() {
     header: "Actions",
     id: "actions",
     cell: ({ row }) => (
-      <div className="flex items-center justify-center gap-x-[1em] w-[6ch] lg:w-fit lg:gap-x-[0.5em]">
+      <div className="flex items-center gap-x-[1em] w-[6ch] lg:w-fit lg:gap-x-[0.5em]">
         <button
           className="hover:opacity-80 transition-opacity duration-100"
           onClick={() => deleteReview(row.original.id)}
@@ -74,7 +76,10 @@ export default function AllCustomerReviews() {
     ),
   };
 
-  const columnsWithActions: ColumnDef<AllReviews>[] = [...columns, actionColumn];
+  const columnsWithActions: ColumnDef<AllReviews>[] = [
+    ...columns,
+    actionColumn,
+  ];
 
   // Render pagination buttons dynamically
   const renderPagination = () => {
