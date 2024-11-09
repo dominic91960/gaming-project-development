@@ -13,14 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import axiosInstance from "@/axios/axiosInstance";
 import jsPDF from "jspdf";
 
-declare module "jspdf" {
-  interface jsPDF {
-    autoTable: any;
-    previousAutoTable: {
-      finalY: number;
-    };
-  }
-}
+import "jspdf-autotable";
 function SuccessPage() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
@@ -54,8 +47,15 @@ function SuccessPage() {
       if (orderId) {
         try {
           const response = await axiosInstance.get(`/orders/${orderId}`);
-          const { subtotal, discount, totalAmount, createdAt, products } = response.data;
-          setOrderDetails({ subtotal, discount, totalAmount, createdAt, products });
+          const { subtotal, discount, totalAmount, createdAt, products } =
+            response.data;
+          setOrderDetails({
+            subtotal,
+            discount,
+            totalAmount,
+            createdAt,
+            products,
+          });
         } catch (error) {
           console.error("Failed to fetch order details:", error);
         }
@@ -71,7 +71,11 @@ function SuccessPage() {
     doc.text("Invoice", 14, 20);
     doc.setFontSize(12);
     doc.text(`Order ID: ${orderId}`, 14, 30);
-    doc.text(`Date: ${new Date(orderDetails.createdAt).toLocaleDateString()}`, 14, 40);
+    doc.text(
+      `Date: ${new Date(orderDetails.createdAt).toLocaleDateString()}`,
+      14,
+      40
+    );
     doc.text("Order Summary", 14, 50);
 
     // Table for products
@@ -87,15 +91,27 @@ function SuccessPage() {
     });
 
     // Summary of subtotal, discount, and total amount
-    let finalY = doc.previousAutoTable.finalY || 60;
-    doc.text(`Subtotal: $${(orderDetails.totalAmount + orderDetails.discount).toFixed(2)}`, 14, finalY + 10);
+    let finalY = (doc as any).autoTable.previous?.finalY || 60;
+    doc.text(
+      `Subtotal: $${(orderDetails.totalAmount + orderDetails.discount).toFixed(
+        2
+      )}`,
+      14,
+      finalY + 10
+    );
     if (orderDetails.discount > 0) {
-      doc.text(`Discount: -$${orderDetails.discount.toFixed(2)}`, 14, finalY + 20);
+      doc.text(
+        `Discount: -$${orderDetails.discount.toFixed(2)}`,
+        14,
+        finalY + 20
+      );
     }
     doc.text(`Total: $${orderDetails.totalAmount.toFixed(2)}`, 14, finalY + 30);
 
     // Save the PDF
-    const pdfName = `Invoice_${orderId}_${new Date().toISOString().split("T")[0]}.pdf`;
+    const pdfName = `Invoice_${orderId}_${
+      new Date().toISOString().split("T")[0]
+    }.pdf`;
     doc.save(pdfName);
   };
 
@@ -176,7 +192,10 @@ function SuccessPage() {
               <div className="subtotal flex justify-between py-2">
                 <p className="text-left">Subtotal</p>
                 <p className="text-right">
-                  ${(orderDetails.totalAmount + orderDetails.discount).toFixed(2)}
+                  $
+                  {(orderDetails.totalAmount + orderDetails.discount).toFixed(
+                    2
+                  )}
                 </p>
               </div>
 
