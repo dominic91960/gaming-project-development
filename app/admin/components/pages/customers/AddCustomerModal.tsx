@@ -28,6 +28,10 @@ interface AddUserModalProps {
     email: string;
     profile_image: string;
     password: string;
+    address: string;
+    state: string;
+    city: string;
+    postalCode: string;
   }) => Promise<void>;
   setShowModal: (show: boolean) => void;
   editingUser: {
@@ -36,9 +40,12 @@ interface AddUserModalProps {
     firstName: string;
     lastName: string;
     email: string;
-    role: string;
     profile_image: string;
-    password?: string;
+    password: string;
+    address: string;
+    state: string;
+    city: string;
+    postalCode: string;
   } | null;
   getAllAdmins: (page: number) => void;
 }
@@ -55,6 +62,10 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
   const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
   const [newImageUrl, setNewImageUrl] = useState("");
 
   const { roles } = useRoleContext();
@@ -70,6 +81,10 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
       setLastName(editingUser.lastName);
       setEmail(editingUser.email);
       setImage(editingUser.profile_image);
+      setAddress(editingUser.address);
+      setState(editingUser.state);
+      setCity(editingUser.city);
+      setPostalCode(editingUser.postalCode);
     } else {
       clearFields();
     }
@@ -83,6 +98,11 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
       email,
       profile_image: newImageUrl || image,
       password,
+      address,
+      state,
+      city,
+      postalCode,
+      roleId: "66f283ca91dac61a9ac90d39"
     };
 
     try {
@@ -149,6 +169,10 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
     setEmail("");
     setImage("");
     setPassword("");
+    setAddress("");
+    setState("");
+    setCity("");
+    setPostalCode("");
     setNewImageUrl("");
   };
 
@@ -198,7 +222,7 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
           {/* Form area */}
           <div>
             <h2 className="font-bold text-[1.4em] uppercase mb-[0.5em]">
-              Personal details12
+              Personal details
             </h2>
 
             {/* First name and last name */}
@@ -265,12 +289,14 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
               </div>
             </div>
 
-               {/* Address */}
-               <div className="mt-[1.4em]">
+            {/* Address */}
+            <div className="mt-[1.4em]">
               <label className="block capitalize">Address</label>
               <Input
                 type="text"
                 className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
 
@@ -281,6 +307,8 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
                 <Input
                   type="text"
                   className="text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
                 />
               </div>
               <div>
@@ -288,6 +316,8 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
                 <Input
                   type="text"
                   className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
                 />
               </div>
               <div>
@@ -295,6 +325,8 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
                 <Input
                   type="text"
                   className="w-full text-[1em] px-[1em] py-[0.6em] h-fit rounded-sm"
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.target.value)}
                 />
               </div>
             </div>

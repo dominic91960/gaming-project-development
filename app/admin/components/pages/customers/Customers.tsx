@@ -59,6 +59,10 @@ const UsersPage = () => {
     lastName: string;
     email: string;
     profile_image: string;
+    address: string;
+    state: string;
+    city: string;
+    postalCode: string;
   }): Promise<void> => {
     setShowModal(false);
   };
@@ -139,7 +143,6 @@ const UsersPage = () => {
 
         {/* Select and add button */}
         <div className="flex items-center gap-x-[0.75em]">
-
           {/* Add button */}
           <button
             className="bg-[#00FFA1] font-bold text-black text-[0.95em] px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100 flex-shrink-0"
@@ -170,7 +173,6 @@ const UsersPage = () => {
 
           {/* Select and add button */}
           <div className="flex items-center gap-x-[0.75em]">
-
             {/* Add button */}
             <button
               className="bg-[#00FFA1] font-bold text-black px-[2em] py-[1em] rounded hover:opacity-90 transition-opacity duration-100"
