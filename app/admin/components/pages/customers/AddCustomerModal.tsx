@@ -26,7 +26,6 @@ interface AddUserModalProps {
     firstName: string;
     lastName: string;
     email: string;
-    roleId: string;
     profile_image: string;
     password: string;
   }) => Promise<void>;
@@ -54,7 +53,6 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
   const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
   const [newImageUrl, setNewImageUrl] = useState("");
@@ -71,7 +69,6 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
       setFirstName(editingUser.firstName);
       setLastName(editingUser.lastName);
       setEmail(editingUser.email);
-      setRole(editingUser.role);
       setImage(editingUser.profile_image);
     } else {
       clearFields();
@@ -84,7 +81,6 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
       firstName,
       lastName,
       email,
-      roleId: role,
       profile_image: newImageUrl || image,
       password,
     };
@@ -151,7 +147,6 @@ const AddCustomerModal: React.FC<AddUserModalProps> = ({
     setFirstName("");
     setLastName("");
     setEmail("");
-    setRole("");
     setImage("");
     setPassword("");
     setNewImageUrl("");
