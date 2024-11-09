@@ -15,13 +15,15 @@ interface Game {
 }
 
 interface TopGamesProps {
-  games: Game[] | null;
+  games: any | null;
 }
 
 const TopGames: React.FC<TopGamesProps> = ({ games }) => {
   // Check if games data is available
   if (!games || games.length === 0) {
-    return <div className="text-center text-white">No top games available.</div>; // Display fallback message if no games
+    return (
+      <div className="text-center text-white">No top games available.</div>
+    ); // Display fallback message if no games
   }
 
   return (
@@ -60,19 +62,17 @@ const TopGames: React.FC<TopGamesProps> = ({ games }) => {
         modules={[Autoplay, Pagination]}
         className="mySwiper"
       >
-        {games.map(
-          ({ poster, name, discountPrice, originalPrice, rating }, index) => (
-            <SwiperSlide key={index}>
-              <GameCard
-                poster={poster}
-                name={name}
-                discountPrice={discountPrice}
-                originalPrice={originalPrice}
-                rating={rating}
-              />
-            </SwiperSlide>
-          )
-        )}
+        {games.map((game: any) => (
+          <SwiperSlide key={game.id}>
+            <GameCard
+              poster={game.cardImage}
+              name={game.displayName}
+              discountPrice={game.sellingPrice}
+              originalPrice={game.regularPrice}
+              rating={game.averageRating}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
 
       <style>{`
