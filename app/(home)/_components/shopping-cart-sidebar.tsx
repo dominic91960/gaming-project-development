@@ -120,7 +120,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
         <div className="relative z-[999]"></div>
         <SheetTrigger asChild>{children}</SheetTrigger>
         {/* <SheetContent className="w-[550px] backdrop-blur-lg backdrop-opacity-70 bg-[#05130166]"> */}
-        <SheetContent className="w-[550px]  shopping-cart-sidebar-main-div">
+        <SheetContent className="2xl:w-[550px] xl:w-[500px] lg:w-[500px] md:w-[500px] sm:w-[450px] w-full shopping-cart-sidebar-main-div">
           <SheetHeader className="border-b-[1px] border-white pb-4 mb-12">
             <div className="flex items-center gap-2">
               <SheetTitle className="font-primaryFont text-white text-[17px] font-medium">
@@ -256,11 +256,15 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                           </div>
 
                           <div className="bg-[#797e7a] h-full w-[2px]"> </div>
+
                           <div className="flex items-center gap-2 self-end">
-                            <div className="h-4 w-4 rounded-full flex items-center justify-center border border-white">
-                              <p className="font-primaryFont text-[10px]  font-medium text-white">
-                                ?
-                              </p>
+                            <div className="hidden sm:block">
+                              {" "}
+                              <div className="h-4 w-4 rounded-full flex items-center justify-center border border-white">
+                                <p className="font-primaryFont text-[10px]  font-medium text-white">
+                                  ?
+                                </p>
+                              </div>
                             </div>
 
                             <p className="font-primaryFont text-[10px] font-medium text-white">
