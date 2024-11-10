@@ -25,6 +25,8 @@ import { IoIosArrowForward } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
 import { IoTrash } from "react-icons/io5";
 
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+
 interface OrderItem {
   price: number;
   quantity: number;
@@ -171,6 +173,7 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
         setSelectedOrder(order);
         setIsViewModalOpen(true);
       };
+
       const {
         getAllOrders,
         currentPage,
@@ -183,6 +186,22 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
         deleteOrderById,
         setReloadOrders,
       } = useOrderContext();
+
+      const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+      const [orderToDelete, setOrderToDelete] = useState<string | null>(null);
+
+      const handleDeleteClick = (orderId: string) => {
+        setOrderToDelete(orderId);
+        setIsDeleteDialogOpen(true); // Open the dialog when the delete button is clicked
+      };
+
+      const handleDeleteOrder = () => {
+        if (orderToDelete) {
+          deleteOrderById(orderToDelete);
+          setIsDeleteDialogOpen(false); // Close the dialog after deletion
+        }
+      };
+
       return (
         <div className="flex space-x-2">
           {/* <button
@@ -201,15 +220,49 @@ export const columns: ColumnDef<AllOrdersNew1>[] = [
           >
             <FaEye />
           </button>
+
           <button
             className="hover:opacity-80 transition-opacity duration-100"
-            onClick={() => {
-              deleteOrderById(row.original.id);
-              // setReloadOrders((prev) => !prev);
-            }}
+            onClick={() => handleDeleteClick(row.original.id)} // Set order ID for deletion
           >
             <IoTrash />
           </button>
+
+          {/* Delete pop up when click IoTrash button */}
+          {/* Shadcn Dialog for Delete Confirmation */}
+          <Dialog
+            open={isDeleteDialogOpen}
+            onOpenChange={setIsDeleteDialogOpen}
+          >
+            <DialogContent className="border-none">
+              <div className="fixed inset-0 bg-black/80 flex justify-center items-center text-[9px] md:text-[10px] 2xl:text-[11px] text-center">
+                <div className="relative bg-gradient-to-br from-black from-15% to-[#0d6d4a65] p-[4em] rounded-md border border-t-[1em] border-[#0D6D49]">
+                  <div className="size-[6.5em] absolute top-0 left-0 right-0 mx-auto -translate-y-[60%] bg-[#0D6D49] flex items-center justify-center rounded-full"></div>
+                  <h2 className="text-[1.8em] font-semibold text-white">
+                    Delete Order
+                  </h2>
+                  <p className="mt-[2em] mb-[2.5em] w-[40ch] text-white">
+                    Deleting this order will remove it from the system
+                    permanently. This cannot be undone.
+                  </p>
+                  <div className="flex gap-x-[3em] justify-center font-bold">
+                    <button
+                      className="py-[1em] px-[1em] border border-[#00FFA1] rounded-sm flex-grow w-full hover:opacity-90 transition-opacity duration-100 font-bold text-white"
+                      onClick={() => setIsDeleteDialogOpen(false)} // Close the dialog on Cancel
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="py-[1em] px-[1em] bg-[#AF1515] rounded-sm flex-grow w-full hover:opacity-90 transition-opacity duration-100 font-bold text-white"
+                      onClick={handleDeleteOrder} // Handle order deletion
+                    >
+                      Delete Order
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
 
           <OrderDetailPopupCopy
             isOpen={isViewModalOpen}
