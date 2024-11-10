@@ -11,6 +11,9 @@ import { DataTable } from "./all-products/data-table";
 import EditAllProductsPopup from "./all-products/EditAllProductsPopup";
 
 import { FaEye } from "react-icons/fa";
+
+import Spinner from "@/components/Spinner/Spinner";
+
 export default function AllProducts() {
   const [products, setProducts] = useState<AllProductsNew[]>([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -19,6 +22,7 @@ export default function AllProducts() {
   );
   const [reload, setReload] = useState(false);
   const [isReadOnly, setIsReadOnly] = useState(false);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     function mapGamesResponse(games: any[]): any[] {
       return games.map((game) => ({
@@ -67,10 +71,24 @@ export default function AllProducts() {
       }));
     }
 
+    // const getGames = async () => {
+    //   const res = await axiosInstance("/games");
+    //   const processedData = mapGamesResponse(res.data.data);
+    //   setProducts(processedData);
+    // };
+
     const getGames = async () => {
-      const res = await axiosInstance("/games");
-      const processedData = mapGamesResponse(res.data.data);
-      setProducts(processedData);
+      setLoading(true); // Start loading
+      try {
+        const res = await axiosInstance.get("/games");
+        const processedData = mapGamesResponse(res.data.data);
+        setProducts(processedData);
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to fetch products");
+      } finally {
+        setLoading(false); // End loading
+      }
     };
 
     getGames();
@@ -196,6 +214,10 @@ export default function AllProducts() {
     ...columns,
     actionColumn,
   ];
+
+  if (loading) {
+    return <Spinner loading={loading} />;
+  }
 
   return (
     <div className="min-h-full font-primaryFont text-[8px] sm:text-[12px] md:text-[16px] xl:text-[20px] 2xl:text-[24px] pt-[3.5em] md:p-[3.5em] pb-[1.5em] flex flex-col backdrop-blur-md text-white">
