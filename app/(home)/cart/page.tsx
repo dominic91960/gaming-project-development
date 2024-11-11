@@ -16,6 +16,7 @@ import coverPhoto from "@/public/images/shop/cover-photo-dark.jpg";
 import Footer from "@/components/footer/footer";
 import emptyCartIcon from "../../../public/images/cart/emptycart 1.png";
 import RecommendedGames from "./components/Recommended-games";
+import WishlistButton from "@/components/product-card/WishlistButton";
 
 const Cart: React.FC = () => {
   const addToast = useToast();
@@ -201,7 +202,8 @@ const Cart: React.FC = () => {
                             </div>
 
                             <div className="flex items-center justify-end gap-1 absolute top-3 right-3">
-                              <CiHeart className="text-[30px] text-white cursor-pointer" />
+                              <WishlistButton gameId={item.id.toString()} showText={false} />
+                              {/* <CiHeart className="text-[30px] text-white cursor-pointer" /> */}
                               <MdDeleteForever
                                 className="text-[30px] text-white cursor-pointer"
                                 onClick={() => handleRemoveItem(item.id)}

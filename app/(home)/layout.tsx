@@ -92,6 +92,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       <body>
         {isAuthorized? <ToastProvider>
           <AuthProvider>
+          <WishlistProvider>
             <div className="relative z-40">
               <ProductSearchBar />
             </div>
@@ -99,8 +100,9 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
               <Navbar />
             </div>
             <div className="relative z-10">
-              <WishlistProvider>{children}</WishlistProvider>
+              {children}
             </div>
+            </WishlistProvider>
           </AuthProvider>
         </ToastProvider>: <Spinner loading={!isAuthorized} />}
       </body>
