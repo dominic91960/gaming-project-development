@@ -62,6 +62,7 @@ const VerticalCarousel = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const getTopRatedGames = async () => {
+    setLoading(true);
     try {
       const response = await axiosInstance.get(
         "/games?displayInLatesGames=true&limit=5"
@@ -82,7 +83,6 @@ const VerticalCarousel = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
     getTopRatedGames();
   }, []);
 

@@ -17,6 +17,7 @@ import gamePoster from "@/public/images/home/swiper-carousel/poster.png";
 import SwiperCarouselCard from "./swiper-carousel-card";
 import axiosInstance from "@/axios/axiosInstance";
 import { set } from "date-fns";
+import SwiperCarouselSkeleton from "./swiper-carousel-skeleton";
 
 // const data = [
 //   {
@@ -88,10 +89,11 @@ interface GameData {
 
 const SwiperCarousel = () => {
   const getTopRatedGames = async () => {
-    setLoading(true);
     try {
-      const response = await axiosInstance.get("/games?addToCarousel=true&limit=4");
-       const formattedData = response.data.data.map((game: any) => ({
+      const response = await axiosInstance.get(
+        "/games?addToCarousel=true&limit=4"
+      );
+      const formattedData = response.data.data.map((game: any) => ({
         id: game.id,
         background: game.coverImage,
         poster: game.cardImage,
@@ -102,7 +104,7 @@ const SwiperCarousel = () => {
         wishlistedBy: 90,
         releaseDate: game.releaseDate,
         soldOut: game.stockStatus === "IN_STOCK" ? false : true,
-        }));
+      }));
       setGameData(formattedData);
       setLoading(false);
     } catch (error) {
@@ -110,7 +112,8 @@ const SwiperCarousel = () => {
     }
   };
   useEffect(() => {
-    getTopRatedGames();
+    setLoading(true);
+    setTimeout(() => getTopRatedGames(), 10000);
   }, []);
 
   const [bg, setBg] = useState("");
@@ -130,13 +133,13 @@ const SwiperCarousel = () => {
     <section
       className={`relative min-h-svh bg-cover bg-center flex items-center justify-center font-primaryFont font-semibold text-[8px] lg:text-[9px] xl:text-[11px] 2xl:text-[13px] text-white transition-all duration-1000 ease-in-out`}
       style={{
-        backgroundImage: `url('${bg}')`,
+        backgroundImage: `url('${loading ? cardBgOne.src : bg}')`,
       }}
     >
       {/* Top gradient */}
       <div className="absolute top-0 w-full h-2/5 bg-gradient-to-b from-black to-transparent"></div>
 
-      {!loading && <div className="relative container mx-auto pb-[2em] z-20">
+      <div className="relative container mx-auto pb-[2em] z-20">
         <Swiper
           modules={[EffectCoverflow, Pagination, Autoplay]}
           speed={1500}
@@ -158,7 +161,7 @@ const SwiperCarousel = () => {
           onSlideChange={handleSlideChange}
           className="mySwiper"
         >
-          {gameData.length > 0
+          {!loading && gameData.length > 0
             ? gameData.map(
                 (
                   {
@@ -177,22 +180,25 @@ const SwiperCarousel = () => {
                   <SwiperSlide key={id}>
                     <SwiperCarouselCard
                       id={gameData[i]?.id || id}
-                      poster={
-                        poster
-                      }
+                      poster={poster}
                       title={title}
                       rating={Math.round(rating)}
                       description={description}
                       price={price}
-                      /* wishlistedBy={wishlistedBy} */
+                      // wishlistedBy={wishlistedBy}
                       releaseDate={releaseDate}
-                      soldOut={soldOut
-                      }
+                      soldOut={soldOut}
                     />
                   </SwiperSlide>
                 )
               )
-            : ""}
+            : Array(4)
+                .fill(null)
+                .map((_, index) => (
+                  <SwiperSlide key={index}>
+                    <SwiperCarouselSkeleton />
+                  </SwiperSlide>
+                ))}
         </Swiper>
         <style>{`
             .swiper {
@@ -239,7 +245,7 @@ const SwiperCarousel = () => {
               }
             }
           `}</style>
-      </div>}
+      </div>
 
       {/* Bottom gradient */}
       <div className="absolute bottom-0 w-full h-2/5 bg-gradient-to-t from-black to-transparent z-10"></div>

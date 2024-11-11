@@ -25,7 +25,7 @@ const BestSelling = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await axiosInstance.get("/games?sort=popularity&limit=8");
+      const res = await axiosInstance.get("/games?sort=popularity&limit=12");
       const resGames: Game[] = res.data.data.map((game: any) => {
         return {
           id: game.id,
