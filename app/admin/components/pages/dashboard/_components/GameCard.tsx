@@ -19,7 +19,7 @@ const GameCard: React.FC<GameCardProps> = ({
 }) => {
   return (
     <article
-      className="w-[64px] h-full p-[2px] border sm:w-[83px] sm:p-[3px] md:w-[104px] md:p-[4px] lg:w-[125px] lg:p-[5px] xl:w-[146px] xl:p-[6px] 2xl:w-[156px]"
+      className="w-[64px] mx-auto h-full p-[2px] border sm:w-[83px] sm:p-[3px] md:w-[104px] md:p-[4px] lg:w-[125px] lg:p-[5px] xl:w-[146px] xl:p-[6px] 2xl:w-[156px]"
       style={{
         borderImage: `linear-gradient(to top, #00FFA1 0%, black 100%) 1`,
       }}

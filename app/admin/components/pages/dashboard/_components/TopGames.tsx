@@ -39,16 +39,20 @@ const TopGames: React.FC<TopGamesProps> = ({ games }) => {
             slidesPerGroup: 5,
           },
           768: {
-            slidesPerView: 3,
-            slidesPerGroup: 3,
+            slidesPerView: 2,
+            slidesPerGroup: 2,
           },
           1024: {
             slidesPerView: 3,
             slidesPerGroup: 3,
           },
+          1280: {
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+          },
           1536: {
-            slidesPerView: 4,
-            slidesPerGroup: 4,
+            slidesPerView: 3,
+            slidesPerGroup: 3,
           },
         }}
         autoplay={{

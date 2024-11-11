@@ -130,7 +130,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <Image
               src={cartIcon}
               alt="Not found background"
-              className="w-[20px] h-[20px]"
+              className="size-[1.1em]"
               onClick={() => crateCart(id)}
             />
           </CartSidebar>
@@ -139,10 +139,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       <div className="flex items-baseline justify-between gap-x-[0.5em]">
         <p className="font-rajdhaniFont font-semibold text-[17px] text-[#75F94C] sm:text-[24px] md:text-[30px] lg:text-[36px] xl:text-[42px] 2xl:text-[46px]">
-          ${discountPrice === 0 ? originalPrice : discountPrice}
+          $
+          {discountPrice === 0
+            ? originalPrice.toFixed(2)
+            : discountPrice.toFixed(2)}
         </p>
         {discountPrice !== 0 && (
-          <p className="line-through">${originalPrice}</p>
+          <p className="line-through">${originalPrice.toFixed(2)}</p>
         )}
       </div>
     </article>

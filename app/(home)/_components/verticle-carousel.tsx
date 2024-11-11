@@ -1,12 +1,9 @@
-import VerticalCarouselCard from "./vertical-carousel-card";
-import one from "@/public/images/home/vertical-carousel/one.png";
-import two from "@/public/images/home/vertical-carousel/two.png";
-import three from "@/public/images/home/vertical-carousel/three.png";
-import four from "@/public/images/product/bg.png";
-import five from "@/public/images/home/vertical-carousel/five.png";
-import "./verticle-carousel.css";
-import axiosInstance from "@/axios/axiosInstance";
 import { useEffect, useState } from "react";
+import axiosInstance from "@/axios/axiosInstance";
+
+import VerticalCarouselSkeleton from "./vertical-carousel-skeleton";
+import VerticalCarouselCard from "./vertical-carousel-card";
+import "./verticle-carousel.css";
 
 // const data = [
 //   {
@@ -51,36 +48,40 @@ import { useEffect, useState } from "react";
 //   },
 // ];
 
-interface GameData {
-  id: string;
-  poster: string;
-  name: string;
-  price: number;
-  rating: number;
-  soldOut: boolean;
-}
+// interface GameData {
+//   id: string;
+//   poster: string;
+//   name: string;
+//   price: number;
+//   rating: number;
+//   soldOut: boolean;
+// }
 
 const VerticalCarousel = () => {
   const [gameData, setGameData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+
   const getTopRatedGames = async () => {
     setLoading(true);
     try {
-      const response = await axiosInstance.get("/games?displayInLatesGames=true&limit=5");
-       const formattedData = response.data.data.map((game: any) => ({
+      const response = await axiosInstance.get(
+        "/games?displayInLatesGames=true&limit=5"
+      );
+      const formattedData = response.data.data.map((game: any) => ({
         id: game.id,
         poster: game.latestImage || game.cardImage,
         name: game.displayName,
         price: game.sellingPrice,
         rating: game.averageRating,
         soldOut: game.stockStatus === "IN_STOCK" ? false : true,
-        }));
+      }));
       setGameData(formattedData);
       setLoading(false);
     } catch (error) {
       console.error(error);
     }
   };
+
   useEffect(() => {
     getTopRatedGames();
   }, []);
@@ -106,20 +107,28 @@ const VerticalCarousel = () => {
         </div>
 
         {/* Carousel */}
-{!loading &&        <div className="vertical-carousel-container">
-          {gameData.map(({ id, poster, name, price, rating, soldOut }, i) => (
-            <VerticalCarouselCard
-              key={i}
-              id={id}
-              poster={poster}
-              name={name}
-              price={price}
-              rating={rating}
-              soldOut={soldOut}
-              i={i}
-            />
-          ))}
-        </div>}
+        <div className="vertical-carousel-container">
+          {loading
+            ? Array(5)
+                .fill(null)
+                .map((_, index) => (
+                  <VerticalCarouselSkeleton key={index} i={index} />
+                ))
+            : gameData.map(
+                ({ id, poster, name, price, rating, soldOut }, i) => (
+                  <VerticalCarouselCard
+                    key={i}
+                    id={id}
+                    poster={poster}
+                    name={name}
+                    price={price}
+                    rating={rating}
+                    soldOut={soldOut}
+                    i={i}
+                  />
+                )
+              )}
+        </div>
       </div>
     </section>
   );
