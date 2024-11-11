@@ -31,7 +31,7 @@ const ContactPageHeader = () => {
       </p>
 
       <div className="relative container mx-auto px-[36px] z-10">
-        <div className="flex items-center justify-between sm:w-[90%] sm:mx-auto lg:w-[80%] xl:w-[75%] 2xl:w-[70%]">
+        <div className="flex justify-between sm:w-[90%] sm:mx-auto lg:w-[80%] xl:w-[75%] 2xl:w-[70%]">
           <div className="flex flex-col items-center text-center">
             <FaMobileAlt className="size-[22px] text-[#0BDB45] sm:size-[27px] md:size-[32px] lg:size-[37px] xl:size-[40px] 2xl:size-[43px]" />
             <h6 className="font-medium text-[8px] mt-[0.5em] mb-[0.1em] sm:text-[11px] md:text-[14px] lg:text-[17px] xl:text-[19px] 2xl:text-[21px]">
