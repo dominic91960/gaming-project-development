@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { IoHeartOutline } from "react-icons/io5";
 
 import Rating from "@/components/rating/rating";
-import sampleGame from "@/public/images/sample-game.png";
 
 const SwiperCarouselSkeleton = () => {
   return (
@@ -19,10 +18,7 @@ const SwiperCarouselSkeleton = () => {
     >
       {/* Poster */}
       <div className="relative w-[92%] mx-auto -translate-y-[7em] md:w-full md:h-full md:-translate-y-0">
-        <div
-          className="absolute left-0 bottom-0 w-full h-[318px] flex items-center justify-center bg-cover bg-center opacity-50 text-center md:h-[328px] md:items-start lg:h-[340px] xl:h-[427px] 2xl:h-[513px]"
-          style={{ backgroundImage: `url(${sampleGame.src})` }}
-        ></div>
+        <div className="absolute left-0 bottom-0 w-full h-[318px] flex items-center justify-center text-center md:h-[328px] md:items-start lg:h-[340px] xl:h-[427px] 2xl:h-[513px]"></div>
       </div>
 
       <div className="-mt-[5em] md:-mt-0">
