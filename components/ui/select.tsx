@@ -91,7 +91,14 @@ const SelectContent = React.forwardRef<
             "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
         )}
       >
-        {children}
+        <div
+          ref={(ref) => {
+            if (!ref) return;
+            ref.ontouchstart = (e) => e.preventDefault();
+          }}
+        >
+          {children}
+        </div>
       </SelectPrimitive.Viewport>
       <SelectScrollDownButton />
     </SelectPrimitive.Content>

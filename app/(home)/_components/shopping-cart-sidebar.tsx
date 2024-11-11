@@ -24,6 +24,7 @@ import axiosInstance from "@/axios/axiosInstance";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import "./shopping-cart-sidebar.css";
 import { useToast } from "@/context/ToastContext";
+import WishlistButton from "@/components/product-card/WishlistButton";
 
 type CartItem = {
   id: number;
@@ -200,7 +201,8 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ children }) => {
                       </div>
 
                       <div className="flex gap-2 items-center absolute top-3 right-3">
-                        <CiHeart className="text-white text-lg cursor-pointer" />
+                        {/* <CiHeart className="text-white text-lg cursor-pointer" /> */}
+                        <WishlistButton gameId={item.id.toString()} showText={false} />
                         <MdDeleteForever
                           className="text-white text-lg cursor-pointer"
                           onClick={() => handleRemoveItem(item.id)}

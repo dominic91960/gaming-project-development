@@ -42,8 +42,10 @@ const CustomerCard: React.FC<CustomerCardProps> = ({
       </div>
 
       <div className="h-full bg-white bg-opacity-[7%] flex flex-col justify-between text-[7px] pt-[3em] backdrop-blur-md sm:text-[8px] sm:pt-[4em] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]">
-        <p className="relative px-[0.5em] z-10">{username}</p>
-        <p className="text-[8px] font-semibold px-[0.5em] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
+        <p className="relative max-w-[14ch] mx-auto px-[0.5em] overflow-hidden text-nowrap text-ellipsis z-10">
+          {username}
+        </p>
+        <p className="max-w-[13ch] mx-auto text-[8px] font-semibold px-[0.5em] overflow-hidden text-ellipsis sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
           {name}
         </p>
         <p className="bg-white font-bold text-black text-[7px] mt-[1em] px-[1em] py-[0.2em] rounded-[2px] sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[15px] 2xl:text-[16px]">

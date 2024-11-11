@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import axiosInstance from "@/axios/axiosInstance";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
 
@@ -9,100 +10,44 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
-import cardBgOne from "@/public/images/home/swiper-carousel/card-bg-one.png";
-import cardBgTwo from "@/public/images/home/swiper-carousel/card-bg-two.png";
-import cardBgThree from "@/public/images/home/swiper-carousel/card-bg-three.png";
-import cardBgFour from "@/public/images/home/swiper-carousel/card-bg-four.png";
-import gamePoster from "@/public/images/home/swiper-carousel/poster.png";
+import SwiperCarouselSkeleton from "./swiper-carousel-skeleton";
 import SwiperCarouselCard from "./swiper-carousel-card";
-import axiosInstance from "@/axios/axiosInstance";
-
-const data = [
-  {
-    id: "670f554d92cae82274f98b54",
-    background: cardBgOne.src,
-    poster: gamePoster.src,
-    title: "Warhammer 40,000: Space Marine 2",
-    rating: 0,
-    description:
-      "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ahead, to uncover the obscured truth beneath the veil of a glorious legend from the past. ",
-    price: 40.0,
-    wishlistedBy: 9452399,
-    releaseDate: "20 Aug, 2024",
-    soldOut: true,
-  },
-  {
-    id: "670f5ce892cae82274f98b5b",
-    background: cardBgTwo.src,
-    poster: gamePoster.src,
-    title: "Black Myth: Wukong",
-    rating: 5,
-    description:
-      "Embark on an epic journey through Ancient Greece and shape your destiny as a legendary Spartan hero.",
-    price: 40.0,
-    wishlistedBy: 539999,
-    releaseDate: "20 Aug, 2024",
-    soldOut: false,
-  },
-  {
-    id: "670fbcca0a1092877a48494c",
-    background: cardBgThree.src,
-    poster: gamePoster.src,
-    title: "Black Myth: Wukong",
-    rating: 5,
-    description:
-      "Red Dead Redemption 2 is an epic tale of life in America at the dawn of the modern age. Set in 1899, you play as Arthur Morgan, an outlaw and a member of the Van der Linde gang, who must deal with the decline of the Wild West while surviving against government forces, rival gangs, and other adversaries in an open world setting.",
-    price: 40.0,
-    wishlistedBy: 24364,
-    releaseDate: "20 Aug, 2024",
-    soldOut: false,
-  },
-  {
-    id: "67160d8b0342881a0be83757",
-    background: cardBgFour.src,
-    poster: gamePoster.src,
-    title: "Black Myth: Wukong",
-    rating: 5,
-    description:
-      "The Last of Us is an action/adventure game set in a post-apocalyptic world. You play as Joel, a smuggler tasked with escorting a teenage girl, Ellie, across the United States, while battling hostile humans and zombie-like creatures infected by a mutated fungus. The game focuses on stealth and combat in an emotionally driven narrative.",
-    price: 4000.0,
-    wishlistedBy: 1200,
-    releaseDate: "20 Aug, 2024",
-    soldOut: false,
-  },
-];
+import cardBgOne from "@/public/images/home/swiper-carousel/card-bg-one.png";
 
 interface GameData {
   id: string;
-  displayName: string;
-  productName: string;
-  averageRating: number;
-  aboutThisGame: string;
-  sellingPrice: number;
-  /* wishlistedBy: string[]; */
-  releaseDate: string;
-  stockStatus: string;
   background: string;
-  coverImage: string;
-  screenshots: [];
+  poster: string;
+  title: string;
+  rating: number;
+  description: string;
+  price: number;
+  wishlistedBy: number;
+  releaseDate: string;
+  soldOut: boolean;
 }
 
 const SwiperCarousel = () => {
   const getTopRatedGames = async () => {
+    setLoading(true);
     try {
-      const response = await axiosInstance.get("/games/top-rated");
-      /* const formattedData = response.data.map((game: any) => ({
-          id: game.id,
-          poster: game.cardImage,
-          title: game.displayName,
-          rating: game.averageRating,
-          description: game.cardDescription,
-          price: game.sellingPrice,
-          wishlistedBy: 10, // update if needed
-          releaseDate: game.releaseDate,
-          soldOut: game.stockStatus !== "IN_STOCK",
-        })); */
-      setGameData(response.data.products);
+      const response = await axiosInstance.get(
+        "/games?addToCarousel=true&limit=4"
+      );
+      const formattedData = response.data.data.map((game: any) => ({
+        id: game.id,
+        background: game.coverImage,
+        poster: game.cardImage,
+        title: game.displayName,
+        rating: game.averageRating,
+        description: game.aboutThisGame,
+        price: game.sellingPrice,
+        wishlistedBy: 90,
+        releaseDate: game.releaseDate,
+        soldOut: game.stockStatus === "IN_STOCK" ? false : true,
+      }));
+      setGameData(formattedData);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -113,10 +58,11 @@ const SwiperCarousel = () => {
 
   const [bg, setBg] = useState("");
   const [gameData, setGameData] = useState<GameData[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const handleSlideChange = (swiper: { realIndex: number }) => {
     const realIndex = swiper.realIndex;
-    setBg(data[realIndex].background);
+    setBg(gameData[realIndex]?.background);
   };
 
   // if (loading) {
@@ -127,7 +73,7 @@ const SwiperCarousel = () => {
     <section
       className={`relative min-h-svh bg-cover bg-center flex items-center justify-center font-primaryFont font-semibold text-[8px] lg:text-[9px] xl:text-[11px] 2xl:text-[13px] text-white transition-all duration-1000 ease-in-out`}
       style={{
-        backgroundImage: `url('${bg}')`,
+        backgroundImage: `url('${loading ? cardBgOne.src : bg}')`,
       }}
     >
       {/* Top gradient */}
@@ -155,8 +101,8 @@ const SwiperCarousel = () => {
           onSlideChange={handleSlideChange}
           className="mySwiper"
         >
-          {data.length > 0
-            ? data.map(
+          {!loading && gameData.length > 0
+            ? gameData.map(
                 (
                   {
                     id,
@@ -174,27 +120,25 @@ const SwiperCarousel = () => {
                   <SwiperSlide key={id}>
                     <SwiperCarouselCard
                       id={gameData[i]?.id || id}
-                      poster={
-                        gameData[i]?.screenshots[i] ||
-                        gameData[i]?.coverImage ||
-                        poster
-                      }
-                      title={gameData[i]?.displayName || title}
-                      rating={Math.round(gameData[i]?.averageRating || rating)}
-                      description={gameData[i]?.aboutThisGame || description}
-                      price={gameData[i]?.sellingPrice || price}
-                      /* wishlistedBy={wishlistedBy} */
-                      releaseDate={gameData[i]?.releaseDate || releaseDate}
-                      soldOut={
-                        (gameData[i]?.stockStatus === "IN_STOCK"
-                          ? false
-                          : true) || soldOut
-                      }
+                      poster={poster}
+                      title={title}
+                      rating={Math.round(rating)}
+                      description={description}
+                      price={price}
+                      // wishlistedBy={wishlistedBy}
+                      releaseDate={releaseDate}
+                      soldOut={soldOut}
                     />
                   </SwiperSlide>
                 )
               )
-            : ""}
+            : Array(4)
+                .fill(null)
+                .map((_, index) => (
+                  <SwiperSlide key={index}>
+                    <SwiperCarouselSkeleton />
+                  </SwiperSlide>
+                ))}
         </Swiper>
         <style>{`
             .swiper {

@@ -43,20 +43,17 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const { selectedItem, setSelectedItem } = useSidebar();
 
-  const handleItemClick = useCallback(
-    (item: string) => {
-      setSelectedItem(item);
-      onSelect(item);
-      setIsMobileNavToggled(false);
-    },
-    [onSelect, setIsMobileNavToggled, setSelectedItem]
-  );
+  const handleItemClick = (item: string) => {
+    setSelectedItem(item);
+    onSelect(item);
+    setIsMobileNavToggled(false);
+  };
 
   useEffect(() => {
     if (selectedItem) {
       handleItemClick(selectedItem);
     }
-  }, [handleItemClick, selectedItem]);
+  }, [selectedItem]);
 
   return (
     <div
