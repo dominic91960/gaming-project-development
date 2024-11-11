@@ -1,15 +1,32 @@
-import React from "react";
+"use client";
+
+import React, { FormEvent, useState } from "react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 
+import { useToast } from "@/context/ToastContext";
 import formBg from "@/public/images/contact-us/form-bg.png";
 import formCharacter from "@/public/images/contact-us/avatar.png";
 import "./ContactForm.css";
 
 const ContactForm = () => {
+  const addToast = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setIsSubmitting(true);
+    setTimeout(() => {
+      addToast("Message sent successfully!", "success");
+      setIsSubmitting(false);
+    }, 2000);
+  };
+
   return (
     <form
+      onSubmit={handleSubmit}
       className="relative mx-auto bg-cover bg-center text-[8px] p-[1.75em] sm:w-[90%] sm:grid sm:grid-cols-2 sm:text-[10px] sm:mt-[50px] md:text-[12px] md:mt-[60px] lg:w-[80%] lg:text-[15px] lg:mt-[70px] xl:w-[75%] xl:text-[18px] xl:mt-[85px] 2xl:w-[70%] 2xl:text-[20px] 2xl:mt-[100px]"
       style={{ backgroundImage: `url(${formBg.src})` }}
     >
@@ -70,8 +87,9 @@ const ContactForm = () => {
           type="submit"
           variant="gaming"
           className="w-full h-fit text-[7px] mt-[2.5em] px-[1em] py-[0.5em] sm:w-3/5 sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+          disabled={isSubmitting}
         >
-          SEND
+          {isSubmitting ? "SENDING" : "SEND"}
         </Button>
       </div>
 
