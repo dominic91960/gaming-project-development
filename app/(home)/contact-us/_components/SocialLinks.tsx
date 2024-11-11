@@ -7,7 +7,7 @@ import { IoLogoInstagram } from "react-icons/io5";
 
 const SocialLinks = () => {
   return (
-    <ul className="flex justify-center gap-x-[2em] text-[9px] mt-[2.5em] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px]">
+    <ul className="flex justify-center gap-x-[2em] text-[9px] my-[2.5em] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px]">
       <li className="w-fit hover:scale-110">
         <Link href="/">
           <FaFacebook className="size-[2em] sm:size-[1.48em]" />

@@ -35,6 +35,7 @@ const ContactForm = () => {
           id="name"
           placeholder="Name"
           className="w-full bg-white/10 text-[7px] px-[1em] py-[0.5em] placeholder:text-white/70 outline-none sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+          required
         />
 
         <label
@@ -44,10 +45,11 @@ const ContactForm = () => {
           Email
         </label>
         <input
-          type="text"
+          type="email"
           id="email"
           placeholder="Email"
           className="w-full bg-white/10 text-[7px] px-[1em] py-[0.5em] placeholder:text-white/70 outline-none sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
+          required
         />
 
         <label
@@ -61,6 +63,7 @@ const ContactForm = () => {
           placeholder="Message"
           className="w-full bg-white/10 text-[7px] px-[1em] py-[0.5em] placeholder:text-white/70 outline-none sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px]"
           rows={5}
+          required
         />
 
         <Button
@@ -72,7 +75,7 @@ const ContactForm = () => {
         </Button>
       </div>
 
-      <div className="hidden absolute bottom-0 -right-[60px] w-[330px] sm:block md:w-[396px] lg:w-[462px] xl:w-[528px] 2xl:w-[594px]">
+      <div className="hidden absolute bottom-0 -right-[15%] w-[330px] sm:block md:-right-[13.5%] md:w-[396px] lg:-right-[10.8%] lg:w-[462px] xl:-right-[8.5%] xl:w-[528px] 2xl:-right-[8%] 2xl:w-[594px]">
         <Image src={formCharacter} alt="Contact-Us" className="w-full" />
       </div>
     </form>
