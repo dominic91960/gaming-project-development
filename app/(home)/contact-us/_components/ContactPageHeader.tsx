@@ -30,39 +30,41 @@ const ContactPageHeader = () => {
         Get in touch with us!
       </p>
 
-      <div className="relative container mx-auto px-[36px] flex items-center justify-between z-10">
-        <div className="flex flex-col items-center text-center">
-          <FaMobileAlt className="size-[22px] text-[#0BDB45] sm:size-[27px] md:size-[32px] lg:size-[37px] xl:size-[40px] 2xl:size-[43px]" />
-          <h6 className="font-medium text-[8px] mt-[0.5em] mb-[0.1em] sm:text-[11px] md:text-[14px] lg:text-[17px] xl:text-[19px] 2xl:text-[21px]">
-            Phone
-          </h6>
-          <p className="w-[20ch] font-normal text-[7px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
-            +94 765463214
-          </p>
-        </div>
+      <div className="relative container mx-auto px-[36px] z-10">
+        <div className="flex items-center justify-between sm:w-[90%] sm:mx-auto lg:w-[80%] xl:w-[75%] 2xl:w-[70%]">
+          <div className="flex flex-col items-center text-center">
+            <FaMobileAlt className="size-[22px] text-[#0BDB45] sm:size-[27px] md:size-[32px] lg:size-[37px] xl:size-[40px] 2xl:size-[43px]" />
+            <h6 className="font-medium text-[8px] mt-[0.5em] mb-[0.1em] sm:text-[11px] md:text-[14px] lg:text-[17px] xl:text-[19px] 2xl:text-[21px]">
+              Phone
+            </h6>
+            <p className="w-[20ch] font-normal text-[7px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+              +94 765463214
+            </p>
+          </div>
 
-        <div className="hidden w-px h-10 bg-white lg:block lg:h-[95px] xl:h-[105px] 2xl:h-[125px]"></div>
+          <div className="hidden w-px h-10 bg-white lg:block lg:h-[95px] xl:h-[105px] 2xl:h-[125px]"></div>
 
-        <div className="flex flex-col items-center text-center">
-          <FaLocationDot className="size-[22px] text-[#0BDB45] sm:size-[27px] md:size-[32px] lg:size-[37px] xl:size-[40px] 2xl:size-[43px]" />
-          <h6 className="font-medium text-[8px] mt-[0.5em] mb-[0.1em] sm:text-[11px] md:text-[14px] lg:text-[17px] xl:text-[19px] 2xl:text-[21px]">
-            Address
-          </h6>
-          <p className="w-[20ch] font-normal text-[7px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
-            132, My Street, Kingston, New York 12401.
-          </p>
-        </div>
+          <div className="flex flex-col items-center text-center">
+            <FaLocationDot className="size-[22px] text-[#0BDB45] sm:size-[27px] md:size-[32px] lg:size-[37px] xl:size-[40px] 2xl:size-[43px]" />
+            <h6 className="font-medium text-[8px] mt-[0.5em] mb-[0.1em] sm:text-[11px] md:text-[14px] lg:text-[17px] xl:text-[19px] 2xl:text-[21px]">
+              Address
+            </h6>
+            <p className="w-[20ch] font-normal text-[7px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+              132, My Street, Kingston, New York 12401.
+            </p>
+          </div>
 
-        <div className="hidden w-px h-10 bg-white lg:block lg:h-[95px] xl:h-[105px] 2xl:h-[125px]"></div>
+          <div className="hidden w-px h-10 bg-white lg:block lg:h-[95px] xl:h-[105px] 2xl:h-[125px]"></div>
 
-        <div className="flex flex-col items-center text-center">
-          <LuMail className="size-[22px] text-[#0BDB45] sm:size-[27px] md:size-[32px] lg:size-[37px] xl:size-[40px] 2xl:size-[43px]" />
-          <h6 className="font-medium text-[8px] mt-[0.5em] mb-[0.1em] sm:text-[11px] md:text-[14px] lg:text-[17px] xl:text-[19px] 2xl:text-[21px]">
-            E-mail
-          </h6>
-          <p className="w-[20ch] font-normal text-[7px] overflow-hidden text-ellipsis sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
-            vingame@gmail.com
-          </p>
+          <div className="flex flex-col items-center text-center">
+            <LuMail className="size-[22px] text-[#0BDB45] sm:size-[27px] md:size-[32px] lg:size-[37px] xl:size-[40px] 2xl:size-[43px]" />
+            <h6 className="font-medium text-[8px] mt-[0.5em] mb-[0.1em] sm:text-[11px] md:text-[14px] lg:text-[17px] xl:text-[19px] 2xl:text-[21px]">
+              E-mail
+            </h6>
+            <p className="w-[20ch] font-normal text-[7px] overflow-hidden text-ellipsis sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+              vingame@gmail.com
+            </p>
+          </div>
         </div>
       </div>
 
