@@ -43,6 +43,10 @@ interface CouponContextProps {
     newCoupon: NewCoupon,
     callback: () => void
   ) => Promise<AllCouponsNew | null>;
+  saveCoupon: (
+    data: any,
+    callback: () => void
+  ) => Promise<AllCouponsNew | null>;
   deleteCouponById: (id: string) => void;
 }
 
@@ -125,14 +129,52 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
       await axiosInstance.delete(`/coupons/${id}`);
 
       // Remove coupon from state
-      setAllCoupons(allCoupons.filter((coupon) => coupon.id !== id)
-      );
+      setAllCoupons(allCoupons.filter((coupon) => coupon.id !== id));
 
       showToast(true, "Coupon deleted successfully.");
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message || "Failed to delete coupon.";
       showToast(false, errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Save the coupon after editing
+  const saveCoupon = async (data: any, callback: () => void) => {
+    setLoading(true);
+    const updatedFormData = {
+      code: data.code,
+      discount: data.discount,
+      type: data.type,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      description: data.description,
+    };
+
+    try {
+      const response = await axiosInstance.patch(`/coupons/${data.id}`, updatedFormData);
+      const updatedCoupon = response.data;
+
+      // Update coupon in the state
+      setAllCoupons((prevCoupons) =>
+        prevCoupons.map((coupon) =>
+          coupon.id === updatedCoupon.id ? updatedCoupon : coupon
+        )
+      );
+
+      // Show success toast
+      showToast(true, "Coupon updated successfully.");
+      callback();
+      getAllCoupons(1);
+
+      return updatedCoupon;
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to update coupon.";
+      showToast(false, errorMessage);
+      return null;
     } finally {
       setLoading(false);
     }
@@ -153,6 +195,7 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
         reloadCoupons,
         setReloadCoupons,
         addNewCoupon,
+        saveCoupon,
         deleteCouponById,
       }}
     >
