@@ -48,11 +48,11 @@ const Hero = () => {
           </Link>
 
           {/* Hero image */}
-          <div className="absolute bottom-0 left-[48px] w-[375px] z-10 sm:left-[50px] sm:w-full sm:h-[350px] md:left-[60px] md:h-[450px] lg:left-[100px] lg:h-[570px] xl:left-[150px] xl:h-[700px] 2xl:left-[180px] 2xl:h-[777px]">
+          <div className="absolute bottom-0 left-[48px] w-[375px] z-10 sm:left-[50px] sm:w-full sm:h-[350px] md:left-[60px] md:h-[450px] lg:left-[80px] lg:h-[570px] xl:left-[100px] xl:h-[700px] 2xl:left-[40px] 2xl:h-[777px]">
             <Image
               src={mainCharacterImage}
               alt="Hero"
-              className="w-auto h-full"
+              className="w-full h-full object-contain"
             />
           </div>
         </div>
@@ -61,7 +61,6 @@ const Hero = () => {
       {/* Iconbar */}
       <IconBar />
 
-      {/* Bottom gradient */}
       {/* Bottom gradient */}
       <div className="absolute bottom-0 w-full h-2/5 bg-gradient-to-t from-black to-transparent"></div>
     </section>

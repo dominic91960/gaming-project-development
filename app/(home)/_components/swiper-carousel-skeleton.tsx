@@ -8,7 +8,7 @@ import Rating from "@/components/rating/rating";
 const SwiperCarouselSkeleton = () => {
   return (
     <article
-      className="w-full h-fit backdrop-blur-[10px] p-[5em] pt-0 mt-[8em] mb-[3em] md:p-[2em] md:mt-[4em] md:mb-[0.5em] md:grid md:grid-cols-2 md:place-items-end md:gap-x-[2em]"
+      className="w-full h-fit backdrop-blur-[10px] p-[5em] pt-0 mt-[8em] mb-[3em] md:p-[2em] md:mt-[4em] md:mb-[0.5em] md:grid md:grid-cols-2 md:place-items-end md:gap-x-[2em] animate-pulse"
       style={{
         backgroundImage: `linear-gradient(to top right, #002304 0%, #FFFFFF14 40%, #FFFFFF14 60%, #002304 100%)`,
         borderImage: `linear-gradient(to bottom, #9DA8A0 0%, #00FF47 100%) 1`,
@@ -17,7 +17,7 @@ const SwiperCarouselSkeleton = () => {
       }}
     >
       {/* Poster */}
-      <div className="relative w-[92%] mx-auto -translate-y-[7em] md:w-full md:h-full md:-translate-y-0">
+      <div className="relative w-[92%] h-[300px] bg-white/20 mx-auto -translate-y-[7em] md:w-full md:h-full md:-translate-y-0">
         <div className="absolute left-0 bottom-0 w-full h-[318px] flex items-center justify-center text-center md:h-[328px] md:items-start lg:h-[340px] xl:h-[427px] 2xl:h-[513px]"></div>
       </div>
 
@@ -59,20 +59,19 @@ const SwiperCarouselSkeleton = () => {
         </div>
 
         {/* Actions */}
-        <div className="flex justify-between pt-[2em] gap-x-[1em] opacity-20">
+        <div className="flex justify-between pt-[2em] gap-x-[1em]">
           <Button
-            variant="gaming"
-            className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] border border-[#0BDB45] h-fit"
+            className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] border border-white rounded-none h-fit bg-white/50"
             disabled
           >
-            Buy now
+            <p className="opacity-0">Buy now</p>
           </Button>
           <Button
             variant={"outline"}
-            className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] rounded-none h-fit"
+            className="text-[1.1em] font-semibold capitalize px-[3em] py-[1em] rounded-none h-fit bg-white/50"
             disabled
           >
-            Add to cart
+            <p className="opacity-0">Add to cart</p>
           </Button>
         </div>
       </div>
