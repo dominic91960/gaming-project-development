@@ -12,6 +12,10 @@ import Spinner from "@/components/Spinner/Spinner";
 import { TbLayoutSidebarLeftExpandFilled } from "react-icons/tb";
 
 import mobileSidebarIcon from "../../../public/images/shop/sidebarToggleIcon.png";
+import ContactPageHeader from "./components/ShopHeader";
+
+import { HiAdjustmentsHorizontal } from "react-icons/hi2";
+import ShopHeader from "./components/ShopHeader";
 
 type FilterParams = {
   rating: number;
@@ -60,7 +64,9 @@ const ShopPage = () => {
 
     <div className="bg-[#051301]">
       {/* Title */}
-      <div className="relative">
+
+      <ShopHeader />
+      {/* <div className="relative">
         <Image src={coverPhoto} alt="shop page cover image" className="" />
 
         <div className="absolute bottom-5 left-1/2 -translate-x-1/2 ">
@@ -79,7 +85,7 @@ const ShopPage = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div
         style={{
@@ -96,11 +102,13 @@ const ShopPage = () => {
             >
               {/* <TbLayoutSidebarLeftExpandFilled /> */}
 
-              <Image
+              {/* <Image
                 src={mobileSidebarIcon}
                 alt="mobile sidebar toggle icon"
                 className="w-[26px] h-[26px]"
-              />
+              /> */}
+
+              <HiAdjustmentsHorizontal className="text-white text-[25px]" />
             </button>
 
             {/* Sidebar for mobile */}
