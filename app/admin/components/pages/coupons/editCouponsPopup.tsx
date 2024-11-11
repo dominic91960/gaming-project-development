@@ -1,15 +1,33 @@
 import React, { ChangeEvent, FormEvent, useRef } from "react";
-
+import * as Yup from "yup";
 import { AllCouponsNew } from "./columns";
 import { X } from "lucide-react";
 import { IoIosCalendar } from "react-icons/io";
+import { useToast } from "@/context/ToastContext";
+import axiosInstance from "@/axios/axiosInstance";
+import { useCouponContext } from "@/context/CouponContext";
+
+// Define validation schema with Yup
+const couponSchema = Yup.object().shape({
+  code: Yup.string().required("Coupon code is required"),
+  discount: Yup.number()
+    .typeError("Discount must be a number")
+    .positive("Discount must be a positive number")
+    .required("Discount amount is required"),
+  type: Yup.string().oneOf(["FIXED", "PERCENTAGE"], "Invalid discount type"),
+  startDate: Yup.date().required("Start date is required"),
+  endDate: Yup.date()
+    .required("Expiry date is required")
+    .min(Yup.ref("startDate"), "Expiry date cannot be before start date"),
+  description: Yup.string().required("Description is required"),
+});
 
 interface EditAllCouponsPopupProps {
   coupon: AllCouponsNew | null;
   isOpen: boolean;
   readOnly: boolean;
   onClose: () => void;
-  onSave: (updatedcoupon: AllCouponsNew) => void;
+  onSave: (updatedCoupon: any) => void;
 }
 
 const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
@@ -21,13 +39,17 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
 }) => {
   const startDateRef = useRef<HTMLInputElement | null>(null);
   const expiryDateRef = useRef<HTMLInputElement | null>(null);
-  const [editedcoupon, setEditedcoupon] = React.useState<AllCouponsNew | null>(
+  const [editedCoupon, setEditedCoupon] = React.useState<AllCouponsNew | null>(
     coupon
   );
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
+  const { saveCoupon } = useCouponContext();
+
+  const addToast = useToast();
 
   React.useEffect(() => {
     if (coupon) {
-      setEditedcoupon({
+      setEditedCoupon({
         ...coupon,
         startDate: coupon.startDate
           ? new Date(coupon.startDate).toISOString().split("T")[0]
@@ -39,7 +61,7 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
     }
   }, [coupon]);
 
-  if (!isOpen || !editedcoupon) {
+  if (!isOpen || !editedCoupon) {
     return null;
   }
 
@@ -47,30 +69,71 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setEditedcoupon({
-      ...editedcoupon,
-      [name]: value,
+
+    // Ensure the state update matches the type exactly
+    setEditedCoupon((prev) => {
+      // If prev is null, return an empty object or keep it as null if you prefer to handle that case
+      if (!prev) return null;
+
+      return {
+        ...prev,
+        [name]: value,
+      } as AllCouponsNew; // Type assertion ensures compatibility
     });
+
+    // Clear the specific field error if any
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "", // Clear error for the specific field
+    }));
   };
 
-  const handleSave = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // Validate form and display errors if any
+  const validateForm = async () => {
+    try {
+      await couponSchema.validate(editedCoupon, { abortEarly: false });
+      setErrors({}); // Clear errors if validation is successful
+      return true;
+    } catch (validationError) {
+      if (validationError instanceof Yup.ValidationError) {
+        const formErrors: Record<string, string> = {};
+        validationError.inner.forEach((error) => {
+          if (error.path) formErrors[error.path] = error.message;
+        });
+        setErrors(formErrors);
+      }
+      return false;
+    }
+  };
 
-    if (editedcoupon) {
-      if (readOnly) return;
-      // Ensure the startDate and endDate are in the correct format before passing to onSave
+  const handleSave = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (readOnly) return;
+
+    const isValid = await validateForm();
+    if (isValid && editedCoupon) {
       const updatedCoupon = {
-        ...editedcoupon,
-        startDate: editedcoupon.startDate
-          ? new Date(editedcoupon.startDate).toISOString()
+        ...editedCoupon,
+        startDate: editedCoupon.startDate
+          ? new Date(editedCoupon.startDate).toISOString()
           : null,
-        endDate: editedcoupon.endDate
-          ? new Date(editedcoupon.endDate).toISOString()
+        endDate: editedCoupon.endDate
+          ? new Date(editedCoupon.endDate).toISOString()
           : null,
       };
-    }
+      onSave(updatedCoupon);
 
-    onClose();
+      const updatedFormData = {
+        id: updatedCoupon.id,
+        code: updatedCoupon.code,
+        discount: updatedCoupon.discount,
+        type: updatedCoupon.type,
+        startDate: updatedCoupon.startDate,
+        endDate: updatedCoupon.endDate,
+        description: updatedCoupon.description,
+      };
+      saveCoupon(updatedFormData, onClose);
+    }
   };
 
   return (
@@ -91,233 +154,114 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
           onSubmit={handleSave}
           className="mt-[2.5em] py-[1.5em] rounded-sm md:bg-black/40 md:p-[1.5em] md:border md:border-[#0D6D49]"
         >
-          {/* Grid for coupon code */}
-          <div className="grid grid-cols-2 gap-[1em] mt-[1em]">
-            <div>
-              <label htmlFor="code">Coupon Code</label>
-              <input
-                type="text"
-                id="code"
-                name="code"
-                value={editedcoupon.code}
-                onChange={handleInputChange}
-                className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.5em]"
-                readOnly={readOnly}
-              />
-
-              <p className="text-[0.9em] mt-[0.3em] text-[#FF374E]">
-                some dummy error
-              </p>
-            </div>
+          {/* Coupon Code */}
+          <div>
+            <label htmlFor="code">Coupon Code</label>
+            <input
+              type="text"
+              id="code"
+              name="code"
+              value={editedCoupon.code}
+              onChange={handleInputChange}
+              className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.5em]"
+              readOnly={readOnly}
+            />
+            <p className="text-[0.9em] mt-[0.3em] text-[#FF374E]">
+              {errors.code}
+            </p>
           </div>
 
-          {/* Grid for discount and discount type */}
+          {/* Discount and Discount Type */}
           <div className="grid grid-cols-2 gap-[1em] mt-[1em]">
-            {/* discount */}
             <div>
               <label htmlFor="discount">Discount Amount</label>
               <input
                 type="number"
                 id="discount"
                 name="discount"
-                value={editedcoupon.discount}
+                value={editedCoupon.discount}
                 onChange={handleInputChange}
                 className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.5em]"
                 readOnly={readOnly}
               />
               <p className="text-[0.9em] mt-[0.3em] text-[#FF374E]">
-                some dummy error
+                {errors.discount}
               </p>
             </div>
 
-            {/* Discount type */}
             <div>
               <label htmlFor="type">Discount Type</label>
               <select
                 id="type"
                 name="type"
-                value={editedcoupon.type}
+                value={editedCoupon.type}
                 onChange={handleInputChange}
                 className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.55em]"
                 disabled={readOnly}
               >
-                <option value="FIXED" className="bg-black">
-                  Fixed product discount
-                </option>
-                <option value="PERCENTAGE" className="bg-black">
-                  Percentage discount
-                </option>
+                <option value="FIXED">Fixed product discount</option>
+                <option value="PERCENTAGE">Percentage discount</option>
               </select>
               <p className="text-[0.9em] mt-[0.3em] text-[#FF374E]">
-                some dummy error
+                {errors.type}
               </p>
             </div>
           </div>
 
-          {/* Grid for coupon start date and coupon end date */}
+          {/* Start Date and Expiry Date */}
           <div className="grid grid-cols-2 gap-[1em] mt-[1em]">
-            {/* Coupon start date */}
             <div>
               <label htmlFor="start-date">Start Date</label>
-              <style>{`
-                input[type="date"]::-webkit-calendar-picker-indicator {
-                  display: none;
-                }
-
-                @supports (-moz-appearance: none) {
-                  #date-picker {
-                    display: none;
-                  }
-                }
-              `}</style>
-              <div className="relative">
-                <input
-                  type="date"
-                  id="start-date"
-                  name="startDate"
-                  ref={startDateRef}
-                  value={editedcoupon.startDate}
-                  onChange={handleInputChange}
-                  className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.5em]"
-                  style={{
-                    appearance: "none",
-                    WebkitAppearance: "none",
-                    MozAppearance: "textfield",
-                  }}
-                  readOnly={readOnly}
-                />
-                {!readOnly && (
-                  <button
-                    type="button"
-                    id="date-picker"
-                    className="absolute top-0 bottom-0 right-[0.2em] my-auto size-fit text-[1.5em] px-[0.2em] py-[0.2em] hover:opacity-80"
-                    onClick={() => startDateRef.current?.showPicker()}
-                  >
-                    <IoIosCalendar />
-                  </button>
-                )}
-              </div>
+              <input
+                type="date"
+                id="start-date"
+                name="startDate"
+                ref={startDateRef}
+                value={editedCoupon.startDate}
+                onChange={handleInputChange}
+                className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.5em]"
+                readOnly={readOnly}
+              />
               <p className="text-[0.9em] mt-[0.3em] text-[#FF374E]">
-                some dummy error
+                {errors.startDate}
               </p>
             </div>
 
-            {/* Coupon end date */}
             <div>
               <label htmlFor="end-date">Expiry Date</label>
-              <style>{`
-                input[type="date"]::-webkit-calendar-picker-indicator {
-                  display: none;
-                }
-
-                @supports (-moz-appearance: none) {
-                  #date-picker {
-                    display: none;
-                  }
-                }
-              `}</style>
-              <div className="relative">
-                <input
-                  type="date"
-                  id="end-date"
-                  name="endDate"
-                  ref={expiryDateRef}
-                  value={editedcoupon.endDate}
-                  onChange={handleInputChange}
-                  className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.5em]"
-                  style={{
-                    appearance: "none",
-                    WebkitAppearance: "none",
-                    MozAppearance: "textfield",
-                  }}
-                  readOnly={readOnly}
-                />
-                {!readOnly && (
-                  <button
-                    type="button"
-                    id="date-picker"
-                    className="absolute top-0 bottom-0 right-[0.2em] my-auto size-fit text-[1.5em] px-[0.2em] py-[0.2em] hover:opacity-80"
-                    onClick={() => expiryDateRef.current?.showPicker()}
-                  >
-                    <IoIosCalendar />
-                  </button>
-                )}
-              </div>
+              <input
+                type="date"
+                id="end-date"
+                name="endDate"
+                ref={expiryDateRef}
+                value={editedCoupon.endDate}
+                onChange={handleInputChange}
+                className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.5em]"
+                readOnly={readOnly}
+              />
               <p className="text-[0.9em] mt-[0.3em] text-[#FF374E]">
-                some dummy error
+                {errors.endDate}
               </p>
             </div>
           </div>
 
-          {/* Coupon description */}
+          {/* Description */}
           <div className="mt-[1em]">
             <label htmlFor="description">Description</label>
             <input
               type="text"
               id="description"
               name="description"
-              value={editedcoupon.description}
+              value={editedCoupon.description}
               onChange={handleInputChange}
               className="w-full bg-transparent px-[1em] py-[0.2em] text-[#D9D9D9]/80 border border-[#D9D9D9]/50 outline-none rounded-sm sm:py-[0.5em]"
               readOnly={readOnly}
             />
             <p className="text-[0.9em] mt-[0.3em] text-[#FF374E]">
-              some dummy error
+              {errors.description}
             </p>
           </div>
 
-          {/* <input
-            type="text"
-            name="discount"
-            value={editedcoupon.discount}
-            onChange={handleInputChange}
-            placeholder="Coupon Discount"
-            className="w-full mb-2 p-2 border rounded"
-            readOnly={readOnly}
-          /> */}
-
-          {/* <select
-            name="type"
-            value={editedcoupon.type}
-            onChange={handleInputChange}
-            className="w-full mb-2 p-2 border rounded"
-            disabled={readOnly}
-          >
-            <option value="Fixed_product_discount">
-              Fixed product discount
-            </option>
-            <option value="Percentage_discount">Percentage discount</option>
-          </select> */}
-
-          {/* <input
-            type="date"
-            name="startDate"
-            value={editedcoupon.startDate}
-            onChange={handleInputChange}
-            className="w-full mb-2 p-2 border rounded"
-            readOnly={readOnly}
-          /> */}
-
-          {/* <input
-            type="date"
-            name="endDate"
-            value={editedcoupon.endDate}
-            onChange={handleInputChange}
-            className="w-full mb-2 p-2 border rounded"
-            readOnly={readOnly}
-          /> */}
-
-          {/* <input
-            type="text"
-            name="description"
-            value={editedcoupon.description}
-            onChange={handleInputChange}
-            placeholder="Coupon Description"
-            className="w-full mb-2 p-2 border rounded"
-            readOnly={readOnly}
-          /> */}
-
-          {/* Footer text and submit button */}
           {!readOnly && (
             <div className="flex items-center justify-between leading-none mt-[2.5em] md:mt-[12em]">
               <p className="max-w-[40ch] text-[8px] sm:max-w-[60ch] sm:text-[8.5px] md:text-[9px] lg:text-[9.5px] xl:text-[9.75px] 2xl:text-[10px]">
@@ -326,7 +270,7 @@ const EditAllCouponsPopup: React.FC<EditAllCouponsPopupProps> = ({
               </p>
 
               <button
-                type="button"
+                type="submit"
                 className="bg-[#00FFA1] font-semibold text-black uppercase px-[1.4em] py-[0.8em] rounded-sm hover:opacity-80"
               >
                 Save
