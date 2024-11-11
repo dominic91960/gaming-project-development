@@ -131,7 +131,9 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
 
       <div className="-mt-[5em] md:-mt-0">
         {/* Title */}
-        <h3 className="font-bold text-[2em] line-clamp-1">{title}</h3>
+        <h3 className="font-bold text-[2em] line-clamp-1 [text-shadow:_0_0_3px_rgb(0_0_0)]">
+          {title}
+        </h3>
 
         {/* Rating */}
         <div className="text-[1.25em] pb-[0.7em]">
@@ -141,14 +143,21 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
 
         {/* Description */}
         <div className="h-[15em] pt-[1.5em] text-justify font-normal">
-          <p className="line-clamp-6">{description}</p>
+          <p className="line-clamp-6 [text-shadow:_0_0_3px_rgb(0_0_0)]">
+            {description}
+          </p>
         </div>
 
         {/* Price and release date */}
         <div className="flex items-end justify-between pt-[1.5em]">
           <h4 className="leading-none">
-            <span className="text-[1.8em]">${price.toFixed(2)}</span>
-            <span className="text-[1.1em]"> USD</span>
+            <span className="text-[1.8em] [text-shadow:_0_0_2px_rgb(0_0_0)]">
+              ${price.toFixed(2)}
+            </span>
+            <span className="text-[1.1em] [text-shadow:_0_0_2px_rgb(0_0_0)]">
+              {" "}
+              USD
+            </span>
           </h4>
           <div>
             <p
@@ -162,7 +171,7 @@ const SwiperCarouselCard: React.FC<SwiperCarouselCardProps> = ({
               )}
               {/* {formatWishlistedBy(wishlistedBy)} */}
             </p>
-            <p className="leading-none mt-[0.3em] mb-[0.1em]">
+            <p className="leading-none mt-[0.3em] mb-[0.1em] [text-shadow:_0_0_2px_rgb(0_0_0)]">
               Release Date: {formatReleaseDate(releaseDate)}
             </p>
           </div>
