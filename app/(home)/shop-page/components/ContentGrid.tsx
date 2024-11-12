@@ -77,7 +77,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       const res = await axiosInstance.get(
         `/games?page=${currentPage}&sort=latest`
       );
-      (res.data.data);
+      res.data.data;
 
       const games = res.data.data.map((game: any) => {
         return {
@@ -110,7 +110,6 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   }, [currentPage, clearFilters]);
 
   useEffect(() => {
-
     setLoading(true);
 
     const buildQueryParams = () => {
@@ -139,7 +138,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       const res = await axiosInstance.get(
         `/games?${buildQueryParams()}&sort=latest`
       );
-      (res.data.data);
+      res.data.data;
 
       const games = res.data.data.map((game: any) => {
         return {
@@ -201,7 +200,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         }
         // setLoading(false);
       } catch (error) {
-        (error);
+        error;
       } finally {
         // setLoading(false);
       }
@@ -215,7 +214,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     const res = await axiosInstance.get(
       `/games?productName=${search}&page=${currentPage}&sort=latest`
     );
-    (res.data.data);
+    res.data.data;
 
     const games = res.data.data.map((game: any) => {
       return {
@@ -247,7 +246,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     const res = await axiosInstance.get(
       `/games?sort=${sortTerm}&page=${currentPage}`
     );
-    (res.data.data);
+    res.data.data;
 
     const games = res.data.data.map((game: any) => {
       return {
@@ -307,7 +306,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
               <SelectTrigger className="sm:w-[180px] w-[140px]  rounded-none border-none text-white">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
-              <SelectContent className=" text-white bg-[#666666] rounded-none">
+              <SelectContent className=" text-white bg-[#000000]  border border-[#0D6D49] rounded-md">
                 <SelectGroup>
                   <SelectLabel>Default Sorting</SelectLabel>
                   <SelectItem value="popularity">Popularity</SelectItem>
@@ -343,7 +342,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       )}
 
       {/* Pagination Controls */}
-      <div className="flex justify-center items-center mt-16 mb-16">
+      <div className="flex justify-center items-center 2xl:mt-16 2xl:mb-16 xl:mt-16 xl:mb-8 lg:mt-16 lg:mb-8 md:mt-16 md:mb-8 sm:mt-16 sm:mb-8 mt-16 mb-8">
         <button
           onClick={() => changePage(currentPage - 1)}
           disabled={currentPage === 1}
