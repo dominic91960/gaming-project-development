@@ -65,13 +65,19 @@ const CategoryMenuHeader: React.FC<CategoryMenuHeaderProps> = ({
   };
 
   let content = (
-    <div className="w-full h-full flex items-center justify-center">
+    <div className="w-full h-full flex items-center justify-between">
       <button
         className="flex items-center gap-[0.8em] translate-y-[0.2em]"
         onClick={handleLogoClick}
       >
-        <Image src={logo} alt="VINGAME" className="w-auto h-[70px]" />
-        <h4 className="font-semibold">VINGAME</h4>
+        <Image
+          src={logo}
+          alt="VINGAME"
+          className="w-auto h-[50px] sm:h-[55px] md:h-[60px] lg:h-[65px] xl:h-[68px] 2xl:h-[70px]"
+        />
+      </button>
+      <button className="text-[#75F94C] hover:opacity-80" onClick={onClose}>
+        <AiOutlineClose />
       </button>
     </div>
   );
@@ -81,7 +87,7 @@ const CategoryMenuHeader: React.FC<CategoryMenuHeaderProps> = ({
       <div className="w-full h-full flex flex-col justify-between font-bold capitalize">
         <div className="flex justify-between text-[0.8em] pt-[1em]">
           <button
-            className="flex items-center gap-[0.2em]  capitalize hover:text-[#75F94C]"
+            className="flex items-center gap-[0.2em] capitalize hover:text-[#75F94C]"
             onClick={closeSubCategoryMenu}
           >
             <IoIosArrowBack />

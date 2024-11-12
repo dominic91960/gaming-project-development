@@ -267,7 +267,7 @@ export default function Navbar() {
             : categoryMenuStates.isCategoryMenuOpen === false
             ? "reverse-animate-category-menu"
             : "hidden"
-        } origin-left absolute top-0 left-0 w-full min-h-full bg-[#0D0F10] font-primaryFont px-[1.5em] pb-[2.5em] overflow-x-hidden z-[51] sm:w-[250px] md:w-[275px] lg:w-[300px] xl:w-[325px] 2xl:w-[350px]`}
+        } origin-left absolute top-0 left-0 w-full min-h-full bg-[#0D0F10] font-primaryFont text-white px-[1.5em] pb-[2.5em] overflow-x-hidden z-[51] sm:w-[250px] md:w-[275px] lg:w-[300px] xl:w-[325px] 2xl:w-[350px]`}
       >
         <CategoryMenuHeader
           selectedContent={selectedContent}
