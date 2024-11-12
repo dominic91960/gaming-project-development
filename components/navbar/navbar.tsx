@@ -152,7 +152,7 @@ export default function Navbar() {
     verifySession();
     if (user) {
     }
-    setTimeout(() => setIsContentChanged(true), 3000);
+    setTimeout(() => setIsContentChanged(true), 6000);
   }, [user]);
 
   const closeMobileNav = () => {
