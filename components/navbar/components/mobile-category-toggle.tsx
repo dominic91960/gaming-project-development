@@ -1,5 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 
+import { BsThreeDotsVertical } from "react-icons/bs";
+
 interface CategoryMenuState {
   isCategoryMenuOpen: boolean | undefined;
   isSubCategoryMenuOpen: boolean | undefined;
@@ -60,10 +62,10 @@ const MobileCategoryToggle: React.FC<MobileCategoryToggleProps> = ({
       </p>
       <p
         className={
-          !isContentChanged ? "hidden" : "block text-[#0BDB45] text-[1.5em]"
+          !isContentChanged ? "hidden" : "block text-[#0BDB45] text-[24px]"
         }
       >
-        &#8942;
+        <BsThreeDotsVertical />
       </p>
     </button>
   );
