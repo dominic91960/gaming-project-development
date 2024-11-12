@@ -115,6 +115,7 @@ const SignUp = () => {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("isGoogleUser", "false");
 
         // Redirect to profile page
         router.push("/profile?id=" + user.id);
@@ -125,6 +126,33 @@ const SignUp = () => {
       // router.push("/emailVerify");
     } catch (error: any) {}
   };
+
+  useEffect(() => {
+    const handleAuthMessage = (event: any) => {
+      if (event.origin !== 'https://api.thevingame.com') return; // Ensure message is from your backend
+      const { user, accessToken, refreshToken } = event.data;
+  
+      // Save the tokens and user data, e.g., in localStorage or context
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('isGoogleUser', "true");
+  
+      // Redirect to desired page or update UI state
+      if (user.role.name === 'ADMIN') {
+        window.location.href = '/admin';
+        return;
+      } else {
+      window.location.href = '/';
+      return;
+      }
+    };
+  
+    window.addEventListener('message', handleAuthMessage);
+  
+    // Clean up event listener on component unmount
+    return () => window.removeEventListener('message', handleAuthMessage);
+  }, []);
 
   if (loading) {
     return <Spinner loading={loading} />;
@@ -152,6 +180,13 @@ const SignUp = () => {
               type="submit"
               variant="secondary"
               className="w-full h-fit mb-[1.3em] font-medium text-[1.1em] px-[1em] py-[0.5em] rounded-none"
+              onClick={() => {
+                const authWindow = window.open(
+                  'https://api.thevingame.com/auth/google',
+                  '_blank',
+                  'width=500,height=600'
+                );
+              }}
             >
               <FcGoogle className="text-[1.2em] me-[0.5em]" /> Sign In With
               Google
