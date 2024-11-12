@@ -60,9 +60,9 @@ export default function Footer() {
         <div className="flex flex-col xl:flex-row xl:justify-between xl:px-[2.75em] xl:mb-[2.73em]">
           {/* Logo and desc*/}
           <div className="mb-[2.86em] xl:mb-0">
-            <div className="flex items-center justify-center gap-x-[1em] mb-[1.1em]">
-              <Image src={logo} alt="Logo" className="w-[3.8em]" />
-              <h3 className="font-semibold text-[1.7em]">VINGAME</h3>
+            <div className="flex items-center justify-center gap-x-[1.5em] mb-[1.1em]">
+              <Image src={logo} alt="Logo" className="w-[5.2em]" />
+              <h3 className="font-semibold text-[2.5em]">VINGAME</h3>
             </div>
             <p className="text-center px-[2.86em] opacity-70 xl:w-[47ch] xl:text-left xl:px-0">
               Your one-stop destination for unlocking the ultimate gaming
@@ -131,25 +131,25 @@ export default function Footer() {
           {/* Social links */}
           <div className="flex flex-col items-center mb-[2.86em] xl:mb-0">
             <h4 className="font-semibold uppercase text-[1.25em]">Follow us</h4>
-            <ul className="flex gap-x-[1.4em] mt-[0.8em] sm:gap-[1em]">
+            <ul className="flex gap-x-[5em] mt-[2em] xl:gap-[1em]">
               <li className="w-fit hover:scale-110">
                 <Link href="/">
-                  <FaFacebook className="size-[2em] sm:size-[1.48em]" />
+                  <FaFacebook className="size-[2.1em] xl:size-[1.48em]" />
                 </Link>
               </li>
               <li className="w-fit hover:scale-110">
                 <Link href="/">
-                  <FaXTwitter className="size-[2em] sm:size-[1.5em]" />
+                  <FaXTwitter className="size-[2.1em] xl:size-[1.5em]" />
                 </Link>
               </li>
               <li className="w-fit hover:scale-110">
                 <Link href="/">
-                  <IoLogoInstagram className="size-[2.1em] sm:size-[1.5em]" />
+                  <IoLogoInstagram className="size-[2.2em] xl:size-[1.5em]" />
                 </Link>
               </li>
               <li className="w-fit hover:scale-110">
                 <Link href="/">
-                  <FaTiktok className="size-[1.9em] sm:size-[1.5em]" />
+                  <FaTiktok className="size-[2em] xl:size-[1.5em]" />
                 </Link>
               </li>
             </ul>
@@ -168,14 +168,26 @@ export default function Footer() {
           <RiCopyrightFill className="size-[1.5em]" />
           <p>Copyright {new Date().getFullYear()}. All Rights Reserved.</p>
         </div>
-        <div className="flex flex-col items-center justify-between gap-x-[1em] sm:flex-row sm:items-start sm:gap-x-[2em] px-[2.86em]">
-          <div className="flex gap-x-[0.7em] sm:gap-x-[1em] sm:mb-0">
-            <Image src={paypal} alt="PayPal" className="w-[1.9em]" />
-            <Image src={visa} alt="Visa" className="w-[1.9em]" />
-            <Image src={mastercard} alt="Mastercard" className="w-[1.9em]" />
-            <Image src={skrill} alt="Skrill" className="w-[1.9em]" />
+        <div className="flex flex-col items-center justify-between gap-x-[1em] sm:flex-row sm:items-center sm:gap-x-[2em] ps-[2.86em]">
+          <div className="flex gap-x-[0.7em] sm:gap-x-[1em]">
+            <Image
+              src={paypal}
+              alt="PayPal"
+              className="w-[2.6em] object-contain"
+            />
+            <Image src={visa} alt="Visa" className="w-[2.6em] object-contain" />
+            <Image
+              src={mastercard}
+              alt="Mastercard"
+              className="w-[2.6em] object-contain"
+            />
+            <Image
+              src={skrill}
+              alt="Skrill"
+              className="w-[2.6em] object-contain"
+            />
           </div>
-          <div className="flex gap-[1em] mt-[1.4em] sm:mt-0">
+          <div className="flex items-center gap-[1.5em] mt-[1.4em] sm:mt-0">
             <p className="hover:opacity-80">
               <Link href="/">Privacy policy</Link>
             </p>

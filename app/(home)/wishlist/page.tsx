@@ -324,7 +324,7 @@ export default function WishlistPage() {
               </div>
 
               <Select onValueChange={(value) => sortProducts(value)}>
-                <SelectTrigger className="w-[22ch] h-fit bg-white/20 border-none rounded-none text-[7px] px-[1em] py-[0.3em] sm:text-[10px] sm:py-[0.5em] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+                <SelectTrigger className="w-[24ch] h-fit bg-white/20 border-none rounded-none text-[7px] px-[1em] py-[0.3em] sm:text-[10px] sm:py-[0.5em] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
                   <FaList className="-translate-y-[0.15em] sm:-translate-y-0" />
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
