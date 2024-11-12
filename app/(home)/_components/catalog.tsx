@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { LiaAngleRightSolid } from "react-icons/lia";
 
 import bg from "@/public/images/home/catalog/background.jpg";
-import character from "@/public/images/home/catalog/character.webp";
+import character from "@/public/images/home/catalog/character.png";
+import characterTwo from "@/public/images/home/catalog/character-2.png";
 import "./catalog.css";
 
 const Catalog = () => {
@@ -18,9 +19,17 @@ const Catalog = () => {
       <div className="absolute top-0 w-full h-2/5 bg-gradient-to-b from-black to-transparent"></div>
 
       {/* Character image */}
-      <div className="hidden relative container mx-auto px-[36px] z-10 sm:block sm:h-[500px] md:h-[650px] lg:h-[800px] xl:h-[925px] 2xl:h-[1050px] overflow-visible">
+      <div className="hidden relative container mx-auto px-[36px] z-10 sm:block sm:h-[500px] md:h-[650px] lg:h-[800px] xl:h-[925px] 2xl:hidden overflow-visible">
         <Image
           src={character}
+          alt="Ghost"
+          className="h-full w-auto absolute bottom-0 right-[30%] xl:right-[25%]"
+        />
+      </div>
+
+      <div className="hidden relative container mx-auto px-[36px] z-10 xl:block 2xl:h-[1050px] overflow-visible">
+        <Image
+          src={characterTwo}
           alt="Ghost"
           className="h-full w-auto absolute bottom-0 right-[30%] xl:right-[25%]"
         />
