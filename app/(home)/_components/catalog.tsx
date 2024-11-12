@@ -6,7 +6,6 @@ import { LiaAngleRightSolid } from "react-icons/lia";
 
 import bg from "@/public/images/home/catalog/background.jpg";
 import character from "@/public/images/home/catalog/character.png";
-import characterTwo from "@/public/images/home/catalog/character-2.png";
 import "./catalog.css";
 
 const Catalog = () => {
@@ -19,27 +18,19 @@ const Catalog = () => {
       <div className="absolute top-0 w-full h-2/5 bg-gradient-to-b from-black to-transparent"></div>
 
       {/* Character image */}
-      <div className="hidden relative container mx-auto px-[36px] z-10 sm:block sm:h-[500px] md:h-[650px] lg:h-[800px] xl:h-[925px] 2xl:hidden overflow-visible">
+      <div className="hidden relative container mx-auto px-[36px] z-10 sm:block sm:h-[500px] md:h-[650px] lg:h-[800px] xl:h-[925px] 2xl:h-[1050px] overflow-visible">
         <Image
           src={character}
           alt="Ghost"
-          className="h-full w-auto absolute bottom-0 right-[30%] xl:right-[25%]"
-        />
-      </div>
-
-      <div className="hidden relative container mx-auto px-[36px] z-10 xl:block 2xl:h-[1050px] overflow-visible">
-        <Image
-          src={characterTwo}
-          alt="Ghost"
-          className="h-full w-auto absolute bottom-0 right-[30%] xl:right-[25%]"
+          className="absolute bottom-[20px] right-[30%] object-contain md:bottom-[45px] lg:bottom-[35px] 2xl:bottom-0 xl:right-[25%]"
         />
       </div>
 
       {/* Container */}
       <div className="relative container mx-auto px-[36px] sm:absolute sm:top-0 sm:bottom-0 sm:left-0 sm:right-0 sm:flex sm:items-center sm:justify-end">
         {/* Character image */}
-        <div className="absolute bottom-0 right-[36px] -translate-x-[100px] min-[460px]:-translate-x-[130px] sm:hidden">
-          <Image src={character} alt="Ghost" className="w-auto max-h-[400px]" />
+        <div className="absolute bottom-0 right-[36px] w-[500px] -translate-x-[105px] sm:hidden">
+          <Image src={character} alt="Ghost" className="object-contain" />
         </div>
 
         {/* Flex container for text */}
