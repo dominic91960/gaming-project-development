@@ -94,33 +94,30 @@ const ShopPage = () => {
         }}
       >
         <div className="bg-[#678] relative">
-          <div className="absolute top-1 left-0 z-50 block lg:hidden">
+          <div className="absolute top-1 left-0 z-50 block lg:hidden ">
             <button
               // className="z-50 bg-blue-500 text-white px-4 py-2 rounded"
               className="z-50  px-2 pb-6 text-white rounded"
               onClick={toggleSidebar}
             >
-              {/* <TbLayoutSidebarLeftExpandFilled /> */}
-
-              {/* <Image
-                src={mobileSidebarIcon}
-                alt="mobile sidebar toggle icon"
-                className="w-[26px] h-[26px]"
-              /> */}
-
               <HiAdjustmentsHorizontal className="text-white text-[25px]" />
             </button>
 
             {/* Sidebar for mobile */}
-            <div
-              className={`h-full w-64 transform bg-[#0D0F10] ${
-                isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-              } transition-transform duration-300 ease-in-out`}
-            >
-              <Sidebar
-                setFilters={setFilterParams}
-                setClearFilters={setClearFilters}
-              />
+
+            <div className="relative">
+              <div className="absolute top-1 left-0">
+                <div
+                  className={`h-full w-64 transform bg-[#0D0F10] ${
+                    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                  } transition-transform duration-300 ease-in-out`}
+                >
+                  <Sidebar
+                    setFilters={setFilterParams}
+                    setClearFilters={setClearFilters}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
