@@ -51,12 +51,10 @@ const BestSellingCard: React.FC<{ game: Game; i: number }> = ({ game, i }) => {
         }}
       >
         {/* title */}
-        <h4 className="font-bold uppercase text-nowrap overflow-hidden text-ellipsis">
-          {title}
-        </h4>
+        <h4 className="font-bold uppercase line-clamp-1">{title}</h4>
 
         {/* desc */}
-        <p className="text-[9px] font-normal uppercase text-nowrap overflow-hidden text-ellipsis sm:text-[11px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
+        <p className="text-[9px] font-normal uppercase line-clamp-1 sm:text-[11px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
           {desc}
         </p>
 

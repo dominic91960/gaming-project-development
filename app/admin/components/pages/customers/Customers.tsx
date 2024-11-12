@@ -120,10 +120,10 @@ const UsersPage = () => {
       {/* Title */}
       <div className="pb-[2em] px-[36px]">
         <h1 className="font-bold text-[1.5em] leading-none text-white">
-          All Users
+          All Customers
         </h1>
         <p className="text-[0.9em] text-white md:text-[0.5em]">
-          Users / All Users
+        Customers / All Customers
         </p>
       </div>
 

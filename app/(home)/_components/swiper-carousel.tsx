@@ -97,7 +97,7 @@ const SwiperCarousel = () => {
             slideShadows: false,
           }}
           pagination={{ clickable: true }}
-          autoplay={{ disableOnInteraction: false, pauseOnMouseEnter: true }}
+          // autoplay={{ disableOnInteraction: false, pauseOnMouseEnter: true }}
           onSlideChange={handleSlideChange}
           className="mySwiper"
         >

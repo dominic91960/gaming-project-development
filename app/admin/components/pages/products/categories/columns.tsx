@@ -61,17 +61,12 @@ export const columns = (
       header: "Description",
     },
 
-    {
+    /* {
       accessorKey: "imageUrl",
       header: "Image",
       cell: ({ row }) => {
         return (
           <div className="flex items-center size-[2em]">
-            {/* <img
-              src={row.original.imageUrl}
-              alt="category_img"
-              className="w-full h-full rounded-full"
-            /> */}
             <Image
               src={row.original.imageUrl}
               alt="category_img"
@@ -82,7 +77,7 @@ export const columns = (
           </div>
         );
       },
-    },
+    }, */
 
     {
       id: "actions",
