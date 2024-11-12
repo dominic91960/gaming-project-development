@@ -328,12 +328,12 @@ export default function WishlistPage() {
                   <FaList className="-translate-y-[0.15em] sm:-translate-y-0" />
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
-                <SelectContent className="bg-[#4B4B4B] text-white border-none rounded-none">
+                <SelectContent className="min-w-0 bg-[#111111] text-white border-none rounded-none">
                   {selectValues.map(({ value, text }, index) => (
                     <SelectItem
                       key={index}
                       value={value}
-                      className="h-fit text-[7px] ps-[6ch] pe-[1em] py-[1em] rounded-none sm:text-[8px] sm:ps-[4ch] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
+                      className="h-fit text-[7px] ps-[6ch] pe-[1em] py-[1em] rounded-none text-white/60 focus:bg-transparent focus:text-white focus:font-semibold sm:text-[8px] sm:ps-[4ch] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
                     >
                       {text}
                     </SelectItem>

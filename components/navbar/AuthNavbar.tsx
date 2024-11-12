@@ -112,7 +112,7 @@ export default function AuthNavbar() {
   const [accessDenidedPopupOpen, setAccessDeniedPopupOpen] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setIsContentChanged(true), 3000);
+    setTimeout(() => setIsContentChanged(true), 6000);
   }, []);
 
   const closeMobileNav = () => {
