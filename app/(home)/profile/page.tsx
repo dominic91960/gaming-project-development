@@ -840,7 +840,7 @@ export default function ProfilePage() {
                 />
                 <label
                   htmlFor="profile-image"
-                  className="absolute bottom-[5%] right-0 bg-black flex items-center text-[8px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[12px]"
+                  className="absolute bottom-0 left-0 right-0 w-fit mx-auto translate-y-full bg-black flex items-center text-[9px] uppercase px-[0.5em] py-[0.5em] cursor-pointer rounded-sm hover:bg-white hover:text-black sm:bottom-0 sm:right-0 sm:translate-y-0 sm:translate-x-1/2 sm:text-[10px] md:text-[10.5px] lg:translate-x-full lg:text-[11px] xl:text-[11.5px] 2xl:text-[12px]"
                 >
                   Edit&nbsp;&nbsp;
                   <FaPencilAlt />
