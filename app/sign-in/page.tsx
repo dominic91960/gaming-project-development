@@ -112,43 +112,62 @@ const SignIn = () => {
       setError(true);
     }
   };
+  //   const handleAuthMessage = (event: {
+  //     origin: string;
+  //     data: { user: any; accessToken: any; refreshToken: any };
+  //   }) => {
+  //     const url = process.env.NEXT_PUBLIC_BASE_URL;
+  //     if (event.origin !== url) return;
+
+  //     const { user, accessToken, refreshToken } = event.data;
+
+  //     if (accessToken && refreshToken && user) {
+  //       localStorage.setItem("accessToken", accessToken);
+  //       localStorage.setItem("refreshToken", refreshToken);
+
+  //       localStorage.setItem("user", JSON.stringify(user));
+
+  //       if (user.role === "ADMIN") {
+  //         // router.push("/admin");
+  //         window.location.href = "/admin";
+  //         return;
+  //       } else {
+  //         // router.push("/");
+  //         window.location.href = "/";
+  //         return;
+  //       }
+
+  //       // router.push("/admin");
+  //     }
+  //   };
+
+  //   window.addEventListener("message", handleAuthMessage);
+
+  //   return () => {
+  //     window.removeEventListener("message", handleAuthMessage);
+  //   };
+  // }, [router]);
 
   useEffect(() => {
-    const handleAuthMessage = (event: {
-      origin: string;
-      data: { user: any; accessToken: any; refreshToken: any };
-    }) => {
-      const url = process.env.NEXT_PUBLIC_BASE_URL;
-      if (event.origin !== url) return;
-
+    const handleAuthMessage = (event: any) => {
+      if (event.origin !== 'https://api.thevingame.com') return; // Ensure message is from your backend
       const { user, accessToken, refreshToken } = event.data;
-
-      if (accessToken && refreshToken && user) {
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-
-        localStorage.setItem("user", JSON.stringify(user));
-
-        if (user.role === "ADMIN") {
-          // router.push("/admin");
-          window.location.href = "/admin";
-          return;
-        } else {
-          // router.push("/");
-          window.location.href = "/";
-          return;
-        }
-
-        // router.push("/admin");
-      }
+  
+      // Save the tokens and user data, e.g., in localStorage or context
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('user', JSON.stringify(user));
+  
+      // Redirect to desired page or update UI state
+      window.location.href = '/';
     };
-
-    window.addEventListener("message", handleAuthMessage);
-
-    return () => {
-      window.removeEventListener("message", handleAuthMessage);
-    };
-  }, [router]);
+  
+    window.addEventListener('message', handleAuthMessage);
+  
+    // Clean up event listener on component unmount
+    return () => window.removeEventListener('message', handleAuthMessage);
+  }, []);
+  
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -177,7 +196,19 @@ const SignIn = () => {
   variant="secondary"
   className="w-full h-fit mb-[1.3em] font-medium text-[1.1em] px-[1em] py-[0.5em] rounded-none"
   onClick={() => {
-    window.location.href = 'https://api.thevingame.com/auth/google';
+    const authWindow = window.open(
+      'https://api.thevingame.com/auth/google',
+      '_blank',
+      'width=500,height=600'
+    );
+
+    // You can optionally check if the auth window closed without login
+    // const timer = setInterval(() => {
+    //   if (authWindow.closed) {
+    //     clearInterval(timer);
+    //     console.log("Login window closed without completing authentication");
+    //   }
+    // }, 500);
   }}
 >
   <FcGoogle className="text-[1.2em] me-[0.5em]" /> Sign In With Google
