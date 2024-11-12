@@ -50,14 +50,8 @@ const ProductCard: React.FC<Game> = ({
   const router = useRouter();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [accessDenidedPopupOpen, setAccessDeniedPopupOpen] = useState(false);
-  // const [verifySession, setVerifySession] = useState<boolean>(false);
+
   const { addItem } = useCartContext();
-  // const {
-  //   addToWishlist,
-  //   setReloadWishlist,
-  //   updateWishListIds,
-  //   removeFromWishlist,
-  // } = useWishlistContext();
 
   const crateCart = (gameId: any) => {
     const newCardItem: CartItem = {
@@ -73,49 +67,10 @@ const ProductCard: React.FC<Game> = ({
     addItem(newCardItem);
   };
 
-  // const handleWishlist = async (gameId: any): Promise<boolean> => {
-  //   // const newWishlistItem = {
-  //   //   id: gameId,
-  //   //   image: cardImage,
-  //   //   choiceType: "aaaaaa",
-  //   //   title,
-  //   //   price: sellingPrice,
-  //   //   productType: "bbbbbb",
-  //   // };
-
-  //   return await addToWishlist(id);
-  // };
-
   return (
-    <div className="relative bg-[#10160e] w-min">
+    <div className="relative bg-[#10160e] sm:w-min">
       {/* Wishlist Icon */}
-      <div
-        // onClick={() => handleWishlist(id)}
-        className="absolute top-[0.8em] left-[0.8em] text-[24px] z-40"
-      >
-        {/* <div>
-          {wishList ? (
-            <IoHeartSharp
-              className="text-[1.5em] cursor-pointer hover:scale-105 text-white"
-              onClick={async () => {
-                await removeFromWishlist(id);
-                setIsWishlisted(false);
-              }}
-            />
-          ) : (
-            <IoHeartOutline
-              className="text-[1.5em] cursor-pointer hover:scale-105 text-white"
-              onClick={async () => {
-                if (!verifySession) {
-                  setAccessDeniedPopupOpen(true);
-                  return;
-                }
-                const res = await handleWishlist(id);
-                setIsWishlisted(res);
-              }}
-            />
-          )}
-        </div> */}
+      <div className="absolute top-[0.8em] left-[0.8em] sm:text-[24px] text-[20px] z-40">
         <WishlistButton
           gameId={id}
           showText={false}
@@ -132,7 +87,8 @@ const ProductCard: React.FC<Game> = ({
               router.push(`/products/view/?id=${id}`);
             }}
             alt="Game Card"
-            className="mb-4 w-[244px] h-[268px]"
+            // className="mb-4 sm:w-[244px] sm:h-[268px] w-[154px] h-[158px]"
+            className="mb-4 w-[154px] h-[158px] sm:w-[244px] sm:h-[268px] object-cover"
           />
 
           {soldOut && (
@@ -147,39 +103,42 @@ const ProductCard: React.FC<Game> = ({
         </div>
 
         <div
-          className="mb-1 w-[244px]"
+          className="mb-1 sm:w-[244px] w-[136px]"
           onClick={() => {
             router.push(`/products/view/?id=${id}`);
           }}
         >
-          <h3 className="text-[18px] font-bold uppercase font-primaryFont line-clamp-2 h-[60px]">
+          <h3 className="sm:text-[18px] text-[10px] font-bold uppercase font-primaryFont line-clamp-2 sm:h-[60px] h-[50px]">
             {title}
           </h3>
         </div>
 
         <div className="h-[1px] bg-[#666a65] mb-2"></div>
-        <div className="flex items-center justify-between mb-2">
-          {/* old code */}
-          {/* <div className="flex gap-1 text-[#f29d38] bg-slate-600 h-[25px]">
-            {Array.from({ length: rating }, (_, index) => (
-              <IoIosStar key={index} className="text-[23px]" />
-            ))}
-          </div> */}
 
+        <div className="flex items-center justify-between mb-2">
           {/* New code - if no rating added empty starts added */}
           <div className="flex gap-1 text-[#f29d38] h-[25px]">
             {rating > 0 ? (
               <>
                 {/* Calculate the number of full and half stars */}
                 {Array.from({ length: Math.floor(rating) }, (_, index) => (
-                  <IoIosStar key={index} className="text-[23px]" />
+                  <IoIosStar
+                    key={index}
+                    className="sm:text-[23px] text-[16px]"
+                  />
                 ))}
                 {rating % 1 !== 0 && (
-                  <IoIosStar className="text-[23px]" style={{ opacity: 0.5 }} />
+                  <IoIosStar
+                    className="sm:text-[23px] text-[16px]"
+                    style={{ opacity: 0.5 }}
+                  />
                 )}{" "}
                 {/* Half star */}
                 {Array.from({ length: 5 - Math.ceil(rating) }, (_, index) => (
-                  <IoIosStarOutline key={index} className="text-[23px]" />
+                  <IoIosStarOutline
+                    key={index}
+                    className="sm:text-[23px] text-[16px]"
+                  />
                 ))}
               </>
             ) : (
@@ -187,7 +146,7 @@ const ProductCard: React.FC<Game> = ({
                 {Array.from({ length: 5 }, (_, index) => (
                   <IoIosStarOutline
                     key={index}
-                    className="text-[23px] text-[#f29d38]"
+                    className="sm:text-[23px] text-[16px] text-[#f29d38]"
                   />
                 ))}
               </div>
@@ -198,7 +157,7 @@ const ProductCard: React.FC<Game> = ({
               <Image
                 src={cartIcon}
                 alt="Not found background"
-                className="w-[20px] h-[20px]"
+                className="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px]"
                 onClick={() => crateCart(id)}
               />
             </CartSidebar>
@@ -206,14 +165,14 @@ const ProductCard: React.FC<Game> = ({
         </div>
 
         <div className="flex items-end justify-between">
-          <div>
-            <p className=" text-[#75F94C] text-[45px] font-semibold uppercase font-rajdhaniFont leading-none w-[180px]">
+          <div className="">
+            <p className=" text-[#75F94C] sm:text-[45px] text-[24px] font-semibold uppercase font-rajdhaniFont leading-none sm:w-[180px]">
               ${sellingPrice}
             </p>
           </div>
 
           <div className="">
-            <p className="line-through text-[#fff] text-[17px] font-normal uppercase font-rajdhani leading-none mb-2">
+            <p className="line-through text-[#fff] sm:text-[17px] text-[12px] font-normal uppercase font-rajdhani leading-none mb-2">
               ${price}
             </p>
           </div>

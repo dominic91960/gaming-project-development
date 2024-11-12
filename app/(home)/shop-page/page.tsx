@@ -94,7 +94,7 @@ const ShopPage = () => {
         }}
       >
         <div className="bg-[#678] relative">
-          <div className="absolute top-0 left-0 z-50 block lg:hidden">
+          <div className="absolute top-1 left-0 z-50 block lg:hidden">
             <button
               // className="z-50 bg-blue-500 text-white px-4 py-2 rounded"
               className="z-50  px-2 pb-6 text-white rounded"
@@ -127,7 +127,7 @@ const ShopPage = () => {
 
         <div className="container mx-auto relative">
           <div className="flex items-center justify-center 2xl:px-0 xl:px-4">
-            <div className="grid grid-cols-12 2xl:gap-4 xl:gap-4">
+            <div className="grid grid-cols-12 2xl:gap-4 xl:gap-4 gap-2">
               <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-3 2xl:pr-0 xl:pr-6 hidden lg:block 2xl:mr-0 xl:mr-8">
                 <Sidebar
                   setFilters={setFilterParams}
