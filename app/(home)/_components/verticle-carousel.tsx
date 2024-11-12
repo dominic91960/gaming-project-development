@@ -87,11 +87,11 @@ const VerticalCarousel = () => {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-b from-black from-20% via-[#063C28] via-80% to-black font-primaryFont text-white overflow-hidden">
+    <section className="relative bg-gradient-to-b from-black via-[#063C28] via-80% to-black font-primaryFont text-white overflow-hidden">
       <div className="absolute top-0 left-0 w-1/12 h-full bg-gradient-to-r from-black to-transparent z-10"></div>
       <div className="absolute top-0 right-0 w-1/12 h-full bg-gradient-to-l from-black to-transparent z-10"></div>
 
-      <div className="container mx-auto sm:px-[36px] py-[60px] sm:py-[90px] md:py-[120px] lg:py-[150px] xl:py-[175px] 2xl:py-[200px]">
+      <div className="container mx-auto sm:px-[36px] pt-[20px] pb-[60px] sm:pt-[35px] sm:pb-[90px] md:pt-[50px] md:pb-[120px] lg:pt-[65px] lg:pb-[150px] xl:pt-[72px] xl:pb-[175px] 2xl:pt-[80px] 2xl:pb-[200px]">
         {/* Title */}
         <div className="text-[18px] uppercase font-medium w-fit mx-auto mb-[2.3em] text-center flex-shrink-0 sm:text-[22px] md:text-[26px] lg:text-[29px] xl:text-[31px] 2xl:text-[33px]">
           <p className="text-[#0BDB45] translate-y-[55%]">Top much</p>
