@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - fix/wishlistComponent
+      - feat/googlAuth
   workflow_dispatch:
 
 jobs:
