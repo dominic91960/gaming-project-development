@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 import { useToast } from "@/context/ToastContext";
-import formBg from "@/public/images/contact-us/form-bg.png";
 import formCharacter from "@/public/images/contact-us/avatar.png";
 import "./ContactForm.css";
 
@@ -22,13 +21,14 @@ const ContactForm = () => {
       addToast("Message sent successfully!", "success");
       setIsSubmitting(false);
     }, 2000);
+
+    e.currentTarget.reset();
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative mx-auto bg-cover bg-center text-[8px] p-[1.75em] sm:w-[90%] sm:grid sm:grid-cols-2 sm:text-[10px] sm:mt-[50px] md:text-[12px] md:mt-[60px] lg:w-[80%] lg:text-[15px] lg:mt-[70px] xl:w-[75%] xl:text-[18px] xl:mt-[85px] 2xl:w-[70%] 2xl:text-[20px] 2xl:mt-[100px]"
-      style={{ backgroundImage: `url(${formBg.src})` }}
+      className="contact-form-image relative mx-auto bg-white bg-opacity-[7%] text-[8px] p-[1.75em] sm:w-[90%] sm:bg-none sm:bg-cover sm:bg-center sm:grid sm:grid-cols-2 sm:text-[10px] sm:mt-[50px] md:text-[12px] md:mt-[60px] lg:w-[80%] lg:text-[15px] lg:mt-[70px] xl:w-[75%] xl:text-[18px] xl:mt-[85px] 2xl:w-[70%] 2xl:text-[20px] 2xl:mt-[100px]"
     >
       <div>
         <p className="font-semibold text-[7px] text-[#0BDB45] sm:text-[9px] md:text-[11px] lg:text-[13px] xl:text-[15px] 2xl:text-[16px]">
