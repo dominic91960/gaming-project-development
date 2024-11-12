@@ -92,6 +92,7 @@ const SignIn = () => {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("isGoogleUser", "false");
 
         // Redirect to home page
         // router.push("/admin");
@@ -157,9 +158,16 @@ const SignIn = () => {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('isGoogleUser', "true");
   
       // Redirect to desired page or update UI state
+      if (user.role.name === 'ADMIN') {
+        window.location.href = '/admin';
+        return;
+      } else {
       window.location.href = '/';
+      return;
+      }
     };
   
     window.addEventListener('message', handleAuthMessage);
@@ -201,14 +209,6 @@ const SignIn = () => {
       '_blank',
       'width=500,height=600'
     );
-
-    // You can optionally check if the auth window closed without login
-    // const timer = setInterval(() => {
-    //   if (authWindow.closed) {
-    //     clearInterval(timer);
-    //     console.log("Login window closed without completing authentication");
-    //   }
-    // }, 500);
   }}
 >
   <FcGoogle className="text-[1.2em] me-[0.5em]" /> Sign In With Google
