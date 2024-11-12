@@ -95,7 +95,7 @@ const AccountInfo: React.FC<AccountInfoProps> = ({
         {/* Last name */}
         <p>
           <span className="font-bold">Last Name: </span>
-          {lastName.charAt(0).toUpperCase() + lastName.slice(1)}
+          {lastName?.charAt(0).toUpperCase() + lastName?.slice(1)}
         </p>
         {/* Mobile */}
         <p>
