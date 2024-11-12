@@ -857,9 +857,9 @@ export default function ProfilePage() {
               <div>
                 <h3 className="font-bold text-[16px] mb-[0.1em] sm:text-[22px] md:text-[28px] lg:text-[34px] xl:text-[37px] 2xl:text-[40px]">
                   {profile?.firstName.charAt(0).toUpperCase() +
-                    profile?.firstName.slice(1)}{" "}
-                  {profile?.lastName.charAt(0).toUpperCase() +
-                    profile?.lastName.slice(1)}
+                    profile?.firstName?.slice(1)}{" "}
+                  {profile?.lastName?.charAt(0).toUpperCase() +
+                    profile?.lastName?.slice(1)}
                 </h3>
                 <p>
                   {profile?.email}
