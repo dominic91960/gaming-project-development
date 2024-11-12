@@ -65,7 +65,7 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({
       {["platforms", "genres"].map((subCategory, i) => (
         <button
           key={i}
-          className="w-full flex items-center justify-between gap-[0.2em] capitalize hover:text-[#75F94C]"
+          className="w-full flex items-center justify-between gap-[0.2em] pe-[0.5em] capitalize hover:text-[#75F94C]"
           onClick={() => {
             setSelectedContent((prev) => ({
               ...prev,
