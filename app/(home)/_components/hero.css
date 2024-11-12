@@ -1,0 +1,5 @@
+@supports (background-clip: text) {
+  .gradient-text {
+    @apply bg-gradient-to-b from-white to-[#999999] bg-clip-text text-transparent;
+  }
+}

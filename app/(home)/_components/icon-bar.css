@@ -1,9 +1,11 @@
-article .animate-text-bg {
-  color: transparent;
-  font-weight: bold;
-  background: linear-gradient(45deg, white 35%, #0bdb45 40%, white 45%);
-  background-size: 300% 100%;
-  background-clip: text;
+@supports (background-clip: text) {
+  article .animate-text-bg {
+    color: transparent;
+    font-weight: bold;
+    background: linear-gradient(45deg, white 35%, #0bdb45 40%, white 45%);
+    background-size: 300% 100%;
+    background-clip: text;
+  }
 }
 
 article:hover .animate-text-bg {

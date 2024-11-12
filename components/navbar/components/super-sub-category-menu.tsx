@@ -52,7 +52,7 @@ const SuperSubCategoryMenu: React.FC<SuperSubCategoryMenuProps> = ({
           : categoryMenuStates.isSuperSubCategoryMenuOpen === false
           ? "reverse-animate-super-sub-category-menu"
           : "hidden"
-      } absolute top-0 right-0 w-full h-full text-[22px] py-[1.4em] bg-[#0D0F10]`}
+      } absolute top-0 right-0 w-full h-full py-[1.4em] bg-[#0D0F10]`}
     >
       <ScrollArea className="w-full h-full">
         {setDisplayContent()?.map((superSubCategory, i) => (
