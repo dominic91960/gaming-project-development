@@ -176,6 +176,11 @@ const SignIn = () => {
               type="submit"
               variant="secondary"
               className="w-full h-fit mb-[1.3em] font-medium text-[1.1em] px-[1em] py-[0.5em] rounded-none"
+              onClick={async() => {
+                const res = await axios.get('https://api.thevingame.com/auth/google');
+                window.location.href = res.data;
+                
+              }}
             >
               <FcGoogle className="text-[1.2em] me-[0.5em]" /> Sign In With
               Google
