@@ -13,7 +13,7 @@ const BestSellingSkeleton: React.FC<{ i: number }> = ({ i }) => {
           : i > 5
           ? "hidden lg:block"
           : ""
-      } relative w-[150px] cursor-progress sm:w-[200px] md:w-[240px] lg:w-[280px] xl:w-[300px] 2xl:w-[320px] z-10 group animate-pulse`}
+      } relative w-[150px] sm:w-[200px] md:w-[240px] lg:w-[280px] xl:w-[300px] 2xl:w-[320px] z-10 animate-pulse`}
     >
       {/* Text area */}
       <div
@@ -24,14 +24,13 @@ const BestSellingSkeleton: React.FC<{ i: number }> = ({ i }) => {
         }}
       >
         {/* title */}
-        <h4 className="font-bold uppercase text-nowrap overflow-hidden text-ellipsis opacity-20">
+        <h4 className="font-bold uppercase line-clamp-1 text-transparent bg-white/40 leading-none mb-[0.3em] w-fit rounded">
           Vingame
         </h4>
 
         {/* desc */}
-        <p className="text-[9px] font-normal uppercase text-nowrap overflow-hidden text-ellipsis opacity-20 sm:text-[11px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px]">
-          Your one-stop destination for unlocking the ultimate gaming
-          experience.
+        <p className="text-[9px] font-normal uppercase line-clamp-1 text-transparent bg-white/40 sm:text-[11px] md:text-[12px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] rounded">
+          Your one-stop destination.
         </p>
 
         {/* Seperator */}
@@ -43,7 +42,7 @@ const BestSellingSkeleton: React.FC<{ i: number }> = ({ i }) => {
         </div>
 
         {/* Rating text */}
-        <p className="mt-[0em] text-[8px] opacity-20 sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px]">
+        <p className="w-fit text-[8px] my-[0.3em] leading-none text-transparent bg-white/40 sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] 2xl:text-[18px] rounded">
           0.0&nbsp;
           <span className="text-[7px] sm:text-[8px] md:text-[8.5px] lg:text-[9px] xl:text-[9.5px] 2xl:text-[10px]">
             Rating
@@ -52,7 +51,7 @@ const BestSellingSkeleton: React.FC<{ i: number }> = ({ i }) => {
 
         {/* Border */}
         <div
-          className="w-full h-full absolute top-0 left-0 bg-gradient-to-r from-white/20 to-[#75F94C]/20"
+          className="w-full h-full absolute top-0 left-0 bg-white/40"
           style={{
             clipPath:
               "polygon(5% 0%, 96% 0%, 100% 13%, 100% 100%, 82% 100%, 77% 86%, 46% 86%, 41% 100%, 0% 100%, 0% 99%, 40.5% 99%, 45.7% 84.5%, 77.5% 84.5%, 82.5% 99%, 99.5% 99%,99.5% 13%, 96% 1.5%, 5% 1.5%, 0.5% 13%, 0.5% 99%, 0% 99%, 0% 13%)",
@@ -80,24 +79,24 @@ const BestSellingSkeleton: React.FC<{ i: number }> = ({ i }) => {
 
       {/* Price */}
       <div
-        className="absolute bottom-[5%] left-0 w-fit h-fit bg-black/20 text-[8px] sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
+        className="absolute bottom-[5%] left-0 w-fit h-fit bg-white/20 text-[8px] sm:text-[9px] md:text-[10px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px]"
         style={{
           clipPath: "polygon(0% 0%, 100% 0%, 100% 80%, 90% 100%, 0% 100%)",
         }}
       >
-        <div className="relative ps-[0.8em] pe-[1.2em] py-[0.5em]">
+        <div className="relative ps-[0.8em] pe-[1.2em] py-[0.5em] leading-none">
           {/* Origianl and discount price */}
-          <p className="font-rajdhaniFont font-semibold leading-none text-[#75F94C] text-[12px] opacity-20 sm:text-[16px] md:text-[20px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px]">
+          <p className="w-fit font-rajdhaniFont font-semibold leading-none text-transparent bg-white/40 my-[0.3em] text-[12px] sm:text-[16px] md:text-[20px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] rounded">
             $00.00 &nbsp;
           </p>
 
-          <p className="text-[8px] font-normal line-through opacity-20 sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[13px]">
+          <p className="w-fit text-[8px] font-normal line-through text-transparent bg-white/40 my-[0.3em] sm:text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] 2xl:text-[13px] rounded">
             $00.00
           </p>
 
           {/* Price border */}
           <div
-            className="w-full h-full absolute left-0 top-0 bg-white/20"
+            className="w-full h-full absolute left-0 top-0 bg-white/40"
             style={{
               clipPath:
                 "polygon(0% 0%, 100% 0%, 100% 81%, 91% 100%, 0% 100%, 0% 98%, 90% 98%, 98.9% 80%, 98.9% 2%, 1% 2%, 1% 98%, 0% 98%)",
